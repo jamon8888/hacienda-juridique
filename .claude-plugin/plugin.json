@@ -1,0 +1,23 @@
+{
+  "name": "hacienda",
+  "version": "0.1.0",
+  "description": "Hacienda — Accès aux API Légifrance et BOFiP via PISTE, avec agents juridiques spécialisés (Dupin, Cassin, Colbert, Portalis). Pour avocats, juristes et experts-comptables.",
+  "author": {
+    "name": "Hacienda",
+    "email": "contact@hacienda.diy",
+    "url": "https://hacienda.diy"
+  },
+  "homepage": "https://hacienda.diy/hacienda",
+  "repository": "https://github.com/hacienda/jurisconsultes-marketplace",
+  "license": "MIT",
+  "keywords": [
+    "légifrance",
+    "bofip",
+    "juridique",
+    "fiscal",
+    "avocat",
+    "expert-comptable",
+    "piste",
+    "hacienda"
+  ]
+}
