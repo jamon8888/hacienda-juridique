@@ -2,7 +2,7 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "mcp__hacienda__legifrance_.*",
+        "matcher": "mcp__plugin_hacienda_hacienda__legifrance_.*",
         "hooks": [
           {
             "type": "command",
