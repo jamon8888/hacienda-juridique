@@ -2,14 +2,13 @@
   "name": "hacienda-suite",
   "owner": {
     "name": "Hacienda",
-    "email": "contact@hacienda.diy",
     "url": "https://hacienda.diy"
   },
   "plugins": [
     {
       "name": "hacienda",
       "source": "./plugins/hacienda",
-      "description": "Cabinet juridique virtuel généraliste : 5 agents (Dupin/veille, Cassin/jurisprudence, Colbert/fiscal, Portalis/rédaction, David/traduction) + 3 skills méthodologiques (Domat/note, Pothier/consultation, Gény/citations). Pour cabinets pluri-disciplinaires."
+      "description": "Cabinet juridique virtuel généraliste : 6 agents (Hacienda/orchestrateur, Dupin/veille, Cassin/jurisprudence, Colbert/fiscal, Portalis/rédaction, David/traduction) + 3 skills méthodologiques (Domat/note, Pothier/consultation, Gény/citations). Pour cabinets pluri-disciplinaires."
     },
     {
       "name": "hacienda-affaires",
