@@ -2,7 +2,7 @@
   "name": "hacienda-suite",
   "version": "0.2.0",
   "private": true,
-  "description": "Monorepo de la suite de plugins Claude Hacienda (Hacienda) — accès Légifrance/BOFiP via PISTE + équipes d'agents juridiques spécialisés.",
+  "description": "Monorepo de la suite de plugins Claude Hacienda, éditée par Hacienda — accès Légifrance/BOFiP via PISTE + équipes d'agents juridiques spécialisés.",
   "workspaces": [
     "packages/*",
     "plugins/*/mcp-server"
