@@ -22,6 +22,12 @@ describe("search-builder — construction du SearchRequestDTO", () => {
     expect(body.recherche.sort).toBe("PERTINENCE");
   });
 
+  it("requête JUFI conserve le fond et le tri par pertinence par défaut", () => {
+    const body = buildSearchRequest({ query: "impôt", fond: "JUFI" });
+    expect(body.fond).toBe("JUFI");
+    expect(body.recherche.sort).toBe("PERTINENCE");
+  });
+
   it("CODE_DATE injecte NOM_CODE + DATE_VERSION (singleDate par défaut aujourd'hui)", () => {
     const body = buildSearchRequest({
       query: "responsabilité",
