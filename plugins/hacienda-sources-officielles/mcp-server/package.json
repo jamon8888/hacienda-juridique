@@ -1,5 +1,5 @@
 {
-  "name": "@hacienda/sources-officielles-mcp",
+  "name": "@hacienda/plugin-sources-officielles-server",
   "version": "0.1.0",
   "private": true,
   "type": "module",
