@@ -19,4 +19,15 @@ describe("normalized legal models", () => {
     };
     expect(doc.id).toBe(hit.id);
   });
+
+  it("supports administrative case law search results", () => {
+    const hit: LegalSearchResult = {
+      id: "CETATEXT000050000001",
+      source: "CETAT",
+      title: "Conseil d'Etat",
+      snippets: [],
+    };
+
+    expect(hit.source).toBe("CETAT");
+  });
 });

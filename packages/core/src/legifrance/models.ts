@@ -3,6 +3,7 @@ export type LegalSource =
   | "BOCC"
   | "BODMR"
   | "BOFiP"
+  | "CETAT"
   | "CIRC"
   | "CNIL"
   | "CODE"
