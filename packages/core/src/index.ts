@@ -22,6 +22,23 @@ import { registerBofipAliases } from "./tools/bofip.js";
 // Re-exports pour les plugins qui veulent un usage avancé.
 export { loadConfig } from "./config.js";
 export type { Config, PisteEnv } from "./config.js";
+export { loadJudilibreConfig } from "./judilibre/config.js";
+export type { JudilibreConfig, JudilibreEnv } from "./judilibre/config.js";
+export {
+  JudilibreClient,
+  JudilibreCredentialsMissingError,
+  JudilibreHttpError,
+} from "./judilibre/client.js";
+export type { JudilibreSearchArgs } from "./judilibre/client.js";
+export {
+  JudilibreDecisionSchema,
+  JudilibreDecisionSchema as JudilibreDecisionSummarySchema,
+  JudilibreSearchResponseSchema,
+} from "./judilibre/schemas.js";
+export type {
+  JudilibreDecision,
+  JudilibreSearchResponse,
+} from "./judilibre/schemas.js";
 export { log } from "./logger.js";
 export { PisteClient, PisteCredentialsMissingError, PisteAuthError } from "./piste-client.js";
 export {
