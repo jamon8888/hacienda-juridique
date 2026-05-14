@@ -60,4 +60,11 @@ describe("Legifrance endpoint registry", () => {
     expect(getEndpoint("consult.codeTableMatieres").status).toBe("expert-only");
     expect(ENDPOINTS.every((endpoint) => endpoint.status)).toBe(true);
   });
+
+  it("does not allow returned endpoint objects to mutate the registry", () => {
+    const endpoint = getEndpoint("list.bodmr");
+    (endpoint as { domain: string }).domain = "system";
+
+    expect(getEndpoint("list.bodmr")).toMatchObject({ domain: "BODMR", family: "list" });
+  });
 });

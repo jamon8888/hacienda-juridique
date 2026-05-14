@@ -23,20 +23,20 @@ export type EndpointDomain =
   | "system";
 
 export interface LegifranceEndpoint {
-  key: string;
-  path: string;
-  method: EndpointMethod;
-  family: EndpointFamily;
-  domain: EndpointDomain;
-  summary: string;
-  status: EndpointStatus;
-  defaultTtlMs?: number;
+  readonly key: string;
+  readonly path: string;
+  readonly method: EndpointMethod;
+  readonly family: EndpointFamily;
+  readonly domain: EndpointDomain;
+  readonly summary: string;
+  readonly status: EndpointStatus;
+  readonly defaultTtlMs?: number;
 }
 
 const HOUR = 60 * 60 * 1000;
 const DAY = 24 * HOUR;
 
-export const ENDPOINTS = [
+const ENDPOINT_DEFINITIONS = [
   { key: "chrono.textCid", path: "/chrono/textCid", method: "POST", family: "chrono", domain: "LEGI", summary: "Version d'un texte", status: "experimental", defaultTtlMs: DAY },
   { key: "chrono.hasTextCid", path: "/chrono/textCid/{textCid}", method: "GET", family: "chrono", domain: "LEGI", summary: "Verifie si un texte possede des versions", status: "experimental", defaultTtlMs: DAY },
   { key: "chrono.textCidAndElementCid", path: "/chrono/textCidAndElementCid", method: "POST", family: "chrono", domain: "LEGI", summary: "Extrait d'une version d'un texte", status: "experimental", defaultTtlMs: DAY },
@@ -107,10 +107,18 @@ export const ENDPOINTS = [
   { key: "suggest.pdc", path: "/suggest/pdc", method: "POST", family: "suggest", domain: "JURI", summary: "Suggestions des libelles pour les plans de classement", status: "experimental", defaultTtlMs: HOUR },
 ] as const satisfies readonly LegifranceEndpoint[];
 
+export const ENDPOINTS: readonly LegifranceEndpoint[] = Object.freeze(
+  ENDPOINT_DEFINITIONS.map((endpoint): LegifranceEndpoint => Object.freeze({ ...endpoint })),
+);
+
 const byKey = new Map<string, LegifranceEndpoint>(ENDPOINTS.map((endpoint) => [endpoint.key, endpoint]));
 
+function cloneEndpoint(endpoint: LegifranceEndpoint): LegifranceEndpoint {
+  return { ...endpoint };
+}
+
 export function listEndpoints(): LegifranceEndpoint[] {
-  return [...ENDPOINTS];
+  return ENDPOINTS.map(cloneEndpoint);
 }
 
 export function nonPingEndpoints(): LegifranceEndpoint[] {
@@ -122,9 +130,10 @@ export function getEndpoint(key: string): LegifranceEndpoint {
   if (!endpoint) {
     throw new Error(`Unknown Legifrance endpoint key: ${key}`);
   }
-  return endpoint;
+  return cloneEndpoint(endpoint);
 }
 
 export function findEndpointByPath(path: string): LegifranceEndpoint | undefined {
-  return ENDPOINTS.find((endpoint) => endpoint.path === path);
+  const endpoint = ENDPOINTS.find((candidate) => candidate.path === path);
+  return endpoint ? cloneEndpoint(endpoint) : undefined;
 }

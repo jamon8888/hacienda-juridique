@@ -30,6 +30,20 @@ export type { HttpClientOptions, RequestOptions } from "./http.js";
 export { ResponseCache, defaultTtlForPath } from "./cache.js";
 export type { CacheStats, CacheOptions } from "./cache.js";
 export {
+  ENDPOINTS,
+  findEndpointByPath,
+  getEndpoint,
+  listEndpoints,
+  nonPingEndpoints,
+} from "./legifrance/endpoints.js";
+export type {
+  EndpointDomain,
+  EndpointFamily,
+  EndpointMethod,
+  EndpointStatus,
+  LegifranceEndpoint,
+} from "./legifrance/endpoints.js";
+export {
   registerStatus,
   registerGetArticle,
   registerGetCode,
