@@ -158,7 +158,7 @@ Inputs should support:
 - page size and page number;
 - search mode: exact phrase, all words, any words.
 
-Domains should include codes, LODA, JORF, JURI, CETAT, CONSTIT, KALI, ACCO, CIRC/BOFiP, CNIL, and all sources.
+Domains should include codes, LODA, JORF, JURI, JUFI, CETAT, CONSTIT, KALI, ACCO, CIRC/BOFiP, CNIL, and all sources.
 
 ### `legifrance_consulter`
 
@@ -172,7 +172,7 @@ It should accept:
 - optional section/article number;
 - optional output mode: summary, full, structured, raw debug.
 
-It should route to article, code, LODA, JORF, jurisprudence, KALI, ACCO, CNIL, parliamentary, or BOFiP consultation based on identifier resolution and input type.
+It should route to article, code, LEGI text parts through `/consult/legiPart`, LODA, JORF, jurisprudence, KALI, ACCO, CNIL, parliamentary, or BOFiP consultation based on identifier resolution and input type.
 
 ### `legifrance_versions`
 
@@ -267,6 +267,8 @@ Examples:
 - `IDCC 1486`;
 - a NOR;
 - an ELI URL;
+- BOCC catalog references;
+- BODMR catalog references;
 - an old Legifrance ID.
 
 Output should include canonical ID, detected type, candidate documents, confidence, and recommended follow-up tool call.
