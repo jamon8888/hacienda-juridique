@@ -17,6 +17,7 @@ import { registerRecherche } from "./tools/recherche.js";
 import { registerSuggest } from "./tools/suggest.js";
 import { registerCacheClear } from "./tools/cache-clear.js";
 import { registerApiCall } from "./tools/api-call.js";
+import { registerBofipAliases } from "./tools/bofip.js";
 
 // Re-exports pour les plugins qui veulent un usage avancé.
 export { loadConfig } from "./config.js";
@@ -68,12 +69,18 @@ export {
   registerSuggest,
   registerCacheClear,
   registerApiCall,
+  registerBofipAliases,
 };
 export {
   callLegifranceApiExpert,
   LegifranceApiCallArgsSchema,
 } from "./tools/api-call.js";
 export type { LegifranceApiCallArgs } from "./tools/api-call.js";
+export {
+  callBofipConsulter,
+  callBofipRechercher,
+} from "./tools/bofip.js";
+export type { BofipConsulterArgs, BofipRechercherArgs } from "./tools/bofip.js";
 
 export interface CreateServerOptions {
   /** Nom du serveur MCP, exposé en `mcp__plugin_<plugin>_<server>__*`. */
@@ -119,6 +126,7 @@ export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
   registerSuggest(server, http);
   registerCacheClear(server, cache);
   registerApiCall(server, route);
+  registerBofipAliases(server, http);
 
   const start = async () => {
     const transport = new StdioServerTransport();
