@@ -1,7 +1,7 @@
 {
   "name": "hacienda-recherche-documentaire",
   "version": "0.1.0",
-  "description": "Recherche supervisée dans les bases documentaires utilisées par les avocats, avec vérification des sources primaires.",
+  "description": "Recherche supervisée dans les bases documentaires utilisées par les avocats, avec vérification des sources primaires via Hacienda Sources Officielles.",
   "author": {
     "name": "Hacienda",
     "url": "https://hacienda.diy"
@@ -13,6 +13,8 @@
     "recherche-documentaire",
     "doctrine",
     "lexis",
-    "lefebvre-dalloz"
+    "lefebvre-dalloz",
+    "lextenso",
+    "avocat"
   ]
 }

@@ -3,12 +3,13 @@
     "Hacienda Sources Officielles": {
       "type": "stdio",
       "title": "Hacienda Sources Officielles",
-      "description": "Accès local aux sources officielles françaises via PISTE."
+      "description": "Vérification des sources primaires françaises via PISTE."
     }
   },
   "recommendedCategories": [
-    "recherche-juridique",
+    "recherche-documentaire",
     "sources-officielles",
+    "navigateur",
     "droit-francais"
   ]
 }
