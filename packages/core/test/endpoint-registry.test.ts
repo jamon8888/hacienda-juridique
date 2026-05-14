@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import {
   ENDPOINTS,
   getEndpoint,
@@ -6,9 +8,28 @@ import {
   nonPingEndpoints,
 } from "../src/legifrance/endpoints.js";
 
+const swagger = JSON.parse(
+  readFileSync(resolve(__dirname, "../../../docs/Légifrance.json"), "utf-8"),
+) as { paths: Record<string, unknown> };
+
+const pingPaths = new Set([
+  "/chrono/ping",
+  "/consult/ping",
+  "/list/ping",
+  "/search/ping",
+  "/suggest/ping",
+]);
+
+function swaggerNonPingPaths(): string[] {
+  return Object.keys(swagger.paths)
+    .filter((path) => !pingPaths.has(path))
+    .sort();
+}
+
 describe("Legifrance endpoint registry", () => {
   it("contains every non-ping route from the local Swagger inventory", () => {
-    expect(nonPingEndpoints()).toHaveLength(62);
+    expect(nonPingEndpoints()).toHaveLength(63);
+    expect(nonPingEndpoints().map((endpoint) => endpoint.path).sort()).toEqual(swaggerNonPingPaths());
     expect(getEndpoint("chrono.textCid").path).toBe("/chrono/textCid");
     expect(getEndpoint("consult.legiPart").path).toBe("/consult/legiPart");
     expect(getEndpoint("list.bodmr").path).toBe("/list/bodmr");

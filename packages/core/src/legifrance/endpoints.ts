@@ -102,6 +102,7 @@ export const ENDPOINTS = [
   { key: "search.canonicalVersion", path: "/search/canonicalVersion", method: "POST", family: "search", domain: "LEGI", summary: "Recuperation des infos de la version canonique", status: "experimental", defaultTtlMs: DAY },
   { key: "search.nearestVersion", path: "/search/nearestVersion", method: "POST", family: "search", domain: "LEGI", summary: "Recuperation des infos de la version la plus proche", status: "experimental", defaultTtlMs: DAY },
 
+  { key: "suggest.suggest", path: "/suggest", method: "POST", family: "suggest", domain: "system", summary: "Suggestions de resultats", status: "supported", defaultTtlMs: HOUR },
   { key: "suggest.acco", path: "/suggest/acco", method: "POST", family: "suggest", domain: "ACCO", summary: "Suggestions des SIRET et raisons sociales pour les accords", status: "experimental", defaultTtlMs: HOUR },
   { key: "suggest.pdc", path: "/suggest/pdc", method: "POST", family: "suggest", domain: "JURI", summary: "Suggestions des libelles pour les plans de classement", status: "experimental", defaultTtlMs: HOUR },
 ] as const satisfies readonly LegifranceEndpoint[];
