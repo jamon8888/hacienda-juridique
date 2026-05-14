@@ -7,47 +7,51 @@ import { summarizeSearchResponse, formatSearchResultsAsMarkdown } from "../forma
 import { resolveLegitext } from "../codes-legitext.js";
 import { log } from "../logger.js";
 
-export function registerRecherche(server: McpServer, http: PisteHttpClient) {
+const rechercheInputSchema = {
+  query: z.string().min(1).describe("Termes à rechercher (mots-clés ou expression)."),
+  fond: z.enum(FOND_VALUES).default("ALL").describe("Périmètre de recherche."),
+  code: z
+    .string()
+    .optional()
+    .describe(
+      "Nom du code (ex. 'Code civil') — *obligatoire* pour fond=CODE_DATE ou CODE_ETAT. Ignoré pour les autres fonds.",
+    ),
+  dateVersion: z
+    .string()
+    .optional()
+    .describe("Date de version (yyyy-mm-dd) pour fond=CODE_DATE. Par défaut : aujourd'hui."),
+  pageSize: z.number().int().min(1).max(50).default(10).describe("Nombre de résultats (max 50)."),
+  pageNumber: z.number().int().min(1).default(1),
+  typeRecherche: z
+    .enum(["UN_DES_MOTS", "EXACTE", "TOUS_LES_MOTS_DANS_UN_CHAMP"])
+    .default("UN_DES_MOTS")
+    .describe("Mode de match — UN_DES_MOTS (OR), TOUS_LES_MOTS_DANS_UN_CHAMP (AND), EXACTE (expression)."),
+  dateDebut: z.string().optional().describe("Date de début (yyyy-mm-dd) pour filtrer par date de signature/publication/décision."),
+  dateFin: z.string().optional().describe("Date de fin (yyyy-mm-dd)."),
+  nature: z
+    .array(z.string())
+    .optional()
+    .describe("Filtre nature (ex. ['LOI', 'ORDONNANCE', 'DECRET', 'ARRETE']). Surtout pour LODA/JORF."),
+};
+
+const rechercheToolDescription = [
+  "Recherche dans les bases juridiques françaises via Légifrance. Le paramètre `fond` détermine le périmètre :",
+  "- `CODE_DATE` (codes en vigueur à une date), `CODE_ETAT` (codes par état) — *requièrent le paramètre* `code` (ex. `Code civil`)",
+  "- `LODA_DATE` / `LODA_ETAT` (lois, décrets, ordonnances, arrêtés)",
+  "- `JORF` (Journal officiel), `JURI` (jurisprudence judiciaire), `CETAT` (jurisprudence administrative)",
+  "- `CIRC` (**circulaires & BOFiP** — doctrine fiscale)",
+  "- `CONSTIT` (Conseil constitutionnel), `KALI` (conventions collectives), `ACCO` (accords d'entreprise)",
+  "- `ALL` (tous fonds confondus — pratique pour une recherche large)",
+  "Retourne les résultats avec titre, identifiant, état (VIGUEUR/ABROGE…), date, extraits du texte, et lien Légifrance.",
+].join("\n");
+
+function registerRechercheTool(server: McpServer, http: PisteHttpClient, name: string) {
   server.registerTool(
-    "legifrance_recherche",
+    name,
     {
       title: "Recherche unifiée Légifrance + BOFiP",
-      description: [
-        "Recherche dans les bases juridiques françaises via Légifrance. Le paramètre `fond` détermine le périmètre :",
-        "- `CODE_DATE` (codes en vigueur à une date), `CODE_ETAT` (codes par état) — *requièrent le paramètre* `code` (ex. `Code civil`)",
-        "- `LODA_DATE` / `LODA_ETAT` (lois, décrets, ordonnances, arrêtés)",
-        "- `JORF` (Journal officiel), `JURI` (jurisprudence judiciaire), `CETAT` (jurisprudence administrative)",
-        "- `CIRC` (**circulaires & BOFiP** — doctrine fiscale)",
-        "- `CONSTIT` (Conseil constitutionnel), `KALI` (conventions collectives), `ACCO` (accords d'entreprise)",
-        "- `ALL` (tous fonds confondus — pratique pour une recherche large)",
-        "Retourne les résultats avec titre, identifiant, état (VIGUEUR/ABROGE…), date, extraits du texte, et lien Légifrance.",
-      ].join("\n"),
-      inputSchema: {
-        query: z.string().min(1).describe("Termes à rechercher (mots-clés ou expression)."),
-        fond: z.enum(FOND_VALUES).default("ALL").describe("Périmètre de recherche."),
-        code: z
-          .string()
-          .optional()
-          .describe(
-            "Nom du code (ex. 'Code civil') — *obligatoire* pour fond=CODE_DATE ou CODE_ETAT. Ignoré pour les autres fonds.",
-          ),
-        dateVersion: z
-          .string()
-          .optional()
-          .describe("Date de version (yyyy-mm-dd) pour fond=CODE_DATE. Par défaut : aujourd'hui."),
-        pageSize: z.number().int().min(1).max(50).default(10).describe("Nombre de résultats (max 50)."),
-        pageNumber: z.number().int().min(1).default(1),
-        typeRecherche: z
-          .enum(["UN_DES_MOTS", "EXACTE", "TOUS_LES_MOTS_DANS_UN_CHAMP"])
-          .default("UN_DES_MOTS")
-          .describe("Mode de match — UN_DES_MOTS (OR), TOUS_LES_MOTS_DANS_UN_CHAMP (AND), EXACTE (expression)."),
-        dateDebut: z.string().optional().describe("Date de début (yyyy-mm-dd) pour filtrer par date de signature/publication/décision."),
-        dateFin: z.string().optional().describe("Date de fin (yyyy-mm-dd)."),
-        nature: z
-          .array(z.string())
-          .optional()
-          .describe("Filtre nature (ex. ['LOI', 'ORDONNANCE', 'DECRET', 'ARRETE']). Surtout pour LODA/JORF."),
-      },
+      description: rechercheToolDescription,
+      inputSchema: rechercheInputSchema,
     },
     async (args) => {
       // Si le user passe un LEGITEXT comme `code`, on le résout en nom canonique
@@ -120,4 +124,9 @@ export function registerRecherche(server: McpServer, http: PisteHttpClient) {
       };
     },
   );
+}
+
+export function registerRecherche(server: McpServer, http: PisteHttpClient) {
+  registerRechercheTool(server, http, "legifrance_recherche");
+  registerRechercheTool(server, http, "legifrance_rechercher");
 }

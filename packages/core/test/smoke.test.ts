@@ -16,7 +16,13 @@ interface JsonRpcResponse {
 function sendAndCollect(messages: object[], timeoutMs = 5000): Promise<JsonRpcResponse[]> {
   return new Promise((resolveFn, reject) => {
     const proc = spawn("node", [SERVER], {
-      env: { ...process.env, LOG_LEVEL: "error" },
+      env: {
+        ...process.env,
+        HACIENDA_CREDENTIALS_FILE: "__hacienda_smoke_missing_credentials__.json",
+        LOG_LEVEL: "error",
+        PISTE_CLIENT_ID: "",
+        PISTE_CLIENT_SECRET: "",
+      },
       stdio: ["pipe", "pipe", "pipe"],
     });
 
@@ -78,6 +84,7 @@ describe("hacienda mcp server — smoke", () => {
       "piste_status",
       "piste_cache_clear",
       "legifrance_recherche",
+      "legifrance_rechercher",
       "legifrance_get_article",
       "legifrance_get_code",
       "legifrance_get_loda",

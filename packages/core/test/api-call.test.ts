@@ -48,6 +48,82 @@ describe("callLegifranceApiExpert", () => {
     });
   });
 
+  it("accepts a registered endpoint path and calls route.call with the endpoint key", async () => {
+    const route = {
+      call: vi.fn(async () => ({ article: { id: "LEGIARTI000006419320" } })),
+    } as unknown as LegifranceRouteClient;
+    const body = { id: "LEGIARTI000006419320" };
+
+    const result = await callLegifranceApiExpert(route, {
+      endpoint: "/consult/getArticle",
+      body,
+    });
+
+    expect(result.isError).toBeUndefined();
+    expect(route.call).toHaveBeenCalledWith("consult.getArticle", {
+      body,
+      bypassCache: undefined,
+      pathParams: undefined,
+      query: undefined,
+    });
+    expect(JSON.parse(textFrom(result))).toEqual({
+      endpoint: {
+        key: "consult.getArticle",
+        path: "/consult/getArticle",
+        status: "supported",
+      },
+      data: { article: { id: "LEGIARTI000006419320" } },
+    });
+  });
+
+  it("rejects a provided method when it does not match the registry", async () => {
+    const route = {
+      call: vi.fn(),
+    } as unknown as LegifranceRouteClient;
+
+    const result = await callLegifranceApiExpert(route, {
+      endpoint: "/consult/getArticle",
+      method: "GET",
+      body: { id: "LEGIARTI000006419320" },
+    });
+
+    expect(result.isError).toBe(true);
+    expect(textFrom(result)).toMatch(/Method mismatch/);
+    expect(route.call).not.toHaveBeenCalled();
+  });
+
+  it("accepts raw and rawOutput flags explicitly while returning the same JSON envelope", async () => {
+    const route = {
+      call: vi.fn(async () => ({ article: { id: "LEGIARTI000006419320" } })),
+    } as unknown as LegifranceRouteClient;
+
+    const result = await callLegifranceApiExpert(route, {
+      endpoint: "consult.getArticle",
+      method: "POST",
+      raw: true,
+      rawOutput: true,
+      body: { id: "LEGIARTI000006419320" },
+    });
+
+    expect(result.isError).toBeUndefined();
+    expect(route.call).toHaveBeenCalledWith("consult.getArticle", {
+      body: { id: "LEGIARTI000006419320" },
+      bypassCache: undefined,
+      pathParams: undefined,
+      query: undefined,
+    });
+    expect(JSON.parse(textFrom(result))).toEqual({
+      endpoint: {
+        key: "consult.getArticle",
+        path: "/consult/getArticle",
+        status: "supported",
+      },
+      raw: true,
+      rawOutput: true,
+      data: { article: { id: "LEGIARTI000006419320" } },
+    });
+  });
+
   it("passes pathParams to route.call for chrono.hasTextCid", async () => {
     const route = {
       call: vi.fn(async () => ({ exists: true })),
