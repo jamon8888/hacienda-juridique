@@ -7,7 +7,11 @@ export type ResolvedIdentifierKind =
   | "code"
   | "juri"
   | "jorf"
+  | "kali"
   | "idcc"
+  | "nor"
+  | "eli"
+  | "old-id"
   | "bofip"
   | "bocc"
   | "bodmr";
@@ -15,7 +19,7 @@ export type ResolvedIdentifierKind =
 export type ResolvedIdentifier = {
   kind: ResolvedIdentifierKind;
   id: string;
-  confidence: "high" | "medium";
+  confidence: "high" | "medium" | "low";
   endpointKey?: string;
 };
 
@@ -30,31 +34,72 @@ type IdentifierPattern = {
 const DIRECT_IDENTIFIER_PATTERNS: IdentifierPattern[] = [
   {
     kind: "article",
-    pattern: /^(LEGIARTI\d+)$/i,
+    pattern: /^(LEGIARTI\d{9,})$/i,
     endpointKey: "consult.getArticle",
   },
   {
     kind: "section",
-    pattern: /^(LEGISCTA\d+)$/i,
+    pattern: /^(LEGISCTA\d{9,})$/i,
     endpointKey: "consult.getSectionByCid",
   },
   {
     kind: "text",
-    pattern: /^(LEGITEXT\d+)$/i,
+    pattern: /^(LEGITEXT\d{9,})$/i,
     endpointKey: "consult.legiPart",
   },
   {
     kind: "juri",
-    pattern: /^(JURITEXT\d+)$/i,
+    pattern: /^((?:JURI|CETA|CONS)TEXT\d{9,})$/i,
+    endpointKey: "consult.juri",
   },
   {
     kind: "jorf",
-    pattern: /^(JORFTEXT\d+)$/i,
+    pattern: /^(JORF(?:TEXT|ARTI)\d{9,})$/i,
+    endpointKey: "consult.jorf",
+  },
+  {
+    kind: "kali",
+    pattern: /^(KALIARTI\d{9,})$/i,
+    endpointKey: "consult.kaliArticle",
+  },
+  {
+    kind: "kali",
+    pattern: /^(KALISCTA\d{9,})$/i,
+    endpointKey: "consult.kaliSection",
+  },
+  {
+    kind: "kali",
+    pattern: /^(KALITEXT\d{9,})$/i,
+    endpointKey: "consult.kaliText",
+  },
+  {
+    kind: "kali",
+    pattern: /^(KALICONT\d{9,})$/i,
+    endpointKey: "consult.kaliCont",
   },
   {
     kind: "idcc",
     pattern: /^IDCC\s+(\d+)$/i,
     endpointKey: "consult.kaliContIdcc",
+  },
+  {
+    kind: "nor",
+    pattern: /^(?:NOR\s+)?([A-Z]{4}\d{7}[A-Z])$/i,
+    endpointKey: "consult.getJoWithNor",
+    confidence: "medium",
+  },
+  {
+    kind: "eli",
+    pattern: /^(?:ELI\s+)?(https?:\/\/\S*\/eli\/\S+)$/i,
+    endpointKey: "consult.eliAndAliasRedirectionTexte",
+    confidence: "medium",
+    normalizeId: (id) => id,
+  },
+  {
+    kind: "old-id",
+    pattern: /^(?:ancien|ancienne|old)\s+id\s+(.+)$/i,
+    confidence: "low",
+    normalizeId: (id) => id.trim(),
   },
   {
     kind: "bofip",
@@ -113,7 +158,7 @@ export function resolveLegalIdentifier(input: string): ResolvedIdentifier | unde
       kind: "code",
       id: codeId,
       confidence: "high",
-      endpointKey: "consult.legiPart",
+      endpointKey: "consult.code",
     };
   }
 
