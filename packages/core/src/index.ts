@@ -57,6 +57,12 @@ export type {
   EndpointStatus,
   LegifranceEndpoint,
 } from "./legifrance/endpoints.js";
+export type {
+  OfficialSource,
+  ProofStatus,
+  SourceCitation,
+  SourceSearchHit,
+} from "./sources/types.js";
 export {
   registerStatus,
   registerGetArticle,
