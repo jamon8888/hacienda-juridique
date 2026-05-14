@@ -1,4 +1,5 @@
 node_modules/
+.worktrees/
 dist/
 # Bundles plugins committed pour install marketplace sans build (esbuild --bundle, self-contained)
 !plugins/*/mcp-server/dist/
