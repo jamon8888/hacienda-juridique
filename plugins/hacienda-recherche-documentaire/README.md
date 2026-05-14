@@ -1,37 +1,27 @@
-# Recherche Documentaire
+# Hacienda Recherche Documentaire
 
 ## Mission
 
-Orchestrer les recherches dans les bases documentaires utilisées par les avocats français, sans contourner leurs conditions d’usage.
+Orchestrer les recherches dans les bases documentaires utilisées par les avocats, sans remplacer ces bases et sans contourner leurs règles.
 
-## Sources
+## Modes
 
-Ce plugin dépend de `hacienda-sources-officielles` pour les sources primaires.
+1. Mode manuel sécurisé.
+2. Mode Chrome supervisé.
+3. Mode connecteur officiel si disponible.
 
-## Commande De Démarrage
+## Plateformes
 
-```text
-/hacienda-recherche-documentaire:entretien-demarrage
-```
+- Doctrine
+- Lefebvre Dalloz / GenIA-L
+- Lexis 360 / Lexis+ AI
+- Lextenso
+- Lexbase
+- Dalloz
+- Navis
+- Elnet
+- Lamyline
 
-## Skills Prévus
+## Règle De Preuve
 
-- `entretien-demarrage`
-- `preparation-requete`
-- `recherche-doctrine`
-- `recherche-lefebvre-dalloz`
-- `recherche-lexis`
-- `recherche-lextenso`
-- `recherche-lexbase`
-- `comparaison-bases`
-- `extraction-references`
-- `controle-copyright`
-- `verification-sources-primaires`
-- `dossier-documentaire`
-
-## Livrables
-
-- dossier de preuve ;
-- note ou mémo professionnel ;
-- sources vérifiées ;
-- points à relire manuellement.
+Toute source primaire citée doit être vérifiée via `hacienda-sources-officielles`.
