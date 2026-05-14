@@ -1,31 +1,36 @@
-<!--
-CONFIGURATION UTILISATEUR
+# Hacienda Recherche Documentaire
 
-La configuration de ce plugin vit dans :
+## Configuration
 
-  ~/.claude/plugins/config/hacienda-juridique/hacienda-recherche-documentaire/CLAUDE.md
+Lire le profil cabinet partagé :
 
-Règles :
-1. Lire le profil cabinet partagé : ~/.claude/plugins/config/hacienda-juridique/profil-cabinet.md
-2. Lire ce profil de pratique avant tout travail substantiel.
-3. Si ce fichier n'existe pas ou contient encore [A CONFIGURER], arrêter et demander d'exécuter /hacienda-recherche-documentaire:entretien-demarrage.
-4. Ne jamais présenter une source juridique comme vérifiée sans hacienda-sources-officielles.
--->
+```text
+~/.claude/plugins/config/hacienda-juridique/profil-cabinet.md
+```
 
-# Profil De Pratique
+Lire ensuite le profil de ce plugin :
 
-## Qui Nous Sommes
+```text
+~/.claude/plugins/config/hacienda-juridique/hacienda-recherche-documentaire/CLAUDE.md
+```
 
-[A CONFIGURER]
+Si le profil manque ou contient `[A CONFIGURER]`, arrêter et demander :
 
-## Qui Utilise Le Plugin
+```text
+/hacienda-recherche-documentaire:entretien-demarrage
+```
 
-[A CONFIGURER]
+## Règles De Sécurité
 
-## Sources Et Vérification
+- Utiliser le mode demander avant d'agir dans Claude dans Chrome.
+- Ne jamais contourner un paywall ; pas de contournement de paywall.
+- Ne jamais contourner un CAPTCHA ; pas de contournement de CAPTCHA.
+- Ne jamais utiliser d'API privée non autorisée.
+- Ne jamais stocker d'identifiants Doctrine, Lexis, Lefebvre Dalloz, Lextenso ou autre base ; pas de stockage d'identifiants.
+- Ne jamais faire de copie longue de contenus éditoriaux protégés ; pas de copie longue.
+- Ne jamais uploader de pièce client sans validation explicite.
+- Ne jamais conclure uniquement sur la réponse IA d'un éditeur.
 
-Toute citation juridique doit être vérifiée via `hacienda-sources-officielles`. Si la source officielle n'a pas été consultée via MCP, la citation doit être marquée `[à vérifier]`.
+## Sources
 
-## Livrables
-
-Chaque livrable professionnel inclut un dossier de preuve ou une section "sources à vérifier".
+Les bases éditoriales aident à trouver, comprendre et hiérarchiser. Les sources primaires doivent être vérifiées via `hacienda-sources-officielles`.
