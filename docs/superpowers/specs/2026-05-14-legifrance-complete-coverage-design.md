@@ -65,7 +65,7 @@ Each endpoint entry should include:
 - path;
 - method;
 - controller family: `consult`, `list`, `search`, `suggest`, `chrono`, `misc`;
-- legal domain: code, LODA, JORF, JURI, CETAT, CONSTIT, KALI, ACCO, CIRC/BOFiP, CNIL, parliamentary, BOCC, system;
+- legal domain: code, LEGI, LODA, JORF, JURI, JUFI, CETAT, CONSTIT, KALI, ACCO, CIRC/BOFiP, CNIL, parliamentary, BOCC, BODMR, system;
 - input builder or schema;
 - output schema, tolerant by default;
 - default cache TTL;
@@ -247,9 +247,10 @@ Coverage:
 - list LODA;
 - list conventions;
 - list BOCC and BOCC texts;
+- list BODMR bulletins;
 - list parliamentary dossiers;
 - list debates;
-- list written parliamentary questions;
+- list/search written parliamentary questions records;
 - list documents administratifs;
 - list legislatures.
 
@@ -288,9 +289,11 @@ Expert/debug escape hatch.
 
 Inputs:
 
-- endpoint key or path;
+- endpoint key or registered path;
 - method;
-- body;
+- path parameters for templated routes like `/chrono/textCid/{textCid}`;
+- query parameters for GET routes;
+- JSON body for POST routes;
 - bypass cache;
 - raw output flag.
 
@@ -340,9 +343,7 @@ Consultation should handle all major document types:
 - ACCO company agreements;
 - BOCC metadata and texts;
 - CNIL;
-- dossiers legislatifs;
-- debates;
-- written parliamentary questions;
+- parliamentary dossiers and debates;
 - BOFiP/CIRC.
 
 ### 3. Applicable Version
