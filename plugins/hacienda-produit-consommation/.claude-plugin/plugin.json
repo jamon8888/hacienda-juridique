@@ -1,0 +1,18 @@
+{
+  "name": "hacienda-produit-consommation",
+  "version": "0.1.0",
+  "description": "Revue de lancement produit, droit de la consommation, marketing, plateformes et parcours utilisateurs.",
+  "author": {
+    "name": "Hacienda",
+    "url": "https://hacienda.diy"
+  },
+  "repository": "https://github.com/jamon8888/hacienda-juridique",
+  "license": "EUPL-1.2",
+  "keywords": [
+    "hacienda",
+    "produit",
+    "consommation",
+    "marketing",
+    "plateforme"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "hacienda-contrats",
+  "version": "0.1.0",
+  "description": "Contrats commerciaux français : CGV, CGU, SaaS, NDA, distribution, baux commerciaux et clauses sensibles.",
+  "author": {
+    "name": "Hacienda",
+    "url": "https://hacienda.diy"
+  },
+  "repository": "https://github.com/jamon8888/hacienda-juridique",
+  "license": "EUPL-1.2",
+  "keywords": [
+    "hacienda",
+    "contrats",
+    "cgv",
+    "cgu",
+    "saas",
+    "nda",
+    "distribution"
+  ]
+}

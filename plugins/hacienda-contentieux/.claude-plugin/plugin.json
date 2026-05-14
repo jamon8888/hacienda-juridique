@@ -1,0 +1,19 @@
+{
+  "name": "hacienda-contentieux",
+  "version": "0.1.0",
+  "description": "Contentieux français : chronologie, pièces, moyens, jurisprudence, assignations, conclusions et stratégie.",
+  "author": {
+    "name": "Hacienda",
+    "url": "https://hacienda.diy"
+  },
+  "repository": "https://github.com/jamon8888/hacienda-juridique",
+  "license": "EUPL-1.2",
+  "keywords": [
+    "hacienda",
+    "contentieux",
+    "conclusions",
+    "assignation",
+    "jurisprudence",
+    "procedure"
+  ]
+}
