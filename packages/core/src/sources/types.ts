@@ -1,5 +1,7 @@
 export type OfficialSource = "LEGIFRANCE" | "BOFIP" | "JUDILIBRE" | "BOSS";
 
+export const OFFICIAL_SOURCES = ["LEGIFRANCE", "BOFIP", "JUDILIBRE", "BOSS"] as const satisfies readonly OfficialSource[];
+
 export type ProofStatus =
   | "vérifié"
   | "à vérifier"

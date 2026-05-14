@@ -1,10 +1,16 @@
 import { describe, expect, it } from "vitest";
-import type { OfficialSource, SourceCitation, SourceSearchHit } from "../src/sources/types.js";
+import {
+  OFFICIAL_SOURCES,
+  type OfficialSource,
+  type SourceCitation,
+  type SourceSearchHit,
+} from "../src/index.js";
 
 describe("source proof types", () => {
   it("accepts the four official source identifiers used by Hacienda", () => {
     const sources: OfficialSource[] = ["LEGIFRANCE", "BOFIP", "JUDILIBRE", "BOSS"];
     expect(sources).toEqual(["LEGIFRANCE", "BOFIP", "JUDILIBRE", "BOSS"]);
+    expect(OFFICIAL_SOURCES).toEqual(["LEGIFRANCE", "BOFIP", "JUDILIBRE", "BOSS"]);
   });
 
   it("models a proof citation and a search hit with official URLs", () => {

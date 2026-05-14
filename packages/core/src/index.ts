@@ -63,6 +63,7 @@ export type {
   SourceCitation,
   SourceSearchHit,
 } from "./sources/types.js";
+export { OFFICIAL_SOURCES } from "./sources/types.js";
 export {
   registerStatus,
   registerGetArticle,
