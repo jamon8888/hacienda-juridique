@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   JudilibreClient,
+  JudilibreDecisionSummarySchema,
   JudilibreSearchResponseSchema,
   loadJudilibreConfig,
 } from "../src/index.js";
@@ -13,5 +14,6 @@ describe("Judilibre public API", () => {
       results: [],
       total: 0,
     });
+    expect(JudilibreDecisionSummarySchema.parse({ id: "abc" })).toEqual({ id: "abc" });
   });
 });

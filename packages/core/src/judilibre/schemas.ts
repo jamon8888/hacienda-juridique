@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const JudilibreDecisionSchema = z
+export const JudilibreDecisionSummarySchema = z
   .object({
     id: z.string().optional(),
     decision_datetime: z.string().nullable().optional(),
@@ -14,6 +14,10 @@ export const JudilibreDecisionSchema = z
   })
   .passthrough();
 
+export const JudilibreDecisionSchema = JudilibreDecisionSummarySchema.extend({
+  zones: z.record(z.string(), z.unknown()).optional(),
+}).passthrough();
+
 export const JudilibreSearchResponseSchema = z
   .object({
     results: z.array(JudilibreDecisionSchema).default([]),
@@ -26,4 +30,5 @@ export const JudilibreSearchResponseSchema = z
   .passthrough();
 
 export type JudilibreDecision = z.infer<typeof JudilibreDecisionSchema>;
+export type JudilibreDecisionSummary = z.infer<typeof JudilibreDecisionSummarySchema>;
 export type JudilibreSearchResponse = z.infer<typeof JudilibreSearchResponseSchema>;

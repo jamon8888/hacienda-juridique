@@ -32,11 +32,12 @@ export {
 export type { JudilibreSearchArgs } from "./judilibre/client.js";
 export {
   JudilibreDecisionSchema,
-  JudilibreDecisionSchema as JudilibreDecisionSummarySchema,
+  JudilibreDecisionSummarySchema,
   JudilibreSearchResponseSchema,
 } from "./judilibre/schemas.js";
 export type {
   JudilibreDecision,
+  JudilibreDecisionSummary,
   JudilibreSearchResponse,
 } from "./judilibre/schemas.js";
 export { log } from "./logger.js";
