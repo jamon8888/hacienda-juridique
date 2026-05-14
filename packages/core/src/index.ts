@@ -5,6 +5,7 @@ import { log } from "./logger.js";
 import { PisteClient } from "./piste-client.js";
 import { PisteHttpClient } from "./http.js";
 import { ResponseCache } from "./cache.js";
+import { LegifranceRouteClient } from "./legifrance/route-client.js";
 import { registerStatus } from "./tools/status.js";
 import { registerGetArticle } from "./tools/get-article.js";
 import { registerGetCode } from "./tools/get-code.js";
@@ -15,6 +16,7 @@ import { registerGetCirculaire } from "./tools/get-circulaire.js";
 import { registerRecherche } from "./tools/recherche.js";
 import { registerSuggest } from "./tools/suggest.js";
 import { registerCacheClear } from "./tools/cache-clear.js";
+import { registerApiCall } from "./tools/api-call.js";
 
 // Re-exports pour les plugins qui veulent un usage avancé.
 export { loadConfig } from "./config.js";
@@ -29,6 +31,17 @@ export {
 export type { HttpClientOptions, RequestOptions } from "./http.js";
 export { ResponseCache, defaultTtlForPath } from "./cache.js";
 export type { CacheStats, CacheOptions } from "./cache.js";
+export {
+  LegifranceRouteClient,
+  appendQueryParams,
+  fillPathParams,
+} from "./legifrance/route-client.js";
+export type {
+  RouteCallOptions,
+  RouteParams,
+  RouteQuery,
+  RouteQueryValue,
+} from "./legifrance/route-client.js";
 export {
   ENDPOINTS,
   findEndpointByPath,
@@ -54,7 +67,13 @@ export {
   registerRecherche,
   registerSuggest,
   registerCacheClear,
+  registerApiCall,
 };
+export {
+  callLegifranceApiExpert,
+  LegifranceApiCallArgsSchema,
+} from "./tools/api-call.js";
+export type { LegifranceApiCallArgs } from "./tools/api-call.js";
 
 export interface CreateServerOptions {
   /** Nom du serveur MCP, exposé en `mcp__plugin_<plugin>_<server>__*`. */
@@ -85,6 +104,7 @@ export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
   const cache = new ResponseCache({ path: `${config.cacheDir}/cache.db` });
   const auth = new PisteClient(config);
   const http = new PisteHttpClient(config, auth, { cache });
+  const route = new LegifranceRouteClient(http);
 
   const server = new McpServer({ name: opts.name, version: opts.version });
 
@@ -98,6 +118,7 @@ export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
   registerRecherche(server, http);
   registerSuggest(server, http);
   registerCacheClear(server, cache);
+  registerApiCall(server, route);
 
   const start = async () => {
     const transport = new StdioServerTransport();

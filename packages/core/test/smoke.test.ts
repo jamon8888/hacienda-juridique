@@ -85,6 +85,7 @@ describe("hacienda mcp server — smoke", () => {
       "legifrance_get_jorf",
       "legifrance_get_circulaire",
       "legifrance_suggest",
+      "legifrance_api_call",
     ];
     for (const name of expected) {
       expect(names, `tool ${name} missing`).toContain(name);
