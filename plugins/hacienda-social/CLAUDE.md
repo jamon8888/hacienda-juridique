@@ -46,6 +46,8 @@ Validation humaine obligatoire avant sortie pour :
 - classification conventionnelle, rémunération variable ou clause sensible ;
 - contradiction entre Code du travail, convention collective, accord d'entreprise et jurisprudence.
 
+Les points de validation humaine doivent être listés explicitement dans chaque livrable sensible.
+
 ## Livrables
 
 - consultation sociale ;
