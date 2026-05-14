@@ -55,7 +55,7 @@ export class LegifranceRouteClient {
       return this.http.get<T>(path, requestOptions);
     }
 
-    return this.http.post<T>(path, options.body, requestOptions);
+    return this.http.post<T>(path, options.body ?? {}, requestOptions);
   }
 
   private requestOptions(defaultTtlMs: number | undefined, options: RouteCallOptions): RequestOptions {

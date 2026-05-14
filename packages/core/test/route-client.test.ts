@@ -51,6 +51,16 @@ describe("LegifranceRouteClient", () => {
     expect(http.get).not.toHaveBeenCalled();
   });
 
+  it("calls POST endpoints with an empty object when body is omitted", async () => {
+    const http = mockHttp();
+    const client = new LegifranceRouteClient(http as PisteHttpClient);
+
+    await client.call("consult.getArticle");
+
+    expect(http.post).toHaveBeenCalledWith("/consult/getArticle", {}, { ttlMs: 86400000 });
+    expect(http.get).not.toHaveBeenCalled();
+  });
+
   it("rejects unknown endpoint keys", async () => {
     const client = new LegifranceRouteClient(mockHttp() as PisteHttpClient);
 
