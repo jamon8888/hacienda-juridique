@@ -194,7 +194,7 @@ Expected: exit 0.
 - [ ] **Step 2: Vérifier absence ancien branding**
 
 ```bash
-rg -n "HACIENDA|hacienda|Hacienda|hacienda|https://hacienda\\.com" .
+npm run branding:check
 ```
 
-Expected: aucune sortie.
+Expected: exit 0.
