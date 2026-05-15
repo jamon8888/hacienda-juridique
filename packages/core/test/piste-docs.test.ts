@@ -9,6 +9,18 @@ function readText(path: string): string {
 }
 
 describe("PISTE installer documentation", () => {
+  it("documents the simple Cowork-style MCP configuration model", () => {
+    const doc = readText("docs/integrations/mcp-configuration-simple.md");
+
+    expect(doc).toContain(".mcp.json = connecteurs disponibles");
+    expect(doc).toContain("disponible ne veut pas dire connecte");
+    expect(doc).toContain("Hacienda Sources Officielles");
+    expect(doc).toContain("piste_status");
+    expect(doc).toContain("Pappers");
+    expect(doc).toContain("re-run");
+    expect(doc).not.toMatch(/[a-f0-9]{40,}/iu);
+  });
+
   it("explains that PISTE is consumed through Hacienda MCP, not installed as an external MCP", () => {
     const doc = readText("docs/integrations/piste-connection.md");
 
@@ -27,6 +39,7 @@ describe("PISTE installer documentation", () => {
     const sourcesReadme = readText("plugins/hacienda-sources-officielles/README.md");
 
     expect(rootReadme).toContain("docs/integrations/piste-connection.md");
+    expect(rootReadme).toContain("docs/integrations/mcp-configuration-simple.md");
     expect(sourcesReadme).toContain("docs/integrations/piste-connection.md");
     expect(sourcesReadme).toContain("PISTE n'est pas un MCP externe");
   });

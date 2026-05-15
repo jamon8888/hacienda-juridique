@@ -51,9 +51,14 @@ Chaque plugin Hacienda contient :
 
 ## Integrations
 
+- Simple MCP configuration: `docs/integrations/mcp-configuration-simple.md`
 - PISTE connection guide: `docs/integrations/piste-connection.md`
 - Pappers MCP hybrid validation: `docs/integrations/pappers-mcp-validation.md`
 - Pappers agents and skills doctrine: `docs/integrations/pappers-agents-skills.md`
+
+### Configuration MCP Simple
+
+Hacienda suit la logique Claude Cowork Legal : `.mcp.json` declare les connecteurs disponibles, le profil utilisateur vit dans `~/.claude/plugins/config/hacienda-juridique/<plugin>/CLAUDE.md`, et un connecteur n'est marque connecte qu'apres test live. Guide : `docs/integrations/mcp-configuration-simple.md`.
 
 ### PISTE Via Hacienda Sources Officielles
 
