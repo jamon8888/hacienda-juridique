@@ -7,16 +7,15 @@ type SparqlResponse = { results?: { bindings?: SparqlBinding[] } };
 
 export function buildConsolidatedVersionsQuery(celexIdInput: string, language: EurlexLanguage = "FRA"): string {
   const celexId = assertCelexId(celexIdInput);
-  const consolidatedPrefix = `0${celexId.slice(1)}`;
 
   return [
     "PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>",
     "PREFIX owl: <http://www.w3.org/2002/07/owl#>",
     "PREFIX purl: <http://purl.org/dc/elements/1.1/>",
     "SELECT DISTINCT ?celex ?title ?dateVersion WHERE {",
-    "  ?work owl:sameAs ?celexUri .",
-    `  FILTER(STRSTARTS(STR(?celexUri), "http://publications.europa.eu/resource/celex/${consolidatedPrefix}"))`,
-    '  BIND(REPLACE(STR(?celexUri), "^.*resource/celex/", "") AS ?celex)',
+    `  ?base owl:sameAs <http://publications.europa.eu/resource/celex/${celexId}> .`,
+    "  ?work cdm:act_consolidated_consolidates_resource_legal ?base ;",
+    "        cdm:resource_legal_id_celex ?celex .",
     "  OPTIONAL {",
     "    ?expr cdm:expression_belongs_to_work ?work ;",
     "          cdm:expression_uses_language ?lang ;",

@@ -18,25 +18,50 @@ export function buildEurlexRelationsQuery(args: EurlexRelationsQueryArgs): strin
   const direction = args.direction ?? "both";
   const limit = Math.min(100, Math.max(1, Math.trunc(args.limit ?? 25)));
   const relationFilter = args.relation ? `FILTER(?kind = "${args.relation}")` : "";
+  const outgoingBlock = [
+    "  {",
+    '    VALUES (?predicate ?kind) {',
+    '      (cdm:resource_legal_repeals_resource_legal "repeals")',
+    '      (cdm:resource_legal_implicitly_repeals_resource_legal "repeals")',
+    '      (cdm:resource_legal_based_on_resource_legal "basis")',
+    '      (cdm:resource_legal_adopts_resource_legal "basis")',
+    "    }",
+    "    ?pivot ?predicate ?relatedWork .",
+    `    BIND("${celexId}" AS ?sourceCelex)`,
+    "    ?relatedWork owl:sameAs ?relatedUri .",
+    '    FILTER(STRSTARTS(STR(?relatedUri), "http://publications.europa.eu/resource/celex/"))',
+    '    BIND(REPLACE(STR(?relatedUri), "^.*resource/celex/", "") AS ?targetCelex)',
+    "  }",
+  ];
+  const incomingBlock = [
+    "  {",
+    '    VALUES (?predicate ?kind) {',
+    '      (cdm:resource_legal_repeals_resource_legal "repealed_by")',
+    '      (cdm:resource_legal_implicitly_repeals_resource_legal "repealed_by")',
+    '      (cdm:resource_legal_based_on_resource_legal "cited_by")',
+    '      (cdm:act_consolidated_consolidates_resource_legal "amended_by")',
+    '      (cdm:act_consolidated_based_on_resource_legal "amended_by")',
+    '      (cdm:case-law_interpretes_resource_legal "cited_by")',
+    "    }",
+    "    ?relatedWork ?predicate ?pivot ;",
+    "                 owl:sameAs ?relatedUri .",
+    '    FILTER(STRSTARTS(STR(?relatedUri), "http://publications.europa.eu/resource/celex/"))',
+    '    BIND(REPLACE(STR(?relatedUri), "^.*resource/celex/", "") AS ?sourceCelex)',
+    `    BIND("${celexId}" AS ?targetCelex)`,
+    "  }",
+  ];
+  const relationBlocks =
+    direction === "incoming" ? incomingBlock : direction === "outgoing" ? outgoingBlock : [...outgoingBlock, "  UNION", ...incomingBlock];
 
   return [
     "PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>",
     "PREFIX owl: <http://www.w3.org/2002/07/owl#>",
-    "SELECT ?kind ?sourceCelex ?targetCelex ?title ?date WHERE {",
-    `  BIND("${celexId}" AS ?pivotCelex)`,
-    `  BIND("${direction}" AS ?direction)`,
-    "  ?source owl:sameAs ?sourceUri .",
-    "  ?target owl:sameAs ?targetUri .",
-    '  FILTER(STRSTARTS(STR(?sourceUri), "http://publications.europa.eu/resource/celex/"))',
-    '  FILTER(STRSTARTS(STR(?targetUri), "http://publications.europa.eu/resource/celex/"))',
-    '  BIND(REPLACE(STR(?sourceUri), "^.*resource/celex/", "") AS ?sourceCelex)',
-    '  BIND(REPLACE(STR(?targetUri), "^.*resource/celex/", "") AS ?targetCelex)',
-    '  VALUES ?kind { "amends" "amended_by" "cites" "cited_by" "repeals" "repealed_by" "basis" }',
-    "  FILTER(?sourceCelex = ?pivotCelex || ?targetCelex = ?pivotCelex)",
-    '  FILTER(?direction = "both" || (?direction = "outgoing" && ?sourceCelex = ?pivotCelex) || (?direction = "incoming" && ?targetCelex = ?pivotCelex))',
+    "SELECT DISTINCT ?kind ?sourceCelex ?targetCelex ?title ?date WHERE {",
+    `  ?pivot owl:sameAs <http://publications.europa.eu/resource/celex/${celexId}> .`,
+    ...relationBlocks,
     relationFilter,
-    "  OPTIONAL { ?target cdm:work_date_document ?date . }",
-    "  OPTIONAL { ?target cdm:resource_legal_title ?title . }",
+    "  OPTIONAL { ?relatedWork cdm:work_date_document ?date . }",
+    "  OPTIONAL { ?relatedWork cdm:resource_legal_title ?title . }",
     "}",
     `LIMIT ${limit}`,
   ]

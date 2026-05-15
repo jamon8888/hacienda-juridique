@@ -16,8 +16,8 @@ describe("EUR-Lex consolidated versions", () => {
   it("builds a typed SPARQL query for consolidated versions", () => {
     const query = buildConsolidatedVersionsQuery("32016R0679", "FRA");
 
-    expect(query).toContain("02016R0679");
-    expect(query).toContain("owl:sameAs");
+    expect(query).toContain("32016R0679");
+    expect(query).toContain("act_consolidated_consolidates_resource_legal");
     expect(query).toContain("cdm:expression_title");
     expect(query).not.toContain("SELECT *");
   });
