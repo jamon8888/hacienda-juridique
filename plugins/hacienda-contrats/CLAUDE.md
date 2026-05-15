@@ -40,6 +40,8 @@ Pappers peut etre utilise comme connecteur externe optionnel lorsque `PAPPERS_AP
 
 Si la cle est absente, si les credits sont insuffisants ou si le tool Pappers n'a pas ete appele, marquer les donnees Pappers `[a verifier]`. Les champs PPE, sanctions, scoring financier et scoring non financier necessitent une demande explicite et une validation humaine.
 
+Pour les workflows Pappers, appliquer la doctrine `docs/integrations/pappers-agents-skills.md` : statuts `missing_key`, `tools_visible`, `credits_insufficient`, `needs_official_recoupement`, `validated`, dossier de preuve, recoupement par `hacienda-sources-officielles` et validation humaine.
+
 ## Validation Humaine
 
 Validation humaine obligatoire avant sortie pour :

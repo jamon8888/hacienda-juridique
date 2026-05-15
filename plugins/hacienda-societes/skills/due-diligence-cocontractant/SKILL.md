@@ -15,6 +15,15 @@ Identifier et qualifier une societe cible ou un cocontractant avant operation co
 - Pappers MCP si `PAPPERS_API_KEY` est configure.
 - `hacienda-sources-officielles` pour les sources normatives.
 - Pieces du dossier : statuts, Kbis, registres, pacte, PV, data room.
+- Doctrine commune : `docs/integrations/pappers-agents-skills.md`.
+
+## Statuts Operationnels
+
+- `missing_key` : cle absente, basculer vers pieces et sources officielles.
+- `tools_visible` : decouverte MCP OK, appels metier non encore valides.
+- `credits_insufficient` : credits absents, ne pas inventer les donnees et marquer `[a verifier]`.
+- `needs_official_recoupement` : signal Pappers utile mais non recoupe.
+- `validated` : donnees structurees, recoupement effectue et validation humaine documentee.
 
 ## Workflow
 
@@ -22,8 +31,9 @@ Identifier et qualifier une societe cible ou un cocontractant avant operation co
 2. Lire `informations-entreprise` avec champs minimum : `siren`, `nom_entreprise`, `siege`, `forme_juridique`, `representants`, `beneficiaires_effectifs`, `procedures_collectives`, `publications_bodacc`.
 3. Lire `comptes-entreprise` si solvabilite ou garantie est en jeu.
 4. Lire `cartographie-entreprise` si groupe, filiales, dirigeants lies ou beneficiaires sont pertinents.
-5. Recouper les points juridiques avec `hacienda-sources-officielles` et les pieces.
-6. Produire une note avec faits, risques, sources, incertitudes et validations humaines.
+5. Classer le statut operationnel avant analyse.
+6. Recouper les points juridiques avec `hacienda-sources-officielles` et les pieces.
+7. Produire une note avec faits, risques, sources, incertitudes et validations humaines.
 
 ## Garde-Fous
 
@@ -31,7 +41,12 @@ Identifier et qualifier une societe cible ou un cocontractant avant operation co
 - Si Pappers est indisponible ou sans credits, marquer les donnees entreprise `[a verifier]`.
 - PPE, sanctions et scoring exigent une demande explicite.
 - Donnees personnelles minimales dans le livrable.
+- Toute conclusion juridique ou decision operationnelle exige validation humaine.
+
+## Dossier De Preuve
+
+Conserver un dossier de preuve : requete, SIREN/SIRET, tools Pappers appeles, champs lus, date de consultation, statut operationnel, pieces recoupees, sources officielles consultees, limites et valideur humain.
 
 ## Livrable
 
-Conserver SIREN/SIRET, tools Pappers appeles, champs lus, date de consultation, pieces recoupees, sources officielles consultees et decisions de validation.
+Note de due diligence : identite, controle, beneficiaires, groupe, finances, BODACC, risques, statut, incertitudes, recoupements et decisions de validation.

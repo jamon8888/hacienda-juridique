@@ -64,6 +64,7 @@ Usage prioritaire : solvabilite adversaire, procedures collectives, actifs immob
 - `veilleur-jurisprudence-contentieux` : surveille jurisprudence utile aux dossiers.
 - `suivi-mise-en-etat` : suit conclusions, pièces, incidents, clôture et audience.
 - `suivi-transaction-contentieuse` : suit offres, concessions, protocole et renonciations.
+- `enqueteur-solvabilite-pappers` : prepare solvabilite, procedures, groupe et actifs via Pappers avec recoupement.
 
 Les agents sont sans outil par défaut. Ils doivent demander ou utiliser Hacienda Sources Officielles avant toute conclusion.
 

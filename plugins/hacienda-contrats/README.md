@@ -62,6 +62,7 @@ Usage prioritaire : verification cocontractant, pouvoirs du signataire, solvabil
 - `suivi-negociation-contractuelle` : suit positions, concessions, fallbacks et points ouverts.
 - `suivi-renouvellements-resiliations` : suit échéances, préavis, reconductions et résiliations.
 - `veilleur-reformes-contractuelles` : surveille réformes et impacts sur modèles contractuels.
+- `controleur-pouvoirs-pappers` : controle cocontractant et pouvoirs apparents via Pappers, pieces et sources officielles.
 
 Les agents sont sans outil par défaut. Ils doivent demander ou utiliser Hacienda Sources Officielles avant toute conclusion.
 

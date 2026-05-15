@@ -67,6 +67,7 @@ Usage prioritaire : audit du connecteur Pappers, classification des tools, contr
 - `surveillant-mises-a-jour` : surveille nouvelles versions et diffs sensibles.
 - `auditeur-confiance` : relit periodiquement les decisions de confiance et exceptions.
 - `gardien-connecteurs` : detecte nouveaux MCP, scopes sensibles et derive des secrets.
+- `auditeur-pappers-mcp` : audite Pappers MCP, credits, secrets, profils et recoupements officiels.
 
 Les agents n'installent rien. Ils produisent des alertes, des dossiers de preuve et une Note de revue.
 

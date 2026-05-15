@@ -52,6 +52,7 @@ Chaque plugin Hacienda contient :
 ## Integrations
 
 - Pappers MCP hybrid validation: `docs/integrations/pappers-mcp-validation.md`
+- Pappers agents and skills doctrine: `docs/integrations/pappers-agents-skills.md`
 
 ## Regle De Preuve
 

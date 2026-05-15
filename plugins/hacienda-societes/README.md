@@ -63,6 +63,8 @@ Usage prioritaire : due diligence societe, cartographie groupe, dirigeants, bene
 - `suivi-closing` : suit conditions, pièces, signatures et post-closing.
 - `suivi-gouvernance` : suit pouvoirs, délégations, conventions et conflits.
 - `veilleur-reformes-corporate` : surveille réformes et impacts sur formalités et modèles.
+- `investigateur-pappers-entreprise` : qualifie entreprise, dirigeants, beneficiaires, groupe et signaux Pappers a recouper.
+- `veilleur-bodacc-pappers` : surveille les signaux BODACC Pappers et les transforme en alertes a verifier.
 
 Les agents sont sans outil par défaut. Ils doivent demander ou utiliser Hacienda Sources Officielles avant toute conclusion.
 
