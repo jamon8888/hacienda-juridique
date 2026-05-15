@@ -142,3 +142,62 @@ Pour chaque hit :
 3. **Compléter les faits** — questions au PM / client / business owner
 4. **Surveiller et attendre** — j'ajoute / mets à jour les entrées watchlist concernées
 5. **Autre chose** — dis-moi
+
+---
+
+## Mode `--add`
+
+Walk interactif :
+1. **motCle** (signe principal à surveiller). Refus si < 3 caractères ou mot du dictionnaire courant — proposer une variante plus précise.
+2. **motCleAlternatives** (variantes phonétiques / typographiques, optionnel). Suggérer des variantes en se basant sur le motCle (jumeaux phonétiques FR, transliterations).
+3. **classes** Nice 1-45 visées (au moins 1).
+4. **titulaire** (optionnel) — pour cibler les dépôts d'un concurrent particulier.
+5. **territoires** : `["FR"]` (INPI) / `["FR", "EM"]` (INPI + EUIPO) / autres codes offices.
+6. **niveauAlerte** : haut / moyen / bas. Haut = signaler même les 🟡, escalation immédiate sur 🔴. Bas = signaler uniquement 🔴.
+7. **destinataires** : canaux Slack `["#legal-marques"]` ou emails. Défaut : profil.
+8. **business_owner** : email ou équipe propriétaire métier de cette surveillance.
+9. **notes** (libre).
+
+Validation Zod côté skill avant écriture. Backup `.bak` automatique de `watchlist.yaml` avant.
+
+Confirmer à l'utilisateur l'ajout + l'identifiant `WATCH-NNN`.
+
+---
+
+## Mode `--update`
+
+`/surveillance-marque --update WATCH-001`
+
+Lire l'entrée, afficher en YAML, demander quels champs modifier, valider Zod, écrire avec backup.
+
+---
+
+## Mode `--remove`
+
+`/surveillance-marque --remove WATCH-001`
+
+Si `niveauAlerte = "haut"`, demander confirmation explicite + raison (ajoutée en commentaire dans le backup `.bak`). Sinon supprimer après confirmation simple.
+
+---
+
+## Mode `--list`
+
+Affiche la watchlist en table Markdown :
+
+| ID | motCle | Classes | Territoires | Niveau | Dernière exécution | Hits |
+|---|---|---|---|---|---|---|
+| WATCH-001 | APEXLEAF | 25, 35 | FR, EM | haut | 2026-05-15 | 3 |
+
+---
+
+## Mode `--audit`
+
+Health check de la watchlist :
+
+- **Entrées sans exécution > 30 j** — propose réactivation ou suppression
+- **motsCle trop génériques** (< 3 chars OU mot dictionnaire courant détecté) — flag pour révision
+- **Doublons** (même motCle + classes ⊆) — propose fusion
+- **Classes incohérentes** (ex : entrée "logiciel" sans classe 9 ni 42)
+- **Cap recommandé** : signaler si watchlist > 50 entrées (volume d'alertes risque ingérable)
+
+Sortie : tableau des findings + recommandations.
