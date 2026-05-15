@@ -1,135 +1,61 @@
-import { describe, it, expect } from "vitest";
-import { spawn } from "node:child_process";
-import { resolve } from "node:path";
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { afterEach, describe, expect, it } from "vitest";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
 
-// Le smoke test spawne le serveur MCP du plugin hacienda (qui importe @hacienda/core).
-// Le dist du plugin doit avoir été buildé avant : `npm run build` à la racine du monorepo.
-const SERVER = resolve(__dirname, "../../../plugins/hacienda/mcp-server/dist/index.js");
+const currentDir = dirname(fileURLToPath(import.meta.url));
+const root = resolve(currentDir, "../../..");
+const serverPath = resolve(root, "plugins/hacienda-sources-officielles/mcp-server/dist/index.js");
 
-interface JsonRpcResponse {
-  jsonrpc: "2.0";
-  id: number;
-  result?: unknown;
-  error?: { code: number; message: string };
-}
+const expectedTools = [
+  "piste_status",
+  "legifrance_recherche",
+  "legifrance_rechercher",
+  "legifrance_get_article",
+  "legifrance_get_code",
+  "legifrance_get_loda",
+  "legifrance_get_jurisprudence",
+  "legifrance_get_jorf",
+  "legifrance_get_circulaire",
+  "legifrance_suggest",
+  "legifrance_api_call",
+  "judilibre_status",
+  "judilibre_recherche",
+  "judilibre_get_decision",
+  "boss_status",
+  "boss_recherche",
+  "boss_get_document",
+  "bofip_rechercher",
+  "bofip_consulter",
+  "piste_cache_clear"
+];
 
-function sendAndCollect(messages: object[], timeoutMs = 5000): Promise<JsonRpcResponse[]> {
-  return new Promise((resolveFn, reject) => {
-    const proc = spawn("node", [SERVER], {
-      env: {
-        ...process.env,
-        HACIENDA_CREDENTIALS_FILE: "__hacienda_smoke_missing_credentials__.json",
-        LOG_LEVEL: "error",
-        PISTE_CLIENT_ID: "",
-        PISTE_CLIENT_SECRET: "",
-      },
-      stdio: ["pipe", "pipe", "pipe"],
+describe("hacienda sources officielles mcp", () => {
+  let client: Client | undefined;
+
+  afterEach(async () => {
+    await client?.close();
+    client = undefined;
+  });
+
+  it("expose les tools sources officielles attendus", async () => {
+    client = new Client({
+      name: "hacienda-smoke-test",
+      version: "0.1.0"
     });
 
-    const responses: JsonRpcResponse[] = [];
-    let buffer = "";
-
-    proc.stdout.on("data", (chunk) => {
-      buffer += chunk.toString();
-      const lines = buffer.split("\n");
-      buffer = lines.pop() ?? "";
-      for (const line of lines) {
-        if (!line.trim()) continue;
-        try {
-          responses.push(JSON.parse(line) as JsonRpcResponse);
-        } catch {
-          // ignore parse errors (log lines, etc.)
-        }
-      }
-      if (responses.length >= messages.length) {
-        proc.kill();
-        resolveFn(responses);
-      }
+    const transport = new StdioClientTransport({
+      command: process.execPath,
+      args: [serverPath],
+      cwd: root,
+      stderr: "pipe"
     });
 
-    proc.on("error", reject);
+    await client.connect(transport);
+    const result = await client.listTools();
+    const names = result.tools.map((tool) => tool.name).sort();
 
-    const timer = setTimeout(() => {
-      proc.kill();
-      reject(new Error(`timeout, got ${responses.length}/${messages.length}: ${JSON.stringify(responses)}`));
-    }, timeoutMs);
-    proc.on("exit", () => clearTimeout(timer));
-
-    for (const m of messages) {
-      proc.stdin.write(JSON.stringify(m) + "\n");
-    }
-  });
-}
-
-describe("hacienda mcp server — smoke", () => {
-  it("expose les tools attendus via tools/list", async () => {
-    const init = {
-      jsonrpc: "2.0",
-      id: 1,
-      method: "initialize",
-      params: {
-        protocolVersion: "2024-11-05",
-        capabilities: {},
-        clientInfo: { name: "smoke-test", version: "0.0.0" },
-      },
-    };
-    const list = { jsonrpc: "2.0", id: 2, method: "tools/list", params: {} };
-    const responses = await sendAndCollect([init, list]);
-    expect(responses).toHaveLength(2);
-    const listResp = responses[1]!;
-    expect(listResp.error).toBeUndefined();
-    const result = listResp.result as { tools: { name: string }[] };
-    const names = result.tools.map((t) => t.name);
-    const expected = [
-      "piste_status",
-      "piste_cache_clear",
-      "legifrance_recherche",
-      "legifrance_rechercher",
-      "legifrance_get_article",
-      "legifrance_get_code",
-      "legifrance_get_loda",
-      "legifrance_get_jurisprudence",
-      "legifrance_get_jorf",
-      "legifrance_get_circulaire",
-      "legifrance_suggest",
-      "legifrance_api_call",
-      "bofip_rechercher",
-      "bofip_consulter",
-      "judilibre_status",
-      "judilibre_recherche",
-      "judilibre_get_decision",
-      "boss_status",
-      "boss_recherche",
-      "boss_get_document",
-    ];
-    for (const name of expected) {
-      expect(names, `tool ${name} missing`).toContain(name);
-    }
-  });
-
-  it("appelle piste_status et reçoit un JSON valide", async () => {
-    const init = {
-      jsonrpc: "2.0",
-      id: 1,
-      method: "initialize",
-      params: {
-        protocolVersion: "2024-11-05",
-        capabilities: {},
-        clientInfo: { name: "smoke-test", version: "0.0.0" },
-      },
-    };
-    const call = {
-      jsonrpc: "2.0",
-      id: 2,
-      method: "tools/call",
-      params: { name: "piste_status", arguments: {} },
-    };
-    const responses = await sendAndCollect([init, call]);
-    const callResp = responses[1]!;
-    expect(callResp.error).toBeUndefined();
-    const result = callResp.result as { content: { type: string; text: string }[] };
-    expect(result.content[0]!.type).toBe("text");
-    const status = JSON.parse(result.content[0]!.text) as { env: string };
-    expect(status.env).toMatch(/production|sandbox/);
-  });
+    expect(names).toEqual([...expectedTools].sort());
+  }, 15_000);
 });

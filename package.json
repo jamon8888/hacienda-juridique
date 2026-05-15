@@ -1,14 +1,15 @@
 {
-  "name": "hacienda-suite",
-  "version": "0.2.0",
+  "name": "hacienda-juridique",
+  "version": "0.1.0",
   "private": true,
-  "description": "Monorepo de la suite de plugins Claude Hacienda, éditée par Hacienda — accès Légifrance/BOFiP via PISTE + équipes d'agents juridiques spécialisés.",
+  "description": "Place de marche Hacienda pour plugins juridiques francais.",
   "workspaces": [
     "packages/*",
     "plugins/*/mcp-server"
   ],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
+    "branding:check": "node scripts/check-branding.mjs",
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present"
   },
@@ -16,7 +17,7 @@
     "node": ">=20"
   },
   "author": "Hacienda (https://hacienda.diy)",
-  "license": "EUPL-1.2",
+  "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "esbuild": "^0.28.0"
   }

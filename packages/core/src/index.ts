@@ -213,8 +213,8 @@ export interface CreatedServer {
  * Crée un MCP server préconfiguré avec les 10 tools Légifrance, le cache SQLite
  * local, le client PISTE OAuth et les handlers de shutdown propre.
  *
- * Chaque plugin de la suite Hacienda (généraliste, affaires, social) appelle
- * cette fonction depuis son propre `mcp-server/src/index.ts`. Le cache et la
+ * Chaque plugin MCP Hacienda appelle cette fonction depuis son propre
+ * `mcp-server/src/index.ts`. Le cache et la
  * config sont chargés depuis `${CLAUDE_PLUGIN_ROOT}/.cache/cache.db` et les
  * variables d'env / `~/.config/hacienda/credentials.json` (cf. config.ts).
  */

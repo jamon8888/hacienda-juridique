@@ -2,7 +2,7 @@
 
 ## Objectif
 
-Définir les plugins métiers de la marketplace Hacienda, en français, selon une architecture de qualité inspirée du dépôt de référence Hacienda : un plugin par domaine, un profil de pratique, des skills orientés livrables, des agents de suivi et des connecteurs MCP.
+Définir les plugins métiers de la marketplace Hacienda, en français, selon le standard interne Hacienda : un plugin par domaine, un profil de pratique, des skills orientés livrables, des agents de suivi et des connecteurs MCP.
 
 Chaque plugin doit produire des livrables exploitables par des professionnels français du droit et du chiffre, avec sources officielles vérifiées via `hacienda-sources-officielles`.
 

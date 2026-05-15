@@ -1,0 +1,38 @@
+{
+  "mcpServers": {
+    "Hacienda Sources Officielles": {
+      "type": "stdio",
+      "title": "Hacienda Sources Officielles",
+      "required": false,
+      "risk": "low",
+      "description": "Verification des sources officielles lorsqu'un plugin revendique une analyse juridique normative."
+    },
+    "GitHub": {
+      "type": "external",
+      "title": "GitHub",
+      "required": false,
+      "risk": "medium",
+      "description": "Lecture de depots, tags, releases et diffs de plugins. Ecriture interdite sans validation humaine."
+    },
+    "Filesystem": {
+      "type": "local",
+      "title": "Filesystem local",
+      "required": false,
+      "risk": "high",
+      "description": "Lecture de plugins locaux, manifests et skills. Toute ecriture ou suppression exige validation humaine."
+    }
+  },
+  "recommendedCategories": [
+    "plugin-management",
+    "securite",
+    "marketplace",
+    "mcp-audit",
+    "droit-francais"
+  ],
+  "policy": {
+    "writesRequireHumanValidation": true,
+    "autoInstall": false,
+    "autoUpdate": false,
+    "secretAccessDefault": "blocked"
+  }
+}

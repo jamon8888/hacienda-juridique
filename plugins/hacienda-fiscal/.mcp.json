@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "Hacienda Sources Officielles": {
+      "type": "stdio",
+      "title": "Hacienda Sources Officielles",
+      "description": "Accès local aux sources officielles françaises via PISTE."
+    }
+  },
+  "recommendedCategories": [
+    "recherche-juridique",
+    "sources-officielles",
+    "droit-francais"
+  ]
+}

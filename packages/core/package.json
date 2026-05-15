@@ -33,5 +33,8 @@
     "vitest": "^3.0.0"
   },
   "author": "Hacienda (https://hacienda.diy)",
-  "license": "EUPL-1.2"
+  "license": "AGPL-3.0-or-later",
+  "optionalDependencies": {
+    "@rollup/rollup-win32-x64-msvc": "^4.60.2"
+  }
 }

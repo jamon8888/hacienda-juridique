@@ -2,7 +2,7 @@
 
 ## Objectif
 
-Créer une marketplace française de plugins juridiques professionnels, entièrement en français, structurée selon le modèle de qualité du dépôt de référence Hacienda : un manifeste marketplace, un plugin par domaine de pratique, des profils de pratique, des skills opérationnels, des agents de suivi, des garde-fous et des connecteurs MCP.
+Créer une marketplace française de plugins juridiques professionnels, entièrement en français, structurée selon le standard de qualité Hacienda : un manifeste marketplace, un plugin par domaine de pratique, des profils de pratique, des skills opérationnels, des agents de suivi, des garde-fous et des connecteurs MCP.
 
 Hacienda doit se positionner comme une couche d'orchestration et de preuve pour avocats, juristes, fiscalistes et experts-comptables. Le produit ne remplace pas les bases juridiques existantes : il les organise, les exploite avec prudence et vérifie les sources primaires via la couche sources officielles.
 
@@ -14,7 +14,7 @@ Hacienda doit se positionner comme une couche d'orchestration et de preuve pour 
 - Les agents sont nommés par mission, pas par personnages.
 - Toute référence à l'ancien branding doit disparaître des plugins, packages, chemins de configuration, commandes, descriptions, README et exemples.
 - Le MCP Légifrance/BOFiP devient le plugin socle `hacienda-sources-officielles`.
-- La marketplace suit une architecture de plugins par domaine, proche du modèle Hacienda, mais adaptée aux usages français.
+- La marketplace suit une architecture de plugins par domaine adaptee aux usages francais.
 
 ## Structure Cible
 
@@ -84,7 +84,7 @@ Les packages internes suivent la même logique :
 
 ## Profil Cabinet Et Profils De Pratique
 
-Hacienda utilise deux niveaux de configuration, comme les plugins Hacienda :
+Hacienda utilise deux niveaux de configuration :
 
 1. Profil cabinet partagé :
 

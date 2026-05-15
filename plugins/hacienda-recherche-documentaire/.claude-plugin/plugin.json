@@ -1,0 +1,20 @@
+{
+  "name": "hacienda-recherche-documentaire",
+  "version": "0.1.0",
+  "description": "Recherche supervisée dans les bases documentaires utilisées par les avocats, avec vérification des sources primaires via Hacienda Sources Officielles.",
+  "author": {
+    "name": "Hacienda",
+    "url": "https://hacienda.diy"
+  },
+  "repository": "https://github.com/jamon8888/hacienda-juridique",
+  "license": "AGPL-3.0-or-later",
+  "keywords": [
+    "hacienda",
+    "recherche-documentaire",
+    "doctrine",
+    "lexis",
+    "lefebvre-dalloz",
+    "lextenso",
+    "avocat"
+  ]
+}

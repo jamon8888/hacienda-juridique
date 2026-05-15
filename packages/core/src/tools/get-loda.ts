@@ -50,8 +50,8 @@ export function registerGetLoda(server: McpServer, http: PisteHttpClient) {
       }
       if (meta.length) lines.push(`_${meta.join(" · ")}_\n`);
 
-      // Mentions identifiantes sur des lignes dédiées (visibles, copiables tel
-      // quel par les agents — notamment Dupin pour la veille).
+      // Mentions identifiantes sur des lignes dediees, visibles et copiables
+      // telles quelles par les agents de veille.
       const idLines: string[] = [];
       if (d.nor) idLines.push(`**NOR** : \`${d.nor}\``);
       if (d.eli) idLines.push(`**ELI** : \`${d.eli}\``);

@@ -1,0 +1,18 @@
+{
+  "name": "hacienda-sources-officielles",
+  "version": "0.1.0",
+  "description": "Accès local aux sources officielles françaises : Légifrance, BOFiP, JORF, KALI et jurisprudence via PISTE.",
+  "author": {
+    "name": "Hacienda",
+    "url": "https://hacienda.diy"
+  },
+  "repository": "https://github.com/jamon8888/hacienda-juridique",
+  "license": "AGPL-3.0-or-later",
+  "keywords": [
+    "hacienda",
+    "sources-officielles",
+    "legifrance",
+    "bofip",
+    "piste"
+  ]
+}

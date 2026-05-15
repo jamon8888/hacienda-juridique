@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "Hacienda Sources Officielles": {
+      "type": "stdio",
+      "title": "Hacienda Sources Officielles",
+      "description": "Vérification des sources primaires françaises via PISTE."
+    }
+  },
+  "recommendedCategories": [
+    "recherche-documentaire",
+    "sources-officielles",
+    "navigateur",
+    "droit-francais"
+  ]
+}

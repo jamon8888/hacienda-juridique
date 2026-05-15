@@ -18,7 +18,7 @@ export function registerStatus(
     {
       title: "État de la connexion PISTE (avec test OAuth + API live)",
       description:
-        "Diagnostic complet du plugin hacienda : config locale + test OAuth réel + test API Légifrance live. À utiliser dès qu'une erreur PISTE apparaît pour distinguer un problème de credentials, de souscription, ou un hoquet infra. Le test fait un vrai appel OAuth puis un /misc/commitId — mais ne fait PAS de search.",
+        "Diagnostic complet Hacienda : config locale + test OAuth reel + test API Legifrance live. A utiliser des qu'une erreur PISTE apparait pour distinguer un probleme de credentials, de souscription ou un hoquet infra. Le test fait un vrai appel OAuth puis un /misc/commitId, mais ne fait PAS de search.",
       inputSchema: z.object({}).shape,
     },
     async () => {

@@ -30,7 +30,7 @@ interface CredentialsFile {
 function loadCredentialsFile(): CredentialsFile | undefined {
   const path =
     process.env.HACIENDA_CREDENTIALS_FILE ??
-    resolve(homedir(), ".config", "hacienda", "credentials.json");
+    resolve(homedir(), ".config", "Hacienda", "credentials.json");
   if (!existsSync(path)) return undefined;
   try {
     const content = readFileSync(path, "utf-8");
@@ -49,7 +49,7 @@ function loadCredentialsFile(): CredentialsFile | undefined {
  * `env` d'un `.mcp.json` quand la variable n'est pas dans l'env du processus.
  * Au lieu de passer une string vide, il passe la chaîne littérale `${VAR}` au
  * MCP server. Sans cette détection, le loader croit que la variable est
- * définie et ne fallback pas sur `~/.config/hacienda/credentials.json`.
+ * definie et ne fallback pas sur `~/.config/hacienda/credentials.json`.
  */
 function cleanEnv(v: string | undefined): string | undefined {
   if (!v) return undefined;
