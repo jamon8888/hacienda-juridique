@@ -49,3 +49,64 @@ C'est le garde-fou le plus visible du plugin. Sous-flagger un conflit = porte
 à sens unique (logo sur camions, produit lancé, dépôt déjà fait, tous avec un
 problème dessous). Sur-flagger = porte à 2 sens, l'avocat élague en revue.
 Rester sur la porte à 2 sens.
+
+---
+
+## Charger le profil pratique avant de commencer
+
+Avant tout, lire :
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Récupérer :
+- **Rôle** depuis `## Qui utilise ce plugin` (avocat / mandataire / non-juriste — change l'en-tête confidentialité).
+- **Juridictions inscrites** depuis `## Profil pratique PI` (défaut territoires si l'utilisateur n'en spécifie pas).
+- **Intégrations** depuis `## Intégrations disponibles` (INPI Data ✓/✗, EUIPO TMview ✓/✗ — détermine quelles bases sont interrogées).
+- **Posture de décision** — ce skill ne conclut JAMAIS "absence de risque de confusion".
+
+Si le profil contient `[A CONFIGURER]`, surfacer :
+
+> Le profil pratique n'est pas configuré — c'est ce qui adapte la posture, les
+> juridictions et la chaîne d'approbation à votre cabinet.
+>
+> **Deux choix :**
+> - Lancer `/hacienda-propriete-intellectuelle:entretien-demarrage` (10-15 min)
+> - Dire **"provisoire"** et je lance avec les défauts génériques (FR + EU,
+>   posture mesurée, rôle avocat, sans playbook) — chaque sortie sera taggée
+>   `[PROVISOIRE — configurer le profil pour une sortie sur mesure]`.
+
+### Mode provisoire
+
+Si l'utilisateur dit "provisoire", lancer normalement avec : posture mesurée,
+rôle avocat, FR + EU, pas de playbook (analyse complète plutôt que matching
+contre une position list). Tagger la note du relecteur et chaque finding
+`[PROVISOIRE]`. À la fin, ajouter :
+
+> "C'était un run générique avec les hypothèses par défaut. Lancer
+> `/hacienda-propriete-intellectuelle:entretien-demarrage` pour calibrer sur
+> VOTRE pratique — votre playbook, vos juridictions, votre tolérance au risque."
+
+---
+
+## Intake
+
+Demander en un seul batch (pas de jeu de questions à rallonge) :
+
+> Quelques questions avant le triage :
+>
+> 1. **Signe proposé.** Texte exact, stylisation éventuelle, et type :
+>    mot / figuratif / composite.
+> 2. **Produits ou services.** Ce qui sera réellement vendu sous ce signe.
+>    Une ou deux phrases — je proposerai les classes Nice et confirmerai.
+> 3. **Classes Nice.** Si déjà connues, lister. Sinon décrire les
+>    produits/services et je proposerai les classes probables.
+> 4. **Territoires.** FR / EU / Madrid international / pays spécifiques.
+>    Défaut depuis `Profil pratique PI > juridictions inscrites`.
+> 5. **Apparence en marché.** Tagline, dénominations adjacentes (gamme),
+>    trade dress, éléments visuels qui apparaîtront avec.
+
+Attendre la réponse. Si la description est vague ("appli IA", "plateforme"),
+pousser une fois :
+
+> Donne ce qu'un client voit concrètement — appli mobile grand public, API
+> entreprise, produit physique, service. Les classes en dépendent.
