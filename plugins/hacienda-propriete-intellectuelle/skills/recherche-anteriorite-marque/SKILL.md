@@ -254,3 +254,40 @@ confirmée et ajouter les résultats à la table similaires avec source
 "Famille adjacente : [famille]". Sinon, lister explicitement les familles
 comme input next-step pour la recherche professionnelle complète — ne pas
 sauter silencieusement.
+
+---
+
+## Appréciation globale du risque de confusion
+
+> **Cadre FR/UE — pas de test multi-facteurs US.** La CJUE applique
+> l'**appréciation globale** (Sabel/Puma C-251/95, Canon C-39/97, Lloyd
+> Schuhfabrik C-342/97) — interdépendance des facteurs analysée du point
+> de vue du **consommateur moyen normalement informé, raisonnablement
+> attentif et avisé**.
+>
+> Ne JAMAIS appliquer du Pont / Polaroid / Sleekcraft à des faits FR/UE.
+
+Pour chaque facteur, produire un **signal**, pas un verdict. Chaque facteur
+dit ce qui pèse de chaque côté et où est l'incertitude :
+
+- **Similitude des signes** (visuelle / auditive / conceptuelle / impression
+  d'ensemble). Considérées **ensemble**, pas isolément (CJUE Sabel).
+- **Similitude des produits/services** (Canon). Pas l'identité — la
+  perception du consommateur quant à une origine commune.
+- **Pouvoir distinctif** intrinsèque + acquis par usage de la marque
+  antérieure. Une marque renommée a une protection plus large.
+- **Public concerné et niveau d'attention**. Achat impulsif vs. achat
+  délibéré professionnel change le standard.
+- **Principe d'interdépendance** : faible similitude des signes peut être
+  compensée par forte similitude des produits, et inversement (Canon).
+
+Conformément à `## Posture de décision sur jugements subjectifs` du
+`CLAUDE.md` :
+
+- **Ne JAMAIS conclure "absence de risque de confusion".**
+- Si incertain, écrire : "Marques similaires trouvées ; appréciation à mener
+  par l'avocat avant adoption." OU "Facteurs ambigus ; jugement avocat
+  requis."
+- "Aucune marque similaire trouvée dans les bases interrogées" est
+  acceptable *uniquement* si une vraie recherche a été exécutée — sinon
+  bucket "Aucune base interrogée".
