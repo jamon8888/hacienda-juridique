@@ -65,3 +65,80 @@ Récupérer :
 Si le profil n'est pas configuré (`[A CONFIGURER]` présent), proposer
 `/hacienda-propriete-intellectuelle:entretien-demarrage` ou mode `provisoire`
 (défauts : avocat, FR + EU, posture mesurée, canal inline).
+
+---
+
+## Mode `--report [--days N]` (défaut)
+
+Pour chaque entrée dans `watchlist.yaml`, exécuter `inpi_marques_publications_recentes`
+sur la fenêtre `[aujourd'hui - N jours, aujourd'hui]` (N défaut : 7, max 30).
+
+### Étapes
+
+1. Si EUIPO TMview est configuré et l'entrée a `territoires` qui inclut "EM" ou autres
+   offices européens, appeler aussi `euipo_tmview_search` avec les mêmes mots-clés
+   et filtrer par date publication ≥ since (côté skill, pas côté API).
+2. Cross-référencer : pour chaque publication détectée, vérifier si elle est
+   déjà dans `publicationsDetectees` de l'entrée — si oui, ne pas re-flagger
+   (a déjà été notifiée).
+3. Calculer la sévérité par délai opposition :
+   - 🔴 délai opposition < 30 j (action urgente)
+   - 🟠 délai opposition 30-60 j (à préparer)
+   - 🟡 nouveau dépôt similaire, délai > 60 j
+4. Mettre à jour `watchlist.yaml` :
+   - Ajouter les nouveaux hits dans `publicationsDetectees`
+   - Mettre à jour `derniereExecution` pour chaque entrée
+   - Backup `.bak` horodaté avant écriture
+
+### Format de sortie
+
+[EN-TÊTE CONFIDENTIALITÉ — selon profil]
+
+# Surveillance marques — Rapport [date]
+
+> **Surveillance, pas opinion.** [paragraphe garde-fou tel quel]
+
+> **⚠️ Note du relecteur**
+> - **Sources :** [INPI Data ✓ | EUIPO TMview ✓/✗]
+> - **Fenêtre :** [N derniers jours, du YYYY-MM-DD au YYYY-MM-DD]
+> - **Watchlist :** [N entrées surveillées sur N total]
+> - **Avant de s'appuyer :** [1-2 actions concrètes]
+
+**Résumé :** N alertes 🔴 · N alertes 🟠 · N alertes 🟡
+
+## 🔴 OPPOSITION URGENTE (délai < 30 jours)
+
+Pour chaque hit :
+- **[signe trouvé]** [numero] · classes [...] · titulaire [...]
+  - Publié : [datePublication] · **Opposition jusqu'au [dateLimite] ([N] j restants)**
+  - Watchlist match : entrée `WATCH-XXX` "[motCle surveillé]"
+  - Référence CPI L.712-4
+  - Lien fiche : [urlSource]
+  - **Action [review] :** [route vers `recherche-anteriorite-marque` pour analyse confusion détaillée + escalation approbateur]
+
+## 🟠 OPPOSITION À PRÉVOIR (délai 30-60 j)
+
+[même format]
+
+## 🟡 NOUVEAU DÉPÔT SIMILAIRE (délai > 60 j)
+
+[même format, sans urgence opposition]
+
+## 🌐 AGENT-MANAGED
+
+[entrées watchlist marquées `agent_managed: true` — surveillance externalisée
+(Corsearch, CompuMark, cabinet tiers) → confirmer directement avec l'agent]
+
+## ❓ DONNÉES MANQUANTES
+
+[entrées watchlist sans dernière exécution réussie ou avec erreur]
+
+**Une question hors de ma checklist :** [observation seconde-ordre — omis si rien]
+
+## Que veux-tu faire ?
+
+1. **Préparer une opposition** — j'ouvre `recherche-anteriorite-marque` sur l'entrée 🔴 de votre choix pour produire l'analyse confusion détaillée
+2. **Escalader** — note pour [approbateur du profil]
+3. **Compléter les faits** — questions au PM / client / business owner
+4. **Surveiller et attendre** — j'ajoute / mets à jour les entrées watchlist concernées
+5. **Autre chose** — dis-moi
