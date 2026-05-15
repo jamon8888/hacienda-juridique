@@ -44,6 +44,7 @@ Usage prioritaire : verification cocontractant, pouvoirs du signataire, solvabil
 ## Skills
 
 - `entretien-demarrage` : configure les types de contrats, clauses sensibles et politique de redlines.
+- `verification-pouvoir-signataire` : vérifie l'identité du cocontractant et les pouvoirs apparents du signataire.
 - `recherche-contractuelle` : structure une recherche contractuelle française.
 - `reviser-contrat` : produit revue de risques, sources et recommandations.
 - `reviser-nda` : contrôle confidentialité, secret des affaires et clauses assimilées.

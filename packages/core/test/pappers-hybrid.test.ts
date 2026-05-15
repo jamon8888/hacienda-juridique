@@ -42,4 +42,20 @@ describe("Pappers hybrid MCP integration", () => {
       expect(readme, pluginName).toContain("source officielle normative");
     }
   });
+
+  it("adds focused Pappers business skills", () => {
+    const skillPaths = [
+      "plugins/hacienda-societes/skills/due-diligence-cocontractant/SKILL.md",
+      "plugins/hacienda-contrats/skills/verification-pouvoir-signataire/SKILL.md",
+      "plugins/hacienda-contentieux/skills/analyse-solvabilite-adversaire/SKILL.md",
+      "plugins/hacienda-hub-confiance/skills/audit-pappers-mcp/SKILL.md",
+    ];
+
+    for (const skillPath of skillPaths) {
+      const skill = readText(skillPath);
+      expect(skill).toContain("Pappers");
+      expect(skill).toContain("hacienda-sources-officielles");
+      expect(skill).not.toMatch(/[a-f0-9]{40,}/iu);
+    }
+  });
 });

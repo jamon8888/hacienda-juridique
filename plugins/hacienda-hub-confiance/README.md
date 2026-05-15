@@ -50,6 +50,7 @@ Usage prioritaire : audit du connecteur Pappers, classification des tools, contr
 ## Skills
 
 - `entretien-demarrage` : configure profil, allowlist, registries, connecteurs et gates.
+- `audit-pappers-mcp` : audite le connecteur Pappers, ses tools, crédits, secrets et profils d'activation.
 - `registre-plugins` : cartographie plugins installes, locaux, candidats et statuts.
 - `evaluer-skill` : QA d'un skill contre design, securite, injection et usage juridique.
 - `installer-plugin` : workflow d'installation gatee avec source brute et validation humaine.

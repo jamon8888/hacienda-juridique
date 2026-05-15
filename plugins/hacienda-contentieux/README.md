@@ -46,6 +46,7 @@ Usage prioritaire : solvabilite adversaire, procedures collectives, actifs immob
 ## Skills
 
 - `entretien-demarrage` : configure juridictions, actes, sources, pièces et seuils de validation.
+- `analyse-solvabilite-adversaire` : analyse solvabilité, procédures, groupe et actifs d'une partie adverse.
 - `ouverture-dossier` : qualifie dossier, juridiction, fondements, délais et pièces.
 - `chronologie` : construit une chronologie probatoire et procédurale.
 - `matrice-pieces` : relie pièces, faits, moyens, demandes et recevabilité.

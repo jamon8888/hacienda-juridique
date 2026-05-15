@@ -46,6 +46,7 @@ Usage prioritaire : due diligence societe, cartographie groupe, dirigeants, bene
 
 - `entretien-demarrage` : configure formes sociales, opérations, sources et seuils de validation.
 - `recherche-societes` : structure une recherche corporate française.
+- `due-diligence-cocontractant` : prépare une due diligence société/cocontractant avec Pappers optionnel et sources recoupées.
 - `audit-societes` : contrôle statuts, registres, RCS-INPI, dépôts, décisions et risques.
 - `reviser-pacte-associes` : analyse pactes, préemption, agrément, tag/drag, bad leaver et gouvernance.
 - `reviser-cession-titres` : revoit cession, promesse, SPA, pouvoirs, agréments et formalités.
