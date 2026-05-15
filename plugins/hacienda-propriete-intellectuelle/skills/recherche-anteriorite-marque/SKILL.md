@@ -110,3 +110,23 @@ pousser une fois :
 
 > Donne ce qu'un client voit concrètement — appli mobile grand public, API
 > entreprise, produit physique, service. Les classes en dépendent.
+
+---
+
+## Knockout — motifs absolus L.711-2 CPI
+
+Avant toute recherche en bases, vérifier les motifs intrinsèques qui
+condamnent un signe indépendamment de toute antériorité. Pour chaque motif,
+évaluer franchement et flagger. Ne pas rationaliser un problème évident.
+
+| Motif (L.711-2 CPI) | Ce que ça veut dire | Flagger quand |
+|---|---|---|
+| **Caractère distinctif insuffisant** (1°) | Le signe ne permet pas d'identifier un produit | Le signe désigne directement le type de produit |
+| **Descriptif** (2°) | Décrit espèce, qualité, quantité, destination, valeur, provenance, époque | Un consommateur lit le signe et sait ce que fait le produit sans imagination |
+| **Devenu usuel** (3°) | Entré dans le langage courant ou les habitudes professionnelles | Mot devenu synonyme générique de la catégorie |
+| **Forme imposée** (5°) | Forme nécessaire à la fonction technique du produit | Marque figurative — et la forme assure une fonction |
+| **Atteinte ordre public / bonnes mœurs** (7°) | Symboles d'État, AOP/IGP non autorisées, signes contraires | Signe contient un élément protégé ou choquant |
+| **Trompeur** (8°) | Risque de tromper le public sur nature, qualité, provenance | Le signe suggère une qualité que le produit n'a pas, et cette qualité importerait au consommateur |
+
+**Sortie** : pour chaque motif, soit "aucun problème identifié", soit un flag
+spécifique avec une ligne de raison. Ne pas produire un tableau plat de "pass".
