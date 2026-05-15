@@ -1,24 +1,51 @@
 ---
 name: entretien-demarrage
-description: Configure le profil de pratique Hacienda pour ce plugin.
-argument-hint: "[optionnel: --reconfigurer]"
+description: Configure le profil product counsel consommation Hacienda.
+argument-hint: "[optionnel: --reconfigurer | --mode-silencieux]"
 ---
 
-# Entretien De Démarrage
+# Entretien De Demarrage
 
-## But
+## Avant De Commencer
 
-Créer ou mettre à jour le profil de pratique dans `~/.claude/plugins/config/hacienda-juridique/hacienda-produit-consommation/CLAUDE.md`.
+Lire le profil cabinet partage et le profil de pratique existant. En Mode silencieux, reutiliser les donnees connues et marquer les inconnues `[a verifier]`.
 
-## Questions
+## Contexte Dossier
 
-1. Quel est votre rôle : avocat, juriste, expert-comptable, fiscaliste, autre professionnel ?
-2. Quel type de structure utilisez-vous : cabinet, direction juridique, cabinet comptable, institution, autre ?
-3. Quels livrables voulez-vous produire avec ce plugin ?
-4. Quelles sources ou bases documentaires utilisez-vous déjà ?
-5. Quel niveau de risque impose une validation humaine avant sortie ?
-6. Où doivent être conservés les dossiers de preuve ?
+Configurer produits, marches, trackers, seuils de risque, sources et formats de livrables.
 
-## Sortie
+## Sources A Verifier
 
-Créer un profil complet sans marqueur `[A CONFIGURER]`.
+Code de la consommation, DGCCRF, Code civil, Code de commerce, CNIL/RGPD, droit europeen consommation, ARPP, PRD et maquettes.
+
+## Workflow
+
+1. Identifier produits et audiences.
+2. Identifier pays et canaux.
+3. Lister trackers et seed launch reviews.
+4. Definir claims sensibles.
+5. Definir seuils GO, GO sous conditions, ESCALADE, STOP.
+6. Definir validateur humain et dossier de preuve.
+7. Ecrire le profil de pratique.
+
+## Garde-Fous Et Escalade
+
+Escalader si mineurs, sante, finance, abonnement, reconduction, prix, avis clients, marketplace ou pratique commerciale sensible.
+
+## Format De Sortie
+
+Profil, sources, playbooks, seuils, Mode silencieux, Note de revue et Arbre de decision.
+
+## Dossier De Preuve
+
+Conserver reponses, sources, seed reviews, trackers et points `[a verifier]`.
+
+## Arbre De Decision
+
+- Profil absent : entretien.
+- Source inconnue : `[a verifier]`.
+- Produit sensible : validation humaine.
+
+## Mode silencieux
+
+Ne jamais valider un lancement par defaut.
