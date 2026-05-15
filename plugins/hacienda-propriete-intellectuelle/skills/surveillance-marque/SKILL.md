@@ -46,3 +46,22 @@ la fenêtre couverte.
 > demeure. Avant toute action sur une publication signalée, le mandataire
 > en marques (CPI L.422-4) ou l'avocat évalue le risque de confusion (CJUE
 > Sabel/Canon/Lloyd) sur la base d'une recherche complète.
+
+---
+
+## Charger le profil + la watchlist
+
+Avant tout, lire :
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+3. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/watchlist.yaml` (créer si absent avec metadata vide + `watches: []`)
+
+Récupérer :
+- **Rôle** depuis `## Qui utilise ce plugin` (avocat / mandataire INPI / non-juriste)
+- **Posture enforcement** depuis `## Posture enforcement` du profil
+- **Approbateurs** (qui signe une opposition INPI ?)
+- **Canal d'alerte** (Slack channel / email / inline) — défaut "inline" si non configuré
+
+Si le profil n'est pas configuré (`[A CONFIGURER]` présent), proposer
+`/hacienda-propriete-intellectuelle:entretien-demarrage` ou mode `provisoire`
+(défauts : avocat, FR + EU, posture mesurée, canal inline).
