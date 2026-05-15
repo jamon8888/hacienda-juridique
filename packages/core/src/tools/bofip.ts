@@ -89,7 +89,7 @@ export async function callBofipConsulter(http: PisteHttpClient, args: BofipConsu
       content: [
         {
           type: "text" as const,
-          text: `Document BOFiP introuvable (id "${args.id}"). Vérifiez le format BOI-… dans Légifrance/PISTE.`,
+          text: `Document CIRC/BOFiP introuvable (id "${args.id}"). Utilisez l'identifiant numérique retourné par bofip_rechercher.`,
         },
       ],
     };
@@ -151,9 +151,9 @@ export function registerBofipAliases(server: McpServer, http: PisteHttpClient) {
     {
       title: "Consulter BOFiP",
       description:
-        "Récupère une fiche BOFiP par identifiant BOI (ex. `BOI-BNC-DECLA-10`) et retourne un document Markdown lisible.",
+        "Récupère un document CIRC/BOFiP par identifiant numérique retourné par `bofip_rechercher` et retourne un document Markdown lisible.",
       inputSchema: {
-        id: z.string().min(1).describe("Identifiant BOFiP `BOI-...`."),
+        id: z.string().min(1).describe("Identifiant numérique retourné par `bofip_rechercher`."),
       },
     },
     (args) => callBofipConsulter(http, args),

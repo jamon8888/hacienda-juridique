@@ -5,6 +5,10 @@ import { ConsultJorfResponseSchema } from "../schemas.js";
 import { normalizeLegiDate } from "../format.js";
 import { log } from "../logger.js";
 
+export function normalizeJorfTextCid(textCid: string): string {
+  return textCid.trim().replace(/_\d{2}-\d{2}-\d{4}$/, "");
+}
+
 export function registerGetJorf(server: McpServer, http: PisteHttpClient) {
   server.registerTool(
     "legifrance_get_jorf",
@@ -17,7 +21,8 @@ export function registerGetJorf(server: McpServer, http: PisteHttpClient) {
       },
     },
     async (args) => {
-      const raw = await http.post("/consult/jorf", { textCid: args.textCid });
+      const textCid = normalizeJorfTextCid(args.textCid);
+      const raw = await http.post("/consult/jorf", { textCid });
       const parsed = ConsultJorfResponseSchema.safeParse(raw);
       if (!parsed.success) {
         log.warn("get-jorf: response shape unexpected", { issues: parsed.error.issues.slice(0, 3) });
@@ -39,8 +44,8 @@ export function registerGetJorf(server: McpServer, http: PisteHttpClient) {
       // Mentions identifiantes sur lignes dédiées (copiables par les agents).
       const idLines: string[] = [];
       if (d.nor) idLines.push(`**NOR** : \`${d.nor}\``);
-      idLines.push(`**JORFTEXT** : \`${args.textCid}\``);
-      idLines.push(`**Lien Légifrance** : https://www.legifrance.gouv.fr/jorf/id/${args.textCid}`);
+      idLines.push(`**JORFTEXT** : \`${textCid}\``);
+      idLines.push(`**Lien Légifrance** : https://www.legifrance.gouv.fr/jorf/id/${textCid}`);
       lines.push(idLines.join("  \n"));
       lines.push("");
 

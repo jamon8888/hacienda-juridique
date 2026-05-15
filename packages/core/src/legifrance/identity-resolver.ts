@@ -158,7 +158,7 @@ export function resolveLegalIdentifier(input: string): ResolvedIdentifier | unde
       kind: "code",
       id: codeId,
       confidence: "high",
-      endpointKey: "consult.code",
+      endpointKey: "consult.legiTableMatieres",
     };
   }
 

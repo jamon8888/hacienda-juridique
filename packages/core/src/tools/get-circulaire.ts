@@ -25,11 +25,11 @@ export function registerGetCirculaire(server: McpServer, http: PisteHttpClient) 
     {
       title: "Circulaire ou fiche BOFiP",
       description:
-        "Récupère une circulaire administrative ou une fiche BOFiP (doctrine fiscale) par son identifiant. Pour les BOFiP, utilisez l'identifiant `BOI-…` (ex. `BOI-IS-BASE-30-30-20-20`). Retourne titre, ministère, état, dates, mots-clés, et le texte intégral.",
+        "Récupère une circulaire administrative par son identifiant numérique Légifrance/PISTE. Utilisez d'abord une recherche CIRC/BOFiP pour obtenir cet identifiant. Retourne titre, ministère, état, dates, mots-clés, et le texte intégral.",
       inputSchema: {
         id: z
           .string()
-          .describe("Identifiant de la circulaire (numéro) ou de la fiche BOFiP (`BOI-…`)."),
+          .describe("Identifiant numérique de la circulaire retourné par la recherche CIRC."),
       },
     },
     async (args) => {
@@ -49,7 +49,7 @@ export function registerGetCirculaire(server: McpServer, http: PisteHttpClient) 
           content: [
             {
               type: "text",
-              text: `Document introuvable (id "${args.id}"). Pour un BOFiP, vérifiez le format BOI-… (Légifrance/PISTE).`,
+              text: `Document introuvable (id "${args.id}"). L'endpoint /consult/circulaire attend l'identifiant numérique retourné par la recherche CIRC.`,
             },
           ],
         };

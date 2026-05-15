@@ -83,10 +83,12 @@ export function registerGetCode(server: McpServer, http: PisteHttpClient) {
         };
       }
       const date = args.date ?? new Date().toISOString().slice(0, 10);
-      const body: Record<string, unknown> = { textId: legitext, date };
-      if (args.sectionId) body.sctCid = args.sectionId;
+      const path = args.sectionId ? "/consult/code/tableMatieres" : "/consult/legi/tableMatieres";
+      const body: Record<string, unknown> = args.sectionId
+        ? { textId: legitext, date, sctCid: args.sectionId }
+        : { textId: legitext, date, nature: "CODE" };
 
-      const raw = await http.post("/consult/code", body);
+      const raw = await http.post(path, body);
       const parsed = ConsultTextResponseSchema.safeParse(raw);
       if (!parsed.success) {
         log.warn("get-code: response shape unexpected", { issues: parsed.error.issues.slice(0, 3) });

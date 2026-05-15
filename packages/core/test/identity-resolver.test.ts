@@ -46,7 +46,7 @@ describe("Legifrance identity resolver", () => {
       kind: "code",
       id: "LEGITEXT000006070719",
       confidence: "high",
-      endpointKey: "consult.code",
+      endpointKey: "consult.legiTableMatieres",
     });
   });
 

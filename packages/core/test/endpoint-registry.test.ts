@@ -57,6 +57,8 @@ describe("Legifrance endpoint registry", () => {
 
   it("marks diagnostic and expert routes deliberately", () => {
     expect(getEndpoint("misc.commitId").status).toBe("supported");
+    expect(getEndpoint("consult.legiTableMatieres").status).toBe("supported");
+    expect(getEndpoint("consult.code").status).toBe("expert-only");
     expect(getEndpoint("consult.codeTableMatieres").status).toBe("expert-only");
     expect(ENDPOINTS.every((endpoint) => endpoint.status)).toBe(true);
   });
