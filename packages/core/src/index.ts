@@ -20,6 +20,7 @@ import { registerCacheClear } from "./tools/cache-clear.js";
 import { registerApiCall } from "./tools/api-call.js";
 import { registerBofipAliases } from "./tools/bofip.js";
 import { registerJudilibreTools } from "./tools/judilibre.js";
+import { registerBossTools } from "./tools/boss.js";
 
 // Re-exports pour les plugins qui veulent un usage avancé.
 export { loadConfig } from "./config.js";
@@ -47,6 +48,50 @@ export {
   formatJudilibreSearch,
   judilibreDecisionUrl,
 } from "./judilibre/format.js";
+export {
+  BOSS_HOME_URL,
+  BOSS_ORIGIN,
+  BOSS_USER_AGENT,
+  assertBossUrl,
+  createBossRobotsGate,
+  fetchBossDocumentWithRobots,
+  fetchBossText,
+  BossRobotsBlockedError,
+  BossRobotsUnavailableError,
+  BossUrlError,
+} from "./boss/client.js";
+export type {
+  BossRobotsGate,
+  BossTextResponse,
+} from "./boss/client.js";
+export {
+  parseBossDocument,
+} from "./boss/parser.js";
+export type {
+  BossDocument,
+  BossSection,
+} from "./boss/parser.js";
+export {
+  diagnoseBossProbeError,
+  defaultBossStatusUnavailable,
+  probeBossStatusFromResponses,
+} from "./boss/status.js";
+export type {
+  BossProbeInput,
+  BossStatus,
+} from "./boss/status.js";
+export {
+  buildBossSearchIndex,
+  searchBossIndex,
+} from "./boss/index.js";
+export type {
+  BossSearchArgs,
+  BossSearchIndex,
+} from "./boss/index.js";
+export {
+  formatBossDocument,
+  formatBossSearchResults,
+} from "./boss/format.js";
 export { log } from "./logger.js";
 export { PisteClient, PisteCredentialsMissingError, PisteAuthError } from "./piste-client.js";
 export {
@@ -103,6 +148,7 @@ export {
   registerApiCall,
   registerBofipAliases,
   registerJudilibreTools,
+  registerBossTools,
 };
 export {
   callLegifranceApiExpert,
@@ -123,6 +169,17 @@ export type {
   JudilibreGetDecisionArgs,
   JudilibreRechercheArgs,
 } from "./tools/judilibre.js";
+export {
+  callBossGetDocument,
+  callBossRecherche,
+  callBossStatus,
+} from "./tools/boss.js";
+export type {
+  BossFetcher,
+  BossGetDocumentArgs,
+  BossProbe,
+  BossRechercheArgs,
+} from "./tools/boss.js";
 
 export interface CreateServerOptions {
   /** Nom du serveur MCP, exposé en `mcp__plugin_<plugin>_<server>__*`. */
@@ -171,6 +228,7 @@ export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
   registerApiCall(server, route);
   registerBofipAliases(server, http);
   registerJudilibreTools(server, judilibreConfig);
+  registerBossTools(server);
 
   const start = async () => {
     const transport = new StdioServerTransport();

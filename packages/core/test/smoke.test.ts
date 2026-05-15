@@ -95,6 +95,12 @@ describe("hacienda mcp server — smoke", () => {
       "legifrance_api_call",
       "bofip_rechercher",
       "bofip_consulter",
+      "judilibre_status",
+      "judilibre_recherche",
+      "judilibre_get_decision",
+      "boss_status",
+      "boss_recherche",
+      "boss_get_document",
     ];
     for (const name of expected) {
       expect(names, `tool ${name} missing`).toContain(name);
