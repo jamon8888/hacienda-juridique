@@ -190,3 +190,67 @@ mentionnée, le dire. Ne jamais inventer un numéro et ne jamais "remplir"
 un détail que le record ne supporte pas. Si la recherche n'a pas retourné
 une date de dépôt, écrire "date de dépôt non disponible dans le résultat"
 — ne pas deviner.
+
+---
+
+## Balayage des familles adjacentes (requis avant de conclure)
+
+Une recherche qui ne couvre que les exacts et les très proches manque les
+marques qu'un concurrent a adoptées *parce que* la vôtre était prise. Avant
+de conclure, identifier 3-5 familles adjacentes à balayer et **demander
+confirmation** à l'utilisateur.
+
+Familles adjacentes = substituts catégorie-conventionnels qu'un concurrent
+raisonnable considérerait quand le signe direct est indisponible.
+
+### Pour un signe comme `NEXUS HOME` (smart home), familles minimales :
+
+- **Synonymes catégoriels** de NEXUS : `HUB`, `NEST`, `CORE`, `LINK`,
+  `CONNECT`, `BRIDGE`, `CENTRAL`, `GATEWAY`.
+- **Noms style assistant** dans la catégorie : `ALEXA`, `ECHO`, `SIRI`,
+  `GOOGLE HOME`, `CORTANA`, `HOMEY`, `HOMEBASE`.
+- **Variantes HOME / HOUSE / SMART** : `SMART HOME`, `HOUSEHOLD`, `HOUSE`,
+  `MAISON`, `CASA`, `DOM`.
+- **Jumeaux phonétiques FR** sur la racine : `NEXIS`, `NEXXUS`, `NECTIS`.
+
+### Quand des juridictions non-anglophones sont visées
+
+L'analyse phonétique uniquement EN manque la source la plus fréquente de
+conflits cross-border. Ajouter :
+
+- **Équivalents traduits** : signe traduit dans EN / ES / IT / DE (top 5
+  langues EU TMview). **Doctrine des équivalents étrangers EUIPO** —
+  jurisprudence Matratzen Concord T-6/01 traite la traduction comme la
+  même marque pour le risque de confusion.
+- **Translitération** : signe écrit dans le script pertinent (Cyrillic,
+  CJK, arabe). Équivalence phonétique entre scripts est une base de
+  conflit reconnue.
+- **Variations de script** : marques enregistrées dans un script non-Latin
+  qui sonnent comme votre signe en romanisation.
+
+Si l'analyse cross-langue n'est pas faisable, dire : "Analyse phonétique
+cross-langue et équivalents traduits non effectuée — c'est la source la
+plus fréquente de conflits cross-border. Une recherche professionnelle
+en [juridiction] doit l'inclure."
+
+### Bloc de confirmation
+
+Sortir un bloc avant de conclure :
+
+> **Familles adjacentes à balayer (confirmer ou compléter) :**
+>
+> - [famille 1 — ex. HUB / NEST / LINK / CONNECT]
+> - [famille 2 — ex. ALEXA-style assistant names]
+> - [famille 3 — ex. HOME / HOUSE / SMART variants]
+> - [famille 4 — jumeaux phonétiques FR sur la racine]
+> - [famille 5 — équivalents traduits EN/ES/IT/DE si EU visé]
+>
+> Une recherche qui ne checke que exact + proche manque les marques qu'un
+> concurrent a adoptées parce que la vôtre était prise. Confirmer cette
+> liste avant que je continue.
+
+Si MCP marques connecté, **re-exécuter** la recherche sur chaque famille
+confirmée et ajouter les résultats à la table similaires avec source
+"Famille adjacente : [famille]". Sinon, lister explicitement les familles
+comme input next-step pour la recherche professionnelle complète — ne pas
+sauter silencieusement.
