@@ -52,6 +52,14 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
 
+## Quoi de neuf en V0.3
+
+- Nouveau skill `surveillance-marque` (gestion watchlist + rapport BOPI delta)
+- Nouveau agent `bopi-watcher` (cadence quotidienne, alertes Slack/inline)
+- Nouveau tool MCP `inpi_marques_publications_recentes`
+- Référentiel watchlist YAML stable (validé Zod, backup automatique)
+- Adaptations FR : délai opposition INPI 2 mois L.712-4 surveillé activement
+
 ## Quoi de neuf en V0.2
 
 - Nouveau skill `recherche-anteriorite-marque` : knockout L.711-2, recherche de similaires (3 cas), sweep des familles adjacentes FR/EU, appréciation globale CJUE, recommandations et garde-fou non-juriste.
