@@ -1,33 +1,53 @@
-# Propriete Intellectuelle
+# Hacienda Propriete Intellectuelle
 
-## Mission
+`hacienda-propriete-intellectuelle` est le plugin PI de la marketplace Hacienda : marques, portefeuille, clauses PI, open source, logiciel, preuves de creation, contrefacon, mises en demeure et strategie de defense.
 
-Propriété intellectuelle française : droit d'auteur, logiciel, marques, open source, clauses PI, contrefaçon, titularité.
+Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `[a verifier]`, Note de revue, Arbre de decision, validation humaine et dossier de preuve.
 
-## Sources
-
-Ce plugin dépend de `hacienda-sources-officielles` pour les sources primaires.
-
-## Commande De Démarrage
+## Premier Lancement
 
 ```text
 /hacienda-propriete-intellectuelle:entretien-demarrage
 ```
 
-## Skills Prévus
+## Sources Prioritaires
+
+- INPI, EUIPO, WIPO, EPO ;
+- Code de la propriete intellectuelle et Legifrance ;
+- registres domaines, depots, portefeuilles ;
+- SBOM, notices OSS, contrats et licences ;
+- preuves de creation, captures et correspondances.
+
+## Skills
 
 - `entretien-demarrage`
-- `reviser-clause-pi`
-- `analyse-droit-auteur`
-- `analyse-logiciel`
-- `conformite-open-source`
-- `recherche-marque`
-- `triage-contrefacon`
-- `rediger-mise-en-demeure-pi`
+- `clearance-marque`
+- `revue-clause-pi`
+- `revue-open-source`
+- `portefeuille-pi`
+- `tri-contrefacon`
+- `mise-en-demeure-pi`
+- `depot-preuve-creation`
+- `revue-logiciel-donnees`
+- `strategie-defense-pi`
+
+## Agents
+
+- `veilleur-renouvellements-pi` : surveille echeances portefeuille.
+- `veilleur-marques` : surveille marques et oppositions.
+- `surveillant-oss` : surveille licences et dependances.
+- `veilleur-contrefacon` : surveille signaux d'atteinte.
 
 ## Livrables
 
 - dossier de preuve ;
-- note ou mémo professionnel ;
-- sources vérifiées ;
-- points à relire manuellement.
+- note de clearance ;
+- revue de clauses ;
+- rapport OSS ;
+- registre portefeuille ;
+- projet de mise en demeure ;
+- Note de revue.
+
+## Mode Silencieux
+
+Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
