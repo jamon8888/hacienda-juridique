@@ -422,3 +422,75 @@ ouvrir.
 4. **Surveiller et attendre** — j'ajoute au tracker (V1.1 `bopi-watcher`)
 5. **Autre chose** — dis-moi
 ````
+
+---
+
+## Gate non-juriste
+
+Avant émettre la sortie, lire `## Qui utilise ce plugin`. Si Rôle = non-juriste :
+
+> Cette sortie est un triage de recherche, pas un avis juridique. Adopter,
+> déposer ou investir dans cette marque sur la seule base de ce triage a
+> des conséquences juridiques — y compris être assigné en contrefaçon sur
+> une marque qui "passait" ce check. Un mandataire en marques inscrit à
+> l'INPI ou un avocat doit évaluer avant que vous bougiez.
+>
+> Voici un brief à apporter à votre mandataire/avocat — ça réduira le temps
+> de la conversation :
+>
+> [Générer un résumé 1 page : signe proposé, produits/services et classes,
+>  motifs knockout flaggés (le cas échéant), marques similaires trouvées
+>  (le cas échéant), ce qui a et n'a PAS été cherché, et 3 questions à
+>  poser au mandataire/avocat.]
+>
+> Pour trouver un avocat ou un mandataire en marques :
+> - Annuaire des avocats : https://www.avocat.fr (Conseil National des Barreaux)
+> - Annuaire des mandataires en marques INPI : https://www.inpi.fr/conseils-en-propriete-industrielle
+
+Livrer le triage complet À CÔTÉ du brief. Ne pas retenir l'analyse.
+
+---
+
+## Emplacement de la sortie
+
+Écrire à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/anteriorite-<signe-slug>-YYYY-MM-DD.md`
+et surfacer le chemin à l'utilisateur.
+
+Si le profil contient déjà un signe-slug identique pour aujourd'hui, ajouter
+un suffixe `-2`, `-3`, etc.
+
+Matter workspaces hors V1 (cf. `CLAUDE.md` `## Matter workspaces`).
+
+---
+
+## Fermeture avec l'arbre de décision
+
+Fermer avec l'arbre de décision suivant `CLAUDE.md` `## Sorties standardisées`.
+Personnaliser les options aux findings — les 5 par défaut sont un point de
+départ, pas un verrou.
+
+---
+
+## Ce que ce skill NE fait PAS
+
+- **Conclure que la marque est libre.** Jamais. Le garde-fou le plus visible.
+- **Substituer une recherche Data INPI exhaustive, EUIPO TMview tous offices,
+  OMPI ROMARIN, recherche figuratif, recherche noms de domaine, recherche
+  raisons sociales.**
+- **Déposer une marque.** Le dépôt est une tâche mandataire/avocat ; ce
+  skill informe la décision de déposer.
+- **Évaluer la marque renommée / dilution** au-delà d'un flag préliminaire.
+- **Adresser les indications géographiques** — skill séparé en V2.
+- **Quoter la sortie à des clients, contreparties ou la presse.** C'est de
+  la recherche interne. Privilégiée si l'en-tête en haut s'applique.
+
+---
+
+## Ton
+
+Précis, concret, honnête sur le périmètre. L'avocat lisant cette sortie doit
+savoir en 10 secondes ce que le triage a trouvé, ce qu'il n'a PAS trouvé, et
+ce qui doit se passer avant que quiconque adopte ce signe. Pas de prose
+hedgée. Le garde-fou en tête et la ligne "ne conclut pas" sur la confusion
+font le travail de scope.
