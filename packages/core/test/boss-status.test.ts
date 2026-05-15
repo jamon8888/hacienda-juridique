@@ -12,26 +12,56 @@ describe("probeBossStatusFromResponses", () => {
     });
 
     expect(status).toEqual({
-      homeUrl: BOSS_HOME_URL,
-      recommendation: "utilisable",
-      robotsStatusCode: 200,
-      canCrawl: true,
+      network: "ok",
+      robots: { status: "lu" },
       canReadHtml: true,
       cacheEntries: 2,
+      lastError: null,
+      recommendation: "utilisable",
+      homeUrl: BOSS_HOME_URL,
     });
   });
 
   it("recommends robots unavailable when robots response is missing or empty", () => {
     const status = probeBossStatusFromResponses({
       homeUrl: BOSS_HOME_URL,
-      robots: { statusCode: 503, text: "" },
+      robots: { statusCode: 503, text: "User-agent: *\nAllow: /", error: "robots unavailable" },
       homepage: { statusCode: 200, contentType: "text/html", text: "<html></html>" },
       cacheEntries: 0,
     });
 
     expect(status.recommendation).toBe("robots indisponible");
-    expect(status.canCrawl).toBe(false);
+    expect(status.network).toBe("ok");
+    expect(status.robots.status).toBe("indisponible");
     expect(status.canReadHtml).toBe(true);
+    expect(status.lastError).toContain("robots unavailable");
+  });
+
+  it("marks robots forbidden when robots disallows the homepage", () => {
+    const status = probeBossStatusFromResponses({
+      homeUrl: BOSS_HOME_URL,
+      robots: { statusCode: 200, text: "User-agent: *\nDisallow: /" },
+      homepage: { statusCode: 200, contentType: "text/html", text: "<html></html>" },
+      cacheEntries: 0,
+    });
+
+    expect(status.recommendation).toBe("crawl bloqué");
+    expect(status.network).toBe("ok");
+    expect(status.robots.status).toBe("interdit");
+    expect(status.lastError).toBeNull();
+  });
+
+  it("stores response error text in lastError", () => {
+    const status = probeBossStatusFromResponses({
+      homeUrl: BOSS_HOME_URL,
+      robots: { statusCode: 200, text: "User-agent: *\nAllow: /", error: "robots warning" },
+      homepage: { statusCode: 500, contentType: "text/plain", text: "upstream failure", error: "homepage failed" },
+      cacheEntries: 1,
+    });
+
+    expect(status.lastError).toContain("robots warning");
+    expect(status.lastError).toContain("homepage failed");
+    expect(status.recommendation).toBe("parser à revoir");
   });
 });
 
@@ -47,9 +77,14 @@ describe("defaultBossStatusUnavailable", () => {
   it("returns a network blocked status for ECONNRESET", () => {
     const status = defaultBossStatusUnavailable(new Error("read ECONNRESET"));
 
-    expect(status.homeUrl).toBe(BOSS_HOME_URL);
-    expect(status.recommendation).toBe("réseau bloqué");
-    expect(status.canReadHtml).toBe(false);
-    expect(status.cacheEntries).toBe(0);
+    expect(status).toEqual({
+      network: "bloqué",
+      robots: { status: "indisponible" },
+      canReadHtml: false,
+      cacheEntries: 0,
+      lastError: expect.stringContaining("réseau bloqué"),
+      recommendation: "réseau bloqué",
+      homeUrl: BOSS_HOME_URL,
+    });
   });
 });
