@@ -1,24 +1,25 @@
 ---
 name: entretien-demarrage
-description: Configure le profil de pratique Hacienda pour ce plugin.
-argument-hint: "[optionnel: --reconfigurer]"
+description: Configure le profil de pratique permanences juridiques Hacienda.
+argument-hint: "[optionnel: --reconfigurer | --mode-silencieux]"
 ---
 
-# Entretien De Démarrage
+# Entretien De Demarrage
 
-## But
+## Avant De Commencer
 
-Créer ou mettre à jour le profil de pratique dans `~/.claude/plugins/config/hacienda-juridique/hacienda-permanences-juridiques/CLAUDE.md`.
+Lire le profil cabinet partage. En Mode silencieux, reutiliser domaine, superviseurs, regles internes et seuils connus.
 
 ## Questions
 
-1. Quel est votre rôle : avocat, juriste, expert-comptable, fiscaliste, autre professionnel ?
-2. Quel type de structure utilisez-vous : cabinet, direction juridique, cabinet comptable, institution, autre ?
-3. Quels livrables voulez-vous produire avec ce plugin ?
-4. Quelles sources ou bases documentaires utilisez-vous déjà ?
-5. Quel niveau de risque impose une validation humaine avant sortie ?
-6. Où doivent être conservés les dossiers de preuve ?
+1. Quel dispositif de permanence utilisez-vous ?
+2. Quels domaines et publics sont couverts ?
+3. Quelles demandes sont exclues ?
+4. Quelles regles conflits/confidentialite s'appliquent ?
+5. Quels delais et urgences imposent escalade ?
+6. Qui valide courriers, orientations et handoffs ?
+7. Ou conserver dossier de preuve et notes internes ?
 
 ## Sortie
 
-Créer un profil complet sans marqueur `[A CONFIGURER]`.
+Profil de pratique, filieres, seuils, source officielle, Mode silencieux, Arbre de decision, Note de revue et validation humaine.
