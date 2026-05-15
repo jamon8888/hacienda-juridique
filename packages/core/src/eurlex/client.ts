@@ -1,6 +1,18 @@
 import { request, type Dispatcher } from "undici";
+import { buildConsolidatedVersionsQuery, mapConsolidatedVersions } from "./consolidated.js";
+import { buildEurlexRelationsQuery, mapEurlexRelations, type EurlexRelationsQueryArgs } from "./citations.js";
 import { assertCelexId, eurlexDocumentUrl, publicationsCelexUrl, type EurlexLanguage } from "./celex.js";
-import type { EurlexMetadata, EurlexResourceType, EurlexSearchArgs, EurlexSearchResponse, EurlexSearchResult } from "./types.js";
+import { buildEurovocQuery, mapEurovocConcepts, type EurlexEurovocQueryArgs } from "./eurovoc.js";
+import type {
+  EurlexConsolidatedVersion,
+  EurlexEurovocConcept,
+  EurlexMetadata,
+  EurlexRelation,
+  EurlexResourceType,
+  EurlexSearchArgs,
+  EurlexSearchResponse,
+  EurlexSearchResult,
+} from "./types.js";
 
 export const SPARQL_ENDPOINT = "https://publications.europa.eu/webapi/rdf/sparql";
 export const CELLAR_REST_BASE = "https://publications.europa.eu/resource/celex";
@@ -174,6 +186,21 @@ export class EurlexClient {
       directoryCodes: uniqueValues(bindings, "directoryCode"),
       retrievedAt: new Date().toISOString(),
     };
+  }
+
+  async consolidatedVersions(celexId: string, language: EurlexLanguage = "FRA"): Promise<EurlexConsolidatedVersion[]> {
+    const query = buildConsolidatedVersionsQuery(celexId, language);
+    return mapConsolidatedVersions(await this.getSparqlJson(query), celexId, language);
+  }
+
+  async relations(args: EurlexRelationsQueryArgs): Promise<EurlexRelation[]> {
+    const language = args.language ?? "FRA";
+    return mapEurlexRelations(await this.getSparqlJson(buildEurlexRelationsQuery(args)), language);
+  }
+
+  async eurovoc(args: EurlexEurovocQueryArgs): Promise<EurlexEurovocConcept[]> {
+    const language = args.language ?? "FRA";
+    return mapEurovocConcepts(await this.getSparqlJson(buildEurovocQuery(args)), language);
   }
 
   private async getSparqlJson(query: string): Promise<SparqlResponse> {

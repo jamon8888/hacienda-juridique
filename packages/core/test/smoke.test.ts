@@ -30,6 +30,11 @@ const expectedTools = [
   "eurlex_recherche",
   "eurlex_consulter",
   "eurlex_metadata",
+  "eurlex_consolidated",
+  "eurlex_citations",
+  "eurlex_eurovoc",
+  "eurlex_versions",
+  "eurlex_formats",
   "bofip_rechercher",
   "bofip_consulter",
   "piste_cache_clear"
