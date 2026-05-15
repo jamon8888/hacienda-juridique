@@ -28,7 +28,8 @@ Le rebranding Hacienda est en cours mais ne doit pas bloquer l'ajout de nouvelle
 - On crée une couche `sources` fine et réutilisable, sans sur-abstraction.
 - Judilibre utilise un client API dédié, car son auth et sa base URL diffèrent de Légifrance.
 - BOSS utilise un indexeur HTML officiel, car aucune API REST/OpenAPI publique documentée n'a été identifiée.
-- BOSS v1 utilise `undici`, `cheerio`, `robots-parser` et `p-limit`.
+- BOSS v1 utilise `undici` et un parser HTML/robots interne conservateur.
+- `cheerio`, `robots-parser` et `p-limit` sont différés tant que le HTML BOSS réellement capturé ne justifie pas une dépendance supplémentaire.
 - Playwright et Crawlee sont exclus de BOSS v1, sauf preuve que le HTML statique officiel ne contient pas le contenu nécessaire.
 
 ## Sources Externes
@@ -44,7 +45,9 @@ Judilibre :
 BOSS :
 
 - Site officiel : `https://boss.gouv.fr`
+- Accueil canonique observé : `https://boss.gouv.fr/portail/accueil.html`
 - Présentation ministérielle : `https://solidarites.gouv.fr/bulletin-officiel-de-la-securite-sociale-boss-un-bilan-tres-positif-pour-la-securisation-des-entreprises-apres-un-de-publication`
+- Investigation réseau 14 mai 2026 : TLS valide depuis l'environnement local, mais requêtes HTTPS applicatives coupées par `ECONNRESET`. Un scan public URLScan du 6 mai 2026 confirme toutefois une réponse HTML `200` sur l'accueil BOSS. Cette donnée sert uniquement au diagnostic, pas comme source runtime.
 
 ## Architecture
 
@@ -115,8 +118,9 @@ judilibre_get_decision
 
 Créer `packages/core/src/boss/` :
 
+- `status.ts` : probe réseau non destructif de BOSS, diagnostics HTTP/TLS/robots et état du cache.
 - `client.ts` : fetch officiel limité à `https://boss.gouv.fr/**`, cache 24h, respect `robots.txt`, concurrence limitée.
-- `parser.ts` : extraction HTML avec `cheerio`.
+- `parser.ts` : extraction HTML interne limitée, testée sur fixtures BOSS officielles.
 - `catalog.ts` : points d'entrée BOSS v1.
 - `index.ts` : index local JSON et recherche normalisée.
 - `format.ts` : résultats Markdown avec URL canonique, date de consultation et paragraphes.
@@ -124,6 +128,7 @@ Créer `packages/core/src/boss/` :
 Tools MCP v1 :
 
 ```text
+boss_status
 boss_recherche
 boss_get_document
 ```
@@ -144,6 +149,7 @@ BOSS :
 - cache local uniquement ;
 - aucun serveur Hacienda distant ;
 - pas de télémétrie.
+- User-Agent explicite configurable, sans usurper un navigateur grand public.
 
 Le fichier local de credentials Hacienda pourra inclure :
 
@@ -159,19 +165,15 @@ Le fichier local de credentials Hacienda pourra inclure :
 
 ## Dépendances
 
-Ajouter à `packages/core/package.json` :
-
-```json
-{
-  "dependencies": {
-    "cheerio": "^1.2.0",
-    "p-limit": "^7.2.0",
-    "robots-parser": "^3.0.1"
-  }
-}
-```
-
 `undici` est déjà présent et reste le client HTTP principal.
+
+Aucune dépendance BOSS supplémentaire n'est ajoutée en v1. Le parser HTML et le garde robots restent internes, conservateurs et couverts par tests.
+
+Déclencheurs pour ajouter une dépendance ultérieure :
+
+- `cheerio` : si une fixture officielle BOSS montre une structure HTML que le parser interne ne sait pas extraire sans ambiguïté.
+- `robots-parser` : si le `robots.txt` officiel utilise des règles avancées nécessaires au crawl. En attendant, les motifs non supportés échouent fermés.
+- `p-limit` : si une vraie indexation multi-pages est activée. La v1 expose surtout `boss_status` et `boss_get_document`, tandis que `boss_recherche` signale explicitement un index vide tant qu'aucune indexation n'a été alimentée.
 
 Ne pas ajouter :
 
@@ -247,6 +249,20 @@ Sortie :
 - URL canonique ;
 - date de consultation.
 
+### `boss_status`
+
+Retourne :
+
+- URL d'accueil testée ;
+- disponibilité réseau ;
+- statut `robots.txt` : lu, interdit, indisponible ou erreur ;
+- capacité à lire une page HTML BOSS ;
+- état du cache local ;
+- dernier diagnostic d'erreur, sans pile technique bruyante ;
+- recommandation courte : utilisable, crawl bloqué, réseau bloqué, robots indisponible, parser à revoir.
+
+Ce tool doit fonctionner sans lancer d'indexation. Il sert à distinguer une indisponibilité réelle de BOSS d'un blocage réseau propre à l'environnement d'exécution.
+
 ### `boss_get_document`
 
 Entrée :
@@ -266,10 +282,14 @@ Sortie :
 
 - Ne crawler que `https://boss.gouv.fr/**`.
 - Lire et respecter `https://boss.gouv.fr/robots.txt`.
+- Si `robots.txt` est indisponible, ne pas lancer de crawl d'indexation automatique. Autoriser seulement un fetch unitaire explicite d'une URL BOSS officielle, avec message de prudence, si le mode produit le permet.
 - Limiter la concurrence à 2 requêtes.
 - Utiliser un User-Agent explicite du plugin.
 - Ne pas exécuter de JavaScript.
 - Ne pas contourner de restriction technique.
+- Ne pas utiliser URLScan, Google cache, snippets ou autres tiers comme source de contenu runtime.
+- Démarrer l'index par une liste de seeds officielle : accueil BOSS, liens de navigation internes, puis pages documentaires sous `/portail/accueil/**/*.html`.
+- Capturer des fixtures HTML depuis le site officiel uniquement quand l'accès direct fonctionne ; sinon garder le statut BOSS en diagnostic bloqué.
 - Ne pas inférer une date d'opposabilité si elle n'apparaît pas explicitement.
 - Conserver l'URL canonique dans chaque résultat.
 - Mentionner la date de consultation même si le contenu vient du cache.
@@ -298,6 +318,8 @@ Judilibre :
 BOSS :
 
 - robots interdit : refuser le crawl et expliquer ;
+- robots indisponible : refuser l'indexation automatique, proposer `boss_status` et un fetch unitaire explicite si applicable ;
+- `ECONNRESET` / coupure HTTPS : retourner un diagnostic réseau clair, sans marquer BOSS indisponible globalement ;
 - page non BOSS : refuser ;
 - HTML inexploitable : marquer `à vérifier` ;
 - réseau indisponible : message source temporairement indisponible ;
@@ -311,6 +333,7 @@ Unitaires :
 - config Judilibre ;
 - headers `KeyId` ;
 - formatters Judilibre ;
+- status BOSS : robots lu, robots indisponible, HTTPS coupé, cache présent ;
 - parser BOSS ;
 - normalisation de recherche BOSS ;
 - refus URL non BOSS ;
@@ -325,7 +348,7 @@ HTTP mock :
 
 Smoke :
 
-- présence de `judilibre_status`, `judilibre_recherche`, `judilibre_get_decision`, `boss_recherche`, `boss_get_document` ;
+- présence de `judilibre_status`, `judilibre_recherche`, `judilibre_get_decision`, `boss_status`, `boss_recherche`, `boss_get_document` ;
 - le serveur démarre sans `JUDILIBRE_KEY_ID` ;
 - BOSS ne requiert aucun credential.
 
@@ -354,7 +377,9 @@ Live tests :
 
 ### Phase 3 — BOSS V1
 
-- Dépendances `cheerio`, `robots-parser`, `p-limit`.
+- Pas de dépendance BOSS supplémentaire tant que le parser interne suffit.
+- `boss_status` et probe réseau/robots/cache.
+- Capture de fixtures HTML officielles si l'accès direct fonctionne.
 - Fetcher BOSS sécurisé.
 - Parser HTML.
 - Index local simple.
@@ -379,6 +404,7 @@ Live tests :
 
 - Les tools Judilibre et BOSS sont listés par le serveur MCP.
 - Le serveur démarre sans credential Judilibre.
+- `boss_status` explique clairement si l'environnement ne peut pas joindre BOSS en HTTPS.
 - BOSS fonctionne sans credential et sans navigateur.
 - Chaque résultat contient une URL officielle et une date de consultation.
 - Les erreurs ne font pas crasher le serveur.
