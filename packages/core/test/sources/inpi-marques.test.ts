@@ -44,4 +44,27 @@ describe("InpiClient", () => {
       InpiCredentialsMissingError
     );
   });
+
+  it("searchMarques retourne les résultats parsés", async () => {
+    const fixture = JSON.parse(
+      readFileSync(
+        new URL("../fixtures/inpi/search-apexleaf-class25.json", import.meta.url),
+        "utf8"
+      )
+    );
+    const fetchMock = vi.fn(async (url: string) => {
+      if (url.endsWith("/services/sso/login")) {
+        return new Response(JSON.stringify({ access_token: "t", expires_in: 3600 }));
+      }
+      return new Response(JSON.stringify(fixture));
+    });
+    const client = new InpiClient({
+      login: "u",
+      password: "p",
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+    const out = await client.searchMarques({ query: "APEXLEAF", classes: ["25"] });
+    expect(out.resultats.length).toBeGreaterThan(0);
+    expect(out.total).toBeGreaterThanOrEqual(out.resultats.length);
+  });
 });

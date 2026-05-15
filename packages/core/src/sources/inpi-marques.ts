@@ -50,6 +50,15 @@ export interface InpiClientOptions {
   fetch?: typeof fetch;
 }
 
+export interface InpiSearchArgs {
+  query: string;
+  classes?: string[];
+  type?: "mot" | "figuratif" | "composite" | "tous";
+  statut?: "en_vigueur" | "deposee" | "tous";
+  similarite?: "exacte" | "proche" | "phonetique";
+  limite?: number;
+}
+
 export class InpiClient {
   private readonly login: string;
   private readonly password: string;
@@ -83,5 +92,25 @@ export class InpiClient {
     this.token = data.access_token;
     this.tokenExpiresAt = Date.now() + (data.expires_in - 60) * 1000;     // 60s safety
     return this.token;
+  }
+
+  async searchMarques(args: InpiSearchArgs): Promise<InpiSearchResponse> {
+    const token = await this.authenticate();
+    const params = new URLSearchParams({
+      q: args.query,
+      limit: String(args.limite ?? 25),
+      similarity: args.similarite ?? "proche",
+      status: args.statut ?? "en_vigueur",
+    });
+    if (args.classes?.length) params.set("classes", args.classes.join(","));
+    if (args.type && args.type !== "tous") params.set("type", args.type);
+
+    const res = await this.fetchImpl(`${this.baseUrl}/services/marques/search?${params}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) {
+      throw new InpiHttpError(res.status, await res.text().catch(() => ""));
+    }
+    return InpiSearchResponseSchema.parse(await res.json());
   }
 }

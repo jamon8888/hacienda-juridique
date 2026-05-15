@@ -10,8 +10,10 @@ dist/
 *.db-wal
 .env
 .env.local
+.claude/settings.local.json
 .DS_Store
 coverage/
 *.log
 dist-pkg/
 *.tsbuildinfo
+.gitnexus
