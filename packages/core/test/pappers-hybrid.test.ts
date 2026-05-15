@@ -58,4 +58,12 @@ describe("Pappers hybrid MCP integration", () => {
       expect(skill).not.toMatch(/[a-f0-9]{40,}/iu);
     }
   });
+
+  it("documents credited validation before full-power activation", () => {
+    const runbook = readText("docs/integrations/pappers-mcp-validation.md");
+    expect(runbook).toContain("credits_insufficient");
+    expect(runbook).toContain("validated");
+    expect(runbook).toContain("PAPPERS_API_KEY");
+    expect(runbook).not.toMatch(/[a-f0-9]{40,}/iu);
+  });
 });

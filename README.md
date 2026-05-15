@@ -49,6 +49,10 @@ Chaque plugin Hacienda contient :
 - `agents/*.md` quand le domaine a besoin de suivi
 - `hooks/hooks.json`
 
+## Integrations
+
+- Pappers MCP hybrid validation: `docs/integrations/pappers-mcp-validation.md`
+
 ## Regle De Preuve
 
 Toute citation juridique doit indiquer sa provenance reelle. Une source officielle non consultee dans la session reste marquee `[a verifier]`.
