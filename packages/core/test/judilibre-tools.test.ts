@@ -28,6 +28,20 @@ describe("Judilibre MCP tools", () => {
     expect(text).not.toContain("secret-value");
   });
 
+  it("masks short keys without leaking the complete key", () => {
+    const config: JudilibreConfig = {
+      env: "production",
+      baseUrl: "https://api.example.test/judilibre",
+      keyId: "abc",
+      keySource: "JUDILIBRE_KEY_ID",
+    };
+
+    const text = textFrom(callJudilibreStatus(config));
+
+    expect(text).toContain('"keyPreview": "***"');
+    expect(text).not.toContain('"abc"');
+  });
+
   it("searches decisions and formats result metadata", async () => {
     const search = vi.fn().mockResolvedValue({
       total: 1,
