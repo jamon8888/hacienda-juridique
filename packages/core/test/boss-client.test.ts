@@ -76,6 +76,12 @@ describe("createBossRobotsGate", () => {
     expect(gate.canFetch(BOSS_HOME_URL)).toBe(false);
   });
 
+  it("strips inline robots comments before matching rules", () => {
+    const gate = createBossRobotsGate("https://boss.gouv.fr/robots.txt", "User-agent: *\nDisallow: /portail # blocked\n");
+
+    expect(gate.canFetch(BOSS_HOME_URL)).toBe(false);
+  });
+
   it("throws when robots body is blank", () => {
     expect(() => createBossRobotsGate("https://boss.gouv.fr/robots.txt", "  \n")).toThrow(BossRobotsUnavailableError);
   });

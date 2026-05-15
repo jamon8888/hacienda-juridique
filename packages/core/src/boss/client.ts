@@ -161,7 +161,10 @@ function parseRobotsGroups(body: string): RobotsGroup[] {
     }
 
     const field = trimmed.slice(0, separatorIndex).trim().toLowerCase();
-    const value = trimmed.slice(separatorIndex + 1).trim();
+    const value = trimmed
+      .slice(separatorIndex + 1)
+      .split("#", 1)[0]!
+      .trim();
 
     if (field === "user-agent") {
       if (!currentGroup || currentGroup.rules.length > 0) {
