@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import { parseBossDocument } from "../src/boss/parser.js";
 import type { BossStatus } from "../src/boss/status.js";
 import {
+  buildBossStatusFromProbeResults,
   callBossGetDocument,
   callBossRecherche,
   callBossStatus,
@@ -33,6 +34,28 @@ describe("BOSS MCP tools", () => {
     const result = await callBossStatus(async () => status);
 
     expect(JSON.parse(textFrom(result))).toEqual(status);
+  });
+
+  it("preserves fulfilled robots diagnostics when homepage probe fails", () => {
+    const status = buildBossStatusFromProbeResults({
+      robots: {
+        status: "fulfilled",
+        value: {
+          url: "https://boss.gouv.fr/robots.txt",
+          statusCode: 200,
+          contentType: "text/plain",
+          text: "User-agent: *\nAllow: /\n",
+        },
+      },
+      homepage: {
+        status: "rejected",
+        reason: new Error("fetch failed"),
+      },
+    });
+
+    expect(status.robots.status).toBe("lu");
+    expect(status.network).toMatch(/bloqué|erreur/);
+    expect(status.lastError).toContain("fetch failed");
   });
 
   it("callBossRecherche searches supplied docs and formats BOSS results", () => {

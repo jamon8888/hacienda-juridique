@@ -14,6 +14,7 @@ import {
 } from "../boss/index.js";
 import { parseBossDocument, type BossDocument } from "../boss/parser.js";
 import {
+  diagnoseBossProbeError,
   defaultBossStatusUnavailable,
   probeBossStatusFromResponses,
   type BossStatus,
@@ -31,6 +32,11 @@ export interface BossGetDocumentArgs {
 
 export type BossProbe = () => Promise<BossStatus>;
 export type BossFetcher = (url: string) => Promise<BossTextResponse>;
+
+export interface BossProbeResults {
+  robots: PromiseSettledResult<BossTextResponse>;
+  homepage: PromiseSettledResult<BossTextResponse>;
+}
 
 function textResult(text: string, isError?: true) {
   return {
@@ -119,26 +125,43 @@ export function registerBossTools(server: McpServer, documents: BossDocument[] =
   );
 }
 
+export function buildBossStatusFromProbeResults(results: BossProbeResults): BossStatus {
+  const robots =
+    results.robots.status === "fulfilled"
+      ? {
+          statusCode: results.robots.value.statusCode,
+          text: results.robots.value.text,
+        }
+      : {
+          error: diagnoseBossProbeError(results.robots.reason),
+        };
+  const homepage =
+    results.homepage.status === "fulfilled"
+      ? {
+          statusCode: results.homepage.value.statusCode,
+          contentType: results.homepage.value.contentType,
+          text: results.homepage.value.text,
+        }
+      : {
+          error: diagnoseBossProbeError(results.homepage.reason),
+        };
+
+  return probeBossStatusFromResponses({
+    homeUrl: BOSS_HOME_URL,
+    robots,
+    homepage,
+    cacheEntries: 0,
+  });
+}
+
 async function liveBossProbe(): Promise<BossStatus> {
   try {
-    const [robots, homepage] = await Promise.all([
+    const [robots, homepage] = await Promise.allSettled([
       fetchBossText(`${BOSS_ORIGIN}/robots.txt`),
       fetchBossText(BOSS_HOME_URL),
     ]);
 
-    return probeBossStatusFromResponses({
-      homeUrl: BOSS_HOME_URL,
-      robots: {
-        statusCode: robots.statusCode,
-        text: robots.text,
-      },
-      homepage: {
-        statusCode: homepage.statusCode,
-        contentType: homepage.contentType,
-        text: homepage.text,
-      },
-      cacheEntries: 0,
-    });
+    return buildBossStatusFromProbeResults({ robots, homepage });
   } catch (error) {
     return defaultBossStatusUnavailable(error);
   }
