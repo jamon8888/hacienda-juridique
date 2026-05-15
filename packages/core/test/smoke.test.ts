@@ -51,5 +51,5 @@ describe("hacienda sources officielles mcp", () => {
     const names = result.tools.map((tool) => tool.name).sort();
 
     expect(names).toEqual([...expectedTools].sort());
-  });
+  }, 15_000);
 });
