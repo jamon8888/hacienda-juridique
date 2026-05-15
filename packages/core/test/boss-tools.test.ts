@@ -133,4 +133,19 @@ describe("BOSS MCP tools", () => {
 
     await expect(fetchBossDocumentForTool(sourceUrl)).rejects.toThrow(/robots.txt BOSS bloque/);
   });
+
+  it("fetchBossDocumentForTool allows an explicit URL fetch when robots is unavailable", async () => {
+    const pool = mockAgent.get("https://boss.gouv.fr");
+    pool.intercept({ method: "GET", path: "/robots.txt" }).reply(404, "<html>missing</html>", {
+      headers: { "content-type": "text/html" },
+    });
+    pool.intercept({ method: "GET", path: "/portail/accueil/autres-elements-de-remuneration/avantages-en-nature.html" }).reply(200, fixture, {
+      headers: { "content-type": "text/html; charset=utf-8" },
+    });
+
+    const response = await fetchBossDocumentForTool(sourceUrl);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.text).toContain("Avantages en nature");
+  });
 });

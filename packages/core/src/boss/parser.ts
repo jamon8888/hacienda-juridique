@@ -135,11 +135,56 @@ function normalizeText(text: string): string {
 }
 
 function decodeHtml(value: string): string {
-  return value
-    .replace(/&nbsp;/giu, " ")
-    .replace(/&amp;/giu, "&")
-    .replace(/&lt;/giu, "<")
-    .replace(/&gt;/giu, ">")
-    .replace(/&quot;/giu, '"')
-    .replace(/&#39;|&apos;/giu, "'");
+  const namedEntities: Record<string, string> = {
+    nbsp: " ",
+    amp: "&",
+    lt: "<",
+    gt: ">",
+    quot: '"',
+    apos: "'",
+    eacute: "é",
+    egrave: "è",
+    ecirc: "ê",
+    euml: "ë",
+    aacute: "á",
+    agrave: "à",
+    acirc: "â",
+    auml: "ä",
+    ccedil: "ç",
+    icirc: "î",
+    iuml: "ï",
+    oacute: "ó",
+    ograve: "ò",
+    ocirc: "ô",
+    ouml: "ö",
+    uacute: "ú",
+    ugrave: "ù",
+    ucirc: "û",
+    uuml: "ü",
+    rsquo: "’",
+    lsquo: "‘",
+    rdquo: "”",
+    ldquo: "“",
+  };
+
+  return value.replace(/&(#x[0-9a-f]+|#[0-9]+|[a-z][a-z0-9]+);/giu, (match, entity: string) => {
+    const normalized = entity.toLowerCase();
+    if (normalized.startsWith("#x")) {
+      return codePointToString(Number.parseInt(normalized.slice(2), 16), match);
+    }
+    if (normalized.startsWith("#")) {
+      return codePointToString(Number.parseInt(normalized.slice(1), 10), match);
+    }
+
+    return namedEntities[normalized] ?? match;
+  });
+}
+
+function codePointToString(codePoint: number, fallback: string): string {
+  if (!Number.isFinite(codePoint)) return fallback;
+  try {
+    return String.fromCodePoint(codePoint);
+  } catch {
+    return fallback;
+  }
 }

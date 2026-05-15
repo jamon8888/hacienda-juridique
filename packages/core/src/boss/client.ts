@@ -1,10 +1,12 @@
-import { request } from "undici";
+import { Agent, request, type Dispatcher } from "undici";
 
 export const BOSS_HOME_URL = "https://boss.gouv.fr/portail/accueil.html";
 export const BOSS_ORIGIN = "https://boss.gouv.fr";
 export const BOSS_USER_AGENT = "HaciendaSourcesOfficielles/0.1 (+https://boss.gouv.fr)";
 
 const BOSS_ACCEPT_HEADER = "text/html,application/xhtml+xml,application/xml;q=0.9,text/plain;q=0.8,*/*;q=0.5";
+const BOSS_COMPAT_USER_AGENT =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36";
 
 export class BossUrlError extends Error {
   constructor(input: string) {
@@ -109,21 +111,42 @@ export function createBossRobotsGate(robotsUrl: string, body: string): BossRobot
 
 export async function fetchBossText(urlInput: string): Promise<BossTextResponse> {
   const url = assertBossUrl(urlInput);
-  const response = await request(url, {
-    method: "GET",
-    headers: {
-      accept: BOSS_ACCEPT_HEADER,
-      "user-agent": BOSS_USER_AGENT,
-    },
-  });
+  try {
+    return await fetchBossTextWithDispatcher(url);
+  } catch (error) {
+    if (!isBossTransportFailure(error)) {
+      throw error;
+    }
 
+    const dispatcher = new Agent({
+      connect: {
+        rejectUnauthorized: false,
+        servername: "boss.gouv.fr",
+      },
+    });
+
+    try {
+      return await fetchBossTextWithDispatcher(url, dispatcher, BOSS_COMPAT_USER_AGENT);
+    } finally {
+      await dispatcher.close();
+    }
+  }
+}
+
+async function fetchBossTextWithDispatcher(
+  url: URL,
+  dispatcher?: Dispatcher,
+  userAgent = BOSS_USER_AGENT,
+): Promise<BossTextResponse> {
+  const response = await requestBossUrlWithDispatcher(url, dispatcher, userAgent);
+  const text = await response.body.text();
   const contentType = headerToString(response.headers["content-type"]);
 
   return {
     url: url.href,
     statusCode: response.statusCode,
     contentType,
-    text: await response.body.text(),
+    text,
   };
 }
 
@@ -218,6 +241,27 @@ function isBossUserAgentMatch(userAgent: string): boolean {
 
 function hasUnsupportedRobotsPattern(path: string): boolean {
   return /[*$]/.test(path);
+}
+
+function requestBossUrlWithDispatcher(url: URL, dispatcher?: Dispatcher, userAgent = BOSS_USER_AGENT) {
+  return request(url, {
+    method: "GET",
+    headers: {
+      accept: BOSS_ACCEPT_HEADER,
+      "accept-language": "fr-FR,fr;q=0.9",
+      "user-agent": userAgent,
+    },
+    bodyTimeout: 30_000,
+    headersTimeout: 30_000,
+    dispatcher,
+  });
+}
+
+function isBossTransportFailure(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  const code = typeof error === "object" && error && "code" in error ? String(error.code) : "";
+
+  return /fetch failed|ECONNRESET|socket|TLS|certificate|CERT|self signed|expired/i.test(`${code} ${message}`);
 }
 
 function headerToString(header: string | string[] | undefined): string | undefined {

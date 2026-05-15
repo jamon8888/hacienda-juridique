@@ -40,4 +40,15 @@ describe("parseBossDocument", () => {
     expect(document.title).toBe("Avantages & nature");
     expect(document.title).not.toContain("<span>");
   });
+
+  it("decodes common French HTML entities", () => {
+    const document = parseBossDocument(
+      "<html><body><main><h1>R&eacute;mun&eacute;ration</h1><p>L&rsquo;employeur &agrave; ses salari&eacute;s.</p></main></body></html>",
+      sourceUrl,
+      retrievedAt,
+    );
+
+    expect(document.title).toBe("Rémunération");
+    expect(document.text).toContain("L’employeur à ses salariés.");
+  });
 });

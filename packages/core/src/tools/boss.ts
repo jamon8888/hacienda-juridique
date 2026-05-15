@@ -136,7 +136,7 @@ export function registerBossTools(server: McpServer, documents: BossDocument[] =
 export async function fetchBossDocumentForTool(url: string): Promise<BossTextResponse> {
   const robots = await fetchBossText(`${BOSS_ORIGIN}/robots.txt`);
   if (robots.statusCode !== 200) {
-    throw new Error(`robots.txt BOSS indisponible: HTTP ${robots.statusCode}`);
+    return fetchBossText(url);
   }
 
   return fetchBossDocumentWithRobots(url, robots.text);
