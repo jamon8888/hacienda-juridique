@@ -4,6 +4,7 @@ import {
   InpiMarqueSchema,
   InpiClient,
   InpiCredentialsMissingError,
+  InpiPublicationRecenteSchema,
 } from "../../src/sources/inpi-marques.js";
 
 describe("InpiMarqueSchema", () => {
@@ -90,5 +91,22 @@ describe("InpiClient", () => {
     expect(out.numero).toBe(fixture.numero);
     expect(out.oppositions.length).toBeGreaterThan(0);
     expect(out.historique.length).toBeGreaterThan(0);
+  });
+});
+
+describe("InpiPublicationRecenteSchema", () => {
+  it("parse une publication récente avec dateOpposition_limite calculée", () => {
+    const raw = {
+      numero: "FR4123456",
+      signe: "APEXLEAVE",
+      classes: ["25"],
+      titulaire: "Concurrent SAS",
+      datePublication: "2026-05-09",
+      dateOpposition_limite: "2026-07-09",
+      urlSource: "https://data.inpi.fr/marques/FR4123456",
+    };
+    const parsed = InpiPublicationRecenteSchema.parse(raw);
+    expect(parsed.numero).toBe("FR4123456");
+    expect(parsed.dateOpposition_limite).toBe("2026-07-09");
   });
 });

@@ -143,3 +143,21 @@ export class InpiClient {
     return InpiMarqueDetailsSchema.parse(await res.json());
   }
 }
+
+export const InpiPublicationRecenteSchema = z.object({
+  numero: z.string(),
+  signe: z.string(),
+  classes: z.array(z.string()),
+  titulaire: z.string(),
+  datePublication: z.string(),                            // ISO YYYY-MM-DD
+  dateOpposition_limite: z.string(),                      // datePublication + 2 mois
+  urlSource: z.string(),
+});
+export type InpiPublicationRecente = z.infer<typeof InpiPublicationRecenteSchema>;
+
+export const InpiPublicationsRecentesResponseSchema = z.object({
+  publications: z.array(InpiPublicationRecenteSchema),
+  total: z.number().int().nonnegative(),
+  dateMaxBase: z.string(),
+});
+export type InpiPublicationsRecentesResponse = z.infer<typeof InpiPublicationsRecentesResponseSchema>;
