@@ -142,6 +142,46 @@ export class InpiClient {
     if (!res.ok) throw new InpiHttpError(res.status, await res.text().catch(() => ""));
     return InpiMarqueDetailsSchema.parse(await res.json());
   }
+
+  async marquesPublicationsRecentes(
+    args: InpiPublicationsRecentesArgs
+  ): Promise<InpiPublicationsRecentesResponse> {
+    // Validation fenêtre 30 jours max
+    const sinceDate = new Date(args.since);
+    const now = new Date();
+    const diffJours = (now.getTime() - sinceDate.getTime()) / (1000 * 60 * 60 * 24);
+    if (diffJours > 30) {
+      throw new Error(
+        `INPI publications récentes : fenêtre demandée ${diffJours.toFixed(0)} jours, max 30 jours.`
+      );
+    }
+
+    const token = await this.authenticate();
+    const params = new URLSearchParams({
+      since: args.since,
+      limit: String(args.limite ?? 50),
+    });
+    if (args.classes?.length) params.set("classes", args.classes.join(","));
+    if (args.motCle) params.set("motCle", args.motCle);
+    if (args.titulaire) params.set("titulaire", args.titulaire);
+
+    const res = await this.fetchImpl(
+      `${this.baseUrl}/services/marques/publications?${params}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    if (!res.ok) {
+      throw new InpiHttpError(res.status, await res.text().catch(() => ""));
+    }
+    return InpiPublicationsRecentesResponseSchema.parse(await res.json());
+  }
+}
+
+export interface InpiPublicationsRecentesArgs {
+  since: string;                                          // ISO YYYY-MM-DD
+  classes?: string[];
+  motCle?: string;
+  titulaire?: string;
+  limite?: number;
 }
 
 export const InpiPublicationRecenteSchema = z.object({
