@@ -62,7 +62,41 @@ Hacienda suit la logique Claude Cowork Legal : `.mcp.json` declare les connecteu
 
 ### PISTE Via Hacienda Sources Officielles
 
-PISTE n'est pas installe comme MCP externe. L'utilisateur installe le serveur MCP local `Hacienda Sources Officielles`, qui lit `PISTE_CLIENT_ID` et `PISTE_CLIENT_SECRET`, gere OAuth et transforme les API PISTE en tools MCP Hacienda.
+PISTE n'est pas installe comme MCP externe. L'utilisateur installe le serveur MCP local `Hacienda Sources Officielles`, qui lit les credentials locaux, gere OAuth pour Legifrance et transforme les API PISTE en tools MCP Hacienda.
+
+Configuration minimale :
+
+- Legifrance : `PISTE_CLIENT_ID`, `PISTE_CLIENT_SECRET`, `PISTE_ENV=production`.
+- Judilibre : `JUDILIBRE_KEY_ID`, `JUDILIBRE_ENV=production`.
+
+Pour les clients GUI qui ne transmettent pas toujours les variables d'environnement, creer un fichier local :
+
+```text
+~/.config/Hacienda/credentials.json
+```
+
+Exemple sans vraie cle :
+
+```json
+{
+  "PISTE_CLIENT_ID": "<client-id OAuth Legifrance>",
+  "PISTE_CLIENT_SECRET": "<client-secret OAuth Legifrance>",
+  "PISTE_ENV": "production",
+  "JUDILIBRE_KEY_ID": "<KeyId Judilibre>",
+  "JUDILIBRE_ENV": "production"
+}
+```
+
+Validation rapide apres installation :
+
+```text
+piste_status
+legifrance_get_article articleId=LEGIARTI000032041571
+judilibre_status
+judilibre_recherche query="licenciement" pageSize=2
+```
+
+`invalid_client` indique un mauvais couple OAuth Legifrance. `subscription required` indique que les credentials marchent mais que l'application PISTE n'a pas souscrit a l'API. Un `400` Judilibre indique en general un `KeyId` absent, mauvais ou rattache au mauvais environnement.
 
 Guide installateur complet : `docs/integrations/piste-connection.md`.
 
