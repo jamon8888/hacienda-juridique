@@ -115,6 +115,21 @@ ces sources doit être taguée avec le tag de provenance correspondant
 
 ---
 
+## Bulletins officiels
+
+| Source | Cadence | Accès | Tag |
+|---|---|---|---|
+| BOPI INPI | hebdomadaire (vendredi) | https://bopi.inpi.fr | `[BOPI INPI]` |
+| EUIPO Bulletin | hebdomadaire | https://euipo.europa.eu/eSearch/ | `[EUIPO Bulletin]` |
+| OMPI Madrid Monitor | continu | https://www3.wipo.int/madrid/monitor/ | `[OMPI Madrid Monitor]` |
+
+Le délai d'opposition INPI court à compter de la publication au BOPI
+(CPI L.712-4) : **2 mois fermes**. La surveillance quotidienne via
+`bopi-watcher` cible la fenêtre 1 jour pour ne jamais perdre une
+publication récente.
+
+---
+
 ## 5. Calendriers et délais critiques
 
 | Évènement | Délai / cadence | Source |
