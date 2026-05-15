@@ -26,6 +26,10 @@ const expectedTools = [
   "boss_status",
   "boss_recherche",
   "boss_get_document",
+  "eurlex_status",
+  "eurlex_recherche",
+  "eurlex_consulter",
+  "eurlex_metadata",
   "bofip_rechercher",
   "bofip_consulter",
   "piste_cache_clear"

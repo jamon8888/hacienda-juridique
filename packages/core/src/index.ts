@@ -21,6 +21,7 @@ import { registerApiCall } from "./tools/api-call.js";
 import { registerBofipAliases } from "./tools/bofip.js";
 import { registerJudilibreTools } from "./tools/judilibre.js";
 import { registerBossTools } from "./tools/boss.js";
+import { registerEurlexTools } from "./tools/eurlex.js";
 
 // Re-exports pour les plugins qui veulent un usage avancé.
 export { loadConfig } from "./config.js";
@@ -105,6 +106,48 @@ export {
   formatBossDocument,
   formatBossSearchResults,
 } from "./boss/format.js";
+export {
+  CELLAR_REST_BASE,
+  EURLEX_REQUEST_TIMEOUT_MS,
+  EurlexClient,
+  EurlexHttpError,
+  SPARQL_ENDPOINT,
+  buildMetadataQuery,
+  buildSearchQuery,
+  escapeSparqlString,
+} from "./eurlex/client.js";
+export {
+  EurlexCelexError,
+  assertCelexId,
+  eurlexDocumentUrl,
+  normalizeCelexId,
+  publicationsCelexUrl,
+} from "./eurlex/celex.js";
+export type { EurlexLanguage } from "./eurlex/celex.js";
+export {
+  formatEurlexDocument,
+  formatEurlexMetadata,
+  formatEurlexSearchResults,
+  stripXhtml,
+  truncateText,
+} from "./eurlex/format.js";
+export { mapEurlexSearchHits } from "./eurlex/search.js";
+export {
+  defaultEurlexStatusUnavailable,
+  probeEurlexStatusFromResponses,
+} from "./eurlex/status.js";
+export type {
+  EurlexStatus,
+  EurlexStatusInput,
+  EurlexStatusProbeResponse,
+} from "./eurlex/status.js";
+export type {
+  EurlexMetadata,
+  EurlexResourceType,
+  EurlexSearchArgs,
+  EurlexSearchResponse,
+  EurlexSearchResult,
+} from "./eurlex/types.js";
 export { log } from "./logger.js";
 export { PisteClient, PisteCredentialsMissingError, PisteAuthError } from "./piste-client.js";
 export {
@@ -162,6 +205,7 @@ export {
   registerBofipAliases,
   registerJudilibreTools,
   registerBossTools,
+  registerEurlexTools,
 };
 export {
   callLegifranceApiExpert,
@@ -195,6 +239,19 @@ export type {
   BossRechercheArgs,
   BossSearcher,
 } from "./tools/boss.js";
+export {
+  callEurlexConsulter,
+  callEurlexMetadata,
+  callEurlexRecherche,
+  callEurlexStatus,
+} from "./tools/eurlex.js";
+export type {
+  EurlexClientLike,
+  EurlexConsulterArgs,
+  EurlexMetadataArgs,
+  EurlexProbe,
+  EurlexRechercheArgs,
+} from "./tools/eurlex.js";
 
 export interface CreateServerOptions {
   /** Nom du serveur MCP, exposé en `mcp__plugin_<plugin>_<server>__*`. */
@@ -244,6 +301,7 @@ export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
   registerBofipAliases(server, http);
   registerJudilibreTools(server, judilibreConfig);
   registerBossTools(server);
+  registerEurlexTools(server);
 
   const start = async () => {
     const transport = new StdioServerTransport();
