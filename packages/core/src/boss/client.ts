@@ -32,6 +32,11 @@ type RobotsRule = {
   path: string;
 };
 
+type RobotsGroup = {
+  userAgents: string[];
+  rules: RobotsRule[];
+};
+
 export type BossRobotsGate = {
   canFetch(url: string): boolean;
 };
@@ -66,12 +71,17 @@ export function createBossRobotsGate(robotsUrl: string, body: string): BossRobot
     throw new BossRobotsUnavailableError();
   }
 
-  const rules = parseRobotsRules(body);
+  const rules = selectBossRobotsRules(parseRobotsGroups(body));
 
   return {
     canFetch(urlInput: string): boolean {
       const url = assertBossUrl(urlInput);
       const path = url.pathname || "/";
+
+      if (!rules) {
+        return false;
+      }
+
       const matchingRules = rules.filter((rule) => path.startsWith(rule.path));
 
       if (matchingRules.length === 0) {
@@ -124,14 +134,19 @@ export async function fetchBossDocumentWithRobots(urlInput: string, robotsBody: 
   return fetchBossText(url.href);
 }
 
-function parseRobotsRules(body: string): RobotsRule[] {
-  const rules: RobotsRule[] = [];
-  let appliesToBossClient = false;
+function parseRobotsGroups(body: string): RobotsGroup[] {
+  const groups: RobotsGroup[] = [];
+  let currentGroup: RobotsGroup | undefined;
 
   for (const line of body.split(/\r?\n/)) {
     const trimmed = line.trim();
 
-    if (trimmed.length === 0 || trimmed.startsWith("#")) {
+    if (trimmed.length === 0) {
+      currentGroup = undefined;
+      continue;
+    }
+
+    if (trimmed.startsWith("#")) {
       continue;
     }
 
@@ -145,24 +160,47 @@ function parseRobotsRules(body: string): RobotsRule[] {
     const value = trimmed.slice(separatorIndex + 1).trim();
 
     if (field === "user-agent") {
-      appliesToBossClient = value === "*";
+      if (!currentGroup || currentGroup.rules.length > 0) {
+        currentGroup = { userAgents: [], rules: [] };
+        groups.push(currentGroup);
+      }
+
+      currentGroup.userAgents.push(value);
       continue;
     }
 
-    if (!appliesToBossClient || value.length === 0) {
+    if (!currentGroup || value.length === 0) {
       continue;
     }
 
     if (field === "allow") {
-      rules.push({ kind: "allow", path: value });
+      currentGroup.rules.push({ kind: "allow", path: value });
     }
 
     if (field === "disallow") {
-      rules.push({ kind: "disallow", path: value });
+      currentGroup.rules.push({ kind: "disallow", path: value });
     }
   }
 
-  return rules;
+  return groups;
+}
+
+function selectBossRobotsRules(groups: RobotsGroup[]): RobotsRule[] | undefined {
+  const specificGroup = groups.find((group) => group.userAgents.some(isBossUserAgentMatch));
+
+  if (specificGroup) {
+    return specificGroup.rules;
+  }
+
+  return groups.find((group) => group.userAgents.some((userAgent) => userAgent === "*"))?.rules;
+}
+
+function isBossUserAgentMatch(userAgent: string): boolean {
+  const expectedUserAgent = BOSS_USER_AGENT.toLowerCase();
+  const expectedToken = expectedUserAgent.split(/[\/\s;]/)[0] ?? expectedUserAgent;
+  const candidate = userAgent.toLowerCase();
+
+  return candidate !== "*" && (expectedUserAgent.includes(candidate) || candidate.includes(expectedToken));
 }
 
 function headerToString(header: string | string[] | undefined): string | undefined {

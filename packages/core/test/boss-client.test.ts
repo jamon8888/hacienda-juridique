@@ -52,6 +52,15 @@ describe("createBossRobotsGate", () => {
     expect(gate.canFetch(BOSS_HOME_URL)).toBe(false);
   });
 
+  it("prefers BOSS user-agent rules over wildcard rules", () => {
+    const gate = createBossRobotsGate(
+      "https://boss.gouv.fr/robots.txt",
+      ["User-agent: HaciendaSourcesOfficielles", "Disallow: /", "", "User-agent: *", "Allow: /"].join("\n"),
+    );
+
+    expect(gate.canFetch(BOSS_HOME_URL)).toBe(false);
+  });
+
   it("throws when robots body is blank", () => {
     expect(() => createBossRobotsGate("https://boss.gouv.fr/robots.txt", "  \n")).toThrow(BossRobotsUnavailableError);
   });

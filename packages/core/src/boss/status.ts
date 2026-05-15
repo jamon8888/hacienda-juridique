@@ -87,13 +87,15 @@ export function probeBossStatusFromResponses(input: BossProbeInput): BossStatus 
 }
 
 export function defaultBossStatusUnavailable(error: unknown): BossStatus {
+  const diagnostic = diagnoseBossProbeError(error);
+
   return {
     homeUrl: BOSS_HOME_URL,
-    recommendation: "robots indisponible",
+    recommendation: diagnostic.includes("réseau bloqué") ? "réseau bloqué" : "robots indisponible",
     canCrawl: false,
     canReadHtml: false,
     cacheEntries: 0,
-    diagnostic: diagnoseBossProbeError(error),
+    diagnostic,
   };
 }
 

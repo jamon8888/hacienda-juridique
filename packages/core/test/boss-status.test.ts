@@ -44,11 +44,11 @@ describe("diagnoseBossProbeError", () => {
 });
 
 describe("defaultBossStatusUnavailable", () => {
-  it("returns a conservative robots unavailable status", () => {
-    const status = defaultBossStatusUnavailable(new Error("fetch failed"));
+  it("returns a network blocked status for ECONNRESET", () => {
+    const status = defaultBossStatusUnavailable(new Error("read ECONNRESET"));
 
     expect(status.homeUrl).toBe(BOSS_HOME_URL);
-    expect(status.recommendation).toBe("robots indisponible");
+    expect(status.recommendation).toBe("réseau bloqué");
     expect(status.canReadHtml).toBe(false);
     expect(status.cacheEntries).toBe(0);
   });
