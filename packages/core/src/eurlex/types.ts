@@ -39,3 +39,46 @@ export interface EurlexMetadata {
   directoryCodes: string[];
   retrievedAt: string;
 }
+
+export interface EurlexConsolidatedVersion {
+  celexId: string;
+  baseCelexId: string;
+  dateVersion: string;
+  language: EurlexLanguage;
+  url: string;
+  title?: string;
+}
+
+export type EurlexRelationKind = "amends" | "amended_by" | "cites" | "cited_by" | "repeals" | "repealed_by" | "basis";
+
+export interface EurlexRelation {
+  kind: EurlexRelationKind;
+  sourceCelexId: string;
+  targetCelexId: string;
+  title?: string;
+  date?: string;
+  url: string;
+}
+
+export interface EurlexEurovocConcept {
+  id: string;
+  label: string;
+  language: EurlexLanguage;
+  uri: string;
+}
+
+export type EurlexDocumentFormat = "html" | "xhtml" | "xml" | "pdf" | "rdf" | "txt";
+
+export interface EurlexAvailableFormat {
+  celexId: string;
+  language: EurlexLanguage;
+  format: EurlexDocumentFormat;
+  url: string;
+  contentType?: string;
+}
+
+export type EurlexV2CacheNamespace = "consolidated" | "citations" | "eurovoc" | "formats" | "versions";
+
+export function buildEurlexV2CacheKey(namespace: EurlexV2CacheNamespace, parts: readonly string[]): string {
+  return ["eurlex", namespace, ...parts.map((part) => part.trim())].join(":");
+}
