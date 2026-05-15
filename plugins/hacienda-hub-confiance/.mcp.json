@@ -20,6 +20,19 @@
       "required": false,
       "risk": "high",
       "description": "Lecture de plugins locaux, manifests et skills. Toute ecriture ou suppression exige validation humaine."
+    },
+    "Pappers": {
+      "type": "streamable-http",
+      "title": "Pappers",
+      "description": "Connecteur externe optionnel pour donnees entreprise, dirigeants, beneficiaires, comptes, BODACC et diligence affaires. Utilise PAPPERS_API_KEY et ne constitue pas une source officielle normative Hacienda.",
+      "url": "https://mcp.pappers.fr/${PAPPERS_API_KEY}",
+      "optional": true,
+      "profiles": [
+        "pappers-core-business",
+        "pappers-risk-compliance",
+        "pappers-litigation",
+        "pappers-public-affairs"
+      ]
     }
   },
   "recommendedCategories": [

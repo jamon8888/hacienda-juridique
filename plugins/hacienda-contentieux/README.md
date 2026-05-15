@@ -22,6 +22,14 @@ Ce plugin dépend de `hacienda-sources-officielles` pour vérifier les sources p
 
 Les bases privées peuvent orienter la recherche, mais elles ne remplacent pas le contrôle des sources officielles et des pièces.
 
+## Connecteur Pappers
+
+Pappers est un connecteur MCP externe optionnel pour les donnees d'entreprise, dirigeants, beneficiaires effectifs, comptes, BODACC, cartographies et signaux de risque. Il utilise `PAPPERS_API_KEY` via `https://mcp.pappers.fr/${PAPPERS_API_KEY}` et ne doit jamais etre configure avec une cle en clair dans le depot.
+
+Pappers n'est pas une source officielle normative Hacienda. Les donnees Pappers peuvent enrichir le dossier de preuve, mais toute conclusion juridique ou citation normative doit etre recoupee avec `hacienda-sources-officielles` ou les pieces du dossier. Les champs PPE, sanctions, scoring financier et scoring non financier exigent une intention explicite et une validation humaine.
+
+Usage prioritaire : solvabilite adversaire, procedures collectives, actifs immobiliers, cartographie groupe et decisions associees.
+
 ## Règle De Preuve
 
 - Toute source ou pièce non consultée reste marquée `[à vérifier]`.
@@ -38,6 +46,7 @@ Les bases privées peuvent orienter la recherche, mais elles ne remplacent pas l
 ## Skills
 
 - `entretien-demarrage` : configure juridictions, actes, sources, pièces et seuils de validation.
+- `analyse-solvabilite-adversaire` : analyse solvabilité, procédures, groupe et actifs d'une partie adverse.
 - `ouverture-dossier` : qualifie dossier, juridiction, fondements, délais et pièces.
 - `chronologie` : construit une chronologie probatoire et procédurale.
 - `matrice-pieces` : relie pièces, faits, moyens, demandes et recevabilité.
@@ -55,6 +64,7 @@ Les bases privées peuvent orienter la recherche, mais elles ne remplacent pas l
 - `veilleur-jurisprudence-contentieux` : surveille jurisprudence utile aux dossiers.
 - `suivi-mise-en-etat` : suit conclusions, pièces, incidents, clôture et audience.
 - `suivi-transaction-contentieuse` : suit offres, concessions, protocole et renonciations.
+- `enqueteur-solvabilite-pappers` : prepare solvabilite, procedures, groupe et actifs via Pappers avec recoupement.
 
 Les agents sont sans outil par défaut. Ils doivent demander ou utiliser Hacienda Sources Officielles avant toute conclusion.
 

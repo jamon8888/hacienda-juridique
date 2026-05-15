@@ -225,12 +225,14 @@ export type {
   LegifranceEndpoint,
 } from "./legifrance/endpoints.js";
 export type {
+  BusinessDataCitation,
+  BusinessDataSource,
   OfficialSource,
   ProofStatus,
   SourceCitation,
   SourceSearchHit,
 } from "./sources/types.js";
-export { OFFICIAL_SOURCES } from "./sources/types.js";
+export { BUSINESS_DATA_SOURCES, OFFICIAL_SOURCES } from "./sources/types.js";
 export {
   registerStatus,
   registerGetArticle,

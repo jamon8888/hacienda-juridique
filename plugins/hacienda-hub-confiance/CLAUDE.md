@@ -49,6 +49,14 @@ Sources a verifier avant de recommander un plugin :
 
 Toute source non lue reste marquee `[a verifier]`. Une source officielle n'est reconnue que si elle a ete consultee ou fournie dans l'espace dossier.
 
+## Pappers MCP
+
+Pappers peut etre utilise comme connecteur externe optionnel lorsque `PAPPERS_API_KEY` est configure et que le dossier justifie des donnees entreprise. Ne jamais traiter Pappers comme une source officielle normative. Les resultats doivent indiquer le tool Pappers utilise, la date de consultation, le SIREN/SIRET ou identifiant, les champs lus et le statut de recoupement.
+
+Si la cle est absente, si les credits sont insuffisants ou si le tool Pappers n'a pas ete appele, marquer les donnees Pappers `[a verifier]`. Les champs PPE, sanctions, scoring financier et scoring non financier necessitent une demande explicite et une validation humaine.
+
+Pour les workflows Pappers, appliquer la doctrine `docs/integrations/pappers-agents-skills.md` : statuts `missing_key`, `tools_visible`, `credits_insufficient`, `needs_official_recoupement`, `validated`, `blocked`, dossier de preuve, recoupement par `hacienda-sources-officielles` et validation humaine.
+
 ## Espace Dossier
 
 Chaque audit ou installation doit creer un espace dossier avec :

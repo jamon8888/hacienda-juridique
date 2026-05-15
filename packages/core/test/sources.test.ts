@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+  BUSINESS_DATA_SOURCES,
   OFFICIAL_SOURCES,
+  type BusinessDataCitation,
+  type BusinessDataSource,
   type OfficialSource,
   type SourceCitation,
   type SourceSearchHit,
@@ -33,5 +36,24 @@ describe("source proof types", () => {
 
     expect(citation.status).toBe("vérifié");
     expect(hit.source).toBe("JUDILIBRE");
+  });
+
+  it("classifies Pappers as business data, not an official legal source", () => {
+    expect(OFFICIAL_SOURCES).toEqual(["LEGIFRANCE", "BOFIP", "JUDILIBRE", "BOSS", "EURLEX"]);
+    expect(BUSINESS_DATA_SOURCES).toEqual(["PAPPERS"]);
+
+    const source = "PAPPERS" satisfies BusinessDataSource;
+    const citation: BusinessDataCitation = {
+      source,
+      title: "Fiche entreprise Pappers",
+      retrievedAt: "2026-05-15T10:00:00.000Z",
+      status: "à vérifier",
+      tool: "informations-entreprise",
+      id: "552100554",
+      fields: ["siren", "nom_entreprise"],
+    };
+
+    expect(citation.source).toBe("PAPPERS");
+    expect(OFFICIAL_SOURCES).not.toContain("PAPPERS");
   });
 });

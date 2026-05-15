@@ -2,6 +2,10 @@ export type OfficialSource = "LEGIFRANCE" | "BOFIP" | "JUDILIBRE" | "BOSS" | "EU
 
 export const OFFICIAL_SOURCES = ["LEGIFRANCE", "BOFIP", "JUDILIBRE", "BOSS", "EURLEX"] as const satisfies readonly OfficialSource[];
 
+export type BusinessDataSource = "PAPPERS";
+
+export const BUSINESS_DATA_SOURCES = ["PAPPERS"] as const satisfies readonly BusinessDataSource[];
+
 export type ProofStatus =
   | "vérifié"
   | "à vérifier"
@@ -19,6 +23,19 @@ export interface SourceCitation {
   date?: string;
   paragraph?: string;
   tool?: string;
+}
+
+export interface BusinessDataCitation {
+  source: BusinessDataSource;
+  title: string;
+  retrievedAt: string;
+  status: ProofStatus;
+  tool: string;
+  id?: string;
+  fields?: string[];
+  url?: string;
+  recoupedWithOfficialSource?: boolean;
+  creditStatus?: "unknown" | "available" | "insufficient";
 }
 
 export interface SourceSearchHit {
