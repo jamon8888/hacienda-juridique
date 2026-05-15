@@ -94,7 +94,7 @@ export function registerJudilibreTools(
       inputSchema: {
         query: z.string().min(1).describe("Termes à rechercher dans Judilibre."),
         pageSize: z.number().int().min(1).max(50).default(10).describe("Nombre de résultats (max 50)."),
-        page: z.number().int().min(1).optional().describe("Page de résultats Judilibre."),
+        page: z.number().int().min(0).optional().describe("Page de résultats Judilibre."),
       },
     },
     (args) => callJudilibreRecherche(client, args),

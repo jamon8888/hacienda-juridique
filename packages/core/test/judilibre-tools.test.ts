@@ -63,10 +63,10 @@ describe("Judilibre MCP tools", () => {
     });
     const client = { search } as unknown as JudilibreClient;
 
-    const result = await callJudilibreRecherche(client, { query: "contrat", pageSize: 10 });
+    const result = await callJudilibreRecherche(client, { query: "contrat", pageSize: 10, page: 0 });
     const text = textFrom(result);
 
-    expect(search).toHaveBeenCalledWith({ query: "contrat", pageSize: 10, page: undefined });
+    expect(search).toHaveBeenCalledWith({ query: "contrat", pageSize: 10, page: 0 });
     expect(text).toContain("Judilibre");
     expect(text).toContain("abc");
     expect(text).toContain("Chambre sociale");
