@@ -3,6 +3,7 @@ import { z } from "zod";
 import {
   BOSS_HOME_URL,
   BOSS_ORIGIN,
+  fetchBossDocumentWithRobots,
   fetchBossText,
   type BossTextResponse,
 } from "../boss/client.js";
@@ -60,6 +61,13 @@ export async function callBossStatus(probe: BossProbe) {
 
 export function callBossRecherche(documents: BossDocument[], args: BossRechercheArgs) {
   try {
+    if (documents.length === 0) {
+      return textResult(
+        "Index BOSS local vide. Lancez d'abord une indexation BOSS officielle ou utilisez boss_get_document avec une URL BOSS précise.",
+        true,
+      );
+    }
+
     const index = buildBossSearchIndex(documents);
     const hits = searchBossIndex(index, args satisfies BossSearchArgs);
     return textResult(formatBossSearchResults(hits, args.query));
@@ -121,8 +129,17 @@ export function registerBossTools(server: McpServer, documents: BossDocument[] =
         url: z.string().url().describe("URL https://boss.gouv.fr/ du document BOSS à consulter."),
       },
     },
-    (args) => callBossGetDocument(fetchBossText, args),
+    (args) => callBossGetDocument(fetchBossDocumentForTool, args),
   );
+}
+
+export async function fetchBossDocumentForTool(url: string): Promise<BossTextResponse> {
+  const robots = await fetchBossText(`${BOSS_ORIGIN}/robots.txt`);
+  if (robots.statusCode !== 200) {
+    throw new Error(`robots.txt BOSS indisponible: HTTP ${robots.statusCode}`);
+  }
+
+  return fetchBossDocumentWithRobots(url, robots.text);
 }
 
 export function buildBossStatusFromProbeResults(results: BossProbeResults): BossStatus {

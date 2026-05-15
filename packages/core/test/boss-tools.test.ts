@@ -1,5 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { MockAgent, setGlobalDispatcher } from "undici";
+import { afterEach, beforeEach } from "vitest";
 import { describe, expect, it, vi } from "vitest";
 import { parseBossDocument } from "../src/boss/parser.js";
 import type { BossStatus } from "../src/boss/status.js";
@@ -8,12 +10,25 @@ import {
   callBossGetDocument,
   callBossRecherche,
   callBossStatus,
+  fetchBossDocumentForTool,
 } from "../src/tools/boss.js";
 
 const fixturesDir = join(import.meta.dirname, "fixtures", "boss");
 const fixture = readFileSync(join(fixturesDir, "avantages-en-nature.html"), "utf8");
 const sourceUrl = "https://boss.gouv.fr/portail/accueil/autres-elements-de-remuneration/avantages-en-nature.html";
 const retrievedAt = "2026-05-14T18:00:00.000Z";
+
+let mockAgent: MockAgent;
+
+beforeEach(() => {
+  mockAgent = new MockAgent();
+  mockAgent.disableNetConnect();
+  setGlobalDispatcher(mockAgent);
+});
+
+afterEach(async () => {
+  await mockAgent.close();
+});
 
 function textFrom(result: { content: { type: "text"; text: string }[] }): string {
   return result.content[0]!.text;
@@ -68,6 +83,13 @@ describe("BOSS MCP tools", () => {
     expect(text).toContain("https://boss.gouv.fr/");
   });
 
+  it("callBossRecherche reports an empty runtime index explicitly", () => {
+    const result = callBossRecherche([], { query: "cotisations" });
+
+    expect(result.isError).toBe(true);
+    expect(textFrom(result)).toContain("Index BOSS local vide");
+  });
+
   it("callBossGetDocument calls injected fetcher and returns parsed formatted document", async () => {
     const fetcher = vi.fn().mockResolvedValue({
       url: sourceUrl,
@@ -101,5 +123,14 @@ describe("BOSS MCP tools", () => {
 
     await expect(callBossGetDocument(nonHtmlFetcher, { url: sourceUrl })).resolves.toMatchObject({ isError: true });
     await expect(callBossGetDocument(httpErrorFetcher, { url: sourceUrl })).resolves.toMatchObject({ isError: true });
+  });
+
+  it("fetchBossDocumentForTool checks robots before fetching the document", async () => {
+    const pool = mockAgent.get("https://boss.gouv.fr");
+    pool
+      .intercept({ method: "GET", path: "/robots.txt" })
+      .reply(200, "User-agent: *\nDisallow: /portail\n", { headers: { "content-type": "text/plain" } });
+
+    await expect(fetchBossDocumentForTool(sourceUrl)).rejects.toThrow(/robots.txt BOSS bloque/);
   });
 });

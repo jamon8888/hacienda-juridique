@@ -173,6 +173,7 @@ export {
   callBossGetDocument,
   callBossRecherche,
   callBossStatus,
+  fetchBossDocumentForTool,
 } from "./tools/boss.js";
 export type {
   BossFetcher,
