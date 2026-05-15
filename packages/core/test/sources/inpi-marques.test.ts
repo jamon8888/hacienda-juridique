@@ -67,4 +67,28 @@ describe("InpiClient", () => {
     expect(out.resultats.length).toBeGreaterThan(0);
     expect(out.total).toBeGreaterThanOrEqual(out.resultats.length);
   });
+
+  it("getMarqueDetails parse les oppositions et l'historique", async () => {
+    const fixture = JSON.parse(
+      readFileSync(
+        new URL("../fixtures/inpi/details-marque-fr-1234567.json", import.meta.url),
+        "utf8"
+      )
+    );
+    const fetchMock = vi.fn(async (url: string) => {
+      if (url.endsWith("/services/sso/login")) {
+        return new Response(JSON.stringify({ access_token: "t", expires_in: 3600 }));
+      }
+      return new Response(JSON.stringify(fixture));
+    });
+    const client = new InpiClient({
+      login: "u",
+      password: "p",
+      fetch: fetchMock as unknown as typeof fetch,
+    });
+    const out = await client.getMarqueDetails("FR1234567");
+    expect(out.numero).toBe(fixture.numero);
+    expect(out.oppositions.length).toBeGreaterThan(0);
+    expect(out.historique.length).toBeGreaterThan(0);
+  });
 });

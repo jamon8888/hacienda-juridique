@@ -26,6 +26,25 @@ export const InpiSearchResponseSchema = z.object({
 
 export type InpiSearchResponse = z.infer<typeof InpiSearchResponseSchema>;
 
+export const InpiOppositionSchema = z.object({
+  numero: z.string(),
+  opposant: z.string(),
+  dateOpposition: z.string(),
+  motifs: z.array(z.string()),
+  decision: z.string().nullable(),
+});
+export const InpiHistoriqueEvenementSchema = z.object({
+  date: z.string(),
+  type: z.string(),
+  description: z.string(),
+});
+
+export const InpiMarqueDetailsSchema = InpiMarqueSchema.extend({
+  oppositions: z.array(InpiOppositionSchema).default([]),
+  historique: z.array(InpiHistoriqueEvenementSchema).default([]),
+});
+export type InpiMarqueDetails = z.infer<typeof InpiMarqueDetailsSchema>;
+
 export class InpiCredentialsMissingError extends Error {
   constructor() {
     super("INPI_DATA_LOGIN / INPI_DATA_PASSWORD non définis dans .claude/settings.local.json");
@@ -112,5 +131,15 @@ export class InpiClient {
       throw new InpiHttpError(res.status, await res.text().catch(() => ""));
     }
     return InpiSearchResponseSchema.parse(await res.json());
+  }
+
+  async getMarqueDetails(numero: string): Promise<InpiMarqueDetails> {
+    const token = await this.authenticate();
+    const res = await this.fetchImpl(
+      `${this.baseUrl}/services/marques/${encodeURIComponent(numero)}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    if (!res.ok) throw new InpiHttpError(res.status, await res.text().catch(() => ""));
+    return InpiMarqueDetailsSchema.parse(await res.json());
   }
 }
