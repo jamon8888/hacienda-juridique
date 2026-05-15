@@ -110,7 +110,7 @@ export function registerBossTools(server: McpServer, documents: BossDocument[] =
     {
       title: "Recherche BOSS",
       description:
-        "Recherche dans les documents BOSS fournis au serveur et retourne des résultats Markdown avec liens officiels.",
+        "Recherche dans l'index local BOSS fourni au serveur. Si aucun index n'est alimenté, retourne une erreur explicite au lieu d'un faux résultat vide.",
       inputSchema: {
         query: z.string().min(1).describe("Termes à rechercher dans le BOSS."),
         rubrique: z.string().min(1).optional().describe("Filtre optionnel sur le fil d'Ariane / rubrique BOSS."),

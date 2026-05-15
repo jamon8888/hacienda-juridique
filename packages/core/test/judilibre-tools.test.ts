@@ -24,7 +24,7 @@ describe("Judilibre MCP tools", () => {
     const text = textFrom(callJudilibreStatus(config));
 
     expect(text).toContain('"hasKeyId": true');
-    expect(text).toContain('"keyPreview": "secr…"');
+    expect(text).not.toContain("secr");
     expect(text).not.toContain("secret-value");
   });
 
@@ -38,7 +38,7 @@ describe("Judilibre MCP tools", () => {
 
     const text = textFrom(callJudilibreStatus(config));
 
-    expect(text).toContain('"keyPreview": "***"');
+    expect(text).not.toContain("keyPreview");
     expect(text).not.toContain('"abc"');
   });
 

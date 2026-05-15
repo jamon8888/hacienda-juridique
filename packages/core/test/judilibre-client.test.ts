@@ -54,7 +54,7 @@ describe("JudilibreClient", () => {
     pool
       .intercept({
         method: "GET",
-        path: "/cassation/judilibre/v1.0/decision/abc",
+        path: "/cassation/judilibre/v1.0/decision?id=abc",
       })
       .reply(403, { message: "forbidden" });
 
@@ -66,5 +66,27 @@ describe("JudilibreClient", () => {
     });
 
     await expect(client.getDecision("abc")).rejects.toBeInstanceOf(JudilibreHttpError);
+  });
+
+  it("uses the official /decision?id=... endpoint for decisions", async () => {
+    const pool = mockAgent.get("https://api.piste.gouv.fr");
+    pool
+      .intercept({
+        method: "GET",
+        path: "/cassation/judilibre/v1.0/decision?id=abc",
+        headers: { KeyId: "secret-key" },
+      })
+      .reply(200, { id: "abc", text: "Texte intégral." });
+
+    const client = new JudilibreClient({
+      env: "production",
+      baseUrl: "https://api.piste.gouv.fr/cassation/judilibre/v1.0",
+      keyId: "secret-key",
+      keySource: "JUDILIBRE_KEY_ID",
+    });
+
+    const result = await client.getDecision("abc");
+
+    expect(result.id).toBe("abc");
   });
 });

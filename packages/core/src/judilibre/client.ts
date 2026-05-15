@@ -60,7 +60,8 @@ export class JudilibreClient {
   }
 
   async getDecision(id: string): Promise<JudilibreDecision> {
-    const json = await this.getJson(`/decision/${encodeURIComponent(id)}`);
+    const params = new URLSearchParams({ id });
+    const json = await this.getJson(`/decision?${params.toString()}`);
     return JudilibreDecisionSchema.parse(json);
   }
 

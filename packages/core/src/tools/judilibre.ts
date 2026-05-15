@@ -26,19 +26,12 @@ function errorMessage(prefix: string, error: unknown): string {
   return `${prefix} : ${detail.slice(0, 500)}`;
 }
 
-export function previewSecret(value: string | undefined): string | null {
-  if (!value) return null;
-  if (value.length <= 4) return "***";
-  return `${value.slice(0, 4)}…`;
-}
-
 export function callJudilibreStatus(config: JudilibreConfig) {
   const result = {
     env: config.env,
     baseUrl: config.baseUrl,
     hasKeyId: Boolean(config.keyId),
     keySource: config.keySource,
-    keyPreview: previewSecret(config.keyId),
     diagnostic: config.keyId
       ? "Configuration Judilibre présente. Utilisez judilibre_recherche pour tester un appel API."
       : "Credentials Judilibre manquants. Définissez JUDILIBRE_KEY_ID ou PISTE_KEY_ID.",
