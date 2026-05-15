@@ -8,6 +8,14 @@
 
 **Tech Stack:** TypeScript (strict, ESM), `@modelcontextprotocol/sdk` ^1.0, Zod ^3.0, `tsc` build, `node:test` pour les tests unitaires (déjà utilisé dans le repo), fixtures JSON pour les réponses API mockées.
 
+> **🔧 Note retroactive (post-execution) :** le plan original mentionne `node:test` comme test runner. Le repo utilise en réalité **vitest** (`packages/core/package.json` : `"test": "vitest run"`, `vitest ^3.0.0`). Toutes les tâches Phase 1-2 ont été exécutées en vitest avec la translation suivante :
+> - `import { test, mock } from "node:test"` → `import { describe, it, expect, vi } from "vitest"`
+> - `import assert from "node:assert/strict"` → `expect(...)` API
+> - `mock.fn(...)` → `vi.fn(...)`
+> - Tests wrappés dans `describe("...", () => { it("...", ...) })`
+>
+> Les blocs de code de test ci-dessous restent montrés en node:test pour archive — utiliser la traduction vitest en pratique.
+
 **Spec source:** [docs/superpowers/specs/2026-05-15-hacienda-pi-marques-v1-design.md](../specs/2026-05-15-hacienda-pi-marques-v1-design.md)
 
 ---
