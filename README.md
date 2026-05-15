@@ -51,8 +51,15 @@ Chaque plugin Hacienda contient :
 
 ## Integrations
 
+- PISTE connection guide: `docs/integrations/piste-connection.md`
 - Pappers MCP hybrid validation: `docs/integrations/pappers-mcp-validation.md`
 - Pappers agents and skills doctrine: `docs/integrations/pappers-agents-skills.md`
+
+### PISTE Via Hacienda Sources Officielles
+
+PISTE n'est pas installe comme MCP externe. L'utilisateur installe le serveur MCP local `Hacienda Sources Officielles`, qui lit `PISTE_CLIENT_ID` et `PISTE_CLIENT_SECRET`, gere OAuth et transforme les API PISTE en tools MCP Hacienda.
+
+Guide installateur complet : `docs/integrations/piste-connection.md`.
 
 ### Pappers MCP Hybride
 
