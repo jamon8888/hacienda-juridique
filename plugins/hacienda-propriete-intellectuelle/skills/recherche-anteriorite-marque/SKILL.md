@@ -291,3 +291,134 @@ Conformément à `## Posture de décision sur jugements subjectifs` du
 - "Aucune marque similaire trouvée dans les bases interrogées" est
   acceptable *uniquement* si une vraie recherche a été exécutée — sinon
   bucket "Aucune base interrogée".
+
+---
+
+## Recommandations & prochaines étapes
+
+Chaque sortie ferme par des prochaines étapes concrètes, bucketées :
+
+- **Si knockout flaggé** : reformuler le signe, ou accepter le caractère
+  descriptif et planifier l'acquisition de distinctivité par usage ;
+  router vers mandataire/avocat avant adoption.
+- **Si marques similaires trouvées en bases** : revue avocat requise avant
+  adoption, dépôt ou marketing. Souvent étape suivante = recherche
+  professionnelle complète.
+- **Si aucune marque similaire mais aucune base interrogée** : recherche
+  complète requise avant adoption. Nommer les bases qu'il faut hit.
+- **Si marques similaires mais titulaire faible / abandonné / classe
+  différente** : flag pour revue avocat — le triage ne fait pas ce call.
+- **Toujours** : opinion de disponibilité complète d'un mandataire/avocat,
+  proportionnée à l'investissement que portera le signe. Une marque qui
+  ira sur une gamme produit + une campagne TV pèse plus qu'une marque pour
+  un pop-up unique.
+
+---
+
+## Format de sortie
+
+Préfixer l'en-tête confidentialité depuis `CLAUDE.md` `## Sorties standardisées`.
+
+````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon rôle]
+
+# Recherche d'antériorité marque — Premier passage (PAS UNE OPINION)
+
+> **Premier passage, pas une opinion de disponibilité.** [paragraphe garde-fou
+> en tête, reformulé tel quel]
+
+> **⚠️ Note du relecteur**
+> - **Sources :** [INPI Data ✓ vérifié | EUIPO TMview ✓ | OMPI ✗]
+> - **Lu :** [N résultats sur N]
+> - **Signalé :** [N éléments [review]]
+> - **Fraîcheur :** [base INPI vendredi YYYY-MM-DD]
+> - **Avant de s'appuyer :** [1-2 actions concrètes]
+
+**Triage :** 🟢 VERT / 🟡 ORANGE / 🔴 ROUGE — une phrase pourquoi
+
+## Signe proposé
+
+- **Signe :** [texte exact, stylisation notée]
+- **Type :** [mot / figuratif / composite]
+- **Produits / services :** [description]
+- **Classes Nice :** [numéros + libellés courts]
+- **Territoires :** [FR / EU / Madrid / pays]
+- **Cadre confusion appliqué :** Appréciation globale CJUE (Sabel/Canon/Lloyd)
+
+## Knockout — motifs absolus L.711-2 CPI
+
+| Motif | Flag | Note |
+|---|---|---|
+| Caractère distinctif (1°) | [aucun / flaggé] | [si flaggé : 1 ligne] |
+| Descriptif (2°) | ... | ... |
+| Devenu usuel (3°) | ... | ... |
+| Forme imposée (5°) | ... | ... |
+| Atteinte ordre public (7°) | ... | ... |
+| Trompeur (8°) | ... | ... |
+
+## Recherche similaires
+
+**Bases interrogées :** [INPI Data 2026-05-12 (classes 25,35) | EUIPO TMview
+2026-05-12 (offices EM,FR) | OMPI non interrogé]
+**Scope :** [classes, exact-vs-fuzzy, figuratif inclus ou non]
+
+**Familles adjacentes balayées (confirmées avec utilisateur) :**
+- [famille 1]
+- [famille 2]
+- [famille 3]
+- [famille 4]
+
+*Si aucune famille n'a été balayée (pas de connecteur, temps), elles sont
+listées explicitement comme next-step pour la recherche professionnelle
+complète — pas silencieusement skip.*
+
+| Marque | Source | Classes | Titulaire | Statut | Date dépôt | Note |
+|---|---|---|---|---|---|---|
+| [exact] | [num INPI / EUTM / autre] | [classes] | [titulaire] | [statut] | [date / non disp.] | [pourquoi ça compte — exact / famille adjacente] |
+
+*Si aucune recherche n'a été exécutée :* **Aucune base de données interrogée.**
+[bloc fallback complet]
+
+## Appréciation globale du risque de confusion — éléments pour avocat
+
+| Facteur (CJUE) | Signal | Direction |
+|---|---|---|
+| Similitude des signes (visuelle/auditive/conceptuelle/ensemble) | [note] | [pèse vers / contre conflit / mixte] |
+| Similitude des produits/services (Canon) | [note] | [direction] |
+| Pouvoir distinctif intrinsèque + acquis | [note] | [direction] |
+| Public concerné + niveau d'attention | [note] | [direction] |
+| Interdépendance | [note] | [direction] |
+
+**Conclusion :** *Ce skill ne conclut pas.* Une de :
+- "Marques similaires trouvées ; appréciation à mener par l'avocat avant adoption."
+- "Aucune marque similaire dans les bases interrogées ; recherche complète requise avant adoption."
+- "Facteurs ambigus ; jugement avocat requis."
+
+## Recommandations & prochaines étapes
+
+- [étape 1 — ex. "Recherche professionnelle complète Data INPI exhaustive +
+  EUIPO TMview tous offices + OMPI ROMARIN avant adoption"]
+- [étape 2 — ex. "Design-around revue de la marque APEXLEAF en classe 25 si
+  intent procéder"]
+- [étape 3 — ex. "Reformuler le signe — actuel descriptif, requiert
+  acquisition de distinctivité"]
+- [routing depuis le profil — mandataire INPI ou avocat PI]
+
+## Vérification des citations
+
+Chaque numéro INPI, numéro EUTM, citation jurisprudence et résultat de base
+dans ce mémo doit être vérifié contre la source autoritative avant que l'on
+s'y appuie. Les numéros, classifications et dates de dépôt sont les sites
+les plus fréquents d'erreur. Ne pas citer un résultat qu'on ne peut pas
+ouvrir.
+
+**Une question hors de ma checklist :** [observation seconde-ordre — omis si rien]
+
+## Que veux-tu faire ?
+
+1. **Préparer le dépôt** — je rédige le projet de dépôt INPI ou EUIPO
+2. **Escalader** — note pour [approbateur du profil]
+3. **Compléter les faits** — questions au PM / client / engineering
+4. **Surveiller et attendre** — j'ajoute au tracker (V1.1 `bopi-watcher`)
+5. **Autre chose** — dis-moi
+````
