@@ -20,6 +20,14 @@ Ce plugin dépend de `hacienda-sources-officielles` pour vérifier les sources p
 
 Les bases privées ou modèles internes peuvent orienter la recherche, mais ils ne remplacent pas le contrôle des sources officielles.
 
+## Connecteur Pappers
+
+Pappers est un connecteur MCP externe optionnel pour les donnees d'entreprise, dirigeants, beneficiaires effectifs, comptes, BODACC, cartographies et signaux de risque. Il utilise `PAPPERS_API_KEY` via `https://mcp.pappers.fr/${PAPPERS_API_KEY}` et ne doit jamais etre configure avec une cle en clair dans le depot.
+
+Pappers n'est pas une source officielle normative Hacienda. Les donnees Pappers peuvent enrichir le dossier de preuve, mais toute conclusion juridique ou citation normative doit etre recoupee avec `hacienda-sources-officielles` ou les pieces du dossier. Les champs PPE, sanctions, scoring financier et scoring non financier exigent une intention explicite et une validation humaine.
+
+Usage prioritaire : verification cocontractant, pouvoirs du signataire, solvabilite et adaptation des clauses au risque.
+
 ## Règle De Preuve
 
 - Toute source non consultée reste marquée `[à vérifier]`.

@@ -35,6 +35,12 @@ Aucune réponse contentieuse complète ne sort sans croiser, lorsque pertinent, 
 
 Chaque livrable inclut un dossier de preuve indiquant source, référence, version/date, consultation, outil utilisé, pièce analysée, charge de preuve et statut.
 
+## Pappers MCP
+
+Pappers peut etre utilise comme connecteur externe optionnel lorsque `PAPPERS_API_KEY` est configure et que le dossier justifie des donnees entreprise. Ne jamais traiter Pappers comme une source officielle normative. Les resultats doivent indiquer le tool Pappers utilise, la date de consultation, le SIREN/SIRET ou identifiant, les champs lus et le statut de recoupement.
+
+Si la cle est absente, si les credits sont insuffisants ou si le tool Pappers n'a pas ete appele, marquer les donnees Pappers `[a verifier]`. Les champs PPE, sanctions, scoring financier et scoring non financier necessitent une demande explicite et une validation humaine.
+
 ## Validation Humaine
 
 Validation humaine obligatoire avant sortie pour :
