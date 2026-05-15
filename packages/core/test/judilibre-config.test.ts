@@ -1,3 +1,6 @@
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { loadJudilibreConfig } from "../src/judilibre/config.js";
 
@@ -38,10 +41,37 @@ describe("loadJudilibreConfig", () => {
     delete process.env.JUDILIBRE_KEY_ID;
     delete process.env.PISTE_KEY_ID;
     delete process.env.JUDILIBRE_ENV;
+    process.env.HACIENDA_CREDENTIALS_FILE = join(tmpdir(), "hacienda-missing-credentials.json");
 
     const config = loadJudilibreConfig();
 
     expect(config.keyId).toBeUndefined();
     expect(config.keySource).toBe("none");
+  });
+
+  it("falls back to the Hacienda credentials file for GUI MCP clients", () => {
+    const dir = mkdtempSync(join(tmpdir(), "hacienda-judilibre-"));
+    const credentialsPath = join(dir, "credentials.json");
+    writeFileSync(
+      credentialsPath,
+      JSON.stringify({
+        JUDILIBRE_KEY_ID: "file-judilibre-key",
+        JUDILIBRE_ENV: "sandbox",
+      }),
+    );
+
+    delete process.env.JUDILIBRE_KEY_ID;
+    delete process.env.PISTE_KEY_ID;
+    delete process.env.JUDILIBRE_ENV;
+    process.env.HACIENDA_CREDENTIALS_FILE = credentialsPath;
+
+    expect(loadJudilibreConfig()).toEqual({
+      env: "sandbox",
+      baseUrl: "https://sandbox-api.piste.gouv.fr/cassation/judilibre/v1.0",
+      keyId: "file-judilibre-key",
+      keySource: "file:JUDILIBRE_KEY_ID",
+    });
+
+    rmSync(dir, { recursive: true, force: true });
   });
 });

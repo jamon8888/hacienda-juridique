@@ -107,7 +107,9 @@ Contenu :
 {
   "PISTE_CLIENT_ID": "<client-id>",
   "PISTE_CLIENT_SECRET": "<client-secret>",
-  "PISTE_ENV": "production"
+  "PISTE_ENV": "production",
+  "JUDILIBRE_KEY_ID": "<key-id Judilibre>",
+  "JUDILIBRE_ENV": "production"
 }
 ```
 
@@ -122,6 +124,91 @@ Le serveur Hacienda charge la configuration dans cet ordre :
 3. statut `credentials missing` si rien n'est disponible.
 
 Les placeholders litteraux comme `${PISTE_CLIENT_ID}` sont ignores pour permettre le fallback fichier.
+
+Judilibre suit le meme principe : `JUDILIBRE_KEY_ID` ou `PISTE_KEY_ID` peuvent etre fournis en variables d'environnement ou dans le fichier local.
+
+## Mini Tuto De Configuration
+
+### 1. Recuperer Les Bons Identifiants Sur PISTE
+
+Dans le dashboard PISTE, utiliser l'application rattachee a Hacienda et verifier que les API sont cochees :
+
+- `dila.legifrance` pour Legifrance ;
+- `minju.judilibre` pour Judilibre.
+
+Pour Legifrance, recuperer le couple OAuth de l'application :
+
+- client id ;
+- client secret.
+
+Pour Judilibre, recuperer la cle `KeyId` de l'application. Le secret Judilibre n'est pas utilise par le client Hacienda actuel pour les appels `GET /search` et `GET /decision`, car l'API Judilibre documente l'authentification par header `KeyId`.
+
+### 2. Creer Le Fichier Local Hacienda
+
+Creer le fichier suivant sur la machine qui lance Claude, Codex ou le client MCP :
+
+```text
+C:\Users\<user>\.config\Hacienda\credentials.json
+```
+
+Exemple de contenu, sans vraie valeur :
+
+```json
+{
+  "PISTE_CLIENT_ID": "<client-id OAuth Legifrance>",
+  "PISTE_CLIENT_SECRET": "<client-secret OAuth Legifrance>",
+  "PISTE_ENV": "production",
+  "JUDILIBRE_KEY_ID": "<KeyId Judilibre>",
+  "JUDILIBRE_ENV": "production"
+}
+```
+
+Ne pas ajouter ce fichier a Git. Il doit rester local a la machine de l'utilisateur.
+
+### 3. Tester Legifrance
+
+Lancer le tool MCP :
+
+```text
+piste_status
+```
+
+Le bon resultat attendu :
+
+- source des credentials : `file` ou `env` ;
+- OAuth PISTE OK ;
+- appel live Legifrance OK.
+
+Ensuite tester un appel metier :
+
+```text
+legifrance_get_article articleId=LEGIARTI000032041571
+```
+
+Resultat attendu : article 1240 du Code civil.
+
+### 4. Tester Judilibre
+
+Lancer d'abord :
+
+```text
+judilibre_status
+```
+
+Puis une recherche simple :
+
+```text
+judilibre_recherche query="licenciement" pageSize=2
+```
+
+Le bon resultat attendu : une liste de decisions Judilibre avec un total de resultats et des identifiants de decision.
+
+### 5. Lire Les Erreurs
+
+- `invalid_client` sur OAuth : mauvais couple `PISTE_CLIENT_ID` / `PISTE_CLIENT_SECRET`, secret expire, ou mauvais environnement.
+- `403 subscription required` : credentials valides, mais API non cochee ou souscription absente dans l'application PISTE.
+- `400` Judilibre avec body vide : `KeyId` absent, mauvais, ou pas rattache au bon environnement.
+- `500` ponctuel sur `/search` ou `/suggest` : reessayer avec un payload canonique ou un appel article ; PISTE peut renvoyer des erreurs internes sur certains endpoints.
 
 ## Diagnostic
 
