@@ -10,11 +10,11 @@ type SparqlValue = { value?: string };
 type SparqlBinding = Record<string, SparqlValue | undefined>;
 type SparqlResponse = { results?: { bindings?: SparqlBinding[] } };
 
-const RESOURCE_TYPES: Record<Exclude<EurlexResourceType, "any">, string> = {
-  regulation: "regulation",
-  directive: "directive",
-  decision: "decision",
-  "case-law": "case-law",
+const RESOURCE_TYPE_CELEX_PATTERNS: Record<Exclude<EurlexResourceType, "any">, string> = {
+  regulation: "^3[0-9]{4}R",
+  directive: "^3[0-9]{4}L",
+  decision: "^3[0-9]{4}D",
+  "case-law": "^6",
 };
 
 export class EurlexHttpError extends Error {
@@ -36,10 +36,11 @@ export function buildSearchQuery(args: EurlexSearchArgs): string {
   const limit = normalizeLimit(args.limit);
   const language = args.language ?? "FRA";
   const escapedQuery = escapeSparqlString(args.query.trim());
-  const filters = [`FILTER(CONTAINS(LCASE(?title), LCASE("${escapedQuery}")))`];
+  const fullTextQuery = buildBifContainsQuery(escapedQuery);
+  const filters = [`?title bif:contains "${fullTextQuery}" .`];
 
   if (args.resourceType && args.resourceType !== "any") {
-    filters.push(`FILTER(LCASE(?type) = "${RESOURCE_TYPES[args.resourceType]}")`);
+    filters.push(`FILTER(REGEX(?celex, "${RESOURCE_TYPE_CELEX_PATTERNS[args.resourceType]}"))`);
   }
 
   if (args.dateFrom) {
@@ -52,13 +53,19 @@ export function buildSearchQuery(args: EurlexSearchArgs): string {
 
   return [
     "PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>",
+    "PREFIX owl: <http://www.w3.org/2002/07/owl#>",
+    "PREFIX purl: <http://purl.org/dc/elements/1.1/>",
     "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>",
     "SELECT ?celex ?title ?date ?type WHERE {",
-    "  ?work cdm:resource_legal_id_celex ?celex .",
+    "  ?work owl:sameAs ?celexUri .",
+    '  FILTER(STRSTARTS(STR(?celexUri), "http://publications.europa.eu/resource/celex/"))',
+    '  BIND(REPLACE(STR(?celexUri), "^.*resource/celex/", "") AS ?celex)',
+    "  ?expr cdm:expression_belongs_to_work ?work ;",
+    "        cdm:expression_uses_language ?lang ;",
+    "        cdm:expression_title ?title .",
+    "  ?lang purl:identifier ?langCode .",
+    `  FILTER(STR(?langCode) = "${language}")`,
     "  OPTIONAL { ?work cdm:work_date_document ?date . }",
-    "  OPTIONAL { ?work cdm:resource_type ?type . }",
-    `  ?work cdm:work_title ?title .`,
-    `  FILTER(LANG(?title) = "${language.toLowerCase()}")`,
     ...filters.map((filter) => `  ${filter}`),
     "}",
     "ORDER BY DESC(?date)",
@@ -70,11 +77,18 @@ export function buildMetadataQuery(celexIdInput: string, language: EurlexLanguag
   const celexId = assertCelexId(celexIdInput);
   return [
     "PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>",
+    "PREFIX owl: <http://www.w3.org/2002/07/owl#>",
+    "PREFIX purl: <http://purl.org/dc/elements/1.1/>",
     "SELECT ?celex ?title ?dateDocument ?dateEffect ?type ?author ?eurovoc ?directoryCode WHERE {",
-    "  ?work cdm:resource_legal_id_celex ?celex .",
-    `  FILTER(?celex = "${celexId}")`,
-    "  OPTIONAL { ?work cdm:work_title ?title . }",
-    `  FILTER(!BOUND(?title) || LANG(?title) = "${language.toLowerCase()}")`,
+    `  ?work owl:sameAs <http://publications.europa.eu/resource/celex/${celexId}> .`,
+    `  BIND("${celexId}" AS ?celex)`,
+    "  OPTIONAL {",
+    "    ?expr cdm:expression_belongs_to_work ?work ;",
+    "          cdm:expression_uses_language ?lang ;",
+    "          cdm:expression_title ?title .",
+    "    ?lang purl:identifier ?langCode .",
+    `    FILTER(STR(?langCode) = "${language}")`,
+    "  }",
     "  OPTIONAL { ?work cdm:work_date_document ?dateDocument . }",
     "  OPTIONAL { ?work cdm:resource_legal_date_entry-into-force ?dateEffect . }",
     "  OPTIONAL { ?work cdm:resource_type ?type . }",
@@ -124,18 +138,15 @@ export class EurlexClient {
   async fetchDocument(celexIdInput: string, language: EurlexLanguage = "FRA"): Promise<string> {
     const celexId = assertCelexId(celexIdInput);
     const url = `${CELLAR_REST_BASE}/${celexId}`;
-    const response = await request(url, {
+    const response = await requestEurlexText(url, {
       method: "GET",
       headers: {
         accept: language === "FRA" ? "application/xhtml+xml,text/html,text/plain;q=0.8,*/*;q=0.5" : "application/xhtml+xml,text/html,*/*;q=0.5",
         "accept-language": language.toLowerCase(),
         "user-agent": "HaciendaSourcesOfficielles/0.1 (+https://eur-lex.europa.eu)",
       },
-      dispatcher: this.dispatcher,
-      bodyTimeout: EURLEX_REQUEST_TIMEOUT_MS,
-      headersTimeout: EURLEX_REQUEST_TIMEOUT_MS,
-    });
-    const body = await response.body.text();
+    }, this.dispatcher);
+    const body = response.text;
 
     if (response.statusCode < 200 || response.statusCode >= 300) {
       throw new EurlexHttpError(response.statusCode, `/resource/celex/${celexId}`, body.slice(0, 500));
@@ -200,6 +211,19 @@ function normalizeLimit(limit: number | undefined): number {
   return Math.min(50, Math.max(1, Math.trunc(limit)));
 }
 
+function buildBifContainsQuery(input: string): string {
+  const words = input
+    .split(/\s+/u)
+    .map((word) => word.replace(/[^\p{L}\p{N}-]/gu, ""))
+    .filter((word) => word.length > 0);
+
+  if (words.length === 0) {
+    return escapeSparqlString(input);
+  }
+
+  return words.map((word) => `'${word}'`).join(" AND ");
+}
+
 function normalizeResourceType(value: string | undefined): EurlexResourceType {
   const lower = value?.toLowerCase() ?? "";
 
@@ -232,4 +256,33 @@ function valueOf(binding: SparqlBinding, key: string): string | undefined {
 
 function uniqueValues(bindings: SparqlBinding[], key: string): string[] {
   return [...new Set(bindings.map((binding) => valueOf(binding, key)).filter((value): value is string => Boolean(value)))];
+}
+
+async function requestEurlexText(
+  url: string,
+  options: {
+    method: "GET";
+    headers: Record<string, string>;
+  },
+  dispatcher?: Dispatcher,
+  redirectsRemaining = 5,
+): Promise<{ statusCode: number; text: string }> {
+  const response = await request(url, {
+    ...options,
+    dispatcher,
+    bodyTimeout: EURLEX_REQUEST_TIMEOUT_MS,
+    headersTimeout: EURLEX_REQUEST_TIMEOUT_MS,
+  });
+  const body = await response.body.text();
+
+  if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location && redirectsRemaining > 0) {
+    const nextUrl = new URL(headerToString(response.headers.location)!, url).href;
+    return requestEurlexText(nextUrl, options, dispatcher, redirectsRemaining - 1);
+  }
+
+  return { statusCode: response.statusCode, text: body };
+}
+
+function headerToString(header: string | string[] | undefined): string | undefined {
+  return Array.isArray(header) ? header.join(", ") : header;
 }

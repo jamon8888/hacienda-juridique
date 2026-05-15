@@ -35,8 +35,11 @@ describe("EUR-Lex client", () => {
       limit: 5,
     });
 
-    expect(query).toContain("intelligence artificielle");
-    expect(query).toContain("regulation");
+    expect(query).toContain("'intelligence' AND 'artificielle'");
+    expect(query).toContain("owl:sameAs");
+    expect(query).toContain("cdm:expression_title");
+    expect(query).toContain("bif:contains");
+    expect(query).toContain('REGEX(?celex, "^3[0-9]{4}R")');
     expect(query).toContain("2024-01-01");
     expect(query).toContain("LIMIT 5");
   });
@@ -62,6 +65,22 @@ describe("EUR-Lex client", () => {
     mockAgent
       .get("https://publications.europa.eu")
       .intercept({ method: "GET", path: "/resource/celex/32016R0679" })
+      .reply(200, documentFixture, { headers: { "content-type": "application/xhtml+xml" } });
+
+    const client = new EurlexClient(mockAgent);
+    const document = await client.fetchDocument("32016R0679", "FRA");
+
+    expect(document).toContain("protection des personnes physiques");
+  });
+
+  it("follows Cellar REST redirects", async () => {
+    mockAgent
+      .get("https://publications.europa.eu")
+      .intercept({ method: "GET", path: "/resource/celex/32016R0679" })
+      .reply(303, "", { headers: { location: "https://publications.europa.eu/resource/cellar/gdpr/full" } });
+    mockAgent
+      .get("https://publications.europa.eu")
+      .intercept({ method: "GET", path: "/resource/cellar/gdpr/full" })
       .reply(200, documentFixture, { headers: { "content-type": "application/xhtml+xml" } });
 
     const client = new EurlexClient(mockAgent);
