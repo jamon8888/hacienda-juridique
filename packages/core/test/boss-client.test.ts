@@ -61,6 +61,21 @@ describe("createBossRobotsGate", () => {
     expect(gate.canFetch(BOSS_HOME_URL)).toBe(false);
   });
 
+  it("merges matching user-agent groups conservatively", () => {
+    const gate = createBossRobotsGate(
+      "https://boss.gouv.fr/robots.txt",
+      ["User-agent: HaciendaSourcesOfficielles", "Allow: /", "", "User-agent: HaciendaSourcesOfficielles", "Disallow: /portail"].join("\n"),
+    );
+
+    expect(gate.canFetch(BOSS_HOME_URL)).toBe(false);
+  });
+
+  it("fails closed for unsupported robots wildcards", () => {
+    const gate = createBossRobotsGate("https://boss.gouv.fr/robots.txt", "User-agent: *\nDisallow: /portail/*/secret\n");
+
+    expect(gate.canFetch(BOSS_HOME_URL)).toBe(false);
+  });
+
   it("throws when robots body is blank", () => {
     expect(() => createBossRobotsGate("https://boss.gouv.fr/robots.txt", "  \n")).toThrow(BossRobotsUnavailableError);
   });

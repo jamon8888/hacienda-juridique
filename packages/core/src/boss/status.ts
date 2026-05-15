@@ -116,6 +116,7 @@ function resolveRecommendation(args: {
 }): BossStatus["recommendation"] {
   if (args.network === "bloqué") return "réseau bloqué";
   if (args.robotsStatus === "indisponible") return "robots indisponible";
+  if (args.robotsStatus === "erreur") return "robots indisponible";
   if (args.robotsStatus === "interdit") return "crawl bloqué";
   if (!args.canReadHtml) return "parser à revoir";
   return "utilisable";

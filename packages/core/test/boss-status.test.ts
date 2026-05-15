@@ -63,6 +63,18 @@ describe("probeBossStatusFromResponses", () => {
     expect(status.lastError).toContain("homepage failed");
     expect(status.recommendation).toBe("parser à revoir");
   });
+
+  it("does not recommend usable when robots has a non-2xx error", () => {
+    const status = probeBossStatusFromResponses({
+      homeUrl: BOSS_HOME_URL,
+      robots: { statusCode: 404, text: "not found" },
+      homepage: { statusCode: 200, contentType: "text/html", text: "<html></html>" },
+      cacheEntries: 0,
+    });
+
+    expect(status.robots.status).toBe("erreur");
+    expect(status.recommendation).toBe("robots indisponible");
+  });
 });
 
 describe("diagnoseBossProbeError", () => {

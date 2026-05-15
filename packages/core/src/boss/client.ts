@@ -82,6 +82,10 @@ export function createBossRobotsGate(robotsUrl: string, body: string): BossRobot
         return false;
       }
 
+      if (rules.some((rule) => hasUnsupportedRobotsPattern(rule.path))) {
+        return false;
+      }
+
       const matchingRules = rules.filter((rule) => path.startsWith(rule.path));
 
       if (matchingRules.length === 0) {
@@ -186,13 +190,19 @@ function parseRobotsGroups(body: string): RobotsGroup[] {
 }
 
 function selectBossRobotsRules(groups: RobotsGroup[]): RobotsRule[] | undefined {
-  const specificGroup = groups.find((group) => group.userAgents.some(isBossUserAgentMatch));
+  const specificGroups = groups.filter((group) => group.userAgents.some(isBossUserAgentMatch));
 
-  if (specificGroup) {
-    return specificGroup.rules;
+  if (specificGroups.length > 0) {
+    return specificGroups.flatMap((group) => group.rules);
   }
 
-  return groups.find((group) => group.userAgents.some((userAgent) => userAgent === "*"))?.rules;
+  const wildcardGroups = groups.filter((group) => group.userAgents.some((userAgent) => userAgent === "*"));
+
+  if (wildcardGroups.length > 0) {
+    return wildcardGroups.flatMap((group) => group.rules);
+  }
+
+  return undefined;
 }
 
 function isBossUserAgentMatch(userAgent: string): boolean {
@@ -201,6 +211,10 @@ function isBossUserAgentMatch(userAgent: string): boolean {
   const candidate = userAgent.toLowerCase();
 
   return candidate !== "*" && (expectedUserAgent.includes(candidate) || candidate.includes(expectedToken));
+}
+
+function hasUnsupportedRobotsPattern(path: string): boolean {
+  return /[*$]/.test(path);
 }
 
 function headerToString(header: string | string[] | undefined): string | undefined {
