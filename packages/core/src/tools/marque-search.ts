@@ -56,3 +56,58 @@ export function registerInpiSearchMarques(
     })
   );
 }
+
+export const InpiMarqueDetailsArgsSchema = z.object({
+  numero: z.string().min(1),
+});
+export type InpiMarqueDetailsArgs = z.infer<typeof InpiMarqueDetailsArgsSchema>;
+
+export async function callInpiMarqueDetails(
+  args: InpiMarqueDetailsArgs,
+  client: InpiClient | null
+): Promise<string> {
+  if (!client) {
+    return `**INPI not configured** — voir Task 2.1.`;
+  }
+  const m = await client.getMarqueDetails(args.numero);
+  const oppositions = m.oppositions.length === 0
+    ? "_aucune_"
+    : m.oppositions.map(o =>
+        `  - [${o.numero}] ${o.opposant} (${o.dateOpposition}) — motifs ${o.motifs.join(", ")} — ${o.decision ?? "en cours"}`
+      ).join("\n");
+  const historique = m.historique.length === 0
+    ? "_aucun événement_"
+    : m.historique.map(h => `  - ${h.date} · ${h.type} · ${h.description}`).join("\n");
+
+  return [
+    `# Marque ${m.numero} — "${m.signe}" [INPI Data]`,
+    ``,
+    `**Titulaire :** ${m.titulaire}`,
+    `**Mandataire :** ${m.mandataire ?? "_non renseigné_"}`,
+    `**Classes :** ${m.classes.join(", ")}`,
+    `**Statut :** ${m.statut}`,
+    `**Dépôt :** ${m.dateDepot} · **Enregistrement :** ${m.dateEnregistrement ?? "_n/a_"} · **Expiration :** ${m.dateExpiration ?? "_n/a_"}`,
+    ``,
+    `## Oppositions`,
+    oppositions,
+    ``,
+    `## Historique`,
+    historique,
+  ].join("\n");
+}
+
+export function registerInpiMarqueDetails(
+  server: McpServer,
+  client: InpiClient | null
+): void {
+  server.tool(
+    "inpi_marque_details",
+    InpiMarqueDetailsArgsSchema.shape,
+    async (raw) => ({
+      content: [{
+        type: "text",
+        text: await callInpiMarqueDetails(InpiMarqueDetailsArgsSchema.parse(raw), client),
+      }],
+    })
+  );
+}
