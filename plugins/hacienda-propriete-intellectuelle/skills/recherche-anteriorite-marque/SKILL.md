@@ -130,3 +130,63 @@ condamnent un signe indépendamment de toute antériorité. Pour chaque motif,
 
 **Sortie** : pour chaque motif, soit "aucun problème identifié", soit un flag
 spécifique avec une ligne de raison. Ne pas produire un tableau plat de "pass".
+
+---
+
+## Recherche similaires
+
+L'objectif : **trouver des marques antérieures potentiellement confuses**, pas
+décider si la confusion est probable. C'est le rôle de l'avocat / mandataire.
+
+### Ce que l'utilisateur a connecté
+
+Lire `## Intégrations disponibles` du profil :
+
+- **Data INPI ✓ et EUIPO TMview ✓** : exécuter
+  - `inpi_search_marques({ query, classes, similarite: "proche", limite: 50 })`
+  - `inpi_search_marques({ query, classes, similarite: "phonetique", limite: 30 })`
+  - `euipo_tmview_search({ query, classes, offices: ["EM", "FR"], limite: 50 })`
+  - Attribuer chaque résultat à sa source (`[INPI Data]` ou `[EUIPO TMview]`).
+  - Noter date de recherche et scope (classes, exact-vs-fuzzy).
+- **Data INPI seul** : INPI seul + ajouter une note "EUIPO non interrogé,
+  recherche EU recommandée avant adoption."
+- **Aucun MCP marques mais `hacienda-sources-officielles`** : recherche
+  jurisprudence opposition INPI via `recherche` (`base-jurisprudence INPI`).
+- **Aucun connecteur** : annonce explicite (voir bloc ci-dessous) — ne PAS
+  inférer des résultats depuis la connaissance modèle pour les présenter
+  comme des findings.
+
+### Fallback sans accès bases
+
+Écrire littéralement dans la sortie :
+
+> **Aucune base de données interrogée.** Ce triage n'a pas hit Data INPI,
+> EUIPO TMview, OMPI ROMARIN, base-jurisprudence INPI, ni aucune source
+> non enregistrée (noms de domaine, raisons sociales). Une recherche
+> complète sur ces bases est requise avant toute conclusion sur la
+> disponibilité. Le triage ci-dessous est limité à l'analyse intrinsèque
+> des motifs absolus et aux facteurs structurés contre les marques que
+> l'utilisateur a citées ou qui apparaissent dans la conversation.
+
+Puis continuer — les checks intrinsèques + l'analyse facteurs restent utiles,
+juste honnêtement étiquetés.
+
+### Pour chaque marque similaire trouvée (ou fournie)
+
+Capturer :
+- **Marque** (caractères exacts, stylisation éventuelle)
+- **Source** (numéro INPI / numéro EUTM / décision opposition / nom de
+  domaine / raison sociale — précis)
+- **Classes / désignation produits-services** depuis le registre
+- **Titulaire**
+- **Statut** (enregistrée / déposée / abandonnée / déchue — une marque
+  morte n'est pas un obstacle mais peut être pertinente pour la renommée
+  ou les droits d'un prédécesseur)
+- **Date de dépôt si disponible**
+
+**Pas de supplémentation silencieuse.** Si on cite un numéro INPI, il vient
+de la recherche exécutée ; si on décrit une marque que l'utilisateur a
+mentionnée, le dire. Ne jamais inventer un numéro et ne jamais "remplir"
+un détail que le record ne supporte pas. Si la recherche n'a pas retourné
+une date de dépôt, écrire "date de dépôt non disponible dans le résultat"
+— ne pas deviner.
