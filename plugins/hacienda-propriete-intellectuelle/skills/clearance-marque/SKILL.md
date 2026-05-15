@@ -4,6 +4,11 @@ description: Produit une premiere analyse de disponibilite et risque de confusio
 argument-hint: "[signe | classes | pays]"
 ---
 
+> **⚠️ Skill en format v0.1.** Le successeur V1
+> `/hacienda-propriete-intellectuelle:recherche-anteriorite-marque` est
+> disponible et recommandé. Ce skill reste invoquable pour compatibilité
+> jusqu'à v0.4.
+
 # Clearance Marque
 
 ## Objectif

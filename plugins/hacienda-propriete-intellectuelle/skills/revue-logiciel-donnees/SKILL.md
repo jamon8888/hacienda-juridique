@@ -4,6 +4,12 @@ description: Analyse PI logicielle, donnees, bases de donnees, API et modele com
 argument-hint: "[produit | repo | dataset | contrat]"
 ---
 
+> **⚠️ Skill en format v0.1.** Ce skill produit des sorties de qualité limitée
+> par rapport au standard V1 (style Anthropic ip-legal). Pour une recherche
+> d'antériorité marque de qualité Harvey-grade, utiliser
+> `/hacienda-propriete-intellectuelle:recherche-anteriorite-marque`.
+> Migration de ce skill prévue en V1.1.
+
 # Revue Logiciel Donnees
 
 ## Objectif

@@ -4,6 +4,12 @@ description: Controle les obligations de licences open source et risques de comp
 argument-hint: "[repo | SBOM | package-list]"
 ---
 
+> **⚠️ Skill en format v0.1.** Ce skill produit des sorties de qualité limitée
+> par rapport au standard V1 (style Anthropic ip-legal). Pour une recherche
+> d'antériorité marque de qualité Harvey-grade, utiliser
+> `/hacienda-propriete-intellectuelle:recherche-anteriorite-marque`.
+> Migration de ce skill prévue en V1.1.
+
 # Revue Open Source
 
 ## Objectif

@@ -4,6 +4,12 @@ description: Prepare un dossier de preuve de creation, anteriorite ou titularite
 argument-hint: "[creation | logiciel | contenu | design]"
 ---
 
+> **⚠️ Skill en format v0.1.** Ce skill produit des sorties de qualité limitée
+> par rapport au standard V1 (style Anthropic ip-legal). Pour une recherche
+> d'antériorité marque de qualité Harvey-grade, utiliser
+> `/hacienda-propriete-intellectuelle:recherche-anteriorite-marque`.
+> Migration de ce skill prévue en V1.1.
+
 # Depot Preuve Creation
 
 ## Objectif
