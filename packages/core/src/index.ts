@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { loadConfig } from "./config.js";
+import { loadJudilibreConfig } from "./judilibre/config.js";
 import { log } from "./logger.js";
 import { PisteClient } from "./piste-client.js";
 import { PisteHttpClient } from "./http.js";
@@ -18,6 +19,7 @@ import { registerSuggest } from "./tools/suggest.js";
 import { registerCacheClear } from "./tools/cache-clear.js";
 import { registerApiCall } from "./tools/api-call.js";
 import { registerBofipAliases } from "./tools/bofip.js";
+import { registerJudilibreTools } from "./tools/judilibre.js";
 
 // Re-exports pour les plugins qui veulent un usage avancé.
 export { loadConfig } from "./config.js";
@@ -40,6 +42,11 @@ export type {
   JudilibreDecisionSummary,
   JudilibreSearchResponse,
 } from "./judilibre/schemas.js";
+export {
+  formatJudilibreDecision,
+  formatJudilibreSearch,
+  judilibreDecisionUrl,
+} from "./judilibre/format.js";
 export { log } from "./logger.js";
 export { PisteClient, PisteCredentialsMissingError, PisteAuthError } from "./piste-client.js";
 export {
@@ -95,6 +102,7 @@ export {
   registerCacheClear,
   registerApiCall,
   registerBofipAliases,
+  registerJudilibreTools,
 };
 export {
   callLegifranceApiExpert,
@@ -106,6 +114,15 @@ export {
   callBofipRechercher,
 } from "./tools/bofip.js";
 export type { BofipConsulterArgs, BofipRechercherArgs } from "./tools/bofip.js";
+export {
+  callJudilibreGetDecision,
+  callJudilibreRecherche,
+  callJudilibreStatus,
+} from "./tools/judilibre.js";
+export type {
+  JudilibreGetDecisionArgs,
+  JudilibreRechercheArgs,
+} from "./tools/judilibre.js";
 
 export interface CreateServerOptions {
   /** Nom du serveur MCP, exposé en `mcp__plugin_<plugin>_<server>__*`. */
@@ -131,6 +148,7 @@ export interface CreatedServer {
  */
 export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
   const config = loadConfig();
+  const judilibreConfig = loadJudilibreConfig();
   log.info(`${opts.name} mcp server starting`, { env: config.env });
 
   const cache = new ResponseCache({ path: `${config.cacheDir}/cache.db` });
@@ -152,6 +170,7 @@ export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
   registerCacheClear(server, cache);
   registerApiCall(server, route);
   registerBofipAliases(server, http);
+  registerJudilibreTools(server, judilibreConfig);
 
   const start = async () => {
     const transport = new StdioServerTransport();
