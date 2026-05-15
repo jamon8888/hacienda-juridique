@@ -1,12 +1,13 @@
 {
   "name": "hacienda-propriete-intellectuelle",
-  "version": "0.2.0",
-  "description": "Propriété intellectuelle : recherche d'antériorité marque (INPI/EUIPO), droit d'auteur, logiciel, marques, open source, clauses PI et contrefaçon.",
+  "version": "0.3.0",
+  "description": "Propriété intellectuelle : recherche d'antériorité marque (INPI/EUIPO), surveillance BOPI quotidienne, droit d'auteur, logiciel, marques, open source, clauses PI et contrefaçon.",
   "author": { "name": "Hacienda", "url": "https://hacienda.diy" },
   "repository": "https://github.com/jamon8888/hacienda-juridique",
   "license": "AGPL-3.0-or-later",
   "keywords": [
     "hacienda", "propriete-intellectuelle", "marques", "inpi", "euipo",
-    "antériorité", "droit-auteur", "logiciel", "open-source"
+    "antériorité", "surveillance", "bopi", "opposition",
+    "droit-auteur", "logiciel", "open-source"
   ]
 }
