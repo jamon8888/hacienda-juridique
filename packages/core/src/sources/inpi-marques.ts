@@ -25,3 +25,63 @@ export const InpiSearchResponseSchema = z.object({
 });
 
 export type InpiSearchResponse = z.infer<typeof InpiSearchResponseSchema>;
+
+export class InpiCredentialsMissingError extends Error {
+  constructor() {
+    super("INPI_DATA_LOGIN / INPI_DATA_PASSWORD non définis dans .claude/settings.local.json");
+    this.name = "InpiCredentialsMissingError";
+  }
+}
+
+export class InpiHttpError extends Error {
+  constructor(public readonly status: number, public readonly body: string) {
+    super(`INPI Data API ${status}: ${body.slice(0, 200)}`);
+    this.name = "InpiHttpError";
+  }
+}
+
+const INPI_BASE = "https://api.inpi.fr";              // CONFIRMER en Phase 0
+const INPI_AUTH_PATH = "/services/sso/login";          // CONFIRMER en Phase 0
+
+export interface InpiClientOptions {
+  login: string;
+  password: string;
+  baseUrl?: string;
+  fetch?: typeof fetch;
+}
+
+export class InpiClient {
+  private readonly login: string;
+  private readonly password: string;
+  private readonly baseUrl: string;
+  private readonly fetchImpl: typeof fetch;
+  private token: string | null = null;
+  private tokenExpiresAt = 0;
+
+  constructor(opts: InpiClientOptions) {
+    if (!opts.login || !opts.password) {
+      throw new InpiCredentialsMissingError();
+    }
+    this.login = opts.login;
+    this.password = opts.password;
+    this.baseUrl = (opts.baseUrl ?? INPI_BASE).replace(/\/+$/, "");
+    this.fetchImpl = opts.fetch ?? fetch;
+  }
+
+  async authenticate(): Promise<string> {
+    if (this.token && Date.now() < this.tokenExpiresAt) return this.token;
+
+    const res = await this.fetchImpl(`${this.baseUrl}${INPI_AUTH_PATH}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: this.login, password: this.password }),
+    });
+    if (!res.ok) {
+      throw new InpiHttpError(res.status, await res.text().catch(() => ""));
+    }
+    const data = await res.json() as { access_token: string; expires_in: number };
+    this.token = data.access_token;
+    this.tokenExpiresAt = Date.now() + (data.expires_in - 60) * 1000;     // 60s safety
+    return this.token;
+  }
+}
