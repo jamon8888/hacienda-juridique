@@ -98,3 +98,19 @@ export function loadConfig(): Config {
     credentialsSource: source,
   };
 }
+
+export interface InpiCredentials { login: string; password: string }
+export interface EuipoCredentials { apiKey: string }
+
+export function loadInpiCredentials(): InpiCredentials | null {
+  const login = process.env.INPI_DATA_LOGIN;
+  const password = process.env.INPI_DATA_PASSWORD;
+  if (!login || !password) return null;
+  return { login, password };
+}
+
+export function loadEuipoCredentials(): EuipoCredentials | null {
+  const apiKey = process.env.EUIPO_API_KEY;
+  if (!apiKey) return null;
+  return { apiKey };
+}

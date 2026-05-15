@@ -26,6 +26,11 @@ import { registerEurlexTools } from "./tools/eurlex.js";
 // Re-exports pour les plugins qui veulent un usage avancé.
 export { loadConfig } from "./config.js";
 export type { Config, PisteEnv } from "./config.js";
+export {
+  loadInpiCredentials,
+  loadEuipoCredentials,
+} from "./config.js";
+export type { InpiCredentials, EuipoCredentials } from "./config.js";
 export { loadJudilibreConfig } from "./judilibre/config.js";
 export type { JudilibreConfig, JudilibreEnv } from "./judilibre/config.js";
 export {
