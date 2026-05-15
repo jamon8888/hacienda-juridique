@@ -7,10 +7,10 @@ import {
 } from "../src/index.js";
 
 describe("source proof types", () => {
-  it("accepts the four official source identifiers used by Hacienda", () => {
-    const sources: OfficialSource[] = ["LEGIFRANCE", "BOFIP", "JUDILIBRE", "BOSS"];
-    expect(sources).toEqual(["LEGIFRANCE", "BOFIP", "JUDILIBRE", "BOSS"]);
-    expect(OFFICIAL_SOURCES).toEqual(["LEGIFRANCE", "BOFIP", "JUDILIBRE", "BOSS"]);
+  it("accepts the official source identifiers used by Hacienda", () => {
+    const sources: OfficialSource[] = ["LEGIFRANCE", "BOFIP", "JUDILIBRE", "BOSS", "EURLEX"];
+    expect(sources).toEqual(["LEGIFRANCE", "BOFIP", "JUDILIBRE", "BOSS", "EURLEX"]);
+    expect(OFFICIAL_SOURCES).toEqual(["LEGIFRANCE", "BOFIP", "JUDILIBRE", "BOSS", "EURLEX"]);
   });
 
   it("models a proof citation and a search hit with official URLs", () => {
