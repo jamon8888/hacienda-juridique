@@ -1,24 +1,37 @@
 ---
 name: entretien-demarrage
-description: Configure le profil de pratique Hacienda pour ce plugin.
-argument-hint: "[optionnel: --reconfigurer]"
+description: Configure le profil de pratique gouvernance IA Hacienda.
+argument-hint: "[optionnel: --reconfigurer | --mode-silencieux]"
 ---
 
-# Entretien De Démarrage
+# Entretien De Demarrage
 
-## But
+## Avant De Commencer
 
-Créer ou mettre à jour le profil de pratique dans `~/.claude/plugins/config/hacienda-juridique/hacienda-gouvernance-ia/CLAUDE.md`.
+Lire le profil cabinet partage. En Mode silencieux, reutiliser les informations connues et marquer les inconnues `[a verifier]`.
 
 ## Questions
 
-1. Quel est votre rôle : avocat, juriste, expert-comptable, fiscaliste, autre professionnel ?
-2. Quel type de structure utilisez-vous : cabinet, direction juridique, cabinet comptable, institution, autre ?
-3. Quels livrables voulez-vous produire avec ce plugin ?
-4. Quelles sources ou bases documentaires utilisez-vous déjà ?
-5. Quel niveau de risque impose une validation humaine avant sortie ?
-6. Où doivent être conservés les dossiers de preuve ?
+1. Quels cas d'usage IA existent deja ?
+2. Quels fournisseurs, modeles et outils sont approuves ?
+3. Quels cas sont interdits ou conditionnels ?
+4. Qui possede le registre et les validations ?
+5. Quelles sources officielles et politiques internes faut-il lire ?
+6. Quels seuils imposent AIA, DPIA ou comite IA ?
+7. Ou conserver le dossier de preuve ?
+
+## Workflow
+
+1. Construire registre initial.
+2. Definir red lines et tiers de gouvernance.
+3. Mapper roles AI Act par systeme.
+4. Definir Note de revue, Arbre de decision et validation humaine.
+5. Sauver le profil de pratique.
+
+## Sources A Verifier
+
+AI Act, EUR-Lex, Commission europeenne, CNIL, EDPB, RGPD, contrats et documentation fournisseur.
 
 ## Sortie
 
-Créer un profil complet sans marqueur `[A CONFIGURER]`.
+Profil complet avec Mode silencieux, sources, registre, seuils, source officielle et dossier de preuve.
