@@ -274,7 +274,8 @@ npm run test --workspaces --if-present
 npm run build --workspaces --if-present
 npm audit --audit-level=moderate
 git diff --check
-rg -n "HACIENDA|hacienda|Hacienda|hacienda|https://hacienda\\.com" .
+$oldBrandPattern = ('D' + 'EMERYS') + '|' + ('de' + 'merys') + '|' + ('Berry' + 'er') + '|' + ('berry' + 'er') + '|' + ('https://de' + 'merys\\.com')
+rg -n $oldBrandPattern .
 ```
 
 Expected: all pass, and the old-branding search returns no matches.
@@ -284,7 +285,7 @@ Expected: all pass, and the old-branding search returns no matches.
 Run:
 
 ```powershell
-$errors = @(); foreach ($path in (rg --files -g '*.md')) { $count = (Select-String -LiteralPath $path -Pattern '```' -AllMatches).Matches.Count; if (($count % 2) -ne 0) { $errors += "$path has odd fence count $count" } }; if ($errors.Count) { $errors; exit 1 } else { 'Markdown fences OK' }
+$fence = [string]::new([char]96, 3); $errors = @(); foreach ($path in (rg --files -g '*.md')) { $count = (Select-String -LiteralPath $path -Pattern $fence -AllMatches).Matches.Count; if (($count % 2) -ne 0) { $errors += "$path has odd fence count $count" } }; if ($errors.Count) { $errors; exit 1 } else { 'Markdown fences OK' }
 ```
 
 Expected: `Markdown fences OK`.
