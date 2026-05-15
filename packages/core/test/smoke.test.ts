@@ -37,6 +37,10 @@ const expectedTools = [
   "eurlex_formats",
   "bofip_rechercher",
   "bofip_consulter",
+  "inpi_search_marques",
+  "inpi_marque_details",
+  "euipo_tmview_search",
+  "bopi_dernieres_publications",
   "piste_cache_clear"
 ];
 
