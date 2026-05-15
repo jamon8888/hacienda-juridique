@@ -54,6 +54,57 @@ Chaque plugin Hacienda contient :
 - Pappers MCP hybrid validation: `docs/integrations/pappers-mcp-validation.md`
 - Pappers agents and skills doctrine: `docs/integrations/pappers-agents-skills.md`
 
+### Pappers MCP Hybride
+
+Pappers est integre comme connecteur MCP externe optionnel pour les donnees d'entreprise : identification SIREN/SIRET, dirigeants, beneficiaires effectifs, comptes, cartographie de groupe, signaux BODACC, solvabilite, risques contractuels et signaux contentieux.
+
+Pappers n'est pas une source officielle normative Hacienda. Toute conclusion juridique, citation opposable, decision de signature, strategie contentieuse, analyse fiscale ou avis client doit etre recoupe avec `hacienda-sources-officielles`, les pieces du dossier ou les registres officiels pertinents.
+
+Le connecteur est declare dans les plugins suivants :
+
+- `hacienda-societes` : due diligence entreprise, groupe, dirigeants, beneficiaires, comptes et BODACC.
+- `hacienda-contrats` : verification cocontractant, pouvoirs du signataire et adaptation contractuelle au risque.
+- `hacienda-contentieux` : solvabilite adverse, procedures collectives, actifs, groupe et signaux de decisions.
+- `hacienda-fiscal` : contexte business des dossiers fiscaux, sans conclusion fiscale sans BOFiP, loi et source officielle.
+- `hacienda-hub-confiance` : audit du connecteur, profils, credits, secrets et activation full power.
+
+Agents Pappers ajoutes :
+
+- `investigateur-pappers-entreprise`
+- `veilleur-bodacc-pappers`
+- `controleur-pouvoirs-pappers`
+- `enqueteur-solvabilite-pappers`
+- `auditeur-pappers-mcp`
+
+Skills Pappers principaux :
+
+- `due-diligence-cocontractant`
+- `verification-pouvoir-signataire`
+- `analyse-solvabilite-adversaire`
+- `audit-pappers-mcp`
+
+Statuts operationnels obligatoires :
+
+- `missing_key` : `PAPPERS_API_KEY` absent.
+- `tools_visible` : decouverte MCP OK.
+- `credits_insufficient` : credits Pappers insuffisants, activation metier live refusee.
+- `needs_official_recoupement` : signal utile mais non recoupe.
+- `validated` : appel credite, donnees structurees, dossier de preuve et validation humaine.
+- `blocked` : secret expose, profil sensible non valide ou garde-fou manquant.
+
+Activation locale :
+
+```bash
+npm install
+```
+
+```powershell
+$env:PAPPERS_API_KEY = "<rotated-key>"
+node scripts/pappers-mcp-discover.mjs
+```
+
+La cle Pappers ne doit jamais etre commitee. Les cles exposees dans un chat, un log ou un fichier doivent etre considerees compromises et remplacees.
+
 ## Regle De Preuve
 
 Toute citation juridique doit indiquer sa provenance reelle. Une source officielle non consultee dans la session reste marquee `[a verifier]`.
