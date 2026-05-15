@@ -15,6 +15,11 @@ import {
 } from "../boss/index.js";
 import { parseBossDocument, type BossDocument } from "../boss/parser.js";
 import {
+  searchBossOfficial,
+  type BossOfficialSearchArgs,
+  type BossOfficialSearchResponse,
+} from "../boss/search.js";
+import {
   diagnoseBossProbeError,
   defaultBossStatusUnavailable,
   probeBossStatusFromResponses,
@@ -33,6 +38,7 @@ export interface BossGetDocumentArgs {
 
 export type BossProbe = () => Promise<BossStatus>;
 export type BossFetcher = (url: string) => Promise<BossTextResponse>;
+export type BossSearcher = (args: BossOfficialSearchArgs) => Promise<BossOfficialSearchResponse>;
 
 export interface BossProbeResults {
   robots: PromiseSettledResult<BossTextResponse>;
@@ -59,19 +65,26 @@ export async function callBossStatus(probe: BossProbe) {
   }
 }
 
-export function callBossRecherche(documents: BossDocument[], args: BossRechercheArgs) {
+export async function callBossRecherche(
+  documents: BossDocument[],
+  args: BossRechercheArgs,
+  searcher: BossSearcher = searchBossOfficial,
+) {
   try {
-    if (documents.length === 0) {
-      return textResult(
-        "Index BOSS local vide. Lancez d'abord une indexation BOSS officielle ou utilisez boss_get_document avec une URL BOSS précise.",
-        true,
-      );
+    const response = await searcher({
+      query: args.query,
+      rubrique: args.rubrique,
+      pageSize: args.pageSize,
+    });
+
+    return textResult(formatBossSearchResults(response.hits, args.query));
+  } catch (error) {
+    if (documents.length > 0) {
+      const index = buildBossSearchIndex(documents);
+      const hits = searchBossIndex(index, args satisfies BossSearchArgs);
+      return textResult(formatBossSearchResults(hits, args.query));
     }
 
-    const index = buildBossSearchIndex(documents);
-    const hits = searchBossIndex(index, args satisfies BossSearchArgs);
-    return textResult(formatBossSearchResults(hits, args.query));
-  } catch (error) {
     return textResult(errorMessage("Erreur BOSS pendant la recherche", error), true);
   }
 }
@@ -110,7 +123,7 @@ export function registerBossTools(server: McpServer, documents: BossDocument[] =
     {
       title: "Recherche BOSS",
       description:
-        "Recherche dans l'index local BOSS fourni au serveur. Si aucun index n'est alimenté, retourne une erreur explicite au lieu d'un faux résultat vide.",
+        "Recherche dans le moteur officiel BOSS puis extrait les résultats HTML. Si le moteur est indisponible, utilise l'index local fourni au serveur quand il existe.",
       inputSchema: {
         query: z.string().min(1).describe("Termes à rechercher dans le BOSS."),
         rubrique: z.string().min(1).optional().describe("Filtre optionnel sur le fil d'Ariane / rubrique BOSS."),

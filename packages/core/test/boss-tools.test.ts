@@ -73,21 +73,48 @@ describe("BOSS MCP tools", () => {
     expect(status.lastError).toContain("fetch failed");
   });
 
-  it("callBossRecherche searches supplied docs and formats BOSS results", () => {
-    const document = parseBossDocument(fixture, sourceUrl, retrievedAt);
+  it("callBossRecherche searches the official BOSS engine first", async () => {
+    const searcher = vi.fn().mockResolvedValue({
+      searchUrl: "https://boss.gouv.fr/portail/accueil/resultats-de-votre-recherche.html",
+      hits: [
+        {
+          source: "BOSS",
+          id: "boss-live-avantages",
+          title: "Avantages en nature",
+          url: sourceUrl,
+          retrievedAt,
+          excerpt: "Résultat officiel du moteur de recherche BOSS.",
+          score: 1,
+        },
+      ],
+    });
 
-    const result = callBossRecherche([document], { query: "avantages cotisations" });
+    const result = await callBossRecherche([], { query: "avantages en nature" }, searcher);
+    const text = textFrom(result);
+
+    expect(searcher).toHaveBeenCalledWith({ query: "avantages en nature", pageSize: undefined, rubrique: undefined });
+    expect(text).toContain("Avantages en nature");
+    expect(text).toContain("Résultat officiel du moteur de recherche BOSS");
+  });
+
+  it("callBossRecherche falls back to supplied docs if official search fails", async () => {
+    const document = parseBossDocument(fixture, sourceUrl, retrievedAt);
+    const searcher = vi.fn().mockRejectedValue(new Error("search unavailable"));
+
+    const result = await callBossRecherche([document], { query: "avantages cotisations" }, searcher);
     const text = textFrom(result);
 
     expect(text).toContain("Avantages en nature");
     expect(text).toContain("https://boss.gouv.fr/");
   });
 
-  it("callBossRecherche reports an empty runtime index explicitly", () => {
-    const result = callBossRecherche([], { query: "cotisations" });
+  it("callBossRecherche reports live search failures when there is no local fallback", async () => {
+    const result = await callBossRecherche([], { query: "cotisations" }, async () => {
+      throw new Error("search unavailable");
+    });
 
     expect(result.isError).toBe(true);
-    expect(textFrom(result)).toContain("Index BOSS local vide");
+    expect(textFrom(result)).toContain("Erreur BOSS pendant la recherche");
   });
 
   it("callBossGetDocument calls injected fetcher and returns parsed formatted document", async () => {

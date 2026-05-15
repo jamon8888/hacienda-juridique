@@ -50,6 +50,12 @@ export type BossTextResponse = {
   text: string;
 };
 
+export type BossRequestOptions = {
+  method?: "GET" | "POST";
+  body?: string;
+  contentType?: string;
+};
+
 export function assertBossUrl(input: string): URL {
   let url: URL;
 
@@ -109,10 +115,10 @@ export function createBossRobotsGate(robotsUrl: string, body: string): BossRobot
   };
 }
 
-export async function fetchBossText(urlInput: string): Promise<BossTextResponse> {
+export async function fetchBossText(urlInput: string, options: BossRequestOptions = {}): Promise<BossTextResponse> {
   const url = assertBossUrl(urlInput);
   try {
-    return await fetchBossTextWithDispatcher(url);
+    return await fetchBossTextWithDispatcher(url, options);
   } catch (error) {
     if (!isBossTransportFailure(error)) {
       throw error;
@@ -126,7 +132,7 @@ export async function fetchBossText(urlInput: string): Promise<BossTextResponse>
     });
 
     try {
-      return await fetchBossTextWithDispatcher(url, dispatcher, BOSS_COMPAT_USER_AGENT);
+      return await fetchBossTextWithDispatcher(url, options, dispatcher, BOSS_COMPAT_USER_AGENT);
     } finally {
       await dispatcher.close();
     }
@@ -135,10 +141,11 @@ export async function fetchBossText(urlInput: string): Promise<BossTextResponse>
 
 async function fetchBossTextWithDispatcher(
   url: URL,
+  options: BossRequestOptions,
   dispatcher?: Dispatcher,
   userAgent = BOSS_USER_AGENT,
 ): Promise<BossTextResponse> {
-  const response = await requestBossUrlWithDispatcher(url, dispatcher, userAgent);
+  const response = await requestBossUrlWithDispatcher(url, options, dispatcher, userAgent);
   const text = await response.body.text();
   const contentType = headerToString(response.headers["content-type"]);
 
@@ -243,14 +250,26 @@ function hasUnsupportedRobotsPattern(path: string): boolean {
   return /[*$]/.test(path);
 }
 
-function requestBossUrlWithDispatcher(url: URL, dispatcher?: Dispatcher, userAgent = BOSS_USER_AGENT) {
+function requestBossUrlWithDispatcher(
+  url: URL,
+  options: BossRequestOptions,
+  dispatcher?: Dispatcher,
+  userAgent = BOSS_USER_AGENT,
+) {
+  const headers: Record<string, string> = {
+    accept: BOSS_ACCEPT_HEADER,
+    "accept-language": "fr-FR,fr;q=0.9",
+    "user-agent": userAgent,
+  };
+
+  if (options.contentType) {
+    headers["content-type"] = options.contentType;
+  }
+
   return request(url, {
-    method: "GET",
-    headers: {
-      accept: BOSS_ACCEPT_HEADER,
-      "accept-language": "fr-FR,fr;q=0.9",
-      "user-agent": userAgent,
-    },
+    method: options.method ?? "GET",
+    headers,
+    body: options.body,
     bodyTimeout: 30_000,
     headersTimeout: 30_000,
     dispatcher,

@@ -62,6 +62,7 @@ export {
 } from "./boss/client.js";
 export type {
   BossRobotsGate,
+  BossRequestOptions,
   BossTextResponse,
 } from "./boss/client.js";
 export {
@@ -88,6 +89,18 @@ export type {
   BossSearchArgs,
   BossSearchIndex,
 } from "./boss/index.js";
+export {
+  buildBossOfficialSearchBody,
+  buildBossOfficialSearchUrl,
+  parseBossSearchResults,
+  searchBossOfficial,
+} from "./boss/search.js";
+export type {
+  BossOfficialSearchArgs,
+  BossOfficialSearchResponse,
+  BossSearchFetcher,
+  BossSearchParseArgs,
+} from "./boss/search.js";
 export {
   formatBossDocument,
   formatBossSearchResults,
@@ -180,6 +193,7 @@ export type {
   BossGetDocumentArgs,
   BossProbe,
   BossRechercheArgs,
+  BossSearcher,
 } from "./tools/boss.js";
 
 export interface CreateServerOptions {

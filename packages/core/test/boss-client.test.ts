@@ -110,6 +110,30 @@ describe("fetchBossText", () => {
       text: "<html>BOSS</html>",
     });
   });
+
+  it("can submit the official BOSS search form as POST", async () => {
+    const pool = mockAgent.get("https://boss.gouv.fr");
+    pool
+      .intercept({
+        method: "POST",
+        path: "/portail/accueil/resultats-de-votre-recherche.html",
+        headers: {
+          "content-type": "application/x-www-form-urlencoded",
+          "user-agent": BOSS_USER_AGENT,
+        },
+        body: "src_terms%5B0%5D.term=avantages+en+nature",
+      })
+      .reply(200, "<html>Résultats</html>", { headers: { "content-type": "text/html; charset=utf-8" } });
+
+    const response = await fetchBossText("https://boss.gouv.fr/portail/accueil/resultats-de-votre-recherche.html", {
+      method: "POST",
+      body: "src_terms%5B0%5D.term=avantages+en+nature",
+      contentType: "application/x-www-form-urlencoded",
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.text).toContain("Résultats");
+  });
 });
 
 describe("fetchBossDocumentWithRobots", () => {
