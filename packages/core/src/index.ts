@@ -131,6 +131,39 @@ export {
   stripXhtml,
   truncateText,
 } from "./eurlex/format.js";
+export {
+  buildConsolidatedVersionsQuery,
+  findNearestConsolidatedVersion,
+  formatEurlexConsolidatedVersions,
+  mapConsolidatedVersions,
+} from "./eurlex/consolidated.js";
+export {
+  buildEurlexRelationsQuery,
+  formatEurlexRelations,
+  mapEurlexRelations,
+} from "./eurlex/citations.js";
+export type { EurlexRelationsQueryArgs } from "./eurlex/citations.js";
+export {
+  assertEurovocUri,
+  buildEurovocQuery,
+  formatEurlexEurovocConcepts,
+  mapEurovocConcepts,
+} from "./eurlex/eurovoc.js";
+export type { EurlexEurovocQueryArgs } from "./eurlex/eurovoc.js";
+export {
+  buildEurlexFormatCandidates,
+  filterEurlexFormats,
+  formatEurlexAvailableFormats,
+} from "./eurlex/formats.js";
+export type { EurlexFormatFilter } from "./eurlex/formats.js";
+export {
+  formatEurlexLifecycle,
+  mergeEurlexLifecycle,
+} from "./eurlex/versions.js";
+export type {
+  EurlexLifecycle,
+  MergeEurlexLifecycleArgs,
+} from "./eurlex/versions.js";
 export { mapEurlexSearchHits } from "./eurlex/search.js";
 export {
   defaultEurlexStatusUnavailable,
@@ -143,11 +176,19 @@ export type {
 } from "./eurlex/status.js";
 export type {
   EurlexMetadata,
+  EurlexAvailableFormat,
+  EurlexConsolidatedVersion,
+  EurlexDocumentFormat,
+  EurlexEurovocConcept,
+  EurlexRelation,
+  EurlexRelationKind,
   EurlexResourceType,
   EurlexSearchArgs,
   EurlexSearchResponse,
   EurlexSearchResult,
+  EurlexV2CacheNamespace,
 } from "./eurlex/types.js";
+export { buildEurlexV2CacheKey } from "./eurlex/types.js";
 export { log } from "./logger.js";
 export { PisteClient, PisteCredentialsMissingError, PisteAuthError } from "./piste-client.js";
 export {
@@ -240,17 +281,27 @@ export type {
   BossSearcher,
 } from "./tools/boss.js";
 export {
+  callEurlexCitations,
+  callEurlexConsolidated,
   callEurlexConsulter,
+  callEurlexEurovoc,
+  callEurlexFormats,
   callEurlexMetadata,
   callEurlexRecherche,
   callEurlexStatus,
+  callEurlexVersions,
 } from "./tools/eurlex.js";
 export type {
+  EurlexCitationsArgs,
   EurlexClientLike,
+  EurlexConsolidatedArgs,
   EurlexConsulterArgs,
+  EurlexEurovocArgs,
+  EurlexFormatsArgs,
   EurlexMetadataArgs,
   EurlexProbe,
   EurlexRechercheArgs,
+  EurlexVersionsArgs,
 } from "./tools/eurlex.js";
 
 export interface CreateServerOptions {
