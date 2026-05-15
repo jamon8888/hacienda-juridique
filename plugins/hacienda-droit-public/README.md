@@ -1,32 +1,53 @@
-# Droit Public
+# Hacienda Droit Public
 
-## Mission
+`hacienda-droit-public` est le plugin de droit public francais de la marketplace Hacienda. Il couvre commande publique, urbanisme, collectivites, fonction publique, controle de legalite et contentieux administratif.
 
-Droit public français : commande publique, urbanisme, collectivités, fonction publique, contentieux administratif.
+Chaque sortie reste un brouillon professionnel : source officielle ou `[a verifier]`, Note de revue, Arbre de decision, validation humaine et dossier de preuve.
 
-## Sources
-
-Ce plugin dépend de `hacienda-sources-officielles` pour les sources primaires.
-
-## Commande De Démarrage
+## Premier Lancement
 
 ```text
 /hacienda-droit-public:entretien-demarrage
 ```
 
-## Skills Prévus
+## Sources Prioritaires
+
+- Legifrance ;
+- Conseil d'Etat, TA, CAA ;
+- BOAMP, PLACE, profils acheteurs ;
+- actes locaux, deliberations, arretes, permis ;
+- CJA, CRPA, CGCT, Code de la commande publique, Code de l'urbanisme, CGFP.
+
+## Skills
 
 - `entretien-demarrage`
-- `reviser-marche-public`
-- `memo-commande-publique`
+- `qualification-dossier-public`
+- `revue-marche-public`
 - `analyse-urbanisme`
+- `fonction-publique`
+- `collectivites-actes`
 - `contentieux-administratif`
-- `conseil-collectivite`
-- `cartographie-jurisprudence-ce`
+- `veille-jurisprudence-admin`
+- `controle-legalite`
+- `note-risque-public`
+
+## Agents
+
+- `veilleur-boamp-marches` : surveille marches et avis.
+- `veilleur-jurisprudence-admin` : surveille CE/CAA/TA.
+- `suivi-delais-admin` : surveille recours, referes, notifications.
+- `veilleur-collectivites` : surveille actes et controle de legalite.
 
 ## Livrables
 
+- qualification de dossier ;
+- note commande publique ;
+- note urbanisme ;
+- calendrier contentieux ;
+- briefing collectivite ;
 - dossier de preuve ;
-- note ou mémo professionnel ;
-- sources vérifiées ;
-- points à relire manuellement.
+- Note de revue.
+
+## Mode Silencieux
+
+Le Mode silencieux remonte seulement urgences, delais, marches pertinents et jurisprudence materielle selon le profil. Il ne remplace pas la validation humaine.
