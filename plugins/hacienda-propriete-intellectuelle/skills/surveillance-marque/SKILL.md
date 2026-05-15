@@ -201,3 +201,30 @@ Health check de la watchlist :
 - **Cap recommandé** : signaler si watchlist > 50 entrées (volume d'alertes risque ingérable)
 
 Sortie : tableau des findings + recommandations.
+
+---
+
+## Emplacement de sortie
+
+Mode `--report` écrit à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/surveillance-YYYY-MM-DD.md`
+et surface le chemin.
+
+Modifications de `watchlist.yaml` (modes --add, --update, --remove) ne produisent pas de sortie horodatée — juste un message de confirmation.
+
+---
+
+## Ce que ce skill NE fait PAS
+
+- **Décider d'une opposition.** L'évaluation du risque de confusion + la décision d'agir sont du ressort du mandataire INPI ou de l'avocat.
+- **Calculer un risque de confusion détaillé.** Pour cela, router vers `recherche-anteriorite-marque` avec le signe concurrent comme input.
+- **Envoyer une mise en demeure.** Voir `mise-en-demeure-pi` (v0.1).
+- **Modifier l'agent `bopi-watcher`.** L'agent est versionné dans `agents/bopi-watcher.md` ; modifier sa cadence ou ses tools est un ajustement utilisateur via le profil.
+- **Surveiller noms de domaine, marketplaces, réseaux sociaux.** Différé V1.2 (`contrefacon-web`).
+- **Opérer sans `inpi_marques_publications_recentes` configuré.** Si le tool n'est pas disponible, le mode `--report` retourne le bucket "Aucune base interrogée" et propose d'exécuter `entretien-demarrage --check-integrations`.
+
+---
+
+## Ton
+
+Précis, concis. L'avocat lit le rapport en 30 secondes, repère les 🔴, décide. Pas de hedging, pas de paragraphes-leçon. Le garde-fou en tête + la conclusion "à valider par mandataire/avocat" font le travail de scope.
