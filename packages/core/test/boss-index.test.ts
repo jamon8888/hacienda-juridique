@@ -45,4 +45,25 @@ describe("BOSS search index", () => {
     expect(formatBossDocument(document)).toContain("Chapitre 1 - Principes généraux");
     expect(formatBossDocument(document)).toContain(sourceUrl);
   });
+
+  it("formats documents with full extracted text even when sections exist", () => {
+    const document = parseBossDocument(
+      [
+        "<html><body><main>",
+        "<h1>Avantages en nature</h1>",
+        "<p>Notice introductive importante.</p>",
+        '<h2 id="section">Chapitre 1</h2>',
+        "<p>Texte de section.</p>",
+        "</main></body></html>",
+      ].join(""),
+      sourceUrl,
+      retrievedAt,
+    );
+
+    const formatted = formatBossDocument(document);
+
+    expect(formatted).toContain("## Texte intégral extrait");
+    expect(formatted).toContain("Notice introductive importante.");
+    expect(formatted).toContain("## Chapitre 1");
+  });
 });

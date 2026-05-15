@@ -23,13 +23,15 @@ export function formatBossSearchResults(hits: SourceSearchHit[], query: string):
 export function formatBossDocument(doc: BossDocument): string {
   const breadcrumb = doc.breadcrumb.length > 0 ? `Rubrique: ${doc.breadcrumb.join(" > ")}` : undefined;
   const sections = doc.sections.map((section) => `## ${section.heading}\n${section.text}`).join("\n\n");
+  const fullText = doc.text ? `## Texte intégral extrait\n${doc.text}` : undefined;
 
   return [
     `# ${doc.title}`,
     breadcrumb,
     `URL BOSS: ${doc.canonicalUrl}`,
     `Consulté le ${doc.retrievedAt}`,
-    sections || doc.text,
+    fullText,
+    sections,
   ]
     .filter(Boolean)
     .join("\n\n");

@@ -25,7 +25,8 @@ interface HeadingMatch {
 export function parseBossDocument(html: string, sourceUrl: string, retrievedAt = new Date().toISOString()): BossDocument {
   const canonicalUrl = extractCanonicalUrl(html) ?? sourceUrl;
   const mainHtml = extractFirstElement(html, "main") ?? "";
-  const title = normalizeText(extractFirstElement(mainHtml, "h1") ?? cleanTitle(extractFirstElement(html, "title") ?? ""));
+  const h1 = extractFirstElement(mainHtml, "h1");
+  const title = h1 ? htmlToText(h1) : normalizeText(cleanTitle(extractFirstElement(html, "title") ?? ""));
 
   return {
     id: idFromUrl(canonicalUrl),

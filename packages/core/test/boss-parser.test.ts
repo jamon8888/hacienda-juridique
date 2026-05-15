@@ -33,4 +33,11 @@ describe("parseBossDocument", () => {
     expect(document.title).toBe("Accueil");
     expect(document.canonicalUrl).toBe(sourceUrl);
   });
+
+  it("converts h1 inline markup and entities to plain text", () => {
+    const document = parseBossDocument("<html><body><main><h1><span>Avantages &amp; nature</span></h1></main></body></html>", sourceUrl, retrievedAt);
+
+    expect(document.title).toBe("Avantages & nature");
+    expect(document.title).not.toContain("<span>");
+  });
 });
