@@ -221,3 +221,172 @@ en amont pour aider à identifier la marque concernée. Ne pas refuser
 l'analyse pour défaut de numéro — proposer la recherche.
 
 ---
+
+## Analyse motifs invoqués (cadre CPI)
+
+Pour chaque motif retenu (mode `--form`) ou invoqué par l'opposant (mode
+`--respond`), produire une table d'évaluation détaillée. Le mémoire INPI
+sera structuré motif par motif, avec un verdict de force probable
+(🟢 solide / 🟡 mixte / 🔴 faible), les pièces requises et un précédent
+jurisprudentiel pertinent.
+
+Référence détaillée : `references/motifs-opposition-cpi.md`.
+
+### L.713-2 — Risque de confusion (motif principal, ~80 % des oppositions)
+
+Trois branches d'analyse **cumulatives** — toutes doivent être positives
+pour conclure au risque de confusion (CJUE *Sabel* C-251/95, principe
+d'appréciation globale ensemble).
+
+**Branche 1 — Comparaison des signes** (visuelle / auditive / conceptuelle,
+appréciation d'ensemble *Sabel*) :
+
+- **Similitude visuelle** : structure du mot, longueur (nombre de caractères),
+  lettres communes en position similaire, stylisation (police, couleur,
+  élément figuratif). Comparer en majuscules normalisées pour éliminer le
+  bruit typographique.
+- **Similitude auditive** : nombre de syllabes, voyelles dominantes, point
+  d'accentuation tonique, prononciation en français standard (pas en anglais
+  même si le signe est anglophone — le consommateur français lit le signe
+  en français sauf renommée internationale prouvée).
+- **Similitude conceptuelle** : signification dans la langue du public
+  pertinent, traduction directe, évocation indirecte, allusion sectorielle.
+  Si l'un des signes est un mot inventé sans signification, la branche
+  conceptuelle ne s'applique pas (à dire explicitement, ne pas la forcer).
+- **Élément dominant et distinctif** : identifier l'élément qui retient
+  l'attention du consommateur (souvent le premier mot, le mot le plus long,
+  ou l'élément figuratif central). Un élément descriptif ou faiblement
+  distinctif (ex. "tech", "shop") ne peut être l'élément dominant.
+
+**Branche 2 — Comparaison des produits/services** (CJUE *Canon* C-39/97) :
+
+- **Identité ou similitude** : pas seulement classe Nice (les classes sont
+  un outil administratif, pas un critère de similitude — depuis *IP
+  TRANSLATOR* C-307/10). Comparer les libellés effectifs.
+- **Nature** des produits/services (matériels, logiciels, services
+  intellectuels, biens de consommation, etc.).
+- **Destination et utilisation** : à quoi servent-ils, dans quel contexte
+  d'usage ?
+- **Caractère complémentaire ou concurrent** : produits qui s'utilisent
+  ensemble (complémentaires) ou qui répondent au même besoin (concurrents).
+- **Canaux de distribution** : mêmes points de vente, mêmes plateformes
+  e-commerce, mêmes prescripteurs ?
+
+**Branche 3 — Appréciation globale** (CJUE *Lloyd Schuhfabrik* C-342/97) :
+
+- **Interdépendance des facteurs** : une faible similitude des signes peut
+  être compensée par une forte similitude des produits/services, et
+  inversement. L'analyse n'est jamais mécanique.
+- **Pouvoir distinctif** de la marque antérieure :
+  - *Intrinsèque* : mot inventé > évocateur > suggestif > descriptif limite.
+  - *Acquis par usage* : preuves d'usage massif (parts marché, communication,
+    présence médiatique) renforcent la protection accordée.
+- **Public concerné** :
+  - Consommateur moyen (achat impulsif, attention modérée → confusion plus
+    probable).
+  - Public spécialisé (B2B, achat raisonné, attention élevée → confusion
+    plus rare).
+- **Risque de confusion ou d'association** : confusion directe (le public
+  croit que c'est le même produit) ou confusion par association (le public
+  croit qu'il existe un lien économique entre les deux entreprises).
+
+**Évaluation requise pour ce motif :**
+
+| Branche | Force | Pièces / arguments clés |
+|---|---|---|
+| Comparaison signes | 🟢/🟡/🔴 | [détail visuel / auditif / conceptuel / ensemble] |
+| Comparaison P&S | 🟢/🟡/🔴 | [classes + libellés comparés] |
+| Appréciation globale | 🟢/🟡/🔴 | [distinctivité + public + interdépendance] |
+| **Verdict L.713-2** | 🟢/🟡/🔴 | [synthèse argumentaire en 2-3 phrases] |
+
+### L.713-3 1° — Marque renommée (motif subsidiaire, exigeant)
+
+Trois critères **cumulatifs** (CJUE *General Motors Chevy* C-375/97, *Intel*
+C-252/07, *L'Oréal* C-487/07). Réservé aux marques avec preuves de renommée
+solides — typiquement marques avec > 5 ans d'usage intensif, parts marché
+significatives (> 10 %), reconnaissance institutionnelle.
+
+**Critère 1 — Renommée prouvée :**
+
+- Parts de marché dans le secteur pertinent (chiffres certifiés ou études
+  type Xerfi, Nielsen, GfK).
+- Intensité, étendue géographique et durée de l'usage (présence physique +
+  digitale, ancienneté, continuité).
+- Investissements publicitaires (budget annuel, campagnes mémorables).
+- Notoriété auprès du public concerné (sondages de notoriété spontanée et
+  assistée, BVA / Ipsos / Médiamétrie).
+- Reconnaissance institutionnelle (presse, classements sectoriels, prix
+  professionnels, citations dans la doctrine ou la jurisprudence).
+
+**Critère 2 — Lien entre les signes** (sans exigence de risque de confusion
+direct, *Intel* C-252/07) :
+
+- Le public concerné établit un **lien mental** entre les deux signes,
+  même s'il n'y a pas confusion sur l'origine commerciale.
+- Ce lien peut résulter de la similitude des signes, **même si les produits
+  sont éloignés** (justement la force de L.713-3 par rapport à L.713-2 qui
+  exige proximité P&S).
+
+**Critère 3 — Profit indu / atteinte :**
+
+- **Profit indûment tiré** de la renommée ou du caractère distinctif
+  (parasitisme — le tiers exploite la notoriété acquise par l'opposant
+  sans contrepartie économique).
+- **Atteinte au caractère distinctif** (dilution — le tiers banalise le
+  signe en le diffusant dans des contextes hétérogènes, érosion progressive
+  du pouvoir distinctif).
+- **Atteinte à la renommée** (ternissement — association à des produits de
+  qualité inférieure, à un contexte dévalorisant, à une connotation
+  négative).
+
+**Évaluation requise :**
+
+| Critère | Force | Pièces / arguments clés |
+|---|---|---|
+| Renommée prouvée | 🟢/🟡/🔴 | [parts marché + sondages + ancienneté + presse] |
+| Lien entre signes | 🟢/🟡/🔴 | [analyse similitude + public concerné] |
+| Profit indu / atteinte | 🟢/🟡/🔴 | [parasitisme / dilution / ternissement, lequel] |
+| **Verdict L.713-3** | 🟢/🟡/🔴 | [synthèse] |
+
+### L.711-3 — Droits antérieurs autres que marques
+
+Plusieurs sous-branches, chacune autonome.
+
+- **Nom commercial / enseigne** (antériorité d'usage, portée géographique
+  limitée au territoire d'exploitation effective — jurisprudence Cour de
+  cass. com.). Preuve : extrait Kbis avec date d'immatriculation, factures
+  continues, documents publicitaires datés.
+- **Nom de domaine antérieur** (preuve de réservation auprès du registrar
+  + preuve d'usage commercial actif, pas seulement réservation passive).
+  Preuve : facture domaine, captures Wayback Machine, factures hébergement,
+  trafic Analytics.
+- **Dépôt frauduleux** (preuve de mauvaise foi du déposant tiers — CJUE
+  *Lindt* C-529/07). Indices : connaissance du signe antérieur (relations
+  d'affaires passées, présence sur le même marché), intention de bloquer
+  notre activité (chantage au rachat, dépôt préemptif), absence d'intention
+  réelle d'usage.
+- **AOP / IGP** (Indications Géographiques Protégées — règlement UE
+  1151/2012 + CPI L.722-1). Ex. "Champagne", "Roquefort", "Cognac". La
+  protection s'étend à toute évocation, même si le signe attaqué ne
+  reproduit pas l'appellation à l'identique.
+- **Droit au nom / pseudonyme** (personnes physiques célèbres ou non —
+  art. 9 code civil, droit au respect du nom). Le titulaire du nom peut
+  s'opposer à son dépôt comme marque par un tiers sans autorisation.
+- **Droit d'auteur antérieur** sur un signe artistique (logo, illustration,
+  composition graphique). L'antériorité doit être prouvée (datation
+  certaine, dépôt SACD / SCAM / horodatage notarial / dépôt
+  `depot-preuve-creation`).
+
+**Évaluation requise** (par sous-branche invoquée) :
+
+| Sous-branche | Force | Pièces requises | Précédent jurisprudentiel |
+|---|---|---|---|
+| Nom commercial / enseigne | 🟢/🟡/🔴 | Kbis + factures + portée géographique | Cass. com. [arrêt pertinent] |
+| Nom de domaine | 🟢/🟡/🔴 | Facture + Wayback + usage actif | TGI / TJ Paris [arrêt] |
+| Dépôt frauduleux | 🟢/🟡/🔴 | Preuves connaissance + intention | CJUE *Lindt* C-529/07 |
+| AOP / IGP | 🟢/🟡/🔴 | Cahier des charges + reconnaissance UE | CJUE [arrêt sectoriel] |
+| Droit au nom | 🟢/🟡/🔴 | Identité + notoriété du porteur | TGI Paris [arrêt] |
+| Droit d'auteur | 🟢/🟡/🔴 | Datation certaine antériorité | Cass. 1re civ. [arrêt] |
+| **Verdict L.711-3** | 🟢/🟡/🔴 | [synthèse motif principal retenu] |
+
+---
