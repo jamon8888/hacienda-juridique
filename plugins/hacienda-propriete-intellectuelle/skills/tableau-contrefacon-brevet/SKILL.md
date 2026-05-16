@@ -794,3 +794,302 @@ Le claim chart ne montre pas de matière à contrefaçon (la plupart des
   domaine public et ne donne plus droit à action. Vérifier l'état des
   annuités du brevet attaqué (INPI Data, registre OEB) AVANT toute
   action — un brevet déchu ne fonde aucune contrefaçon.
+
+---
+
+## Format de sortie
+
+Template Markdown standardisé. La sortie est destinée d'abord au
+mandataire en brevets ou à l'avocat PI ; elle doit se lire en 2 minutes
+pour la décision d'action, et en 10 minutes pour le détail technique
+revendication par revendication.
+
+`````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon profil, cf. CLAUDE.md § 2]
+
+# Claim chart — Brevet [FR/EP/PCT N°] vs [Produit incriminé] (CONFRONTATION TECHNIQUE, PAS QUALIFICATION)
+
+> **Confrontation ≠ qualification de contrefaçon.** Ce claim chart est un
+> outil d'analyse technique destiné au mandataire en brevets EQE ou à
+> l'avocat spécialisé PI. Il NE qualifie PAS la contrefaçon. La
+> qualification de contrefaçon est une décision juridique aux
+> conséquences lourdes ; toute action externe (mise en demeure, saisie-
+> contrefaçon CPC art. 59, assignation TJ Paris CPI L.615-1) exige
+> validation par mandataire ou avocat.
+
+> **⚠️ Note du relecteur**
+> - **Brevet :** [numéro] · titulaire [...] · statut [délivré / en vigueur / en opposition / déchu]
+> - **Annuités :** [à jour au YYYY-MM-DD via INPI Data / à vérifier]
+> - **Produit incriminé :** [identifiant / nom commercial / fabricant / distributeur]
+> - **Documentation produit lue :** [N sources : notice (Y p), fiche tech (Y p), site marketing, photos, ...]
+> - **Théorie analysée :** [littérale / équivalence / les deux]
+> - **Sources brevet :** [INPI Data ✓ / OEB Espacenet ✓ / utilisateur fourni]
+> - **Éléments [review] (équivalence et interprétation) :** [N]
+> - **Compétence juridictionnelle :** TJ Paris exclusive (CPI L.615-1)
+> - **Approbateur de l'action recommandée :** [tiré du profil — mise en demeure / saisie / assignation]
+> - **Avant action externe :** validation mandataire en brevets EQE ou avocat spécialisé PI **OBLIGATOIRE**
+
+**Triage :**
+- 🔴 **CONTREFAÇON LITTÉRALE** — toutes les revendications indépendantes 100 % ✅, voie procès solide
+- 🟠 **CONTREFAÇON PARTIELLE OU ÉQUIVALENCE** — littérale partielle ou équivalence présumée, action possible avec préparation
+- 🟡 **CHEVAUCHEMENT FAIBLE** — beaucoup de ❓ ou de ❌, collecte de preuves nécessaire avant toute conclusion
+- 🟢 **PAS DE CHEVAUCHEMENT** — pas de matière à action, surveillance recommandée
+
+[Sélectionner la cote — une phrase pourquoi]
+
+---
+
+## Brevet analysé
+
+- **Numéro :** [FR..../EP..../WO....]
+- **Titre :** [...]
+- **Classification CIB principale :** [code]
+- **Titulaire :** [...]
+- **Déposant initial (si différent) :** [...]
+- **Date de dépôt :** [YYYY-MM-DD]
+- **Date de priorité :** [YYYY-MM-DD]
+- **Date de publication :** [YYYY-MM-DD]
+- **Date de délivrance :** [YYYY-MM-DD si délivré]
+- **Statut actuel :** [en vigueur / en opposition / déchu / annulé]
+- **Couverture territoriale :** [FR / parties désignées d'EP / pays PCT entrés en phase nationale]
+
+## Produit incriminé
+
+- **Nom commercial :** [...]
+- **Fabricant :** [...]
+- **Distributeur en France :** [...]
+- **Date de mise sur le marché FR (si connue) :** [YYYY-MM-DD ou estimation]
+- **Marché cible :** [particulier / professionnel / industriel]
+- **Sources documentaires utilisées :**
+  - [source 1 — titre, URL ou fichier, pages]
+  - [source 2 — ...]
+  - [...]
+
+## Décomposition des revendications
+
+### Revendication 1 (indépendante)
+
+> [texte intégral de la revendication tel que publié]
+
+**Décomposition :**
+- Élément (1) : [...]
+- Élément (2) : [...]
+- Élément (3a) : [...]
+- Élément (3b) : [...]
+- Élément (3c) : [...]
+
+[Si termes interprétatifs détectés :]
+**Termes interprétatifs :** [liste — ex. "environ 50 nm" en (3b), "agent
+de réticulation polyamine" en (3c) — interprétation revendicative à
+valider par mandataire] `[review]`
+
+### Revendication N (dépendante de M) [si pertinente]
+
+[idem]
+
+---
+
+## Claim chart — Revendication 1
+
+[table format § 3.1]
+
+**Résumé Rev. 1 :** N/X éléments ✅, N ⚠️, N ❌, N ❓ → [conclusion littérale]
+
+## Claim chart — Revendication N
+
+[idem]
+
+---
+
+## Analyse contrefaçon par équivalence (CPI L.613-3, Cour de cass. com. 5 mai 2009 n°08-13.586)
+
+[Pour chaque élément ❌, sous-tableau format § 4.2]
+
+### Élément (3c) "Agent de réticulation polyamine"
+
+[sous-tableau 3 critères]
+
+**Conclusion équivalence (3c) :** [équivalence présumée / non / à
+approfondir] `[review]`
+
+[Si limites pertinentes :]
+**Limites à vérifier :**
+- File wrapper estoppel : [état dossier de poursuite INPI/OEB sur cet élément]
+- Borne par l'art antérieur : [vérification antériorités à mener / faite]
+
+---
+
+## Recommandation stratégique
+
+[Bucket sélectionné parmi 5.1 à 5.5, calibré sur posture profil + contexte business]
+
+**Bucket :** [contrefaçon littérale claire / partielle / équivalence
+uniquement / partielle douteuse / peu de chevauchement]
+
+**Actions :**
+1. [action 1 — ex. saisie-contrefaçon CPC art. 59 préparée par mandataire + avocat]
+2. [action 2 — ex. mise en demeure circonstanciée]
+3. [action 3 — ex. assignation TJ Paris si pas de retour]
+
+**Approbateur(s) :** [tiré du profil, par étape]
+
+**Délais critiques :**
+- Prescription action contrefaçon : 5 ans connaissance des faits (CPI L.615-8)
+- Annuités brevet : [date prochaine échéance — un brevet déchu ne fonde aucune action]
+
+---
+
+## Vérification des citations
+
+Chaque numéro de brevet, chaque numéro de revendication, chaque citation
+de texte (CPI, CPC, jurisprudence Cour de cassation chambre commerciale),
+chaque source de documentation produit dans ce claim chart doit être
+contrôlé contre la source primaire (INPI Data, OEB Espacenet, Légifrance,
+document produit téléversé) avant toute action externe. Les statuts ✅ /
+⚠️ / ❌ / ❓ et les conclusions d'équivalence sont des **propositions de
+lecture technique** — la qualification juridique appartient au mandataire,
+à l'avocat ou au juge.
+
+**Une question hors de ma checklist :** [observation seconde-ordre — omis si rien]
+
+## Que veux-tu faire ?
+
+1. **Préparer la mise en demeure** — j'ouvre `mise-en-demeure-pi` (V0.1) avec le claim chart en pièce jointe interne
+2. **Préparer la saisie-contrefaçon** — `saisie-contrefacon` V6.0 future, en attendant je rédige une note pour mandataire + huissier listant les éléments à saisir
+3. **Escalader** — note pour [mandataire en brevets EQE / avocat PI / GC selon approbateurs du profil] avec faits-clés, claim chart résumé et décision attendue
+4. **Approfondir l'analyse équivalence** — itérer sur les éléments ❌ avec données techniques supplémentaires (avis expert, dossier de poursuite, art antérieur)
+5. **Acquérir et analyser le produit** — checklist rétro-ingénierie technique (huissier + laboratoire indépendant) pour transformer les ❓ en ✅ ou ❌
+6. **Autre chose** — dis-moi
+`````
+
+---
+
+## Gate non-juriste
+
+Avant d'émettre la sortie, lire `## 1. Profil cabinet et profil de
+pratique PI`. Si **Rôle = juriste interne sans inscription** OU
+**non-juriste avec accès avocat** OU **non-juriste sans accès avocat** :
+
+> Cette sortie est un claim chart — outil d'analyse technique, pas un
+> avis juridique de contrefaçon. **Envoyer une mise en demeure de
+> contrefaçon brevet sans validation avocat / mandataire EQE expose à
+> des conséquences lourdes** : (a) action reconventionnelle en
+> concurrence déloyale du contrefacteur présumé (Code civil art. 1240
+> — dénigrement, atteinte réputationnelle, désorganisation
+> commerciale) ; (b) prescription du droit d'agir si la mise en demeure
+> est mal calibrée ; (c) **saisie-contrefaçon annulée** pour
+> vraisemblance insuffisante, avec dommages-intérêts CPC art. 78 ;
+> (d) coût et réputation d'un procès TJ Paris perdu. Un **mandataire
+> en brevets EQE** ou un **avocat spécialisé propriété industrielle**
+> doit évaluer ce claim chart **avant toute communication externe**.
+>
+> Voici un brief 1 page à apporter à votre mandataire / avocat —
+> ça réduira le temps de la conversation :
+>
+> [Générer un brief : **(1)** récap brevet (numéro, titulaire, statut,
+> annuités), **(2)** récap produit incriminé (nom, fabricant,
+> distributeur FR, sources doc), **(3)** synthèse claim chart par
+> revendication (N éléments ✅ / ⚠️ / ❌ / ❓), **(4)** éléments
+> `[review]` à arbitrer (interprétation revendications + équivalences),
+> **(5)** recommandation stratégique préliminaire avec bucket,
+> **(6)** 3 questions à poser au mandataire : "la décomposition des
+> revendications te convient-elle ?", "les équivalences présumées
+> tiennent-elles selon ta lecture homme du métier ?", "quel chemin
+> d'enforcement recommandes-tu — mise en demeure, saisie, assignation
+> directe TJ Paris ?"]
+>
+> Pour trouver un mandataire en brevets ou un avocat PI :
+>
+> - **Annuaire des avocats** : https://www.avocat.fr (Conseil National des Barreaux)
+> - **Annuaire des conseils en propriété industrielle (mandataires INPI)** :
+>   https://www.inpi.fr/conseils-en-propriete-industrielle
+> - **Liste des mandataires européens (qualifiés EQE) auprès de l'OEB** :
+>   https://www.epo.org/en/searching-for-patents/legal/professional-representatives
+
+Livrer le claim chart complet À CÔTÉ du brief. Ne pas retenir l'analyse.
+
+---
+
+## Emplacement de la sortie
+
+Écrire à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/claim-chart-<num-brevet>-<produit-slug>-YYYY-MM-DD.md`
+et surfacer le chemin à l'utilisateur.
+
+Slug brevet : numéro normalisé (`fr2700123`, `ep3456789`, `wo2024012345`).
+Slug produit : forme courte du nom commercial (`aquapur-x9`,
+`compressor-vid-acme`). Si conflit même jour, suffixer `-2`, `-3`.
+
+Matter workspaces hors V1 (cf. `CLAUDE.md` `## 11`).
+
+---
+
+## Fermeture avec l'arbre de décision
+
+Fermer avec l'arbre de décision décrit dans `## Que veux-tu faire ?` du
+template de sortie — les 6 options sont personnalisées au claim chart
+(et non les 5 génériques de `CLAUDE.md` `## 2`). L'option 1 ("Préparer
+la mise en demeure") est l'aboutissement naturel d'un claim chart 🔴 ou
+🟠 ; les options 2 et 3 sont les escalades plus lourdes ; les options 4
+et 5 sont les voies d'approfondissement si le tableau n'est pas
+concluant.
+
+---
+
+## Ce que ce skill NE fait PAS
+
+- **Qualifier la contrefaçon.** Jamais. La qualification appartient au
+  juge (TJ Paris, compétence exclusive CPI L.615-1) ou au
+  mandataire/avocat dans son analyse de risque. Le claim chart
+  **propose une lecture technique** ; il ne tranche pas.
+- **Rédiger la mise en demeure.** Ce livrable est produit par
+  `mise-en-demeure-pi` (V0.1) qui consomme le claim chart en entrée et
+  applique le formalisme propre à la mise en demeure (mention CPI
+  L.615-3, sommation de cesser, délai de réponse, conséquences
+  d'inaction).
+- **Préparer la requête en saisie-contrefaçon judiciaire** (CPC art. 59,
+  CPI L.615-5) — exige une requête motivée présentée au président TJ
+  Paris, accompagnée du brevet, de la preuve de vraisemblance, et de
+  l'identification des lieux et choses à saisir. = `saisie-contrefacon`
+  V6.0 future.
+- **Préparer l'assignation TJ Paris en contrefaçon.** = `action-contrefacon`
+  V6.0 future. Exige cadre procédural complet (constitution avocat
+  spécialiste PI obligatoire devant TJ Paris, calcul détaillé du
+  préjudice, conclusions).
+- **Calculer le préjudice** (CPI L.615-7 : manque à gagner +
+  bénéfices contrefacteur + préjudice moral + redevance indemnitaire
+  possible) — exige expertise comptable et financière, hors champ
+  technique du claim chart.
+- **Évaluer la validité du brevet attaqué** (nouveauté, activité
+  inventive, suffisance de description, extension indue). En procès, le
+  contrefacteur soulèvera presque systématiquement la nullité du brevet
+  en défense — il faut s'y être préparé. = `anteriorite-invalidite`
+  (V2.1 future) ou collaboration mandataire EQE.
+- **Répondre à une argumentation de défense** (nullité, prescription
+  L.615-8, exception d'usage personnel L.613-5, exception de recherche
+  L.613-5 d, épuisement L.613-6) — ces argumentations sont anticipées
+  et travaillées par l'avocat plaidant.
+- **Garantir le résultat de l'action.** La qualification juridique
+  relève des juridictions. Le claim chart prépare un dossier ; il ne
+  prédit pas la décision du TJ Paris.
+
+---
+
+## Ton
+
+Technique, rigoureux, précis. Le mandataire ou l'avocat lit le claim
+chart et part en action — il a besoin d'un tableau **utilisable**, pas
+d'une dissertation hedgée. Soit **✅** soit **❌** soit **⚠️** soit
+**❓** — pas de "il pourrait peut-être", pas de "il semblerait que",
+pas de paragraphe de caveat moralisant dans le tableau (les caveats vont
+dans la note du relecteur en tête et dans les flags `[review]` en
+ligne).
+
+La rigueur du claim chart = la solidité du dossier. Un tableau bâclé
+fait perdre la confiance du mandataire pour les prochains. Préférer un
+claim chart **plus court mais propre** (3 ✅ honnêtes et 2 ❓ honnêtes)
+à un claim chart **long et faussement complet** (5 ✅ optimistes
+indéfendables en revue). Le garde-fou en tête, la règle "all elements
+rule" française et les flags `[review]` sur l'équivalence font le
+travail de scope. Le claim chart prépare la décision ; il ne la prend
+pas.
