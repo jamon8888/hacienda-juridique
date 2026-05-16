@@ -1411,3 +1411,156 @@ chaîne des droits audiovisuels, partie numérique distincte pour
 une **ossature L.131-3 conforme**, non un contrat finalisé.
 
 ---
+
+## Gate non-juriste — brief avocat
+
+Si le profil indique que l'utilisateur n'est ni avocat inscrit ni juriste
+interne, **ne pas produire le projet de contrat en intégralité**. Le
+livrable est alors reformaté en **brief avocat** : un document court qui
+prépare la conversation avec l'avocat spécialisé PI sans se substituer
+à lui.
+
+Structure du brief avocat (remplace le format de sortie ci-dessus) :
+
+````markdown
+[EN-TÊTE : NOTES DE TRAVAIL INTERNES — NE CONSTITUE PAS UN AVIS JURIDIQUE
+— Faire valider par un avocat avant tout acte]
+
+# Brief avocat — Cession de droits d'auteur envisagée
+
+> **Non-juriste — ne signe rien sans avocat.** Ce document est un
+> support de cadrage à transmettre à l'avocat spécialisé en propriété
+> intellectuelle. Il n'a pas vocation à être signé ni utilisé comme
+> contrat. Il sert à préparer la conversation et faire gagner du temps
+> sur les questions factuelles.
+
+## 1. Œuvre concernée
+[Titre + nature + description courte + qualification préalable effectuée
+ou non]
+
+## 2. Cession envisagée
+- **Cédant :** [identité résumée]
+- **Cessionnaire :** [identité résumée]
+- **Type :** totale / partielle, exclusive / non-exclusive, présente /
+  future, contexte (commande / salarié / édition / audiovisuel /
+  standard)
+
+## 3. Conditions L.131-3 — checklist préparée
+- (a) Droits cédés envisagés : [liste]
+- (b) Domaines d'exploitation envisagés : [liste]
+- (c) Territoires envisagés : [liste]
+- (d) Durée envisagée : [option]
+- (e) Rémunération envisagée : proportionnelle [taux + assiette] /
+  forfaitaire [montant + justification cas exception] / mixte
+
+## 4. Cas particulier identifié
+[Standard / commande / salarié / édition L.132-1+ / audiovisuel L.132-23+]
++ implications principales identifiées
+
+## 5. Trois questions critiques pour l'avocat
+1. [Question issue de l'analyse — par exemple : « Le cédant est une
+   agence de design — comment vérifier qu'elle a bien les droits du
+   designer salarié qui a créé l'œuvre, hors L.113-9 logiciel ? »]
+2. [Question — par exemple : « Le forfait envisagé est-il justifiable
+   au regard de L.131-4 al. 2 ou faut-il basculer en proportionnel
+   pour éviter le risque L.131-5 ? »]
+3. [Question — par exemple : « La cession porte sur un usage IA
+   générative — quelle clause prévoir compte tenu de l'état du droit
+   2026 sur l'usage des œuvres pour entraînement ? »]
+
+## 6. Approbateur prévu
+[Selon matrice profil : avocat seul / avocat + Direction marketing /
+avocat + GC]
+````
+
+Quand le profil bascule sur « avocat référent », ajouter en pied : « À
+transmettre à : [nom avocat référent du profil] ».
+
+---
+
+## Emplacement du livrable
+
+Sauvegarder le projet de contrat ou le brief avocat dans :
+
+```
+~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/cession-auteur-<oeuvre-slug>-YYYY-MM-DD.md
+```
+
+Convention de nommage :
+- `<oeuvre-slug>` : slug court de l'œuvre (kebab-case, sans accents,
+  par exemple `logo-apexleaf` ou `roman-memoires-aube`)
+- `YYYY-MM-DD` : date de génération du brouillon
+
+Si le répertoire `outputs/` n'existe pas, le créer. Si un fichier portant
+le même nom existe déjà (même œuvre, même date), suffixer `-v2`, `-v3`,
+etc. — ne **jamais écraser** un brouillon précédent.
+
+---
+
+## Ce que ce skill NE fait PAS
+
+- **Signer le contrat** — c'est aux parties (cédant et cessionnaire), pas
+  au skill ni à l'IA.
+- **Garantir la validité finale** — c'est à l'avocat in fine, et au juge
+  en cas de contestation. Le skill peut produire un brouillon
+  formellement conforme L.131-3 et néanmoins voir des clauses annulées
+  par le juge pour des motifs non détectables ex ante (lésion L.131-5,
+  abus de position, défaut de cause concret, etc.).
+- **Remplacer l'avocat spécialisé en propriété intellectuelle** — la
+  finalisation du contrat (intégration des clauses spécifiques,
+  négociation des termes, validation jurisprudentielle, articulation
+  avec d'autres contrats du dossier) reste un acte d'avocat.
+- **Évaluer la rémunération adéquate** — la fixation du taux ou du
+  forfait est une négociation business + un benchmark sectoriel (qui
+  varie fortement selon la notoriété de l'auteur, le potentiel
+  commercial de l'œuvre, le risque pris par le cessionnaire). Le skill
+  peut citer des fourchettes indicatives `[connaissance modèle — à
+  vérifier]` mais ne tranche pas.
+- **Traiter la cession à titre gratuit** (donation entre vifs) — régime
+  spécifique du droit des libéralités, forme notariée requise, hors
+  scope de ce skill.
+- **Céder globalement des œuvres futures** — interdit L.131-1, sauf
+  exception contrat d'édition L.132-4. Si l'utilisateur demande une
+  cession globale d'œuvres futures hors édition, le skill refuse de
+  produire le brouillon et propose un montage alternatif (licence-cadre
+  + cessions individuelles, ou contrat d'édition si applicable).
+- **Traiter les licences** — c'est le rôle de
+  `/hacienda-propriete-intellectuelle:licence-droit-auteur` (V4.1). Le
+  présent skill traite uniquement la cession (transfert de titularité).
+- **Traiter les bases de données spécifiquement** — c'est le rôle de
+  `/hacienda-propriete-intellectuelle:bases-de-donnees` (V4.1), qui gère
+  la double protection L.111-1 + L.341-1 et les régimes d'accès.
+- **Traiter le contentieux en contrefaçon de droits d'auteur** —
+  différé V4.2 (`contrefacon-droit-auteur`).
+
+---
+
+## Ton
+
+Juridique précis, formel, équilibré. Présenter à la fois :
+- les **risques de nullité** explicites quand une condition L.131-3
+  n'est pas remplie ou qu'une jurisprudence sensible s'applique ;
+- les **recommandations rédactionnelles** concrètes pour sécuriser le
+  contrat (formulations, clauses additionnelles, annexes utiles).
+
+Éviter :
+- Le ton commercial enthousiaste (« excellente cession, très protectrice »)
+  — c'est l'avocat qui valide, pas le skill.
+- Le ton catastrophiste systématique (« risque majeur ») — réserver les
+  alertes 🔴 aux vrais points bloquants L.131-3 ou L.131-1.
+- La narration de tâche (« je vais maintenant rédiger l'article 4 ») —
+  produire directement.
+- L'usage d'« il faudrait » sans destinataire — préférer « le contrat
+  doit prévoir », « l'avocat tranchera », « les parties confirmeront ».
+
+Comme pour tous les skills du plugin, **clôturer par l'arbre de décision
+à 5 options** (cf. `CLAUDE.md` § 2) : Rédiger / Escalader / Compléter
+les faits / Surveiller et attendre / Autre. La question hors checklist
+peut porter par exemple sur : la cohérence du contrat avec les autres
+contrats du dossier (publishing deal antérieur, contrat de prestation
+parent, accord de coproduction), la pertinence d'un dépôt de preuve
+préalable via `/hacienda-propriete-intellectuelle:depot-preuve-creation`,
+ou la nécessité d'une clause RGPD si l'œuvre comporte des données
+personnelles identifiables.
+
+---
