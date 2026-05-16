@@ -1040,3 +1040,374 @@ applicables). Flag `[review — contrat audiovisuel, présomption L.132-24
 + conventions collectives à articuler par avocat spécialisé audiovisuel]`.
 
 ---
+
+## Format de sortie — projet de contrat structuré en 15 articles
+
+Le livrable est un **projet de contrat de cession** complet, articulé en
+15 articles, précédé de l'en-tête de confidentialité, du paragraphe
+garde-fou reformulé et de la note du relecteur. Format Markdown, à
+copier-coller dans un éditeur de texte pour mise en forme finale par
+l'avocat ou les parties.
+
+````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon profil utilisateur :
+- avocat inscrit : CONFIDENTIEL — DOCUMENT DE TRAVAIL — Secret professionnel art. 66-5 loi n°71-1130 du 31 décembre 1971
+- mandataire INPI hors périmètre : NOTES DE TRAVAIL — NON COUVERT PAR LE SECRET DU MANDATAIRE
+- juriste interne / non-juriste : NOTES DE TRAVAIL INTERNES — NE CONSTITUE PAS UN AVIS JURIDIQUE]
+
+# Projet de Contrat de Cession de Droits d'Auteur — PROJET POUR VALIDATION AVOCAT
+
+> **Préparation projet ≠ signature.** Le présent document est un projet
+> de contrat de cession de droits patrimoniaux d'auteur articulé autour
+> des cinq conditions cumulatives de l'article L.131-3 CPI. Il NE remplace
+> PAS la rédaction finale par un avocat spécialisé en propriété
+> intellectuelle, ni la relecture et la signature par les parties.
+> L'omission ou la formulation insuffisante de l'une des cinq conditions
+> entraîne la nullité partielle ou totale de la cession. Le droit moral
+> de l'auteur (L.121-1) est perpétuel, inaliénable et imprescriptible —
+> aucune clause ne peut le céder.
+
+> **⚠️ Note du relecteur**
+> - **Œuvre :** [titre + nature] — qualification préalable
+>   `/qualification-oeuvre` effectuée : ✓ / ✗ (si ✗, à lancer avant
+>   signature)
+> - **Conditions L.131-3 :**
+>   - (a) Énumération précise des droits cédés : ✓ / 🟡 / 🔴 [note]
+>   - (b) Domaines d'exploitation listés : ✓ / 🟡 / 🔴 [note]
+>   - (c) Territoires : ✓ / 🟡 / 🔴 [note]
+>   - (d) Durée : ✓ / 🟡 / 🔴 [note]
+>   - (e) Rémunération (proportionnelle L.131-4 ou forfait justifié) :
+>     ✓ / 🟡 / 🔴 [note]
+> - **L.131-1** (pas de cession globale œuvres futures) : ✓ / 🔴 [note]
+> - **L.131-5** (risque lésion 7/12) : ✓ / 🟡 [note]
+> - **Cas particulier :** standard / commande / salarié / édition L.132-1+ /
+>   audiovisuel L.132-23+
+> - **Droit moral L.121-1 :** clauses respect intégrité + paternité +
+>   divulgation + repentir prévues à l'article 9
+> - **Avant signature :** validation avocat spécialisé PI + relecture
+>   par les deux parties **OBLIGATOIRE**
+
+**Triage global :** 🟢 CONFORME L.131-3 / 🟡 CLAUSES À AJUSTER / 🔴
+RISQUE NULLITÉ — [une phrase qui explique le verdict].
+
+---
+
+## Article 1 — Identification des parties
+
+**Entre les soussignés :**
+
+**[CÉDANT]** — [Nom complet + prénoms / Raison sociale + forme + capital
++ SIREN] — demeurant / dont le siège social est sis [adresse complète] —
+[si personne physique : né(e) le [date] à [lieu] / nationalité] — [si
+personne morale : représenté(e) par [Nom] en sa qualité de [qualité],
+dûment habilité(e) à l'effet des présentes],
+
+ci-après dénommé(e) « le Cédant »,
+
+**D'UNE PART,**
+
+**ET**
+
+**[CESSIONNAIRE]** — [identification symétrique],
+
+ci-après dénommé(e) « le Cessionnaire »,
+
+**D'AUTRE PART,**
+
+Le Cédant et le Cessionnaire étant ci-après ensemble dénommés « les
+Parties ».
+
+## Article 2 — Œuvre cédée
+
+Le présent contrat porte sur l'œuvre suivante (ci-après « l'Œuvre ») :
+
+- **Titre :** [titre définitif ou provisoire]
+- **Nature :** [genre : texte / image / photographie / composition
+  musicale / logiciel / œuvre audiovisuelle / etc.]
+- **Description :** [description détaillée permettant l'identification
+  sans ambiguïté de l'Œuvre — caractéristiques, format, langue,
+  dimensions, etc.]
+- **Supports remis :** [liste des supports physiques et fichiers
+  numériques avec format et, le cas échéant, empreinte cryptographique]
+- **Date de création / finalisation :** [date]
+- **Annexe 1 :** exemplaire de référence de l'Œuvre paraphé par les
+  Parties
+
+## Article 3 — Garanties du Cédant
+
+Le Cédant garantit au Cessionnaire :
+- **Titularité :** être titulaire des droits cédés au présent contrat,
+  en sa qualité d'auteur originaire de l'Œuvre [ou d'ayant droit
+  régulièrement investi par la chaîne de titularité décrite en Annexe 2] ;
+- **Originalité :** que l'Œuvre est originale au sens de l'article
+  L.111-1 CPI et qu'elle ne reproduit, n'imite ni n'incorpore sans
+  autorisation aucune œuvre préexistante d'un tiers ;
+- **Absence d'éviction :** qu'aucun tiers ne dispose de droits sur
+  l'Œuvre susceptibles de faire obstacle à l'exploitation paisible par
+  le Cessionnaire dans les limites du présent contrat ;
+- **Autorisations connexes :** avoir obtenu, le cas échéant, toutes
+  autorisations nécessaires des personnes représentées (droit à
+  l'image), des propriétaires des biens représentés et des titulaires
+  de droits voisins éventuels.
+
+Le Cédant s'engage à indemniser le Cessionnaire de tout préjudice direct
+résultant d'une action en revendication ou en contrefaçon fondée sur un
+défaut de l'une de ces garanties, dans la limite de [montant plafond,
+typiquement le prix de cession + frais de défense raisonnables].
+
+## Article 4 — Droits cédés (L.131-3 condition a)
+
+Le Cédant cède au Cessionnaire, dans les conditions fixées aux articles
+5 à 8, les droits patrimoniaux suivants sur l'Œuvre, chacun étant ici
+mentionné de manière distincte conformément à l'article L.131-3 CPI :
+
+- **4.1 Droit de reproduction (L.122-3)** : [détailler les sous-droits
+  cédés : reproduction graphique, photographique, mécanique, numérique,
+  par tout procédé connu ou inconnu à ce jour dans la limite de la
+  destination commerciale précisée à l'article 5]
+- **4.2 Droit de représentation (L.122-2)** : [détailler les sous-droits
+  cédés : projection publique, télédiffusion, communication au public
+  par réseaux numériques, etc.]
+- **4.3 Droit d'adaptation, de traduction et de transformation
+  (L.122-4)** : [adaptation pour autre média, traduction dans les langues
+  suivantes, arrangement, etc.]
+- **4.4 Droit de distribution et de location** : [mise sur le marché,
+  prêt, location — préciser portée]
+- **4.5 Droit d'exploitation numérique** : [sites web, applications,
+  réseaux sociaux, formats électroniques, etc.]
+- **4.6 [Autres droits spécifiques selon contexte]** : [merchandising,
+  publicité, intégration data sets / IA, NFT, etc. — préciser ou
+  exclure]
+
+Les droits non expressément cédés au présent article demeurent la
+propriété pleine et entière du Cédant. La présente cession est consentie
+[à titre exclusif / à titre non exclusif].
+
+## Article 5 — Domaines d'exploitation (L.131-3 condition b)
+
+Les droits cédés à l'article 4 peuvent être exploités dans les domaines
+suivants, à l'exclusion de tout autre :
+
+- [Édition imprimée : préciser supports]
+- [Édition numérique : préciser supports]
+- [Audiovisuel : préciser supports]
+- [Spectacle vivant : préciser]
+- [Phonogramme : préciser]
+- [Internet / réseaux numériques : préciser]
+- [Merchandising et produits dérivés : préciser]
+- [Publicité et communication corporate : préciser]
+- [Autres : préciser]
+
+Destination : exploitation [commerciale / non commerciale /
+promotionnelle / mixte — préciser pour chaque domaine si différent].
+
+## Article 6 — Territoires (L.131-3 condition c)
+
+La cession est consentie pour les territoires suivants :
+- [France métropolitaine + DROM-COM / Union européenne / Espace
+  économique européen / Monde entier / liste de pays / monde entier
+  sauf [pays exclus]].
+
+[Le cas échéant : « Le Cédant s'engage à ne pas exploiter ni autoriser
+l'exploitation de l'Œuvre dans le périmètre territorial et matériel
+ci-dessus défini pendant la durée du présent contrat » — clause de
+non-concurrence si exclusivité.]
+
+## Article 7 — Durée (L.131-3 condition d)
+
+La présente cession est consentie pour une durée de :
+- [Option A : pour la durée légale de protection, soit jusqu'à 70 ans
+  à compter du décès du Cédant (L.123-1 CPI)]
+- [Option B : pour une durée de [X] années à compter de [la signature
+  du présent contrat / la première exploitation de l'Œuvre], soit
+  jusqu'au [date]]
+- [Option C : pour la durée du [contrat principal X / projet Y]
+  étant précisé que [événement déterminable]]
+
+Au terme du présent contrat, les droits cédés font retour de plein
+droit au Cédant, sans formalité, sous réserve de l'écoulement des
+stocks et de la cessation effective des exploitations dans un délai de
+[X mois].
+
+## Article 8 — Rémunération (L.131-3 condition e + L.131-4)
+
+**Option A — Rémunération proportionnelle (principe L.131-4) :**
+
+En contrepartie de la cession, le Cessionnaire verse au Cédant une
+rémunération proportionnelle aux recettes d'exploitation égale à :
+- **Taux :** [X] % des [recettes brutes / recettes nettes / prix public
+  HT — préciser exactement l'assiette et les déductions autorisées]
+- **Avance à la signature :** [montant] euros, à valoir sur les
+  redevances futures [non remboursable]
+- **Périodicité de versement :** [semestrielle / trimestrielle /
+  annuelle], avec règlement dans les [X] jours suivant la clôture de
+  chaque période
+- **Reddition de comptes :** [périodicité, format détaillé par canal /
+  territoire / format, délai de transmission]
+
+**Option B — Rémunération forfaitaire (exception L.131-4 al. 2) :**
+
+En contrepartie de la cession, le Cessionnaire verse au Cédant une
+rémunération forfaitaire de [montant] euros, payable [modalités]. Ce
+choix de la rémunération forfaitaire est justifié par [citer le cas
+d'exception applicable L.131-4 al. 2]. [Clause de complément de prix
+recommandée : « Au-delà de [X] euros de recettes cumulées, le
+Cessionnaire versera au Cédant un complément de prix égal à [Y] % des
+recettes excédant ce seuil. »]
+
+[Mention TVA selon régime du Cédant — artiste-auteur AGESSA, Maison
+des artistes, micro-entrepreneur, société.]
+
+## Article 9 — Respect du droit moral (L.121-1 inaliénable)
+
+Le Cessionnaire reconnaît expressément que le droit moral du Cédant
+sur l'Œuvre est perpétuel, inaliénable et imprescriptible (L.121-1 CPI).
+
+Le Cessionnaire s'engage en conséquence à :
+- **Paternité :** mentionner le nom du Cédant sur tous les supports
+  d'exploitation, selon les modalités suivantes : [position, police,
+  taille, langue]
+- **Intégrité :** ne porter aucune atteinte à l'Œuvre par modification,
+  déformation ou mutilation. [Régime des modifications autorisées :
+  aucune / techniques minimales (compression, recadrage simple) /
+  substantielles soumises à accord exprès écrit préalable du Cédant /
+  liberté d'adaptation pour les usages contractuellement prévus]
+- **Divulgation :** [si l'Œuvre n'est pas encore divulguée : autoriser
+  expressément la divulgation par le Cessionnaire à compter du [date]
+  selon les modalités prévues à l'article 5]
+- **Repentir :** rappel du droit du Cédant L.121-4 et modalités
+  d'exercice (préavis, méthode de calcul de l'indemnisation du
+  Cessionnaire)
+
+## Article 10 — Cession à des tiers (sous-cession)
+
+[Option A — Interdite :] Le Cessionnaire ne peut céder à des tiers,
+en tout ou partie, les droits acquis au titre du présent contrat.
+
+[Option B — Soumise à accord :] Le Cessionnaire ne peut céder à des
+tiers les droits acquis au titre du présent contrat sans l'accord
+exprès, écrit et préalable du Cédant, qui ne pourra refuser sans motif
+légitime.
+
+[Option C — Autorisée :] Le Cessionnaire peut librement céder à des
+tiers les droits acquis au titre du présent contrat, à charge pour lui
+(i) d'en informer préalablement le Cédant, (ii) d'imposer au
+sous-cessionnaire le respect intégral des engagements du présent
+contrat, notamment le droit moral et la reddition de comptes, (iii)
+de verser au Cédant [X] % du prix de la sous-cession en sus des
+redevances proportionnelles déjà dues.
+
+Le Cessionnaire reste solidairement responsable des engagements du
+sous-cessionnaire vis-à-vis du Cédant.
+
+## Article 11 — Audit et reddition de comptes
+
+Le Cédant peut, à ses frais et au maximum une fois par an, faire
+vérifier la sincérité de la reddition de comptes par un expert-comptable
+indépendant tenu au secret professionnel. Si l'audit révèle un écart en
+faveur du Cédant supérieur à [X] % des sommes dues, les frais d'audit
+sont à la charge du Cessionnaire et celui-ci régularise le montant dû
+majoré d'intérêts au taux légal dans les [30] jours.
+
+Le Cessionnaire conserve les pièces comptables relatives à
+l'exploitation de l'Œuvre pendant toute la durée du contrat et pendant
+[5] ans après son terme.
+
+## Article 12 — Résiliation
+
+**Résiliation pour manquement :** en cas de manquement d'une Partie à
+l'une de ses obligations, non réparé dans un délai de [30 / 60] jours
+suivant mise en demeure par lettre recommandée avec accusé de
+réception, l'autre Partie peut résilier de plein droit le présent
+contrat sans préjudice de tous dommages-intérêts.
+
+**[Le cas échéant : Résiliation pour non-exploitation]** : en cas
+d'absence d'exploitation effective de l'Œuvre pendant [12] mois
+consécutifs, le Cédant peut, après mise en demeure restée infructueuse
+pendant [12] mois, résilier le présent contrat de plein droit.
+
+**Conséquences de la résiliation :** cessation de toute exploitation
+dans un délai de [X mois — épuisement des stocks autorisé], retour des
+droits au Cédant, clôture des comptes et règlement des sommes dues,
+restitution des éléments matériels remis. Les sous-licences en cours
+[sont résiliées de plein droit / restent en vigueur jusqu'à leur terme
+sous condition de versement direct des redevances au Cédant].
+
+## Article 13 — Droit applicable et juridiction
+
+Le présent contrat est soumis au droit français.
+
+Tout litige relatif à la formation, l'exécution, l'interprétation ou
+la résiliation du présent contrat fera l'objet d'une tentative de
+médiation préalable obligatoire devant un médiateur choisi d'un commun
+accord ou, à défaut, désigné par le bâtonnier de l'ordre des avocats
+du barreau de Paris, pour une durée maximale de [3] mois.
+
+À défaut d'accord amiable, le litige sera porté devant le **Tribunal
+judiciaire de Paris**, auquel les Parties attribuent compétence
+exclusive.
+
+## Article 14 — Notification
+
+Toute notification, mise en demeure ou communication formelle au titre
+du présent contrat sera adressée :
+- pour le Cédant : [adresse postale] / [email]
+- pour le Cessionnaire : [adresse postale] / [email]
+
+Les notifications graves (mise en demeure, résiliation, dénonciation)
+sont effectuées par lettre recommandée avec accusé de réception. Les
+échanges courants peuvent être effectués par courrier électronique.
+
+Chaque Partie s'engage à informer l'autre de tout changement de ses
+coordonnées dans un délai de [15] jours.
+
+## Article 15 — Dispositions diverses
+
+**Intégralité.** Le présent contrat exprime l'intégralité de l'accord
+entre les Parties et annule tout accord antérieur, écrit ou verbal,
+portant sur le même objet.
+
+**Modification.** Toute modification du présent contrat ne peut résulter
+que d'un avenant écrit signé des deux Parties.
+
+**Nullité partielle.** Si l'une quelconque des stipulations du présent
+contrat est déclarée nulle, les autres stipulations demeurent en
+vigueur, sauf si la stipulation nulle constituait une condition
+essentielle au sens des Parties.
+
+**Force majeure.** Aucune des Parties ne sera responsable d'un retard
+ou d'une inexécution résultant d'un cas de force majeure au sens de
+l'article 1218 du code civil.
+
+**Confidentialité.** Les Parties s'engagent à conserver confidentielles
+les conditions financières du présent contrat, sauf obligation légale,
+réglementaire ou judiciaire de communication.
+
+---
+
+**Fait à [...] le [...]**
+
+**En deux exemplaires originaux, un pour chaque Partie.**
+
+| Le Cédant | Le Cessionnaire |
+|---|---|
+| [Nom + signature] | [Nom + qualité + signature] |
+| Mention manuscrite « Bon pour cession des droits dans les limites du présent contrat » | |
+
+---
+
+**Annexes :**
+- Annexe 1 : exemplaire de référence de l'Œuvre paraphé par les Parties
+- Annexe 2 : chaîne de titularité (le cas échéant)
+- Annexe 3 : autorisations modèles / droit à l'image (le cas échéant)
+- Annexe 4 : extrait Kbis du Cessionnaire (si personne morale)
+````
+
+**Note du skill — ce projet est un canevas.** L'avocat l'adapte au cas
+concret, ajoute les clauses spécifiques selon le contexte (clauses
+pénales, propriété industrielle annexe, RGPD si données personnelles,
+chaîne des droits audiovisuels, partie numérique distincte pour
+édition, etc.), et fait viser par les parties. Le présent skill produit
+une **ossature L.131-3 conforme**, non un contrat finalisé.
+
+---
