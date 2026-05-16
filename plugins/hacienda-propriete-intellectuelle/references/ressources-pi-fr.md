@@ -40,13 +40,42 @@ ces sources doit être taguée avec le tag de provenance correspondant
 
 ## 2. Brevets
 
-| Ressource | URL | Tag | Usage |
-|---|---|---|---|
-| OEB Espacenet | https://worldwide.espacenet.com | `[OEB Espacenet]` | Recherche brevets mondiale ; familles ; statut juridique. |
-| INPI Data — brevets | https://data.inpi.fr | `[INPI Data]` | Brevets français et désignations FR. |
-| OEB Register | https://register.epo.org | `[OEB Espacenet]` | Statut procédural, oppositions, recours. |
-| Google Patents | https://patents.google.com | `[recherche web — à vérifier]` | Recherche full-text complémentaire ; ne remplace pas Espacenet. |
-| OMPI Patentscope (PCT) | https://patentscope.wipo.int | `[OMPI Madrid Monitor]` (équivalent OMPI) | Demandes internationales PCT. |
+### 2.1 Brevets — bases techniques (V0.4 — bloc Brevets MVP)
+
+| Ressource | URL | Tag | Usage | Connecteur Hacienda |
+|---|---|---|---|---|
+| INPI Data — brevets FR | https://data.inpi.fr | `[INPI Data]` | Brevets français (FR), demandes FR-EP désignant FR, statuts juridiques, annuités. OAuth password grant. | `inpi_search_brevets` / `inpi_brevet_details` (V0.4) |
+| OEB Espacenet OPS | https://ops.epo.org | `[OEB Espacenet]` | Bases mondiales OEB (EP, WO/PCT, US, JP, CN, etc.), familles INPADOC, classifications CIB/CPC, abrégés. OAuth2 client_credentials, **quota 4 Go/sem gratuit**. | `espacenet_search` / `espacenet_brevet_details` (V0.4) |
+| OEB Register | https://register.epo.org | `[OEB Espacenet]` | Statut procédural, oppositions, recours sur demandes EP. | Via Espacenet OPS (V0.4) |
+| Google Patents | https://patents.google.com | `[recherche web — à vérifier]` | Recherche full-text complémentaire et accès aux PDF facilité. Ne remplace pas Espacenet pour les citations officielles. | À venir V2.1 |
+| OMPI Patentscope (PCT) | https://patentscope.wipo.int | `[OMPI Patentscope]` | Demandes internationales PCT, désignations, rapports de recherche internationaux (RRI / ISR). | À venir V2.2 |
+
+**Notes V0.4 — bloc Brevets :**
+
+- L'authentification INPI brevets réutilise le même OAuth password grant que les marques (variables `INPI_DATA_LOGIN` / `INPI_DATA_PASSWORD`). Pas de refactor du token cache prévu avant V2.1.
+- L'OEB OPS exige `OEB_CONSUMER_KEY` + `OEB_CONSUMER_SECRET` (créer un compte développeur sur https://developers.epo.org/). Le quota gratuit (4 Go/semaine) est suffisant pour un usage cabinet courant ; au-delà, basculer en pay-as-you-go.
+- Sans credentials, les tools retournent un message « INPI not configured » / « OEB not configured » propre — voir `.claude/settings.local.json`.
+- Pour le tag de provenance des résultats Patentscope : utiliser `[OMPI Patentscope]` (distinct de `[OMPI Madrid Monitor]` qui couvre les marques internationales).
+
+### 2.2 Articles CPI brevets — voir aussi
+
+Pour la référence détaillée des articles CPI brevets utilisés par les skills V0.4 (`recherche-anteriorite-brevet`, `preparation-depot-brevet`, `tableau-contrefacon-brevet`), voir `references/articles-cpi-brevets.md` :
+
+- **L.611-1** — structure du dépôt (description, revendications, abrégé, dessins)
+- **L.611-7** — invention de salarié
+- **L.611-10** — exclusions de brevetabilité (7 catégories)
+- **L.611-11** — état de la technique, nouveauté absolue
+- **L.611-13** — délai de grâce 6 mois
+- **L.611-15** — application industrielle
+- **L.612-4** — demande divisionnaire
+- **L.612-5** — suffisance de description
+- **L.612-6** — non-extension (amendements)
+- **L.613-3** — droits conférés (contrefaçon directe + théorie de l'équivalence)
+- **L.613-25** — nullité du brevet
+- **L.615-1** — action en contrefaçon — **TJ Paris compétence exclusive**
+- **L.615-5** — saisie-contrefaçon
+- **L.615-7** — calcul du préjudice
+- **L.615-8** — prescription 5 ans
 
 ---
 
