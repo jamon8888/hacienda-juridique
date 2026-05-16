@@ -502,3 +502,210 @@ demandée à temps coûte zéro en taxes (INPI) ou est inclus (OEB), et donne
 2 mois de marge supplémentaire pour finaliser proprement la réponse.
 
 ---
+
+## Format de sortie
+
+Produire un **document Markdown unique**, structure ci-dessous. Inline dans
+le chat ET sauvegardé dans le répertoire outputs (voir section Emplacement).
+
+````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon profil, voir CLAUDE.md plugin §2]
+
+# Analyse refus brevet [INPI / OEB] — [Brevet/demande N°] (ANALYSE ARGUMENTAIRE, PAS RÉPONSE OFFICIELLE)
+
+> **Analyse argumentaire, pas réponse officielle.** Cette analyse classifie
+> les citations art antérieur (cadre OEB X/Y/A/E), identifie les
+> caractéristiques distinctives par revendication, propose 4 stratégies
+> d'amendement et produit un projet de réponse. Elle NE remplace PAS la
+> rédaction finale par un mandataire en brevets (EQE) ou un avocat
+> spécialisé. **Délais fermes** : INPI ~2-4 mois (art. R.612-66 CPI), OEB
+> 4 mois Règle 132 EPC. Manquer le délai = rejet définitif (INPI) ou demande
+> réputée retirée (OEB Art. 94(4) EPC).
+
+> **⚠️ Note du relecteur**
+> - **Notification analysée :** [type + date YYYY-MM-DD]
+> - **Délai restant :** [N jours] — sévérité [🔴 / 🟠 / 🟡]
+> - **Sources :** [INPI Brevets ✓ | OEB Espacenet ✓ — fiche brevet récupérée | connaissance modèle si non récupéré]
+> - **Citations analysées :** [N citations X / N Y / N A / N E]
+> - **Avant envoi INPI/OEB :** validation mandataire en brevets (EQE) ou avocat **OBLIGATOIRE**
+
+**Triage :** 🔴 URGENT (< 30j) / 🟠 À PRÉPARER (30-60j) / 🟡 STANDARD (>60j) — une phrase pourquoi cette catégorie.
+
+## Brevet / demande analysé
+
+- **Numéro :** [FR2700123 / EP1234567A1 / PCT/FR2025/050123]
+- **Déposant :** [titulaire — depuis fiche INPI/Espacenet]
+- **Statut :** [demande publiée / en examen / pre-grant / autre]
+- **Date de priorité :** [YYYY-MM-DD]
+- **Revendications :** [N indépendantes + N dépendantes — N total]
+
+## Notification analysée
+
+- **Type :** [rapport recherche préliminaire INPI / motifs refus INPI art. R.612-66 / Communication OEB Règle 132 / autre]
+- **Date notification :** [YYYY-MM-DD]
+- **Délai butoir :** [YYYY-MM-DD] (N jours restants depuis aujourd'hui)
+- **Motifs invoqués :** [résumé : N revendications objectées, N citations X, N citations Y, N citations A, N citations E]
+- **Examinateur (si indiqué) :** [nom + division d'examen]
+
+## Classification des citations
+
+| Document | Code | Pertinence | Caractéristiques divulguées (résumé) | Revendications attaquées |
+|---|---|---|---|---|
+| FR2700123 | X | destructrice nouveauté rev. 1 | 1a, 1b, 1c (procédé filtration membrane graphène) | 1, 4 |
+| EP1234567 | Y | activité inventive en combinaison avec FR2700123 | structure multi-couches, support polymère | 2, 3 |
+| US2020/1234 | A | contexte général filtration eau | n/a (contexte) | n/a |
+
+## Analyse élément par élément
+
+[Matrice citation × revendication, statut ❌ / ⚠️ / ✅ par cellule — voir
+section "Format de mapping" pour le gabarit. Une matrice par citation
+significative, ou matrice unique si peu de citations.]
+
+## Stratégies d'amendement par revendication objectée
+
+### Revendication 1 (objectée par FR2700123 — X)
+
+**Option A — Limitation par incorporation** ✅ recommandée
+- Incorporer la caractéristique 5c (agent de réticulation polyamine) de la
+  revendication dépendante 5 dans la revendication 1
+- Étendue résiduelle : ~75 % de la portée originale
+- Support description : caractéristique 5c décrite § 0023 description + rev. 5
+  → OK L.612-6 CPI
+- Risque : ⚪ faible — caractéristique 5c non divulguée par FR2700123
+
+**Option B — Reformulation** ⚠️ secondaire
+- Reformuler « membrane à base de graphène » en « membrane comprenant
+  essentiellement du graphène mono-feuillet » pour distinguer FR2700123
+  (membrane multi-feuillet)
+- Risque : 🟡 modéré — l'examinateur pourrait considérer la précision
+  comme non distinctive si l'ancrage technique n'est pas chiffré dans la
+  description
+
+**Option C — Abandon rev. 1, promotion rev. 5** ⚠️ option de repli
+- Si Option A échoue à l'examen suivant, replier sur rev. 5 promue
+  indépendante
+- Étendue résiduelle : ~60 % de la portée originale
+
+**Option D — Divisionnaire** 🟡 envisageable
+- Préserver l'aspect « multi-feuillet » dans une demande divisionnaire FR
+- Coût : ~600 € INPI + frais mandataire ~1 500 €
+- Recommandée si l'aspect divisé a une valeur commerciale propre
+
+| Option | Étendue résiduelle | Risque | Coût | Reco |
+|---|---|---|---|---|
+| A | ~75 % | ⚪ faible | inclus | ✅ |
+| B | ~95 % | 🟡 modéré | inclus | ⚠️ |
+| C | ~60 % | ⚪ faible | inclus | ⚠️ |
+| D | parent 75 % + div. 95 % | ⚪ faible | ~600 € + mandataire | 🟡 |
+
+### Revendication 2 (objectée par EP1234567 — Y, combinaison avec FR2700123)
+
+[même format que rev. 1]
+
+## Argumentation problème-solution OEB
+
+*(Pour chaque revendication amendée objectée par citation Y)*
+
+**Revendication 1 amendée (avec Option A — caractéristique 5c)**
+
+- **Closest prior art :** EP1234567 (Y le plus pertinent — partage
+  caractéristiques 1a, 1b, 1c)
+- **Caractéristiques distinctives après amendement :** présence agent de
+  réticulation polyamine (caractéristique 5c)
+- **Problème technique objectif :** améliorer la durabilité de la membrane
+  filtration en conditions acides (pH < 4) — démontré § 0042 description
+  originale + exemple 3 chiffré (durée de vie multipliée par 4 versus
+  membrane sans réticulation polyamine)
+- **Non-évidence :** EP1234567 enseigne réticulation polysiloxane (pH
+  neutre uniquement) ; combinaison avec FR2700123 (sans réticulation
+  spécifique) n'aurait pas motivé l'homme du métier à choisir polyamine ;
+  effet technique inattendu (résistance pH < 4 démontrée par exemple
+  chiffré)
+
+→ Argumentation **solide** pour activité inventive de la revendication 1
+amendée.
+
+## Projet de réponse [INPI en FR / OEB en EN — selon office]
+
+### 1. Identification et dossier
+
+- Numéro demande : [...]
+- Mandataire désigné : [...]
+- Référence interne cabinet : [...]
+- Date de la notification : [...]
+- Date du présent mémoire en réponse : [...]
+
+### 2. Réponse aux motifs (par citation et par revendication)
+
+**2.1 Concernant la citation FR2700123 (X) sur la revendication 1**
+
+La revendication 1 est amendée pour incorporer la caractéristique 5c (agent
+de réticulation polyamine) de la revendication dépendante 5 (support
+description § 0023). Cette caractéristique n'est pas divulguée par
+FR2700123, qui décrit uniquement des membranes graphène sans agent de
+réticulation polyamine spécifique. La nouveauté de la revendication 1
+amendée est donc établie au sens de l'art. L.611-11 CPI [INPI] / Art. 54 EPC
+[OEB].
+
+**2.2 Concernant la citation EP1234567 (Y) sur la revendication 2**
+
+[Argumentation problème-solution complète selon la section ci-dessus.]
+
+### 3. Amendements proposés (marqués / non marqués)
+
+**Revendication 1 (marquée — additions soulignées)** :
+
+« Procédé de filtration d'eau utilisant une membrane à base de graphène,
+caractérisé en ce que ladite membrane comprend (a) une couche support en
+polymère poreux, (b) une couche active de graphène d'épaisseur 5-50 nm,
+__et (c) un agent de réticulation polyamine__. »
+
+**Revendication 1 (non marquée — version propre)** :
+
+« Procédé de filtration d'eau utilisant une membrane à base de graphène,
+caractérisé en ce que ladite membrane comprend (a) une couche support en
+polymère poreux, (b) une couche active de graphène d'épaisseur 5-50 nm, et
+(c) un agent de réticulation polyamine. »
+
+**Revendications dépendantes 2 à 10** : inchangées, à l'exception de la
+suppression de l'ancienne revendication 5 (intégrée dans la revendication
+1).
+
+### 4. Demande finale
+
+- Maintien de la demande dans la version amendée
+- Réexamen sur cette base
+- À titre subsidiaire : si la division d'examen estime que les amendements
+  ne lèvent pas les objections, organisation d'une **audition orale** (Art.
+  116 EPC) [si OEB] ou audition du déposant (R.612-66-1 CPI) [si INPI]
+
+### 5. Pièces jointes
+
+- Mémoire d'amendements (marqué + version propre)
+- Si nécessaire : déclaration d'expert sur l'effet technique chiffré
+- Si nécessaire : article scientifique illustrant le préjugé technique
+
+## Calendrier
+
+| Étape | Date prévue | Action | Responsable |
+|---|---|---|---|
+| Validation mémoire | J-7 (avant butoir) | Relecture mandataire EQE + déposant | mandataire + déposant |
+| Dépôt réponse | J-1 (avant butoir) | Mandataire dépose télé-procédure INPI / MyEPO | mandataire |
+| Accusé réception | J+1 (auto) | n/a | office |
+| Communication examinateur suivante | J+0 + 3-6 mois | Nouvelle notification ou avis intention délivrer | examinateur |
+| Si nouveau refus | J+0 + 3-6 mois | Re-analyser via ce skill | mandataire |
+| Décision finale | J+0 + 12-18 mois | Brevet délivré ou rejet définitif | examinateur |
+
+**Une question hors de ma checklist :** [observation seconde-ordre que le
+relecteur attentif ferait — omettre cette ligne si rien ne vient honnêtement]
+
+## Que veux-tu faire ?
+
+1. **Itérer les amendements** — j'ajuste l'argumentation, propose variantes par revendication
+2. **Escalader** — note pour mandataire EQE / avocat / direction R&D
+3. **Compléter les faits** — recherche jurisprudence OEB sur cas similaire, étude effet technique
+4. **Préparer demande divisionnaire** — Option D détaillée si pertinent
+5. **Autre chose** — dis-moi
+````
+
+---
