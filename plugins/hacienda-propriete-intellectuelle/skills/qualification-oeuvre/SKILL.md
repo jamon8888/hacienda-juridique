@@ -878,3 +878,145 @@ sans narration interne (cf. mode silencieux pour livrables externes —
 `CLAUDE.md` plugin §2).
 
 ---
+
+## Gate non-juriste — quand le profil indique « non-juriste »
+
+Quand le profil pratique indique un rôle **non-juriste** (collaborateur opérationnel,
+fondateur, manager produit, créateur indépendant sans formation juridique),
+appliquer le gate suivant **avant** la production du livrable :
+
+> Cette qualification est une **analyse juridique**, pas un avis d'opportunité
+> d'action. Exploiter, céder ou contester une œuvre sans validation par un
+> avocat spécialisé propriété littéraire et artistique a des conséquences
+> concrètes :
+>
+> - **Cession invalide** (non-respect L.131-3) : le créateur peut s'opposer
+>   à l'utilisation ultérieure de l'œuvre, demander cessation, et obtenir
+>   indemnisation rétroactive.
+> - **Action en contrefaçon mal fondée** : déboutement + dépens + risque
+>   d'action reconventionnelle pour concurrence déloyale (procédure abusive).
+> - **Violation droit moral non anticipée** : modification jugée dénaturante
+>   = action en cessation + dommages-intérêts, même si la cession des droits
+>   patrimoniaux est valide.
+> - **Chaîne de droits cassée sur œuvre composite** : exploitation qualifiée
+>   contrefaçon de l'œuvre préexistante, peu importe l'originalité propre.
+>
+> **Voici le brief à apporter à l'avocat spécialisé :**
+>
+> 1. **Œuvre** : [description courte, nature, forme tangible, date]
+> 2. **Originalité** : verdict prima facie 🟢/🟡/🔴 + justification des 3
+>    tests appliqués
+> 3. **Titularité** : cas A à G applicable + identification titulaire(s)
+>    + risques (cession écrite manquante, pacte coauteurs, chaîne composite)
+> 4. **Droits patrimoniaux** : dévolus à [créateur / employeur / commanditaire
+>    / cotitulaires]
+> 5. **Droit moral** : conservé par [auteur(s) personne physique]
+> 6. **Objectif** : préventif / défensif / contentieux
+> 7. **3 questions critiques** à poser à l'avocat :
+>    - « La qualification d'originalité tient-elle face à la jurisprudence
+>      récente sur [domaine concerné] ? »
+>    - « Le cas de titularité [X] est-il bien identifié — peut-il être
+>      contesté par un tiers ? »
+>    - « Le droit moral pose-t-il un risque sur [usage envisagé : adaptation,
+>      rebranding, intégration tiers] ? »
+>
+> **Annuaires pour trouver un avocat spécialisé propriété littéraire et
+> artistique :**
+> - Conseil National des Barreaux — annuaire officiel : https://www.avocat.fr
+>   (filtre « propriété intellectuelle » ou « propriété littéraire et
+>   artistique »)
+> - **ALAI France** (Association littéraire et artistique internationale —
+>   section française) : réseau de spécialistes
+> - **Organismes de gestion collective (OGC)** pour orientations selon
+>   l'œuvre : **SACEM** (musique), **SCAM** (œuvres multimédias et
+>   audiovisuelles non fiction), **SACD** (œuvres dramatiques, chorégraphiques,
+>   cinématographiques), **SDRM** (reproduction mécanique)
+
+Le livrable structuré (cf. format de sortie) est tout de même généré pour
+servir de brief de travail. Il n'a pas vocation à être transmis tel quel à
+un tiers (contrepartie, plateforme, juridiction) — c'est un **document
+préparatoire interne**.
+
+---
+
+## Emplacement du livrable
+
+Le livrable est écrit dans :
+
+```
+~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/qualification-oeuvre-<slug-oeuvre>-YYYY-MM-DD.md
+```
+
+Le slug est construit à partir de la description courte de l'œuvre, normalisé
+en minuscules sans accents, avec tirets pour les espaces (ex :
+`roman-litteraire-titre-x` pour « Roman littéraire — Titre X »).
+
+Si workspaces de dossier activés (V1.1+, cf. `CLAUDE.md` plugin §11),
+l'emplacement bascule sur :
+
+```
+~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/qualification-oeuvre-<slug-oeuvre>-YYYY-MM-DD.md
+```
+
+Si le répertoire `outputs/` ou `matters/<slug-dossier>/` n'existe pas, le
+créer. Si plusieurs qualifications du même jour pour la même œuvre, suffixer
+`-v2`, `-v3`, etc.
+
+---
+
+## Ce que ce skill NE fait PAS
+
+- **Conclure définitivement à l'existence du droit d'auteur** sur l'œuvre
+  analysée — c'est le **juge** qui tranche in fine après contestation, sur
+  la base de la preuve apportée par les parties. Ce skill produit une
+  qualification **prima facie**, jamais un constat opposable.
+- **Rédiger un contrat de cession** de droits patrimoniaux — voir
+  `cession-droit-auteur` V4.1 (mentions L.131-3 obligatoires : énumération
+  + étendue + destination + lieu + durée + rémunération).
+- **Rédiger une licence** (propriétaire ou open source — MIT, Apache 2.0,
+  GPL-3.0, AGPL-3.0, Creative Commons) — voir `licence-droit-auteur` V4.1.
+- **Qualifier une contrefaçon** alléguée d'une œuvre tierce — voir
+  `contrefacon-droit-auteur` V4.2 (analyse contradictoire originalité +
+  similitudes substantielles + caractères différenciants).
+- **Déposer une preuve de création** (enveloppe Soleau INPI, copyright.fr,
+  constat d'huissier ou commissaire de justice, dépôt notarié, blockchain
+  horodatée) — voir `depot-preuve-creation` v0.1.
+- **Évaluer le préjudice** en cas de contrefaçon constatée (réparation
+  intégrale L.331-1-3 — conséquences économiques négatives + préjudice moral
+  + bénéfices réalisés par le contrefacteur) — différé V4.2.
+- **Gérer la succession des ayants droit** d'une œuvre dont l'auteur est
+  décédé — combine droit de la propriété littéraire et artistique + droit
+  successoral, requiert intervention notaire + avocat spécialisé droit
+  successoral.
+- **Traiter les droits voisins** (artistes-interprètes, producteurs
+  phonogrammes et vidéogrammes, entreprises de communication audiovisuelle
+  L.211-1+) — régime distinct du droit d'auteur, différé V4.3.
+- **Gérer les rapports avec les organismes de gestion collective (OGC)** —
+  adhésion SACEM / SCAM / SACD / SDRM, déclaration des œuvres au répertoire,
+  répartition des redevances — différé V4.2+.
+- **Conduire une recherche d'antériorité** sur l'œuvre (vérifier qu'elle ne
+  contrefait pas une œuvre préexistante) — pas d'équivalent strict des
+  recherches d'antériorité brevet ou marque en droit d'auteur (le droit
+  d'auteur n'a pas de registre central) ; analyse comparative au cas par
+  cas si litige.
+
+---
+
+## Ton
+
+- **Analytique** — chaque verdict (originalité, cas de titularité, durée) est
+  argumenté à partir des faits concrets et des règles applicables, pas
+  asséné.
+- **Précis** — citation systématique des articles CPI applicables (L.111-1,
+  L.112-2, L.113-X, L.121-1+, L.122-1+, L.123-X, L.131-3) et de la
+  jurisprudence pertinente (CJUE Infopaq, Painer, Cofemel, BSA ; Cass.
+  Pachot pour logiciel).
+- **Équilibré** — la qualification est rarement noire ou blanche, surtout
+  sur l'originalité (souvent 🟡 en pratique). Présenter les forces ET les
+  incertitudes. Une qualification trop affirmative trompe le décideur sur
+  la solidité de sa position.
+- **Adapté au profil** — avocat spécialisé : ton confraternel, raccourcis
+  techniques OK ; juriste interne : explications complètes ; non-juriste :
+  vulgarisation + gate explicite vers avocat.
+
+---
