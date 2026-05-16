@@ -167,3 +167,144 @@ mots, "appli IA", "nouveau matériau" sans précision), pousser une fois :
 > spéculatif (revendications non supportées au sens L.611-1).
 
 ---
+
+## Structure du dossier de dépôt (CPI L.611-1)
+
+L'article L.611-1 du Code de la propriété intellectuelle (transposition Art.
+78 CBE et Règle 41-43 du Règlement d'exécution CBE) fixe les éléments
+constitutifs d'une demande de brevet : **titre** + **description** +
+**revendications** + **abrégé** + **dessins** (si applicable). Chaque
+élément a des contraintes formelles et de fond. Un défaut formel est en
+général régularisable ; un défaut de fond (suffisance, support, non-extension)
+est souvent fatal en cours de procédure ou en contentieux ultérieur.
+
+### Titre
+
+- **Concis**, idéalement ≤ 15 mots.
+- **Sans terme commercial**, sans nom de marque, sans superlatif ("nouveau",
+  "amélioré", "révolutionnaire" — interdits par les directives OEB).
+- Indique le **domaine technique général** + l'**objet** de l'invention.
+- Sert à l'indexation des bases brevets et à la première lecture par
+  l'examinateur.
+
+Exemples :
+- ✓ "Procédé de filtration d'eau utilisant une membrane à base de graphène"
+- ✓ "Dispositif implantable de mesure de la glycémie en continu"
+- ✗ "SuperFilter™ — la nouvelle génération de filtration" (marque + superlatif)
+- ✗ "Filtre" (trop générique)
+
+### Description (sections normalisées CPI L.611-1 + Règle 42 CBE)
+
+La description est l'élément qui **fonde** les revendications. Une
+revendication non supportée par la description est invalide (L.611-1 CPI,
+Art. 84 CBE). Inversement, une description riche en modes de réalisation
+ouvre la voie à des revendications dépendantes nombreuses et à des
+amendements possibles en cours d'examen (dans la limite de la
+non-extension : L.612-6 CPI, Art. 123(2) CBE).
+
+Structure normalisée en 7 sections :
+
+1. **Introduction** — domaine technique général de l'invention. 1 à 3
+   phrases situant l'invention dans son secteur (ex. "L'invention se
+   rapporte aux procédés de filtration d'eau par membrane polymère").
+
+2. **État antérieur de la technique** — exposer ce qui existe, ses limites
+   identifiées, et **citer les documents pertinents** (FR, EP, US, autres).
+   Les citations qualifient le déposant comme connaissant l'art antérieur
+   (D-citations dans le rapport de recherche futur). Discuter les
+   limitations : ce qui ne marche pas, ce qui marche mal, ce qui coûte
+   cher, ce qui ne fonctionne que pour certaines conditions.
+
+3. **Problème technique** — formuler le **problème objectif** que
+   l'invention résout. Pas le pitch commercial ("offrir une solution
+   innovante") mais la formulation technique objective ("améliorer le flux
+   de perméation tout en réduisant le colmatage par matière organique").
+   Ce problème servira à l'argumentation activité inventive (approche
+   problème-solution OEB).
+
+4. **Exposé de l'invention** — solution apportée, en termes généraux. Cette
+   section reflète la **revendication 1** (revendication indépendante)
+   reformulée en prose. Mentionner les avantages techniques majeurs (gain
+   mesurable, simplification, économie de ressource).
+
+5. **Brève description des figures** (si dessins fournis) — numérotation
+   cohérente : `La Fig. 1 représente une vue en coupe du dispositif`, `La
+   Fig. 2 illustre le profil de perméation en fonction du temps`, etc.
+
+6. **Description détaillée d'au moins un mode de réalisation** — c'est ici
+   que la **suffisance de description** (L.612-5 CPI, Art. 83 CBE) est
+   établie. L'homme du métier doit pouvoir **exécuter l'invention** sans
+   effort excessif ni recherche inventive. Décrire :
+   - les éléments structurels avec leurs références numérotées (renvois
+     vers les figures) ;
+   - les matériaux, dimensions, paramètres opératoires lorsqu'ils sont
+     essentiels ;
+   - les étapes de procédé dans l'ordre ;
+   - les variantes décrites comme "selon une variante", "selon un mode
+     préféré" — chaque variante peut nourrir une revendication dépendante.
+
+7. **Exemples** (chimie, biotech, matériaux, pharmacie surtout) — exemples
+   chiffrés avec conditions opératoires précises (températures, pressions,
+   concentrations, durées, mesures), résultats observés. Les exemples
+   ancrent les plages numériques revendiquées. Une plage numérique sans
+   exemple chiffré dans la plage est attaquable pour insuffisance
+   (jurisprudence OEB constante : T-409/91 *Exxon*, T-435/91 *Unilever*).
+
+### Revendications (CPI L.611-1, Art. 84 CBE, Règle 43 CBE)
+
+Le cœur juridique du brevet. Ce qui n'est pas dans une revendication n'est
+pas protégé — la description fonde, mais la revendication délimite.
+
+- **Au moins une revendication indépendante** — la protection la plus
+  large que l'invention puisse soutenir. Contient toutes les
+  caractéristiques techniques **essentielles** (celles sans lesquelles
+  l'invention ne résout pas le problème).
+- **Revendications dépendantes** — variantes, modes de réalisation
+  préférés, plages préférées, combinaisons. Forment le **filet de
+  sécurité** : si la revendication 1 est annulée pour antériorité
+  inattendue, une revendication dépendante plus étroite peut survivre.
+- **Structure normalisée** (style à deux parties, recommandé OEB Règle
+  43(1) CBE) : `Préambule + caractérisé en ce que + caractéristique
+  distinctive` :
+  - **Préambule** = état de la technique le plus proche + caractéristiques
+    déjà connues.
+  - **Partie caractérisante** ("caractérisé en ce que") = ce qui est
+    **nouveau et inventif** par rapport au préambule.
+- **Numérotation séquentielle** + renvois explicites (`la revendication X`,
+  `selon l'une des revendications X à Y`, `selon l'une quelconque des
+  revendications précédentes`).
+- **Cohérence avec la description** : chaque caractéristique revendiquée
+  doit trouver son **support** dans la description (L.611-1 CPI, Art. 84
+  CBE). Une revendication qui introduit un terme absent de la description
+  ou non illustré par un mode de réalisation est attaquable.
+
+Détail rédactionnel et exemples : voir `references/structure-revendications.md`.
+
+### Abrégé (CPI L.612-2, Règle 47 CBE)
+
+- ≤ **150 mots** / ≤ **1500 caractères** (la pratique OEB tolère
+  légèrement plus, INPI est strict).
+- Résume **description + revendication principale** en un paragraphe.
+- **Pas d'effets commerciaux**, pas de superlatifs, pas de marques.
+- Sert à l'**indexation** par les bases brevets (Espacenet, INPI Data,
+  Google Patents). C'est ce que liront les chercheurs d'antériorité — la
+  qualité de l'abrégé conditionne la trouvabilité du brevet.
+- Mentionner explicitement la figure la plus représentative (`Fig. 1`)
+  pour publication avec l'abrégé.
+
+### Dessins (si applicable — Règle 46 CBE)
+
+- Numérotés **Fig. 1**, **Fig. 2**, etc. — ordre logique (vue d'ensemble
+  puis détails).
+- **Références numérotées** (10, 20, 30…) renvoyant aux éléments décrits
+  dans la description ET cités dans les revendications le cas échéant.
+- **Pas de texte sur les dessins** sauf mentions essentielles (légendes
+  d'axes pour les graphiques, mots indispensables comme "ENTRÉE" /
+  "SORTIE" si la géométrie ne suffit pas).
+- **Lisibles à la reproduction** (traits noirs nets, pas de couleur sauf
+  exception OEB, pas d'aplats gris denses).
+- En chimie / biotech, les **formules développées** et les **séquences
+  d'acides nucléiques ou protéiques** suivent un format spécifique
+  (WIPO Standard ST.26 pour les listages de séquences depuis 2022).
+
+---
