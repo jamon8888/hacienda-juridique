@@ -537,3 +537,121 @@ Note : services de vente au détail désormais clairement reconnus depuis
 `````
 
 ---
+
+## Gate non-juriste
+
+Avant émettre la sortie, lire `## 1. Profil cabinet et profil de pratique PI`.
+Si **Rôle = juriste interne sans inscription** OU **non-juriste** :
+
+> Cette sortie est un brouillon technique, pas un dépôt formel et pas un
+> avis juridique. Adopter, payer ou déposer cette marque sans validation
+> mandataire en marques (CPI L.422-4) ou avocat PI a des conséquences
+> juridiques majeures : (a) refus INPI/EUIPO pour motif absolu mal vérifié
+> = perte des taxes (~190€ FR / ~850€ EUTM), (b) opposition gagnée par un
+> tiers titulaire d'une marque antérieure dans les 2 mois post-publication
+> BOPI = perte de la marque + frais de procédure, (c) action en
+> concurrence déloyale ou en contrefaçon ultérieure si la marque empiète
+> sur des droits antérieurs non détectés, (d) déchéance partielle pour
+> défaut d'usage à 5 ans (L.714-5 CPI) si les libellés sont trop larges
+> par rapport à la commercialisation réelle.
+>
+> Voici un brief 1 page à apporter au mandataire — ça réduira le temps de
+> conversation et le coût horaire :
+>
+> [Générer un résumé 1 page : **(1)** signe + type L.711-1, **(2)**
+> produits/services réels en 2-3 phrases, **(3)** classes Nice retenues +
+> libellés rédigés, **(4)** territoires envisagés + justification, **(5)**
+> déposant + mandataire pressenti, **(6)** statut recherche antériorité
+> (faite ou à faire — cote 🟢/🟡/🔴 si disponible), **(7)** flags motifs
+> absolus L.711-2 le cas échéant, **(8)** priorité éventuelle, **(9)** 3
+> questions à poser au mandataire : "les libellés P&S sont-ils correctement
+> calibrés au vu de la commercialisation prévue sous 5 ans ?", "le choix
+> territoire est-il cohérent avec la stratégie commerciale et le budget
+> taxes/annuités ?", "y a-t-il un risque sur un motif absolu ou une
+> antériorité que je devrais corriger avant dépôt ?"]
+>
+> Pour trouver un mandataire en marques ou un avocat PI :
+>
+> - **Annuaire des avocats** : https://www.avocat.fr (Conseil National des
+>   Barreaux — avocats spécialisés en propriété intellectuelle)
+> - **Annuaire INPI des mandataires en marques (CPI L.422-4)** :
+>   https://www.inpi.fr/conseils-en-propriete-industrielle
+> - **EUIPO eSearch professional representatives** :
+>   https://euipo.europa.eu (mandataires EUTM/Madrid agréés)
+
+Livrer le brouillon complet À CÔTÉ du brief. Ne pas retenir le contenu
+technique.
+
+---
+
+## Emplacement de la sortie
+
+Écrire à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/depot-marque-<slug-marque>-YYYY-MM-DD.md`
+et surfacer le chemin à l'utilisateur.
+
+Si le profil contient déjà un slug identique pour aujourd'hui, ajouter un
+suffixe `-2`, `-3`, etc. Slug dérivé du signe (`apexleaf-vetements`,
+`nexaflow-saas`).
+
+Matter workspaces hors V1 (cf. `CLAUDE.md` `## 11. Workspaces de dossier`).
+
+---
+
+## Ce que ce skill NE fait PAS
+
+- **Déposer la marque.** Le dépôt formel auprès de l'INPI (télé-procédure
+  https://procedures.inpi.fr/), de l'EUIPO (portail eSearch+) ou de l'OMPI
+  (formulaire MM2 pour Madrid) est réalisé par un **mandataire en marques
+  inscrit à l'INPI (CPI L.422-4)** ou un **avocat spécialisé en propriété
+  intellectuelle**. Ce skill produit un brouillon technique à valider et
+  compléter par le mandataire avant dépôt.
+- **Payer les taxes.** Les taxes INPI (~190€ 1 classe FR), EUIPO (~850€ 1
+  classe EUTM) et OMPI (~700€ base Madrid + frais par pays désigné)
+  évoluent (révisions tarifaires régulières) et sont à régler par le
+  mandataire au moment du dépôt formel. Ce skill ne génère aucun ordre de
+  paiement.
+- **Garantir l'enregistrement.** L'enregistrement reste soumis à examen
+  INPI/EUIPO (motifs absolus L.711-2) + procédure d'opposition par les
+  tiers (2 mois post-BOPI FR / 3 mois post-Bulletin EUTM). Aucune
+  assertion "cette marque sera enregistrée".
+- **Surveiller la marque post-dépôt.** La surveillance des publications
+  BOPI/Bulletin EUTM pour détecter les marques tierces postérieures
+  susceptibles d'opposition relève de
+  `/hacienda-propriete-intellectuelle:surveillance-marque` (V1.1.0) +
+  agent `bopi-watcher`. Ce skill est *avant* dépôt, pas *après*
+  enregistrement.
+- **Traiter une opposition reçue.** L'analyse d'une opposition INPI/EUIPO
+  contre la marque déposée relève d'un skill distinct
+  (`analyse-opposition-marque`, prévu V1.1.2). Ce skill est *avant* dépôt,
+  pas *après* notification d'opposition.
+- **Renouveler la marque.** Le renouvellement décennal (L.712-9 CPI) et la
+  gestion des annuités relèvent de
+  `/hacienda-propriete-intellectuelle:revue-portefeuille-marques` (V1.1.1)
+  + démarche mandataire INPI/EUIPO. Première échéance à 10 ans du dépôt.
+- **Déposer Madrid international** sans base FR ou EU préalable. Le
+  Protocole de Madrid (Art. 2) **exige une marque de base** déjà déposée
+  ou enregistrée auprès d'un office d'origine (INPI FR ou EUIPO EU) avant
+  toute désignation internationale. Ce skill recommandera systématiquement
+  un dépôt FR ou EU d'abord si l'utilisateur vise Madrid sans base.
+- **Conclure à la disponibilité de la marque.** La disponibilité s'évalue
+  après recherche d'antériorité professionnelle complète + jugement
+  mandataire/avocat. `/recherche-anteriorite-marque` est le triage amont ;
+  ce skill consomme ce triage mais ne le remplace pas.
+
+---
+
+## Ton
+
+Technique, factuel, orienté action mandataire. Le mandataire en marques ou
+l'avocat PI doit pouvoir lire le brouillon en 5 minutes et en faire la base
+de sa propre rédaction par surcouche : ajustement des libellés, sélection
+finale des classes, finalisation du formulaire, paiement, dépôt. Pas de
+prose hedgée, pas de méta-commentaire dans le livrable (les caveats vont
+dans la note du relecteur unique en tête). Chaque libellé candidat est
+honnêtement présenté comme **proposition à valider**, jamais comme rédaction
+finale. Le garde-fou en tête et la mention "à valider mandataire" sur les
+libellés critiques font le travail de scope.
+
+Le brouillon informe la rédaction mandataire ; il ne la remplace pas. Le
+mandataire dépose ; ce skill prépare.
