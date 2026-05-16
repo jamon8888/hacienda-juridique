@@ -1,13 +1,13 @@
 {
   "name": "hacienda-propriete-intellectuelle",
-  "version": "0.4.0",
-  "description": "Propriété intellectuelle : marques (recherche d'antériorité INPI/EUIPO, surveillance BOPI quotidienne), brevets (recherche d'antériorité INPI/OEB Espacenet, préparation dépôt FR/EP/PCT, claim chart contrefaçon), droit d'auteur, logiciel, open source, clauses PI et contrefaçon.",
+  "version": "0.5.0",
+  "description": "Propriété intellectuelle : marques (recherche d'antériorité INPI/EUIPO, surveillance BOPI quotidienne, revue de portefeuille marques avec dashboard HTML standardisé), brevets (recherche d'antériorité INPI/OEB Espacenet, préparation dépôt FR/EP/PCT, claim chart contrefaçon), droit d'auteur, logiciel, open source, clauses PI et contrefaçon.",
   "author": { "name": "Hacienda", "url": "https://hacienda.diy" },
   "repository": "https://github.com/jamon8888/hacienda-juridique",
   "license": "AGPL-3.0-or-later",
   "keywords": [
     "hacienda", "propriete-intellectuelle", "marques", "inpi", "euipo",
-    "antériorité", "surveillance", "bopi", "opposition",
+    "antériorité", "surveillance", "bopi", "opposition", "portefeuille", "dashboard",
     "brevets", "espacenet", "oeb", "claim-chart", "contrefacon-brevet",
     "droit-auteur", "logiciel", "open-source"
   ]
