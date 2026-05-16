@@ -121,6 +121,17 @@ les valeurs `[A CONFIGURER]` sont présentes, c'est un template. Une fois peupl�
 **Volume portefeuille estimé :** [A CONFIGURER — < 20 / 20-100 / > 100 = envisager IPMS commercial (Anaqua, Dennemeyer, Questel, Clarivate IPfolio)]
 **Cap recommandé sans IPMS :** ~50 brevets (au-delà, risque erreur humaine annuités)
 
+## Droit d'auteur
+
+**Pratique droit d'auteur :** [A CONFIGURER — édition / audiovisuel / logiciel SaaS / design / mode / publicité / multimedia / transversal]
+**Posture conseil :** [A CONFIGURER — préventif (avant exploitation) / réactif (sur contestation) / contentieux (action en cours)]
+**Position défaut cession auteur de commande :** [A CONFIGURER — cession totale étendue 70 ans / cession limitée par durée+territoire+médias / case par case]
+**Position défaut clauses droit moral :** [A CONFIGURER — adaptation autorisée signaler / modifications soumises validation / strictement préservé]
+**Politique logiciel L.113-9 :** [A CONFIGURER — mention contrat travail systématique / vérification rétroactive co-fondateurs / cession freelance contrat type]
+**Politique licences open source :** [A CONFIGURER — whitelist permissives (MIT/BSD/Apache) seulement / validation case par case LGPL/MPL / interdiction GPL/AGPL sauf isolation]
+**Approbateur cession droits :** [A CONFIGURER — avocat seul / avocat + Direction marketing / avocat + GC]
+**Approbateur licence logiciel :** [A CONFIGURER — Direction tech + avocat / juriste interne + avocat externe]
+
 ---
 
 ## 2. Sorties standardisées
