@@ -648,3 +648,246 @@ post-délivrance pour former opposition — Art. 99 CBE). Si oui :
   (qui n'a effet qu'en France)
 
 ---
+
+## Format de sortie
+
+L'output est un seul document Markdown structuré ci-dessous. Quadruple
+fence pour permettre l'imbrication de fences triples internes
+(jurisprudence citée, extraits revendications, code SQL hypothétique).
+
+`````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon profil lu en §2 du plugin CLAUDE.md]
+
+# Argumentation invalidité brevet [N°] — [Mode: --attack / --defense] (PRÉPARATION ARGUMENTAIRE, PAS PROCÉDURE JUDICIAIRE)
+
+> **Préparation argumentaire, pas procédure judiciaire.** Ce skill
+> prépare une argumentation d'invalidité d'un brevet adverse — en
+> attaque préventive (action en nullité TJ Paris) ou en défense face
+> à une action en contrefaçon reçue. Il NE forme PAS l'action en
+> nullité (démarche TJ Paris formelle nécessitant avocat habilité),
+> NE plaide PAS en audience (compétence exclusive L.615-1 CPI), NE
+> négocie PAS de transaction avec le titulaire. Les enjeux sont
+> lourds : action en nullité ratée = dépens (CPC 696) + risque
+> concurrence déloyale (Code civil 1240) ; défense en nullité mal
+> construite = condamnation contrefaçon + dommages-intérêts L.615-7
+> CPI. Le brevet attaqué est présumé valide — charge de la preuve
+> sur l'attaquant. **Toujours valider par mandataire EQE ou avocat
+> spécialisé brevets avant toute action externe.**
+
+> **⚠️ Note du relecteur**
+> - **Mode :** [--attack nullité préventive / --defense face action contrefaçon adverse]
+> - **Sources interrogées :** [INPI Brevets ✓ | OEB Espacenet ✓ | Google Patents ✗ V2.1.1 | NPL non couvert — recherche pro requise]
+> - **Art antérieur destructeur identifié :** [N documents potentiellement X / N potentiellement Y]
+> - **Motifs nullité retenus :** [N motifs L.613-25 — force globale 🟢/🟡/🔴]
+> - **Délai (mode --defense uniquement) :** [N jours jusqu'à audience TJ Paris] — sévérité [🔴/🟠/🟡]
+> - **Profil :** [rôle utilisateur lu / posture / approbateurs identifiés OU "à configurer"]
+> - **Avant action TJ Paris :** validation **OBLIGATOIRE** mandataire EQE ou avocat spécialisé brevets
+
+**Triage :** 🟢 ARGUMENTATION SOLIDE / 🟡 MIXTE / 🔴 FAIBLE — une phrase pourquoi (ex : "art antérieur FR1900456 destructeur de nouveauté rev. 1, mais sous réserve validation expertise technique").
+
+## Brevet cible
+
+- **Numéro :** [FR/EP/WO/US]
+- **Titre :** [...]
+- **Déposant / Titulaire actuel :** [...] (vérifier Registre National des Brevets)
+- **Date dépôt :** [YYYY-MM-DD]
+- **Date priorité :** [YYYY-MM-DD] (date critique pour filtre art antérieur)
+- **Date publication A1 / délivrance B1 :** [YYYY-MM-DD / YYYY-MM-DD]
+- **Statut :** [en vigueur / opposition OEB en cours / contesté / CCP attaché]
+- **Classification CIB :** [classe principale + classes secondaires]
+- **Revendications attaquées :** [1 indépendante + 5 dépendantes / ou subset si nullité partielle]
+- **Annuités à jour :** [✓ / ✗] (un brevet déchu pour défaut d'annuité ne nécessite pas d'action en nullité)
+
+## Art antérieur destructeur identifié
+
+| Document | Source | Date pub. | Date priorité brevet cible | Pertinence | Statut filtre date |
+|---|---|---|---|---|---|
+| FR1900456 | [INPI Brevets] | 2017-03-15 | 2018-02-01 | X destructrice nouveauté rev. 1 | ✓ filtré |
+| EP3456789 | [OEB Espacenet] | 2016-09-08 | 2018-02-01 | Y combinaison avec FR1900456 | ✓ filtré |
+| WO2017/123456 | [OEB Espacenet] | 2017-07-12 | 2018-02-01 | Y combinaison alternative | ✓ filtré |
+
+**Caractéristiques divulguées par chaque document** (résumé) :
+
+- **FR1900456** : couche support en polymère + couche active graphène 5-50 nm (caractéristiques rev. 1.a et 1.b du brevet cible)
+- **EP3456789** : agent réticulation polyamine en milieu acide (caractéristique rev. 1.c)
+- **WO2017/123456** : application filtration eau (préambule rev. 1)
+
+## Motifs de nullité retenus
+
+### Motif principal : L.613-25 a) — Défaut de nouveauté (L.611-11)
+
+**Force :** 🟢 solide
+
+**Argumentation :** FR1900456 (citation X) divulgue intégralement les
+caractéristiques 1.a et 1.b de la revendication 1 du brevet cible. La
+revendication 1 doit être annulée pour défaut de nouveauté
+(L.611-11 CPI).
+
+**Pièces requises :** FR1900456 (extrait + traduction si pertinent),
+expertise technique attestant identité des caractéristiques.
+
+**Précédent jurisprudentiel :** TJ Paris 3e ch. 1re sect., XXXX-YY-ZZ,
+RG 22/12345 (sur cas similaire filtration membrane) `[connaissance modèle — à vérifier]`.
+
+### Motif subsidiaire : L.613-25 a) — Défaut d'activité inventive
+
+**Force :** 🟡 mixte (dépend de l'effet technique réellement démontré
+dans la description du brevet attaqué)
+
+**Argumentation :** À défaut de nouveauté détruite, l'activité
+inventive l'est par combinaison de FR1900456 + EP3456789. L'homme du
+métier, confronté au problème "améliorer la durabilité de la membrane
+en milieu acide", aurait combiné FR1900456 (support + couche) avec
+EP3456789 (agent réticulation polyamine en milieu acide) sans
+difficulté inventive (même CIB B01D, problème commun documenté).
+
+**Pièces requises :** FR1900456 + EP3456789 + expertise technique sur
+motivation combinatoire.
+
+**Anticiper :** le titulaire invoquera vraisemblablement un effet
+technique inattendu (synergique). Réponse préparée : l'effet n'est pas
+démontré dans la description originale (paragraphes vagues sans
+données chiffrées comparatives, § 0042-0048 du B1).
+
+### Motif subsidiaire 2 : L.613-25 c) — Extension portée au-delà demande initiale
+
+**Force :** 🔴 faible (à approfondir avec mandataire) `[review]`
+
+**Argumentation :** La revendication 1 telle que délivrée (B1) contient
+le terme "essentiellement" qui n'apparaît pas dans la demande initiale
+publiée (A1). Possible violation L.612-6 CPI / Art. 123(2) EPC —
+généralisation intermédiaire.
+
+**Pièces requises :** Demande initiale A1 vs brevet délivré B1 —
+comparaison terme par terme, idéalement par mandataire EQE qui maîtrise
+la jurisprudence Art. 123(2).
+
+## Argumentation problème-solution inverse
+
+- **Closest prior art :** FR1900456 (membrane filtration eau avec couche support + couche graphène)
+- **Caractéristiques distinctives du brevet attaqué :** ajout d'agent de réticulation polyamine (caractéristique 1.c)
+- **Problème technique objectif (formulation OEB) :** améliorer la durabilité chimique de la membrane en milieu acide
+- **Démonstration non-évidence :**
+  - EP3456789 enseigne explicitement l'utilisation d'agents de réticulation polyamine pour stabiliser des couches actives en milieu acide (§ 0023-0027 EP3456789)
+  - L'homme du métier confronté au problème de durabilité acide aurait naturellement consulté EP3456789 (même domaine CIB B01D, problème commun)
+  - Aucun préjugé technique n'aurait dissuadé l'homme du métier de combiner les deux enseignements
+  - Le brevet attaqué ne démontre pas d'effet technique inattendu de cette combinaison (description vague § 0042)
+
+→ La revendication 1, à défaut de nullité pour défaut de nouveauté,
+doit être annulée pour défaut d'activité inventive.
+
+## Projet d'écritures
+
+### Mode `--attack` — Conclusions en nullité TJ Paris
+
+**1. Identification des parties**
+
+- **Demandeur en nullité (notre cabinet) :** [raison sociale + SIREN + adresse + avocat constitué inscrit au barreau de Paris]
+- **Défendeur (titulaire brevet attaqué) :** [identité issue du Registre National des Brevets]
+
+**2. Faits**
+
+- Genèse de notre intérêt à agir (notre produit X, blocage par le brevet attaqué)
+- Recherche d'art antérieur effectuée (méthodologie + sources interrogées)
+- Mise en demeure préalable (si pertinente) ou absence de tentative amiable justifiée
+
+**3. Discussion en droit**
+
+3.1 Sur la nullité pour défaut de nouveauté (motif principal L.613-25 a / L.611-11)
+3.2 Subsidiairement, sur la nullité pour défaut d'activité inventive (L.613-25 a)
+3.3 Plus subsidiairement, sur la nullité pour extension portée (L.613-25 c / L.612-6)
+
+**4. Demande**
+
+- À titre principal : nullité **totale** du brevet FR/EP N° XXXXXXX
+- À titre subsidiaire : nullité **partielle** des revendications 1, 4, 5 (autres revendications non annulées)
+- Condamnation aux dépens (CPC 696) + article 700 CPC (frais irrépétibles, montant à préciser selon barème cabinet)
+
+**5. Pièces produites**
+
+| N° | Pièce | Fonction |
+|---|---|---|
+| 1 | Extrait Kbis demandeur | Identité |
+| 2 | Brevet attaqué FR/EP N° XXXXXXX (B1) | Pièce centrale |
+| 3 | Demande initiale (A1) | Comparaison non-extension L.612-6 |
+| 4 | FR1900456 (citation X) | Art antérieur destructeur nouveauté |
+| 5 | EP3456789 (citation Y) | Art antérieur destructeur activité inventive |
+| 6 | WO2017/123456 (citation Y) | Argument combinaison |
+| 7 | Expertise technique | Démonstration identité caractéristiques / motivation combinatoire |
+| 8 | Documentation produit demandeur | Justifier intérêt à agir |
+
+### Mode `--defense` — Conclusions de défense + demande reconventionnelle en nullité
+
+**1. Identification des parties**
+
+- **Demandeur (titulaire brevet, qui nous attaque en contrefaçon) :** [identité]
+- **Défendeur (notre cabinet, qui répond + reconvient en nullité) :** [identité + avocat constitué]
+
+**2. Faits**
+
+- Rappel de la mise en cause (action en contrefaçon adverse, saisie-contrefaçon éventuelle)
+- Notre produit X, sa conception, son antériorité éventuelle
+- Recherche d'art antérieur effectuée
+
+**3. Discussion en droit**
+
+3.1 À titre principal, sur la non-contrefaçon
+- **Non-contrefaçon littérale** : notre produit X ne reproduit pas toutes les caractéristiques de la revendication 1 (caractéristique 1.c absente — agent réticulation polyamine non utilisé dans notre formulation)
+- **Non-équivalence** : les éléments substitués (polyimine au lieu de polyamine) ne respectent pas les 3 critères Cour de cass. com. 5 mai 2009 n°08-13.586 (fonction différente — stabilisation thermique vs chimique)
+
+3.2 À titre subsidiaire, sur la nullité du brevet adverse (demande reconventionnelle)
+- Motifs L.613-25 a / b / c retenus (voir argumentation supra)
+- Argumentation problème-solution inverse (voir supra)
+
+**4. Demande**
+
+- À titre principal : déboutement intégral de l'action en contrefaçon
+- À titre reconventionnel : nullité **totale** du brevet adverse FR/EP N° XXXXXXX (ou nullité partielle des revendications 1, 4, 5 à titre subsidiaire)
+- Condamnation aux dépens + article 700 CPC
+
+**5. Pièces produites** : [tableau similaire mode --attack + pièces propres défense non-contrefaçon : documentation produit, expertise comparative, attestation d'usage interne antérieur, etc.]
+
+## Calendrier procédural TJ Paris
+
+| Étape | Délai estimé | Action |
+|---|---|---|
+| Mode `--attack` : assignation | J+0 | Notre avocat dépose |
+| Notification défendeur | J+0 + 1-2 sem | Auto (huissier) |
+| Conclusions en défense (titulaire brevet) | J+0 + 2-3 mois | Titulaire dépose ou non |
+| Conclusions en réplique (notre cabinet) | J+0 + 4-5 mois | Itération écritures |
+| Mise en état (JME) : ordonnance d'expertise éventuelle | J+0 + 5-8 mois | JME décide |
+| Ordonnance de clôture JME | J+0 + 8-12 mois | Mise en état close |
+| Audience de plaidoirie | J+0 + 12-18 mois | Plaidoirie 3e chambre brevets |
+| Jugement | J+0 + 13-21 mois | Notification par greffe |
+| Recours Cour d'appel Paris (effet suspensif) | Décision + 1 mois | Si opportun |
+| Cour de cass. com. (cassation) | CA + 2 mois | Sur points de droit uniquement |
+
+**Note** : décision de nullité totale = brevet effacé **erga omnes**
+(vis-à-vis de tous, pas seulement les parties à l'instance). Effet
+rétroactif `ex tunc` (le brevet est réputé n'avoir jamais existé).
+
+## Recommandation préliminaire
+
+[1-3 phrases de synthèse stratégique — ex : "Action en nullité
+recommandée mode --attack ciblé : motif principal L.611-11 défaut de
+nouveauté sur citation FR1900456 (force 🟢). Budget estimé 50-80 k€,
+durée 13-18 mois. Risque résiduel : contestation expertise par
+titulaire — prévoir double avis expert. Alternative à évaluer :
+opposition OEB si délai 9 mois encore ouvert (coût 3-5 k€)."]
+
+**Une question hors de ma checklist :** [observation seconde-ordre —
+ex : "Vérifier si le titulaire a divulgué l'invention dans une
+conférence professionnelle avant la date de priorité — la divulgation
+propre antérieure non couverte par le délai de grâce L.611-13 serait
+un motif supplémentaire de nullité." — omis si rien]
+
+## Que veux-tu faire ?
+
+1. **Itérer l'argumentation** — j'affine les motifs retenus, ajoute des pièces, prépare l'anticipation détaillée de la défense du titulaire
+2. **Escalader** — je rédige une note d'escalade pour [approbateur tiré du profil : mandataire EQE / avocat spécialisé brevets / direction juridique] avec faits-clés, risque et décision attendue
+3. **Compléter la recherche art antérieur** — élargir sources (Google Patents si V2.1.1 dispo, NPL pertinente par domaine, conférences professionnelles, sites web archivés Wayback Machine)
+4. **Négocier transaction** — préparer l'alternative à l'action contentieuse : licence inverse, coexistence négociée, rachat brevet, si action nullité jugée trop risquée ou coûteuse au regard du blocage business réel
+5. **Autre chose** — dis-moi
+`````
+
+---
