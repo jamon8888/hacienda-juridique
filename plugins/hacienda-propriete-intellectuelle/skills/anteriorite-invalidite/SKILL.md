@@ -490,3 +490,161 @@ Pour le détail des motifs, exemples jurisprudentiels par domaine
 technique et erreurs courantes : voir `references/motifs-nullite-brevet.md`.
 
 ---
+
+## Argumentation problème-solution inverse
+
+Pour démontrer le **défaut d'activité inventive** (motif L.613-25 a /
+implicite L.611-10), appliquer le cadre OEB problème-solution **à
+l'inverse**.
+
+> **Cadre OEB problème-solution appliqué à l'inverse** : ici on
+> démontre que les caractéristiques distinctives du brevet attaqué
+> **étaient évidentes** pour l'homme du métier à la date de priorité
+> — c'est l'exact inverse de la défense en prosecution
+> (`analyse-refus-inpi`) ou de la recherche défensive d'antériorité
+> (`recherche-anteriorite-brevet`). Le même cadre, l'objectif opposé.
+
+### Méthodologie (4 étapes)
+
+1. **Identifier l'état de la technique le plus proche** (*closest
+   prior art*) parmi les antériorités trouvées — généralement le
+   document Y le plus pertinent au regard du problème technique
+   adressé par le brevet attaqué. Le closest prior art doit être
+   réaliste (un homme du métier l'aurait choisi comme point de
+   départ).
+
+2. **Identifier les caractéristiques distinctives** du brevet attaqué
+   par rapport à ce closest prior art — c'est-à-dire ce que le brevet
+   ajoute. Peu de différences = vulnérabilité, le brevet ressemble
+   trop à l'existant.
+
+3. **Formuler le problème technique objectif** que ces différences
+   sont censées résoudre. Le problème doit être formulé à partir des
+   effets techniques effectivement démontrés (pas des effets allégués
+   sans preuve). Si le brevet attaqué ne démontre pas d'effet, le
+   problème se réduit à "fournir une alternative" — formulation
+   défavorable au titulaire car réduit l'exigence d'activité inventive.
+
+4. **Démontrer la non-inventivité** :
+   - Citer au moins **2 documents Y** combinés (au minimum closest
+     prior art + 1 autre — la combinaison de plus de 3 documents
+     devient suspecte pour le juge, *hindsight bias*)
+   - Démontrer que l'homme du métier, confronté au problème, aurait
+     trouvé **motivation** dans le second document Y pour appliquer
+     les caractéristiques distinctives au closest prior art. La
+     motivation peut résulter d'une suggestion explicite, d'un
+     pointage générique du domaine, ou de la nécessité technique
+   - Définir l'**homme du métier** : compétences normales du domaine
+     concerné (ingénieur expérimenté, niveau Bac+5, connaissance de
+     l'art antérieur publié dans la CIB visée). Pas un Nobel, pas un
+     stagiaire
+
+### Anticiper la défense du titulaire
+
+Le titulaire opposera des arguments défensifs classiques. Préparer les
+contre-arguments :
+
+- **Effet technique inattendu** (la caractéristique distinctive
+  apporte une amélioration que l'art antérieur ne suggérait pas, ex.
+  effet synergique) → **Contre** : démontrer que l'effet n'est pas
+  démontré dans la description du brevet attaqué (paragraphes vagues
+  sans données chiffrées, absence d'exemples comparatifs) OU démontrer
+  que l'effet était prévisible par l'homme du métier à partir de
+  l'art antérieur (jurisprudence OEB *bonus effect* T 21/81 :
+  amélioration "bonus" non récompensée si l'invention était de toute
+  façon évidente)
+- **Problème non posé par l'art antérieur** (le combinatoire n'aurait
+  pas été envisagé car personne ne se posait la question) → **Contre** :
+  démontrer que le problème était évident dans le domaine (problème
+  commun documenté dans des publications techniques, normes
+  industrielles, manuels)
+- **Préjugé technique de l'art antérieur** (l'art antérieur
+  enseignait explicitement de NE PAS faire ce qu'a fait l'invention)
+  → **Contre** : démontrer que le préjugé n'existait pas vraiment
+  (citer publications neutres ou contredisant le prétendu préjugé),
+  ou démontrer que le préjugé était dépassé à la date de priorité
+- **"Could would" objection** (l'homme du métier *pouvait* combiner
+  mais ne l'*aurait* pas fait) → **Contre** : démontrer une
+  motivation positive (incitation technique, marketing, économique)
+  à effectuer la combinaison
+
+---
+
+## Calcul de la prescription / délai
+
+Les modes `--attack` et `--defense` ont des régimes de prescription
+radicalement différents.
+
+### Action en nullité (mode `--attack`)
+
+L'action en nullité d'un brevet est **imprescriptible tant que le
+brevet est en vigueur** (CPI L.613-25 — pas de délai de prescription
+spécifique). La durée maximale d'un brevet est de **20 ans à compter
+du dépôt** (L.611-2 CPI). L'action est donc possible :
+
+- Pendant toute la durée de vie du brevet (jusqu'à 20 ans post-dépôt)
+- Y compris pendant des extensions Certificat Complémentaire de
+  Protection (CCP) en pharma (jusqu'à 25 ans dans certains cas, sur
+  fondement d'AMM)
+
+**Pas d'urgence intrinsèque**, sauf si :
+
+- Le titulaire est sur le point de nous assigner en contrefaçon
+  → privilégier une action en nullité préventive pour **fixer la
+  juridiction** (TJ Paris) avant l'assignation adverse et obtenir
+  l'avantage tactique du demandeur
+- Le brevet approche de son expiration naturelle (< 2 ans restants)
+  → évaluer si l'action est encore économiquement rentable (la nullité
+  est rétroactive `ex tunc` mais l'effet pratique se limite aux
+  contentieux passés non éteints)
+
+### Défense en nullité dans action contrefaçon (mode `--defense`)
+
+La défense en nullité (par voie d'exception ou demande
+reconventionnelle) reste valable tant que **l'action en contrefaçon
+elle-même est recevable**.
+
+- **Action en contrefaçon** : prescription **5 ans** (CPI L.615-8) à
+  compter du jour où le titulaire a connu ou aurait dû connaître les
+  faits — délai courant depuis 2014 (loi du 11 mars 2014). Au-delà,
+  l'action en contrefaçon est prescrite et notre défense en nullité
+  devient sans objet (sauf à introduire nous-mêmes une action en
+  nullité préventive mode `--attack`)
+- **Défense en nullité** : peut être invoquée comme demande
+  reconventionnelle (la plus protectrice — permet d'obtenir une
+  décision de nullité `erga omnes`) ou comme simple exception (effet
+  inter partes seulement). **Toujours privilégier la demande
+  reconventionnelle** sauf raison tactique précise contraire
+
+### Sévérité du délai pour `--defense`
+
+Calculer depuis la date d'assignation TJ Paris reçue. L'audience est
+généralement fixée 6 à 18 mois plus tard, avec des conclusions et
+mémoires intermédiaires.
+
+- **Audience < 30 jours** : 🔴 URGENT — préparer les écritures dans
+  la semaine, mobiliser avocat et mandataire EQE immédiatement.
+  Demande de renvoi à envisager si dossier non prêt
+- **Audience 30-90 jours** : 🟠 — préparer dans le mois, planifier
+  expertise technique si nécessaire (délais d'expertise judiciaire
+  4-6 mois en moyenne, à ordonner par JME en amont)
+- **Audience > 90 jours** : 🟡 — planning standard, mais ne pas
+  attendre la dernière minute. La recherche d'art antérieur prend
+  6-12 semaines incompressibles avec un cabinet spécialisé
+
+### Cas particulier : opposition européenne pendante
+
+Si le brevet attaqué est une partie nationale d'un brevet européen
+EP, vérifier si une **opposition OEB** est pendante (délai 9 mois
+post-délivrance pour former opposition — Art. 99 CBE). Si oui :
+
+- Le TJ Paris peut **surseoir à statuer** dans l'attente de la
+  décision OEB (Art. 100 CBE — motifs largement convergents)
+- L'opposition OEB est une voie alternative moins coûteuse (~3-5 k€
+  vs 50-150 k€ pour action TJ Paris) — vérifier opportunité de la
+  privilégier en mode `--attack` si délai 9 mois encore ouvert
+- Une décision de révocation OEB éteint le brevet `erga omnes` dans
+  tous les États désignés — effet plus large qu'une nullité TJ Paris
+  (qui n'a effet qu'en France)
+
+---
