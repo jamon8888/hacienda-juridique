@@ -401,3 +401,108 @@ optimiste.**
 
 La discipline de ce garde-fou détermine si le mandataire fait confiance
 au claim chart ou s'il refait tout à zéro.
+
+---
+
+## Étape 3 — Génération du claim chart
+
+Cœur du skill. Agréger les éléments trackés (étape 2) dans un tableau
+Markdown standardisé, lisible par un mandataire en 2 minutes et
+exploitable directement comme pièce de travail interne.
+
+### 3.1 Template du claim chart
+
+Un tableau par revendication indépendante. Les revendications dépendantes
+pertinentes : soit un tableau séparé, soit une colonne additionnelle si
+peu de lignes.
+
+````markdown
+## Claim chart — Revendication 1 du brevet FR2700123
+
+| Élément | Texte revendication | Correspondance produit | Source | Statut |
+|---------|---------------------|------------------------|--------|--------|
+| (1) | Procédé de filtration d'eau | Notice produit : "Système de purification d'eau domestique" | Notice AquaPur X9 p.3 §1 | ✅ |
+| (2) | Membrane à base de graphène | Fiche technique : "Cartouche filtrante en graphène pur" | Fiche tech §Composition | ✅ |
+| (3a) | Couche support en polymère poreux | Brevet déposé par le contrefacteur : "Support en polyéthersulfone (PES) microporeux" | EP9876543, rev. 2 | ✅ équivalent |
+| (3b) | Couche active de graphène d'épaisseur 5-50 nm | Spec produit : "Épaisseur active 20-30 nm" | Spec p.7 tableau 2 | ✅ |
+| (3c) | Agent de réticulation polyamine | Aucune mention dans la documentation produit | — | ❓ |
+
+**Résumé revendication 1 :**
+- Éléments ✅ couverts : 4/5 (80 %)
+- Éléments ⚠️ partiels : 0/5
+- Éléments ❌ absents : 0/5
+- Éléments ❓ à vérifier : 1/5 — élément (3c) agent de réticulation
+
+→ **Contrefaçon littérale partielle suspectée** sous réserve de vérification
+de l'élément (3c). Voir recommandations stratégiques (étape 5) pour la
+voie d'approfondissement (rétro-ingénierie / saisie-contrefaçon).
+````
+
+### 3.2 Légende des statuts (à reproduire sous chaque tableau si non
+implicite)
+
+- **✅ Couvert** — correspondance littérale claire entre l'élément
+  revendiqué et la description du produit. Possibilité de précision
+  "✅ équivalent" pour un mode de réalisation alternatif littéralement
+  inclus dans le périmètre revendiqué (ex. polyéthersulfone fait partie
+  des "polymères poreux" revendiqués génériquement).
+- **⚠️ Couverture partielle** — élément partiellement présent : plage
+  numérique partiellement chevauchante, terme générique vs spécifique
+  asymétrique, variante revendicative ambiguë. Toujours commenter dans
+  la cellule "Correspondance produit".
+- **❌ Absent** — pas de correspondance dans une documentation par
+  ailleurs complète sur le sujet. Ouvre l'analyse équivalence (étape 4).
+- **❓ À vérifier** — documentation incomplète pour conclure ; mesure
+  complémentaire requise (étape 2.4).
+
+### 3.3 Plusieurs revendications — un tableau chacune
+
+- **Revendication indépendante 1** : tableau complet.
+- **Revendication indépendante 2** (si plusieurs catégories d'invention :
+  produit + procédé d'obtention + utilisation) : tableau complet séparé,
+  même format.
+- **Revendications dépendantes pertinentes** : pour chacune, soit un
+  tableau dédié (si elle ajoute >2 caractéristiques), soit une note sous
+  le tableau principal listant la caractéristique additionnelle + son
+  statut. Format compact :
+
+  > **Revendication 3 (dépendante de 1)** : ajoute "ledit agent de
+  > réticulation étant choisi parmi la polyéthylèneimine et la
+  > polyamine".
+  > → Élément (3c-précisé) : statut ❓ (idem rev. 1).
+
+### 3.4 Règle "all elements rule" française
+
+**Règle d'application stricte de la contrefaçon littérale en droit
+français :** il faut que **TOUS** les éléments d'une revendication soient
+présents (✅) dans le produit incriminé pour qualifier la contrefaçon
+littérale de cette revendication. Un seul élément ❌ ou ⚠️ douteux suffit
+à faire tomber la contrefaçon littérale de cette revendication.
+
+Conséquences pratiques pour le claim chart :
+- Si une revendication a 5 éléments dont 4 ✅ et 1 ❌ → **pas de
+  contrefaçon littérale** de cette revendication. L'analyse équivalence
+  (étape 4) reprend la main sur l'élément ❌.
+- Si toutes les revendications indépendantes ont au moins un ❌ ou un ⚠️
+  douteux → **pas de contrefaçon littérale du brevet entier**. Voie
+  équivalence à explorer en priorité avant toute conclusion.
+- Si une revendication indépendante a 100 % ✅ → contrefaçon littérale
+  **suspectée** (rappel : la qualification reste au juge / mandataire).
+- Les revendications dépendantes 100 % ✅ confortent la contrefaçon de la
+  principale (cohérence : impossible qu'une dépendante soit contrefaite
+  si la principale ne l'est pas).
+
+### 3.5 Cohérence inter-revendications — contrôle final
+
+Avant de finaliser le tableau, faire une passe de cohérence :
+
+- Pour chaque revendication dépendante marquée 100 % ✅ : vérifier que la
+  revendication dont elle dépend est aussi 100 % ✅. Si non,
+  contradiction logique → relire la décomposition.
+- Pour chaque revendication indépendante 100 % ❌ : vérifier que toutes
+  ses dépendantes sont aussi au moins ❌ ou ⚠️. Si une dépendante est
+  ✅, contradiction → relire.
+- Cohérence terminologique : un même terme revendicatif doit être
+  interprété de la même façon partout dans le tableau. Si "polymère
+  poreux" est ✅ équivalent au PES dans rev. 1, le PES doit aussi
+  satisfaire "polymère poreux" dans rev. 4 si elle reprend le terme.
