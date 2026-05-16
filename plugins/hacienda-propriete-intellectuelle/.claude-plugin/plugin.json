@@ -1,7 +1,7 @@
 {
   "name": "hacienda-propriete-intellectuelle",
-  "version": "0.8.0",
-  "description": "Propriété intellectuelle : marques (recherche d'antériorité INPI/EUIPO, dépôt FR/EU/Madrid, opposition INPI, surveillance BOPI quotidienne, revue de portefeuille marques avec dashboard HTML standardisé), brevets (recherche d'antériorité INPI/OEB Espacenet, préparation dépôt FR/EP/PCT, claim chart contrefaçon, analyse refus INPI/OEB + invalidité brevets L.613-25 TJ Paris, stratégie extension internationale FR/EP/PCT, revue portefeuille brevets avec dashboard HTML standardisé), droit d'auteur, logiciel, open source, clauses PI et contrefaçon.",
+  "version": "0.9.0",
+  "description": "Propriété intellectuelle : marques (recherche d'antériorité INPI/EUIPO, dépôt FR/EU/Madrid, opposition INPI, surveillance BOPI quotidienne, revue de portefeuille marques avec dashboard HTML standardisé), brevets (recherche d'antériorité INPI/OEB Espacenet, préparation dépôt FR/EP/PCT, claim chart contrefaçon, analyse refus INPI/OEB + invalidité brevets L.613-25 TJ Paris, stratégie extension internationale FR/EP/PCT, revue portefeuille brevets avec dashboard HTML standardisé), droit d'auteur (qualification œuvre L.111-1 + régime logiciel L.113-9 + licences open source), clauses PI et contrefaçon.",
   "author": { "name": "Hacienda", "url": "https://hacienda.diy" },
   "repository": "https://github.com/jamon8888/hacienda-juridique",
   "license": "AGPL-3.0-or-later",
@@ -10,6 +10,6 @@
     "antériorité", "depot", "opposition", "surveillance", "bopi", "portefeuille", "dashboard",
     "brevets", "espacenet", "oeb", "OEB", "claim-chart", "contrefacon-brevet", "refus", "nullite",
     "extension", "portefeuille-brevets", "PCT",
-    "droit-auteur", "logiciel", "open-source"
+    "droit-auteur", "oeuvre", "logiciel-pi", "open-source-licences", "logiciel", "open-source"
   ]
 }
