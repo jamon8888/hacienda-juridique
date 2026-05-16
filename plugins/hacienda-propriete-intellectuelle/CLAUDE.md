@@ -114,6 +114,12 @@ les valeurs `[A CONFIGURER]` sont présentes, c'est un template. Une fois peupl�
 **Approbateur réponse refus :** [A CONFIGURER — mandataire EQE seul / mandataire + GC]
 **Approbateur action nullité :** [A CONFIGURER — avocat spécialisé brevets + GC + Direction R&D]
 **Taxes indicatives 2026 :** divisionnaire ~600€ FR INPI / ~250€ OEB ; action nullité TJ Paris : frais avocat (variables, souvent > 30k€)
+**Stratégie extension internationale :** [A CONFIGURER — FR seul / FR + EP (5 validations EU) / FR + EP (large 15+ validations) / FR + PCT (gel 30 mois)]
+**Cadence revue portefeuille brevets :** [A CONFIGURER — mensuelle / trimestrielle / annuelle]
+**Partenaire annuités :** [A CONFIGURER — CPA Global / Dennemeyer / Patrix / Anaqua / interne]
+**Format de rapport portefeuille préféré :** [A CONFIGURER — Markdown seul / Markdown + dashboard HTML (recommandé > 10 brevets)]
+**Volume portefeuille estimé :** [A CONFIGURER — < 20 / 20-100 / > 100 = envisager IPMS commercial (Anaqua, Dennemeyer, Questel, Clarivate IPfolio)]
+**Cap recommandé sans IPMS :** ~50 brevets (au-delà, risque erreur humaine annuités)
 
 ---
 
