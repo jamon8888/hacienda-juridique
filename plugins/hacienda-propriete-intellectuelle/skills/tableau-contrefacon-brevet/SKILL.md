@@ -648,3 +648,149 @@ Si **tous** les éléments ❌ trouvent une équivalence présumée → la
 contrefaçon par équivalents est suspectée pour la revendication entière
 (sous réserve validation mandataire). Sinon, la revendication échoue
 en littérale ET en équivalence sur les éléments restants.
+
+---
+
+## Étape 5 — Recommandation stratégique
+
+Le claim chart sert à décider quoi faire. La recommandation se calibre
+sur trois variables : (a) **solidité technique** du tableau (combien de
+✅ littéraux, combien d'équivalences `[review]`), (b) **posture
+enforcement** du profil (agressive / mesurée / conservatrice), (c)
+**contexte business** (préjudice, relation antérieure avec le
+contrefacteur, urgence).
+
+### 5.1 Bucket — Contrefaçon littérale claire (toutes les revendications indépendantes 100 % ✅)
+
+Cas le plus solide. La preuve est faite sur la documentation publique du
+contrefacteur.
+
+- **Action recommandée :** **saisie-contrefaçon** (CPC art. 59, CPI
+  L.615-5) pour **fixer la preuve** avant que le contrefacteur ne
+  dissimule ou modifie son produit, **puis** mise en demeure (avec
+  preuves saisies en main) ou directement **assignation devant le TJ
+  Paris** (compétence exclusive CPI L.615-1).
+- **Si posture cabinet conservatrice :** commencer par **mise en
+  demeure** (laisser une chance de retrait à l'amiable + créer un dossier
+  de mauvaise foi opposable si le contrefacteur ignore). La
+  saisie-contrefaçon reste possible après si la mise en demeure échoue.
+- **Si posture agressive :** **saisie-contrefaçon en premier** (effet de
+  surprise + fixation de la preuve), puis assignation immédiate. La
+  procédure de mise en demeure préalable n'est pas obligatoire en
+  contrefaçon brevet.
+- **Préparation parallèle** du dossier d'assignation TJ Paris (calcul
+  préjudice CPI L.615-7 — manque à gagner + bénéfices contrefacteur +
+  préjudice moral ; demande d'interdiction sous astreinte).
+
+### 5.2 Bucket — Contrefaçon littérale partielle (rev. principale ✅ mais dépendantes mixtes)
+
+Solide sur la revendication principale, fragile sur les dépendantes.
+Cas fréquent.
+
+- **Action recommandée :** **mise en demeure circonstanciée** sur la
+  revendication principale uniquement, sans s'engager sur les
+  dépendantes. Offre éventuelle de licence (peut convertir le litige en
+  revenu plutôt qu'en procès).
+- Préparer le dossier TJ Paris **en parallèle** sur la seule
+  revendication principale (les dépendantes 100 % ✅ confortent, les
+  autres ne nuisent pas — elles sont accessoires).
+- Posture agressive : **saisie-contrefaçon ciblée** sur la revendication
+  principale puis assignation.
+- Posture conservatrice : mise en demeure + délai de réponse 30 jours
+  + offre de discussion amiable. Évaluer le retour avant d'engager TJ Paris.
+
+### 5.3 Bucket — Contrefaçon par équivalence uniquement (littérale échoue, équivalence présumée)
+
+Cas plus fragile — l'équivalence est argumentative et exige souvent
+expertise technique au procès.
+
+- **Action recommandée — préparer d'abord l'argumentation technique :**
+  - sécuriser un **avis d'expert technique** (homme du métier dans le
+    domaine du brevet) sur les 3 critères équivalence
+  - vérifier le **dossier de poursuite** (registre INPI / OEB) — pas de
+    file wrapper estoppel sur les éléments en équivalence
+  - vérifier que les éléments équivalents proposés n'étaient pas dans
+    l'**art antérieur** à la date de priorité (interroger
+    `recherche-anteriorite-brevet` si pas déjà fait)
+- **Mise en demeure prudente** : exposer les 3 critères d'équivalence,
+  demander explications au contrefacteur sur la composition / structure /
+  procédé effectif (la réponse — ou l'absence de réponse — constitue
+  preuve dans la suite).
+- **Ne pas saisir avant solidification** de l'argumentation équivalence
+  (risque dommages-intérêts CPC art. 78 si la saisie est annulée pour
+  vraisemblance insuffisante de la contrefaçon).
+- Posture agressive : peut commencer par saisie-contrefaçon SI les
+  éléments en équivalence sont peu nombreux et la documentation publique
+  rend l'équivalence très vraisemblable.
+- Posture conservatrice : mise en demeure exploratoire + offre de
+  discussion. Engager le procès TJ Paris seulement après dossier
+  technique solide.
+
+### 5.4 Bucket — Contrefaçon partielle douteuse (nombreux ❓)
+
+Documentation produit insuffisante pour conclure dans un sens ou dans
+l'autre. Souvent le cas pour les produits dont la composition / le
+procédé n'est pas publié.
+
+- **Action recommandée — collecter la preuve avant de conclure :**
+  - **acquérir le produit** sur le marché + analyse physique (rétro-
+    ingénierie technique en laboratoire — légal en FR pour vérification
+    brevet, à documenter par huissier et laboratoire indépendant)
+  - **constat d'huissier** sur le marketing public du produit (site web,
+    fiches produit en magasin, salons professionnels)
+  - **saisie-contrefaçon judiciaire** (CPC art. 59) sur autorisation
+    motivée du président TJ Paris pour obtenir la documentation
+    technique du contrefacteur — exige de présenter au juge une
+    vraisemblance de contrefaçon (les éléments ✅ déjà au tableau,
+    même partiels, suffisent généralement)
+- Pas de mise en demeure avant collecte — risque d'avertir le
+  contrefacteur qui modifie alors son produit, dissimule sa
+  documentation, ou se prépare en défense.
+- Reprendre le claim chart **après** collecte avec la nouvelle
+  documentation.
+
+### 5.5 Bucket — Peu de chevauchement
+
+Le claim chart ne montre pas de matière à contrefaçon (la plupart des
+éléments ❌ sans équivalence présumée).
+
+- **Pas d'action enforcement recommandée.**
+- Risque : envoyer une mise en demeure mal calibrée expose à une action
+  reconventionnelle en concurrence déloyale du contrefacteur présumé
+  (Code civil art. 1240 — dénigrement, désorganisation, atteinte
+  réputationnelle), surtout si la mise en demeure est diffusée largement.
+- **Surveillance recommandée** : surveiller les évolutions futures du
+  produit (le contrefacteur peut renforcer sa proximité technique au
+  brevet, par exemple par mise à jour logicielle ou changement de
+  composition). Adapter `surveillance-marque` V1.1.0 aux brevets (V3.0+
+  prévue).
+- Documenter le claim chart dans le portefeuille (registre interne) pour
+  référence future si le produit évolue.
+
+### 5.6 Garde-fous transverses à tous les buckets
+
+**Toujours :**
+- **Validation finale par mandataire en brevets EQE ou avocat
+  spécialisé PI** avant toute action externe. Le claim chart est un
+  outil de travail interne ; la décision d'enforcement est juridique.
+- **Évaluer la pertinence d'une action en concurrence déloyale
+  parallèle** (Code civil art. 1240 / 1241 anciens 1382 / 1383) si pas
+  de contrefaçon brevet pure mais comportement parasitaire (copie
+  servile du conditionnement, désorganisation de réseau de distribution,
+  débauchage commercial) — fondement distinct, juridictions de droit
+  commun (TJ ou Tribunal de commerce selon les parties), pas l'exclusivité
+  TJ Paris.
+- **Compétence TJ Paris exclusive** pour les actions en contrefaçon de
+  brevets (CPI L.615-1 + décret n°2009-1205 du 9 octobre 2009) — pas
+  d'autres juridictions en France quel que soit le brevet (FR, partie
+  française d'EP, PCT désignant FR). À surfacer dans toutes les
+  recommandations.
+- **Prescription** : action en contrefaçon = **5 ans** à compter du
+  jour où le titulaire a connu ou aurait dû connaître les faits (CPI
+  L.615-8). Si la contrefaçon est ancienne et que la connaissance par le
+  titulaire est démontrable depuis plus de 5 ans, la prescription est
+  acquise — flagger en `[review]` pour validation avocat.
+- **Annuités du brevet** : un brevet sans paiement d'annuités tombe en
+  domaine public et ne donne plus droit à action. Vérifier l'état des
+  annuités du brevet attaqué (INPI Data, registre OEB) AVANT toute
+  action — un brevet déchu ne fonde aucune contrefaçon.
