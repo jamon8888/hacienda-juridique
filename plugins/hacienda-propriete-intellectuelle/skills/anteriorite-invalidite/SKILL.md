@@ -891,3 +891,147 @@ un motif supplémentaire de nullité." — omis si rien]
 `````
 
 ---
+
+## Gate non-juriste
+
+Si le rôle utilisateur lu en intake est **non-juriste** (chef de
+produit, R&D, direction technique, juriste interne sans inscription),
+intercaler avant la livraison du document :
+
+> Cette argumentation est un préparatoire, pas une procédure judiciaire
+> formelle. Engager une action en nullité ou répondre à une action en
+> contrefaçon sans validation mandataire EQE ou avocat spécialisé
+> brevets a des conséquences juridiques majeures :
+>
+> - **Nullité ratée** = dépens lourds (CPC 696) + risque action en
+>   concurrence déloyale (Code civil 1240) si attaque jugée abusive
+> - **Défense bâclée** = condamnation contrefaçon + dommages-intérêts
+>   intégraux (CPI L.615-7 — réparation intégrale du préjudice +
+>   atteinte morale + bénéfices indus tirés de la contrefaçon)
+> - **Mauvaise stratégie** = perte du brevet en cascade pour notre
+>   propre portefeuille (un déposant qui attaque un brevet voisin
+>   s'expose à voir son propre brevet attaqué en retour)
+>
+> Voici un brief à apporter au mandataire EQE / avocat :
+>
+> [résumé 1 page reformulant les éléments clés : brevet cible (numéro,
+> titulaire, statut) + mode (--attack nullité préventive ou --defense
+> face contrefaçon) + art antérieur identifié (force globale 🟢/🟡/🔴
+> + 2-3 citations clés) + motifs L.613-25 retenus (force par motif) +
+> recommandation préliminaire (action / opposition OEB / négociation)
+> + 3 questions critiques pour le mandataire :
+> 1. "L'art antérieur FR1900456 divulgue-t-il VRAIMENT toutes les
+>    caractéristiques de la revendication 1 ou seulement les
+>    essentielles ? Une expertise technique préalable est-elle
+>    indispensable avant assignation ?"
+> 2. "L'argument L.612-6 sur le terme 'essentiellement' tient-il
+>    debout sans expertise linguistique de comparaison A1 vs B1 ?
+>    Vaut-il la peine d'être maintenu en motif subsidiaire ou risque-t-il
+>    d'affaiblir l'argumentation principale ?"
+> 3. "Vaut-il mieux nullité partielle ciblée (rev. 1 seule, sécurité)
+>    ou totale risquée (rev. 1-12, effet erga omnes maximal mais charge
+>    probatoire lourde) au regard de notre intérêt business réel ?"]
+>
+> **Annuaires officiels** :
+> - **INPI — Conseils en propriété industrielle** (mandataires en
+>   brevets CPI L.422-4) : https://www.inpi.fr/conseils-en-propriete-industrielle
+> - **OEB — Liste Mandataires Européens** (EQE qualifiés CBE) :
+>   https://www.epo.org/learning/eqe.html
+> - **Conseil National des Barreaux** (avocats spécialisés brevets,
+>   TJ Paris habilités) : https://www.avocat.fr — filtrer par spécialité
+>   "propriété intellectuelle" et barreau de Paris
+
+Si rôle utilisateur = mandataire EQE ou avocat spécialisé brevets,
+ne pas intercaler ce gate (gain de temps, le professionnel sait
+identifier ses propres limites). Conserver toutefois le bloc
+garde-fou en tête d'output.
+
+---
+
+## Emplacement de sortie
+
+Écrire le document Markdown à :
+
+```
+~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/invalidite-<brevet-cible>-YYYY-MM-DD.md
+```
+
+Format du nom de fichier : `invalidite-<numéro-brevet>-<date>.md`
+(ex : `invalidite-FR2700123-2026-05-16.md`,
+`invalidite-EP3456789-2026-05-16.md`). Si plusieurs itérations le
+même jour, suffixer `-v2`, `-v3`, etc.
+
+Si l'emplacement n'est pas accessible (plugin installé en scope
+projet sans répertoire config étendu), retomber sur le répertoire
+courant et l'indiquer dans la note du relecteur.
+
+Quand workspaces de dossier (V1.1) activés : écrire dans
+`matters/<slug-dossier>/invalidite-<brevet-cible>-YYYY-MM-DD.md`.
+
+---
+
+## Ce que ce skill NE fait PAS
+
+À rappeler explicitement quand l'utilisateur demande au-delà du
+périmètre :
+
+- **Former l'action en nullité** (= démarche TJ Paris formelle via
+  avocat habilité, dépôt assignation, constitution avocat, paiement
+  consignation timbre fiscal)
+- **Plaider en audience TJ Paris** (avocat constitué requis L.615-1
+  CPI, plaidoirie en 3e chambre brevets, exposé oral devant collège)
+- **Négocier une transaction** (licence inverse, coexistence, rachat
+  brevet, partage de marché — négociation business + juridique
+  nécessitant avocat + direction commerciale)
+- **Évaluer les dommages-intérêts** (CPI L.615-7 — calcul de la
+  réparation intégrale : préjudice économique + atteinte morale +
+  bénéfices indus tirés de la contrefaçon, méthode "triple base" ou
+  "redevance indemnitaire" — relève de l'avocat avec éventuel expert
+  comptable)
+- **Gérer les recours Cour d'appel Paris** (procédure d'appel
+  spécifique brevets, effet suspensif, ré-examen au fond — différé
+  V6.0+ contentieux)
+- **Pourvoi Cour de cass. com.** (cassation sur points de droit
+  uniquement, mandataire spécialisé Cour de cass. requis — Ordre
+  des avocats au Conseil d'État et à la Cour de cassation)
+- **Garantir le résultat** (la qualification de la nullité relève
+  exclusivement des juridictions du fond et de leur appréciation
+  souveraine des preuves)
+- **Action en concurrence déloyale parallèle** (si le titulaire du
+  brevet attaqué a usé du brevet de manière abusive ou frauduleuse,
+  l'avocat évalue art. 1240 Code civil — action distincte mais
+  cumulable avec la nullité)
+- **Action en revendication de propriété L.611-8 CPI** (si le brevet
+  cible nous appartient en réalité — voie distincte de la nullité,
+  potentiellement plus avantageuse si applicable)
+
+---
+
+## Ton
+
+- **Technique et rigoureux** : maîtrise du vocabulaire brevet (art
+  antérieur destructeur, caractéristique technique, homme du métier,
+  closest prior art, motivation combinatoire, généralisation
+  intermédiaire) — le mandataire / avocat le lit en 15 minutes et ne
+  doit pas trébucher sur des approximations
+- **Équilibré** : présenter les **forces du brevet attaqué AVANT** ses
+  faiblesses. Anticiper la défense du titulaire à chaque motif retenu
+  (ne pas l'omettre — c'est ce que le juge regardera). Une
+  argumentation qui ne discute pas la défense adverse est suspecte
+  pour un professionnel
+- **Sobre sur la jurisprudence** : citer 1-2 décisions clés par motif,
+  pas une dissertation. Toutes les citations jurisprudentielles
+  taguées `[connaissance modèle — à vérifier]` par défaut, avec
+  invitation explicite à vérifier sur Légifrance / base TJ Paris
+  avant transmission externe
+- **Posture porte à deux sens** : marquer les motifs faibles 🔴 ou
+  `[review]` — laisser le mandataire / avocat trancher s'il les
+  retient ou les abandonne. Ne JAMAIS décider tacitement à la place
+  du professionnel
+- **Cibler le brief 15 minutes** : la note du relecteur + le triage
+  + le tableau d'art antérieur + les motifs retenus avec force =
+  l'essentiel doit tenir sur 2 pages lisibles en 15 minutes par un
+  mandataire EQE pressé. Le reste est de l'argumentaire détaillé pour
+  exploitation ultérieure
+
+---
