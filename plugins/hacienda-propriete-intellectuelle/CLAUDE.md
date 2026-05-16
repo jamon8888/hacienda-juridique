@@ -204,6 +204,18 @@ risque l'effet "fatigue" — préférer une priorisation par cabinet.
 
 ---
 
+## Dépôt et opposition
+
+**Cadence dépôt :** [A CONFIGURER — réactif sur lancement produit / proactif veille concurrence / défensif portefeuille]
+**Délai opposition INPI :** **2 mois post-publication BOPI** (CPI L.712-4) — ferme, restauration L.712-4-1 strictement exceptionnelle
+**Approbateur dépôt :** [A CONFIGURER — mandataire seul / mandataire + GC / GC seul]
+**Approbateur opposition :** [A CONFIGURER — mandataire seul / mandataire + GC + Direction marketing]
+**Taxes dépôt indicatives 2026 :** FR INPI ~190€ (1 classe) + ~40€/classe additionnelle, EUTM ~850€ (1 classe) + ~50€/2e + ~150€/3e+, Madrid base ~700€ + ~100€/désignation pays
+**Taxes opposition indicatives 2026 :** FR INPI ~325€
+**Procédure INPI :** télé-procédure obligatoire depuis 2017 (portail data.inpi.fr / espace mandataire)
+
+---
+
 ## 3. Posture de décision sur jugements subjectifs
 
 Quand un skill rencontre un jugement juridique subjectif — risque de confusion borderline, motif absolu discutable, opportunité d'opposition, ampleur d'une atteinte — et que la réponse est incertaine, le skill **préfère l'erreur récupérable** : signaler la ligne précise par `[review]` en ligne et expliciter l'incertitude là.
