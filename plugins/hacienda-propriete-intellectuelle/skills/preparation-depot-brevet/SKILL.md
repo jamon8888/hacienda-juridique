@@ -546,3 +546,247 @@ prérequis dont la validation finale revient au mandataire.
   capacité à défendre dans les juridictions choisies.
 
 ---
+
+## Format de sortie
+
+Préfixer l'en-tête confidentialité depuis `CLAUDE.md` `## 2. Sorties standardisées`.
+
+`````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon profil]
+
+# Préparation dépôt brevet — Brouillon technique (PAS UN DÉPÔT)
+
+> **Préparation technique, pas rédaction finale.** [paragraphe garde-fou
+> reformulé tel quel — y compris "un brevet mal rédigé est invalidable en
+> contentieux" et le renvoi explicite au mandataire en brevets EQE ou
+> avocat PI]
+
+> **⚠️ Note du relecteur**
+> - **Recherche antériorité préalable :** [faite ✓ via `/recherche-anteriorite-brevet` le YYYY-MM-DD / à faire ✗ — REQUIS avant figeage des revendications]
+> - **Mode(s) de réalisation décrits :** [N — un suffit, plus = mieux]
+> - **Revendications proposées :** [N indépendantes + N dépendantes]
+> - **Choix territoire pré-validé :** [FR / EP / PCT — à confirmer par mandataire]
+> - **Cession invention de salarié :** [sans objet / faite ✓ / à formaliser ✗]
+> - **Avant dépôt :** [1-2 actions concrètes — toujours inclure validation mandataire en brevets EQE]
+
+## Titre proposé
+[titre concis ≤ 15 mots, sans marque, sans superlatif]
+
+## Abrégé (≤ 150 mots)
+[texte — résumé description + revendication principale]
+*Figure représentative : Fig. [N]*
+
+## Description (CPI L.611-1)
+
+### 1. Domaine technique
+[domaine général + situation]
+
+### 2. État antérieur de la technique
+[ce qui existe + limitations + citations connues]
+
+### 3. Problème technique objectif
+[reformulation objective du problème résolu]
+
+### 4. Exposé de l'invention
+[solution apportée en termes généraux — reflète rev. 1]
+
+### 5. Brève description des figures (si applicable)
+[Fig. 1 : ... / Fig. 2 : ...]
+
+### 6. Description détaillée d'un mode de réalisation
+[éléments structurels avec références numérotées, matériaux,
+paramètres, étapes — niveau suffisance L.612-5]
+
+### 7. Exemples (si pertinent)
+[exemples chiffrés avec conditions opératoires et résultats]
+
+## Revendications proposées
+
+**Revendication 1 (indépendante)** :
+[texte normalisé : préambule + caractérisé en ce que + caractéristique distinctive]
+
+**Revendication 2 (dépendante)** :
+[Procédé selon la revendication 1, dans lequel ...]
+
+**Revendication 3 (dépendante)** :
+[...]
+
+[... etc., hiérarchie pyramidale du plus large vers le plus étroit]
+
+*Catégories : [produit / procédé / utilisation / combinaison]*
+*[review — à valider mandataire] sur chaque revendication critique*
+
+## Classification CIB proposée
+- **CIB principale :** [code, ex. `B01D 71/02`] — [intitulé]
+- **CIB secondaires :** [codes voisins justifiés, ex. `C08J 5/22`]
+- **CPC équivalents (si dépôt visant USPTO) :** [codes CPC]
+
+## Choix territoire recommandé
+- **Recommandation :** [FR national / EP / PCT]
+- **Raison :** [stratégie commerciale, budget, calendrier]
+- **Coût indicatif premier dépôt :** [fourchette]
+- **Coût indicatif annuités cumulées 20 ans :** [fourchette]
+- **Stratégie priorité :** [dépôt FR puis EP à 12 mois / PCT direct / autre]
+
+## Checklist avant dépôt
+
+| Vérification | Statut | Note |
+|---|---|---|
+| Brevetabilité L.611-10 (exclusions) | ✓ / ✗ / [review] | ... |
+| Nouveauté L.611-11 (recherche antériorité) | ✓ / ✗ / [review] | lien `recherche-anteriorite-brevet` |
+| Activité inventive L.611-14 | ✓ / ✗ / [review] | argumentation problème-solution |
+| Application industrielle L.611-15 | ✓ / ✗ / [review] | ... |
+| Unité d'invention L.612-4 | ✓ / ✗ / [review] | ... |
+| Suffisance de description L.612-5 | ✓ / ✗ / [review] | ... |
+| Support des revendications L.611-1 | ✓ / ✗ / [review] | ... |
+| Non-extension L.612-6 / Art. 123(2) CBE | ✓ / ✗ / [review] | ... |
+| Cession invention de salarié L.611-7 | ✓ / ✗ / [review] / sans objet | ... |
+| Pas de divulgation publique préalable | ✓ / ✗ / [review] | délai de grâce L.611-13 strict |
+| Choix territoire validé mandataire | ✗ requis | ... |
+
+## Étapes suivantes
+
+1. **Faire valider par mandataire en brevets EQE ou avocat PI** (REQUIS
+   avant dépôt). [Si profil renseigne un mandataire associé, le nommer.]
+2. **Recherche antériorité complète** si pas faite, via
+   `/recherche-anteriorite-brevet` — un dépôt sans antériorité préalable
+   solide est imprudent (refus probable + publication A1 à 18 mois
+   destructrice).
+3. **Préparer le dépôt formel** : formulaires INPI (cerfa n° 11354) / OEB
+   (Form 1001) / WIPO (PCT/RO/101), taxes (dépôt + recherche + revendications
+   au-delà du seuil), déclarations d'inventeur(s), désignation du
+   mandataire, justificatifs de cession L.611-7 le cas échéant.
+4. **Calendrier priorité** : si dépôt FR d'abord, marquer la date limite
+   **+ 12 mois** pour extensions EP / PCT en revendication de priorité
+   (Union de Paris, Art. 4).
+
+**Une question hors de ma checklist :** [observation seconde-ordre — omis si rien]
+
+## Que veux-tu faire ?
+
+1. **Itérer sur les revendications** — je propose des variantes (plus large
+   / plus étroit / par catégorie produit-procédé-utilisation)
+2. **Lancer la recherche antériorité** — j'ouvre `/recherche-anteriorite-brevet`
+3. **Escalader** — note pour mandataire en brevets / avocat PI du profil
+4. **Compléter les faits** — modes de réalisation supplémentaires, exemples
+   chiffrés, dessins, justificatifs cession L.611-7
+5. **Autre chose** — dis-moi
+`````
+
+---
+
+## Gate non-juriste
+
+Avant émettre la sortie, lire `## 1. Profil cabinet et profil de pratique PI`.
+Si **Rôle = juriste interne sans inscription** OU **non-juriste** :
+
+> Ce brouillon est une ossature technique de dossier de dépôt brevet, pas
+> un brevet rédigé prêt au dépôt et pas un avis juridique. Déposer ce
+> document tel quel auprès de l'INPI / OEB / WIPO a des conséquences
+> majeures : (a) la rédaction des revendications conditionne 20 ans de
+> protection, (b) un brevet mal rédigé est invalidable en contentieux, (c)
+> les amendements post-dépôt sont strictement encadrés par la
+> non-extension (L.612-6 CPI, Art. 123(2) CBE), (d) la publication
+> automatique à 18 mois rend l'invention accessible à tous, protection ou
+> pas. Un **mandataire en brevets inscrit à l'OEB (qualifié EQE)** ou un
+> **avocat spécialisé en propriété industrielle** doit rédiger et déposer.
+>
+> Voici un brief 1 page à apporter au mandataire — ça réduira le temps de
+> conversation et le coût horaire :
+>
+> [Générer un résumé 1 page : **(1)** titre proposé, **(2)** abrégé,
+> **(3)** description condensée (problème + solution + 1 mode de
+> réalisation), **(4)** revendications proposées (rev. 1 indépendante + 2-3
+> dépendantes), **(5)** classification CIB proposée, **(6)** territoire
+> envisagé + raison, **(7)** statut recherche antériorité (faite ou à
+> faire), **(8)** statut cession salarié L.611-7 le cas échéant, **(9)** 3
+> questions à poser au mandataire : "la portée de la rev. 1 est-elle
+> optimale au vu de l'art antérieur connu ?", "le territoire envisagé
+> est-il cohérent avec la stratégie commerciale ?", "y a-t-il un risque
+> d'insuffisance ou de défaut de support à corriger avant dépôt ?"]
+>
+> Pour trouver un mandataire en brevets ou un avocat PI :
+>
+> - **Annuaire des avocats** : https://www.avocat.fr (Conseil National des Barreaux)
+> - **Annuaire des conseils en propriété industrielle (mandataires INPI)** :
+>   https://www.inpi.fr/conseils-en-propriete-industrielle
+> - **Liste des mandataires européens (qualifiés EQE) auprès de l'OEB** :
+>   https://www.epo.org/en/searching-for-patents/legal/professional-representatives
+
+Livrer le brouillon complet À CÔTÉ du brief. Ne pas retenir le contenu
+technique.
+
+---
+
+## Emplacement de la sortie
+
+Écrire à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/preparation-depot-<slug-invention>-YYYY-MM-DD.md`
+et surfacer le chemin à l'utilisateur.
+
+Si le profil contient déjà un slug identique pour aujourd'hui, ajouter un
+suffixe `-2`, `-3`, etc. Slug dérivé du titre ou du domaine
+(`filtration-membranaire-polymere-x`, `glycemie-implantable`).
+
+Matter workspaces hors V1 (cf. `CLAUDE.md` `## 11. Workspaces de dossier`).
+
+---
+
+## Ce que ce skill NE fait PAS
+
+- **Déposer un brevet.** Le dépôt formel auprès de l'INPI, de l'OEB ou de
+  l'OMPI/WIPO est réalisé par un **mandataire en brevets EQE** ou un
+  **avocat spécialisé en PI**. Ce skill produit un brouillon
+  technique à valider et à compléter par le mandataire avant dépôt.
+- **Rédiger les revendications définitives.** Les revendications
+  candidates ici sont des **propositions** — leur formulation finale, leur
+  hiérarchisation, le choix entre style à deux parties et style américain,
+  la sélection des termes techniques précis relèvent de la rédaction
+  mandataire. Une revendication produite par ce skill et déposée telle
+  quelle est imprudente.
+- **Choisir le territoire définitif.** L'arbre décisionnel donné est
+  simplifié — le choix réel intègre stratégie commerciale, budget annuités
+  sur 20 ans, capacité de défense locale, accords de licence existants,
+  jurisprudence locale sur la brevetabilité du domaine technique
+  concerné.
+- **Calculer les taxes.** Les taxes INPI, OEB et PCT évoluent (révisions
+  annuelles), et le calcul intègre nombre de revendications, désignation
+  d'États, demandes de recherche complémentaires, etc. Voir les barèmes
+  officiels en vigueur à la date de dépôt.
+- **Gérer les annuités.** Les annuités (FR : à partir de la 2e année ; EP :
+  à partir de la 3e année dès le dépôt EP ; phases nationales post-PCT :
+  selon chaque pays) sont une tâche de gestion de portefeuille distincte
+  (futur skill `annuites-brevets` en V3.0+).
+- **Répondre à un refus INPI ou à une notification OEB.** L'analyse d'une
+  notification de motifs (R-71(3) CBE) ou d'un rejet INPI relève d'un
+  skill distinct (`analyse-refus-inpi`, prévu V2.1). Ce skill est *avant*
+  dépôt, pas *après* notification.
+- **Conclure à la brevetabilité.** Aucune assertion "cette invention est
+  brevetable". La brevetabilité s'évalue après recherche d'antériorité
+  professionnelle exhaustive et analyse problème-solution OEB par le
+  mandataire (`/recherche-anteriorite-brevet` est le triage amont).
+- **Analyser la contrefaçon ou la FTO.** La liberté d'exploitation et la
+  contrefaçon de brevets tiers relèvent d'analyses distinctes
+  (`tableau-contrefacon-brevet` en V2.2+). Ce skill regarde la
+  structuration du dépôt, pas l'absence d'empiètement sur des brevets
+  tiers en vigueur.
+- **Quoter le brouillon à des investisseurs, partenaires, presse.** C'est
+  un document de travail interne. Toute communication publique des
+  revendications avant dépôt peut constituer une divulgation antérieure
+  destructrice de nouveauté.
+
+---
+
+## Ton
+
+Précis, technique, concret. Le mandataire en brevets ou l'avocat PI doit
+pouvoir lire le brouillon en 10 minutes et en faire la base de sa propre
+rédaction par surcouche. Pas de prose hedgée, pas de méta-commentaire dans
+le livrable (les caveats vont dans la note du relecteur unique en tête).
+Chaque revendication candidate est honnêtement présentée comme
+**proposition à valider**, jamais comme rédaction finale. Le garde-fou en
+tête et la mention "à valider mandataire" sur chaque revendication font
+le travail de scope.
+
+Le brouillon informe la rédaction mandataire ; il ne la remplace pas.
+
