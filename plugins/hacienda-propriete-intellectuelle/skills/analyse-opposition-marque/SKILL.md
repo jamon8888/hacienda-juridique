@@ -494,3 +494,182 @@ complexité du dossier). Les délais ≤ T0+2 mois (mémoire défense /
 opposition initiale) sont **fermes et opposables**.
 
 ---
+
+## Format de sortie
+
+Produire l'analyse selon le template Markdown ci-dessous (quadruple fence
+pour préserver les blocs imbriqués). L'analyse est un **document de
+travail** pour le mandataire : exhaustive mais filtrée, équilibrée
+(présenter les arguments adverses anticipés avant de conclure), exploitable
+en 10 minutes de lecture.
+
+`````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon profil, cf. CLAUDE.md §2]
+
+# Analyse opposition — [Marque attaquée] vs [Notre antériorité] (ANALYSE ARGUMENTAIRE, PAS PROCÉDURE)
+
+> **Analyse argumentaire, pas procédure officielle.** Cette analyse
+> décompose les motifs CPI invoqués (L.713-2 / L.713-3 / L.711-3) en
+> branches argumentaires, évalue la force probable de chacune et propose
+> un projet de mémoire INPI structuré. Elle NE remplace PAS la rédaction
+> finale par un mandataire en marques inscrit à l'INPI (CPI L.422-4) ou
+> un avocat spécialisé. Le délai d'opposition de 2 mois post-publication
+> BOPI (L.712-4) est ferme — la restauration L.712-4-1 est strictement
+> exceptionnelle.
+
+> **⚠️ Note du relecteur**
+> - **Mode :** [`--form` (former opposition) | `--respond` (répondre à opposition)]
+> - **Sources interrogées :** [INPI Data ✓ marque attaquée + opposante | EUIPO TMview ✓/✗ | base-jurisprudence INPI ✓/✗]
+> - **Pièces à produire :** [N pièces identifiées, certaines à constituer]
+> - **Délai restant :** [N jours] — **sévérité [🔴 URGENT / 🟠 À PRÉPARER / 🟡 STANDARD]**
+> - **Approbateur(s) :** [identifiés depuis profil — sinon `[A CONFIGURER]`]
+> - **Avant transmission INPI :** validation mandataire en marques (CPI L.422-4) ou avocat PI **OBLIGATOIRE**.
+
+**Triage :** [🔴 URGENT (délai < 30 j, escalation immédiate) / 🟠 À PRÉPARER (30-45 j) / 🟡 STANDARD (> 45 j)] — *[une phrase de justification]*.
+
+## Marque attaquée
+
+- **Numéro INPI :** [FRxxxxxxx]
+- **Signe :** [texte exact + type L.711-1]
+- **Déposant :** [raison sociale + adresse]
+- **Classes désignées :** [liste Nice + libellés effectifs]
+- **Date de publication BOPI :** [YYYY-MM-DD]
+- **Date butoir opposition (L.712-4) :** [YYYY-MM-DD = BOPI + 2 mois]
+- **Statut procédural :** [en examen / publiée / opposition pendante / etc.]
+
+## Antériorité(s) opposable(s)
+
+| Numéro | Signe | Type L.711-1 | Classes | Titulaire | Statut | Date dépôt | Renommée prouvée |
+|---|---|---|---|---|---|---|---|
+| FR1234567 | APEXLEAF | mot | 25, 35 | [Notre cabinet] | enregistrée | 2020-01-15 | partielle (parts marché ~12 %, secteur mode outdoor FR) |
+
+## Motifs invoqués — analyse par branche
+
+### L.713-2 — Risque de confusion (motif principal)
+
+**Branche 1 — Comparaison des signes** (ensemble visuel / auditif / conceptuel)
+
+| Aspect | Notre marque | Marque attaquée | Force |
+|---|---|---|---|
+| Visuel | APEXLEAF (8 lettres) | APEXLEAVE (9 lettres) | 🟢 Forte — 8 lettres communes sur 9, partie initiale APEX identique |
+| Auditif | a-peks-lif (FR) | a-peks-liv (FR) | 🟢 Forte — terminaison divergente subtile, attaque identique |
+| Conceptuel | "feuille du sommet" (EN) | "quitter le sommet" (EN) | 🟡 Sens divergents mais public FR majoritairement non-anglophone ne distinguera pas |
+| Élément dominant | APEX (préfixe distinctif) | APEX (préfixe distinctif) | 🟢 Identique |
+| Impression d'ensemble | très forte similitude | très forte similitude | 🟢 |
+
+**Branche 2 — Comparaison des produits/services**
+
+- Notre marque : classes 25 (vêtements) + 35 (vente détail mode)
+- Marque attaquée : classes 25 (vêtements) + 28 (jouets) + 35 (vente détail tous secteurs)
+- **Recoupement** : classes 25 et 35 = identité (mêmes libellés vêtements + vente détail).
+- Classe 28 (jouets) hors recoupement — pas d'opposition possible sur cette classe sauf renommée L.713-3.
+- Verdict : 🟢 identité forte sur 2 des 3 classes désignées.
+
+**Branche 3 — Appréciation globale**
+
+- **Pouvoir distinctif APEXLEAF** : moyen (mot composite inventé, non descriptif du secteur vêtement) + acquis modéré par 5 ans d'usage (à étayer par chiffres).
+- **Public concerné** : consommateur moyen achat mode (attention modérée, achat impulsif).
+- **Interdépendance** : forte similitude signes + identité P&S sur 2/3 classes → 🟢 risque de confusion direct fort.
+- **Risque d'association** : public peut imaginer un lien économique (gamme dérivée enfants/sport ?) — renforce le risque.
+
+**Argument adverse anticipé** : le déposant tiers pourrait invoquer que "LEAVE" et "LEAF" sont sémantiquement distincts en anglais. Réfutation : le test est l'impression d'ensemble pour le public pertinent FR — la nuance anglaise ne suffit pas.
+
+**Verdict L.713-2 :** 🟢 **Solide** — opposition recommandée sur classes 25 et 35 (partielle).
+
+### L.713-3 1° — Marque renommée (motif subsidiaire si invoqué)
+
+| Critère | Force | Justification |
+|---|---|---|
+| Renommée prouvée | 🟡 Mixte | 5 ans d'usage, parts marché ~12 % FR niche mode outdoor, pas de notoriété nationale grand public |
+| Lien entre signes | 🟢 Forte similitude | Le public mode outdoor identifie APEX comme racine connue |
+| Profit indu / atteinte | 🟡 Parasitisme possible | Le déposant tiers semble exploiter la racine APEX sans antériorité — à étayer par recherches |
+| **Verdict L.713-3** | 🟡 **Mixte** | À invoquer en subsidiaire seulement, motif principal reste L.713-2 |
+
+### L.711-3 — Droits antérieurs autres
+
+- **Nom commercial APEXLEAF SAS** depuis 2018 (RCS Paris) → pertinent (Kbis à produire pièce n°1).
+- **Nom de domaine apexleaf.com** depuis 2019 (preuve réservation OVH + site actif marchand) → pertinent (factures + captures Wayback à produire pièce n°4).
+- **Dépôt frauduleux** : aucun indice de mauvaise foi apparent — le déposant tiers semble nouvel entrant secteur sans relations d'affaires antérieures avec nous. À ne pas invoquer (motif faible = affaiblirait la crédibilité de l'opposition).
+- **AOP / IGP / droit au nom / droit d'auteur** : sans objet.
+
+**Verdict L.711-3 :** 🟡 **Mixte** — complément utile en subsidiaire mais L.713-2 reste le motif principal et le plus solide.
+
+## Recommandation stratégique
+
+- **Posture recommandée** : opposition **partielle** (classes 25 et 35) au titre de L.713-2 à titre principal + L.713-3 1° et L.711-3 (nom commercial + nom domaine) à titre subsidiaire.
+- **Chances de succès estimées** : 🟢 70-80 % (similitude signes forte + identité P&S sur 2 classes + antériorité opposable enregistrée + pouvoir distinctif moyen-fort).
+- **Alternative à envisager** : transaction amiable de coexistence si le déposant tiers est de bonne foi et accepte limitation à la classe 28 (jouets, hors recoupement) — moins coûteux (pas de taxe opposition ~325€, pas de procédure de 8-10 mois), préserve relations commerciales si futur partenaire ou si secteur restreint. À évaluer selon posture profil.
+- **Risque résiduel** : si l'opposition est rejetée, perte des taxes (~325€) + pas de dommages-intérêts puisqu'opposition fondée en droit. Risque dommages-intérêts opposition abusive (art. 1240 c. civ.) nul ici car motifs solides.
+
+## Projet de mémoire INPI — Structure
+
+### 1. Identification des parties
+
+- **Opposant :** [Notre cabinet — raison sociale, SIREN, adresse, mandataire en marques désigné]
+- **Défendeur :** [Déposant tiers — raison sociale, adresse + représentant le cas échéant]
+
+### 2. Marque attaquée et marque(s) antérieure(s) opposable(s)
+
+- **Marque attaquée :** numéro FR4123456 publiée BOPI YYYY-MM-DD, signe "APEXLEAVE", classes 25/28/35.
+- **Marque antérieure opposable :** numéro FR1234567 enregistrée 2020-08-01, signe "APEXLEAF", classes 25/35.
+
+### 3. Exposé des faits
+
+- Genèse de la marque APEXLEAF : création 2018, dépôt 2020, usage commercial continu (chiffres à étayer).
+- Découverte du dépôt APEXLEAVE via veille BOPI YYYY-MM-DD (alerte `bopi-watcher`).
+- Délai d'opposition L.712-4 expirant le YYYY-MM-DD — dépôt du présent mémoire dans le délai.
+
+### 4. Discussion en droit
+
+**4.1 Sur le risque de confusion (CPI L.713-2)**
+
+[Développement complet : comparaison signes (visuelle / auditive / conceptuelle / ensemble) + comparaison P&S (classes 25 et 35) + appréciation globale (pouvoir distinctif, public concerné, interdépendance). Citer *Sabel* C-251/95, *Canon* C-39/97, *Lloyd Schuhfabrik* C-342/97.]
+
+**4.2 Subsidiairement, sur la marque renommée (CPI L.713-3 1°)**
+
+[Si pertinent : renommée prouvée + lien + profit indu / atteinte. Citer *General Motors Chevy* C-375/97 et *Intel* C-252/07.]
+
+**4.3 Plus subsidiairement, sur les droits antérieurs (CPI L.711-3)**
+
+[Nom commercial + nom de domaine antérieurs — antériorité d'usage + portée géographique. Citer jurisprudence Cour de cass. com.]
+
+### 5. Demande
+
+- À titre principal : **rejet de l'enregistrement** de la marque APEXLEAVE pour les **classes 25 et 35** (opposition partielle).
+- À titre subsidiaire : rejet pour l'intégralité des classes désignées si la renommée de l'opposant est retenue.
+
+### 6. Pièces produites
+
+| N° | Pièce | Fonction |
+|---|---|---|
+| 1 | Extrait Kbis APEXLEAF SAS (2018) | Identité opposant + antériorité nom commercial |
+| 2 | Certificat d'enregistrement marque FR1234567 | Antériorité opposable principale |
+| 3 | Factures usage marque 2020-2026 (sélection représentative) | Preuve d'usage L.714-5 + exclusion déchéance |
+| 4 | Captures site apexleaf.com + Wayback Machine + facture OVH | Preuve usage commercial nom de domaine |
+| 5 | Études parts marché secteur mode outdoor FR | Preuve renommée subsidiaire L.713-3 |
+| 6 | Décision INPI précédente similaire (si trouvée) | Argument jurisprudentiel |
+
+## Calendrier procédure INPI
+
+| Étape | Délai post-événement | Action |
+|---|---|---|
+| Dépôt mémoire opposition | J+0 (avant T+2 mois L.712-4) | Mandataire dépose via télé-procédure INPI |
+| Notification au défendeur | J+0 (auto INPI) | Auto |
+| Mémoire en défense | J+0 + 2 mois | Défendeur dépose ou défaut (= opposition jugée non contestée) |
+| Réplique opposant (facultative) | J+0 + ~4 mois | Mandataire répond aux arguments du défendeur |
+| Contre-réplique défendeur | J+0 + ~6 mois | Défendeur répond à la réplique le cas échéant |
+| Décision INPI | J+0 + ~8-10 mois | Notification décision (admise totale / partielle / rejetée) |
+| Recours Cour d'appel Paris | Décision + 1 mois | Différé `contentieux-marques` V6.0+ (recours suspensif rare en pratique) |
+
+**Une question hors de ma checklist habituelle :** [observation seconde-ordre pertinente — omettre si rien d'honnête à dire].
+
+## Que veux-tu faire ?
+
+1. **Itérer le mémoire** — j'ajuste l'argumentation par branche, ajoute ou retire des pièces, modifie le plan de discussion en droit.
+2. **Escalader** — je rédige une note 1 page pour [mandataire / avocat / direction marketing identifié depuis profil] avec décision attendue + calendrier.
+3. **Compléter les faits** — recherche jurisprudence INPI similaire approfondie, étude renommée plus détaillée, recherche EUIPO TMview si territoires multiples.
+4. **Transiger** — préparer une alternative coexistence / licence / rachat marque adverse avec note de négociation (économies vs procédure, conditions, périmètre).
+5. **Autre chose** — dis-moi.
+`````
+
+---
