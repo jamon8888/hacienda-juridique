@@ -591,3 +591,93 @@ sans dashboard HTML (audit court). Mettre à jour `metadata.last_audit`
 à la date du jour après exécution.
 
 ---
+
+## Emplacement de sortie
+
+Mode `--report` écrit le Markdown à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/portefeuille-brevets-YYYY-MM-DD.md`
+et le HTML (si dashboard généré) à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/portefeuille-brevets-YYYY-MM-DD.html`,
+puis surface les deux chemins en fin de sortie.
+
+Mode `--audit` écrit à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/portefeuille-brevets-audit-YYYY-MM-DD.md`.
+
+Modes `--add` / `--update` / `--remove` ne produisent pas de sortie
+horodatée — uniquement un message de confirmation + le chemin du backup
+`.bak` créé. Le backup vit dans le même dossier que
+`portfolio-brevets.yaml` :
+`portfolio-brevets.yaml.bak.YYYY-MM-DDTHHMMSS`.
+
+Si plusieurs rapports sont générés le même jour, suffixer le second avec
+`-N` (ex : `portefeuille-brevets-2026-05-16-2.md`).
+
+---
+
+## Ce que ce skill NE fait PAS
+
+- **Payer les annuités.** Le paiement effectif des annuités relève du
+  mandataire en brevets EQE et/ou du partenaire annuités tiers
+  spécialisé (CPA Global / Clarivate, Dennemeyer, Patrix, Anaqua,
+  Questel) — jamais de l'IA. Une annuité ratée fait tomber le droit
+  **sans rétablissement standard**.
+- **Renouveler les validations EP nationales.** Chaque pays validé après
+  délivrance EP a son propre régime d'annuités, ses propres délais et
+  son propre mandataire local — coordination spécifique requise pays
+  par pays (DE, GB, IT, ES, NL, BE, etc.).
+- **Déposer un nouveau brevet.** Le dossier de dépôt INPI/OEB/PCT est
+  préparé par `preparation-depot-brevet` (V0.4) et déposé par le
+  mandataire EQE.
+- **Étendre internationalement un brevet existant.** L'arbre décisionnel
+  FR seul / EP / PCT et le calendrier Union de Paris (12 mois) sont
+  gérés par `strategie-extension-internationale` (V0.8). Le dépôt
+  effectif relève du mandataire EQE + correspondants étrangers.
+- **Évaluer la valeur économique du brevet.** Valuation patrimoniale,
+  due diligence M&A, transfer pricing IP holding → consultant valuation
+  PI spécialisé (ipMetrics, Patent Sight, IPlytics) ou banquier
+  d'affaires. Le skill ne calcule pas de NPV.
+- **Gérer les CCP** (Certificats Complémentaires de Protection pour
+  pharma — Règlement CE 469/2009, jusqu'à +5 ans après expiration du
+  brevet de base) : différé V2.3 future. Le skill peut stocker un CCP
+  en `type: "CCP"` mais ne calcule pas la durée de protection
+  effective ni n'optimise la stratégie CCP / pédiatrique.
+- **Garantir la conformité du registre interne vs INPI/OEB officiel.**
+  Le `portfolio-brevets.yaml` est un **miroir consigné manuellement**.
+  Une sync périodique (manuel trimestriel obligatoire) avec la Base
+  Brevets INPI publique gratuite (https://data.inpi.fr) + OEB Register
+  (https://register.epo.org) + Patentscope WIPO pour PCT
+  (https://patentscope.wipo.int) est obligatoire avant toute action.
+  Pour les validations nationales EP, consulter aussi le registre
+  national de chaque pays (DPMA pour DE, IPO pour GB, UIBM pour IT,
+  etc.).
+- **Détecter la contrefaçon de nos brevets par des tiers.** L'inverse de
+  ce skill : appliquer notre brevet contre un produit suspecté
+  contrefaisant relève du futur skill `tableau-contrefacon-brevet`
+  (V2.0) — analyse revendication par revendication + collecte de
+  preuves d'usage commercial.
+- **Répondre à des notifications INPI/OEB sur brevets en cours
+  d'examen.** Les refus, oppositions et notifications de procédure
+  relèvent de `analyse-refus-inpi` (V2.1) puis du mandataire EQE pour
+  la rédaction de la réponse.
+
+---
+
+## Ton
+
+Précis, factuel, orienté action mandataire EQE / partenaire annuités.
+L'avocat ou le mandataire lit le rapport en 30 secondes, repère les
+🔴 « annuité urgente », et prévient immédiatement le partenaire
+annuités (CPA Global / Dennemeyer / etc.) avec la liste des numéros et
+montants cumulés. Pas de hedging, pas de paragraphe-leçon. Le garde-fou
+« registre ≠ paiement annuités » en tête + le « ce skill NE fait PAS »
+en bas font le travail de scope.
+
+Les recommandations sont toujours attribuées (au mandataire EQE nommé,
+au partenaire annuités du profil, au business owner, à l'approbateur
+défini) — jamais « il faudrait que quelqu'un s'occupe de cette
+annuité… ». Sur les annuités 🔴, mentionner explicitement le risque de
+perte du droit + la fenêtre grace period 6 mois (avec mention de la
+surcharge applicable et du caractère exceptionnel de la restauration
+L.612-14).
+
+---
