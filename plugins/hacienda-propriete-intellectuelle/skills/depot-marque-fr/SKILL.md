@@ -173,3 +173,67 @@ Attendre la réponse. Si la **description produits/services est vague**
 
 ---
 
+
+## Recherche antériorité préalable
+
+**Préalable obligatoire.** Un dépôt sans recherche d'antériorité préalable
+expose à : (a) refus pour conflit avec marque antérieure identique sur classes
+identiques (rare en examen INPI/EUIPO qui ne juge pas la confusion d'office,
+mais bloquant en cas d'opposition), (b) opposition gagnée par un tiers
+titulaire d'une marque similaire dans les 2 mois post-publication BOPI FR ou
+3 mois post-Bulletin EUTM, (c) action en contrefaçon ultérieure si la marque
+passe l'enregistrement mais empiète sur une marque non opposante.
+
+**Action.**
+- Si la recherche n'est PAS encore faite, **recommander
+  `/hacienda-propriete-intellectuelle:recherche-anteriorite-marque`** avant
+  d'aller plus loin. Refuser de produire un brouillon de dépôt tant que
+  l'utilisateur n'a pas, au minimum, balayé les classes-cibles + les
+  familles adjacentes pertinentes.
+- Si la recherche a déjà été faite, demander à l'utilisateur de **coller le
+  rapport** (output Markdown du skill `recherche-anteriorite-marque`) ou de
+  **pointer le fichier** dans
+  `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/`.
+  Intégrer les résultats dans la note du relecteur (cote 🟢/🟡/🔴 reportée
+  comme PLANCHER selon §4 Garde-fous partagés du `CLAUDE.md`).
+- Si la recherche est partielle (FR seul alors que dépôt visé FR + EU), le
+  signaler comme `[review]` et recommander l'extension du périmètre de
+  recherche AVANT le dépôt.
+
+---
+
+## Vérification des motifs absolus L.711-2 CPI
+
+L'article L.711-2 du Code de la propriété intellectuelle (transposition de
+la directive UE 2015/2436) énumère les motifs intrinsèques qui condamnent
+un signe **indépendamment de toute antériorité tierce**. Pour chaque motif,
+évaluer franchement et flagger. Ne pas rationaliser un problème évident :
+un refus INPI/EUIPO sur motif absolu = perte des taxes (~190€ FR, ~850€
+EUTM) + signal négatif pour le mandataire et le déposant.
+
+| Motif (L.711-2 CPI) | Ce que ça veut dire | Flagger quand |
+|---|---|---|
+| **Caractère distinctif insuffisant** (1°) | Le signe ne permet pas d'identifier un produit ou service comme provenant d'une entreprise déterminée | Le signe désigne directement le type de produit ou ne se distingue pas du langage courant du secteur |
+| **Descriptif** (2°) | Décrit l'espèce, la qualité, la quantité, la destination, la valeur, la provenance géographique ou l'époque de la production | Un consommateur lit le signe et comprend ce que fait le produit sans aucun effort d'imagination |
+| **Devenu usuel** (3°) | Entré dans le langage courant ou les habitudes loyales et constantes de la profession | Mot devenu synonyme générique de la catégorie (ex. "frigidaire" pour réfrigérateur) |
+| **Forme imposée** (5°) | Forme imposée par la nature, la fonction technique ou conférant une valeur substantielle au produit | Marque figurative tridimensionnelle — et la forme assure une fonction ou est inhérente au produit |
+| **Atteinte à l'ordre public / bonnes mœurs** (7°) | Symboles d'État protégés (art. 6ter Convention de Paris), AOP/IGP non autorisées, signes choquants, contraires à l'ordre public | Le signe contient un emblème officiel non autorisé, une appellation protégée, ou un élément manifestement choquant |
+| **Trompeur** (8°) | De nature à tromper le public sur la nature, la qualité ou la provenance géographique du produit ou service | Le signe suggère une qualité, origine ou caractéristique que le produit n'a pas, et cette qualité importerait au consommateur dans sa décision d'achat |
+
+**Note importante — acquisition de distinctivité par usage** (L.711-2,
+dernier alinéa). Si le signe est descriptif ou faiblement distinctif mais
+que l'utilisateur souhaite quand même déposer, mentionner la stratégie
+d'**acquisition de distinctivité par l'usage** : preuves d'usage sérieux et
+prolongé (chiffres d'affaires, parts de marché, sondages de notoriété,
+investissement publicitaire) permettant de démontrer que le public pertinent
+identifie le signe comme provenant d'une entreprise déterminée. Cette
+stratégie est lourde, coûteuse et longue (typiquement 5+ ans d'usage
+intensif), et ne fonctionne que pour les motifs 1°, 2° et 3° (pas pour les
+motifs 5°, 7°, 8°). À cadrer avec le mandataire.
+
+**Sortie attendue.** Pour chaque motif, soit "aucun problème identifié",
+soit un flag spécifique avec une ligne de raison. Ne pas produire un tableau
+plat de "pass" — distinguer ce qui a été regardé activement de ce qui est
+non-applicable.
+
+---
