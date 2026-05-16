@@ -562,3 +562,119 @@ markdown, etc.) sans casse de rendu.
 ````
 
 ---
+
+## Gate non-juriste
+
+Si le profil utilisateur est **non-juriste** (sans accès avocat ou avec accès
+avocat mais pas mandataire EQE), insérer ce bloc **après** le format de
+sortie standard et **avant** « Que veux-tu faire ? » :
+
+> **Cette analyse est un préparatoire stratégique, pas une démarche
+> officielle.** Engager un dépôt EP ou PCT sans validation mandataire EQE
+> a des conséquences juridiques majeures :
+>
+> - **Fenêtre 12 mois priorité manquée** = perte de l'avantage compétitif
+>   le plus précieux du système international (Convention Union de Paris,
+>   Art. 4) ; chaque dépôt ultérieur devient potentiellement antériorité
+>   contre votre brevet FR initial.
+> - **Pays validation EP mal choisis** = coûts surdimensionnés (validation
+>   38 pays alors que 5 suffisent au marché réel) OU protection trop étroite
+>   (validation FR/DE seulement alors que le marché italien est critique).
+> - **Traduction non certifiée** = rejet de la validation post-délivrance
+>   par l'office national, perte de la protection dans le pays concerné
+>   sans rattrapage possible.
+>
+> Voici un brief à apporter au mandataire EQE / avocat brevets :
+>
+> [Résumé 1 page reprenant : numéro brevet FR + titre + statut, voie
+> recommandée par l'analyse, budget enveloppe disponible, marchés cibles
+> prioritaires, et **3 questions stratégiques à poser** :
+>
+> 1. « PCT vs EP direct pour notre cas — quelle voie optimise la
+>    flexibilité décisionnelle compte tenu de notre incertitude marché ? »
+> 2. « Validations EP : faut-il viser large 15 pays ou ciblé 5 pays
+>    compte tenu de notre exposition commerciale réelle par pays EU ? »
+> 3. « Le coût total 10 ans estimé est-il soutenable avec notre budget
+>    annuités annuel disponible (CFO à valider) ? Si non, quelle voie
+>    minimise le risque d'abandon forcé à 5 ans ? »]
+>
+> **Annuaires pour trouver un mandataire EQE :**
+>
+> - OEB Liste Mandataires Européens (qualifiés EQE) :
+>   https://www.epo.org/learning/eqe.html
+> - INPI mandataires en propriété industrielle :
+>   https://www.inpi.fr/conseils-en-propriete-industrielle
+> - Cabinets PCT internationaux : sélection via OMPI Directory
+>   (https://www.wipo.int)
+
+---
+
+## Emplacement de la sortie
+
+Écrire le document Markdown produit dans :
+
+```
+~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/extension-<brevet>-YYYY-MM-DD.md
+```
+
+où `<brevet>` est le numéro normalisé (ex. `FR2700123`) et `YYYY-MM-DD` la
+date du jour. Si le dossier n'existe pas, le créer. Si un fichier du même
+nom existe déjà, suffixer `-v2`, `-v3`, etc. (ne jamais écraser silencieusement
+une analyse précédente — l'historique versionne la délibération).
+
+---
+
+## Ce que ce skill NE fait PAS
+
+Borne explicite, à conserver en pied de chaque output (sous forme de
+checklist), pour éviter toute confusion sur le périmètre.
+
+- **Déposer EP ou PCT** = mandataire en brevets EQE via portail OEB ou OMPI
+  ePCT. Le présent skill ne génère pas de fichier de dépôt formel ni
+  n'interagit avec les portails offices.
+- **Payer les taxes** (~2k€ EP + ~3.5k€ PCT + validations / entrées
+  nationales par pays). Le paiement passe par le compte courant du
+  mandataire ou par virement direct au compte de l'office.
+- **Traduire les revendications** pour validations post-délivrance EP =
+  traduction certifiée par traducteur juré spécialisé en PI (service
+  spécialisé, ~1500-5000€ par pays hors Accord Londres).
+- **Choisir précisément les pays de validation EP** post-délivrance =
+  négociation business + technique avec mandataire local, prend en compte
+  contentieux local probable, présence de concurrents identifiés, marché
+  client confirmé.
+- **Gérer les annuités** post-dépôt = mandataire + partenaire annuités
+  tiers (CPA Global / Dennemeyer / Anaqua) ou logiciel annuités interne
+  pour cabinets de taille critique.
+- **Évaluer la valeur économique** du brevet à étendre = consultant
+  valuation PI ou banquier d'affaires spécialisé (méthodes : cost-based,
+  market-based, income-based DCF / royalty relief).
+- **Garantir l'enregistrement** = refus possible (motifs absolus :
+  nouveauté, activité inventive, application industrielle ; opposition
+  par tiers post-délivrance EP dans 9 mois). Voir `analyse-refus-inpi`
+  V2.1 pour gérer notifications de refus / observations examinateur.
+- **Gérer recours administratif OEB chambres** post-décision = mandataire
+  EQE spécialisé contentieux OEB (chambres de recours techniques OEB
+  basées à Munich).
+- **Calculer la valeur du CCP** (Certificat Complémentaire de Protection
+  pharma) = différé V2.3 du plugin, requiert analyse réglementaire AMM
+  spécifique.
+
+---
+
+## Ton
+
+- **Stratégique** : la décision d'extension est business autant que
+  juridique — présenter coûts ET valeur, pas uniquement risques.
+- **Factuel** : chiffres précis et sourcés (taxes 2026 indicatives,
+  vérifier barèmes officiels avant chaque démarche).
+- **Équilibré** : ne pas pousser systématiquement vers la voie la plus
+  large (PCT mondial) ni la plus économique (FR seul) — calibrer au
+  profil cabinet et aux marchés réels.
+- **Calibré pour lecture rapide** : un mandataire EQE ou une Direction
+  R&D doit pouvoir arbitrer en 15 minutes de lecture. Privilégier
+  tableaux et listes à puces sur les paragraphes longs.
+- **Honnête sur l'incertitude** : taxes évoluent, marchés évoluent,
+  jurisprudence OEB évolue (notamment chambres de recours). Tagger
+  `[à vérifier YYYY]` quand un chiffre dépend d'un barème annuel.
+
+---
