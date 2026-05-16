@@ -1,5 +1,29 @@
 # Changelog — hacienda-propriete-intellectuelle
 
+## 0.8.0 — 2026-05-16
+
+### Ajouts — Extension internationale + Portefeuille brevets (clôt bloc brevets)
+- Skill `strategie-extension-internationale` (arbre décisionnel FR/EP/PCT, coûts indicatifs 2026, recommandations par profil cabinet, ~680 lignes)
+- Skill `revue-portefeuille-brevets` (6 modes CRUD + audit, dashboard HTML réutilisation V0.5, gestion familles brevets, cross-ref portfolio marques, ~680 lignes)
+- Référentiel `portfolio-brevets.yaml` user-stable (familles + annuités + CCP)
+- Références : `couts-brevets-2026`, `arbre-decision-extension`, `modele-portfolio-brevets`
+- Section CLAUDE.md "Brevets" enrichie (extension + portefeuille)
+- Section ressources "Annuités brevets et services tiers"
+
+### Bloc brevets complet (V2.0 + V2.1 + V2.2)
+- Recherche antériorité → Préparation dépôt FR → Extension internationale FR/EP/PCT → Réponse refus → Claim chart contrefaçon → Nullité (attaque/défense) → Portefeuille avec dashboard = **boucle fermée**
+
+### Réutilisation cross-version (preuve du standard dashboard)
+- `revue-portefeuille-brevets` (V2.2) consomme `renderDashboard` (V1.1.1) sans modification — démonstration de la réutilisabilité du standard dashboard HTML
+
+### À venir (V2.3 / V1.2 / V3.0+)
+- V2.3 : CCP (Certificats Complémentaires Protection pharma)
+- V1.2 : agent `contrefacon-web` (monitoring marketplaces / réseaux sociaux)
+- V3.0 : bloc dessins/modèles (3 skills)
+- V4.0 : bloc droit d'auteur (6 skills)
+- V5.0 : Contrats PI + audit-pi-ma M&A
+- V6.0 : Contentieux & Enforcement
+
 ## 0.7.0 — 2026-05-16
 
 ### Ajouts — Refus INPI + Invalidité brevets (workflow brevets défensif complet)
