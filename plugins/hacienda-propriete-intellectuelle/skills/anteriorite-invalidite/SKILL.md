@@ -222,3 +222,114 @@ avec ses mots-clés métier + classification CIB estimée pour l'aider
 à l'identification. Ne jamais inventer un numéro.
 
 ---
+
+## Recherche d'art antérieur destructeur
+
+C'est le cœur de l'argumentation. Sans art antérieur destructeur solide,
+les motifs de nullité L.613-25 a) (défaut de nouveauté ou d'activité
+inventive) tombent. La règle d'or : **l'art antérieur doit avoir une date
+de publication strictement antérieure à la date de priorité revendiquée
+par le brevet attaqué** (CPI L.611-11 al. 2 ; Art. 54 CBE). Une seule
+journée de décalage suffit pour disqualifier une citation autrement
+parfaite.
+
+### Méthodologie de recherche
+
+1. **Préparation des mots-clés** :
+   - Extraire le vocabulaire technique des revendications indépendantes
+     du brevet cible (concepts structurels et fonctionnels)
+   - Identifier les synonymes techniques + traductions EN (l'art
+     antérieur international est majoritairement en anglais)
+   - Lister les **codes CIB** (Classification Internationale des Brevets)
+     du brevet cible — partir de la classe principale puis élargir aux
+     sous-classes voisines
+
+2. **Déclencher `espacenet_search`** avec :
+   - Mots-clés FR + EN combinés (opérateurs booléens AND / OR)
+   - Codes CIB du brevet cible
+   - **Filtre date publication < date priorité brevet cible** —
+     CRITIQUE, sans ce filtre les résultats sont inexploitables
+   - Limiter aux types : brevets, demandes publiées (A1), brevets
+     délivrés (B1, B2), demandes PCT (WO)
+
+3. **Déclencher `inpi_search_brevets`** pour les antériorités FR/EP
+   nationales non couvertes par Espacenet (notamment certains dépôts FR
+   antérieurs 1978 mal indexés à l'OEB)
+
+4. **Filtrer strictement** par date publication antérieure à la date
+   de priorité — tout document non strictement antérieur est éliminé
+   (même les copendings, sauf application Art. 54(3) CBE pour
+   l'analyse nouveauté EP)
+
+5. **Classifier les résultats trouvés** (anticipation jurisprudentielle) :
+   - **Potentielles X** (destructrices de nouveauté) : un seul document
+     divulgue **toutes** les caractéristiques d'une revendication
+     indépendante du brevet cible — angle d'attaque le plus puissant
+   - **Potentielles Y** (combinaisons activité inventive) : deux ou
+     plusieurs documents qui, combinés par l'homme du métier, auraient
+     conduit à l'invention revendiquée sans effort inventif
+
+### Capture des résultats
+
+Pour chaque citation retenue, capturer dans un tableau structuré :
+
+- **Numéro** (FR2700123 / EP1234567 / WO2020/123456 / US2018/1234)
+- **Source** (`[INPI Brevets]` / `[OEB Espacenet]` / `[Google Patents]`
+  V2.1.1 / `[utilisateur fourni]`)
+- **Titre** complet + déposant / inventeur
+- **Classification CIB** (vérifier cohérence avec le brevet cible)
+- **Date publication** (CRITIQUE — vérifier `<` date priorité brevet
+  cible, jour près)
+- **Date priorité propre** (utile pour évaluer si la citation peut
+  elle-même être Art. 54(3) CBE)
+- **Abrégé + revendications publiées** si pertinent au regard des
+  caractéristiques visées
+- **Évaluation préliminaire X / Y / A** (A = simplement informatif —
+  utile pour le contexte mais non destructeur)
+
+### Bucket "Aucune base interrogée"
+
+Si aucun connecteur brevets n'est disponible ou si la recherche n'a
+pas pu être lancée, **ne JAMAIS inventer de citations**. Inclure le
+bucket suivant dans l'output :
+
+> **Aucune base brevets interrogée.** Ce skill n'a pas hit Data INPI
+> brevets, OEB Espacenet, Google Patents (V2.1.1), WIPO PatentScope
+> (V2.2), ni littérature non-brevet (Google Scholar, IEEE Xplore,
+> PubMed, NPL spécialisée par domaine technique). Une recherche
+> professionnelle sur ces bases est **requise** avant toute action en
+> nullité ou demande reconventionnelle. **Une action en nullité ratée
+> pour défaut d'art antérieur destructeur = condamnation aux dépens
+> (CPC 696) + risque d'action en concurrence déloyale (Code civil
+> 1240).** La présente argumentation suppose qu'un mandataire EQE ou
+> un cabinet de recherche brevets professionnel (CPA Global / Questel
+> / PatBase / Minesoft) sera mandaté pour effectuer la recherche
+> définitive avant dépôt d'assignation.
+
+### Notes critiques
+
+- **L'art antérieur peut être brevet OU non-brevet** : publications
+  scientifiques (revues à comité de lecture, conférences), thèses,
+  documentation produit commercialisé avant priorité, brochures
+  commerciales, sites web archivés (Wayback Machine), normes
+  industrielles publiées. La NPL (Non-Patent Literature) est souvent
+  décisive en pharma / biotech / logiciel.
+- **La divulgation publique** (exposition à un salon professionnel,
+  vente commerciale antérieure, conférence orale) constitue de l'art
+  antérieur même si non écrite — la preuve devient alors un défi
+  procédural (témoignages, constats huissier rétrospectifs, archives
+  d'exposants).
+- **L'art antérieur interne au déposant** (publications propres
+  antérieures à la priorité, brochures internes diffusées) compte
+  AUSSI. Le déposant ne peut pas opposer sa propre divulgation
+  antérieure comme exception — sauf application du **délai de grâce
+  L.611-13 CPI** strictement encadré (6 mois maximum avant le dépôt,
+  uniquement en cas d'abus évident ou d'exposition officielle
+  internationale reconnue — exception rarissime).
+- **Art. 54(3) CBE** (demandes EP antérieurement déposées mais
+  publiées postérieurement) : opposable en nouveauté seulement, pas
+  en activité inventive. Vérifier les dépôts EP avec date de dépôt
+  antérieure et date de publication postérieure à la priorité du
+  brevet cible.
+
+---
