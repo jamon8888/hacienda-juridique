@@ -709,3 +709,131 @@ relecteur attentif ferait — omettre cette ligne si rien ne vient honnêtement]
 ````
 
 ---
+
+## Gate non-juriste
+
+Si le profil de pratique indique **non-juriste sans accès avocat** ou
+**non-juriste avec accès avocat**, ne pas livrer le projet de réponse
+formaté à la place du livrable standard. Livrer à la place le **brief
+escalation** suivant :
+
+> **Cette analyse est un préparatoire, pas une réponse officielle INPI/OEB.**
+> Envoyer une réponse sans validation mandataire en brevets (EQE) ou avocat
+> a des **conséquences juridiques** :
+> - **Amendement violant L.612-6 CPI / Art. 123(2) EPC** (extension de
+>   portée) = motif de nullité ultérieure (L.613-25 c CPI) — le brevet
+>   délivré pourrait être annulé 5 ans plus tard dans une action contre un
+>   contrefacteur
+> - **Argumentation faible** = refus définitif, demande perdue, taxes
+>   d'examen non récupérables
+> - **Prolongation manquée** = demande **réputée retirée** (OEB Art. 94(4))
+>   ou rejetée (INPI R.612-70)
+> - **Audition orale OEB** mal préparée = perte du recours possible
+>
+> Voici un **brief 1 page** à apporter au mandataire :
+>
+> ---
+> **Brief mandataire EQE / avocat PI**
+>
+> - **Brevet / demande :** [numéro + statut]
+> - **Notification reçue :** [type + date + délai butoir]
+> - **Citations classées :** [N X / N Y / N A / N E] — résumé citations
+>   destructrices
+> - **Stratégie d'amendement préliminaire :** Option [A/B/C/D] recommandée
+>   sur revendication [N], parce que [raison une phrase]
+> - **Délai restant :** [N jours] — [sévérité]
+> - **3 questions critiques à valider** :
+>   1. L'amendement Option A est-il supporté par la description originale
+>      (L.612-6 CPI / Art. 123(2) EPC) ?
+>   2. L'argument problème-solution résiste-t-il à un effet technique non
+>      démontré dans la description (test d'opposabilité OEB) ?
+>   3. Vaut-il mieux Option C (abandon rev. 1, repli sur rev. 5) que
+>      Option A (limitation par incorporation) compte tenu de la valeur
+>      commerciale résiduelle ?
+> ---
+>
+> **Annuaires** :
+> - **INPI — Conseils en propriété industrielle (CPI L.422-4)** : https://www.inpi.fr/conseils-en-propriete-industrielle
+> - **OEB — Liste Mandataires Européens (EQE qualifiés CBE)** : https://www.epo.org/learning/eqe.html
+> - **Conseil National des Barreaux (avocats spécialistes PI)** : https://www.avocat.fr
+
+---
+
+## Emplacement de sortie
+
+Sauvegarder le livrable Markdown à :
+
+```
+~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/refus-inpi-<brevet>-YYYY-MM-DD.md
+```
+
+où `<brevet>` est le numéro normalisé (ex. `FR2700123`, `EP1234567`,
+`PCT-FR2025-050123`) et `YYYY-MM-DD` la date du jour. Si le répertoire
+n'existe pas, le créer.
+
+Mentionner le chemin dans la note du relecteur ou en fin de message :
+« Sauvegardé : `outputs/refus-inpi-FR2700123-2026-05-16.md` ».
+
+---
+
+## Ce que ce skill NE fait PAS
+
+Liste explicite des limites — à rappeler si l'utilisateur demande à aller
+au-delà :
+
+- **NE répond PAS officiellement** à l'INPI ou à l'OEB. Le dépôt de la
+  réponse passe obligatoirement par la **télé-procédure INPI**
+  (data.inpi.fr / espace mandataire) ou le **portail MyEPO**. Le mandataire
+  exécute le dépôt.
+- **NE rédige PAS les revendications amendées définitives**. Le projet
+  d'amendement produit ici est un **gabarit** ; le mandataire ajuste mot
+  par mot la version finale (ponctuation revendicative, terminologie
+  exacte, cohérence avec dépendantes).
+- **NE plaide PAS en audition orale OEB** devant les chambres de recours
+  (Art. 116 EPC). Ce sont des audiences techniques où un mandataire
+  spécialisé doit défendre les amendements oralement — préparation
+  spécifique requise.
+- **NE dépose PAS de demande divisionnaire formelle** (Option D). C'est
+  une démarche mandataire avec nouvelles taxes (~600 € INPI / ~2 500 € OEB),
+  formulaire dédié, mémoire de divulgation à recadrer.
+- **NE calcule PAS les taxes** définitives. Le mandataire vérifie le
+  barème INPI / OEB courant (les barèmes évoluent annuellement) et la
+  qualification éventuelle pour réduction (PME, micro-entité OEB Règle 6
+  EPC).
+- **NE gère PAS le recours administratif** post-décision finale
+  (recours auprès du directeur INPI puis CA Paris L.411-4 ; recours
+  devant les chambres de recours OEB Art. 106 EPC). Ce sera couvert par
+  un skill contentieux V6.0+.
+- **NE garantit PAS le résultat** — l'acceptation de la réponse relève
+  de l'autorité (examinateur INPI ou division d'examen OEB). Le skill
+  prépare au mieux mais le verdict reste extérieur.
+
+---
+
+## Ton
+
+Le ton est **technique, précis, équilibré**. Les destinataires sont des
+mandataires EQE ou des avocats spécialisés en propriété industrielle ;
+ils lisent en 15 minutes et prennent les décisions finales. Conséquences
+pour la rédaction :
+
+- **Présenter forces ET faiblesses** de chaque stratégie d'amendement —
+  jamais une option présentée comme « la bonne » sans son revers
+  (sur-limitation, risque Art. 123(2), coût divisionnaire)
+- **Citer précisément** les articles CPI / EPC, les décisions de la Grande
+  Chambre OEB (G 2/98, G 1/03, G 2/10), les Directives OEB partie G —
+  sources stables et reconnues
+- **Tagger systématiquement** la provenance des éléments factuels (cf.
+  CLAUDE.md plugin §4) : `[INPI Brevets]`, `[OEB Espacenet]`, `[connaissance
+  modèle — à vérifier]`, `[stable — vérifié le YYYY-MM-DD]`
+- **Ne jamais trancher** un jugement subjectif (par ex. « la rev. 5 a-t-elle
+  une valeur commerciale propre ? ») — flagger `[review]` et laisser le
+  mandataire et la direction R&D décider
+- **Mode silencieux** (cf. CLAUDE.md plugin §2) pour le projet de réponse
+  destiné à l'INPI/OEB : retirer toute narration de skill, conserver
+  uniquement le contenu juridique pur
+- **Préserver l'en-tête de confidentialité** correspondant au rôle déclaré
+  (avocat = secret professionnel art. 66-5 ; mandataire EQE = travaux de
+  mandataire dans le périmètre INPI/OEB)
+
+---
