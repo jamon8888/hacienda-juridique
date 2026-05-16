@@ -396,3 +396,198 @@ trie/filtre/recherche côté JS inline, et XSS-safe (escape côté
 pattern et les conventions visuelles.
 
 ---
+
+## Mode `--add`
+
+Walk interactif. Toutes les valeurs sont validées Zod avant écriture.
+
+1. **numero** brevet — format selon type :
+   - **FR** : `FR2700123` (national INPI)
+   - **EP** : `EP1234567` (brevet européen OEB)
+   - **PCT** : `WO2020/123456` (demande internationale OMPI)
+   - **national post-EP** : numéro du registre national après validation
+     (ex : DE60012345, GB1234567, IT0098765)
+   - **CCP** : `FR15C0001` (Certificat Complémentaire de Protection —
+     pharma uniquement)
+2. **type** : `FR` / `EP` / `PCT` / `national_post_EP` / `CCP`. Aucune
+   autre valeur acceptée.
+3. **titre** invention (chaîne, ≥ 5 caractères, descriptif technique).
+4. **classificationCIB** (multi-valeur, au moins une) — codes
+   Classification Internationale des Brevets (sections A à H, sous-classes
+   et groupes). Exemple : `["B01D 71/02", "B01D 67/00"]` pour membranes
+   de filtration. Validation : format `[A-H][0-9]{2}[A-Z] [0-9/]+`
+   (souple, espaces autorisés).
+5. **statut** : `demande` / `publiee` / `delivre` / `opposition` /
+   `decheance` / `expire`. Aucune autre valeur acceptée.
+6. **Dates** :
+   - **dateDepot** (YYYY-MM-DD, obligatoire) — pivot de tous les calculs
+   - **dateDelivrance** (YYYY-MM-DD, obligatoire si statut = `delivre`,
+     sinon null)
+   - **dateExpiration** : calcul automatique = `dateDepot + 20 ans` (CPI
+     L.611-2). **Attention CCP** : ajouter jusqu'à 5 ans supplémentaires
+     pour pharma (Règlement CE 469/2009 art. 13). Demander confirmation
+     manuelle pour les CCP.
+   - **datePriorite** (YYYY-MM-DD, optionnel) — date de priorité Union
+     de Paris ou priorité interne, si revendiquée
+7. **prochaine_annuite** :
+   - **annee** (entier 1-20) — l'année de l'annuité à payer (an 2 = 2e
+     annuité, an 20 = dernière)
+   - **dateEcheance** (YYYY-MM-DD) — calcul auto suggéré :
+     `dateDepot + (annee - 1) ans` (à confirmer manuellement, l'office
+     INPI/OEB peut décaler la date butoir)
+   - **montantEstime** — varie fortement selon office et année (ex : INPI
+     an 5 ~80€, OEB an 10 ~1500€, validations nationales selon pays)
+8. **famille_brevets** (optionnel) : array d'IDs des FR/EP/PCT/nationales
+   liés. Pour un PCT, lister toutes les entrées nationales / régionales
+   issues. Pour un EP, lister toutes les validations nationales ET la FR
+   parente si revendication de priorité interne.
+9. **deposant** : raison sociale + SIREN si disponible (cross-check
+   contrats employés / cession de droits).
+10. **inventeurs** : array de noms (CPI L.611-7 — important pour le régime
+    de l'invention de salarié, distinction invention de mission vs
+    invention attribuable hors mission, et droit à rémunération
+    supplémentaire).
+11. **mandataire** : nom du mandataire en brevets (EQE inscrit OEB pour
+    les brevets EP/PCT, mandataire INPI pour FR), ou « interne » si géré
+    en propre par un mandataire salarié.
+12. **business_owner** (email ou équipe propriétaire métier — ne JAMAIS
+    laisser vide pour les brevets `core`/`important`, sinon alertes
+    orphelines au `--audit`).
+13. **niveau_strategique** : `core` / `important` / `standard` /
+    `heritage`. Voir `references/modele-portfolio-brevets.md` pour la
+    définition de chaque niveau.
+14. **marques_associees** (optionnel) : array d'IDs de marques du
+    `portfolio.yaml` V1.1.1 si le brevet protège une technologie liée à
+    un produit commercialisé sous une marque enregistrée. Cross-référence
+    stratégique majeure pour évaluer la couverture totale d'un produit
+    phare (marque + brevet + DM le cas échéant).
+15. **notes** (libre).
+
+Avant écriture :
+
+- Générer un identifiant `BR-{type}-{N+1}` (ex : `BR-FR-007`,
+  `BR-EP-003`, `BR-WO-002`) en incrémentant le dernier ID existant pour
+  ce code type
+- Sauvegarder `portfolio-brevets.yaml.bak.YYYY-MM-DDTHHMMSS` (backup
+  horodaté)
+- Écrire la nouvelle entrée + `dateAjout: today` + `dernier_audit: null`
+- Confirmer à l'utilisateur l'ajout + l'identifiant attribué
+
+---
+
+## Mode `--update`
+
+`/revue-portefeuille-brevets --update BR-FR-007`
+
+- Lire l'entrée par ID
+- Afficher en YAML
+- Demander quels champs modifier (interactif)
+- Valider Zod
+- Backup `.bak` horodaté
+- Écrire
+
+**Cas d'usage le plus fréquent** : mettre à jour `prochaine_annuite`
+après chaque paiement annuel (incrémenter `annee`, recalculer
+`dateEcheance` = `dateDepot + (nouvelle_annee - 1) ans`, mettre à jour
+`montantEstime` selon barème INPI/OEB de l'année). Le skill rappelle :
+**l'écriture de la nouvelle annuité dans le registre interne ne paye
+PAS l'annuité — coordonner avec le partenaire annuités**.
+
+Refus si l'ID n'existe pas — proposer `--list` pour vérifier.
+
+---
+
+## Mode `--remove`
+
+`/revue-portefeuille-brevets --remove BR-FR-007`
+
+- Lire l'entrée
+- Si `niveau_strategique = "core"` : confirmation explicite **+ raison
+  obligatoire** (la raison est inscrite en commentaire dans le backup
+  `.bak` pour traçabilité ultérieure)
+- Si `important` : confirmation simple + raison recommandée
+- Si `standard` / `heritage` : confirmation simple suffit
+- **Si `statut` = `opposition` ou si une procédure (nullité, contrefaçon)
+  est en cours** : confirmation supplémentaire — supprimer le registre
+  interne d'un brevet sous procédure peut faire perdre la trace de
+  l'historique procédural utile pour la suite
+- Backup `.bak` horodaté
+- Supprimer l'entrée
+
+Rappeler à l'utilisateur que la suppression du registre interne
+**N'EFFACE PAS** l'enregistrement INPI/OEB/national. Pour radier
+officiellement un brevet, voir le mandataire (procédure de renonciation
+art. L.613-24 CPI / Règle 71 EPC pour EP) ou laisser le brevet tomber
+en déchéance par non-paiement d'annuité (économiquement équivalent).
+
+---
+
+## Mode `--list`
+
+Affiche le registre en table Markdown :
+
+| ID | Numéro | Type | Titre | Statut | Expiration | Annuité prochaine | Niveau | Owner |
+|---|---|---|---|---|---|---|---|---|
+| BR-FR-001 | FR2700123 | FR | Procédé filtration eau graphène | delivre | 2038-02-01 | an 8 — 2026-02-01 | core | rd@acme.fr |
+
+Tri par défaut : prochaine annuité la plus proche en premier. Filtres
+optionnels via flags futurs : `--niveau core`, `--type EP`,
+`--statut delivre`.
+
+Si registre vide, afficher : « Registre vide. Lance
+`/revue-portefeuille-brevets --add` pour ajouter un brevet. »
+
+---
+
+## Mode `--audit`
+
+Health check du registre brevets. Plus exigeant que l'audit marques car
+les annuités sont annuelles et la perte du droit immédiate.
+
+Findings types :
+
+- **Annuités à payer dans 3 mois sans plan déclaré** : pas de mention
+  « paiement programmé » ni « instruction partenaire annuités » dans
+  `notes`, ni `dernier_audit` récent — risque oubli avec perte du droit
+- **Brevets en grace period** : annuité passée non payée mais dans la
+  fenêtre de rattrapage 6 mois avec surcharge (CPI L.612-19) — alerte
+  rouge, échéance ferme du rattrapage à calculer
+- **Brevets `expire` non marqués comme tels** dans `statut` (cohérence
+  registre vs date d'expiration calculée)
+- **Brevets `pending` (statut `demande` ou `publiee`) > 5 ans** sans
+  délivrance — investiguer (retard examinateur INPI/OEB anormal,
+  notification non répondue, problème de priorité)
+- **Brevets `core` sans plan continuation** : pas de divisionnaire ni
+  nouvelle famille mentionnée dans `notes` alors que famille importante
+  approche expiration — opportunité ratée si commercialisation se
+  prolonge
+- **Familles incomplètes** : ex. FR sans EP correspondant alors que le
+  profil indique « marché EU + posture extension EU systématique » →
+  flag opportunité étendue ratée
+- **Marques sans brevet associé (cross-ref V1.1.1)** : marque `core`
+  dans `portfolio.yaml` correspondant à un produit commercialisé sans
+  brevet enregistré dans `portfolio-brevets.yaml` qui la cite dans
+  `marques_associees` — flag opportunité dépôt brevet (peut être normal
+  pour un produit brand-only sans innovation technique brevetable)
+- **Brevets sans inventeur renseigné** : conformité L.611-7 (régime
+  invention de salarié) compromise — risque contestation rémunération
+  supplémentaire ou cession de droits
+- **Brevets sans `business_owner`** : alertes orphelines, personne ne
+  reçoit la notification d'annuité à venir
+- **`niveau_strategique` vide ou non standard** : forcer la
+  classification
+- **Désynchronisation INPI/OEB public** : aucun cross-check depuis > 90 j
+  (champ `dernier_audit` ancien ou null) — risque divergence registre
+  interne vs registre officiel
+- **Cap > 50 brevets actifs** : signaler « envisager IPMS commercial
+  (Anaqua, Dennemeyer, Questel, Clarivate IPfolio, Patrix) pour
+  automatisation annuités multi-pays — la gestion manuelle YAML devient
+  risquée à ce volume, surtout pour familles avec nombreuses
+  validations EP nationales ». Voir
+  `references/modele-portfolio-brevets.md` pour comparatif.
+
+Sortie : tableau des findings + recommandations bucketées par sévérité,
+sans dashboard HTML (audit court). Mettre à jour `metadata.last_audit`
+à la date du jour après exécution.
+
+---
