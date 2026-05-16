@@ -52,6 +52,15 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
 
+## Quoi de neuf en V0.4 — bloc Brevets (MVP)
+
+- Nouveau skill `recherche-anteriorite-brevet` (INPI + OEB Espacenet, classifications X/Y/A/E)
+- Nouveau skill `preparation-depot-brevet` (structure CPI L.611-1, revendications, FR/EP/PCT)
+- Nouveau skill `tableau-contrefacon-brevet` **(claim chart Harvey-grade, théorie équivalence L.613-3)**
+- 4 nouveaux tools MCP : `inpi_search_brevets`, `inpi_brevet_details`, `espacenet_search`, `espacenet_brevet_details`
+- Client OEB Espacenet (OAuth2 client_credentials, quota 4 Go/sem)
+- Variables d'env requises : `INPI_DATA_LOGIN`/`INPI_DATA_PASSWORD` (déjà V0.2) + `OEB_CONSUMER_KEY`/`OEB_CONSUMER_SECRET` (V0.4)
+
 ## Quoi de neuf en V0.3
 
 - Nouveau skill `surveillance-marque` (gestion watchlist + rapport BOPI delta)
