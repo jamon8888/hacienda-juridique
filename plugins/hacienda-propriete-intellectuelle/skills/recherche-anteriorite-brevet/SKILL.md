@@ -295,3 +295,89 @@ pas dans le résultat (date de priorité absente, abrégé tronqué), écrire
 "non disponible dans le résultat" — ne jamais deviner.
 
 ---
+
+## Balayage des CIB voisines + littérature non-brevet (requis avant de conclure)
+
+Une recherche qui ne couvre que la sous-classe CIB principale manque les
+antériorités cross-domaine, qui sont la cause la plus fréquente de refus
+inattendus. Avant de conclure, identifier les CIB voisines à balayer et
+**demander confirmation** à l'utilisateur.
+
+### CIB voisines à explorer
+
+La Classification Internationale des Brevets est hiérarchique :
+**section** (A-H) > **classe** (deux chiffres) > **sous-classe** (lettre) >
+**groupe** (chiffres). Les 8 sections :
+
+- **A** = Nécessités courantes (médical, agriculture, alimentation, sport)
+- **B** = Techniques industrielles, transports
+- **C** = Chimie, métallurgie
+- **D** = Textiles, papier
+- **E** = Constructions fixes (bâtiment, mines)
+- **F** = Mécanique, éclairage, chauffage, armement, sautage
+- **G** = Physique (instruments, optique, informatique au sens dispositif)
+- **H** = Électricité (production, transmission, télécommunications)
+
+Pour chaque invention, balayer :
+
+- **Même classe + sous-classes voisines.** Exemple : pour `B01D 71/02`
+  (membranes filtration polymère), explorer aussi `B01D 53` (procédés
+  séparation gaz), `B01D 61` (procédés séparation membranaire en général),
+  `B01D 67` (procédés de fabrication des membranes), `C08J` (transformation
+  des polymères).
+- **Sections différentes mais application transversale.** Un procédé textile
+  (D) peut citer un brevet chimie (C) sur le même polymère. Un dispositif
+  médical (A61) peut citer un brevet électronique (H). **Application
+  transversale = piège classique.**
+- **Codes CPC (Cooperative Patent Classification) équivalents.** Pour les
+  brevets US et EP récents, la CPC offre une granularité supérieure — si
+  l'outil le permet, croiser CIB et CPC.
+
+### Littérature non-brevet (NPL)
+
+**Souvent destructive de nouveauté en biotech, semi-conducteurs, IA,
+chimie pharmaceutique.** Une thèse de doctorat publiée 3 ans avant le
+dépôt, une preprint arXiv, un article IEEE — tout ceci constitue de l'art
+antérieur opposable. Aucun outil MCP courant n'interroge ces bases ; à
+compléter manuellement après le rapport.
+
+À lister explicitement en next-step pour la recherche professionnelle :
+
+- **Google Scholar** (généraliste académique)
+- **IEEE Xplore** (électronique, télécom, informatique)
+- **PubMed / MEDLINE** (biomédical)
+- **ACS Publications** (chimie)
+- **ACM Digital Library** (informatique)
+- **arXiv / bioRxiv / chemRxiv** (preprints — souvent oubliés et
+  destructeurs)
+- **Bases sectorielles** (SAE pour automobile, ASME pour mécanique,
+  AIChE pour génie chimique)
+- **Thèses** (theses.fr pour la France, ProQuest mondial)
+
+### Bloc de confirmation
+
+Sortir un bloc avant de conclure :
+
+> **CIB voisines et littérature non-brevet à balayer (confirmer ou compléter) :**
+>
+> - **CIB voisines suggérées :** [section + sous-classes adjacentes, ex.
+>   `B01D 53`, `B01D 61`, `B01D 67`, `C08J`]
+> - **Codes CPC équivalents :** [si applicable, ex. `B01D 71/021`,
+>   `Y02C 20/40`]
+> - **Bases NPL recommandées pour ce domaine :** [ex. pour la biotech,
+>   PubMed + bioRxiv + thèses ; pour l'IA, arXiv + IEEE + ACM]
+> - **Mots-clés alternatifs à tester :** [synonymes techniques, équivalents
+>   anglais, abréviations sectorielles]
+>
+> Une recherche d'antériorité brevet qui ne couvre que la CIB-cible manque
+> les antériorités cross-domaine. Une recherche qui ignore la littérature
+> non-brevet manque la cause la plus fréquente de refus en biotech,
+> semi-conducteurs et IA. Confirmer cette liste avant que je continue.
+
+Si MCP brevets connecté, **re-exécuter** la recherche sur chaque CIB voisine
+confirmée et ajouter les résultats à la table d'art antérieur avec source
+"CIB voisine : [code]". Si la NPL n'est pas couverte par les outils, lister
+explicitement les bases comme input next-step pour la recherche
+professionnelle complète — **ne pas sauter silencieusement**.
+
+---
