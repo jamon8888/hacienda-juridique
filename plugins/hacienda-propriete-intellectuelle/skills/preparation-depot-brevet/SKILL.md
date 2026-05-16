@@ -434,3 +434,115 @@ Pour chaque erreur détectée, proposer une reformulation candidate taguée
 `[review — à valider mandataire]`.
 
 ---
+
+## Choix territoire — arbre décisionnel simplifié
+
+> **Version simplifiée.** L'arbre détaillé territoire + budget + calendrier
+> + stratégies hybrides relève du skill `strategie-extension-internationale`
+> (prévu V2.2). Ici on donne le cadre suffisant pour pré-positionner le
+> brouillon. Le choix définitif appartient au mandataire en concertation
+> avec le déposant et la stratégie commerciale.
+
+| Critère | **FR national (INPI)** | **EP (CBE)** | **PCT** |
+|---|---|---|---|
+| Marché cible | France uniquement | UE + 38 États CBE | mondial 156+ États |
+| Budget initial | bas (~€500 – €1 500) | moyen (~€4 000 – €7 000) | bas phase intl (~€2 000 – €3 000) |
+| Coût total ~10 ans | bas | moyen (validations nationales par pays choisi) | élevé (phases nationales en cascade) |
+| Délai protection | immédiat dès dépôt FR | ~3-5 ans procédure OEB jusqu'à délivrance | 30 mois priorité avant phases nationales |
+| Stratégie | défense locale, R&D française | conquête UE, dépôt institutionnel | mondialisation, gel des coûts |
+| Complexité procédure | faible (examen INPI léger) | moyenne (examen OEB substantif + opposition 9 mois) | élevée (phases multiples, droit local de chaque pays) |
+| Langue procédure | FR | FR / EN / DE (au choix dépôt) | EN / FR / ES / DE / JA / KO / RU / ZH / AR / PT |
+
+### Recommandations types (à confirmer mandataire)
+
+- **Startup FR, marché EU futur** → **FR national d'abord** + extension EP
+  ou PCT à 12 mois en revendiquant la priorité de l'Union de Paris. Permet
+  de tester l'invention sur le marché FR pendant 12 mois avant
+  d'engager les coûts EP/PCT.
+- **ETI déjà internationale** → **PCT direct** souvent. Le PCT gèle les
+  coûts pendant 30 mois (18 mois supplémentaires par rapport à l'Union de
+  Paris à 12 mois) pour décider des phases nationales en fonction des
+  marchés effectivement adressés.
+- **Brevet défensif, sans commercialisation prévue hors FR** → **FR
+  national seul**. Le brevet FR couvre la fabrication et la vente sur le
+  territoire français, ce qui peut suffire (notamment pour un savoir-faire
+  industriel non export).
+- **Pharma / biotech critique** → **PCT systématique**. Les enjeux
+  financiers (R&D >> €100M, exclusivité commerciale = condition de
+  rentabilité) justifient la couverture mondiale dès le dépôt initial. Les
+  phases nationales à 30 mois sont déjà engagées au moment de la décision
+  d'extension.
+- **Logiciel et IT avec marché US dominant** → considérer **USPTO direct**
+  + PCT en parallèle. L'approche brevetabilité du logiciel à l'USPTO
+  (après *Alice Corp. v. CLS Bank* 2014) diffère de l'OEB, mieux vaut
+  rédiger d'emblée en pensant aux deux offices.
+
+### Priorité de l'Union de Paris (12 mois)
+
+Quel que soit le territoire de premier dépôt, la **Convention d'Union de
+Paris** (Art. 4) accorde 12 mois pour effectuer des dépôts ultérieurs dans
+d'autres États membres en revendiquant la **date de priorité du premier
+dépôt**. Ces dépôts ultérieurs sont alors opposables comme s'ils avaient
+été déposés à la date de priorité — protection contre toute publication ou
+dépôt tiers survenu entre les deux dates. Cette priorité est **stratégique**
+pour la séquence FR puis EP/PCT à 12 mois.
+
+---
+
+## Checklist vérifications avant dépôt
+
+À produire en sortie sous forme de matrice avec colonne ✓/✗/[review]. Cette
+checklist N'EST PAS une attestation de brevetabilité — chaque ligne est un
+prérequis dont la validation finale revient au mandataire.
+
+- [ ] **Brevetabilité L.611-10 CPI** — aucune exclusion intrinsèque
+  (découverte pure, méthode mathématique, création esthétique, plan-règle-
+  méthode, logiciel "en tant que tel", présentation d'information, méthode
+  chirurgicale/thérapeutique/diagnostic). Si flag, voir
+  `recherche-anteriorite-brevet` knockout.
+- [ ] **Nouveauté L.611-11 CPI** — recherche d'antériorité faite et aucune
+  citation X destructrice trouvée. Lien : `/recherche-anteriorite-brevet`.
+- [ ] **Activité inventive L.611-14 CPI** — argumentation problème-solution
+  (OEB) préparée, effet technique mesurable identifié, distinction par
+  rapport au document le plus proche formulée.
+- [ ] **Application industrielle L.611-15 CPI** — l'invention est
+  réalisable et utilisable dans l'industrie au sens large (agriculture
+  incluse). Quasi toujours satisfait pour les inventions techniques ;
+  vigilance sur les méthodes purement intellectuelles ou les concepts
+  abstraits.
+- [ ] **Unité d'invention L.612-4 CPI** — un seul concept inventif général
+  par demande. Si plusieurs inventions distinctes → préparer
+  **divisionnaire** ou choisir l'invention principale. L'objection
+  d'absence d'unité (Art. 82 CBE) est fréquente en examen OEB.
+- [ ] **Suffisance de description L.612-5 CPI** — l'homme du métier peut
+  exécuter l'invention à partir de la description, sans effort excessif ni
+  recherche inventive. Vérifier qu'au moins un mode de réalisation est
+  décrit en détail, avec paramètres opératoires si pertinents.
+- [ ] **Support des revendications L.611-1 CPI** — chaque caractéristique
+  technique des revendications trouve son support dans la description.
+  Aucun terme parachuté en revendication sans présence préalable dans la
+  description.
+- [ ] **Non-extension L.612-6 CPI / Art. 123(2) CBE** — si amendements
+  futurs en cours d'examen, ils ne devront pas aller au-delà du contenu
+  initial de la demande telle que déposée. Conséquence pratique : ne pas
+  réserver de matière "pour plus tard", tout mettre dans le dépôt
+  initial.
+- [ ] **Cession des droits d'invention de salarié L.611-7 CPI** — si
+  l'invention est faite par un salarié, déterminer la catégorie (mission /
+  hors mission attribuable / hors mission non attribuable), formaliser la
+  cession ou l'attribution selon le régime, calculer la rémunération
+  supplémentaire ou le juste prix. Sans cession claire, le dépôt par
+  l'employeur peut être contesté par le salarié en revendication de
+  propriété (L.611-8 CPI).
+- [ ] **Pas de divulgation publique préalable** — toute divulgation
+  antérieure au dépôt (publication scientifique, démo publique, présentation
+  hors NDA, mise en vente) détruit la nouveauté. **Délai de grâce L.611-13
+  CPI** : 6 mois uniquement en cas (a) d'abus évident à l'égard de
+  l'inventeur ou (b) d'exposition dans une exposition internationale
+  officielle reconnue — strictement interprété, **ne pas s'y fier en
+  pratique**. Si divulgation, dépôt immédiat ou abandon.
+- [ ] **Choix territoire validé par mandataire** — FR / EP / PCT confirmé
+  en cohérence avec stratégie commerciale, budget annuités sur 20 ans, et
+  capacité à défendre dans les juridictions choisies.
+
+---
