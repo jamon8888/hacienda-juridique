@@ -485,3 +485,158 @@ recherche a été exécutée — sinon utiliser le bucket "Aucune base
 interrogée".
 
 ---
+
+## Recommandations & prochaines étapes
+
+Chaque sortie ferme par des prochaines étapes concrètes, bucketées selon les
+findings :
+
+- **Si antériorité X trouvée (nouveauté potentiellement détruite)** :
+  reformuler les revendications avec le mandataire (limitation de portée,
+  ajout de caractéristiques distinctives effectivement absentes du document
+  X), OU abandonner le dépôt si le chevauchement est large. Une demande
+  déposée puis refusée pour antériorité X laisse une trace publique
+  (publication A1 à 18 mois) qui peut nuire à des dépôts ultérieurs et
+  divulgue l'invention sans protection.
+- **Si antériorités Y trouvées en combinaison plausible** : préparer
+  l'argumentation problème-solution avec le mandataire avant tout dépôt —
+  démonstration d'un **effet technique supplémentaire** non suggéré par la
+  combinaison, ou d'une **incompatibilité technique** que l'homme du métier
+  n'aurait pas levée.
+- **Si aucune antériorité dans les bases interrogées** : recherche
+  professionnelle complète (Espacenet exhaustive avec mots-clés étendus +
+  Google Patents + WIPO PatentScope + NPL pertinente au domaine) avant tout
+  dépôt. Nommer les bases qu'il faut hit.
+- **Si "logiciel en tant que tel" flaggé au knockout** : reformuler la
+  revendication avec un effet technique tangible (signal traité, machine
+  commandée, ressource physique économisée) — repositionner en CIB G06F
+  comme invention mise en œuvre par ordinateur. Sans reformulation,
+  refus quasi-certain.
+- **Si "méthode chirurgicale/thérapeutique/diagnostic" flaggé** : pivoter
+  vers une revendication de **dispositif** ou de **produit** (médicament,
+  implant, kit de diagnostic *in vitro*), qui restent brevetables.
+- **Si territoires PCT visés sans recherche WIPO** : la recherche
+  internationale (ISR) sera de toute façon faite par l'office récepteur
+  (OEB, INPI ou autre) — anticiper en interrogeant PatentScope avant le
+  dépôt pour éviter une mauvaise surprise dans l'opinion écrite.
+- **Toujours** :
+  - `preparation-depot-brevet` pour structurer le dossier de dépôt
+    (revendications, abrégé, dessins, description) — soumis en revue
+    mandataire.
+  - **Routing vers mandataire en brevets inscrit à l'OEB (qualifié EQE)**
+    pour étude approfondie de brevetabilité et opinion FTO si exploitation
+    industrielle prévue.
+
+---
+
+## Format de sortie
+
+Préfixer l'en-tête confidentialité depuis `CLAUDE.md` `## 2. Sorties standardisées`.
+
+`````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon rôle]
+
+# Recherche d'antériorité brevet — Premier passage (PAS UNE OPINION)
+
+> **Premier passage, pas une opinion de brevetabilité.** [paragraphe garde-fou
+> en tête, reformulé tel quel — y compris le rappel FTO et "des inventeurs
+> ont perdu des années de R&D sur des brevets refusés"]
+
+> **⚠️ Note du relecteur**
+> - **Sources :** [INPI Brevets ✓ | OEB Espacenet ✓ | Google Patents ✗ (V2.1) | WIPO PatentScope ✗ (V2.2) | NPL non couvert]
+> - **Lu :** [N résultats sur N retournés ; revendications principales lues sur N documents X/Y candidats]
+> - **Signalé :** [N éléments `[review]` | aucun]
+> - **Fraîcheur :** [base INPI YYYY-MM-DD | OEB OPS YYYY-MM-DD]
+> - **Avant de s'appuyer :** [1-2 actions concrètes — ex. "vérifier les revendications du EP1234567 contre le résumé en p.X" / "lancer Espacenet sur les CIB voisines confirmées"]
+
+**Triage :** 🟢 VERT / 🟡 ORANGE / 🔴 ROUGE — une phrase pourquoi
+
+## Invention proposée
+
+- **Description technique :** [problème + solution, 2-3 phrases]
+- **Domaine technique :** [secteur]
+- **Classification CIB :** [code principal + secondaires, ex. `B01D 71/02`, `C08J 5/22`]
+- **Date de priorité visée :** [YYYY-MM-DD]
+- **Territoires :** [FR / EP / PCT / pays spécifiques]
+- **Cadre appliqué :** L.611-10 CPI (exclusions) + L.611-11 CPI (nouveauté) + approche problème-solution OEB (activité inventive)
+
+## Knockout — exclusions L.611-10 CPI
+
+| Exclusion | Flag | Note |
+|---|---|---|
+| Découvertes, théories scientifiques | [aucun / flaggé] | [si flaggé : 1 ligne] |
+| Méthodes mathématiques | ... | ... |
+| Créations esthétiques | ... | ... |
+| Plans, principes, méthodes (intel./com./jeux) | ... | ... |
+| Logiciel "en tant que tel" | ... | [si flaggé : reformulation effet technique requise — cf. *Vicom* T-208/84] |
+| Présentations d'informations | ... | ... |
+| Méthodes chirurg./thérap./diagnostic | ... | [si flaggé : envisager revendication dispositif/produit] |
+
+## Recherche antériorités
+
+**Bases interrogées :** [INPI Brevets YYYY-MM-DD (CIB X, Y) | OEB Espacenet YYYY-MM-DD (CIB X, Y, datePubMax YYYY-MM-DD) | NPL non couvert]
+**Scope :** [mots-clés, CIB principales, datePubMax, langues]
+
+**CIB voisines balayées (confirmées avec utilisateur) :**
+- [CIB voisine 1]
+- [CIB voisine 2]
+- [CIB voisine 3]
+
+**Littérature non-brevet recommandée :** [bases sectorielles à interroger manuellement]
+
+*Si aucune CIB voisine ni NPL n'a été balayée (pas de connecteur, temps), elles sont listées explicitement comme next-step pour la recherche professionnelle complète — pas silencieusement skip.*
+
+| Doc | Source | CIB | Déposant | Date pub. | Statut OEB | Note |
+|---|---|---|---|---|---|---|
+| FR2700123A1 | [INPI Brevets] | B01D 71/02 | ACME SAS | 2018-03-15 | X | Couvre revendication indépendante 1 entière |
+| EP1234567B1 | [OEB Espacenet] | B01D 53/22 | Concurrent GmbH | 2019-09-08 | Y | Combiné avec FR2700123A1 détruirait revendication 2 |
+| WO2020/123456A1 | [OEB Espacenet] | C08J 5/22 | Tier Co Ltd | 2020-06-25 | A | Contexte général procédé polymère |
+
+*Si aucune recherche n'a été exécutée :* **Aucune base de données brevets interrogée.**
+[bloc fallback complet — cf. Cas C]
+
+## Appréciation nouveauté + activité inventive (approche problème-solution OEB) — éléments pour mandataire
+
+| Étape (OEB partie G ch. VII) | Constat | Direction |
+|---|---|---|
+| État de la technique le plus proche | [document identifié, ex. FR2700123A1] | [pèse vers / contre brevetabilité / mixte] |
+| Caractéristiques distinctives | [liste — ex. "polymère greffé X, procédé recuit Y"] | [direction] |
+| Effet technique de ces caractéristiques | [ex. "+30% perméabilité, -20% encrassement"] | [direction] |
+| Problème technique objectif | [reformulé — ex. "améliorer le flux tout en réduisant le colmatage"] | [direction] |
+| Évidence pour l'homme du métier | [évaluation — ex. "combinaison FR2700123A1 + EP1234567B1 nécessite incompatibilité chimique à lever"] | [pèse vers / contre / mixte] |
+
+**Conclusion :** *Ce skill ne conclut pas.* Une de :
+- "Antériorités trouvées potentiellement destructrices de nouveauté — analyse revendication par revendication par mandataire en brevets avant dépôt."
+- "Antériorités trouvées en activité inventive (combinaison Y/Y) — argumentation problème-solution à construire avec mandataire."
+- "Aucune antériorité destructrice trouvée dans les bases interrogées — recherche professionnelle complète requise avant dépôt (WIPO + NPL absente de ce triage)."
+- "Facteurs ambigus ; jugement mandataire requis."
+
+## Recommandations & prochaines étapes
+
+- [étape 1 — recherche professionnelle complète : bases à hit, NPL à couvrir]
+- [étape 2 — reformulation revendications si X trouvé / argumentation problème-solution si Y trouvés]
+- [étape 3 — routing vers mandataire en brevets EQE depuis le profil]
+- [étape 4 — `preparation-depot-brevet` pour structurer le dossier si décision d'avancer]
+
+## Vérification des citations
+
+Chaque numéro de publication brevet, citation jurisprudence (CBE, directives
+OEB, Cour de cassation Chambre commerciale), classification CIB et date dans
+ce mémo doit être vérifié contre la source autoritative (Espacenet, INPI
+Data, registre OEB) avant que l'on s'y appuie. Les numéros de publication,
+les dates de priorité (distinctes des dates de publication) et le statut
+juridique en vigueur sont les sites les plus fréquents d'erreur. Ne pas
+citer un document qu'on ne peut pas ouvrir.
+
+**Une question hors de ma checklist :** [observation seconde-ordre — omis si rien]
+
+## Que veux-tu faire ?
+
+1. **Préparer le dépôt** — j'ouvre `preparation-depot-brevet` pour structurer le dossier FR / EP / PCT
+2. **Escalader** — note pour [mandataire en brevets / avocat PI du profil]
+3. **Compléter les faits** — recherche NPL ciblée, jurisprudence pertinente, art antérieur complémentaire fourni par l'inventeur
+4. **Approfondir l'analyse** — re-exécuter avec CIB élargies, autres mots-clés, autres langues
+5. **Autre chose** — dis-moi
+`````
+
+---
