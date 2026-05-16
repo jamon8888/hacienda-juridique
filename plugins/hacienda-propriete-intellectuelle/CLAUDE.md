@@ -131,6 +131,11 @@ les valeurs `[A CONFIGURER]` sont présentes, c'est un template. Une fois peupl�
 **Politique licences open source :** [A CONFIGURER — whitelist permissives (MIT/BSD/Apache) seulement / validation case par case LGPL/MPL / interdiction GPL/AGPL sauf isolation]
 **Approbateur cession droits :** [A CONFIGURER — avocat seul / avocat + Direction marketing / avocat + GC]
 **Approbateur licence logiciel :** [A CONFIGURER — Direction tech + avocat / juriste interne + avocat externe]
+**Stratégie type licence/cession :** [A CONFIGURER — cession préférée (transfert titularité, long terme) / licence préférée (conservation titularité, flexibilité) / case par case selon œuvre et contexte]
+**Position défaut rémunération cession :** [A CONFIGURER — proportionnelle aux recettes (principe L.131-4) / forfaitaire si cas exceptionnel L.131-4 al.2]
+**Approbateur contrats droit d'auteur :** [A CONFIGURER — avocat seul / avocat + Direction métier / avocat + GC]
+**Politique bases de données :** [A CONFIGURER — propriétaire stricte / open data privilégié si public / mixte selon valeur commerciale]
+**RGPD pour bases de données :** [A CONFIGURER — DPO interne / DPO externe / cabinet conseil RGPD dédié]
 
 ---
 
