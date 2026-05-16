@@ -29,6 +29,11 @@ import { registerInpiSearchBrevets } from "./tools/inpi-search-brevets.js";
 import { registerInpiBrevetDetails } from "./tools/inpi-brevet-details.js";
 import { registerEspacenetSearch } from "./tools/espacenet-search.js";
 import { registerEspacenetBrevetDetails } from "./tools/espacenet-brevet-details.js";
+import {
+  registerInpiMarquesPublicationsRecentes,
+  InpiMarquesPublicationsRecentesArgsSchema,
+  callInpiMarquesPublicationsRecentes,
+} from "./tools/inpi-marques-publications-recentes.js";
 import { InpiClient } from "./sources/inpi-marques.js";
 import { EuipoTmviewClient } from "./sources/euipo-tmview.js";
 import { InpiBrevetsClient } from "./sources/inpi-brevets.js";
@@ -273,6 +278,8 @@ export {
   InpiHttpError,
   InpiMarqueSchema,
   InpiMarqueDetailsSchema,
+  InpiPublicationRecenteSchema,
+  InpiPublicationsRecentesResponseSchema,
 } from "./sources/inpi-marques.js";
 export { InpiClient } from "./sources/inpi-marques.js";
 export {
@@ -291,6 +298,9 @@ export {
   registerInpiMarqueDetails,
   registerEuipoTmviewSearch,
   registerBopiDernieresPublications,
+  registerInpiMarquesPublicationsRecentes,
+  callInpiMarquesPublicationsRecentes,
+  InpiMarquesPublicationsRecentesArgsSchema,
 };
 export {
   InpiBrevetsClient,
@@ -456,6 +466,7 @@ export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
 
   registerInpiSearchMarques(server, inpiClient);
   registerInpiMarqueDetails(server, inpiClient);
+  registerInpiMarquesPublicationsRecentes(server, inpiClient);
   registerEuipoTmviewSearch(server, euipoClient);
   registerBopiDernieresPublications(server);
 

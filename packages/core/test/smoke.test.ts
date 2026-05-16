@@ -39,6 +39,7 @@ const expectedTools = [
   "bofip_consulter",
   "inpi_search_marques",
   "inpi_marque_details",
+  "inpi_marques_publications_recentes",
   "euipo_tmview_search",
   "bopi_dernieres_publications",
   "inpi_search_brevets",

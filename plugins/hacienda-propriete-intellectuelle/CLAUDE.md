@@ -174,6 +174,30 @@ Ne pas construire le tableau de bord sans demande explicite : l'offre est explic
 
 ---
 
+## Brand protection
+
+**Marques surveillées :** [A CONFIGURER — voir watchlist gérée via
+`/hacienda-propriete-intellectuelle:surveillance-marque --list` ; valeurs
+typiques : marques produit phares, marques institutionnelles, marques avec
+historique de contrefaçon]
+
+**Cadence agent `bopi-watcher` :** [A CONFIGURER — quotidienne (escalation immédiate sur
+🔴 OPPOSITION URGENTE < 30 j)]
+
+**Canal d'alerte :** [A CONFIGURER — Slack channel `#legal-marques` / email /
+inline]. Tant que non configuré, les rapports sont produits inline (pas
+d'envoi externe).
+
+**Niveaux d'alerte par défaut :** [A CONFIGURER]
+- haut : signaler 🔴 + 🟠 + 🟡, escalation immédiate sur 🔴
+- moyen : signaler 🔴 + 🟠
+- bas : signaler 🔴 uniquement
+
+**Cap watchlist :** [A CONFIGURER — 50 entrées recommandé]. Au-delà, le volume d'alertes
+risque l'effet "fatigue" — préférer une priorisation par cabinet.
+
+---
+
 ## 3. Posture de décision sur jugements subjectifs
 
 Quand un skill rencontre un jugement juridique subjectif — risque de confusion borderline, motif absolu discutable, opportunité d'opposition, ampleur d'une atteinte — et que la réponse est incertaine, le skill **préfère l'erreur récupérable** : signaler la ligne précise par `[review]` en ligne et expliciter l'incertitude là.

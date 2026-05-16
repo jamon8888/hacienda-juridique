@@ -61,6 +61,14 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 - Client OEB Espacenet (OAuth2 client_credentials, quota 4 Go/sem)
 - Variables d'env requises : `INPI_DATA_LOGIN`/`INPI_DATA_PASSWORD` (déjà V0.2) + `OEB_CONSUMER_KEY`/`OEB_CONSUMER_SECRET` (V0.4)
 
+## Quoi de neuf en V0.3
+
+- Nouveau skill `surveillance-marque` (gestion watchlist + rapport BOPI delta)
+- Nouveau agent `bopi-watcher` (cadence quotidienne, alertes Slack/inline)
+- Nouveau tool MCP `inpi_marques_publications_recentes`
+- Référentiel watchlist YAML stable (validé Zod, backup automatique)
+- Adaptations FR : délai opposition INPI 2 mois L.712-4 surveillé activement
+
 ## Quoi de neuf en V0.2
 
 - Nouveau skill `recherche-anteriorite-marque` : knockout L.711-2, recherche de similaires (3 cas), sweep des familles adjacentes FR/EU, appréciation globale CJUE, recommandations et garde-fou non-juriste.
