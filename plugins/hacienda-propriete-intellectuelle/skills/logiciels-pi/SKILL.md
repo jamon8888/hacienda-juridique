@@ -799,3 +799,170 @@ sans narration interne (cf. mode silencieux pour livrables externes —
 `CLAUDE.md` plugin §2).
 
 ---
+## Gate non-juriste — quand le profil indique « non-juriste »
+
+Quand le profil pratique indique un rôle **non-juriste** (CTO sans formation
+juridique, fondateur, manager produit, développeur lead, responsable open
+source), appliquer le gate suivant **avant** la production du livrable :
+
+> Cette analyse est une **qualification de régime**, pas un contrat ou une
+> licence. Commercialiser, publier ou céder un logiciel sans validation par
+> un avocat spécialisé tech / propriété intellectuelle a des conséquences
+> concrètes :
+>
+> - **Cession invalide** (non-respect L.131-3 dans le contrat agence-client
+>   ou la cession rétroactive cofondateur) : le titulaire d'origine peut
+>   s'opposer à l'utilisation ultérieure, demander cessation, et obtenir
+>   indemnisation rétroactive.
+> - **Cofondateur qui revendique titularité personnelle** d'un MVP codé
+>   avant signature contrat de travail : blocage de levée, renégociation
+>   valorisation, voire procédure prud'homale en parallèle.
+> - **Licence open source mal choisie** : blocage du business model
+>   (copyleft incompatible avec SaaS propriétaire, dual licensing impossible
+>   sans CLA).
+> - **Dépendances non auditées** : contamination GPL / AGPL imposant
+>   l'ouverture du code source de toute l'application ; cas réel de
+>   contentieux gflwc (Free vs Welte, Edu4 vs AFPA).
+> - **CLA absent sur projet open source** : impossibilité de relicensing
+>   futur, blocage commercialisation.
+> - **Due diligence pré-levée Series A** qui bloque sur la chaîne de
+>   titularité ou l'analyse SBOM des licences open source.
+>
+> **Voici un brief à apporter à l'avocat spécialisé tech / propriété
+> intellectuelle :**
+>
+> 1. **Projet** : [nom, slug technique, marque associée, secteur]
+> 2. **Contexte de développement** : qui code (salariés internes /
+>    prestataires / cofondateurs pré-contrat / contributeurs open source) +
+>    cartographie par composant
+> 3. **Titularité L.113-9 vs droit commun** : cas applicables par catégorie
+>    de développeur + risques identifiés (cession rétroactive cofondateur,
+>    clause L.113-9 contrat travail, cession agence-client, CLA contributeurs)
+> 4. **Licences envisagées** : projet (propriétaire / open source : MIT /
+>    Apache 2.0 / GPL / AGPL / LGPL / MPL / dual licensing) + justification
+>    du choix
+> 5. **Dépendances open source** : SBOM (si fourni) ou liste des
+>    principales avec licences ; risques contamination identifiés
+> 6. **Risques identifiés** : verdict prima facie 🟢/🟡/🔴 + zones à
+>    sécuriser
+> 7. **3 questions critiques** à poser à l'avocat :
+>    - « Le cofondateur ayant codé avant contrat a-t-il une cession écrite
+>      rétroactive conforme L.131-3 (énumération + domaines + territoires +
+>      durée + rémunération) ? »
+>    - « Notre dépendance LGPL en liaison statique (ou bibliothèque GPL
+>      isolée en microservice) nous expose-t-elle à une obligation
+>      d'ouverture du code source applicative ? »
+>    - « Le CLA proposé (ou modèle envisagé) couvre-t-il le relicensing
+>      futur en dual licensing commercial ? »
+>
+> **Annuaires pour trouver un avocat spécialisé tech / propriété
+> intellectuelle :**
+> - **Conseil National des Barreaux** — annuaire officiel :
+>   https://www.avocat.fr (filtre « propriété intellectuelle »,
+>   « droit du numérique », « droit des technologies »)
+> - **APRIL** (Association de promotion et de défense du logiciel libre) :
+>   https://april.org — réseau d'avocats sensibilisés open source
+> - **OW2** (consortium open source européen) : référence FR/EU pour
+>   conformité open source en entreprise
+> - **FSF Europe** (Free Software Foundation Europe) :
+>   https://fsfe.org — conseils juridiques sur les licences open source,
+>   notamment GPL/AGPL/LGPL
+> - **ALAI France** (Association littéraire et artistique internationale —
+>   section française) : réseau de spécialistes propriété littéraire et
+>   artistique au sens large (utile pour droit moral logiciel, base de
+>   données, dual licensing)
+
+Le livrable structuré (cf. format de sortie) est tout de même généré pour
+servir de brief de travail. Il n'a pas vocation à être transmis tel quel à
+un tiers (contrepartie, client, investisseur, plateforme) — c'est un
+**document préparatoire interne**.
+
+---
+
+## Emplacement du livrable
+
+Le livrable est écrit dans :
+
+```
+~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/logiciels-pi-<projet-slug>-YYYY-MM-DD.md
+```
+
+Le slug est construit à partir du nom du projet, normalisé en minuscules
+sans accents, avec tirets pour les espaces (ex : `startup-saas-fintech-mvp`
+pour « Startup SaaS fintech — MVP »).
+
+Si workspaces de dossier activés (V1.1+, cf. `CLAUDE.md` plugin §11),
+l'emplacement bascule sur :
+
+```
+~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/logiciels-pi-<projet-slug>-YYYY-MM-DD.md
+```
+
+Si le répertoire `outputs/` ou `matters/<slug-dossier>/` n'existe pas, le
+créer. Si plusieurs analyses du même jour pour le même projet, suffixer
+`-v2`, `-v3`, etc.
+
+---
+
+## Ce que ce skill NE fait PAS
+
+- **Rédiger un contrat de cession** (cofondateur pré-contrat, agence vers
+  client, contributeurs vers projet open source) — voir `cession-droit-auteur`
+  V4.1 (mentions L.131-3 obligatoires : énumération + étendue + destination
+  + lieu + durée + rémunération).
+- **Rédiger une licence d'utilisation** propriétaire (EULA) ou open source
+  (MIT, Apache 2.0, GPL, AGPL, dual licensing) — voir `licence-droit-auteur`
+  V4.1.
+- **Scanner les dépendances open source automatiquement** — relève des
+  outils SCA externes : Snyk, FOSSA, Black Duck Synopsys, GitHub Dependabot,
+  OWASP Dependency-Check. Couvert partiellement par `revue-open-source` v0.1
+  préservé (qui structure l'audit mais ne scanne pas le code lui-même).
+- **Évaluer la contrefaçon logicielle** (analyse contradictoire substance
+  + similitudes substantielles + caractères différenciants ; spécificités
+  procédurales : saisie-contrefaçon adaptée au code source, expertise
+  judiciaire spécialisée) — voir `contrefacon-droit-auteur` V4.2.
+- **Gérer le brevet logiciel** (rare en France — voir bloc brevets V2.x ;
+  en France, le logiciel "en tant que tel" est exclu de la brevetabilité
+  L.611-10, sauf invention mise en œuvre par ordinateur résolvant un
+  problème technique — jurisprudence OEB Vicom T-208/84 ; aux US les
+  "software patents" existent mais ne sont pas le focus de ce skill).
+- **Négocier une licence commerciale** (négociation prix / périmètre /
+  exclusivité) — c'est une négociation business + juridique qui sort du
+  scope qualification.
+- **Auditer la conformité GDPR / RGPD** des données personnelles traitées
+  par le logiciel — différent du régime PI sur le logiciel lui-même ; hors
+  scope (renvoi `hacienda-donnees-personnelles` à l'échelle marketplace).
+- **Vérifier la brevetabilité d'algorithmes** — exclus en France L.611-10
+  "en tant que tels", sauf invention mise en œuvre par ordinateur sur
+  problème technique (analyse fine OEB + INPI requise — différé V2.x).
+- **Conduire un audit de sécurité du code** (vulnérabilités, OWASP Top 10,
+  pentest) — c'est un audit cybersécurité distinct de la qualification
+  juridique.
+
+---
+
+## Ton
+
+- **Technique** — le régime logiciel est dense et entremêle droit d'auteur,
+  contrats, droit du travail (L.113-9), licences open source. Ne pas
+  simplifier au point de tromper.
+- **Pédagogique** — le régime logiciel est **complexe et mal connu**
+  (l'inversion L.113-9 vs droit commun salariat est une source d'erreurs
+  récurrentes même chez des juristes expérimentés non spécialisés tech).
+  Expliquer la mécanique, ne pas se contenter d'asséner la règle.
+- **Précis** — citation systématique des articles CPI applicables
+  (L.111-1, L.112-3, L.113-9, L.121-7, L.122-6, L.122-6-1, L.131-3, L.341-1,
+  L.342-1+) et de la jurisprudence pertinente (Cass. Pachot 7 mars 1986
+  pour originalité logiciel ; CJUE BSA C-393/09 pour interface graphique ;
+  CJUE SAS Institute C-406/10 pour fonctionnalités vs forme ; CJUE UsedSoft
+  C-128/11 pour épuisement et SaaS ; CJUE Innoweb C-202/12 pour
+  extraction substantielle base sui generis).
+- **Équilibré** — la qualification est rarement noire ou blanche, surtout
+  sur l'analyse de compatibilité licences (LGPL liaison statique notamment
+  reste contestée). Présenter les forces ET les incertitudes.
+- **Adapté au profil** — avocat tech spécialisé : ton confraternel,
+  raccourcis techniques OK ; juriste interne non spécialisé tech :
+  explications complètes du régime dérogatoire ; CTO / fondateur :
+  vulgarisation rigoureuse + gate explicite vers avocat tech.
+
+---
