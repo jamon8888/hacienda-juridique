@@ -350,3 +350,85 @@ Modèles CLA usuels (renvoi `references/licences-open-source.md`) :
 - Salesforce CLA (template populaire pour projets d'éditeurs)
 
 ---
+
+## Étape 2 — Droit d'utilisation logiciel (L.122-6) + exceptions L.122-6-1
+
+### Droit d'utilisation L.122-6
+
+Le droit d'utilisation du logiciel — réservé au titulaire des droits
+patrimoniaux — comprend (CPI L.122-6) :
+
+- **Reproduction permanente ou provisoire** du logiciel, totale ou partielle,
+  par tout moyen et sous toute forme. Cela inclut **le téléchargement,
+  l'installation, le chargement en RAM lors de l'exécution** — c'est-à-dire
+  toute utilisation effective du logiciel.
+- **Adaptation, traduction, arrangement, transformation** du logiciel, et
+  reproduction du logiciel en résultant. Cela couvre les modifications, les
+  ports vers d'autres environnements, les forks, les traductions de
+  l'interface.
+- **Distribution au public** du logiciel ou d'une copie, par tout procédé,
+  notamment **vente, location, prêt** (avec **épuisement du droit de
+  distribution** pour la première vente d'une copie au sein de l'EEE — CJUE
+  UsedSoft C-128/11 qui a étendu l'épuisement aux licences perpétuelles
+  téléchargées, mais l'arrêt **ne s'applique PAS** au SaaS).
+
+Toute personne qui exécute une de ces opérations sans autorisation du
+titulaire commet une **contrefaçon de logiciel** (renvoi `contrefacon-droit-auteur`
+V4.2 — qui couvrira contrefaçon générale ; le régime logiciel a quelques
+spécificités procédurales : saisie-contrefaçon adaptée au code source,
+expertise judiciaire spécialisée).
+
+### Exceptions au droit d'utilisation — L.122-6-1 — d'ordre public
+
+Ces exceptions sont **d'ordre public** : les clauses contractuelles qui les
+excluraient sont **nulles** (et donc inopposables à l'utilisateur légitime).
+C'est un point critique de la défense face à une EULA propriétaire trop
+restrictive.
+
+| Exception | Champ | Limites |
+|---|---|---|
+| **Copie de sauvegarde** (L.122-6-1 II) | 1 copie nécessaire à la préservation de l'utilisation | Pas de copies multiples, pas de partage, usage strictement personnel à l'utilisateur légitime |
+| **Test / observation de l'utilisateur légitime** (L.122-6-1 III) | Analyser le fonctionnement pour comprendre les **idées et principes** à la base de tout élément du logiciel | Doit se faire dans le cadre d'opérations licites (chargement, affichage, exécution, transmission, stockage) — pas de reverse engineering pour reproduire / contrefaire |
+| **Décompilation pour interopérabilité** (L.122-6-1 IV) | Strictement encadrée | Conditions cumulatives : (a) information nécessaire à l'interopérabilité **non disponible facilement par ailleurs** ; (b) limité aux parties du logiciel strictement nécessaires à cette interopérabilité ; (c) résultats utilisés uniquement pour assurer l'interopérabilité d'un logiciel créé de façon indépendante, **non utilisés à d'autres fins** ni transmis à des tiers (sauf si nécessaires à l'interopérabilité) |
+| **Correction d'erreurs** (L.122-6-1 I) | L'utilisateur légitime peut corriger les erreurs nécessaires à l'utilisation conforme à la destination | **Sauf interdiction contractuelle expresse** — c'est la seule exception qui peut être écartée par contrat (mais nécessite une clause claire et négociée, pas une mention noyée dans une EULA d'adhésion) |
+
+### Importance pratique critique
+
+> Ces exceptions sont **d'ordre public** — les clauses contractuelles qui les
+> excluraient (totalement) sont **nulles**. Une licence propriétaire qui
+> interdirait toute décompilation pour interopérabilité est partiellement
+> nulle pour cette stipulation. Ce qui ne signifie **pas** que la
+> décompilation est libre — les conditions cumulatives L.122-6-1 IV doivent
+> être strictement respectées, et la charge de la preuve du respect de ces
+> conditions pèse sur celui qui décompile.
+
+L'exception **correction d'erreurs** est la seule susceptible d'être écartée
+contractuellement — vérifier l'EULA avant correction unilatérale.
+
+### Cas pratique fréquent — entreprise A et vendor B abandonné
+
+- Entreprise A développe son ERP interne sur **middleware propriétaire**
+  vendor B
+- Vendor B est racheté + **arrête de supporter** le middleware (end of
+  life, plus de correctifs, plus d'API documentée)
+- L'EULA vendor B interdit toute décompilation
+- Entreprise A peut **décompiler le middleware pour assurer
+  l'interopérabilité avec son ERP** → exception L.122-6-1 IV applicable,
+  **malgré clauses EULA contraires** (la clause anti-décompilation est
+  nulle pour cette stipulation dans la mesure où elle prive l'utilisateur
+  légitime de l'exception d'ordre public)
+
+Réserves opérationnelles :
+- Conserver une **trace** de la démarche d'obtention de l'information
+  d'interopérabilité par voie normale (mails au vendor, demande d'API
+  documentation, refus ou silence) pour démontrer le critère "information
+  non disponible facilement par ailleurs".
+- **Limiter strictement** la décompilation aux parties nécessaires à
+  l'interopérabilité — ne pas décompiler tout le middleware pour le
+  redévelopper.
+- Ne pas transmettre les résultats de la décompilation à des tiers.
+- Ne pas utiliser les informations obtenues pour développer un produit
+  concurrent — c'est sorti du champ de l'exception et constitue de la
+  contrefaçon. `[review]`
+
+---
