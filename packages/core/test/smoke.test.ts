@@ -41,6 +41,10 @@ const expectedTools = [
   "inpi_marque_details",
   "euipo_tmview_search",
   "bopi_dernieres_publications",
+  "inpi_search_brevets",
+  "inpi_brevet_details",
+  "espacenet_search",
+  "espacenet_brevet_details",
   "piste_cache_clear"
 ];
 

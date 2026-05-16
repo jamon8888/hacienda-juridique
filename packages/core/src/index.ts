@@ -25,9 +25,15 @@ import { registerEurlexTools } from "./tools/eurlex.js";
 import { registerInpiSearchMarques, registerInpiMarqueDetails } from "./tools/marque-search.js";
 import { registerEuipoTmviewSearch } from "./tools/euipo-tmview-search.js";
 import { registerBopiDernieresPublications } from "./tools/bopi-dernieres-publications.js";
+import { registerInpiSearchBrevets } from "./tools/inpi-search-brevets.js";
+import { registerInpiBrevetDetails } from "./tools/inpi-brevet-details.js";
+import { registerEspacenetSearch } from "./tools/espacenet-search.js";
+import { registerEspacenetBrevetDetails } from "./tools/espacenet-brevet-details.js";
 import { InpiClient } from "./sources/inpi-marques.js";
 import { EuipoTmviewClient } from "./sources/euipo-tmview.js";
-import { loadInpiCredentials, loadEuipoCredentials } from "./config.js";
+import { InpiBrevetsClient } from "./sources/inpi-brevets.js";
+import { EspacenetClient } from "./sources/espacenet.js";
+import { loadInpiCredentials, loadEuipoCredentials, loadOebCredentials } from "./config.js";
 
 // Re-exports pour les plugins qui veulent un usage avancé.
 export { loadConfig } from "./config.js";
@@ -287,6 +293,57 @@ export {
   registerBopiDernieresPublications,
 };
 export {
+  InpiBrevetsClient,
+  InpiBrevetsCredentialsMissingError,
+  InpiBrevetsHttpError,
+  InpiBrevetSchema,
+  InpiBrevetSearchResponseSchema,
+  InpiBrevetDetailsSchema,
+} from "./sources/inpi-brevets.js";
+export type {
+  InpiBrevet,
+  InpiBrevetDetails,
+  InpiBrevetSearchResponse,
+  InpiBrevetsClientOptions,
+  InpiBrevetsSearchArgs,
+} from "./sources/inpi-brevets.js";
+export {
+  EspacenetClient,
+  EspacenetCredentialsMissingError,
+  EspacenetHttpError,
+  EspacenetBrevetSchema,
+  EspacenetSearchResponseSchema,
+} from "./sources/espacenet.js";
+export type {
+  EspacenetBrevet,
+  EspacenetSearchResponse,
+  EspacenetClientOptions,
+} from "./sources/espacenet.js";
+export {
+  registerInpiSearchBrevets,
+  callInpiSearchBrevets,
+  InpiSearchBrevetsArgsSchema,
+} from "./tools/inpi-search-brevets.js";
+export type { InpiSearchBrevetsArgs } from "./tools/inpi-search-brevets.js";
+export {
+  registerInpiBrevetDetails,
+  callInpiBrevetDetails,
+  InpiBrevetDetailsArgsSchema,
+} from "./tools/inpi-brevet-details.js";
+export type { InpiBrevetDetailsArgs } from "./tools/inpi-brevet-details.js";
+export {
+  registerEspacenetSearch,
+  callEspacenetSearch,
+  EspacenetSearchArgsSchema,
+} from "./tools/espacenet-search.js";
+export type { EspacenetSearchArgs } from "./tools/espacenet-search.js";
+export {
+  registerEspacenetBrevetDetails,
+  callEspacenetBrevetDetails,
+  EspacenetBrevetDetailsArgsSchema,
+} from "./tools/espacenet-brevet-details.js";
+export type { EspacenetBrevetDetailsArgs } from "./tools/espacenet-brevet-details.js";
+export {
   callLegifranceApiExpert,
   LegifranceApiCallArgsSchema,
 } from "./tools/api-call.js";
@@ -401,6 +458,15 @@ export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
   registerInpiMarqueDetails(server, inpiClient);
   registerEuipoTmviewSearch(server, euipoClient);
   registerBopiDernieresPublications(server);
+
+  const inpiBrevetsClient = inpiCreds ? new InpiBrevetsClient(inpiCreds) : null;
+  const oebCreds = loadOebCredentials();
+  const espacenetClient = oebCreds ? new EspacenetClient(oebCreds) : null;
+
+  registerInpiSearchBrevets(server, inpiBrevetsClient);
+  registerInpiBrevetDetails(server, inpiBrevetsClient);
+  registerEspacenetSearch(server, espacenetClient);
+  registerEspacenetBrevetDetails(server, espacenetClient);
 
   const start = async () => {
     const transport = new StdioServerTransport();
