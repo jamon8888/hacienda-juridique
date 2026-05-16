@@ -752,3 +752,291 @@ une vérification ligne à ligne des cinq conditions, et la note du
 relecteur les liste explicitement avec un statut ✓ / 🟡 / 🔴.
 
 ---
+
+## Étape 4 — Clauses recommandées (non obligatoires mais critiques)
+
+Au-delà des cinq conditions L.131-3, plusieurs clauses sont fortement
+recommandées pour sécuriser le contrat. Leur absence ne rend pas la
+cession nulle, mais l'expose à des contentieux d'exécution ou à des
+contestations difficiles à résoudre.
+
+### 4.1 Clause de garantie d'éviction
+
+Traitée à l'étape 2.4 ci-dessus (garanties du cédant). À reprendre dans
+un article dédié du contrat avec :
+- portée de la garantie (titularité + originalité + absence d'éviction)
+- procédure en cas de revendication tierce (information mutuelle dans
+  un délai bref, choix du conseil, coordination de la défense)
+- plafond d'indemnisation (souvent prix de cession + frais de défense ;
+  rarement illimité)
+- exclusions (faits postérieurs à la cession imputables au cessionnaire,
+  modifications non autorisées, etc.)
+
+### 4.2 Clause de respect du droit moral L.121-1
+
+**Clause critique** — le droit moral est inaliénable et imprescriptible,
+mais le cessionnaire doit s'engager expressément à le respecter pour
+éviter tout contentieux ultérieur. Articulation typique :
+
+- **Droit à la paternité (L.121-1)** : engagement du cessionnaire à
+  mentionner le nom de l'auteur sur tous les supports d'exploitation,
+  selon des modalités définies (en couverture, au générique, en mention
+  légale, etc.). Préciser : police, taille, position, langue de la
+  mention. Pour une œuvre photographique, mention du crédit photo
+  conformément à l'usage du secteur (loi 4 août 2021 sur la régulation
+  et la protection de l'accès aux œuvres culturelles à l'ère numérique
+  `[connaissance modèle — à vérifier]`).
+- **Droit au respect de l'intégrité (L.121-1)** : engagement de ne pas
+  porter atteinte à l'œuvre par modification, déformation ou mutilation.
+  Préciser le régime des modifications autorisées : aucune / techniques
+  minimales (compression, recadrage simple) / substantielles soumises à
+  accord exprès écrit du cédant / liberté d'adaptation pour les usages
+  contractuellement prévus (par exemple : adaptation cinéma autorisée
+  dans le contrat d'option).
+- **Droit de divulgation (L.121-2)** : l'auteur seul décide du moment et
+  des modalités de la première communication au public. Si l'œuvre n'a
+  pas encore été divulguée à la signature, prévoir explicitement
+  l'autorisation de divulgation par le cessionnaire (date, support,
+  modalités).
+- **Droit de repentir et de retrait (L.121-4)** : l'auteur peut faire
+  cesser l'exploitation moyennant indemnisation préalable du
+  cessionnaire pour le préjudice causé. Rappeler ce droit dans le contrat
+  (information du cessionnaire) ; il ne peut pas être exclu mais ses
+  modalités d'exercice peuvent être encadrées (préavis, méthode de
+  calcul de l'indemnisation).
+
+### 4.3 Clause d'audit et de reddition de comptes
+
+Traitée à l'étape 3.5 (rémunération). À structurer en article dédié si
+rémunération proportionnelle :
+- **Reddition de comptes** : périodicité, format (état détaillé par
+  canal / territoire / format), délai de transmission après chaque
+  période close, support (papier + numérique signé)
+- **Audit** : modalités décrites à l'étape 3.5 ; ajouter clause de
+  confidentialité de l'expert-comptable et obligation pour le
+  cessionnaire de conserver les pièces comptables pendant la durée du
+  contrat + 5 ans
+
+### 4.4 Clause de résiliation
+
+- **Résiliation pour manquement** : faute caractérisée d'une partie,
+  après mise en demeure restée infructueuse dans un délai fixé
+  (typiquement 30 ou 60 jours), avec restitution éventuelle des
+  éléments remis et obligation pour le cessionnaire de cesser
+  l'exploitation dans un délai défini (épuisement du stock, retrait des
+  supports en ligne, etc.)
+- **Résiliation pour non-exploitation** : en édition, L.132-17 prévoit
+  une résiliation de plein droit après mise en demeure restée
+  infructueuse pendant 12 mois. Hors édition, prévoir une clause
+  similaire si l'auteur a un intérêt à l'exploitation effective
+  (visibilité, redevances proportionnelles).
+- **Conséquences de la résiliation** : sort des stocks, sort des
+  exploitations en cours (licences sous-cédées à des tiers), sort des
+  comptes d'exploitation à clôturer, restitution des éléments matériels
+  remis, exécution des obligations nées avant la résiliation
+- **Clause de déchéance** : option supplémentaire en cas de défaut
+  grave (non-paiement répété, atteinte au droit moral non corrigée)
+  permettant l'extinction immédiate sans préavis
+
+### 4.5 Clause de cession à des tiers (sous-cession)
+
+- **Autorisation expresse / soumise à accord / interdite** — par défaut,
+  la cession n'emporte pas autorisation de sous-cession (interprétation
+  stricte L.131-3) ; le contrat doit la prévoir si elle est souhaitée
+- **Conditions de la sous-cession** : information préalable du cédant /
+  accord exprès écrit / liberté du cessionnaire dans le périmètre
+  contractuel
+- **Garanties croisées** : le cessionnaire reste solidairement
+  responsable des engagements du sous-cessionnaire vis-à-vis du cédant
+  (notamment respect du droit moral et reddition de comptes)
+- **Reversement** : si sous-cession à titre onéreux, prévoir
+  reversement d'un pourcentage du prix de sous-cession au cédant (en
+  plus des redevances proportionnelles sur l'exploitation finale)
+
+### 4.6 Clause de résolution des litiges
+
+- **Droit applicable** : droit français (par défaut pour œuvre française
+  ou exploitation principale en France)
+- **Médiation préalable obligatoire** (recommandée) : tentative de
+  conciliation devant un médiateur indépendant avant toute action
+  judiciaire, délai 1 à 3 mois
+- **Juridiction compétente** :
+  - **TJ Paris** recommandé pour les œuvres complexes ou audiovisuelles
+    (compétence concentrée des chambres spécialisées PI)
+  - TJ du domicile du défendeur (droit commun)
+  - **Arbitrage** : possible pour les cessions B2B importantes
+    (chambre arbitrale CCI, AFA), à éviter avec un cédant personne
+    physique sauf consentement éclairé
+- **Langue de la procédure** : français
+
+### 4.7 Clause de notification
+
+- Adresses postales et électroniques de chaque partie pour notifications
+  formelles
+- Modalités : LRAR (lettre recommandée avec accusé de réception) pour les
+  notifications graves (mise en demeure, résiliation), email pour le
+  courant
+- Obligation de mise à jour des coordonnées en cas de changement
+
+### 4.8 Autres clauses utiles selon contexte
+
+- **Clause de confidentialité** sur les termes financiers du contrat
+- **Clause de non-concurrence** réciproque pendant la durée de la
+  cession (limitée géographiquement et matériellement, sous peine de
+  nullité au regard du droit du travail / droit commercial)
+- **Clause RGPD** si l'œuvre contient des données personnelles ou si
+  l'exploitation implique un traitement de données (auteur identifié,
+  œuvre dans laquelle figurent des personnes identifiables)
+- **Clause de force majeure** (article 1218 du code civil)
+- **Clause de modification par avenant écrit** uniquement
+- **Clause d'intégralité** : le présent contrat exprime l'intégralité
+  de l'accord entre les parties et annule tout accord antérieur portant
+  sur le même objet
+
+---
+
+## Étape 5 — Cas particuliers par contexte
+
+Selon le contexte de la cession, des régimes spécifiques se superposent
+ou se substituent au régime général de cession. Identifier le contexte
+applicable et calibrer le contrat en conséquence.
+
+### 5.1 Cession dans le cadre d'une œuvre de commande
+
+**Règle.** Le commanditaire qui paie pour la création d'une œuvre **ne
+devient pas automatiquement titulaire des droits**. La titularité reste
+au créateur sauf cession écrite expresse répondant aux conditions
+L.131-3.
+
+**Erreurs fréquentes :**
+- **Facture muette** : la facture indique « création logo » + prix, mais
+  aucune mention de cession des droits → le commanditaire a payé une
+  prestation de service, pas les droits → titularité reste au créateur,
+  qui peut s'opposer aux exploitations ou exiger une rémunération
+  supplémentaire
+- **Mention « droits cédés » sans précision** : la facture indique
+  « cession des droits incluse » sans énumération L.131-3 → nullité
+  pour défaut de précision → même résultat que ci-dessus
+- **Bon de commande sans cession** : le bon de commande détaille la
+  livraison mais pas la cession → idem
+
+**Bonne pratique.** Le contrat de commande doit comporter un volet
+**« Cession des droits »** distinct qui satisfait aux cinq conditions
+L.131-3. Soit annexé au contrat de prestation, soit intégré sous forme
+d'articles dédiés. Le présent skill produit ce volet « cession ».
+
+**Particularités** :
+- Si le créateur est un freelance ou indépendant, la cession est de
+  droit commun (L.131-3 + L.131-4)
+- Si le créateur est une agence (personne morale), vérifier la chaîne
+  de titularité interne (cession ou L.113-9 logiciel ou œuvre collective)
+- **Rémunération** : souvent confondue à tort avec le prix de la
+  prestation ; en pratique, la rémunération de la cession peut être
+  isolée (un montant pour la prestation + un montant pour la cession)
+  ou globalisée — préférer l'isolation pour clarté juridique
+
+### 5.2 Cession dans le cadre du salariat (hors logiciel L.113-9)
+
+**Règle.** Le contrat de travail **n'opère pas automatiquement** la
+cession des droits d'auteur du salarié à l'employeur — il faut une
+cession expresse, écrite, conforme L.131-3. Cette règle est de principe
+hors les régimes spéciaux suivants :
+
+**Régimes spéciaux où la cession est facilitée :**
+- **Logiciels (L.113-9)** : dévolution automatique à l'employeur des
+  droits patrimoniaux sur les logiciels créés par le salarié dans
+  l'exercice de ses fonctions ou d'après les instructions de
+  l'employeur. Renvoyer vers `/hacienda-propriete-intellectuelle:logiciels-pi`.
+- **Journalistes (L.132-36 à 45)** : cession à l'employeur pour la
+  première publication dans le titre de presse + exploitation cohérente
+  avec la famille de presse, contre rémunération spécifique négociée par
+  accord collectif.
+- **Agents publics (L.131-3-1 à L.131-3-3)** : régime spécifique de
+  dévolution à la personne publique des droits d'exploitation sur les
+  œuvres créées dans l'exercice des fonctions, avec aménagements
+  (intéressement, droit moral préservé).
+
+**Hors ces régimes :** prévoir dans le contrat de travail une **clause
+de cession des œuvres créées dans l'exercice des fonctions**. Cette
+clause doit respecter L.131-3 (énumération, domaines, territoires,
+durée, rémunération). La rémunération peut être incluse dans le salaire
+(forfait L.131-4 al. 2 — « contribution non essentielle ») ou faire
+l'objet d'une rémunération distincte (préférable pour les fonctions à
+forte production créative : designer, créatif, rédacteur).
+
+**Convention collective** : vérifier les conventions collectives
+applicables (édition, presse, audiovisuel, publicité, communication)
+qui peuvent imposer des règles spécifiques de cession et de
+rémunération.
+
+### 5.3 Contrat d'édition (L.132-1 à L.132-17)
+
+**Régime spécifique** — non couvert exhaustivement par ce skill mais
+relations à signaler. Le contrat d'édition est défini par L.132-1 comme
+« le contrat par lequel l'auteur de l'œuvre ou ses ayants droit cèdent
+à des conditions déterminées à une personne appelée éditeur le droit de
+fabriquer ou de faire fabriquer en nombre des exemplaires de l'œuvre,
+à charge pour elle d'en assurer la publication et la diffusion ».
+
+**Spécificités :**
+- **Forme écrite obligatoire** (L.131-2) à peine de nullité
+- **Obligations de l'éditeur** : fabrication en nombre suffisant,
+  publication dans un délai raisonnable, exploitation permanente et
+  suivie (L.132-12), reddition de comptes annuelle minimum
+- **Cession d'œuvres futures admise par exception** (L.132-4) : limitée
+  à cinq ouvrages nouveaux d'un genre nettement déterminé ou à la
+  production réalisée pendant un délai de 5 ans à compter de la
+  signature
+- **Résiliation pour non-exploitation** : mécanisme spécifique L.132-17
+  (mise en demeure, délai de 12 mois, résiliation de plein droit)
+- **Compte d'exploitation transparent** : depuis l'accord interprofessionnel
+  2014 et l'ordonnance 2014-1348, obligations renforcées de reddition
+  comptable, exploitation numérique distincte, clause de réexamen
+- **Forme numérique distincte** : la cession des droits d'exploitation
+  numérique fait l'objet d'une partie distincte du contrat (article
+  L.132-17-1), avec rémunération proportionnelle distincte
+
+**Recommandation skill.** Pour un contrat d'édition, ce skill produit
+une **structure de base** mais doit être complété par les clauses
+spécifiques édition (obligations éditeur, reddition annuelle, partie
+numérique distincte, etc.). Flag `[review — contrat édition, clauses
+L.132-1+ à compléter par avocat spécialisé édition]`.
+
+### 5.4 Cession audiovisuelle (L.132-23 à L.132-31)
+
+**Régime spécifique** — présomption de cession au producteur.
+
+> *Article L.132-24 CPI :* « Le contrat qui lie le producteur aux
+> auteurs d'une œuvre audiovisuelle, autres que l'auteur de la
+> composition musicale avec ou sans paroles, emporte, sauf clause
+> contraire et sans préjudice des droits reconnus à l'auteur par les
+> dispositions des articles L. 111-3, L. 121-4, L. 121-5, L. 122-1 à
+> L. 122-7, L. 131-2 à L. 131-7, L. 132-4 et L. 132-7, cession au
+> profit du producteur des droits exclusifs d'exploitation de l'œuvre
+> audiovisuelle. »
+
+**Spécificités :**
+- **Présomption légale de cession** au producteur des droits exclusifs
+  d'exploitation, dès lors qu'il existe un contrat liant l'auteur au
+  producteur (sauf composition musicale, qui reste à part — gérée via
+  les sociétés d'auteurs SACEM / SACD / SDRM)
+- **Auteurs concernés** : scénariste, adaptateur, dialoguiste, auteur
+  de la composition musicale composée pour l'œuvre, réalisateur, et
+  par présomption l'auteur de l'œuvre originaire en cas d'adaptation
+  (L.113-7)
+- **Rémunération distincte par mode d'exploitation** (L.132-25) : à
+  chaque mode d'exploitation correspond une rémunération distincte,
+  proportionnelle aux recettes
+- **Reddition de comptes** : au moins une fois par an (L.132-28)
+- **Conventions collectives** : SACD pour les œuvres audiovisuelles
+  télévisées, SCAM pour les documentaires et œuvres de l'audiovisuel,
+  conventions interprofessionnelles cinéma
+
+**Recommandation skill.** Pour un contrat de production audiovisuelle,
+ce skill produit une **structure de base** mais doit être complété par
+les clauses spécifiques (chaîne des droits, partie musique distincte,
+rémunérations par mode d'exploitation, conventions collectives
+applicables). Flag `[review — contrat audiovisuel, présomption L.132-24
++ conventions collectives à articuler par avocat spécialisé audiovisuel]`.
+
+---
