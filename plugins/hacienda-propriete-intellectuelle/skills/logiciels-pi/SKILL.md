@@ -96,3 +96,129 @@ auditées, CLA absent). Sur-qualifier = porte à 2 sens, l'avocat affine.
 Rester sur la porte à 2 sens.
 
 ---
+
+## Charger le profil pratique avant de commencer
+
+Avant tout, lire :
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Récupérer :
+- **Rôle** depuis `## 1. Profil cabinet et profil de pratique PI` (avocat
+  inscrit au barreau / juriste interne / non-juriste — change l'en-tête de
+  confidentialité ET le périmètre du secret professionnel). Le régime logiciel
+  relève à la fois du droit d'auteur (CPI Livre I) et du droit des contrats
+  (cessions, licences) — il n'existe pas de profession réglementée propre au
+  logiciel. Le rôle pertinent est **avocat spécialisé tech / propriété
+  intellectuelle** ou à défaut **avocat PI générale** ayant pratique
+  contentieuse logiciel.
+- **Secteurs des clients dominants** (SaaS B2B / SaaS B2C / open source /
+  éditeur logiciel propriétaire / agence dev / ESN / fintech / e-commerce /
+  biotech avec composante logicielle / transversal — calibre les exemples,
+  les exigences en matière de SBOM, et la vigilance sur AGPL en SaaS).
+- **Posture conseil par défaut** (préventif vs réactif — préventif =
+  verrouillage contrat de travail + clause cession prestation + politique
+  licences open source ; réactif = analyse défensive d'une revendication
+  cofondateur ou d'un avis de violation GPL).
+- **Matrice d'approbateurs** pour les escalades (avocat spécialisé tech /
+  CTO / DPO / GC / Direction selon enjeu — le choix d'une licence open source
+  engage souvent CTO + GC ; un audit SBOM pré-Series A engage Direction).
+- **Partenaires juridiques** :
+  - **Avocat tech / propriété intellectuelle** pour rédaction contrats et
+    contentieux logiciel
+  - **Conseil PI** (mandataire INPI marques au titre du CPI L.422-4 si la
+    marque du logiciel est dans le scope ; sinon hors pratique INPI)
+
+Ce skill ne conclut JAMAIS « logiciel sécurisé juridiquement » ni « licence
+choisie sans risque » — il identifie les régimes applicables et les zones de
+risque, et oriente vers la rédaction contractuelle (V4.1) ou l'avocat tech
+selon le cas.
+
+Si le profil contient `[A CONFIGURER]`, surfacer :
+
+> Le profil pratique n'est pas configuré — c'est ce qui adapte la posture, les
+> secteurs (SaaS / open source / agence dev), et la chaîne d'approbation à ta
+> pratique. Tu peux continuer en mode provisoire (réponses génériques taguées
+> `[non configuré]`) ou lancer
+> `/hacienda-propriete-intellectuelle:entretien-demarrage` (10 à 15 minutes).
+
+---
+
+## Intake — 5 questions en batch unique
+
+Avant toute analyse, poser les 5 questions ci-dessous **en une seule fois**.
+Ne pas dérouler le workflow tant que les réponses ne sont pas obtenues — ou
+explicitement marquées « non applicable » par l'utilisateur.
+
+**1. Nom du projet / logiciel**
+- **Nom commercial** ou **nom de code** du projet
+- **Slug technique** (ex : repository GitHub, package npm, image Docker) si
+  pertinent
+- **Marque associée** (le cas échéant — si la marque logicielle est en
+  portefeuille, signaler pour orientation vers `surveillance-marque` ou
+  `clearance-marque`)
+
+**2. Contexte de développement** — qui code ?
+- **Développeur(s) salarié(s) interne(s)** seuls (équipe entièrement
+  internalisée — régime L.113-9 applicable a priori)
+- **Prestataire(s) externe(s)** seuls (freelances, agence dev, ESN — régime
+  L.113-9 NON applicable, cession écrite L.131-3 obligatoire dans le contrat
+  de prestation)
+- **Mixte interne + externe** (cas le plus fréquent — cartographier par
+  composant ou par module qui a codé quoi)
+- **Open source community** (contributeurs externes bénévoles — pas de
+  L.113-9, chaque contributeur titulaire de sa contribution sauf CLA signé)
+- **Cofondateurs ayant codé avant signature contrat de travail** (cas piège
+  classique startup — le cofondateur reste titulaire personnel jusqu'à
+  cession écrite rétroactive)
+
+Pour chaque catégorie applicable, préciser : **combien**, **rôles**, **et
+relation contractuelle** (contrat de travail / contrat de prestation /
+contrat de stage / convention de stage / CLA / aucun).
+
+**3. Statut du logiciel**
+- **Développement initial** (greenfield — création ex nihilo)
+- **Extension de produit existant** (ajout fonctionnalité, module, plugin
+  sur produit propriétaire ou open source maison)
+- **Fork d'un projet open source** (préciser projet source + licence — la
+  licence amont impose des contraintes au fork : MIT permet fork
+  propriétaire, GPL impose fork GPL, etc.)
+- **Dérivation d'un produit propriétaire** (cas plus rare — licence
+  propriétaire amont autorise-t-elle la dérivation ? généralement non, sauf
+  clause expresse)
+
+**4. Type d'utilisation prévue**
+- **Interne uniquement** (outil métier non distribué — pas de licence de
+  distribution mais analyse titularité utile pour due diligence ou
+  réutilisation future)
+- **Commercialisation propriétaire** (vente de licences d'utilisation — code
+  source fermé, EULA propriétaire)
+- **SaaS payant** (hébergement chez l'éditeur, accès distant — attention
+  particulière AGPL et licences serveur)
+- **Open source pur** (publication sous une licence libre — choix de la
+  licence critique selon objectif communauté vs protection)
+- **Dual licensing** (open source pour usage non commercial / communautaire
+  + licence commerciale pour entreprises — modèle MySQL, MongoDB historique,
+  Qt — nécessite CLA pour relicensing)
+
+**5. Dépendances open source**
+- **Bibliothèques / frameworks utilisés** : lister les principales avec
+  leurs licences si connues
+  - Exemple : React 18 (MIT), Next.js (MIT), PostgreSQL (PostgreSQL
+    License — type BSD), Stripe SDK (MIT), Tailwind (MIT)
+- Si licences inconnues OU si la liste n'est pas exhaustive ET si le projet
+  dépasse le stade prototype → **recommander scan SCA avant analyse** :
+  - **Snyk** (commercial + free tier) : https://snyk.io
+  - **FOSSA** (commercial) : https://fossa.com
+  - **Black Duck Synopsys** (commercial entreprise)
+  - **GitHub Dependabot** (intégré GitHub, gratuit)
+  - **OWASP Dependency-Check** (open source) : https://owasp.org/www-project-dependency-check
+- Pour un projet SaaS ou commercialisé, l'analyse de compatibilité sans
+  SBOM (Software Bill of Materials) à jour est **incomplète par construction**
+  — signaler explicitement et proposer d'attendre le résultat du scan.
+
+Si l'utilisateur ne peut pas répondre à une question, demander : « lance
+le scan SCA et reviens, ou continue avec les éléments connus en taguant les
+zones non auditées `[dépendance non auditée — à scanner]` ».
+
+---
