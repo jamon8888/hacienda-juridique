@@ -252,3 +252,149 @@ le brouillon avec hypothèses prudentes tagguées `[hypothèse — à
 confirmer]`.
 
 ---
+
+## Étape 1 — Vérification d'éligibilité (CPI L.131-1 et L.131-2)
+
+Avant même de structurer le contrat, vérifier que la cession projetée
+n'est pas frappée d'une interdiction de principe et qu'elle respecte la
+forme requise. Ces vérifications sont en amont des conditions cumulatives
+L.131-3 — elles conditionnent l'existence même d'une cession valide.
+
+### 1.1 L.131-1 — Interdiction de la cession globale d'œuvres futures
+
+> *Article L.131-1 CPI :* « La cession globale des œuvres futures est nulle. »
+
+**Règle.** Une convention par laquelle un auteur cède en bloc, par avance,
+l'ensemble des œuvres qu'il créera dans le futur est NULLE, d'une nullité
+absolue. Cette protection est d'ordre public — l'auteur ne peut pas y
+renoncer même expressément.
+
+**Exceptions admises :**
+- **Contrat d'édition** (L.132-4) : possible pour les œuvres futures d'un
+  genre nettement déterminé, **limité à cinq œuvres ou cinq ans** (le
+  premier des deux atteints met fin à l'engagement).
+- **Cession d'œuvres déterminables** : la jurisprudence admet la cession
+  d'œuvres futures **individuellement identifiées ou identifiables** (par
+  exemple : « les 10 illustrations de la collection automne-hiver 2026 »).
+  La frontière entre « cession globale » (nulle) et « cession d'œuvres
+  déterminables » (valable) est étroite — flag `[review]` si le périmètre
+  des œuvres futures n'est pas strictement borné par un critère objectif
+  (titre, genre + délai court, livrable défini par bon de commande).
+- **Œuvres collectives** (L.113-2 + L.113-5) : l'initiateur personne morale
+  est titulaire ab initio — pas de cession « d'œuvres futures » à proprement
+  parler, mais une dévolution originelle.
+- **Œuvres de salariés-développeurs logiciel** (L.113-9) : dévolution
+  automatique à l'employeur, hors champ L.131-1.
+
+**Test pratique :** la cession projetée porte-t-elle sur :
+- (a) une œuvre identifiée existante → OK ;
+- (b) une œuvre commandée précisément définie (cahier des charges +
+  livrable identifié) → OK ;
+- (c) « toutes les œuvres futures » du cédant ou « toutes les œuvres
+  créées dans le cadre du partenariat » sans plafond → 🔴 NULLITÉ
+  L.131-1, refuser de produire le contrat tel quel et proposer un montage
+  alternatif (licence-cadre + cessions individuelles au fil de l'eau,
+  contrat d'édition L.132-4 si applicable).
+
+### 1.2 L.131-2 — Forme écrite obligatoire
+
+> *Article L.131-2 CPI :* « Les contrats de représentation, d'édition
+> et de production audiovisuelle [...] doivent être constatés par écrit.
+> Il en est de même des autorisations gratuites d'exécution. [...] Dans
+> tous les autres cas, les dispositions des articles 1359 à 1362 du code
+> civil sont applicables. »
+
+**Règle.** Pour les contrats de **représentation, d'édition, de production
+audiovisuelle** et pour les **autorisations gratuites d'exécution**, la
+forme écrite est imposée à peine de nullité — c'est une condition de
+validité (*ad validitatem*), pas seulement de preuve.
+
+**Pour les autres contrats de cession** (cession isolée, cession dans le
+cadre d'une commande hors édition/audiovisuel, etc.), l'écrit est exigé
+*ad probationem* (régime de droit commun art. 1359 du code civil — preuve
+par écrit au-delà de 1 500 €), avec une jurisprudence stricte qui exige
+en pratique un écrit pour toute cession non gracieuse compte tenu de
+l'enjeu L.131-3.
+
+**Conséquence pratique pour ce skill :** dans tous les cas, produire un
+écrit signé par les deux parties. Une cession orale ou implicite —
+notamment via une facture muette sur la cession — laisse le cessionnaire
+sans titre opposable. **Une facture qui mentionne seulement « création
+d'un logo » SANS clause de cession explicite ne transfère AUCUN droit
+patrimonial** (jurisprudence constante depuis Cour de cass. 1re civ. 13
+nov. 2008) : le commanditaire a payé la prestation, pas les droits.
+
+### 1.3 L.131-4 — Principe de la rémunération proportionnelle
+
+> *Article L.131-4 al. 1 CPI :* « La cession par l'auteur de ses droits
+> sur son œuvre peut être totale ou partielle. Elle doit comporter au
+> profit de l'auteur la participation proportionnelle aux recettes
+> provenant de la vente ou de l'exploitation. »
+
+**Règle.** La rémunération de l'auteur doit en principe être
+**proportionnelle aux recettes** d'exploitation. Le forfait n'est admis
+que dans les cas limitativement énumérés par l'alinéa 2 :
+- (a) la base de calcul de la participation proportionnelle ne peut être
+  pratiquement déterminée ;
+- (b) les moyens de contrôle font défaut ;
+- (c) les frais des opérations de calcul et de contrôle sont hors de
+  proportion avec les résultats à atteindre ;
+- (d) la nature ou les conditions de l'exploitation rendent impossible
+  l'application de la règle de la rémunération proportionnelle ;
+- (e) la contribution de l'auteur ne constitue pas un élément essentiel
+  de la création intellectuelle de l'œuvre ;
+- (f) en cas de cession des droits portant sur un **logiciel** ;
+- (g) cas spécifiques en édition (réimpressions techniques sans modification).
+
+Le forfait peut aussi résulter de la cession à titre gratuit (donation,
+hors scope de ce skill — régime notarié).
+
+**Conséquence pratique.** Si le contrat envisagé prévoit un forfait sans
+qu'aucun cas d'exception ne s'applique clairement, **🔴 risque de nullité
+de la clause de rémunération + action en révision pour lésion (L.131-5)**.
+Le skill doit alors soit reformuler en rémunération proportionnelle, soit
+documenter explicitement le cas d'exception applicable et flagger pour
+relecture avocat.
+
+### 1.4 L.131-5 — Action en révision pour lésion ou prévision insuffisante
+
+> *Article L.131-5 CPI :* « En cas de cession du droit d'exploitation,
+> lorsque l'auteur aura subi un préjudice de plus de sept douzièmes dû à
+> une lésion ou à une prévision insuffisante des produits de l'œuvre, il
+> pourra provoquer la révision des conditions de prix du contrat. »
+
+**Règle.** Lorsqu'une rémunération forfaitaire (ou même proportionnelle
+mais sous-évaluée à l'origine) cause à l'auteur un **préjudice supérieur
+à 7/12** par rapport aux recettes effectivement perçues par le
+cessionnaire, l'auteur peut agir en révision judiciaire. Délai de
+prescription : **5 ans** à compter de la cession (jurisprudence
+majoritaire, à confirmer selon évolution Cour de cassation
+`[connaissance modèle — à vérifier]`).
+
+**Conséquence pratique.** Un forfait modeste sur une œuvre qui devient
+un succès commercial expose le cessionnaire à une action en révision
+plusieurs années après. Atténuation :
+- privilégier la rémunération proportionnelle (immune par construction) ;
+- si forfait imposé, prévoir une clause de **revoyure** ou de **complément
+  de prix** au-delà d'un certain seuil de recettes (volontairement, pour
+  désamorcer L.131-5) ;
+- documenter à la signature les hypothèses de recettes envisagées (pour
+  étayer l'absence de lésion en cas de contestation ultérieure).
+
+### 1.5 Synthèse étape 1
+
+Avant de passer à l'identification des parties et à l'énumération
+L.131-3, produire un **mini-tableau de vérification** :
+
+| Critère | Statut | Note |
+|---|---|---|
+| L.131-1 — pas de cession globale d'œuvres futures | ✓ / 🔴 | [périmètre œuvres défini] |
+| L.131-2 — forme écrite prévue | ✓ | [contrat signé par les deux parties] |
+| L.131-4 — rémunération proportionnelle OU exception qualifiée | ✓ / 🟡 / 🔴 | [cas applicable si forfait] |
+| L.131-5 — risque lésion 7/12 documenté | ✓ / 🟡 | [hypothèses recettes / clause revoyure] |
+
+Tout flag 🔴 doit être résolu (reformulation contrat ou abandon) avant
+de passer à l'étape suivante. Tout flag 🟡 doit être tracé dans la note
+du relecteur et porté à l'attention de l'avocat.
+
+---
