@@ -52,6 +52,13 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
 
+## Quoi de neuf en V0.9 — Droit d'auteur Qualification (démarrage bloc V4)
+
+- Nouveau skill `qualification-oeuvre` : analyse originalité (L.111-1 + CJUE Infopaq), catégorisation L.112-2 (liste non exhaustive), titularité initiale selon 7 cas (créateur unique / collaboration / collective / composite / commande / salariat / posthume), distinction droits patrimoniaux L.122-1+ vs droit moral L.121-1 (perpétuel, inaliénable, imprescriptible), durée 70 ans post mortem
+- Nouveau skill `logiciels-pi` : régime dérogatoire L.113-9 (employeur titulaire AUTOMATIQUE pour logiciels créés par salariés dans leurs fonctions — inverse du droit commun), droit d'utilisation L.122-6 + exceptions L.122-6-1, typologie complète licences open source (permissives MIT/BSD/Apache, copyleft GPL/AGPL/LGPL/MPL, Creative Commons), matrices de compatibilité, cas SaaS et bases de données associées
+- 4 nouvelles références : articles CPI droit auteur, jurisprudence originalité, régime logiciel CPI, licences open source
+- Démarrage du bloc droit d'auteur V4 — suite : V4.1 contrats (cession + licence + bases données), V4.2 enforcement (contrefaçon)
+
 ## Quoi de neuf en V0.8 — Extension internationale + Portefeuille brevets
 
 - Nouveau skill `strategie-extension-internationale` : arbre décisionnel FR / EP (OEB) / PCT (WIPO), coûts indicatifs 2026, recommandations par profil cabinet (startup → multinationale), fenêtre 12 mois Union de Paris
