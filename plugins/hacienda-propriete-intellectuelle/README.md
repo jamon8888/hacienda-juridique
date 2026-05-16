@@ -52,6 +52,13 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
 
+## Quoi de neuf en V0.5 — Portefeuille + Dashboard HTML
+
+- Nouveau skill `revue-portefeuille-marques` (gestion CRUD du registre marques, audit santé)
+- Premier **dashboard HTML standardisé** dans `@hacienda/core/dashboard/` : fonction `renderDashboard()` réutilisable, format autonome (zéro CDN), XSS-safe
+- Génération automatique d'un fichier `.html` à côté du Markdown quand un output dépasse 10 lignes tabulaires
+- Référentiel `portfolio.yaml` user-stable (calque watchlist.yaml V0.3)
+
 ## Quoi de neuf en V0.4 — bloc Brevets (MVP)
 
 - Nouveau skill `recherche-anteriorite-brevet` (INPI + OEB Espacenet, classifications X/Y/A/E)

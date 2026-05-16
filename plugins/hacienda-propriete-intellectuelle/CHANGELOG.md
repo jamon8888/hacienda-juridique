@@ -1,5 +1,24 @@
 # Changelog — hacienda-propriete-intellectuelle
 
+## 0.5.0 — 2026-05-16
+
+### Ajouts — Portefeuille + Dashboard HTML
+- Skill `revue-portefeuille-marques` (6 modes CRUD + audit, style Anthropic ip-legal portfolio adapté FR, ~400 lignes)
+- Module `@hacienda/core/dashboard/` (renderDashboard + escape XSS-safe + template HTML standalone)
+- Premier **dashboard HTML standardisé** : format autonome (zéro CDN), XSS-safe, sortable/filtrable, imprimable A4
+- Référentiel `portfolio.yaml` user-stable validé Zod
+- Référence `references/dashboard-template.md` (guide d'utilisation pour skills futurs)
+- Référence `references/modele-portfolio.md`
+- Section CLAUDE.md template "Portefeuille" + "Dashboard offer" activée
+
+### Cible future
+- V2.2 `revue-portefeuille-brevets` réutilisera le même `renderDashboard`
+- V5.0 `audit-pi-ma` (M&A) utilisera le dashboard pour les findings multi-actifs
+
+### À venir (V1.1.2)
+- `depot-marque-fr` (préparation dossier dépôt INPI/EUIPO)
+- `analyse-opposition-marque` (argumentation INPI sur opposition reçue)
+
 ## 0.4.0 — 2026-05-16
 
 ### Ajouts — bloc Brevets (MVP V2.0)
