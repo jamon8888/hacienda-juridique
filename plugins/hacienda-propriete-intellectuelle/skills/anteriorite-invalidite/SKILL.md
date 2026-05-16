@@ -333,3 +333,160 @@ bucket suivant dans l'output :
   brevet cible.
 
 ---
+
+## Motifs de nullité (CPI L.613-25)
+
+L'article L.613-25 du Code de la propriété intellectuelle énumère
+limitativement les **5 motifs de nullité** d'un brevet français. Cette
+liste correspond largement aux motifs opposables devant l'OEB en
+opposition (Art. 100 CBE) et en révocation centrale (Art. 105a CBE).
+Pour chaque motif retenu dans l'argumentation, présenter explicitement
+sa **force probable**, les **pièces requises**, et le **précédent
+jurisprudentiel** pertinent.
+
+### L.613-25 a) — Défaut de brevetabilité
+
+C'est le motif le plus fréquemment invoqué (~70-80 % des actions en
+nullité). Il regroupe plusieurs branches autonomes :
+
+- **L.611-10 CPI — exclusions de la brevetabilité** : découvertes,
+  théories scientifiques, méthodes mathématiques, créations
+  esthétiques, méthodes intellectuelles, plans / règles / méthodes
+  pour l'exercice d'activités économiques ou de jeux, **programmes
+  d'ordinateur "en tant que tels"** (motif central en logiciel —
+  jurisprudence OEB G 3/08 sur invention mise en œuvre par ordinateur),
+  présentations d'informations, **méthodes de traitement médical du
+  corps humain ou animal** (mais les produits — médicaments,
+  dispositifs — restent brevetables).
+- **L.611-11 CPI — défaut de nouveauté** (motif clé) : existence d'art
+  antérieur destructeur de nouveauté révélant explicitement ou
+  implicitement TOUTES les caractéristiques d'une revendication.
+  Citation X. La nouveauté s'apprécie revendication par revendication.
+- **L.611-15 CPI — défaut d'application industrielle** : invention non
+  réalisable industriellement (rarement seul motif). Domaine
+  d'élection : perpetual motion machines, séquences ADN dont la
+  fonction n'est pas identifiée (CJUE *Brüstle* C-34/10 indirect).
+- **Implicite — défaut d'activité inventive** (équivalent Art. 56 CBE) :
+  l'invention découle de manière évidente de l'état de la technique
+  pour l'homme du métier. Démontré via art antérieur Y combinaisons.
+  Pas explicitement listé dans L.611-10 à -15 mais reconnu comme
+  motif L.613-25 a) par jurisprudence constante.
+
+### L.613-25 b) — Défaut de suffisance de description (L.612-5)
+
+**L.612-5 CPI** : "L'invention doit être exposée dans la demande de
+brevet de façon suffisamment claire et complète pour qu'un homme du
+métier puisse l'exécuter." Équivalent Art. 83 CBE.
+
+Si la description omet des informations critiques (paramètres
+opératoires, conditions chimiques, ratios stœchiométriques, exemples
+de mise en œuvre, code source pour invention logicielle, structure
+d'enseignement pour réseau de neurones), nullité possible. Souvent
+invoqué pour :
+
+- **Brevets pharma / biotech** : effet thérapeutique allégué mais non
+  démontré dans la description (exemples manquants ou inopérants —
+  jurisprudence TJ Paris constante depuis 2015 sur "plausibility")
+- **Logiciel embarqué / IA** : algorithme abstrait sans implémentation
+  concrète, paramètres réseau de neurones absents
+- **Chimie de synthèse** : voie de synthèse non reproductible,
+  rendement non démontrable
+
+Standard : un homme du métier disposant de connaissances générales du
+domaine doit pouvoir reproduire l'invention SANS effort inventif
+excessif et SANS expérimentation non raisonnable (jurisprudence OEB
+T 226/85, T 409/91).
+
+### L.613-25 c) — Extension de la portée au-delà du contenu de la demande initiale (L.612-6)
+
+**L.612-6 CPI** : "Les revendications peuvent être modifiées au cours
+de la procédure (...) Les modifications ne peuvent étendre l'objet de
+la demande au-delà du contenu de la demande telle qu'elle a été
+déposée." Équivalent **Art. 123(2) EPC**.
+
+Motif fréquent et puissant. Souvent invoqué quand le titulaire a
+"élargi" ses revendications pendant l'examen pour couvrir un produit
+concurrent émergent. La preuve consiste à comparer la **demande
+initiale** (publication A1) avec le **brevet délivré** (B1) — chercher
+les termes ajoutés, les généralisations intermédiaires, les
+suppressions de caractéristiques qui restreignaient la portée.
+
+**Jurisprudence pertinente** :
+
+- **G 1/93** (Grande Chambre de Recours OEB) — règle de l'inescapable
+  trap : si une caractéristique ajoutée pendant l'examen viole
+  l'Art. 123(2) MAIS la supprimer violerait l'Art. 123(3)
+  (élargissement post-grant interdit), le brevet doit être révoqué
+- **G 2/10** — disclaimer non divulgué admissible seulement sous
+  conditions strictes
+- **TJ Paris constant** sur la "généralisation intermédiaire" :
+  extraction sélective d'une caractéristique d'un mode de réalisation
+  spécifique pour l'isoler de son contexte = extension prohibée
+
+### L.613-25 d) — Défaut d'unité de l'invention (L.612-4)
+
+**L.612-4 CPI** : "La demande de brevet ne peut concerner qu'une seule
+invention ou un groupe d'inventions liées entre elles de telle sorte
+qu'elles ne forment qu'un seul concept inventif général."
+
+**Motif faible** rarement invoqué seul. Le défaut d'unité est
+sanctionné principalement pendant la prosecution (l'INPI ou l'OEB
+demande la division en `divisional` — voir Option D de
+`analyse-refus-inpi`). Une fois le brevet délivré, la nullité pour
+défaut d'unité reste théoriquement possible mais peu utilisée en
+pratique judiciaire (le juge préfère retenir d'autres motifs plus
+solides). Plutôt argument annexe à l'appui d'autres motifs.
+
+### L.613-25 e) — Défaut de qualité du déposant (titularité)
+
+Le déposant doit être l'inventeur ou son ayant-cause légitime (cession
+de droits, contrat de travail avec clause d'invention, mission
+inventive au titre de L.611-7 CPI).
+
+Cas typiques de nullité pour défaut de titularité :
+
+- **Cessions de droits incomplètes ou viciées** : chaîne de cessions
+  interrompue (un cessionnaire intermédiaire n'a pas régularisé la
+  cession aval), absence de signature, défaut d'inscription au
+  Registre National des Brevets
+- **M&A non régularisée** : acquisition d'une société propriétaire de
+  brevets sans transfert effectif (apport partiel d'actif mal exécuté,
+  fusion-absorption avec brevets oubliés)
+- **Invention de salarié L.611-7 CPI** : régime spécifique français
+  (invention de mission appartient à l'employeur avec contrepartie
+  financière ; invention hors mission attribuable à l'employeur sous
+  conditions ; sinon appartient au salarié). Mauvaise qualification =
+  nullité du dépôt par l'employeur.
+
+L'action en revendication de propriété (CPI L.611-8) est distincte de
+l'action en nullité L.613-25 e) — elles peuvent être cumulées dans le
+même contentieux.
+
+### Format de présentation par motif retenu
+
+Pour chaque motif de nullité retenu dans l'argumentation, présenter :
+
+- **Motif** : intitulé exact + référence article (L.613-25 lettre +
+  article CPI fondateur + équivalent CBE le cas échéant)
+- **Force probable** :
+  - 🟢 **solide** : art antérieur clair et directement applicable,
+    jurisprudence favorable récente, expertise technique attendue
+    convergente
+  - 🟡 **mixte** : interprétation ouverte, contestation possible par
+    le titulaire, dépend d'éléments de preuve à consolider
+  - 🔴 **faible** : motif théorique sans preuve solide à ce stade,
+    nécessite consolidation avant exploitation (à marquer `[review]`)
+- **Pièces requises** : art antérieur (citations Espacenet / Google
+  Patents / NPL), expertise technique (souvent nécessaire en domaines
+  complexes — chimie, biotech, logiciel embarqué), généalogie déposant
+  (chaîne de cessions du Registre National des Brevets, statuts,
+  procès-verbaux d'assemblées d'apport)
+- **Précédent jurisprudentiel** : décision TJ Paris 3e ch. ou Cour de
+  cass. com. récente pertinente, à vérifier sur Légifrance avant toute
+  transmission externe (taguer `[connaissance modèle — à vérifier]`
+  par défaut)
+
+Pour le détail des motifs, exemples jurisprudentiels par domaine
+technique et erreurs courantes : voir `references/motifs-nullite-brevet.md`.
+
+---
