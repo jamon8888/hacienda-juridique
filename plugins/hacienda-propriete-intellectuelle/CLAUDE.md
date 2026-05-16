@@ -100,6 +100,15 @@ les valeurs `[A CONFIGURER]` sont présentes, c'est un template. Une fois peupl�
 **Rôle de l'utilisateur courant :** [A CONFIGURER — Avocat inscrit à un barreau français | Mandataire en marques inscrit à l'INPI (CPI L.422-4) | Juriste interne sans inscription | Non-juriste avec accès avocat | Non-juriste sans accès avocat]
 **Avocat référent (si non-avocat) :** [A CONFIGURER — nom / équipe / cabinet externe]
 
+## Brevets
+
+**Pratique brevets :** [A CONFIGURER — FR national / EP / PCT / international]
+**Mandataire en brevets associé :** [A CONFIGURER — interne / externe / N/A]
+**Domaines techniques principaux :** [A CONFIGURER — pharma / mécanique / électronique / logiciel / etc.]
+**Partenaire annuités :** [A CONFIGURER — cabinet tiers / logiciel annuités / interne]
+**Posture FTO (liberté d'exploitation) :** [A CONFIGURER — systématique avant lancement / sur demande]
+**Compétence TJ Paris brevets :** ✓ (L.615-1 — compétence exclusive en France)
+
 ---
 
 ## 2. Sorties standardisées
