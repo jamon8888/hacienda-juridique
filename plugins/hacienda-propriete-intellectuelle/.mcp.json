@@ -1,14 +1,14 @@
 {
   "mcpServers": {
-    "Hacienda Sources Officielles": {
+    "Hacienda Propriété Intellectuelle": {
       "type": "stdio",
-      "title": "Hacienda Sources Officielles",
-      "description": "Accès local aux sources officielles françaises via PISTE."
+      "title": "Hacienda Propriété Intellectuelle",
+      "description": "Recherche INPI marques, EUIPO TMview, BOPI dernières publications + sources Légifrance/jurisprudence."
     }
   },
   "recommendedCategories": [
-    "recherche-juridique",
-    "sources-officielles",
-    "droit-francais"
+    "propriete-intellectuelle",
+    "marques",
+    "registres-officiels"
   ]
 }

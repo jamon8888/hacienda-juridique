@@ -22,10 +22,21 @@ import { registerBofipAliases } from "./tools/bofip.js";
 import { registerJudilibreTools } from "./tools/judilibre.js";
 import { registerBossTools } from "./tools/boss.js";
 import { registerEurlexTools } from "./tools/eurlex.js";
+import { registerInpiSearchMarques, registerInpiMarqueDetails } from "./tools/marque-search.js";
+import { registerEuipoTmviewSearch } from "./tools/euipo-tmview-search.js";
+import { registerBopiDernieresPublications } from "./tools/bopi-dernieres-publications.js";
+import { InpiClient } from "./sources/inpi-marques.js";
+import { EuipoTmviewClient } from "./sources/euipo-tmview.js";
+import { loadInpiCredentials, loadEuipoCredentials } from "./config.js";
 
 // Re-exports pour les plugins qui veulent un usage avancé.
 export { loadConfig } from "./config.js";
 export type { Config, PisteEnv } from "./config.js";
+export {
+  loadInpiCredentials,
+  loadEuipoCredentials,
+} from "./config.js";
+export type { InpiCredentials, EuipoCredentials } from "./config.js";
 export { loadJudilibreConfig } from "./judilibre/config.js";
 export type { JudilibreConfig, JudilibreEnv } from "./judilibre/config.js";
 export {
@@ -251,6 +262,30 @@ export {
   registerEurlexTools,
 };
 export {
+  InpiCredentialsMissingError,
+  InpiHttpError,
+  InpiMarqueSchema,
+  InpiMarqueDetailsSchema,
+} from "./sources/inpi-marques.js";
+export { InpiClient } from "./sources/inpi-marques.js";
+export {
+  EuipoCredentialsMissingError,
+  EuipoHttpError,
+  EuipoMarqueSchema,
+} from "./sources/euipo-tmview.js";
+export { EuipoTmviewClient } from "./sources/euipo-tmview.js";
+export {
+  BopiClient,
+  BopiUnavailableError,
+  BopiPublicationSchema,
+} from "./sources/bopi.js";
+export {
+  registerInpiSearchMarques,
+  registerInpiMarqueDetails,
+  registerEuipoTmviewSearch,
+  registerBopiDernieresPublications,
+};
+export {
   callLegifranceApiExpert,
   LegifranceApiCallArgsSchema,
 } from "./tools/api-call.js";
@@ -355,6 +390,16 @@ export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
   registerJudilibreTools(server, judilibreConfig);
   registerBossTools(server);
   registerEurlexTools(server);
+
+  const inpiCreds = loadInpiCredentials();
+  const inpiClient = inpiCreds ? new InpiClient(inpiCreds) : null;
+  const euipoCreds = loadEuipoCredentials();
+  const euipoClient = euipoCreds ? new EuipoTmviewClient(euipoCreds) : null;
+
+  registerInpiSearchMarques(server, inpiClient);
+  registerInpiMarqueDetails(server, inpiClient);
+  registerEuipoTmviewSearch(server, euipoClient);
+  registerBopiDernieresPublications(server);
 
   const start = async () => {
     const transport = new StdioServerTransport();
