@@ -367,3 +367,173 @@ identique ou similaire déposée par un tiers entre les deux dates. Cette
 priorité est **stratégique** pour la séquence FR puis EU/Madrid à 6 mois.
 
 ---
+
+## Checklist vérifications avant dépôt
+
+À produire en sortie sous forme de matrice avec colonne ✓/✗/[review]. Cette
+checklist N'EST PAS une attestation de validité — chaque ligne est un
+prérequis dont la validation finale revient au mandataire en marques ou à
+l'avocat.
+
+- [ ] **Recherche d'antériorité** complète faite via
+  `/hacienda-propriete-intellectuelle:recherche-anteriorite-marque` (FR +
+  EU si dépôt EU envisagé), résultats intégrés à la note du relecteur.
+- [ ] **Motifs absolus L.711-2 CPI** vérifiés (table ci-dessus passée en
+  revue motif par motif, pas un "pass" global).
+- [ ] **Signe non descriptif** des produits/services choisis (motif 2°) et
+  suffisamment distinctif (motif 1°).
+- [ ] **Classes Nice cohérentes** avec l'activité réelle et avec un plan
+  d'usage sous 5 ans (pas d'usage fictif au sens L.714-5 CPI / *Ansul*
+  C-40/01).
+- [ ] **Libellés P&S précis** et conformes aux directives INPI/EUIPO
+  (référence OMPI alphabétique, pas d'intitulés de classe seuls depuis
+  *IP TRANSLATOR*).
+- [ ] **Déposant identifié** : raison sociale exacte + SIREN si personne
+  morale + adresse complète (vérifiée contre Infogreffe ou registre
+  consulaire).
+- [ ] **Mandataire désigné** si EUTM/Madrid sans résidence UE, ou si
+  préférence cabinet.
+- [ ] **Priorité revendiquée** si dépôt antérieur < 6 mois (Convention
+  d'Union de Paris, Art. 4C — 6 mois pour les marques).
+- [ ] **Taxes prévues** au budget (~190€ FR 1 classe / ~850€ EUTM 1 classe /
+  ~700€+ Madrid selon pays désignés).
+- [ ] **Validation mandataire en marques (L.422-4) ou avocat AVANT dépôt
+  formel** — REQUIS, jamais optionnel.
+
+---
+
+## Format de sortie
+
+Préfixer l'en-tête confidentialité depuis `CLAUDE.md` `## 2. Sorties
+standardisées`.
+
+`````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon profil]
+
+# Préparation dépôt marque — Brouillon technique (PAS UN DÉPÔT)
+
+> **Préparation technique, pas rédaction finale.** [paragraphe garde-fou
+> reformulé tel quel — y compris "une marque mal préparée se traduit par un
+> refus, une opposition gagnée par un tiers, ou une déchéance partielle" et
+> le renvoi explicite au mandataire en marques L.422-4 ou avocat PI]
+
+> **⚠️ Note du relecteur**
+> - **Recherche antériorité préalable :** [faite ✓ via `/recherche-anteriorite-marque` le YYYY-MM-DD — cote 🟢/🟡/🔴 reportée comme plancher / à faire ✗ — REQUIS avant figeage du dépôt]
+> - **Motifs absolus L.711-2 vérifiés :** [oui ✓ tous motifs revus / problème(s) flaggé(s) : motif N° — 1 ligne]
+> - **Classes Nice retenues :** [N classes — produits / services / mixte]
+> - **Libellés P&S rédigés :** [N libellés — calibrage posture (large / mesurée / ciblée)]
+> - **Choix territoire pré-validé :** [FR / EU / Madrid + pays — à confirmer mandataire]
+> - **Avant dépôt :** validation mandataire en marques (CPI L.422-4) ou avocat **OBLIGATOIRE**
+
+**Triage :** 🟢 PRÊT À TRANSMETTRE / 🟡 À CLARIFIER / 🔴 KNOCKOUT DÉTECTÉ — une phrase pourquoi
+
+## Signe proposé
+
+- **Signe :** [texte exact, stylisation notée]
+- **Type :** [mot / figuratif / composite / sonore / position / multimédia / hologramme — L.711-1]
+- **Produits / services :** [description 1-3 phrases]
+- **Classes Nice retenues :** [numéros + libellés courts]
+- **Territoires :** [FR / EU / Madrid + pays désignés]
+- **Déposant :** [raison sociale + SIREN + adresse]
+- **Mandataire :** [identifiant si applicable / "à désigner"]
+- **Priorité revendiquée :** [oui : dépôt antérieur date YYYY-MM-DD / non]
+
+## Knockout — motifs absolus L.711-2 CPI
+
+| Motif | Flag | Note |
+|---|---|---|
+| Caractère distinctif (1°) | [aucun / flaggé] | [si flaggé : 1 ligne] |
+| Descriptif (2°) | ... | ... |
+| Devenu usuel (3°) | ... | ... |
+| Forme imposée (5°) | ... | ... |
+| Atteinte ordre public (7°) | ... | ... |
+| Trompeur (8°) | ... | ... |
+
+## Classes Nice retenues + libellés rédigés
+
+**Classe 25 — Vêtements, chaussures, chapellerie**
+Libellé proposé : "Vêtements pour hommes, femmes et enfants ; chaussures
+(à l'exception des chaussures orthopédiques) ; chapellerie ; tee-shirts ;
+sweat-shirts ; pantalons ; jupes ; robes ; vestes ; manteaux ; chemises ;
+chaussettes ; sous-vêtements ; pyjamas ; maillots de bain ; vêtements de
+sport."
+Note : libellé large couvrant la gamme apparel classique. Si focus enfants
+uniquement, restreindre. `[review — calibrage à valider mandataire]`
+
+**Classe 35 — Publicité, gestion d'affaires, vente au détail**
+Libellé proposé : "Services de vente au détail et en ligne de vêtements,
+chaussures et accessoires de mode ; services de présentation de produits
+sur tous moyens de communication pour la vente au détail."
+Note : services de vente au détail désormais clairement reconnus depuis
+*Praktiker* (CJUE C-418/02, 2005).
+
+[... etc pour chaque classe retenue ...]
+
+## Choix territoire recommandé
+
+- **Recommandation :** [FR / EU / Madrid + pays]
+- **Raison :** [stratégie commerciale, budget, calendrier]
+- **Coût indicatif :** [fourchette taxes officielles + frais mandataire]
+- **Stratégie priorité :** [FR puis EU à 6 mois (Union de Paris) / EU
+  direct / Madrid avec base EU / autre]
+
+## Checklist avant dépôt
+
+| Vérification | Statut | Note |
+|---|---|---|
+| Recherche antériorité (FR + EU si applicable) | ✓ / ✗ / [review] | lien `/recherche-anteriorite-marque` output |
+| Motifs absolus L.711-2 CPI | ✓ / ✗ / [review] | ... |
+| Distinctivité (1°) | ✓ / ✗ / [review] | ... |
+| Non descriptif (2°) | ✓ / ✗ / [review] | ... |
+| Classes Nice cohérentes activité | ✓ / ✗ / [review] | usage sous 5 ans L.714-5 |
+| Libellés P&S conformes directives | ✓ / ✗ / [review] | référence OMPI alphabétique |
+| Déposant identifié + adresse exacte | ✓ / ✗ / [review] | vérifier registres officiels |
+| Mandataire désigné (si requis) | ✓ / ✗ / [review] / sans objet | EUTM/Madrid non-résident UE |
+| Priorité revendiquée (si applicable) | ✓ / ✗ / [review] / sans objet | Convention Union de Paris 6 mois |
+| Taxes prévues budget | ✓ / ✗ / [review] | ~190€ FR / ~850€ EUTM / ~700€+ Madrid |
+| Validation mandataire/avocat | ✗ requis | jamais optionnel |
+
+## Brouillon de dossier
+
+**Sections du formulaire INPI (cerfa) / EUIPO (EUTM-001) / OMPI (MM2) avec valeurs proposées :**
+
+- Référence dépôt déposant : [à attribuer]
+- Déposant : [raison sociale + SIREN + adresse]
+- Mandataire : [identifiant + adresse]
+- Signe : [texte + spécimen visuel si figuratif]
+- Type de marque : [conformément L.711-1]
+- Classes Nice + libellés : [comme rédigés ci-dessus]
+- Priorité revendiquée : [détails si applicable]
+- Déclaration de propriété et de bonne foi : standard
+
+## Étapes suivantes
+
+1. **Faire valider** par mandataire en marques INPI (CPI L.422-4) ou avocat
+   PI (REQUIS avant dépôt). [Si profil renseigne un mandataire associé, le
+   nommer.]
+2. **Payer les taxes** (~190€ FR INPI 1 classe / ~850€ EUTM 1 classe /
+   ~700€+ Madrid selon pays désignés). Calcul exact dépendant du nombre de
+   classes et des pays désignés.
+3. **Déposer formellement** via télé-procédure INPI
+   (https://procedures.inpi.fr/) ou EUIPO eSearch+ (https://euipo.europa.eu/)
+   ou formulaire MM2 OMPI pour Madrid.
+4. **Surveiller post-dépôt** avec
+   `/hacienda-propriete-intellectuelle:surveillance-marque --add` (V1.1.0)
+   pour suivre les publications BOPI/Bulletin EUTM et détecter les
+   marques tierces postérieures susceptibles d'opposition.
+
+**Une question hors de ma checklist :** [observation seconde-ordre — omis si rien]
+
+## Que veux-tu faire ?
+
+1. **Itérer sur les libellés P&S** — propositions plus larges / plus
+   étroites par classe, ou ajout/retrait de classes
+2. **Lancer la recherche antériorité** — j'ouvre `/recherche-anteriorite-marque`
+   pour les classes-cibles + familles adjacentes
+3. **Escalader** — note pour mandataire en marques / avocat PI du profil
+4. **Compléter les faits** — autres modes d'usage envisagés, planning
+   lancement, gamme dérivée, sous-marques prévues
+5. **Autre chose** — dis-moi
+`````
+
+---
