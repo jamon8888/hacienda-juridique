@@ -390,3 +390,107 @@ Plusieurs sous-branches, chacune autonome.
 | **Verdict L.711-3** | 🟢/🟡/🔴 | [synthèse motif principal retenu] |
 
 ---
+
+## Recherche complémentaire (avant rédaction de l'analyse)
+
+Avant de produire l'analyse argumentaire, déclencher systématiquement :
+
+- **`inpi_marque_details`** sur la **marque attaquée** (mode `--form`) ou sur
+  **notre marque attaquée** (mode `--respond`) — récupérer :
+  - Historique opposition complet (cette marque a-t-elle déjà fait l'objet
+    d'oppositions abandonnées ou en cours ? modifications de classes en
+    cours d'examen ? retrait partiel du dépôt par le déposant suite à
+    observations INPI ?).
+  - Statut procédural (en examen / publiée / enregistrée / retirée).
+  - Représentant désigné par le déposant (utile pour orienter une éventuelle
+    négociation amiable).
+- **`inpi_marque_details`** sur la **marque opposante invoquée** (les nôtres
+  en mode `--form`, celles de l'opposant en mode `--respond`) — vérifier :
+  - Marque encore en vigueur (pas déchue, pas retirée).
+  - **Pas de déchéance encourue pour défaut d'usage** (L.714-5 CPI, 5 ans —
+    si la marque opposante n'a pas été exploitée sérieusement dans les 5
+    dernières années, le défendeur peut soulever cette exception en
+    opposition INPI depuis l'ordonnance 2019-1169, et l'opposition tombe).
+  - Statut de renouvellement (échéance décennale L.712-9 — si renouvellement
+    expiré, opposition irrecevable).
+  - Chaîne de titularité (cession, fusion, transmission — vérifier que
+    l'opposant a bien la qualité pour agir).
+- **`euipo_tmview_search`** pour vérifier les antériorités cross-EU si le
+  signe est exploité sur plusieurs territoires (la marque opposante FR
+  peut être doublée d'une EUTM ou inversement — l'opposition devant l'INPI
+  ne porte que sur le territoire FR, mais le choix de la marque opposable
+  affecte la stratégie : EUTM = couverture 27 États si extension future,
+  FR = couverture nationale seule).
+- **Base-jurisprudence INPI** (https://opposition.inpi.fr/decisions) :
+  rechercher des décisions d'opposition antérieures portant sur un signe
+  similaire (même racine, même secteur) ou sur le même secteur Nice — un
+  précédent INPI favorable est un argument puissant à citer dans la
+  discussion en droit. Tagger toute décision citée `[base-jurisprudence
+  INPI]` ou `[connaissance modèle — à vérifier]` selon provenance.
+
+Si l'un de ces tools n'est pas disponible cette session (intégration MCP
+non connectée), le signaler dans la note du relecteur avec `[recherche
+impossible cette session — vérifier manuellement avant transmission
+mandataire]`. Ne pas inventer un statut.
+
+---
+
+## Calcul du délai
+
+Le délai d'opposition (mode `--form`) et le délai de mémoire en défense
+(mode `--respond`) sont tous deux de **2 mois**, mais avec des points de
+départ différents.
+
+### Mode `--form` — délai d'opposition L.712-4
+
+- **Point de départ** : date de publication BOPI de la marque attaquée
+  (BOPI hebdomadaire, parution chaque vendredi).
+- **Point d'arrivée** : date BOPI + 2 mois calendaires (calcul de quantième
+  à quantième, art. 642 CPC ; si le quantième n'existe pas dans le mois
+  d'arrivée — ex. 31 mars + 2 mois = 31 mai existe, mais 31 août + 2 mois =
+  31 octobre existe ; cas critique : 30/31 décembre + 2 mois → 28/29 février).
+- **Effet du dépassement** : déchéance définitive du droit d'opposer. La
+  marque attaquée poursuit son chemin vers l'enregistrement (sauf
+  intervention d'un autre opposant ou observations tierces INPI).
+- **Recours en restauration L.712-4-1** : strictement exceptionnel —
+  "circonstances indépendantes de la volonté du titulaire" prouvées (force
+  majeure, défaillance INPI documentée). Cas acceptés rares (catastrophe
+  naturelle, panne télé-procédure INPI prouvée par horodatage). Cas refusés
+  fréquents (oubli, surcharge cabinet, congé mandataire, erreur de
+  transmission interne, simple négligence). **Ne jamais miser sur la
+  restauration dans la stratégie initiale.**
+
+### Mode `--respond` — délai mémoire en défense
+
+- **Point de départ** : date de notification INPI de l'opposition
+  (notification électronique sur compte mandataire INPI ou courrier
+  recommandé selon le profil du défendeur).
+- **Point d'arrivée** : date de notification + 2 mois.
+- **Effet du dépassement** : opposition jugée non contestée, l'INPI rend sa
+  décision sur le seul mémoire de l'opposant — perte quasi-certaine pour
+  le défendeur sur les classes/libellés visés.
+
+### Seuils de sévérité (identiques pour les deux modes)
+
+| Délai restant | Sévérité | Action |
+|---|---|---|
+| < 30 jours | 🔴 URGENT | Escalation immédiate vers l'approbateur du profil + notification mandataire en marques cette journée ; télé-procédure INPI lancée cette semaine sans délai supplémentaire ; toute négociation amiable parallèle ne doit PAS retarder le dépôt du mémoire (déposer puis négocier, jamais l'inverse — l'opposition peut toujours être retirée). |
+| 30-45 jours | 🟠 À PRÉPARER | Préparer le mémoire cette semaine ; validation mandataire J+5 ; dépôt INPI J+10 max ; marge de sécurité contre aléas (vérification pièces, congé approbateur, modification 11e heure). |
+| > 45 jours | 🟡 STANDARD | Planifier dans le mois ; jalons : analyse cette semaine, première version mémoire J+10, validation mandataire J+20, dépôt J+30 ; relire avant dépôt avec œil neuf. |
+
+### Matrice procédure complète (mode `--respond` notamment)
+
+| Étape | Délai post-événement | Notre statut | Action |
+|---|---|---|---|
+| Notification opposition (INPI) | T0 | Reçue ✓ | n/a — point de départ |
+| Mémoire en défense | T0 + 2 mois | À déposer | 🔴/🟠/🟡 selon délai restant |
+| Réplique opposant (facultative) | T0 + ~4 mois | À recevoir | Préparer arguments anticipés |
+| Contre-réplique défendeur | T0 + ~6 mois | À déposer si réplique reçue | Suivre instruction INPI |
+| Décision INPI | T0 + ~8-10 mois | Attendue | Préparer plan post-décision |
+| Recours Cour d'appel Paris (L.411-4) | Décision + 1 mois | Optionnel | Différé `contentieux-marques` V6.0+ |
+
+Les délais > T0+2 mois sont indicatifs (variables selon charge INPI et
+complexité du dossier). Les délais ≤ T0+2 mois (mémoire défense /
+opposition initiale) sont **fermes et opposables**.
+
+---
