@@ -1,5 +1,27 @@
 # Changelog — hacienda-propriete-intellectuelle
 
+## 0.7.0 — 2026-05-16
+
+### Ajouts — Refus INPI + Invalidité brevets (workflow brevets défensif complet)
+- Skill `analyse-refus-inpi` (analyse notifications INPI R.612-66 / OEB Règle 132 EPC, classification citations X/Y/A/E, stratégies amendement A/B/C/D, problème-solution OEB, projet de réponse FR/EN, ~840 lignes)
+- Skill `anteriorite-invalidite` (argumentation nullité L.613-25, bi-mode `--attack`/`--defense`, recherche art antérieur destructeur, projet écritures TJ Paris, ~1040 lignes)
+- Références : `classification-citations-oeb`, `strategies-amendement`, `motifs-nullite-brevet`, `procedure-nullite-tj-paris`
+- Section CLAUDE.md template "Brevets" enrichie (postures refus + nullité, délais clés, approbateurs)
+- Section `references/ressources-pi-fr.md` "Procédures brevets INPI / OEB / TJ Paris" ajoutée
+
+### Workflow brevets complet (V2.0 + V2.1)
+- Recherche antériorité (V2.0) → Préparation dépôt (V2.0) → Réponse refus INPI/OEB (V2.1) → Claim chart contrefaçon (V2.0) → Nullité défensive ou attaque (V2.1) = **boucle fermée**
+
+### Coordination V2.0 + V2.1
+- `tableau-contrefacon-brevet --form` (V2.0) prépare l'offensive contrefaçon
+- → `anteriorite-invalidite --defense` (V2.1) prépare la défense face à action contrefaçon adverse
+- → `analyse-refus-inpi` (V2.1) prépare la réponse aux notifications INPI/OEB durant prosecution
+
+### À venir (V2.1.1 / V2.2)
+- Connecteur Google Patents (complément Espacenet)
+- `strategie-extension-internationale` (arbre EP/PCT/national)
+- `revue-portefeuille-brevets` (réutilise dashboard HTML V1.1.1)
+
 ## 0.6.0 — 2026-05-16
 
 ### Ajouts — Dépôt + Opposition marques (ferme workflow marques)

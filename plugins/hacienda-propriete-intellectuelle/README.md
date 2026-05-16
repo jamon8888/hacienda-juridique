@@ -52,6 +52,13 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
 
+## Quoi de neuf en V0.7 — Refus INPI + Invalidité (workflow brevets défensif complet)
+
+- Nouveau skill `analyse-refus-inpi` : analyse notifications INPI (R.612-66 CPI) ou OEB (Règle 132 EPC), classification citations X/Y/A/E, 4 stratégies d'amendement (limitation, reformulation, abandon, divisionnaire), argumentation problème-solution OEB, projet de réponse FR/EN
+- Nouveau skill `anteriorite-invalidite` : argumentation nullité L.613-25 (5 motifs), bi-mode `--attack` (action nullité préventive TJ Paris) / `--defense` (face à action contrefaçon adverse), recherche art antérieur destructeur, projet d'écritures TJ Paris
+- **Le workflow brevets est désormais complet end-to-end** : recherche antériorité (V2.0) → préparation dépôt (V2.0) → réponse refus (V2.1) → claim chart contrefaçon (V2.0) → nullité défensive ou attaque (V2.1)
+- Coordination V2.0 + V2.1 : workflows offensifs (claim chart) et défensifs (nullité) se complètent
+
 ## Quoi de neuf en V0.6 — Dépôt + Opposition (workflow marques complet)
 
 - Nouveau skill `depot-marque-fr` : préparation dossier dépôt FR INPI / EUTM / Madrid avec rédaction libellés P&S conformes directives, arbre décisionnel territoire, checklist 10 points
