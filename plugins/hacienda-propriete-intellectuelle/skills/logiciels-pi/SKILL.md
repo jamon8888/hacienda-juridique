@@ -432,3 +432,129 @@ Réserves opérationnelles :
   contrefaçon. `[review]`
 
 ---
+
+## Étape 3 — Typologie des licences logiciel
+
+### Licences propriétaires
+
+- Code source **fermé**, distribution sous **EULA** (End User License
+  Agreement)
+- Droits d'utilisation **strictement limités** (1 utilisateur, 1 serveur,
+  1 instance, etc. — variable selon EULA)
+- **Pas de modification** autorisée (sauf exception L.122-6-1 correction
+  d'erreurs si non écartée contractuellement)
+- **Pas de redistribution**
+- **Pas d'accès au code source** (ou accès très restreint sous accord
+  spécifique, parfois NDA renforcé)
+- Exemples : Microsoft Office, Adobe Creative Cloud, SAP, Oracle Database,
+  SaaS propriétaires
+
+### Licences open source — typologie 4 grandes catégories
+
+**A. Permissives (faible contrainte de réciprocité)**
+
+| Licence | Contraintes principales |
+|---|---|
+| **MIT** | "Do whatever you want, just keep copyright notice" — la plus permissive ; seule obligation : conserver le copyright + le texte de la licence |
+| **BSD 2-clause / 3-clause** | Similaire MIT ; la 3-clause ajoute une clause de non-endorsement (interdiction d'utiliser le nom des auteurs pour promouvoir des dérivés sans accord) |
+| **Apache 2.0** | MIT + protection brevet explicite (patent grant) + notice modifications (fichier NOTICE) + résiliation automatique en cas d'action en contrefaçon brevet par le licencié |
+| **ISC** | Équivalent MIT simplifié (utilisée par OpenBSD) |
+
+**Compatibilité** : compatibles avec licences propriétaires → peuvent être
+incorporées dans un produit commercial fermé sans contamination.
+
+**B. Copyleft fort (réciprocité totale)**
+
+| Licence | Contraintes principales |
+|---|---|
+| **GPL v2** | Tout logiciel intégrant du code GPL **doit être distribué sous GPL** ("contamination virale") ; code source fourni à tout distributaire |
+| **GPL v3** | GPL v2 + protection brevet (patent grant) + clause anti-tivoization (interdit le verrouillage matériel empêchant l'utilisateur d'exécuter une version modifiée) + compatibilité explicite avec Apache 2.0 |
+| **AGPL v3** | GPL v3 étendue au SaaS — **l'utilisation sur serveur compte comme redistribution** → obligation de fournir le code source aux utilisateurs distants |
+
+**Incompatibles** avec licences propriétaires (forks commerciaux interdits
+sauf si le projet original pratique du dual licensing — modèle MySQL,
+historique Qt).
+
+**C. Copyleft faible (réciprocité limitée à la modification)**
+
+| Licence | Contraintes principales |
+|---|---|
+| **LGPL v2.1 / v3** | Les **modifications du code LGPL** doivent rester LGPL, mais la **liaison dynamique** depuis un logiciel propriétaire est autorisée (le logiciel propriétaire reste propriétaire) ; **liaison statique** plus contestée |
+| **MPL 2.0 (Mozilla Public License)** | Copyleft **fichier par fichier** — les modifications d'un fichier MPL restent MPL, mais d'autres fichiers du projet peuvent être propriétaires (modèle de "compartimentation") |
+| **EPL (Eclipse Public License)** | Similaire MPL avec spécificités plugin Eclipse |
+
+**D. Spécifiques**
+
+| Licence | Domaine |
+|---|---|
+| **Creative Commons** (CC-BY, CC-BY-SA, CC-BY-NC, CC-BY-NC-SA, etc.) | Contenus créatifs (textes, images, musique, documentation) — **généralement PAS recommandées pour du code source** (rédigées pour des œuvres au sens droit auteur général, pas pour le logiciel) |
+| **Licences custom** (BSL Business Source License, SSPL Server Side Public License, Commons Clause add-on, Elastic License v2, etc.) | Souvent licences "source-available" hybrides — **risque juridique élevé**, analyse au cas par cas obligatoire ; non reconnues comme open source par l'OSI |
+
+Référence détaillée par licence : `references/licences-open-source.md`.
+
+## Étape 4 — Compatibilité des licences (problème viral)
+
+### Risque "contamination virale"
+
+- Si un projet propriétaire intègre du code GPL → l'ensemble doit être
+  distribué sous GPL (par "contamination").
+- Conséquences pour une startup SaaS : obligation de fournir le code source
+  aux utilisateurs (AGPL) ou clients (GPL en cas de distribution).
+- Risque commercial **majeur** : le modèle business propriétaire devient
+  impossible ; soit on assume l'open source, soit on remplace la dépendance,
+  soit on isole strictement.
+
+### Matrice de compatibilité simplifiée
+
+| Combinaison | Verdict |
+|---|---|
+| MIT / BSD / Apache 2.0 + projet propriétaire | ✅ Compatible (permissive) — conserver copyright + NOTICE Apache |
+| **GPL** + projet propriétaire (intégration code) | ❌ Impossible (contamination GPL) |
+| **LGPL** + projet propriétaire (**liaison dynamique**) | ✅ OK — code LGPL séparé en bibliothèque dynamique |
+| LGPL + projet propriétaire (**liaison statique**) | ⚠️ Contesté (interprétations FSF restrictives vs pratique industrielle plus souple — `[review]` selon contexte) |
+| **AGPL** + SaaS propriétaire | ❌ Impossible (AGPL couvre l'utilisation serveur) |
+| MPL 2.0 + projet propriétaire | ✅ OK fichier par fichier (compartimentation) |
+| Apache 2.0 + GPL v2 | ❌ Incompatible (problème historique patent grant Apache) |
+| Apache 2.0 + GPL v3 | ✅ Compatible (GPL v3 a explicitement résolu le conflit) |
+| MIT + GPL | ✅ Code MIT peut être intégré dans projet GPL (l'inverse non) |
+| Creative Commons **NC** (NonCommercial) + projet commercial | ❌ Impossible (NC = non commercial) |
+| Creative Commons **ND** (NoDerivatives) + projet quel qu'il soit | ⚠️ Très restrictif — pas de modification autorisée |
+| BSL / SSPL / Elastic License + projet SaaS commercial | ❌ Souvent bloquant — analyse spécifique nécessaire `[review]` |
+
+### Recommandations cabinet
+
+- **Tout projet SaaS B2B doit scanner ses dépendances régulièrement** via
+  outils SCA :
+  - Snyk, Black Duck Synopsys, FOSSA, GitHub Dependabot, OWASP
+    Dependency-Check
+  - Cadence recommandée : **mensuelle minimum**, **hebdomadaire** en phase
+    de croissance ou pré-levée
+
+- **Politique de cabinet type** (à adapter selon secteur et tolérance
+  risque) :
+
+  - **Whitelist** (utilisation sans validation préalable) : MIT, BSD-2-Clause,
+    BSD-3-Clause, ISC, Apache 2.0, MPL 2.0 (compartimentation respectée)
+  - **Validation case par case** : LGPL v2.1 / v3 (OK si liaison
+    dynamique exclusivement) ; licences custom source-available (Elastic
+    License v2, BSL avec date de bascule, etc.)
+  - **Blacklist** (interdit sauf isolation stricte en microservice séparé
+    sans intégration directe) : GPL v2, GPL v3, AGPL v3, SSPL, Creative
+    Commons NC
+
+- **Cleanup audit pré-levée Series A+** : exiger SBOM (Software Bill of
+  Materials) au format SPDX ou CycloneDX + analyse licences avant due
+  diligence investisseurs. C'est devenu un standard de la due diligence
+  tech (les investisseurs en exigent souvent un en data room).
+
+- **Désynchronisation à surveiller** : auditer les dépendances qui ont
+  **changé de licence** par l'amont (cas devenu fréquent — ElasticSearch
+  passé en SSPL en 2021, MongoDB en 2018, Redis Stack en 2024, Terraform en
+  BSL en 2023). Tout changement de licence amont peut rendre une
+  dépendance soudainement incompatible avec le modèle business.
+
+- **Documenter** : registre des licences acceptées + responsable conformité
+  (souvent CTO ou DPO) + procédure d'ajout de dépendance (revue licence
+  obligatoire avant merge).
+
+---
