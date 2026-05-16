@@ -401,3 +401,104 @@ Pour chaque revendication objectée, présenter un mini-tableau :
 Référence : `references/strategies-amendement.md`.
 
 ---
+
+## Argumentation problème-solution OEB (pour citations Y — activité inventive)
+
+L'argument problème-solution est le **cadre officiel OEB** (Directives examen
+partie G chapitre VII section 5), adopté en pratique par l'INPI pour
+l'examen de l'activité inventive. À utiliser pour défendre tout amendement
+contre une citation Y (destructrice d'activité inventive en combinaison).
+
+**Démarche en 4 étapes** :
+
+1. **État de la technique le plus proche** (*closest prior art*) —
+   généralement la citation Y la plus pertinente, c'est-à-dire celle qui
+   partage le plus de caractéristiques avec la revendication amendée. Si
+   plusieurs citations Y sont équivalemment proches, traiter chaque
+   combinaison séparément.
+
+2. **Caractéristiques distinctives** apportées par l'amendement (versus
+   *closest prior art*) — lister précisément ce que la revendication
+   amendée a en plus / en différent du *closest prior art*.
+
+3. **Problème technique objectif** que ces caractéristiques distinctives
+   résolvent — formulation OEB type : « améliorer / résoudre [X] par
+   rapport à [Y] ». Le problème doit être **objectif** (résultat technique
+   mesurable, démontré dans la description ou les exemples) et non
+   subjectif (« mieux », « plus efficace » sans chiffrage). Si l'effet
+   technique n'est pas dans la description originale, on ne peut PAS
+   l'inventer après coup (Art. 123(2) EPC).
+
+4. **Non-évidence pour l'homme du métier** à la date de priorité — le test
+   décisif : *l'homme du métier, partant du closest prior art et confronté
+   au problème technique objectif, aurait-il modifié le closest prior art
+   en s'aidant des autres citations Y pour aboutir à notre invention
+   amendée ?*
+   - Si **non** → activité inventive établie
+   - Si **oui** → activité inventive contestée, l'amendement ne suffit pas
+
+**Arguments classiques de non-évidence** :
+- **Pas de motivation** dans le *closest prior art* à chercher une solution
+  dans la direction de notre invention
+- **Pas d'enseignement combinatoire** : les citations Y traitent de domaines
+  techniques distincts, l'homme du métier n'aurait pas naturellement
+  combiné
+- **Effet technique inattendu** : la combinaison produit un résultat
+  surprenant (synergie, effet contre-intuitif) — argument fort si démontré
+  par exemples chiffrés dans la description originale
+- **Préjugé technique** dans le domaine contre la voie que nous avons
+  empruntée (jurisprudence OEB T 0024/81, T 0119/82)
+
+Pour chaque citation Y dans la notification, construire l'argument structuré
+selon ce gabarit dans le projet de réponse.
+
+---
+
+## Délais et procédure
+
+### INPI — art. R.612-66 CPI
+
+- **Délai standard** : 2 à 4 mois selon le type de notification
+  - Rapport de recherche préliminaire : 3 mois pour répondre par observations
+  - Notification de motifs de refus : 4 mois pour répondre
+  - Délais précis indiqués dans la notification elle-même
+- **Prorogation** : 2 mois supplémentaires sur **demande motivée**, déposée
+  **AVANT l'expiration** du délai initial (R.618-3 CPI). La prorogation
+  n'est pas automatique mais largement accordée si la motivation est
+  raisonnable (complexité technique, attente d'éléments de preuve).
+- **Modalité de réponse** : télé-procédure INPI obligatoire depuis 2017
+  (portail data.inpi.fr / espace mandataire).
+- **Sanction du défaut** : pas de réponse dans le délai → notification de
+  **rejet** de la demande (R.612-70 CPI). Recours possible auprès du
+  directeur INPI puis devant la CA Paris (L.411-4 CPI).
+
+### OEB — Règle 132 EPC
+
+- **Délai standard** : **4 mois** (Règle 132(2) EPC)
+- **Prorogation** : 2 mois supplémentaires maximum, sur demande déposée
+  **AVANT expiration** (Règle 132(2) seconde phrase EPC). Acceptée
+  largement.
+- **Modalité de réponse** : portail MyEPO (dépôt électronique standard).
+- **Sanction du défaut** : la demande est **réputée retirée** (Art. 94(4)
+  EPC). Conséquence sévère mais **rattrapable** par **procédure de
+  poursuite** (*further processing* — Art. 121 EPC) : demande recevable dans
+  les **2 mois** suivant la notification de réputation retirée, sur
+  paiement d'une **taxe** (~280 €). Si la procédure de poursuite est elle
+  aussi manquée → demande définitivement perdue.
+
+### Calcul automatique de la sévérité
+
+| Délai restant | Sévérité | Action |
+|---|---|---|
+| < 7 jours | 🔴 CRITIQUE | Stop analyse — brief 1 page + demande prorogation immédiate |
+| 7-14 jours | 🔴 URGENT | Analyse en parallèle d'une demande de prorogation |
+| 14-30 jours | 🔴 PRESSÉ | Escalation mandataire EQE cette semaine |
+| 30-60 jours | 🟠 À PRÉPARER | Préparer cette semaine, finaliser avec mandataire d'ici 2 semaines |
+| > 60 jours | 🟡 STANDARD | Planifier dans le mois |
+
+**Règle** : si délai < 14 jours, recommander **systématiquement** de déposer
+une demande de prorogation **en parallèle** de l'analyse. Une prorogation
+demandée à temps coûte zéro en taxes (INPI) ou est inclus (OEB), et donne
+2 mois de marge supplémentaire pour finaliser proprement la réponse.
+
+---
