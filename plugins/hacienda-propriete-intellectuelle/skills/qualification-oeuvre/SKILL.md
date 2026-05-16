@@ -188,3 +188,111 @@ Si l'utilisateur ne sait pas trancher entre 2 objectifs, demander : « décris
 le déclencheur — qu'est-ce qui t'amène à qualifier cette œuvre maintenant ? »
 
 ---
+
+## Étape 1 — Analyse de l'originalité (L.111-1 + CJUE Infopaq)
+
+C'est le **cœur** de la qualification. Sans originalité = pas de droit d'auteur,
+quelle que soit la qualité de l'œuvre, son utilité ou sa valeur marchande.
+
+### Critère central
+
+> **CPI L.111-1** : « L'auteur d'une œuvre de l'esprit jouit sur cette œuvre,
+> du seul fait de sa création, d'un droit de propriété incorporelle exclusif
+> et opposable à tous. »
+>
+> **Critère central de la jurisprudence française** : « l'œuvre porte la
+> marque de la personnalité de son auteur » (Cour de cass. 1re civ., formule
+> classique reprise dans de nombreuses décisions).
+>
+> **Reformulation européenne harmonisante** : **CJUE Infopaq C-5/08 (16 juillet
+> 2009)** — « création intellectuelle propre à son auteur ». La directive
+> 2001/29/CE sur le droit d'auteur dans la société de l'information est
+> interprétée par la CJUE comme imposant un critère d'originalité
+> autonome au droit de l'Union, applicable à toutes les œuvres relevant des
+> droits harmonisés (reproduction, communication au public, distribution).
+>
+> L'originalité s'apprécie **au cas par cas**, en fonction des choix créatifs
+> réellement opérés par l'auteur. **Pas de seuil minimal absolu** (une œuvre
+> très courte peut être originale) ni de notion de « qualité artistique » :
+> la jurisprudence rappelle régulièrement que **le juge ne porte pas
+> d'appréciation esthétique** (principe de neutralité du juge en matière
+> artistique — formule récurrente : « il n'appartient pas au juge de porter
+> une appréciation sur la valeur artistique de l'œuvre »).
+
+### Exemples par catégorie
+
+**Œuvres dont l'originalité est généralement contestable** :
+- **Annuaire téléphonique** (compilation alphabétique mécanique) → pas
+  d'originalité par lui-même au sens du droit d'auteur (peut éventuellement
+  bénéficier du droit sui generis sur les bases de données L.341-1 si
+  investissement substantiel — régime distinct).
+- **Photographie simple de catalogue** (produit cadré frontalement sur fond
+  neutre) → originalité contestable si aucune mise en scène, aucun choix
+  d'éclairage, d'angle, de cadrage personnels. La CJUE (Painer C-145/10) a
+  toutefois rappelé que même une photographie documentaire peut être
+  originale si l'auteur a exercé des choix libres.
+- **Formulaire standard** (déclaration d'impôt, formulaire administratif) →
+  généralement pas d'originalité, fonctionnel et imposé.
+- **Liste d'ingrédients d'une recette** (l'arrangement créatif du texte
+  qui présente la recette peut être original ; la liste brute non).
+
+**Œuvres dont l'originalité est généralement présumée** :
+- **Œuvre littéraire** (roman, essai, nouvelle, poésie) → présomption forte
+  dès qu'il y a écriture personnelle.
+- **Œuvre cinématographique / audiovisuelle** → présomption forte
+  (succession de choix : scénario, montage, dialogues, prises de vue).
+- **Logiciel** → critère reformulé par Cour de cass. 1re civ. 7 mars 1986
+  (Pachot) : « effort personnalisé allant au-delà de la simple mise en
+  œuvre d'une logique automatique et contraignante ». Voir aussi
+  CJUE BSA C-393/09 (2010) sur le statut de l'interface graphique (non
+  protégée par le droit d'auteur logiciel mais éventuellement protégée par
+  le droit d'auteur général).
+- **Œuvre musicale** → présomption d'originalité forte sauf reprise pure
+  (la combinaison mélodie + harmonie + rythme suffit généralement).
+- **Œuvre de design** → originalité reconnue si choix créatifs au-delà de
+  la fonction technique pure (CJUE Cofemel C-683/17 (2019) : le critère
+  d'originalité au sens du droit d'auteur est autonome et ne dépend pas d'un
+  critère esthétique — cumul possible avec dessin et modèle enregistré).
+
+### Tests pratiques pour évaluer l'originalité (à appliquer au cas concret)
+
+1. **Test des choix libres vs choix techniques imposés** : le créateur a-t-il
+   pu opérer des **choix libres** (forme, structure, expression, agencement,
+   couleurs, mots) ? Ou tous les choix étaient-ils dictés par une **contrainte
+   technique** (norme à respecter, format imposé, fonction unique possible) ?
+   Plus les choix sont libres, plus l'originalité est probable.
+
+2. **Test de l'identifiabilité** : l'œuvre est-elle **reconnaissable** par
+   rapport à d'autres créations du même genre ? Un lecteur averti pourrait-il
+   distinguer cette œuvre d'une production banale du même secteur ? Cette
+   « empreinte personnelle » est un indice d'originalité.
+
+3. **Test de l'effort intellectuel créatif** : y a-t-il un **effort
+   intellectuel personnel** au-delà de la simple **compilation mécanique** ou
+   de la **production automatique** (génération aléatoire pure, mise en page
+   automatique sans choix éditorial) ? Ce test élimine les productions
+   purement mécaniques ou automatiques.
+
+### Verdict
+
+- **🟢 Originalité probable** : oui aux 3 tests. L'œuvre porte clairement
+  l'empreinte de choix créatifs personnels.
+- **🟡 Originalité à argumenter** : résultats mixtes (par exemple choix libres
+  oui mais identifiabilité faible ; ou effort intellectuel oui mais sur fond
+  de contrainte technique forte). Il faut **construire l'argumentation
+  juridique** en s'appuyant sur les éléments concrets de choix créatifs.
+- **🔴 Originalité douteuse** : non aux 3 tests. Création strictement
+  utilitaire, mécanique, ou imposée par les contraintes techniques. Le droit
+  d'auteur est probablement inapplicable ; envisager d'autres régimes (droit
+  sui generis bases de données, dessin et modèle, concurrence déloyale).
+
+**Sortie de l'étape 1** : verdict 🟢/🟡/🔴 + 2-3 lignes de justification
+basée sur l'application concrète des 3 tests à l'œuvre analysée (pas une
+récitation des règles — un raisonnement appliqué).
+
+> **Note** : ce verdict est une **appréciation prima facie** pour orienter
+> l'analyse — il ne préjuge pas de la décision d'un juge sur le fond, qui
+> peut diverger sur la base d'éléments de preuve supplémentaires apportés
+> par les parties. Tag `[review]` systématique sur les cas 🟡.
+
+---
