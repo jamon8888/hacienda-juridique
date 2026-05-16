@@ -220,3 +220,157 @@ Si la sévérité ressort 🔴 URGENT :
   tête de document.
 
 ---
+
+## Arbre décisionnel — 3 voies principales
+
+Une fois l'intake complété, dérouler l'analyse des 3 voies en explicitant
+**coûts, marchés, avantages, inconvénients, recommandé si**. Adapter le
+verdict de pertinence pour chaque voie au profil cabinet et aux marchés
+cibles déclarés.
+
+### Voie A — FR national seul (rester en FR)
+
+- **Marché couvert** : France uniquement.
+- **Coût dépôt initial** : ~38€ taxe dépôt INPI + ~520€ rapport de recherche
+  préliminaire = ~560€ TTC.
+- **Annuités progressives 10 ans** : ~38€ (an 2) → ~250€ (an 10), cumul
+  ~1 500€ sur 10 ans.
+- **Annuités progressives 20 ans** : ~810€ (an 20) — cumul total ~7 500€
+  sur la durée maximale de protection.
+- **Délai protection** : 18-36 mois examen INPI (variable selon backlog
+  technique CIB).
+- **Avantages** :
+  - Économique (1 ordre de grandeur sous EP, 2 sous PCT).
+  - Procédure simple, langue française, mandataire FR sans coordination
+    multi-juridictions.
+  - Examen relativement court, pas de procédure d'opposition INPI brevets
+    (vs marques) — opposition limitée à action en nullité TJ Paris L.615-1.
+- **Inconvénients** :
+  - Aucune protection EU / US / international ; concurrents libres à
+    l'étranger pour fabriquer et vendre l'invention.
+  - Pas de bénéfice marketing / investisseurs « brevet européen » ou
+    « famille internationale » (signal valorisation négatif en levée de
+    fonds série A+).
+  - Risque concurrent : un acteur étranger peut déposer une variante dans
+    son pays sans contrainte (sauf si publication FR antérieure documentée).
+- **Recommandé si** :
+  - Invention purement nationale (filière agroalimentaire / terroir, marché
+    local, service réglementé FR-spécifique).
+  - Budget serré (< 10k€ enveloppe brevets).
+  - Marché FR exclusif sans ambition internationale court / moyen terme.
+  - Mode licensing FR uniquement (signal de marquage de marché national).
+
+### Voie B — Extension EP (Brevet européen via OEB)
+
+- **Marché couvert** : 38 États parties à la CBE (UE 27 + Royaume-Uni +
+  Suisse + Norvège + Turquie + Liechtenstein + Monaco + autres). **Le Brexit
+  n'a PAS affecté l'adhésion UK à la CBE** (la CBE n'est pas un instrument
+  UE — UK reste membre).
+- **Délai d'extension** : **12 mois post-FR initial** (Convention Union de
+  Paris, Art. 4 — fenêtre ferme).
+- **Coût dépôt EP** : ~120€ taxe dépôt + ~1 300€ examen + ~600€ recherche =
+  ~2 000€ taxes officielles OEB. Frais mandataire : ~5-15k€ HT cabinet
+  parisien selon complexité.
+- **Coût annuités EP pré-délivrance** : ~510€/an dès la 3e année (gel des
+  coûts pré-délivrance — annuité unique OEB indépendamment des pays
+  désignés).
+- **Validation post-délivrance** : choix des pays à valider — **traduction
+  des revendications obligatoire** dans la langue du pays sauf **Accord de
+  Londres** (FR/DE/GB acceptent FR/EN/DE sans traduction supplémentaire des
+  revendications).
+- **Coût validation par pays** : ~600-1 500€ selon pays (taxe nationale +
+  mandataire local + traduction certifiée si hors Accord Londres).
+- **Annuités nationales post-validation** : variable par pays (~150-600€/an
+  chacun, croissance progressive).
+- **Exemple** : EP délivré en 2030 avec 5 validations stratégiques
+  (FR/DE/UK/IT/ES) = ~5 000€ validations + ~2 000€/an annuités cumulées
+  post-validation = ~25 000€ sur 10 ans post-délivrance.
+- **Avantages** :
+  - Couverture EU large d'un seul dépôt et examen unique OEB (qualité
+    examen + cohérence revendications).
+  - Choix flexible des pays post-délivrance (pas besoin de figer la liste
+    au dépôt — décision après examen, ~3-5 ans plus tard).
+  - Signal valorisation fort (« brevet européen délivré » = standard
+    marché ETI / multinationale).
+- **Inconvénients** :
+  - Coût significatif (5-15× FR seul selon nombre de validations).
+  - Examen long (3-5 ans en moyenne, parfois plus selon CIB).
+  - Procédure d'opposition OEB possible 9 mois post-délivrance par tout
+    tiers — risque révocation centralisée pour les 38 pays d'un coup.
+  - Annuités EP pré-délivrance + annuités nationales post-validation =
+    double comptage à anticiper (~510€/an pré + somme annuités nationales
+    post).
+- **Recommandé si** :
+  - Marché EU significatif (> 30% revenus actuels ou potentiels).
+  - ETI ou multinationale avec capacité de gestion portefeuille
+    multi-pays.
+  - Budget moyen-grand (> 30k€ pour la famille brevet sur 10 ans).
+  - Nécessité de signal valorisation (levée de fonds série B+, M&A,
+    licensing).
+
+### Voie C — PCT international (WIPO)
+
+- **Marché couvert** : 156+ pays signataires PCT (mondial sauf quelques
+  exceptions notables : Argentine, Taïwan, certains pays africains hors
+  OAPI/ARIPO).
+- **Délai d'extension** : **12 mois post-FR initial** (Convention Union de
+  Paris, Art. 4).
+- **Coût dépôt PCT** : ~1 330€ taxe internationale OMPI + ~140€ taxe
+  transmission INPI + ~2 000€ recherche internationale (ISA, EPO comme ISA
+  par défaut pour déposants français) = ~3 500€ taxes officielles. Frais
+  mandataire : ~6-18k€ HT cabinet parisien.
+- **Phase internationale 30 mois** : durant cette période, OMPI publie la
+  demande PCT (à 18 mois de la priorité) + ISA fournit recherche
+  internationale + opinion préliminaire d'examen écrite (option : examen
+  préliminaire international sous Chapitre II pour ~2 000€ supplémentaires).
+- **Avantage clé** : **gel des coûts 30 mois** — temps pour étudier les
+  marchés réels (chiffre d'affaires, partenariats locaux, concurrents
+  identifiés) et décider quels pays entrer en phase nationale.
+- **Phase nationale (à 30 mois post-priorité)** : entrée dans chaque pays
+  choisi (taxes nationales par pays + mandataire local + traduction si pays
+  non-anglophone).
+- **Coût phase nationale par pays** : ~1 500-4 000€ selon pays (USA
+  ~2 000€, Japon ~3 500€ traduction japonaise incluse, Chine ~1 800€,
+  Brésil ~2 500€).
+- **Exemple** : PCT déposé en 2027 avec 5 entrées nationales en 2030
+  (US/CN/JP/KR/IN) = ~12 000€ entrées + ~3 000-5 000€/an annuités cumulées
+  post-entrée = ~50 000€ sur 10 ans post-entrée.
+- **Avantages** :
+  - Gel maximal de la flexibilité décisionnelle (30 mois pour décider pays
+    réels vs 12 mois Union de Paris).
+  - Couverture mondiale possible (156+ pays signataires).
+  - Opinion préliminaire ISA aide la décision pays (pré-évaluation
+    nouveauté + activité inventive).
+  - EP est une « désignation » parmi les 156+ pays PCT — possibilité
+    d'entrer en phase régionale EP via PCT à 30 mois (pas besoin de déposer
+    EP séparément).
+- **Inconvénients** :
+  - Très coûteux à grande échelle (couverture mondiale 15+ pays =
+    250-500k€ sur 10 ans).
+  - Complexe (multi-juridictions, multi-mandataires locaux à coordonner).
+  - Examen national parfois redondant (chaque pays peut re-examiner même
+    après examen ISA + opinion préliminaire).
+  - Risque de déchéance complète si oubli phase nationale à 30 mois (pas
+    de récupération — le compteur PCT ne s'arrête pas).
+- **Recommandé si** :
+  - Marché mondial visé (US + Asie + EU).
+  - ETI ou multinationale avec ressources de gestion portefeuille.
+  - Besoin de flexibilité temporelle (30 mois pour décider — startup en
+    croissance, marchés émergents incertains).
+  - Budget grand (> 50k€ pour la famille brevet sur 10 ans).
+
+### Voies hybrides
+
+- **FR + EP direct (sans PCT)** : marché EU exclusif, coût optimisé EU.
+  Recommandé pour ETI européennes avec marchés clients EU établis.
+- **FR + PCT (sans EP direct)** : flexibilité 30 mois pour décider EP en
+  phase nationale via WIPO (EP = désignation PCT). Recommandé pour startups
+  série B+ avec trajectoire incertaine.
+- **FR + EP + PCT (rare)** : ETI très internationale, gel maximum + couverture
+  EU certifiée d'emblée. Recommandé pour multinationales avec famille
+  brevet stratégique.
+- **FR + voies nationales sélectionnées (rare)** : pour pays critiques hors
+  CBE/PCT (Taïwan par exemple — dépôt national direct). Recommandé pour
+  secteurs spécifiques (semi-conducteurs avec exposition Taïwan).
+
+---
