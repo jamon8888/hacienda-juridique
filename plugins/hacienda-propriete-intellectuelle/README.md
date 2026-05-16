@@ -52,6 +52,12 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
 
+## Quoi de neuf en V0.11 — Enforcement droit d'auteur (contrefaçon)
+
+- Nouveau skill `contrefacon-droit-auteur` : qualification originalité + types d'atteinte (reproduction L.122-3, représentation L.122-2, adaptation L.122-4, droit moral L.121-1), tableau comparatif œuvre originale vs contrefaisante, constitution dossier de preuves (constat huissier, saisie-contrefaçon L.332-1), projet mise en demeure, notification hébergeur LCEN, stratégie contentieuse (référé, fond, médiation), évaluation préjudice (3 méthodes L.331-1-3)
+- 2 nouvelles références : jurisprudence contrefaçon auteur (Pachot, Infopaq, Tintin, Huston, GS Media) + stratégie contentieuse (arbre décisionnel, saisie-contrefaçon, voie pénale L.335-2)
+- **Le bloc V4 droit d'auteur est complet** : qualification V4.0 + contrats V4.1 + enforcement V4.2. V4.3 (droits voisins, OGC, IA générative) reste optionnel selon évolutions jurisprudentielles.
+
 ## Quoi de neuf en V0.10 — Contrats droit d'auteur (cession + licence + bases de données)
 
 - Nouveau skill `cession-droit-auteur` : projet contrat de cession conforme L.131-3 (5 conditions cumulatives obligatoires sous peine de nullité), vérification éligibilité L.131-1/2, énumération droits/domaines/territoires/durée/rémunération, format projet contrat 15 articles, cas particuliers (commande, salarié hors logiciel, édition L.132-4, audiovisuel L.132-24)

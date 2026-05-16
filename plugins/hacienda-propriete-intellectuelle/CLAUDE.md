@@ -136,6 +136,9 @@ les valeurs `[A CONFIGURER]` sont présentes, c'est un template. Une fois peupl�
 **Approbateur contrats droit d'auteur :** [A CONFIGURER — avocat seul / avocat + Direction métier / avocat + GC]
 **Politique bases de données :** [A CONFIGURER — propriétaire stricte / open data privilégié si public / mixte selon valeur commerciale]
 **RGPD pour bases de données :** [A CONFIGURER — DPO interne / DPO externe / cabinet conseil RGPD dédié]
+**Posture enforcement droit d'auteur :** [A CONFIGURER — agressive (mise en demeure systématique dès constat) / mesurée (contact informel puis escalade) / conservatrice (action uniquement si préjudice commercial avéré)]
+**Seuil d'action contrefaçon :** [A CONFIGURER — toute atteinte / atteinte commerciale significative / atteinte à la notoriété ou CA > X€]
+**Budget contentieux PI annuel :** [A CONFIGURER — < 10k€ / 10-50k€ / > 50k€ / illimité selon enjeu]
 
 ---
 

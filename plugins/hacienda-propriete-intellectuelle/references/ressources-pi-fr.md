@@ -197,6 +197,24 @@ Pour la référence détaillée des articles CPI brevets utilisés par les skill
 
 ---
 
+## Enforcement droit d'auteur — contrefaçon et contentieux
+
+| Ressource | Référence interne | Usage |
+|---|---|---|
+| Jurisprudence contrefaçon (Pachot, Infopaq, Tintin, Huston, GS Media) | `references/jurisprudence-contrefacon-auteur.md` | Qualification originalité, types d'atteinte, preuve, hyperliens |
+| Stratégie contentieuse (arbre décisionnel, saisie-contrefaçon, préjudice) | `references/strategie-contentieuse-auteur.md` | Choix d'action, délais, évaluation préjudice, voie pénale |
+
+**Textes clés enforcement :**
+- **L.331-1-3** : évaluation du préjudice (3 méthodes)
+- **L.332-1 à L.332-4** : saisie-contrefaçon (requête, exécution, délai 20 jours assignation)
+- **L.335-2** : délit de contrefaçon (3 ans + 300 000 €)
+- **LCEN art. 6-I-5** : notification hébergeur (retrait contenu illicite)
+
+**Skill associé :**
+- `contrefacon-droit-auteur` — analyse contrefaçon, tableau comparatif, mise en demeure, stratégie contentieuse
+
+---
+
 ## 3. Dessins et modèles
 
 | Ressource | URL | Tag | Usage |
