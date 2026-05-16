@@ -540,3 +540,152 @@ l'accord de tous les ayants droit (cf. cas B sur l'unanimité) ; en cas de
 désaccord persistant, recours possible au juge.
 
 ---
+
+## Étape 4 — Droits patrimoniaux vs Droit moral
+
+La distinction droits patrimoniaux / droit moral structure tout le droit
+d'auteur français. **Ce n'est pas un découpage économique ; c'est un
+découpage juridique de nature** : les patrimoniaux sont cessibles et
+limités dans le temps, le moral est inaliénable et perpétuel.
+
+### Droits patrimoniaux (L.122-1 à L.122-12)
+
+**Droits exclusifs d'exploitation** — cessibles, temporaires (70 ans post
+mortem standard), divisibles (peuvent être cédés droit par droit).
+
+| Droit | Article | Définition pratique |
+|---|---|---|
+| **Reproduction** | L.122-3 | Fixation matérielle de l'œuvre permettant sa communication indirecte : impression, gravure, numérisation, photocopie, enregistrement, stockage informatique |
+| **Représentation** | L.122-2 | Communication directe au public : récitation, projection, exécution publique, télédiffusion, mise à disposition en ligne (streaming) |
+| **Adaptation / traduction / transformation** | L.122-4 | Réalisation d'œuvres dérivées : traduction, adaptation cinématographique, arrangement musical, novellisation |
+| **Distribution / location / prêt** | L.122-6 (logiciel) + droit commun | Mise sur le marché de copies physiques de l'œuvre — épuisement européen après première vente licite dans l'EEE (sauf droit de location qui ne s'épuise pas) |
+| **Droit de suite** | L.122-8 | Spécifique aux œuvres graphiques et plastiques originales — participation de l'artiste au produit des reventes successives (3 % à 5 % progressif jusqu'à 12 500 €) |
+
+**Cession** : cf. L.131-3 (formalisme : énumération, étendue, destination,
+lieu, durée, rémunération) et L.131-4 (rémunération proportionnelle par
+principe, forfait dans cas listés).
+
+**Durée** : 70 ans post mortem (L.123-1), à compter du 1er janvier suivant
+le décès. Après expiration, l'œuvre tombe dans le **domaine public** —
+exploitation libre (mais droit moral perpétuel toujours opposable).
+
+### Exceptions au monopole patrimonial (L.122-5)
+
+Liste limitative — l'auteur ne peut interdire dans ces cas (sous conditions
+strictes) :
+
+- **Représentations privées et gratuites dans le cercle de famille** (L.122-5 1°)
+- **Copies ou reproductions strictement réservées à l'usage privé du copiste**
+  et non destinées à une utilisation collective (L.122-5 2°) — **copie privée**,
+  compensée par redevance L.311-1+ administrée par Copie France
+- **Analyses et courtes citations** justifiées par le caractère critique,
+  polémique, pédagogique, scientifique ou d'information (L.122-5 3° a) —
+  conditions : œuvre divulguée + mention du nom de l'auteur et de la source
+  + courte par rapport à l'œuvre citée et l'œuvre citante
+- **Revues de presse** (L.122-5 3° b)
+- **Diffusion de discours publics** (L.122-5 3° c)
+- **Reproductions intégrales ou partielles d'œuvres d'art graphiques ou
+  plastiques** destinées à figurer dans le catalogue d'une vente judiciaire
+  (L.122-5 3° d)
+- **Parodie, pastiche, caricature** (L.122-5 4°) — selon les lois du genre
+  (intention humoristique + absence de risque de confusion avec l'œuvre
+  parodiée + absence d'intention de nuire)
+- **Exception pédagogique et de recherche** (L.122-5 3° e) — conditions
+  d'usage à des fins exclusives d'illustration de l'enseignement et de la
+  recherche
+- **Exception handicap** (L.122-5 7°) — reproduction et représentation en
+  faveur des personnes handicapées (formats adaptés)
+- **Reproduction temporaire transitoire ou accessoire** (L.122-5 6°) — cache
+  web, transit de paquets, copies techniques nécessaires au fonctionnement
+  des réseaux
+- **Fouille de textes et de données** (L.122-5-3 — DAMUN 2019/790 transposée
+  ord. 2021-1518) — text and data mining à des fins de recherche scientifique
+  (conditions et opt-out pour usages commerciaux)
+
+Les exceptions sont **d'interprétation stricte** (jurisprudence constante).
+
+### Droit moral (L.121-1)
+
+> **Article L.121-1 al.1** : « L'auteur jouit du droit au respect de son nom,
+> de sa qualité et de son œuvre. »
+>
+> **Caractères** : « Ce droit est **attaché à sa personne**. Il est
+> **perpétuel, inaliénable et imprescriptible**. Il est transmissible à cause
+> de mort aux héritiers de l'auteur. »
+
+**4 prérogatives** :
+
+| Prérogative | Article | Définition |
+|---|---|---|
+| **Droit de divulgation** | L.121-2 | L'auteur a seul le droit de décider du **moment** et des **conditions** de la première publication de l'œuvre |
+| **Droit de paternité** | L.121-1 al.1 | Exigence de la mention du **nom** et de la **qualité d'auteur** sur tous les supports et toutes les exploitations (sauf si l'auteur l'a expressément refusée — œuvre anonyme ou pseudonyme) |
+| **Droit à l'intégrité (ou « respect de l'œuvre »)** | L.121-1 al.1 | Opposition à toute **modification, altération ou dénaturation** de l'œuvre, même autorisée contractuellement, dès lors qu'elle porte atteinte à son intégrité ou son esprit. Seuil élevé en jurisprudence — adaptations mineures généralement tolérées si prévues au contrat |
+| **Droit de repentir / retrait** | L.121-4 | L'auteur peut faire **cesser l'exploitation** moyennant **indemnisation préalable** du cessionnaire pour le préjudice subi. Si l'auteur reprend ensuite l'exploitation, il doit la proposer en priorité au cessionnaire évincé. Rare en pratique (coût indemnisation dissuasif) |
+
+**Caractères cumulatifs** :
+- **Perpétuel** : ne s'éteint jamais — même après expiration des 70 ans
+  post mortem patrimoniaux, le droit moral reste opposable aux héritiers
+  (ou à défaut au ministre chargé de la culture L.121-3).
+- **Inaliénable** : ne peut être cédé par contrat — toute clause de
+  renonciation est nulle.
+- **Imprescriptible** : pas de prescription extinctive, l'action est
+  ouverte sans limitation de durée.
+
+### Point de friction critique cession + droit moral
+
+> **Le cessionnaire des droits patrimoniaux ne peut PAS modifier l'œuvre
+> sans accord de l'auteur** (droit à l'intégrité moral inaliénable) — d'où
+> **nécessité de clauses contractuelles spécifiques** dans tout contrat de
+> cession :
+> - **adaptation autorisée** (formats dérivés, déclinaisons, traductions)
+> - **contexte de diffusion** (supports, territoires, modifications
+>   éditoriales de cohérence)
+> - **rebranding** (intégration dans nouvelle identité visuelle)
+> - **intégration dans système tiers** (typiquement logiciel embarqué dans
+>   plateforme tierce)
+>
+> Sans ces clauses, le cessionnaire prend un risque sur tout rebranding,
+> toute modification, toute intégration ultérieure — l'auteur peut
+> s'opposer et obtenir cessation + indemnisation. Tag `[review]` automatique
+> pour tout contrat de cession qui ne traite pas explicitement ces points.
+
+---
+
+## Étape 5 — Durée de protection
+
+La durée varie selon le type d'œuvre et le contexte de création. Toutes
+les durées se calculent à compter du **1er janvier suivant l'événement
+déclencheur** (article L.123-7).
+
+| Type d'œuvre | Durée | Référence CPI |
+|---|---|---|
+| **Règle générale** | Vie de l'auteur + **70 ans post mortem** | L.123-1 |
+| **Logiciels** | Vie de l'auteur + 70 ans (pas de dérogation de durée — seule la titularité L.113-9 diffère) | L.123-1 |
+| **Bases de données — droit d'auteur sur la structure** | 70 ans post mortem | L.123-1 |
+| **Bases de données — droit sui generis sur le contenu** | **15 ans** à compter du 1er janvier de l'année suivant l'achèvement (renouvelable si modification substantielle de la base) | L.342-5 |
+| **Œuvre de collaboration** | 70 ans après le décès du **dernier coauteur survivant** | L.123-2 |
+| **Œuvre collective / pseudonyme / anonyme** | 70 ans à compter de la **publication** (du 1er janvier de l'année suivante) | L.123-3 |
+| **Œuvre posthume divulguée pendant la période de protection** | Durée standard (70 ans post mortem) — pas de prolongation | L.123-1 |
+| **Œuvre posthume divulguée après expiration du monopole** | **25 ans** à compter du 1er janvier de l'année suivant la divulgation, au profit du propriétaire du manuscrit ou de l'ayant droit divulgateur | L.123-4 |
+| **Droits voisins (artistes-interprètes, producteurs phonogrammes et vidéogrammes, entreprises de communication audiovisuelle)** | **70 ans** à compter de la fixation, de la publication ou de la communication au public (selon le droit voisin concerné) — régime distinct du droit d'auteur, différé V4.3 | L.211-4 |
+
+**Prolongations historiques de guerre** (L.123-8 à L.123-10) : pour les
+œuvres créées avant le 1er janvier 1948, des prolongations spéciales
+existent au titre des guerres de 1914-1918 et 1939-1945 (« prorogations de
+guerre »). Calcul complexe — vérifier au cas par cas (CJUE Hauptmann
+C-518/08 (2010) sur l'articulation avec la directive 2006/116/CE de durée
+harmonisée).
+
+**Domaine public** : à l'expiration du monopole patrimonial, l'œuvre peut
+être exploitée librement par tous. **MAIS** le droit moral reste perpétuel —
+les héritiers (ou à défaut le ministre chargé de la culture) peuvent
+toujours agir en respect du nom et de l'intégrité de l'œuvre.
+
+**Important — calcul concret** : pour estimer l'expiration des droits
+patrimoniaux d'une œuvre, demander la **date de naissance** de l'auteur
+(estimation prudente d'espérance de vie si vivant), calculer la date de
+décès estimée, ajouter 70 ans, et arrondir au 1er janvier suivant. Tag
+`[verify]` sur toute date d'expiration calculée à partir d'une estimation
+de durée de vie.
+
+---
