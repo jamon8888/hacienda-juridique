@@ -313,3 +313,128 @@ trie/filtre/recherche côté JS inline, et XSS-safe (escape côté
 le détail du pattern et les conventions visuelles.
 
 ---
+
+## Mode `--add`
+
+Walk interactif. Toutes les valeurs sont validées Zod avant écriture.
+
+1. **signe** (chaîne, ≥ 2 caractères). Refus si < 2 caractères ou chaîne
+   vide après trim — proposer une variante précise.
+2. **type** : `mot` / `figuratif` / `composite` (mot + figuratif). Aucune
+   autre valeur acceptée.
+3. **classes** Nice (1 à 45, au moins une). Validation : entiers en chaîne,
+   pas de doublon, dans la plage [1, 45].
+4. **territoires[]** — pour chaque territoire :
+   - `office` : code (`FR` = INPI, `EM` = EUIPO, autres codes OMPI/OAPI/USPTO
+     selon besoin)
+   - `numero` : numéro de dépôt / d'enregistrement
+   - `dateDepot` (YYYY-MM-DD)
+   - `dateEnregistrement` (YYYY-MM-DD, optionnel si encore en cours
+     d'examen)
+   - `dateRenouvellement` (YYYY-MM-DD — typiquement dateDepot + 10 ans pour
+     FR/EU)
+   - `statut` : `en_examen` / `enregistree` / `opposee` / `radiee` /
+     `expiree`
+5. **titulaire** (raison sociale exacte — important pour audit cross-check
+   contrats).
+6. **mandataire** (cabinet de marques associé, ou « interne » si géré en
+   propre).
+7. **business_owner** (email ou équipe propriétaire métier — ne JAMAIS
+   laisser vide pour les marques `core`/`important`, sinon alertes
+   orphelines).
+8. **niveau_strategique** : `core` / `important` / `standard` / `heritage`.
+   Voir `references/modele-portfolio.md` pour la définition de chaque
+   niveau.
+9. **notes** (libre).
+
+Avant écriture :
+
+- Générer un identifiant `TM-{office_principal}-{N+1}` (ex : `TM-FR-007`)
+  en incrémentant le dernier ID existant pour ce code office
+- Sauvegarder `portfolio.yaml.bak.YYYY-MM-DDTHHMMSS` (backup horodaté)
+- Écrire la nouvelle entrée + `dateAjout: today` + `dernier_audit: null`
+- Confirmer à l'utilisateur l'ajout + l'identifiant attribué
+
+---
+
+## Mode `--update`
+
+`/revue-portefeuille-marques --update TM-FR-007`
+
+- Lire l'entrée par ID
+- Afficher en YAML
+- Demander quels champs modifier (interactif)
+- Valider Zod
+- Backup `.bak` horodaté
+- Écrire
+
+Refus si l'ID n'existe pas — proposer `--list` pour vérifier.
+
+---
+
+## Mode `--remove`
+
+`/revue-portefeuille-marques --remove TM-FR-007`
+
+- Lire l'entrée
+- Si `niveau_strategique = "core"` : confirmation explicite **+ raison
+  obligatoire** (la raison est inscrite en commentaire dans le backup `.bak`
+  pour traçabilité ultérieure)
+- Si `important` : confirmation simple + raison recommandée
+- Si `standard` / `heritage` : confirmation simple suffit
+- Backup `.bak` horodaté
+- Supprimer l'entrée
+
+Rappeler à l'utilisateur que la suppression du registre interne
+**N'EFFACE PAS** l'enregistrement INPI/EUIPO. Pour radier officiellement
+une marque, voir le mandataire (procédure de renonciation art. R.714-1
+CPI).
+
+---
+
+## Mode `--list`
+
+Affiche le registre en table Markdown :
+
+| ID | Signe | Type | Classes | Territoires | Échéance + proche | Niveau | Owner |
+|---|---|---|---|---|---|---|---|
+| TM-FR-001 | APEXLEAF | mot | 25, 35 | FR, EM | 2030-01-15 | core | marketing@acme.fr |
+
+Tri par défaut : échéance la plus proche en premier. Filtres optionnels via
+flags futurs : `--niveau core`, `--office FR`, `--statut enregistree`.
+
+Si registre vide, afficher : « Registre vide. Lance
+`/revue-portefeuille-marques --add` pour ajouter une marque. »
+
+---
+
+## Mode `--audit`
+
+Health check du registre (équivalent du `--audit` de `surveillance-marque`).
+
+Findings types :
+
+- **Renouvellements < 12 mois sans plan déclaré** : aucune `notes` mentionnant
+  une instruction mandataire ni `dernier_audit` récent
+- **Marques absentes de la watchlist V1.1.0** : surtout pour `core` /
+  `important` — recommander `surveillance-marque --add`
+- **Classes Nice manquantes vs domaine business du profil** : ex. profil
+  dit « SaaS / logiciel » mais aucune classe 9 (logiciels) ni 42 (services
+  informatiques) sur les marques `core` → flag
+- **Titulaires obsolètes** : raison sociale différente entre `portfolio.yaml`
+  et `company-profile.md` → cross-check contrats / changement raison
+  sociale au RCS
+- **`niveau_strategique` vide ou non standard** : forcer la classification
+- **`business_owner` vide sur `core` / `important`** : marques orphelines
+  → escalation
+- **Désynchronisation INPI public** : aucun cross-check INPI depuis > 90 j
+  (champ `dernier_audit` ancien ou null)
+- **Cap > 100 assets** : recommander un IPMS commercial (Anaqua,
+  Dennemeyer, Questel, Alt Legal) — la gestion manuelle YAML n'est plus
+  raisonnable à ce volume
+
+Sortie : tableau des findings + recommandations bucketées par sévérité,
+sans dashboard HTML (audit court). Mettre à jour `metadata.last_audit` à
+la date du jour après exécution.
+
+---
