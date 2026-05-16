@@ -558,3 +558,244 @@ Référence détaillée par licence : `references/licences-open-source.md`.
   obligatoire avant merge).
 
 ---
+
+## Étape 5 — Cas SaaS et bases de données associées
+
+### SaaS — spécificités
+
+- L'utilisateur **n'installe pas** le logiciel chez lui → utilisation à
+  distance via interface web ou API.
+- Le régime L.122-6 s'applique au **code serveur** hébergé chez l'éditeur
+  (l'hébergement = reproduction permanente ; l'exécution = reproduction
+  provisoire en RAM).
+- **L'épuisement du droit de distribution** UsedSoft C-128/11 **ne
+  s'applique PAS** au SaaS — il n'y a pas de "copie vendue" à l'utilisateur
+  qui pourrait être revendue.
+
+**AGPL particulièrement piégeuse en SaaS** :
+- L'utilisation serveur compte comme "distribution" déclenchant l'obligation
+  source ouverte au profit des utilisateurs distants (clause spécifique
+  AGPL §13).
+- Si un SaaS B2B intègre du code AGPL → obligation de **fournir le code
+  source à chaque client utilisateur** (avec une URL de téléchargement
+  accessible depuis l'application).
+- **Pour les startups SaaS** : à éviter absolument sauf si modèle business
+  open source assumé (et même là, attention aux contributions clients qui
+  remontent par l'AGPL).
+- Cas réel piège : un développeur intègre une bibliothèque AGPL en
+  dépendance "temporaire" pour un prototype, le prototype passe en
+  production, et l'éditeur découvre la dépendance lors d'un audit
+  pré-levée — trop tard pour remplacer sans refactoring massif.
+
+### Bases de données associées au logiciel
+
+Une base de données peut bénéficier d'une **double protection possible**
+(régimes indépendants — il faut analyser les deux séparément) :
+
+| Régime | Protection | Conditions | Durée |
+|---|---|---|---|
+| **Droit d'auteur** sur la **structure** | Originalité de l'organisation, du choix ou de la disposition des données (L.111-1 + L.112-3) | Critère d'originalité au sens CJUE Infopaq C-5/08 (empreinte personnelle de l'auteur) | 70 ans post mortem auctoris (L.123-1) |
+| **Droit sui generis** L.341-1 sur le **contenu** | Investissement substantiel (financier, matériel, humain) pour constitution, vérification, présentation du contenu | Bénéficiaire = **producteur** de la base (souvent personne morale qui a pris l'initiative et le risque de l'investissement) | **15 ans** à compter de l'achèvement (L.342-5), **renouvelable si modification substantielle** (chaque nouvel investissement substantiel = nouveau délai de 15 ans) |
+
+**Important** :
+- Ces 2 droits sont **indépendants** — une base peut avoir l'un sans
+  l'autre.
+- **Exemple A** : annuaire téléphonique très simple structurellement
+  (tri alphabétique trivial) mais avec contenu massif coûteux à compiler
+  → **sui generis OK, droit d'auteur fragile**.
+- **Exemple B** : base de données scientifique avec **structure innovante**
+  (ontologie originale, schéma relationnel inventif) peu coûteuse à
+  constituer → **droit d'auteur OK, sui generis fragile**.
+- **Exemple C** : base de données client SaaS typique → combine souvent
+  les deux (structure originale + investissement substantiel constitution
+  et maintenance).
+
+**Attention scraping / extraction massive** : L.342-1 interdit l'extraction
+ou la réutilisation **substantielle** (qualitativement ou quantitativement)
+du contenu d'une base protégée par droit sui generis — c'est la base de
+nombreux contentieux contre des concurrents qui scrappent (CJUE Innoweb
+C-202/12 sur les méta-moteurs de recherche).
+
+## Étape 6 — Recommandations selon situation
+
+### Startup early stage avec dev internes salariés
+
+- L.113-9 s'applique automatiquement → employeur titulaire patrimoniaux.
+- **Verrouiller** : contrat de travail avec mention explicite — clause type :
+  > « Conformément à l'article L.113-9 du Code de la propriété intellectuelle,
+  > les logiciels et leur documentation créés par le salarié dans l'exercice
+  > de ses fonctions ou d'après les instructions de l'employeur sont dévolus
+  > à l'employeur, qui est seul habilité à exercer les droits patrimoniaux
+  > correspondants. Le salarié déclare avoir été informé de cette dévolution
+  > et s'engage à coopérer à toute formalité utile à sa mise en œuvre. »
+- **Vérifier** : développeurs ayant codé **AVANT signature contrat de
+  travail** → cession écrite rétroactive nécessaire (cf. erreur fréquente 1).
+- **Documenter** : registre interne des contributions par développeur (par
+  module, par période — utiliser l'historique Git comme preuve d'antériorité
+  et de paternité).
+
+### Agence dev ou ESN livrant à clients
+
+- L.113-9 attribue à l'**AGENCE** (employeur) — **pas au client**.
+- **Cession écrite obligatoire** dans le contrat de prestation au client
+  (L.131-3 : énumération droits + domaines + territoires + durée +
+  rémunération).
+- **Modèle clause** : référence `cession-droit-auteur` V4.1 (à venir).
+- Attention au champ "documentation" : L.113-9 couvre logiciel + documentation,
+  mais la cession doit **également mentionner les deux** explicitement.
+- Penser aux **éléments tiers intégrés** : si l'agence a utilisé des
+  bibliothèques open source pour livrer le projet, le client hérite des
+  obligations licence amont (notamment GPL si l'agence a intégré du code
+  GPL — l'agence ne peut transférer plus de droits qu'elle n'en a elle-même).
+
+### Projet open source à publier
+
+- **Choix de licence selon objectif** :
+
+  - **Permissif (MIT / Apache 2.0)** : adoption maximale + compatibilité
+    avec écosystème commercial → adapté si l'objectif est l'adoption large
+    (bibliothèque utilitaire, framework, SDK) sans monétisation directe.
+  - **Copyleft (GPL / AGPL)** : protection contre forks commerciaux
+    propriétaires → adapté si l'objectif est de **forcer la réciprocité**
+    et de garantir que l'écosystème reste open source.
+  - **Dual licensing** (open source GPL/AGPL + licence commerciale) :
+    monétisation des utilisateurs commerciaux qui ne veulent pas du
+    copyleft → modèle MySQL historique, MongoDB pré-SSPL, Qt.
+
+- **CLA (Contributor License Agreement) obligatoire** si contributions
+  externes acceptées :
+  - Sans CLA, chaque contributeur reste titulaire de sa contribution →
+    blocage relicensing futur.
+  - Modèles : Apache CLA, FSF Contributor Agreement, Salesforce CLA.
+  - Mise en œuvre technique : bot CLA assistant (CLA Bot, CLA Assistant)
+    qui bloque les pull requests jusqu'à signature.
+
+- **Marquage** : copyright headers dans chaque fichier source + LICENSE à
+  la racine du repository + NOTICE pour Apache 2.0 + README mentionnant la
+  licence.
+
+### SaaS avec dépendances open source mixed
+
+- **Audit SBOM mensuel** via outils SCA (Snyk / FOSSA / Black Duck /
+  Dependabot).
+- **Politique** : isolation AGPL (microservice séparé sans appel direct
+  via API/RPC strict — vérifier avec avocat tech la solidité juridique de
+  l'isolation pour le cas concret), validation LGPL au cas par cas
+  (liaison dynamique uniquement).
+- **Documentation interne** : registre licences + responsable conformité
+  (souvent CTO ou DPO) + procédure d'ajout de dépendance (revue licence
+  obligatoire avant merge en main).
+- **Watch** : changement de licence par auteur upstream (ex : ElasticSearch
+  → SSPL en 2021, MongoDB → SSPL en 2018, Terraform → BSL en 2023,
+  Redis → SSPL en 2024) → **re-évaluation impact** à chaque alerte.
+- **Pré-levée Series A** : SBOM + analyse licences en data room (devenu
+  standard de la DD tech).
+
+---
+
+## Format de sortie
+
+Le livrable se structure comme suit (Markdown, fences imbriqués en quadruple
+backticks pour ne pas casser le rendu interne) :
+
+````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon profil (avocat / juriste interne / non-juriste)]
+
+# Régime juridique logiciel — [Nom projet] (ANALYSE RÉGIME, PAS RÉDACTION CONTRACTUELLE)
+
+> **Analyse régime, pas rédaction contractuelle.** Ce skill identifie la
+> titularité initiale (L.113-9 régime dérogatoire), le droit d'utilisation
+> (L.122-6 + exceptions d'ordre public L.122-6-1), la typologie des licences
+> applicables, les matrices de compatibilité (contamination GPL/AGPL), les
+> régimes particuliers SaaS et bases de données. Il NE rédige PAS le contrat
+> de cession (= `cession-droit-auteur` V4.1) ni la licence d'utilisation
+> (= `licence-droit-auteur` V4.1). Validation **avocat spécialisé tech /
+> propriété intellectuelle** OBLIGATOIRE avant tout acte (contrat de travail
+> dev, contrat de prestation, choix licence, publication, dual licensing,
+> due diligence pré-levée).
+
+> **⚠️ Note du relecteur**
+> - **Sources lues :** [CPI articles cités : L.111-1, L.112-3, L.113-9, L.121-7, L.122-6, L.122-6-1, L.131-3, L.341-1, L.342-1+ + jurisprudence : Cass. Pachot 7 mars 1986, CJUE BSA C-393/09, CJUE SAS Institute C-406/10, CJUE UsedSoft C-128/11, CJUE Innoweb C-202/12]
+> - **Dépendances open source auditées :** [SBOM fourni : oui [outil] / non — recommandation scan SCA avant analyse finale]
+> - **Points [review] :** [N éléments à valider avocat tech — détailler les plus critiques]
+> - **Risque contamination GPL/AGPL identifié :** [oui / non / à confirmer après SBOM]
+> - **Avant action :** validation avocat tech / propriété intellectuelle **OBLIGATOIRE** (contrat travail dev, contrat prestation, choix licence, publication, dual licensing, due diligence pré-levée)
+
+**Triage :** 🟢 RÉGIME CLAIR + LICENCES COMPATIBLES / 🟡 MIXTE — POINTS À ARGUMENTER OU REMÉDIER / 🔴 PROBLÉMATIQUE — RISQUE CONTAMINATION OU TITULARITÉ CONTESTABLE
+*(une phrase de justification)*
+
+## Projet analysé
+
+- **Nom :** [...]
+- **Contexte de développement :** [salariés internes / prestataires externes / mixte / open source community / cofondateurs pré-contrat]
+- **Statut :** [développement initial / extension / fork / dérivation]
+- **Utilisation prévue :** [interne / commercialisation propriétaire / SaaS payant / open source pur / dual licensing]
+- **Dépendances principales :** [liste avec licences ; tag `[non audité]` si SBOM absent]
+
+## Titularité initiale (L.113-9)
+
+**Cas applicable par catégorie de développeur :**
+- Salariés internes : [L.113-9 applicable / hors fonctions — analyse]
+- Prestataires externes : [L.113-9 NON applicable — cession L.131-3 nécessaire]
+- Cofondateurs pré-contrat : [titularité personnelle — cession rétroactive nécessaire]
+- Contributeurs open source : [titularité personnelle — CLA nécessaire si projet à relicensier]
+
+**Titulaire(s) identifié(s) :** [employeur / agence / cofondateur / contributeurs cartographiés]
+
+**Risques particuliers :** [cession rétroactive manquante / clause L.113-9 absente du contrat travail / CLA absent / chaîne agence-client non documentée]
+
+## Droit d'utilisation et exceptions L.122-6-1
+
+**Régime applicable :** L.122-6 (reproduction permanente/provisoire, adaptation, distribution)
+
+**Exceptions pertinentes au cas d'espèce :**
+- Copie de sauvegarde : [applicable / non pertinent]
+- Test / observation : [applicable / non pertinent]
+- Décompilation pour interopérabilité : [applicable / non pertinent / `[review]`]
+- Correction d'erreurs : [applicable / écartée par EULA / non pertinent]
+
+## Licences (typologie + compatibilité)
+
+**Licence du projet envisagée :** [propriétaire EULA / MIT / Apache 2.0 / GPL / AGPL / LGPL / MPL / dual licensing / autre]
+
+**Justification du choix :** [adéquation avec utilisation prévue + objectif communauté/business]
+
+**Compatibilité avec dépendances :**
+
+| Dépendance | Licence amont | Compatible avec projet ? | Action |
+|---|---|---|---|
+| [bib 1] | [licence] | [OK / vigilance / bloquant] | [aucune / valider liaison / remplacer / isoler] |
+| ... | ... | ... | ... |
+
+**Risque contamination identifié :** [aucun / LGPL liaison statique à vérifier / GPL à remplacer ou isoler / AGPL incompatible avec SaaS propriétaire]
+
+## SaaS / Bases de données (si applicable)
+
+**SaaS :** [analyse spécifique AGPL + UsedSoft non applicable + clauses EULA]
+**Base de données :** [droit auteur sur structure ? sui generis L.341-1 sur contenu ? producteur identifié ?]
+
+## Recommandations selon situation
+
+[Bloc adapté selon situation : startup early stage / agence dev / projet open source / SaaS mixed — actionnable, calibré sur le cas concret]
+
+**Une question hors de ma checklist :** [observation seconde-ordre — par
+exemple : « votre projet utilise des modèles d'IA générative pré-entraînés
+distribués sous licences custom (LLaMA 3 Community License, etc.) — la
+qualification de ces licences au regard du droit français reste un sujet
+en construction `[connaissance modèle — à vérifier]` » — omettre si rien
+d'honnête à dire]
+
+## Que veux-tu faire ?
+
+1. **Rédiger une cession** — j'ouvre `cession-droit-auteur` (V4.1) avec les paramètres identifiés (cofondateur pré-contrat / agence vers client / contributeurs vers projet)
+2. **Choisir une licence open source** — j'ouvre `licence-droit-auteur` (V4.1) avec arbitrage permissif vs copyleft vs dual licensing selon objectif
+3. **Escalader avocat tech** — je rédige une note pour avocat spécialisé tech / propriété intellectuelle + CTO/GC selon enjeu (contamination GPL/AGPL identifiée, cession rétroactive cofondateur, CLA à mettre en place)
+4. **Lancer un audit SBOM** — je documente la procédure d'audit (outils SCA, périmètre, fréquence) et la politique de cabinet à mettre en place
+5. **Autre chose** — dis-moi
+````
+
+Le livrable est écrit dans le fichier de sortie, sans bandeau Hacienda et
+sans narration interne (cf. mode silencieux pour livrables externes —
+`CLAUDE.md` plugin §2).
+
+---
