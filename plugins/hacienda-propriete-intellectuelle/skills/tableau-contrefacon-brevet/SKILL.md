@@ -295,3 +295,109 @@ constante).
 faveur du titulaire (extension de portée) ou en faveur du contrefacteur
 (réduction de portée). C'est la décision la plus contestée d'un procès en
 contrefaçon. Toujours flagger.
+
+---
+
+## Étape 2 — Lecture de la documentation technique du produit
+
+Une fois les revendications décomposées, on confronte chaque élément à la
+documentation produit. Cette étape est itérative et précise.
+
+### 2.1 Pour chaque élément, chercher une correspondance
+
+Pour chaque élément `(N)` ou `(Na/b/c)` de chaque revendication :
+
+1. **Localiser** dans la documentation produit la description, la
+   spécification ou l'illustration qui correspond à l'élément
+   revendiqué. Lire **toutes** les sources fournies — la notice, la
+   fiche technique, le site marketing, les photos, le code, les brevets
+   tiers déposés par le contrefacteur, les publications scientifiques.
+2. **Citer précisément** la source : titre du document, page, section,
+   référence de figure, URL avec ancre si possible, timestamp si vidéo,
+   ligne de code ou identifiant de fonction si logiciel. La précision
+   de la citation = la solidité du claim chart en revue mandataire.
+3. **Quoter** le texte exact (entre guillemets) ou décrire l'illustration
+   en quelques mots concrets. Pas de paraphrase floue.
+
+### 2.2 Format de tracking par élément
+
+Chaque élément est tracké dans un format uniforme avant agrégation dans
+le tableau final :
+
+```
+Élément (N) : [texte revendication tel quel]
+└─ Documentation produit : [titre source, page X, section Y]
+   "[quote exacte]" / [description figure ou illustration]
+└─ Présence : [✅ identifiée / ⚠️ partiellement identifiée /
+                ❌ absente / ❓ documentation insuffisante]
+└─ Notes : [observation complémentaire — variante numérique,
+            ambiguïté, terminologie différente, etc.]
+```
+
+Ce format intermédiaire alimente directement le tableau final de l'étape 3.
+
+### 2.3 Quatre statuts — règles d'attribution
+
+- **✅ Identifiée.** La documentation produit décrit explicitement et sans
+  ambiguïté la même caractéristique technique que l'élément revendiqué,
+  avec la même fonction, dans le même contexte d'utilisation.
+- **⚠️ Partiellement identifiée.** L'élément est présent mais avec une
+  variation (plage numérique partiellement chevauchante, terme générique
+  vs spécifique, mode de réalisation alternatif relevant du même concept).
+  Le flag `⚠️` appelle un commentaire explicatif dans la colonne notes.
+- **❌ Absente.** Aucune mention dans la documentation, ET la
+  documentation est complète sur la fonction concernée (par exemple : la
+  composition est entièrement décrite mais le composé revendiqué n'y
+  figure pas → absent). Cet élément ouvre l'analyse équivalence à l'étape 4.
+- **❓ Documentation insuffisante.** La documentation est silencieuse sur
+  cette caractéristique, ET on ne peut pas savoir si c'est parce qu'elle
+  est absente ou parce que le fabricant ne l'a pas documentée. C'est la
+  distinction cruciale avec `❌`.
+
+### 2.4 Que faire en cas de `❓` — actions d'approfondissement
+
+Si la documentation est insuffisante pour conclure sur un ou plusieurs
+éléments, **ne pas conclure ❌ par défaut**. Recommander à la place :
+
+- **Demander des informations complémentaires** au vendeur, au revendeur
+  ou au fabricant — soit directement (courrier d'information, demande de
+  fiche technique complète), soit via une **mise en demeure légère**
+  comportant une demande de divulgation de la composition / structure
+  exacte.
+- **Acquérir le produit et l'analyser** par rétro-ingénierie technique.
+  C'est **légal en France** quand l'objectif est la vérification d'une
+  contrefaçon de brevet (exception jurisprudentielle de l'usage privé /
+  exception de recherche selon le contexte ; pour les logiciels exception
+  spécifique CPI L.122-6-1 III sur la décompilation à des fins
+  d'interopérabilité, hors champ ici). À documenter (huissier, laboratoire
+  indépendant) pour produire la preuve devant le TJ Paris.
+- **Saisie-contrefaçon judiciaire** (CPC art. 59, CPI L.615-5) — mesure
+  forte : ordonnance du président du TJ Paris sur requête, exécutée par
+  huissier accompagné d'un expert technique, qui peut obtenir copie de la
+  documentation technique, échantillons et informations de commercialisation
+  chez le contrefacteur. **Mesure invasive — exige solidité de la requête**
+  (les éléments déjà connus doivent rendre la contrefaçon vraisemblable,
+  sinon dommages-intérêts CPC art. 78). À préparer avec mandataire +
+  avocat ; le claim chart ❓ ne suffit pas seul.
+
+### 2.5 Garde-fou — ne JAMAIS inventer une correspondance
+
+Le risque principal de cette étape : forcer une correspondance entre un
+élément revendiqué et un passage de la doc produit qui n'y correspond pas
+vraiment, par pression de "boucler le tableau". **Préférer ❓ à un ✅
+optimiste.**
+
+- Si la doc produit dit "système de filtration" et la revendication dit
+  "procédé de filtration d'eau" — ce n'est PAS automatiquement ✅. Lire
+  plus : s'agit-il bien d'eau ? Est-ce un procédé ou un dispositif ? La
+  catégorie revendicative compte (procédé vs dispositif vs utilisation).
+- Si la doc produit donne une plage 10-100 nm et la revendication 5-50 nm
+  — c'est ⚠️ avec note "plage chevauchante 10-50 nm", pas ✅. La portion
+  hors plage (50-100 nm) est non contrefaisante.
+- Si la doc produit est silencieuse sur l'agent de réticulation alors que
+  la composition complète est listée par ailleurs — c'est probablement
+  ❌ (la composition complète sans agent → l'agent est absent). Si la
+  composition n'est pas listée du tout — c'est ❓.
+
+La discipline de ce garde-fou détermine si le mandataire fait confiance
+au claim chart ou s'il refait tout à zéro.
