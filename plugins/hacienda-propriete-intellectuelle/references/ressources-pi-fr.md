@@ -38,6 +38,26 @@ ces sources doit être taguée avec le tag de provenance correspondant
 
 ---
 
+## Procédures INPI marques
+
+| Procédure | Délai clé | Taxe indicative 2026 | Compétence |
+|---|---|---|---|
+| Dépôt FR national | examen 5-6 mois | ~190€ (1 classe) + ~40€/cl. add. | INPI |
+| Dépôt EU EUTM | examen 6-12 mois | ~850€ (1 classe) + ~50€/2e + ~150€/3e+ | EUIPO Alicante |
+| Dépôt international Madrid | dépend offices nationaux | ~700€ base + ~100€/désignation | OMPI Genève |
+| Opposition INPI (former) | **2 mois post-BOPI** (L.712-4) | ~325€ | INPI |
+| Mémoire en défense (recevoir) | 2 mois post-notification INPI | inclus | INPI |
+| Contre-réponse | 2 mois post-mémoire défense | inclus | INPI |
+| Décision opposition INPI | 6-10 mois post-ouverture | n/a | INPI |
+| Recours décision INPI | 1 mois post-notification | greffe | Cour d'appel Paris (L.411-4) |
+| Renouvellement | 6 mois avant échéance décennale | ~250€ FR / ~1050€ EU | INPI/EUIPO |
+| Action en nullité | 5 ans imprescriptible si mauvaise foi | ~600€ INPI | INPI ou TJ Paris (L.716-5) |
+| Action en déchéance pour défaut d'usage | 5 ans post-enregistrement | ~600€ INPI | INPI ou TJ Paris |
+
+**Note** : taxes 2026 indicatives — vérifier le tarif officiel INPI/EUIPO avant chaque démarche.
+
+---
+
 ## 2. Brevets
 
 ### 2.1 Brevets — bases techniques (V0.4 — bloc Brevets MVP)
