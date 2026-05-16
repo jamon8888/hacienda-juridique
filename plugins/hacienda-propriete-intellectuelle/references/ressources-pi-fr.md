@@ -176,6 +176,27 @@ Pour la référence détaillée des articles CPI brevets utilisés par les skill
 
 ---
 
+## Contrats droit d'auteur — modèles et références
+
+| Type de contrat | Cas d'usage | Référence interne | URL modèle public |
+|---|---|---|---|
+| Cession de droits (L.131-3) | Transfert titularité à un cessionnaire | `references/clauses-cession-L131-3.md` | [à vérifier] — pas de modèle officiel FR |
+| Licence exclusive | Partenariat éditorial, distribution stratégique | `references/modeles-clauses-licence.md` | [à vérifier] |
+| Licence non-exclusive | Photothèque, musique de fond, contenu syndiqué | `references/modeles-clauses-licence.md` | [à vérifier] |
+| Licence libre Creative Commons | Contenus open access, éducation, open data | `references/typologie-licences-auteur.md` | https://creativecommons.org/choose/ |
+| EULA logiciel propriétaire | Logiciel packagé, SaaS monoposte | `references/typologie-licences-auteur.md` | [à vérifier] |
+| Licence SaaS / CGU contenu utilisateur | Plateformes collaboratives, UGC | `references/modeles-clauses-licence.md` | [à vérifier] |
+| Licence BDD propriétaire B2B | Accès payant base de données | `references/modeles-licence-bdd.md` | [à vérifier] |
+| Licence Ouverte Etalab 2.0 | Open data public FR | `references/modeles-licence-bdd.md` | https://www.etalab.gouv.fr/licence-ouverte-open-licence |
+| ODbL (Open Database License) | Open data communautaire, copyleft | `references/modeles-licence-bdd.md` | https://opendatacommons.org/licenses/odbl/1-0/ |
+
+**Skills associés :**
+- `cession-droit-auteur` — projet contrat de cession (conditions L.131-3 obligatoires)
+- `licence-droit-auteur` — projet contrat de licence (5 types : exclusive, non-exclusive, libre, EULA, SaaS)
+- `bases-de-donnees` — analyse régime protection BDD + recommandation type contrat
+
+---
+
 ## 3. Dessins et modèles
 
 | Ressource | URL | Tag | Usage |
