@@ -108,6 +108,12 @@ les valeurs `[A CONFIGURER]` sont présentes, c'est un template. Une fois peupl�
 **Partenaire annuités :** [A CONFIGURER — cabinet tiers / logiciel annuités / interne]
 **Posture FTO (liberté d'exploitation) :** [A CONFIGURER — systématique avant lancement / sur demande]
 **Compétence TJ Paris brevets :** ✓ (L.615-1 — compétence exclusive en France)
+**Posture refus INPI/OEB :** [A CONFIGURER — défense systématique / abandon rapide si coût > valeur]
+**Posture nullité :** [A CONFIGURER — attaque préventive sur brevets bloquants / défense en contrefaçon uniquement]
+**Délais clés réponse refus :** INPI ~2-4 mois (R.612-66 CPI) / OEB 4 mois prorogeable 2 mois (Règle 132 EPC)
+**Approbateur réponse refus :** [A CONFIGURER — mandataire EQE seul / mandataire + GC]
+**Approbateur action nullité :** [A CONFIGURER — avocat spécialisé brevets + GC + Direction R&D]
+**Taxes indicatives 2026 :** divisionnaire ~600€ FR INPI / ~250€ OEB ; action nullité TJ Paris : frais avocat (variables, souvent > 30k€)
 
 ---
 
