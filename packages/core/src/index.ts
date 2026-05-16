@@ -409,6 +409,19 @@ export type {
   EurlexVersionsArgs,
 } from "./tools/eurlex.js";
 
+// Dashboard module (V1.1.1)
+export {
+  escapeHtml as dashboardEscapeHtml,
+  escapeUrl as dashboardEscapeUrl,
+  renderDashboard,
+  DASHBOARD_TEMPLATE,
+} from "./dashboard/index.js";
+export type {
+  DashboardData,
+  DashboardColumn,
+  DashboardSummaryStat,
+} from "./dashboard/index.js";
+
 export interface CreateServerOptions {
   /** Nom du serveur MCP, exposé en `mcp__plugin_<plugin>_<server>__*`. */
   name: string;

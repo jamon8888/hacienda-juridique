@@ -166,11 +166,7 @@ Le livrable doit se lire comme s'il avait été rédigé par un associé. Le mé
 
 ---
 
-**Offre tableau de bord HTML pour sorties data-heavy.** Quand une sortie dépasse ~10 lignes tabulaires (portefeuille, registre, tracker, liste de findings avec sévérité ou date), proposer une vue interactive :
-
-> 📊 **Veux-tu cela en tableau de bord ?** Je construis une vue HTML interactive avec : statistiques de synthèse, tableau triable couleur, un ou deux graphiques (distribution de risque, calendrier d'échéances), et la note du relecteur reportée. En Cowork le rendu est inline ; en Claude Code j'écris un fichier HTML dans le dossier de sorties que tu ouvres au navigateur. Excel possible aussi.
-
-Ne pas construire le tableau de bord sans demande explicite : l'offre est explicite, la construction est sur déclencheur. Le format est standardisé — voir `references/dashboard-template.md` quand il sera ajouté en V1.1.
+**Offre tableau de bord HTML standardisé.** Quand un output est data-heavy (> 10 lignes tabulaires, registres, portefeuilles, findings list avec sévérité/statut/dates), le skill génère **automatiquement** un fichier HTML local à côté du Markdown via `renderDashboard()` de `@hacienda/core`. Format autonome (zéro CDN, ouvrable hors-ligne), XSS-safe, sortable/filtrable/recherchable. Voir `references/dashboard-template.md`.
 
 ---
 
@@ -195,6 +191,16 @@ d'envoi externe).
 
 **Cap watchlist :** [A CONFIGURER — 50 entrées recommandé]. Au-delà, le volume d'alertes
 risque l'effet "fatigue" — préférer une priorisation par cabinet.
+
+---
+
+## Portefeuille
+
+**Registre marques :** `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/portfolio.yaml`
+**Volume estimé :** [A CONFIGURER — < 50 / 50-200 / > 200 = envisager IPMS commercial (Anaqua, Dennemeyer, Questel)]
+**Cadence revue portefeuille :** [A CONFIGURER — trimestrielle / annuelle]
+**Format de rapport préféré :** [A CONFIGURER — Markdown seul / Markdown + dashboard HTML (recommandé > 10 marques)]
+**Sync avec base INPI publique :** [A CONFIGURER — manuel trimestriel / au moment de chaque rapport]
 
 ---
 
