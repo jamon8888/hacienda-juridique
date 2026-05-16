@@ -196,3 +196,102 @@ techniques précises = on ne peut PAS faire un claim chart sérieux. Dire :
 >
 > Tu veux que je fasse le pré-claim chart indicatif quand même, ou tu
 > reviens avec plus de doc ?
+
+---
+
+## Étape 1 — Extraction des revendications
+
+Le claim chart est aussi solide que sa décomposition initiale des
+revendications. Méthode standard mandataires en brevets :
+
+### 1.1 Identifier les revendications indépendantes
+
+Les revendications indépendantes définissent l'invention dans son
+périmètre le plus large. Elles ne renvoient à aucune autre revendication.
+
+- Habituellement **rev. 1** (toujours).
+- Parfois rev. 1 (produit) + rev. N (procédé d'obtention) + rev. M
+  (utilisation) — un brevet peut avoir plusieurs catégories d'invention,
+  chacune avec sa propre revendication indépendante.
+- Lire les revendications jusqu'à la dernière : repérer les "Procédé selon
+  l'une des revendications précédentes" → dépendantes ; "Dispositif
+  caractérisé en ce que" sans renvoi → indépendant.
+
+### 1.2 Identifier les revendications dépendantes pertinentes
+
+Toutes les dépendantes ne sont pas pertinentes pour le claim chart. Garder
+celles qui :
+- ajoutent une caractéristique technique probablement reproduite par le
+  produit incriminé (lecture rapide de la doc produit donne une idée) ;
+- précisent une plage numérique (épaisseur, température, concentration)
+  qu'on peut vérifier directement sur la doc produit ;
+- spécifient un mode de réalisation préféré qui correspond manifestement
+  au produit incriminé.
+
+Une revendication dépendante CONTREFAITE seule (la principale étant non
+contrefaite) est juridiquement impossible — la dépendante inclut, par
+définition, toutes les caractéristiques de la principale. Si la principale
+n'est pas contrefaite, les dépendantes ne le sont pas non plus. Vérifier
+la cohérence du tableau à la fin (étape 3).
+
+### 1.3 Décomposer chaque revendication en éléments numérotés
+
+C'est le geste central. Chaque revendication est éclatée en éléments
+constitutifs atomiques, chacun avec un identifiant stable utilisé dans
+tout le reste du document.
+
+**Exemple méthode décomposition :**
+
+> **Revendication 1 :** "Procédé de filtration d'eau utilisant une
+> membrane à base de graphène, caractérisé en ce que ladite membrane
+> comprend (a) une couche support en polymère poreux, (b) une couche
+> active de graphène d'épaisseur 5-50 nm, et (c) un agent de
+> réticulation polyamine."
+>
+> **Décomposition :**
+> - Élément (1) : Procédé de filtration d'eau
+> - Élément (2) : Utilisation d'une membrane à base de graphène
+> - Élément (3a) : Couche support en polymère poreux
+> - Élément (3b) : Couche active de graphène d'épaisseur 5-50 nm
+> - Élément (3c) : Agent de réticulation polyamine
+
+Règles de décomposition :
+- Un élément = une caractéristique technique élémentaire.
+- Si la revendication enchaîne par "et" ou liste (a)/(b)/(c), chaque item
+  est un sous-élément avec suffixe lettre (3a / 3b / 3c).
+- Si une caractéristique combine plusieurs aspects ("membrane à base de
+  graphène d'épaisseur 5-50 nm"), considérer si la séparation a un sens
+  technique — souvent oui : un produit peut avoir la membrane sans la
+  bonne épaisseur.
+- Les **préambules** ("procédé de filtration d'eau") ne sont PAS purement
+  cosmétiques en droit français — ils définissent le contexte d'utilisation
+  revendiqué. Les inclure comme élément (1).
+- Les **caractéristiques additionnelles** ("comprenant en outre", "et de
+  préférence") doivent être traitées séparément.
+
+### 1.4 Flagger les termes interprétatifs
+
+Les revendications contiennent souvent des termes qui appellent
+interprétation juridictionnelle :
+
+- `environ`, `approximativement`, `de l'ordre de` — plages tolérantes
+- `essentiellement composé de`, `comprenant pour l'essentiel` — exclut
+  certains additifs mais pas tous
+- `de préférence`, `notamment`, `par exemple` — non limitatif (le mode
+  préféré n'est PAS la limite revendiquée — important pour la contrefaçon)
+- `caractérisé en ce que` — sépare préambule (état de l'art) et partie
+  caractérisante (apport inventif)
+- `apte à`, `configuré pour`, `destiné à` — formulations de fonction
+  (une simple aptitude peut suffire à la contrefaçon, l'usage effectif
+  n'est pas requis pour la contrefaçon directe)
+
+Chaque terme interprétatif détecté reçoit un flag `[review — interprétation
+revendication]` à passer au mandataire. L'interprétation des revendications
+par le TJ Paris détermine l'étendue de la protection (analogue Markman
+français — CPI L.615-1, jurisprudence Cour de cassation chambre commerciale
+constante).
+
+**Garde-fou** : ne JAMAIS interpréter silencieusement un terme ambigu en
+faveur du titulaire (extension de portée) ou en faveur du contrefacteur
+(réduction de portée). C'est la décision la plus contestée d'un procès en
+contrefaçon. Toujours flagger.
