@@ -689,3 +689,192 @@ décès estimée, ajouter 70 ans, et arrondir au 1er janvier suivant. Tag
 de durée de vie.
 
 ---
+
+## Étape 6 — Enjeux identifiés (selon l'objectif de la qualification)
+
+L'objectif (préventif / défensif / contentieux) déclaré à l'intake conditionne
+la nature et la formulation des enjeux. Ne pas générer les 3 listes : ne
+produire que celle correspondant à l'objectif déclaré (les autres en sont la
+contrepartie en miroir).
+
+### Objectif préventif (avant exploitation / diffusion / cession)
+
+- **Cession incomplète ou inexistante** : risque d'opposition future de
+  l'auteur (créateur indépendant, salarié non-cédé, agence externe) à toute
+  exploitation au-delà de la livraison initiale.
+- **Droits moraux mal gérés** : rebranding, modifications, intégration dans
+  système tiers, déclinaisons de formats — sans clause spécifique au contrat
+  de cession, ouvre l'action en violation du droit moral (cessation +
+  dommages-intérêts).
+- **Régime logiciel vs œuvre littéraire** : pour SaaS / applications,
+  identification critique L.113-9 (logiciel salarié = employeur titulaire
+  automatique) vs droit commun (contenu marketing, design d'interface si non
+  logiciel) — frontière fine.
+- **Conditions cumulatives L.131-3 non respectées** (mention écrit +
+  énumération des droits + domaines + territoires + durée + rémunération) :
+  nullité partielle ou totale de la cession — c'est l'erreur la plus
+  fréquente en pratique.
+- **Pacte de coauteurs absent** (cas B) : risque de blocage par l'un des
+  coauteurs à l'exploitation.
+- **Chaîne de droits d'œuvre composite non documentée** (cas D) :
+  contrefaçon dérivée même en cas d'originalité propre.
+- **Preuves de date insuffisantes** : risque défensif futur si contestation
+  d'antériorité — proposer `depot-preuve-creation` (v0.1).
+
+### Objectif défensif (contestation reçue d'un tiers)
+
+- **Notre œuvre est-elle bien originale au sens CJUE Infopaq ?** Application
+  rigoureuse des 3 tests de l'étape 1, identification des choix créatifs
+  concrets opposables.
+- **Notre titularité est-elle bien établie ?** Chaîne de cessions tracée
+  depuis le créateur jusqu'à nous (contrats, avenants, factures avec mentions
+  L.131-3, pacte de coauteurs si applicable).
+- **L'œuvre contestée est-elle vraiment dérivée de la nôtre ?** Analyse
+  comparative caractéristique par caractéristique — distinguer **idée**
+  (non protégée) et **expression** (protégée).
+- **Avons-nous des preuves de date de création antérieures** à l'œuvre
+  contestée ? Inventaire des preuves disponibles, recommandation `depot-preuve-creation`
+  si insuffisant.
+- **Position défensive sur les exceptions L.122-5** : la partie adverse
+  peut-elle invoquer copie privée, courte citation, parodie, exception
+  pédagogique ?
+
+### Objectif contentieux (préparation action contrefaçon)
+
+- **Preuves de date de création** (renvoi `depot-preuve-creation` v0.1) :
+  manuscrits horodatés, dépôts copyright.fr, enveloppe Soleau INPI, constat
+  d'huissier ou commissaire de justice.
+- **Identification des droits violés** : patrimoniaux (lesquels précisément :
+  reproduction, représentation, adaptation) et/ou moraux (paternité, intégrité).
+- **Évaluation préjudice préliminaire** : différé `contrefacon-droit-auteur`
+  V4.2 (réparation intégrale L.331-1-3 — conséquences économiques négatives,
+  préjudice moral, bénéfices réalisés par le contrefacteur).
+- **Compétence juridictionnelle** : **TJ Paris (3e chambre PI)** ou TJ
+  régional désigné selon le défendeur (décret n° 2009-1205 — 10 TJ
+  spécialisés PI en France hors Paris). Vérifier la compétence avant
+  rédaction assignation.
+- **Saisie-contrefaçon préalable** (L.332-1+) : mesure probatoire essentielle
+  — ordonnance sur requête au président TJ, exécution par huissier. À
+  préparer avant l'action.
+- **Prescription** : action en contrefaçon se prescrit par **5 ans** à
+  compter de la connaissance des faits (L.331-1-4) — vérifier que le délai
+  n'est pas écoulé.
+
+---
+
+## Format de sortie
+
+Le livrable se structure comme suit (Markdown, fences imbriqués en quadruple
+backticks pour ne pas casser le rendu interne) :
+
+````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon profil (avocat / juriste interne / non-juriste)]
+
+# Qualification œuvre — [Description courte de l'œuvre] (QUALIFICATION JURIDIQUE, PAS AVIS D'OPPORTUNITÉ)
+
+> **Qualification juridique ≠ avis d'opportunité.** Ce skill produit une
+> analyse de qualification au regard du droit d'auteur français. Il NE
+> conclut PAS à l'existence ou à l'inexistence du droit d'auteur (= juge in
+> fine), NE rédige PAS un contrat de cession (= `cession-droit-auteur` V4.1),
+> NE qualifie PAS une contrefaçon (= `contrefacon-droit-auteur` V4.2).
+> Validation avocat spécialisé propriété littéraire et artistique
+> **OBLIGATOIRE** avant tout acte (exploitation, cession, contestation,
+> action en contrefaçon).
+
+> **⚠️ Note du relecteur**
+> - **Sources lues :** [CPI articles cités : L.111-1, L.112-2, L.113-1 à L.113-9, L.121-1+, L.122-1+, L.123-1+, L.131-3 + jurisprudence : CJUE Infopaq C-5/08, CJUE Painer C-145/10, CJUE Cofemel C-683/17, Cass. 1re civ. Pachot 7 mars 1986]
+> - **Objectif de qualification :** [préventif / défensif / contentieux]
+> - **Points [review] :** [N éléments à valider avocat — détailler les plus critiques]
+> - **Preuves de date disponibles :** [oui : type / non : recommandation `depot-preuve-creation`]
+> - **Avant action :** validation avocat spécialisé propriété littéraire et artistique **OBLIGATOIRE**
+
+**Triage :** 🟢 ORIGINALITÉ + TITULARITÉ CLAIRES / 🟡 MIXTE — POINTS À ARGUMENTER / 🔴 PROBLÉMATIQUE — RISQUE QUALIFICATION
+*(une phrase de justification)*
+
+## Œuvre analysée
+
+- **Description :** [...]
+- **Nature :** [texte / image / musique / vidéo / logiciel / design / multimedia / autre]
+- **Forme tangible :** [manuscrit / fichier / partition / maquette / code source / autre]
+- **Date de création :** [YYYY-MM-DD ou approximation]
+- **Preuves disponibles :** [liste]
+
+## Analyse de l'originalité (L.111-1 + CJUE Infopaq)
+
+**Test 1 — Choix libres vs contraintes techniques :** [analyse appliquée]
+**Test 2 — Identifiabilité :** [analyse appliquée]
+**Test 3 — Effort intellectuel créatif :** [analyse appliquée]
+
+**Verdict :** 🟢 / 🟡 / 🔴 — [justification 2-3 lignes appliquée à l'œuvre concrète, pas une récitation des règles]
+
+## Catégorie L.112-2 retenue
+
+**Catégorie principale :** [littéraire / artistique / musicale / audiovisuelle / logicielle / base de données / design / multimédia / autre]
+**Sous-catégorie ou régime spécial :** [le cas échéant — L.113-7 audiovisuel, L.113-9 logiciel, L.132-36 journaliste, L.341-1 base de données sui generis]
+**Œuvre hybride :** [si oui, lister toutes les catégories applicables + qualification distributive par composant]
+
+## Titularité initiale
+
+**Cas applicable :** [A / B / C / D / E / F / G — avec libellé du cas]
+
+**Analyse détaillée :**
+- [analyse du cas appliquée aux faits concrets]
+- **Titulaire(s) identifié(s) :** [nom personne physique / personne morale / cotitulaires]
+- **Risques particuliers :** [absence de cession écrite / pacte coauteurs manquant / chaîne d'œuvre composite cassée / présomption L.113-1 contestable / autre]
+
+## Droits patrimoniaux vs Droit moral (pour le cas concret)
+
+**Droits patrimoniaux dévolus à :** [créateur / employeur (L.113-9) / commanditaire (œuvre collective L.113-5) / cotitulaires (L.113-3)]
+**Droit moral conservé par :** [auteur(s) personne(s) physique(s) — TOUJOURS, perpétuel inaliénable imprescriptible]
+**Points de friction critiques :** [adaptation envisagée / contexte de diffusion / rebranding / formats dérivés / intégration tiers — à traiter explicitement dans tout contrat de cession]
+
+## Durée de protection
+
+**Durée applicable :** [70 ans post mortem standard / variantes selon type]
+**Événement déclencheur :** [décès auteur unique / décès dernier coauteur / publication œuvre collective / achèvement base de données sui generis]
+**Expiration estimée :** [calcul YYYY — tag `[verify]` si basé sur estimation de durée de vie]
+
+## Enjeux identifiés
+
+**Selon objectif [préventif / défensif / contentieux] :**
+
+- [enjeu 1 — actionnable, calibré sur le cas concret]
+- [enjeu 2 — id.]
+- [enjeu 3 — id.]
+- [...]
+
+## Recommandations
+
+**Si objectif préventif :**
+- Actions avant exploitation (cession écrite L.131-3 conforme, dépôt de preuve, clauses droit moral)
+
+**Si objectif défensif :**
+- Preuves à constituer (chaîne de cessions, dates de création, originalité argumentée)
+- Argumentation à préparer (tests originalité concrets, distinguer idée/expression)
+
+**Si objectif contentieux :**
+- Étapes avant action TJ Paris ou TJ régional spécialisé PI
+- Préparation saisie-contrefaçon préalable
+- Vérification prescription 5 ans
+- Évaluation préliminaire préjudice (renvoi V4.2)
+
+**Une question hors de ma checklist :** [observation seconde-ordre — par
+exemple : « ton œuvre s'appuie sur des éléments générés par IA, ce qui
+introduit une question d'originalité non couverte par les 7 cas — la
+jurisprudence sur la titularité IA est en cours d'évolution `[connaissance
+modèle — à vérifier]` » — omettre si rien d'honnête à dire]
+
+## Que veux-tu faire ?
+
+1. **Rédiger une cession** — j'ouvre `cession-droit-auteur` (V4.1) avec les paramètres identifiés (cas titularité, droits à céder, mentions L.131-3 obligatoires)
+2. **Escalader** — je rédige une note pour avocat spécialisé propriété littéraire et artistique + Direction selon enjeu identifié
+3. **Compléter les faits** — il manque [preuves de date / chaîne de titularité / comparaisons avec œuvres antérieures / précisions sur le contexte de création]
+4. **Préparer les preuves de création** — j'ouvre `depot-preuve-creation` (v0.1) pour organiser dépôts horodatés (copyright.fr / huissier / enveloppe Soleau INPI)
+5. **Autre chose** — dis-moi
+````
+
+Le livrable est écrit dans le fichier de sortie, sans bandeau Hacienda et
+sans narration interne (cf. mode silencieux pour livrables externes —
+`CLAUDE.md` plugin §2).
+
+---
