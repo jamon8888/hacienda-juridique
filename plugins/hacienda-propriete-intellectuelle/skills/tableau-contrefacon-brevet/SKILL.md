@@ -506,3 +506,145 @@ Avant de finaliser le tableau, faire une passe de cohérence :
   interprété de la même façon partout dans le tableau. Si "polymère
   poreux" est ✅ équivalent au PES dans rev. 1, le PES doit aussi
   satisfaire "polymère poreux" dans rev. 4 si elle reprend le terme.
+
+---
+
+## Étape 4 — Analyse contrefaçon par équivalence (CPI L.613-3, Cour de cass. com. 5 mai 2009)
+
+Étape **critique en droit français** : la théorie de l'équivalence est
+la porte de sortie quand la contrefaçon littérale échoue sur un ou
+plusieurs éléments. Beaucoup de procès en contrefaçon brevet se jouent
+sur cette analyse.
+
+### 4.1 Cadre juridique
+
+> **Cadre FR — théorie de l'équivalence (CPI L.613-3, jurisprudence Cour
+> de cassation chambre commerciale 5 mai 2009 n°08-13.586) :**
+>
+> > "Constitue une contrefaçon par équivalents le fait pour un tiers
+> > d'utiliser un moyen qui, sous une forme différente, exerce la même
+> > fonction en vue d'obtenir un résultat de même nature."
+>
+> **Trois critères cumulatifs :**
+> 1. **Même fonction** : l'élément du produit incriminé remplit la même
+>    fonction technique que l'élément revendiqué.
+> 2. **Même résultat** : le résultat obtenu est de même nature (même
+>    effet technique recherché).
+> 3. **Voies substantiellement identiques** : les moyens employés sont
+>    équivalents — pas nécessairement identiques, mais de même nature
+>    technique pour l'homme du métier.
+
+Les trois critères sont **cumulatifs** — un seul manquant suffit à écarter
+l'équivalence pour cet élément.
+
+Le fondement texte est CPI L.613-3 (droits conférés par le brevet :
+contrefaçon directe + contrefaçon par équivalence), interprété par la
+jurisprudence constante de la chambre commerciale de la Cour de cassation
+depuis l'arrêt fondateur du 5 mai 2009.
+
+### 4.2 Méthode — pour chaque élément ❌, mener l'analyse en 3 critères
+
+Pour chaque élément flaggé **❌ absent** à l'étape 3, ouvrir un sous-tableau
+dédié à l'analyse équivalence. Format :
+
+````markdown
+### Élément (3c) "Agent de réticulation polyamine"
+
+Élément ❌ absent en littéralité dans la documentation produit AquaPur X9.
+Analyse équivalence (CPI L.613-3, Cour de cass. com. 5 mai 2009) :
+
+Hypothèse : le produit utilise un agent de réticulation **polyimine** (mention
+trouvée dans le brevet déposé EP9876543 par le contrefacteur, rev. 5).
+
+| Critère | Élément revendiqué (polyamine) | Élément produit (polyimine, hyp.) | Évaluation |
+|---|---|---|---|
+| Même fonction | Stabilisation chimique de la couche de graphène par réticulation des chaînes polymères | Stabilisation chimique de la couche de graphène par réticulation (mécanisme analogue) | ✅ `[review — homme du métier polymériste]` |
+| Même résultat | Durabilité de la membrane + maintien de la performance de filtration dans le temps | Idem (le PES réticulé en polyimine a un comportement de durabilité comparable selon littérature) | ✅ `[review]` |
+| Voies subst. identiques | Chimie de réticulation par groupes amine | Chimie de réticulation par groupes imine — sous-famille des amines, mécanisme analogue | ⚠️ `[review — frontière à apprécier par chimiste]` |
+
+**Conclusion équivalence (3c) :** équivalence présumée sous réserve de
+validation chimiste et confirmation expérimentale du mécanisme de
+réticulation effectif dans le produit. `[review]`
+````
+
+### 4.3 Trois critères — exemples par domaine technique
+
+**Mécanique** — élément revendiqué "ressort hélicoïdal de compression",
+élément produit "lame ressort en flexion".
+- Même fonction : oui (rappel élastique).
+- Même résultat : oui (force de rappel proportionnelle au déplacement).
+- Voies substantiellement identiques : ⚠️ à apprécier — le ressort
+  hélicoïdal stocke l'énergie en torsion du fil, la lame en flexion. Si
+  le brevet revendique spécifiquement la torsion, l'équivalence peut
+  échouer ; si la revendication est "moyen élastique de rappel", elle
+  passe.
+
+**Chimie** — élément revendiqué "solvant éthanol", élément produit
+"solvant méthanol".
+- Même fonction : oui (dissolution).
+- Même résultat : ⚠️ à apprécier — solubilités différentes selon le
+  soluté ; toxicité différente change la "nature du résultat" si la
+  revendication est dans un contexte alimentaire ou pharmaceutique.
+- Voies : oui (même famille alcool primaire). Souvent ✅ en chimie
+  industrielle classique, plus discuté en pharma.
+
+**Logiciel** — élément revendiqué "tri par algorithme quicksort",
+élément produit "tri par mergesort".
+- Même fonction : oui (trier).
+- Même résultat : oui (séquence ordonnée).
+- Voies : ⚠️ — algorithmes différents, complexité différente. Si la
+  revendication revendique le quicksort par sa propriété de complexité
+  O(n log n) moyenne, l'équivalence peut passer ; si elle revendique le
+  comportement spécifique du quicksort (pivot, partition), elle échoue.
+
+**Biotech** — élément revendiqué "anticorps monoclonal anti-CD20 IgG1",
+élément produit "anticorps monoclonal anti-CD20 IgG4".
+- Même fonction : oui (liaison sélective CD20).
+- Même résultat : ⚠️ — l'isotype change l'activation du complément et
+  ADCC ; si l'effet thérapeutique recherché en dépend, le résultat n'est
+  pas de même nature.
+- Voies : ✅ (même famille IgG, même cible).
+
+Pour chaque équivalence proposée, **flagger `[review]` systématiquement**.
+Le mandataire ou l'avocat valide — cette analyse exige souvent un avis
+d'expert technique (homme du métier).
+
+### 4.4 Limites de la théorie de l'équivalence
+
+Trois limites majeures à signaler dans la sortie quand elles s'appliquent :
+
+**Doctrine du dossier de poursuite (file wrapper estoppel, importée en
+droit français).** Si le déposant a, pendant l'examen du brevet (INPI
+ou OEB), renoncé à une étendue de protection — typiquement en réduisant
+la portée d'une revendication pour répondre à une objection
+d'antériorité ou d'activité inventive de l'examinateur —, il ne peut
+pas récupérer cette portée abandonnée par la voie de l'équivalence.
+Vérifier le dossier de poursuite (registre INPI, registre OEB en ligne)
+avant toute argumentation équivalence sur un élément manifestement
+restreint pendant l'examen.
+
+**Borne par l'art antérieur.** La théorie de l'équivalence ne peut pas
+étendre la protection à des moyens connus de l'art antérieur à la date
+de priorité du brevet — sinon le brevet serait nul pour défaut de
+nouveauté sur la partie équivalente. Si l'élément équivalent proposé
+était déjà divulgué dans l'art antérieur (par exemple les antériorités
+trouvées en `recherche-anteriorite-brevet`), l'équivalence est exclue.
+
+**Suffisance et prévisibilité pour l'homme du métier.** L'élément
+équivalent doit être une variante prévisible pour l'homme du métier à
+la date du dépôt — pas une rupture technologique apparue après. Si
+l'équivalent proposé repose sur une technologie postérieure non
+prévisible, l'équivalence devient discutable et appelle un avis
+expert technique calé sur la date de priorité.
+
+### 4.5 Restitution dans le tableau final
+
+Pour chaque élément analysé en équivalence, le sous-tableau (4.2) est
+inséré dans la sortie sous la section dédiée "Analyse contrefaçon par
+équivalence". Chaque conclusion d'équivalence reçoit un flag `[review]`
+final ; **ne JAMAIS écrire "équivalence caractérisée" sans `[review]`**.
+
+Si **tous** les éléments ❌ trouvent une équivalence présumée → la
+contrefaçon par équivalents est suspectée pour la revendication entière
+(sous réserve validation mandataire). Sinon, la revendication échoue
+en littérale ET en équivalence sur les éléments restants.
