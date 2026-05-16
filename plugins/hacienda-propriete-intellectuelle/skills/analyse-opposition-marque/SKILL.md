@@ -673,3 +673,140 @@ en 10 minutes de lecture.
 `````
 
 ---
+
+## Gate non-juriste
+
+Avant émettre la sortie, lire `## 1. Profil cabinet et profil de pratique PI`.
+Si **Rôle = juriste interne sans inscription** OU **non-juriste avec ou
+sans accès avocat** :
+
+> Cette analyse est un **préparatoire**, pas un mémoire d'opposition formel.
+> Déposer une opposition INPI ou répondre à une opposition reçue sans
+> validation mandataire en marques (CPI L.422-4) ou avocat PI a des
+> conséquences juridiques majeures :
+>
+> - **Opposition rejetée pour défaut d'argumentation** = perte de la taxe
+>   d'opposition (~325€ FR INPI 2026) + maintien de la marque adverse +
+>   précédent défavorable pour toute action future.
+> - **Opposition jugée abusive** (motifs manifestement insuffisants, intention
+>   de nuire) = dommages-intérêts au défendeur sur le fondement de l'art.
+>   1240 du code civil (responsabilité civile délictuelle).
+> - **Mémoire en défense mal argumenté** (mode `--respond`) = opposition
+>   adverse admise, notre marque rejetée pour les classes visées = perte
+>   du dépôt + perte des taxes de dépôt initial (~190€ FR).
+> - **Incohérences cross-procédures** : si on attaque une marque tierce sur
+>   un motif L.713-2 borderline, notre propre marque pourrait être
+>   contestée en retour sur le même motif (effet boomerang).
+>
+> Voici un brief 1 page à apporter au mandataire — ça réduira le temps de
+> conversation et le coût horaire :
+>
+> [Générer un résumé 1 page : **(1)** mode (former / répondre) + numéro
+> marque attaquée + délai restant + sévérité 🔴/🟠/🟡, **(2)** antériorités
+> opposables (numéros + signe + classes + statut), **(3)** motifs analysés
+> par branche avec cote 🟢/🟡/🔴, **(4)** recommandation stratégique
+> préliminaire (totale / partielle / transaction), **(5)** chances de
+> succès estimées, **(6)** 3 questions à poser au mandataire :
+>
+> - "Quelle est la jurisprudence INPI récente (24 derniers mois) sur la
+>   similitude phonétique en classe [X] ?"
+> - "Faut-il invoquer l'usage de mauvaise foi du déposant (CJUE *Lindt*
+>   C-529/07) ou est-ce affaiblir l'argumentaire principal L.713-2 ?"
+> - "Vaut-il mieux opposition partielle (cible mieux mais laisse subsister
+>   la marque) ou totale (vise tout mais argumentaire dilué) compte tenu
+>   du dossier ?"]
+>
+> Pour trouver un mandataire en marques ou un avocat PI :
+>
+> - **Annuaire des avocats** : https://www.avocat.fr (Conseil National des
+>   Barreaux — avocats spécialisés en propriété intellectuelle)
+> - **Annuaire INPI des mandataires en marques (CPI L.422-4)** :
+>   https://www.inpi.fr/conseils-en-propriete-industrielle
+
+Livrer l'analyse complète À CÔTÉ du brief. Ne pas retenir le contenu
+technique.
+
+---
+
+## Emplacement de la sortie
+
+Écrire à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/opposition-<numero-marque>-<mode>-YYYY-MM-DD.md`
+et surfacer le chemin à l'utilisateur.
+
+- `<numero-marque>` : numéro INPI de la marque attaquée (`FR4123456`).
+- `<mode>` : `form` ou `respond` selon le mode du skill.
+- Si le profil contient déjà un fichier identique pour aujourd'hui, ajouter
+  un suffixe `-2`, `-3`, etc.
+
+Exemple : `opposition-FR4123456-form-2026-05-16.md` ou
+`opposition-FR1234567-respond-2026-05-16.md`.
+
+Matter workspaces hors V1 (cf. `CLAUDE.md` `## 11. Workspaces de dossier`).
+
+---
+
+## Ce que ce skill NE fait PAS
+
+- **Déposer l'opposition formelle.** Le dépôt du mémoire d'opposition
+  auprès de l'INPI s'effectue par **télé-procédure obligatoire** depuis
+  2017 (portail https://procedures.inpi.fr/ ou espace mandataire). Le
+  dépôt papier n'est plus accepté en pratique. Ce skill produit le
+  contenu argumentaire à valider et compléter par le mandataire avant
+  télé-dépôt.
+- **Payer la taxe d'opposition** (~325€ FR INPI 2026, révisable par arrêté
+  ministériel). La taxe est réglée par le mandataire au moment du
+  télé-dépôt, par prélèvement sur compte INPI ou carte. Ce skill ne
+  génère aucun ordre de paiement.
+- **Plaider en audience orale.** La procédure d'opposition INPI est
+  essentiellement écrite (mémoires + pièces). Les audiences orales sont
+  rares (cas complexes, demande expresse) et relèvent d'un mandataire
+  spécialisé devant l'INPI ou de l'avocat PI au stade du recours TJ /
+  Cour d'appel.
+- **Gérer le recours TJ / Cour d'appel Paris post-décision INPI** (CPI
+  L.411-4, recours dans le mois de notification). C'est le périmètre du
+  futur skill `contentieux-marques` (V6.0+), pas ce skill — qui s'arrête
+  à la décision INPI.
+- **Évaluer les transactions financières** (coexistence amiable, licence
+  croisée, rachat de la marque adverse). Le skill **signale** l'option
+  transaction comme alternative stratégique, mais l'évaluation économique
+  (valeur de la marque, conditions de licence, prix de rachat) relève de
+  la négociation business avec assistance avocat — pas de ce skill.
+- **Garantir le résultat de l'opposition.** La qualification finale du
+  risque de confusion, du caractère renommé ou de l'antériorité opposable
+  relève de l'autorité (juriste INPI, puis le cas échéant Cour d'appel
+  Paris). Aucune assertion "cette opposition sera gagnée" — uniquement
+  des estimations de force argumentaire (🟢/🟡/🔴) et de chances de succès
+  (fourchettes 0-100 %).
+- **Restaurer un délai manqué.** La restauration L.712-4-1 est strictement
+  exceptionnelle ("circonstances indépendantes de la volonté" prouvées).
+  Ne jamais miser dessus dans la stratégie initiale, ne jamais promettre
+  qu'elle sera accordée. Délai manqué = droit d'opposer perdu
+  définitivement (sauf cas exceptionnel à plaider devant l'INPI puis le
+  cas échéant en recours).
+- **Surveiller le BOPI** pour détecter de nouvelles marques à opposer.
+  C'est le périmètre de `/hacienda-propriete-intellectuelle:surveillance-marque`
+  + agent `bopi-watcher` (V1.1.0). Ce skill consomme les alertes émises
+  par la surveillance ; il ne les produit pas.
+
+---
+
+## Ton
+
+Argumentaire, précis, **équilibré** : présenter systématiquement les
+arguments adverses anticipés avant de conclure (« le déposant tiers
+pourrait invoquer X — réfutation : Y »). Le mandataire en marques ou
+l'avocat PI doit pouvoir lire l'analyse en 10 minutes et en faire la
+base directe de son écriture finale par surcouche : ajustement des
+formulations juridiques, recherche jurisprudence complémentaire,
+finalisation du mémoire INPI, dépôt télé-procédure.
+
+Pas de prose hedgée, pas de méta-commentaire dans le livrable (les
+caveats vont dans la note du relecteur unique en tête). Chaque verdict
+de force probable (🟢/🟡/🔴) est honnêtement présenté comme
+**estimation argumentaire**, jamais comme prédiction de résultat. Le
+garde-fou en tête et la mention "à valider mandataire" sur les
+recommandations stratégiques font le travail de scope.
+
+L'analyse informe la rédaction mandataire ; elle ne la remplace pas.
+Le mandataire dépose ; ce skill prépare.
