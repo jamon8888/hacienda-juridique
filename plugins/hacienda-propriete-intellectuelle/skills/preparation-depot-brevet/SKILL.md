@@ -308,3 +308,129 @@ Détail rédactionnel et exemples : voir `references/structure-revendications.md
   (WIPO Standard ST.26 pour les listages de séquences depuis 2022).
 
 ---
+
+## Rédaction des revendications
+
+C'est le cœur juridique du brevet et la discipline où chaque mot pèse. Cette
+section donne le cadre ; les exemples détaillés sont en
+`references/structure-revendications.md`.
+
+### Revendication indépendante — calibrer la portée
+
+La revendication indépendante doit contenir **toutes les caractéristiques
+techniques essentielles** — celles sans lesquelles l'invention ne résout
+pas le problème objectif. Et **uniquement** celles-là : toute caractéristique
+non essentielle ajoutée réduit la portée de protection inutilement.
+
+- **Structure préambule + partie caractérisante** (norme européenne, Règle
+  43(1) CBE — optionnelle aux États-Unis qui pratiquent souvent le format
+  "single-claim" sans découpage explicite). Exemple :
+  > **Préambule :** "Procédé de filtration d'eau utilisant une membrane
+  > polymère, ladite membrane comprenant un substrat poreux et une couche
+  > sélective déposée sur le substrat,"
+  > **Partie caractérisante :** "caractérisé en ce que la couche sélective
+  > est constituée d'un polymère greffé par des groupements sulfonate à un
+  > taux de greffage compris entre 15 et 35 % en masse."
+
+- **Test de portée optimale** : *"un concurrent qui omettrait cette
+  caractéristique contournerait-il le brevet en faisant la même chose ?"*
+  - Si **oui** → la caractéristique n'est pas essentielle, la supprimer
+    (sinon protection contournable trivialement).
+  - Si **non** → garder la caractéristique (sinon la revendication couvre
+    de l'art antérieur).
+
+- **Trop large** = risque d'antériorité destructrice (refus pour défaut de
+  nouveauté L.611-11 ou activité inventive L.611-14 CPI) + risque de
+  défaut de support (L.611-1 CPI).
+- **Trop étroite** = protection inutile, facile à contourner par variation
+  triviale.
+
+### Revendications dépendantes — filet de sécurité
+
+- Ajoutent des **limitations spécifiques** à une revendication antérieure :
+  variantes structurelles, modes préférés, plages numériques préférées,
+  matériaux spécifiques.
+- **Renvois clairs et univoques** :
+  - `Procédé selon la revendication 1, dans lequel ...`
+  - `Procédé selon l'une des revendications 1 à 3, caractérisé en ce que ...`
+  - `Procédé selon l'une quelconque des revendications précédentes, ...`
+- **Hiérarchie pyramidale** : de la plus large (rev. 1) vers la plus
+  étroite (dernières revendications). Si la rev. 1 tombe en opposition ou
+  nullité, la rev. 2 puis 3 etc. forment des positions de repli.
+- **Plages graduées** : si la rev. 1 revendique 15-35 %, prévoir rev. 2
+  pour 20-30 %, rev. 3 pour 22-28 %, chacune ancrée par un exemple chiffré
+  dans la description.
+
+### Single-claim (US) vs multi-claim (EP) — économie procédurale
+
+- **USPTO** : autorise et habitue à un grand nombre de revendications
+  (15-20+). Facturation par revendication au-delà d'un seuil (3
+  indépendantes / 20 totales sous la *base fee* ; au-delà, surtaxes par
+  revendication supplémentaire). Pratique américaine du *picture claim*
+  (revendication très détaillée).
+- **OEB** : pas de limite formelle mais **taxe de revendication** au-delà
+  de 15 (et bien plus salée au-delà de 50 depuis la révision tarifaire
+  OEB). Économiquement, viser ≤ 15 revendications pour un dépôt EP. La
+  pratique européenne privilégie la **revendication large** + dépendantes
+  hiérarchisées.
+- **INPI FR** : pas de limite stricte, taxes modérées par revendication
+  au-delà de 10. La cohérence (unité d'invention — L.612-4 CPI) est
+  vérifiée plus strictement qu'aux USA.
+
+### Catégories de revendications (Règle 43(2) CBE)
+
+Une demande de brevet peut comprendre plusieurs **catégories** de
+revendications pour une même invention :
+
+- **Produit** — composition chimique, dispositif, appareil, système.
+  Couvre l'**objet en tant que tel** quelle que soit son utilisation.
+  Protection la plus forte (le simple fait de fabriquer ou détenir le
+  produit caractérisé constitue la contrefaçon).
+- **Procédé** — méthode, processus de fabrication, méthode d'opération.
+  Couvre la mise en œuvre des étapes décrites. La protection s'étend au
+  **produit obtenu directement par le procédé** (L.613-3 CPI, Art. 64(2)
+  CBE).
+- **Utilisation** — nouvelle utilisation d'un produit connu. **Recevable
+  en Europe** (T-208/88 *Bayer* sur la deuxième application
+  thérapeutique, codifié à l'Art. 54(5) CBE 2000). **Plus restrictif aux
+  USA** où l'utilisation pure est traitée différemment (method of use
+  claims).
+- **Combinaison produit-par-procédé** — caractérise un produit par le
+  procédé qui le fabrique, lorsque la structure ne peut pas être
+  caractérisée autrement (chimie complexe, biotech). Accepté avec
+  parcimonie par l'OEB (T-150/82 *Claim categories*) : exige démonstration
+  que le produit ne peut être défini structurellement.
+
+### Erreurs courantes à signaler
+
+À détecter dans le brouillon et flagger `[review]` :
+
+- **Caractéristiques non essentielles dans la revendication 1** — limite
+  inutilement la portée. Test : "si je retire ce mot, la rev. 1
+  couvre-t-elle l'art antérieur connu ?" Si non, retirer le mot.
+- **Caractéristiques essentielles manquantes** — rev. 1 trop large,
+  couvrira l'art antérieur ou ne sera pas supportée par la description.
+- **Terminologie imprécise** : `environ`, `proche de`, `sensiblement`,
+  `de l'ordre de` — admis avec parcimonie mais préférer des **plages
+  numériques bornées** (15 à 35 % et non "environ 25 %").
+- **Marques ou noms commerciaux** dans la revendication — interdit
+  (Directives OEB F-IV, 4.8). Une marque évolue dans le temps et son
+  contenu technique n'est pas opposable. Utiliser le nom générique ou
+  technique du produit.
+- **Plages numériques sans support exemple** — une plage 10-40 % avec un
+  seul exemple à 25 % est attaquable pour insuffisance et pour
+  généralisation indue (jurisprudence OEB T-409/91).
+- **Mélange de catégories dans une seule revendication** ("dispositif
+  comprenant ... et procédé de fabrication consistant à ...") — viole
+  l'unité de catégorie. Rédiger en revendications séparées.
+- **Renvois multiples-dépendants en cascade** (rev. 5 renvoyant à 1-4,
+  rev. 6 à 1-5, rev. 7 à 1-6…) — surtaxe USPTO importante, à éviter pour
+  un dépôt visant les USA en phase nationale PCT.
+- **Termes relatifs absolus** (`optimal`, `idéal`, `parfait`) — non
+  objectivement mesurables, à reformuler ("supérieur à un seuil X",
+  "dans une plage Y-Z").
+
+Pour chaque erreur détectée, proposer une reformulation candidate taguée
+`[review — à valider mandataire]`.
+
+---
