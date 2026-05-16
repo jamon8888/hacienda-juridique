@@ -58,6 +58,28 @@ ces sources doit être taguée avec le tag de provenance correspondant
 
 ---
 
+## Procédures brevets INPI / OEB / TJ Paris
+
+| Procédure | Délai clé | Taxe indicative 2026 | Compétence |
+|---|---|---|---|
+| Dépôt FR national | examen 18-36 mois | ~38€ + ~520€ recherche | INPI |
+| Dépôt EP (CBE) | examen 3-5 ans | ~120€ + ~1300€ examen | OEB Munich |
+| Dépôt PCT international | phase intl 30 mois | ~1330€ taxe internationale | WIPO Genève |
+| Réponse refus INPI | **~2-4 mois** (R.612-66) | inclus dans examen | INPI |
+| Réponse Communication OEB | **4 mois** prorogeable 2 mois (Règle 132 EPC) | inclus | OEB |
+| Demande divisionnaire FR | au plus tard avant délivrance | ~600€ + ~80€ examen | INPI |
+| Demande divisionnaire EP | tant que demande mère pendante | ~250€ + ~1700€ examen + ~600€ recherche | OEB |
+| Opposition OEB | 9 mois post-délivrance | ~880€ | OEB |
+| Action en nullité TJ Paris | imprescriptible (vie brevet) | frais avocat ~30-100k€ + expertise ~10-30k€ | TJ Paris 3e ch. brevets (L.615-1) |
+| Action en contrefaçon TJ Paris | 5 ans prescription (L.615-8) | idem | TJ Paris (L.615-1) |
+| Recours Cour d'appel Paris | 1 mois post-jugement TJ Paris | greffe + avocat | CA Paris (L.411-4) |
+| Pourvoi Cour de cass. com. | 2 mois post-arrêt CA | greffe + avocat aux conseils | Cour de cass. |
+| Renouvellement annuités | annuelles (échéance variable) | ~38€ à ~810€ FR INPI selon année | INPI / OEB / OMPI |
+
+**Note** : taxes 2026 indicatives — vérifier le tarif officiel INPI/OEB avant chaque démarche. Frais d'avocat très variables selon complexité technique du dossier.
+
+---
+
 ## 2. Brevets
 
 ### 2.1 Brevets — bases techniques (V0.4 — bloc Brevets MVP)
