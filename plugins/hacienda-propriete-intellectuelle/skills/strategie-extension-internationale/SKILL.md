@@ -459,3 +459,106 @@ office et par pays) + `references/arbre-decision-extension.md` (arbre
 interactif par scénarios + erreurs courantes).
 
 ---
+
+## Format de sortie
+
+Produire un document Markdown structuré selon le template ci-dessous.
+Quadruple fence pour permettre les fences de niveau intérieur (tableaux
+markdown, etc.) sans casse de rendu.
+
+````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon profil rôle ; voir CLAUDE.md plugin §2]
+
+# Stratégie extension internationale — Brevet [N°] (DÉCISION STRATÉGIQUE, PAS DÉMARCHE OFFICIELLE)
+
+> **Décision stratégique, pas démarche officielle.** Cette analyse est une aide à la
+> décision d'extension internationale d'un brevet FR initial : rester en FR seul,
+> étendre via la voie EP (OEB / 38 pays CBE), étendre via la voie PCT (WIPO / 156+
+> pays), ou voie hybride. Elle NE dépose PAS la demande EP ou PCT — la démarche
+> formelle est l'acte d'un mandataire en brevets qualifié EQE. Elle NE paye PAS les
+> taxes. Elle NE traduit PAS les revendications (étape critique post-délivrance EP).
+> **La fenêtre de 12 mois post-dépôt FR initial (Convention Union de Paris, Art. 4)
+> est ferme** — au-delà, perte de la revendication de priorité.
+
+> **⚠️ Note du relecteur**
+> - **Brevet FR initial :** [numéro + titre + date dépôt + statut]
+> - **Fenêtre 12 mois Union de Paris :** [N jours restants] — sévérité [🔴/🟠/🟡/🟢]
+> - **Marchés cibles :** [...]
+> - **Budget estimé disponible :** [...]
+> - **Sources :** [INPI Data ✓ / OEB Espacenet ✓ / utilisateur fourni / connaissance modèle]
+> - **Avant dépôt EP/PCT :** validation mandataire EQE **OBLIGATOIRE**
+
+**Triage :** 🔴 URGENT (< 60j priorité) / 🟠 (60-180j) / 🟡 (>180j) / 🟢 (priorité déjà expirée) — une phrase pourquoi
+
+## Brevet FR initial
+
+- **Numéro :** FR2700123
+- **Titre :** [titre de l'invention]
+- **Déposant(s) :** [...]
+- **Inventeur(s) :** [...]
+- **Date dépôt :** [YYYY-MM-DD]
+- **Date priorité :** [YYYY-MM-DD]
+- **Date publication :** [YYYY-MM-DD ou « non publié »]
+- **Statut :** [demande / publié / délivré / abandonné]
+- **Classification CIB :** [code CIB principal]
+- **Fenêtre extension restante :** [N jours] — date butoir : [YYYY-MM-DD]
+
+## Arbre décisionnel — 3 voies analysées
+
+### Voie A — FR national seul
+
+- **Coût initial** : ~560€
+- **Coût total 10 ans** : ~7 000€
+- **Marchés** : FR uniquement
+- **Pertinence pour votre cas :** [élevée/moyenne/faible — 1 phrase justification basée sur marchés et budget déclarés]
+
+### Voie B — Extension EP (CBE 38 pays)
+
+- **Coût initial** : ~2 000€ + validations post-délivrance (~5-15k€ selon pays choisis)
+- **Coût total 10 ans** : ~50 000-150 000€
+- **Marchés** : EU large (38 pays CBE)
+- **Pertinence pour votre cas :** [...]
+
+### Voie C — PCT international (WIPO 156+ pays)
+
+- **Coût initial** : ~3 500€ + entrées nationales (~12-50k€ selon pays choisis)
+- **Coût total 10 ans** : ~80 000-250 000€
+- **Marchés** : mondial flexible (gel décision 30 mois)
+- **Pertinence pour votre cas :** [...]
+
+## Recommandation principale
+
+**Voie recommandée :** [A / B / C / hybride FR + EP / hybride FR + PCT / autre]
+
+**Justification :** [3-5 lignes basées sur profil cabinet + marchés cibles + budget + posture maintenance. Citer les éléments factuels qui motivent la voie : « marché EU à 60% des revenus prévisionnels = Voie B EP cohérente », « budget < 15k€ = exclut PCT large, oriente FR + EP minimal », etc.]
+
+## Recommandations subsidiaires (Plans B)
+
+- **Plan B1 si budget réduit :** [alternative plus économique — ex. FR seul + EP minimal FR/DE/UK uniquement]
+- **Plan B2 si fenêtre priorité expire :** [extension hors priorité — accepter perte de bénéfice priorité, anticiper risque auto-antériorité]
+- **Plan B3 si marchés évoluent :** [stratégie hybride — ex. PCT à 12 mois pour gel 30 mois supplémentaires]
+
+## Checklist avant décision finale
+
+- [ ] **Recherche antériorité internationale** vérifiée (Espacenet + Google Patents si dispo)
+- [ ] **Budget validé** par Direction (CFO ou équivalent — enveloppe initiale + annuités 10 ans)
+- [ ] **Marchés cibles confirmés** par business (R&D ou Marketing — non par juridique seul)
+- [ ] **Mandataire EP/PCT engagé** pour démarche formelle (lettre de mission signée)
+- [ ] **Traduction préparée** si EP avec validations hors FR/DE/GB (Accord Londres = pas de traduction supplémentaire revendications)
+- [ ] **Calendrier 12 mois** noté (date butoir priorité Union de Paris dans tous les calendriers concernés)
+- [ ] **Stratégie maintenance** définie (annuités systématiques vs abandon programmé à 5 ans vs mixte par pays)
+- [ ] **Coordination famille** (cohérence avec autres brevets du portefeuille — voir `revue-portefeuille-brevets`)
+- [ ] **Cohérence portefeuille marques** (vérifier marques associées au produit — voir `revue-portefeuille-marques`)
+- [ ] **Validation finale mandataire EQE** avant tout dépôt EP/PCT (le présent document est un brouillon préparatoire, pas un go formel)
+
+**Une question hors de ma checklist :** [observation seconde-ordre — ex. « Y a-t-il un risque de divulgation prématurée à un salon ou conférence prévu dans les 12 mois ? Une publication non contrôlée détruit la nouveauté pour les juridictions sans délai de grâce (la majorité hors US/JP/KR) » — omis si rien d'évident]
+
+## Que veux-tu faire ?
+1. **Itérer la stratégie** — j'ajuste pays cibles, budget, voies envisagées, hypothèses marché.
+2. **Escalader** — note pour mandataire EQE + Direction R&D + CFO avec recommandation et budget chiffré.
+3. **Compléter étude marché** — détailler valeur commerciale par pays cible (CA prévisionnel, concurrents, partenariats locaux).
+4. **Préparer dépôt EP/PCT** — brief technique pour mandataire en vue d'une démarche immédiate (utile si fenêtre priorité 🔴 ou 🟠).
+5. **Autre chose** — dis-moi.
+````
+
+---
