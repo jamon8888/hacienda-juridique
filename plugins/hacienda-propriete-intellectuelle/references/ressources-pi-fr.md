@@ -80,6 +80,36 @@ ces sources doit être taguée avec le tag de provenance correspondant
 
 ---
 
+## Annuités brevets et services tiers
+
+| Service | Spécialité | URL | Pertinence |
+|---|---|---|---|
+| CPA Global (Clarivate) | Service annuités leader mondial | https://cpaglobal.com | Recommandé portefeuilles 50+ brevets multi-pays |
+| Dennemeyer | Annuités + portefeuille intégré | https://www.dennemeyer.com | Alternative ETI européenne |
+| Patrix | Annuités économique | https://www.patrix.com | PME / petits cabinets |
+| Anaqua | Plateforme IP complète + annuités | https://anaqua.com | Multinationale, workflow intégré |
+| Clarivate IPfolio | Suite intégrée portefeuille + recherche | https://clarivate.com/ipfolio | Multinationale R&D-intensive |
+| Questel | Recherche brevets + portefeuille | https://www.questel.com | Cabinets PI conseil |
+
+**Services typiques** :
+- Paiement automatisé annuités multi-pays (relai mandataires locaux)
+- Calendrier centralisé avec alertes préventives (90/60/30j avant échéance)
+- Reporting périodique sur statut portefeuille
+- Cross-référence avec dates clés (priorité, divisionnaires, oppositions)
+
+**Coûts indicatifs 2026** :
+- Service annuités tiers : ~10-30€ frais par annuité + commission mandataire local par pays
+- Plateforme IPMS complète : licence ~5-50k€/an selon volume (Anaqua, Clarivate IPfolio)
+
+**Quand utiliser un service tiers ?**
+- < 20 brevets : gestion manuelle possible avec calendrier mandataire EQE
+- 20-100 brevets : service annuités tiers recommandé (économie temps + sécurité)
+- > 100 brevets : IPMS complet recommandé (Anaqua, Clarivate IPfolio, Patrix)
+
+**Avantage clé** : sécurisation contre l'oubli d'annuité = perte du brevet (sauf grace period 6 mois avec surcharge, puis restauration L.612-14 strictement exceptionnelle).
+
+---
+
 ## 2. Brevets
 
 ### 2.1 Brevets — bases techniques (V0.4 — bloc Brevets MVP)

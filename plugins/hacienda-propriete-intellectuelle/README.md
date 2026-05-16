@@ -52,6 +52,14 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
 
+## Quoi de neuf en V0.8 — Extension internationale + Portefeuille brevets
+
+- Nouveau skill `strategie-extension-internationale` : arbre décisionnel FR / EP (OEB) / PCT (WIPO), coûts indicatifs 2026, recommandations par profil cabinet (startup → multinationale), fenêtre 12 mois Union de Paris
+- Nouveau skill `revue-portefeuille-brevets` : gestion CRUD du registre brevets (familles FR + EP + PCT + validations nationales), audit santé (annuités, expirations, gaps), dashboard HTML standardisé **réutilisé de V0.5** sans modification
+- Référentiel `portfolio-brevets.yaml` user-stable (calque `portfolio.yaml` marques V0.5)
+- **Le bloc brevets est désormais complet end-to-end** : recherche antériorité (V0.4) → préparation dépôt (V0.4) → extension internationale (V0.8) → réponse refus (V0.7) → claim chart contrefaçon (V0.4) → nullité (V0.7) → portefeuille + dashboard (V0.8)
+- Cross-référence avec portefeuille marques (V0.5) : champ `marques_associees` permet de relier brevets et marques d'un même produit
+
 ## Quoi de neuf en V0.7 — Refus INPI + Invalidité (workflow brevets défensif complet)
 
 - Nouveau skill `analyse-refus-inpi` : analyse notifications INPI (R.612-66 CPI) ou OEB (Règle 132 EPC), classification citations X/Y/A/E, 4 stratégies d'amendement (limitation, reformulation, abandon, divisionnaire), argumentation problème-solution OEB, projet de réponse FR/EN
