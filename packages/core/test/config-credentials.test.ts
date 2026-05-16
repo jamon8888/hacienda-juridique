@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { loadInpiCredentials, loadEuipoCredentials } from "../src/config.js";
+import { loadInpiCredentials, loadEuipoCredentials, loadOebCredentials } from "../src/config.js";
 
 describe("loadInpiCredentials", () => {
   beforeEach(() => {
@@ -34,5 +34,24 @@ describe("loadEuipoCredentials", () => {
 
   it("retourne null si manquant", () => {
     expect(loadEuipoCredentials()).toBe(null);
+  });
+});
+
+describe("loadOebCredentials", () => {
+  beforeEach(() => {
+    delete process.env.OEB_CONSUMER_KEY;
+    delete process.env.OEB_CONSUMER_SECRET;
+  });
+
+  it("lit OEB_CONSUMER_KEY/SECRET", () => {
+    process.env.OEB_CONSUMER_KEY = "key";
+    process.env.OEB_CONSUMER_SECRET = "secret";
+    const c = loadOebCredentials();
+    expect(c?.consumerKey).toBe("key");
+    expect(c?.consumerSecret).toBe("secret");
+  });
+
+  it("retourne null si manquant", () => {
+    expect(loadOebCredentials()).toBe(null);
   });
 });

@@ -114,3 +114,12 @@ export function loadEuipoCredentials(): EuipoCredentials | null {
   if (!apiKey) return null;
   return { apiKey };
 }
+
+export interface OebCredentials { consumerKey: string; consumerSecret: string }
+
+export function loadOebCredentials(): OebCredentials | null {
+  const consumerKey = process.env.OEB_CONSUMER_KEY;
+  const consumerSecret = process.env.OEB_CONSUMER_SECRET;
+  if (!consumerKey || !consumerSecret) return null;
+  return { consumerKey, consumerSecret };
+}

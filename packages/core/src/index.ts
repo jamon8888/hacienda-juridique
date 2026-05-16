@@ -35,8 +35,9 @@ export type { Config, PisteEnv } from "./config.js";
 export {
   loadInpiCredentials,
   loadEuipoCredentials,
+  loadOebCredentials,
 } from "./config.js";
-export type { InpiCredentials, EuipoCredentials } from "./config.js";
+export type { InpiCredentials, EuipoCredentials, OebCredentials } from "./config.js";
 export { loadJudilibreConfig } from "./judilibre/config.js";
 export type { JudilibreConfig, JudilibreEnv } from "./judilibre/config.js";
 export {
