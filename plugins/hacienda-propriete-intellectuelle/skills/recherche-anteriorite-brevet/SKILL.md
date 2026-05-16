@@ -201,3 +201,97 @@ flag spécifique avec une ligne de raison. Ne pas produire un tableau plat de
 à objectiver chacun des 7 motifs avant de dépenser en recherche d'antériorité.
 
 ---
+
+## Recherche multi-sources
+
+L'objectif : **trouver des documents d'art antérieur potentiellement
+destructeurs de nouveauté ou d'activité inventive**, pas décider si
+l'invention est brevetable. C'est le rôle du mandataire en brevets ou de
+l'avocat.
+
+### Ce que l'utilisateur a connecté
+
+Lire `## Intégrations disponibles` du profil pour déterminer quelles bases
+sont effectivement interrogeables. Trois cas :
+
+#### Cas A — INPI Brevets ✓ ET OEB Espacenet ✓ (optimal)
+
+Exécuter en parallèle :
+
+- `inpi_search_brevets({ query, classificationCIB, type: "tous", limite: 50 })`
+  pour la base FR/EP nationale (demandes FR, brevets délivrés FR, parties
+  nationales EP).
+- `espacenet_search({ query, cib, datePublicationMax: priorite, limite: 50 })`
+  pour la couverture mondiale (160M+ documents : OEB, USPTO, JPO, KIPO,
+  CNIPA, WIPO, et offices nationaux).
+
+**Filtrer impérativement par date de publication < date de priorité revendiquée.**
+Un document publié après la date de priorité n'est pas de l'art antérieur
+opposable (sauf cas Art. 54(3) CBE — demande antérieure non publiée à la
+date de dépôt, statut E).
+
+Attribuer chaque résultat à sa source (`[INPI Brevets]` ou `[OEB Espacenet]`)
+dans le tag de provenance — ne jamais agréger sans source. Pour les détails
+fins (revendications, statut juridique, annuités), enchaîner avec
+`inpi_brevet_details({ numeroPublication })` ou
+`espacenet_brevet_details({ numeroPublication })`.
+
+#### Cas B — INPI Brevets ✓ ET OEB Espacenet ✗
+
+INPI seul + ajouter une note explicite :
+
+> **OEB Espacenet non interrogé** — la couverture mondiale (USPTO, JPO,
+> CNIPA, WIPO et autres offices) est manquante. Or, l'art antérieur
+> destructeur de nouveauté peut provenir de n'importe quel pays. Une
+> recherche professionnelle Espacenet exhaustive est requise avant tout
+> dépôt EP ou PCT. Pour un dépôt FR national, le triage INPI seul reste
+> insuffisant — un brevet japonais ou américain de 2003 peut détruire la
+> nouveauté.
+
+#### Cas C — Aucun connecteur brevets
+
+Annoncer explicitement :
+
+> **Aucune base de données brevets interrogée.** Ce triage n'a pas hit
+> Data INPI brevets, OEB Espacenet, Google Patents, WIPO PatentScope, ni
+> aucune base de littérature non-brevet (Google Scholar, IEEE Xplore,
+> PubMed, ACS, ACM Digital Library). Une recherche complète sur ces
+> sources est requise avant toute conclusion sur la nouveauté ou
+> l'activité inventive. Le triage ci-dessous est limité à l'analyse
+> intrinsèque des exclusions L.611-10 et aux facteurs structurés contre
+> les antériorités que l'utilisateur a citées ou qui apparaissent dans la
+> conversation.
+
+Puis continuer — les checks intrinsèques + l'analyse facteurs restent utiles,
+juste honnêtement étiquetés. **Pas de supplémentation depuis la connaissance
+modèle** : ne JAMAIS inventer des numéros de brevet ni "remplir" un résultat
+de recherche depuis ce que le modèle "se souvient". C'est la première cause
+d'hallucination en recherche brevet.
+
+### Pour chaque résultat d'art antérieur (ou fourni)
+
+Capturer :
+- **Numéro de publication** (format réel : `FR2700123A1`, `EP1234567B1`,
+  `WO2020/123456A1`, `US10,123,456B2`)
+- **Source** (`[INPI Brevets]` / `[OEB Espacenet]` / `[utilisateur fourni]`)
+- **Titre** (langue originale + traduction FR si disponible)
+- **Classification CIB principale et secondaires** (la pluralité de
+  classifications est un signal — un brevet classé en plusieurs sous-classes
+  signale une application transversale)
+- **Déposant** (et inventeurs si pertinent — un même inventeur publiant
+  plusieurs demandes liées est un signal de famille)
+- **Date de publication** (A1 = demande publiée 18 mois après dépôt ; B1/B2 =
+  brevet délivré ; A2/A3 = rapport de recherche distinct)
+- **Date de priorité si disponible** (peut être très antérieure à la
+  publication — c'est elle qui compte pour l'opposabilité)
+- **Abrégé** (en langue originale + résumé FR si traduisible)
+- **Statut juridique** (en vigueur, expiré, abandonné, déchu pour
+  non-paiement d'annuité — un brevet déchu n'est plus opposable en
+  contrefaçon mais reste opposable comme art antérieur)
+
+**Pas de supplémentation silencieuse.** Si on cite un numéro de publication,
+il vient de la recherche exécutée ou de l'utilisateur. Si une donnée n'est
+pas dans le résultat (date de priorité absente, abrégé tronqué), écrire
+"non disponible dans le résultat" — ne jamais deviner.
+
+---
