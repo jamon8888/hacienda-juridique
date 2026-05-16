@@ -374,3 +374,88 @@ cibles déclarés.
   secteurs spécifiques (semi-conducteurs avec exposition Taïwan).
 
 ---
+
+## Tableau récap coûts indicatifs 2026
+
+| Voie | Coût initial (12 mois) | Coût total 10 ans estimé | Marchés couverts |
+|---|---|---|---|
+| FR seul | ~560€ | ~7 000€ | 1 pays (FR) |
+| FR + EP (5 validations type EU stratégiques) | ~10 000€ | ~50 000€ | 5 pays EU (FR/DE/UK/IT/ES) |
+| FR + EP (validation large 15 pays) | ~20 000€ | ~150 000€ | 15 pays EU |
+| FR + EP (validation maximale 38 pays) | ~40 000€ | ~400 000€ | 38 pays CBE |
+| FR + PCT (5 entrées nationales) | ~15 000€ | ~80 000€ | 5 pays variables (US/CN/JP/...) |
+| FR + PCT (15 entrées nationales globales) | ~50 000€ | ~250 000€+ | 15 pays mondial |
+| FR + EP + PCT (couverture maximale) | ~25 000€ | ~200 000€+ | EU + mondial |
+
+**Note** : taxes 2026 indicatives — vérifier tarifs officiels INPI / OEB /
+WIPO avant chaque démarche (les barèmes évoluent annuellement). Frais
+d'avocat / mandataire très variables (peuvent doubler les coûts ci-dessus
+selon cabinet et complexité technique). Voir `references/couts-brevets-2026.md`
+pour la décomposition détaillée par pays et par taxe.
+
+---
+
+## Recommandations stratégiques par profil cabinet
+
+Calibrer la recommandation au profil cabinet du déposant. Croiser avec les
+marchés cibles et le budget pour affiner.
+
+### Startup FR seed / série A (< 5M€ levés)
+
+- **Recommandation** : **FR seul OU FR + EP minimal** (FR/DE/UK seulement,
+  ~7 000€ + ~30k€/10 ans).
+- **Justification** : ressources limitées, marché européen prioritaire
+  (anglophone + germanophone couvre 60% du marché EU). Accord de Londres
+  pour ces 3 pays = pas de surcoût traduction.
+- **Risque** : pas de protection US / Asie — viser série B pour étendre
+  via PCT (la fenêtre de priorité Union de Paris est expirée à série B,
+  mais une **stratégie de continuation / divisionnaire** reste possible
+  via mandataire).
+
+### Startup FR série B+ (> 10M€ levés)
+
+- **Recommandation** : **FR + PCT** (gel flexibilité 30 mois, décision
+  pays à 30 mois selon trajectoire commerciale réelle).
+- **Justification** : flexibilité décisionnelle critique pour scale-up,
+  capital disponible pour les ~15-20k€ initiaux PCT, et 30 mois pour
+  étudier marchés clients réels avant phase nationale coûteuse.
+- **Privilégier en phase nationale** : USA + UK + Chine + Japon +
+  Allemagne (top 5 économies + écosystème tech).
+
+### ETI sectorielle FR (CA 100M-1B€, marché EU établi)
+
+- **Recommandation** : **FR + EP** (5-10 validations EU stratégiques selon
+  marchés clients).
+- **Justification** : marché EU mature, ROI brevet via différenciation
+  produit + barrière concurrentielle + valorisation actif intangible au
+  bilan.
+- **Privilégier** : FR / DE / UK / IT / ES (couverture 80% PIB EU) +
+  selon clients secteur (PL / NL / SE pour marchés Nord / Est).
+
+### Multinationale CAC40 (> 1B€ CA)
+
+- **Recommandation** : **FR + PCT large (15+ entrées nationales)** +
+  validations EP maximales (38 pays).
+- **Justification** : portefeuille défensif global, monnaie d'échange en
+  licensing / cross-licensing, dissuasion concurrents, signal valorisation
+  marchés financiers.
+- **Coût total estimé** : 250-500k€/10 ans par famille brevet importante.
+  Budget portefeuille typique : 5-50M€/an selon CA et secteur.
+
+### Cabinet conseil pour invention de tiers (mode licensing)
+
+- **Recommandation** : **FR + EP minimal (FR/DE/UK)** + marquage
+  commercial.
+- **Justification** : signal de marquage du marché pour négocier licences,
+  sans engagement annuités lourdes long terme. Budget licensing : à
+  recouvrer via royalties dès délivrance EP.
+- **Stratégie d'abandon programmé** si pas de licensee identifié à 5 ans
+  (économie ~20-50k€ d'annuités évitées).
+
+---
+
+**Référence** : `references/couts-brevets-2026.md` (table détaillée par
+office et par pays) + `references/arbre-decision-extension.md` (arbre
+interactif par scénarios + erreurs courantes).
+
+---
