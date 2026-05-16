@@ -52,6 +52,13 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
 
+## Quoi de neuf en V0.6 — Dépôt + Opposition (workflow marques complet)
+
+- Nouveau skill `depot-marque-fr` : préparation dossier dépôt FR INPI / EUTM / Madrid avec rédaction libellés P&S conformes directives, arbre décisionnel territoire, checklist 10 points
+- Nouveau skill `analyse-opposition-marque` : analyse motifs CPI (L.713-2/L.713-3/L.711-3), calcul délai opposition L.712-4 (2 mois post-BOPI), projet de mémoire INPI structuré, bi-mode `--form` (former) / `--respond` (défense)
+- **Le workflow marques est désormais complet end-to-end** : recherche antériorité (V1.0) → dépôt (V1.1.2) → surveillance BOPI quotidienne (V1.1.0) → opposition (V1.1.2) → portefeuille avec dashboard HTML (V1.1.1)
+- Coordination V1.1.0 + V1.1.2 : `bopi-watcher` détecte → `analyse-opposition-marque --form` prépare l'opposition dans les 2 mois
+
 ## Quoi de neuf en V0.5 — Portefeuille + Dashboard HTML
 
 - Nouveau skill `revue-portefeuille-marques` (gestion CRUD du registre marques, audit santé)

@@ -1,5 +1,27 @@
 # Changelog — hacienda-propriete-intellectuelle
 
+## 0.6.0 — 2026-05-16
+
+### Ajouts — Dépôt + Opposition marques (ferme workflow marques)
+- Skill `depot-marque-fr` (préparation dossier FR INPI / EU EUTM / Madrid, libellés P&S conformes directives examen, arbre décisionnel territoire, checklist 10 points, ~660 lignes)
+- Skill `analyse-opposition-marque` (analyse motifs L.713-2/L.713-3/L.711-3, calcul délai L.712-4 2 mois post-BOPI, projet de mémoire INPI structuré, bi-mode `--form`/`--respond`, ~810 lignes)
+- Références : `structure-depot-inpi.md`, `redaction-libelles-nice.md`, `motifs-opposition-cpi.md`, `procedure-opposition-inpi.md`
+- Section CLAUDE.md template "Dépôt et opposition" ajoutée
+- Section `references/ressources-pi-fr.md` "Procédures INPI marques" ajoutée
+
+### Workflow marques complet (V1.0 + V1.1.0 + V1.1.1 + V1.1.2)
+- Recherche antériorité → Dépôt → Surveillance BOPI quotidienne → Opposition → Portefeuille avec dashboard HTML = **boucle fermée**
+
+### Coordination V1.1.0 + V1.1.2
+- `bopi-watcher` (V1.1.0) détecte une marque concurrente publiée au BOPI
+- → `analyse-opposition-marque --form` (V1.1.2) prépare l'opposition dans les 2 mois L.712-4
+- → mandataire INPI dépose l'opposition formelle via télé-procédure
+
+### À venir (V1.2)
+- Agent `contrefacon-web` (monitoring marketplaces / réseaux sociaux / noms domaine)
+- Connecteur OMPI Madrid Monitor (international)
+- Étude liberté d'exploitation (FTO)
+
 ## 0.5.0 — 2026-05-16
 
 ### Ajouts — Portefeuille + Dashboard HTML
