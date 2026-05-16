@@ -381,3 +381,107 @@ explicitement les bases comme input next-step pour la recherche
 professionnelle complète — **ne pas sauter silencieusement**.
 
 ---
+
+## Appréciation nouveauté + activité inventive (approche problème-solution OEB)
+
+> **Cadre FR/EP — pas de "obviousness" US.** Pour évaluer l'activité
+> inventive, l'OEB applique l'**approche problème-solution** (directives
+> d'examen OEB, partie G, chapitre VII, section 5). Le droit français
+> applique le même cadre via L.611-14 CPI et la jurisprudence de la
+> Chambre commerciale de la Cour de cassation. Quatre étapes :
+>
+> 1. Déterminer l'**état de la technique le plus proche** (closest prior art).
+> 2. Déterminer les **caractéristiques distinctives** de l'invention
+>    revendiquée par rapport à cet état.
+> 3. Définir le **problème technique objectif** que ces caractéristiques
+>    distinctives résolvent.
+> 4. Évaluer si la solution **découlait de manière évidente** pour
+>    l'**homme du métier** à la date de priorité, en partant de l'état le
+>    plus proche et en cherchant à résoudre le problème objectif.
+>
+> Ne JAMAIS appliquer le test "obviousness" US (*KSR v. Teleflex*, 2007)
+> à un dépôt FR/EP. Le standard "teaching-suggestion-motivation" (TSM)
+> américain et le standard problème-solution OEB ne donnent pas les
+> mêmes résultats sur les mêmes faits.
+
+### Classifications des citations d'art antérieur (cadre OEB)
+
+Les rapports de recherche OEB et INPI classifient chaque citation d'art
+antérieur avec un code à une lettre — à reproduire dans le tableau de
+résultats :
+
+- **X** = antériorité **destructrice de nouveauté** considérée seule
+  (le document couvre **toutes** les caractéristiques d'une revendication
+  indépendante). Une seule citation X bien fondée suffit à condamner la
+  revendication concernée.
+- **Y** = antériorité destructrice d'**activité inventive** en
+  **combinaison** avec un autre document Y (la combinaison aurait été
+  évidente pour l'homme du métier). Les citations Y vont toujours par
+  paires ou groupes.
+- **A** = état de la technique **pour information** — contexte général
+  ne détruisant ni nouveauté ni activité inventive, mais cadrant le domaine.
+- **E** = demande antérieure **non publiée à la date de dépôt** mais
+  publiée ensuite (antériorité dite "relative" au sens Art. 54(3) CBE) —
+  affecte la nouveauté **mais pas l'activité inventive**. Piège classique
+  : la citation E ne peut pas être combinée avec d'autres documents pour
+  un raisonnement d'activité inventive.
+- **D** = document cité dans la demande elle-même.
+- **P** = document publié entre la date de priorité et la date de dépôt
+  (statut à vérifier selon la chaîne de priorité revendiquée).
+- **T** = document théorique sous-jacent à l'invention.
+- **L** = document cité pour d'autres raisons (par exemple, contestation
+  de la priorité revendiquée).
+
+### Facteurs à signaler (pas conclure)
+
+Pour chaque citation potentiellement X ou Y trouvée, produire un **signal**,
+pas un verdict. Chaque facteur dit ce qui pèse de chaque côté et où est
+l'incertitude :
+
+- **Caractéristiques distinctives identifiées** par rapport au document le
+  plus proche. Lister celles qui semblent présentes dans l'invention et
+  absentes du document, et inversement.
+- **Effet technique de ces caractéristiques.** Un effet technique mesurable
+  (gain de rendement, économie d'énergie, réduction d'erreur) pèse vers
+  l'activité inventive. Pas d'effet technique = simple choix d'ingénierie =
+  pèse contre.
+- **Problème technique objectif.** Formuler tel qu'il découle des
+  caractéristiques distinctives et de leur effet — pas tel que l'inventeur
+  l'avait subjectivement formulé. La reformulation objective est centrale
+  dans l'examen OEB.
+- **Évidence pour l'homme du métier à la date de priorité.** L'homme du
+  métier ≠ l'inventeur. Il a les **capacités normales du domaine**, la
+  **connaissance générale** de la sous-classe CIB, et l'**accès à l'art
+  antérieur** publié — mais pas d'inventivité au-delà des combinaisons
+  routinières. Évaluer s'il aurait combiné le document le plus proche
+  avec un second document Y de manière évidente pour résoudre le problème
+  objectif.
+
+### Conclusion standardisée (jamais "invention brevetable")
+
+Conformément à `## 3. Posture de décision sur jugements subjectifs` du
+`CLAUDE.md` :
+
+- **Ne JAMAIS conclure "invention brevetable" ni "activité inventive
+  acquise".**
+- Si une ou plusieurs citations X plausibles ont été trouvées :
+  > "Antériorités trouvées potentiellement destructrices de nouveauté —
+  > analyse revendication par revendication à mener par mandataire en
+  > brevets avant tout dépôt."
+- Si des citations Y trouvées en combinaison plausible :
+  > "Antériorités trouvées en activité inventive (combinaison Y/Y) —
+  > argumentation problème-solution à construire avec mandataire en
+  > brevets."
+- Si aucune citation X ou Y trouvée dans les bases interrogées :
+  > "Aucune antériorité destructrice trouvée dans les bases interrogées —
+  > recherche professionnelle complète requise avant dépôt (couverture
+  > WIPO PatentScope, Google Patents et littérature non-brevet absente
+  > de ce triage)."
+- Si facteurs ambigus :
+  > "Facteurs ambigus sur l'activité inventive ; jugement mandataire requis."
+
+"Aucune antériorité trouvée" est acceptable *uniquement* si une vraie
+recherche a été exécutée — sinon utiliser le bucket "Aucune base
+interrogée".
+
+---
