@@ -135,3 +135,264 @@ Pour `entretien-demarrage` lui-même et `--check-integrations`, ne pas
 bloquer.
 
 ---
+
+## Mode `--report [--dashboard]` (défaut)
+
+Mode principal. Produit un rapport Markdown horodaté + (optionnellement) un
+dashboard HTML standardisé **réutilisant strictement le module
+`renderDashboard` V1.1.1 sans modification** — c'est la démonstration du
+standard réutilisable du plugin.
+
+### Étape 1 — Calcul de la prochaine annuité par asset
+
+Pour chaque entrée dans `assets[]` du `portfolio-brevets.yaml` :
+
+- Lire `prochaine_annuite.dateEcheance` (si présent — sinon flagger
+  l'asset comme « ❓ à vérifier » et exclure des buckets)
+- Conserver `prochaine_annuite.annee` (année 1 à 20) et
+  `prochaine_annuite.montantEstime` pour l'affichage
+- Pour information : noter `dateExpiration` (= `dateDepot` + 20 ans, CPI
+  L.611-2) — sert à la section « Expirations programmées »
+
+### Étape 2 — Bucketisation par sévérité
+
+Calculer `j_restants = dateEcheance - today`.
+
+| Bucket | Jours restants | Lecture |
+|---|---|---|
+| 🔴 | < 30 j | URGENCE — risque perte du droit si non-paiement, contacter partenaire annuités immédiatement |
+| 🟠 | 30 à 90 j | À PRÉPARER — instruction au partenaire annuités à formaliser ce trimestre |
+| 🟡 | 90 j à 6 mois | À PLANIFIER — entrée pipeline trimestriel |
+| 🟢 | > 6 mois | STABLE — surveillance passive |
+| ❓ | `prochaine_annuite` absente / `statut` ambigu / parsing en erreur | À VÉRIFIER |
+
+**Note sévérité brevets vs marques.** Le seuil 🔴 < 30 j est plus
+critique que pour les marques : une annuité ratée fait tomber le droit
+**sans rétablissement standard** (grace period 6 mois avec surcharge,
+puis restauration L.612-14 strictement exceptionnelle), alors qu'une
+marque non renouvelée bénéficie d'une période de grâce 6 mois souple
+(CPI L.712-9).
+
+### Étape 3 — Cross-référence avec le portefeuille marques V1.1.1
+
+Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/portfolio.yaml`
+(si présent — sinon ignorer cette étape).
+
+Pour chaque brevet :
+
+- Si le champ `marques_associees: ["TM-FR-001", ...]` est renseigné,
+  vérifier que ces IDs existent dans `portfolio.yaml` et que la marque
+  est en vigueur (statut `enregistree`, échéance future). Si la marque
+  associée est radiée ou expirée → flag `[review]` :
+  « brevet lié à une marque non en vigueur — vérifier cohérence
+  stratégie produit ».
+
+Pour chaque marque `core` du `portfolio.yaml` :
+
+- Vérifier qu'au moins un brevet du `portfolio-brevets.yaml` la
+  référence dans `marques_associees`. Sinon → flag transverse :
+  « marque core sans brevet associé — gamme produit sans protection
+  brevet ? » (peut être normal si brand-only, mais à vérifier).
+
+### Étape 4 — Format de sortie Markdown
+
+````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon rôle utilisateur du profil]
+
+# Portefeuille brevets — Rapport [YYYY-MM-DD]
+
+> **Registre interne, pas démarche officielle.** [paragraphe garde-fou
+> reformulé tel quel — voir section « REGISTRE INTERNE, PAS DÉMARCHE
+> OFFICIELLE » ci-dessus]
+
+> **⚠️ Note du relecteur**
+> - **Registre :** [N brevets] / [N familles complètes (FR + EP +
+>   nationales)]
+> - **Cross-portefeuille marques :** [N brevets avec marque associée] /
+>   [N total] · [N marques `core` sans brevet associé] ⚠️
+> - **Annuités < 12 mois :** [N]
+> - **Brevets expirant < 24 mois :** [N — planifier successeur ou
+>   continuation]
+> - **Dernier audit registre :** [last_audit ou « jamais »]
+> - **Avant action :** vérifier Base Brevets INPI publique
+>   (https://data.inpi.fr) + OEB Register (https://register.epo.org) +
+>   valider avec mandataire EQE + coordonner partenaire annuités
+
+**Résumé :** N total · N 🔴 · N 🟠 · N 🟡 · N 🟢 · N ❓
+
+## 🔴 ANNUITÉ URGENTE (< 30 jours)
+
+Pour chaque hit :
+
+- **[Titre invention]** [numéro FR2700123 / EP1234567 / WO2020/123456] ·
+  CIB [...] · statut [demande / publiée / délivré / opposition]
+  - Prochaine annuité : **an [N] — date butoir [date]
+    (N j restants)** — montant estimé [€]
+  - Titulaire [...] · Mandataire EQE [...] · Partenaire annuités [...] ·
+    Owner [...]
+  - Niveau stratégique : [core / important / standard / heritage]
+  - Famille brevets : [FR + EP + 5 validations nationales / FR seul /
+    PCT + 8 entrées nationales]
+  - Marques associées : [TM-FR-001 APEXLEAF / aucune]
+  - Référence : annuité non payée → perte du droit (grace period 6 mois
+    avec surcharge possible, puis restauration L.612-14 strictement
+    exceptionnelle)
+
+## 🟠 ANNUITÉ À PRÉPARER (30 à 90 j)
+
+[même format]
+
+## 🟡 ANNUITÉ PLANIFIÉE (90 j à 6 mois)
+
+[même format]
+
+## 🟢 STABLE (> 6 mois)
+
+Liste compacte (ID · numéro · titre · prochaine annuité · niveau) — N
+entries.
+
+## ⚠️ EXPIRATIONS PROGRAMMÉES (< 24 mois)
+
+Brevets approchant la fin de la durée 20 ans (CPI L.611-2) — planifier
+successeur, continuation ou divisionnaire avant expiration.
+
+- **[ID] [titre]** : expiration [date] · niveau [...]
+  - Action recommandée : étudier opportunité divisionnaire (avant
+    délivrance de la demande parente) ou nouvelle famille pour
+    successeur commercial
+
+## ❓ ASSETS À VÉRIFIER (données manquantes / statut incertain)
+
+- **[ID] [titre]** : [nature de l'incohérence — `prochaine_annuite`
+  absente, `statut` non standard, dateExpiration incohérente avec
+  dateDepot + 20 ans, etc.]
+
+## Findings transverses
+
+- **Brevets `core` sans plan continuation :** [liste ID + titre] →
+  recommander étude divisionnaire ou nouvelle famille (CPI R.612-34)
+- **Familles incomplètes :** ex. FR sans EP correspondant alors que
+  marché EU + posture extension EU systématique du profil → flag
+- **Désynchronisation potentielle registre interne / INPI/OEB public :**
+  dernier cross-check [date ou « jamais »] — ré-exécuter si > 90 jours
+- **Marques associées en vigueur :** [N OK / N marques associées radiées
+  ou expirées ⚠️]
+
+**Une question hors de ma checklist :** [observation seconde-ordre —
+omise si rien]
+
+## Que veux-tu faire ?
+
+1. **Préparer le paiement annuités urgentes** — je rédige une note pour
+   le partenaire annuités sur les entrées 🔴 (avec liste des
+   numéros + offices + montants estimés cumulés)
+2. **Escalader** — note pour [mandataire EQE / Direction R&D / CFO selon
+   montant total] sur les annuités 🔴 et brevets `core` expirant < 24 mois
+3. **Compléter les faits** — sync Base Brevets INPI publique + OEB
+   Register avant toute action
+4. **Planifier successeur** — pour brevets expirant < 24 mois, étudier
+   divisionnaire ou nouvelle famille (lien `preparation-depot-brevet` V0.4
+   et `strategie-extension-internationale` V0.8)
+5. **Autre chose** — dis-moi
+````
+
+### Étape 5 — Génération du dashboard HTML
+
+Déclencheur :
+
+- Flag `--dashboard` explicitement passé
+- OU nombre d'assets > 10 (seuil par défaut, modifiable via le profil
+  CLAUDE.md « Format de rapport préféré »)
+
+**RÉUTILISATION DU MODULE V1.1.1** — ce skill ne crée AUCUN HTML
+manuellement. Il appelle `renderDashboard` du module `@hacienda/core`
+exactement comme `revue-portefeuille-marques`. C'est la démonstration du
+standard réutilisable promis par V1.1.1.
+
+Workflow (à exécuter par Claude depuis le skill) :
+
+1. Construire l'objet `DashboardData` (importé de `@hacienda/core`)
+2. Appeler `renderDashboard(data)` (escape XSS automatique côté core)
+3. Écrire le HTML à côté du Markdown :
+   `<output_dir>/portefeuille-brevets-YYYY-MM-DD.html`
+4. Surfacer le chemin dans la sortie Markdown :
+   `Dashboard généré : [chemin/portefeuille-brevets-YYYY-MM-DD.html]`
+
+Squelette de l'objet `DashboardData` à construire (TypeScript pour
+illustration — Claude doit reproduire la structure quand il appelle le
+module) :
+
+```ts
+import { renderDashboard, type DashboardData } from "@hacienda/core";
+
+const data: DashboardData = {
+  title: `Portefeuille brevets — ${cabinet}`,
+  generatedAt: new Date().toISOString().slice(0, 10),
+  summary: [
+    { label: "Total", value: assets.length, emoji: "📊" },
+    { label: "🔴 Annuité <30j", value: countRed },
+    { label: "🟠 30-90j", value: countOrange },
+    { label: "🟡 90j-6mois", value: countYellow },
+    { label: "Expirations 12 mois", value: countExpiring12 },
+    { label: "Sans owner", value: countNoOwner },
+  ],
+  columns: [
+    { key: "id", label: "ID", width: "100px" },
+    { key: "numero", label: "Numéro" },
+    { key: "type", label: "Type", width: "80px" },
+    { key: "titre", label: "Titre" },
+    { key: "cib", label: "CIB" },
+    { key: "statut", label: "Statut", width: "120px" },
+    { key: "expiration", label: "Expiration" },
+    { key: "prochaine_annuite", label: "Prochaine annuité" },
+    { key: "severite", label: "Sévérité", width: "100px" },
+    { key: "owner", label: "Owner" },
+    { key: "mandataire", label: "Mandataire" },
+    { key: "famille", label: "Famille" },
+    { key: "niveau", label: "Niveau" },
+  ],
+  rows: assets.map(a => ({
+    id: a.id,
+    numero: a.numero,
+    type: a.type,
+    titre: a.titre,
+    cib: a.classificationCIB.join(", "),
+    statut: a.statut,
+    expiration: a.dateExpiration,
+    prochaine_annuite: a.prochaine_annuite
+      ? `an ${a.prochaine_annuite.annee} — ${a.prochaine_annuite.dateEcheance}`
+      : "_n/a_",
+    severite: severityFor(a),                  // emoji 🔴/🟠/🟡/🟢 — déclenche la
+                                               // couleur de ligne dans le template
+    owner: a.business_owner ?? "_non renseigné_",
+    mandataire: a.mandataire ?? "_n/a_",
+    famille: a.famille_brevets?.length
+      ? `${a.famille_brevets.length} membres`
+      : "FR seul",
+    niveau: a.niveau_strategique,
+  })),
+  severityLegend: {
+    "🔴": "Annuité < 30 jours",
+    "🟠": "30-90 jours",
+    "🟡": "90 jours - 6 mois",
+    "🟢": "> 6 mois",
+  },
+  reviewerNote: "...", // bloc « Note du relecteur » du Markdown ci-dessus
+};
+
+const html = renderDashboard(data);
+await fs.writeFile(
+  `${outputDir}/portefeuille-brevets-${date}.html`,
+  html,
+  "utf8",
+);
+```
+
+Le dashboard est autonome (zéro CDN, ouvrable hors-ligne, imprimable A4),
+trie/filtre/recherche côté JS inline, et XSS-safe (escape côté
+`renderDashboard`). **Toute évolution visuelle doit passer par le module
+`@hacienda/core/dashboard/` — jamais par ce skill.** Voir
+`references/dashboard-template.md` (Phase 3 V1.1.1) pour le détail du
+pattern et les conventions visuelles.
+
+---
