@@ -155,3 +155,49 @@ Attendre la réponse. Si la description est vague ("appli IA",
 > triage cherchera dans le mauvais voisinage.
 
 ---
+
+## Knockout — exclusions de brevetabilité L.611-10 CPI
+
+Avant toute recherche en bases, vérifier les exclusions intrinsèques qui
+condamnent une invention indépendamment de toute antériorité. L'article
+L.611-10 du Code de la propriété intellectuelle (transposition Art. 52 CBE)
+liste ce qui n'est **pas considéré comme une invention**, et ce qui est
+**exclu de la brevetabilité** pour des raisons éthiques ou de politique
+publique. Pour chaque exclusion, évaluer franchement et flagger. Ne pas
+rationaliser un problème évident.
+
+| Exclusion (L.611-10 CPI) | Ce que ça veut dire | Flagger quand |
+|---|---|---|
+| **Découvertes, théories scientifiques** | Loi naturelle pure, observation sans application | L'invention = observation d'un phénomène (constante physique, séquence génétique non isolée) sans procédé ou produit technique exploitant cette observation |
+| **Méthodes mathématiques** | Algorithme abstrait sans effet technique | Formule, méthode de calcul ou modèle décrit sans application technique tangible (signal traité, machine commandée, mesure physique transformée) |
+| **Créations esthétiques** | Œuvres de l'esprit | Apparence, forme purement décorative — relève du droit d'auteur ou du dessin et modèle, pas du brevet |
+| **Plans, principes, méthodes** (intellectuelles, commerciales, jeux) | Business methods, règles de jeu, schémas d'enseignement | Pas de mise en œuvre technique — règle abstraite appliquée par l'humain ou par un ordinateur générique sans effet technique sur la machine elle-même |
+| **Logiciel "en tant que tel"** | Algorithme pur sans effet technique sortant du domaine logiciel | Programme dont la contribution se limite au flux d'instructions, sans effet technique sur le système (traitement signal, contrôle processus, économie ressource physique mesurable). **Distinct des inventions mises en œuvre par ordinateur (CIB G06F) qui restent brevetables si elles résolvent un problème technique** — cf. OEB *Vicom* T-208/84 (1987), confirmé *IBM* T-1173/97 (1998) |
+| **Présentations d'informations** | Affichage UI sans solution technique | Mise en forme d'information à l'attention de l'utilisateur sans résolution d'un problème technique (le contenu informationnel n'est pas en soi brevetable) |
+| **Méthodes chirurgicales, thérapeutiques, de diagnostic** (sur corps humain ou animal) | Acte médical exécuté sur le corps | Méthode pratiquée par un praticien sur un patient. **À distinguer** : les **produits et dispositifs** (médicaments, implants, instruments) eux-mêmes restent brevetables (L.611-16 CPI, Art. 53(c) CBE) — seule la *méthode* est exclue |
+
+**Note importante sur le logiciel.** La jurisprudence OEB (notamment *Vicom*
+T-208/84 et la lignée qui suit) a établi que le critère opérationnel est la
+présence d'un **effet technique supplémentaire** (further technical effect)
+au-delà des interactions normales entre logiciel et matériel. Un algorithme
+de compression d'image qui réduit l'occupation mémoire d'un capteur,
+un protocole qui économise la batterie d'un IoT, un contrôleur PID
+implémenté en logiciel : ce sont des inventions mises en œuvre par
+ordinateur classées en CIB G06F (informatique) ou H04 (télécommunications)
+et brevetables. À l'inverse, une méthode de comptabilité analytique
+implémentée par un tableur reste un business method non-brevetable, même
+emballée en logiciel.
+
+**Note importante sur le médical.** L'exclusion porte sur la *méthode*
+appliquée *in vivo* (sur le corps). Un médicament (substance + posologie),
+un implant, un dispositif de diagnostic *in vitro*, un nouvel usage
+thérapeutique d'une substance connue (revendication de type "swiss-type" ou
+de type EPC 2000) restent brevetables. La frontière est jurisprudentielle —
+flagger en `[review]` toute invention qui mêle dispositif et méthode.
+
+**Sortie** : pour chaque exclusion, soit "aucun problème identifié", soit un
+flag spécifique avec une ligne de raison. Ne pas produire un tableau plat de
+"pass" sans analyse — l'objectif est de forcer l'inventeur et le mandataire
+à objectiver chacun des 7 motifs avant de dépenser en recherche d'antériorité.
+
+---
