@@ -170,3 +170,56 @@ Poser les 4 questions ensemble (pas une à une) pour réduire les allers-retours
 l'utilisateur ne donne que partiellement, redemander les manquants en bloc.
 
 ---
+
+## Classification des citations — cadre OEB X/Y/A/E (appliqué INPI)
+
+L'INPI utilise les **mêmes codes que l'OEB** pour cohérence pratique avec
+les Directives d'examen OEB (partie B chapitre X et partie G). Maîtriser ces
+codes est la base de toute réponse argumentée.
+
+| Code | Signification | Implication pratique |
+|---|---|---|
+| **X** | Antériorité destructrice de **nouveauté** (couvre TOUTES les caractéristiques d'une revendication indépendante) | **Limitation obligatoire** ou abandon — la revendication telle quelle ne peut subsister |
+| **Y** | Antériorité destructrice d'**activité inventive** **en combinaison** avec d'autres documents Y | **Argumentation problème-solution requise** — démontrer la non-évidence pour l'homme du métier |
+| **A** | État de la technique pour **information / contexte général** | **Pas de problème immédiat** — citer pour montrer la connaissance du domaine technique |
+| **E** | Demande antérieure **non publiée à la date de dépôt** (antériorité relative — Art. 54(3) CBE) | Affecte **nouveauté** mais **PAS l'activité inventive** (jurisprudence OEB G 2/98) |
+
+### Notes importantes
+
+- **L'INPI applique le même cadre que l'OEB** depuis l'alignement sur les
+  Directives OEB (cohérence pratique pour les mandataires inscrits aux deux
+  offices). Toutefois, l'INPI est historiquement **moins exhaustif sur les
+  combinaisons Y** que l'OEB — un rapport de recherche préliminaire INPI peut
+  citer un document en Y sans détailler la combinaison envisagée, alors que
+  l'examinateur OEB explicite généralement la combinaison Y1 + Y2.
+- **E (Art. 54(3) CBE) — antériorité relative** : c'est une demande déposée
+  avant mais publiée après notre date de dépôt. Elle peut **détruire la
+  nouveauté** (test : si la demande E divulgue toutes les caractéristiques
+  d'une revendication indépendante) mais **ne peut JAMAIS détruire l'activité
+  inventive** (jurisprudence OEB **G 2/98**, confirmée G 1/03). Si une
+  citation E est mal codée par l'INPI/OEB en Y → contester la classification.
+- **Codes étendus parfois utilisés** : O (antériorité orale — conférence, ex.
+  Art. 54(2) CBE), P (publication intermédiaire entre priorité et dépôt), T
+  (théorie sous-jacente, rare). Voir `references/classification-citations-oeb.md`.
+- **Si la notification utilise des codes non-standard** (rare mais arrive
+  pour notifications anciennes ou traductions) → demander clarification au
+  mandataire, ne pas deviner la classification.
+
+### Erreurs courantes à signaler
+
+Quand l'analyse de la notification révèle l'une de ces erreurs, la signaler
+en `[review]` dans le projet de réponse :
+
+1. **Confusion X / Y** : l'examinateur cite un document en X (destructrice de
+   nouveauté à elle seule) alors qu'il manque manifestement une
+   caractéristique pour couvrir toute la revendication → reclassifier en Y
+   et préparer argument problème-solution.
+2. **Traitement de A comme problématique** : A = simple contexte ; ne PAS
+   amender en réaction à une citation A.
+3. **E utilisée pour attaquer l'activité inventive** : violation directe
+   G 2/98 → contester formellement la classification dans la réponse.
+
+Référence : `references/classification-citations-oeb.md` (exemples concrets
+par domaine technique, codes étendus, jurisprudence OEB).
+
+---
