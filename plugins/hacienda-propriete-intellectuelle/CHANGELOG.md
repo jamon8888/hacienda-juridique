@@ -1,5 +1,22 @@
 # Changelog — hacienda-propriete-intellectuelle
 
+## 0.9.0 — 2026-05-16
+
+### Ajouts — Droit d'auteur Qualification (démarrage bloc V4)
+- Skill `qualification-oeuvre` (originalité L.111-1 + CJUE Infopaq, catégories L.112-2, titularité 7 cas, droits patrimoniaux vs moral L.121-1, durée 70 ans post mortem, ~1020 lignes)
+- Skill `logiciels-pi` (régime dérogatoire L.113-9 employeur titulaire, droit utilisation L.122-6, exceptions L.122-6-1, typologie licences open source + matrices compatibilité, ~970 lignes)
+- Références : `articles-cpi-droit-auteur`, `jurisprudence-originalite`, `regime-logiciel-cpi`, `licences-open-source`
+- Section CLAUDE.md template "Droit d'auteur" (8 placeholders pratique)
+- Section `references/ressources-pi-fr.md` "Droit d'auteur — sources et juridictions"
+
+### À venir (V4.1 / V4.2)
+- V4.1 : `cession-droit-auteur` + `licence-droit-auteur` + `bases-de-donnees` (contrats)
+- V4.2 : `contrefacon-droit-auteur` (enforcement)
+- V4.3 : droits voisins (artistes-interprètes, producteurs) + SACEM/OGC + NFT/IA générative
+
+### Distinction critique avec régime US
+- Droit FR : pas de formalité (≠ US Copyright Office), droit moral central perpétuel inaliénable (vs VARA US limité), L.113-9 logiciel = inverse du US work-for-hire général
+
 ## 0.8.0 — 2026-05-16
 
 ### Ajouts — Extension internationale + Portefeuille brevets (clôt bloc brevets)

@@ -151,6 +151,31 @@ Pour la référence détaillée des articles CPI brevets utilisés par les skill
 
 ---
 
+## Droit d'auteur — sources et juridictions
+
+| Source / juridiction | Domaine | URL / accès |
+|---|---|---|
+| CPI Livre I (L.111-1 à L.139) | Code source droit auteur | Légifrance (consulté via `hacienda-sources-officielles`) |
+| CPI Livre III (L.341-1 à L.343-7) | Bases de données sui generis | Légifrance |
+| Cour de cass. 1re ch. civile | Cassation droit auteur (sauf logiciel = ch. com.) | Légifrance + Judilibre |
+| Cour de cass. com. | Logiciel + bases de données | Légifrance + Judilibre |
+| CJUE (Cour de justice UE) | Harmonisation droit auteur européen | EUR-Lex (consulté via `hacienda-sources-officielles` Eurlex tools) |
+| TJ Paris (3e ch. PI) | 1re instance droit auteur (compétence concurrente) | greffe TJ Paris |
+| INPI (enveloppe Soleau) | Dépôt preuve de création | https://www.inpi.fr/enveloppe-soleau |
+| Copyright.fr / huissier | Preuve de date alternative | privée |
+| SACEM / SCAM / SACD / SDRM | Organismes de gestion collective | privée |
+
+**Pas de formalité de dépôt en France** : le droit d'auteur naît automatiquement à la création (CPI L.111-1) sans formalité (≠ USA Copyright Office). Seule la **preuve de la date de création et de l'identité de l'auteur** est critique en litige.
+
+**Préemption juridiction** :
+- Action droit auteur classique : TJ Paris 3e ch. PI (compétence concurrente) ou TJ régional du défendeur
+- Action logiciel commercial : Tribunal de commerce souvent privilégié
+- Action OGC (SACEM, etc.) : selon clauses des statuts OGC
+
+**Délai prescription** : 5 ans (Code civil art. 2224) à compter du jour où le titulaire a connu ou aurait dû connaître les faits.
+
+---
+
 ## 3. Dessins et modèles
 
 | Ressource | URL | Tag | Usage |
