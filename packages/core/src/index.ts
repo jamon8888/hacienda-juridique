@@ -25,6 +25,11 @@ import { registerEurlexTools } from "./tools/eurlex.js";
 import { registerInpiSearchMarques, registerInpiMarqueDetails } from "./tools/marque-search.js";
 import { registerEuipoTmviewSearch } from "./tools/euipo-tmview-search.js";
 import { registerBopiDernieresPublications } from "./tools/bopi-dernieres-publications.js";
+import {
+  registerInpiMarquesPublicationsRecentes,
+  InpiMarquesPublicationsRecentesArgsSchema,
+  callInpiMarquesPublicationsRecentes,
+} from "./tools/inpi-marques-publications-recentes.js";
 import { InpiClient } from "./sources/inpi-marques.js";
 import { EuipoTmviewClient } from "./sources/euipo-tmview.js";
 import { loadInpiCredentials, loadEuipoCredentials } from "./config.js";
@@ -266,6 +271,8 @@ export {
   InpiHttpError,
   InpiMarqueSchema,
   InpiMarqueDetailsSchema,
+  InpiPublicationRecenteSchema,
+  InpiPublicationsRecentesResponseSchema,
 } from "./sources/inpi-marques.js";
 export { InpiClient } from "./sources/inpi-marques.js";
 export {
@@ -284,6 +291,9 @@ export {
   registerInpiMarqueDetails,
   registerEuipoTmviewSearch,
   registerBopiDernieresPublications,
+  registerInpiMarquesPublicationsRecentes,
+  callInpiMarquesPublicationsRecentes,
+  InpiMarquesPublicationsRecentesArgsSchema,
 };
 export {
   callLegifranceApiExpert,
@@ -398,6 +408,7 @@ export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
 
   registerInpiSearchMarques(server, inpiClient);
   registerInpiMarqueDetails(server, inpiClient);
+  registerInpiMarquesPublicationsRecentes(server, inpiClient);
   registerEuipoTmviewSearch(server, euipoClient);
   registerBopiDernieresPublications(server);
 

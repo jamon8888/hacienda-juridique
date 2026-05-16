@@ -1,5 +1,20 @@
 # Changelog — hacienda-propriete-intellectuelle
 
+## 0.3.0 — 2026-05-16
+
+### Ajouts
+- Skill `surveillance-marque` (6 modes : --report/--add/--update/--remove/--list/--audit, style Anthropic ip-legal portfolio adapté FR)
+- Agent `bopi-watcher` quotidien (escalation immédiate sur 🔴 OPPOSITION URGENTE < 30 j post-BOPI L.712-4)
+- Tool MCP `inpi_marques_publications_recentes` (delta API depuis date X, fenêtre max 30 j)
+- Référentiel `watchlist.yaml` user-stable validé Zod
+- Référentiel `references/modele-watchlist.md`
+- Section CLAUDE.md template "Brand protection" enrichie
+- Section "Bulletins officiels" dans ressources-pi-fr.md
+
+### À venir (V1.1.1)
+- `revue-portefeuille-marques` + premier dashboard HTML standardisé
+- `depot-marque-fr` + `analyse-opposition-marque`
+
 ## 0.2.0 — 2026-05-15
 
 ### Ajouts
