@@ -222,3 +222,131 @@ le scan SCA et reviens, ou continue avec les éléments connus en taguant les
 zones non auditées `[dépendance non auditée — à scanner]` ».
 
 ---
+
+## Étape 1 — Titularité initiale du logiciel (L.113-9 régime dérogatoire)
+
+C'est le **cœur** de la spécificité logiciel. Mal traiter L.113-9 = porte à
+sens unique sur tout le cycle de vie du logiciel (contrat de travail mal
+rédigé, cession agence-client invalide, fork open source non maîtrisé).
+
+### Règle CPI L.113-9
+
+> « Sauf dispositions statutaires ou stipulations contraires, les droits
+> patrimoniaux sur les **logiciels et leur documentation** créés par **un ou
+> plusieurs employés** dans l'exercice de leurs **fonctions** ou d'après les
+> **instructions de leur employeur** sont dévolus à l'employeur qui est seul
+> habilité à les exercer. »
+
+### Conditions cumulatives
+
+1. **Le créateur est salarié** (contrat de travail, lien de subordination —
+   Code travail L.1221-1). Pas de salariat = pas de L.113-9.
+2. **Le logiciel est créé dans l'exercice des fonctions** OU **d'après les
+   instructions de l'employeur**. Hors fonctions et hors instructions =
+   sortie de L.113-9.
+3. **Pas de convention contraire** dans le contrat de travail ou les
+   statuts de la société. Une clause expresse peut écarter L.113-9 (rare en
+   pratique mais possible — par exemple pour un dirigeant-cofondateur qui
+   conserve la titularité personnelle pour la valoriser ailleurs).
+
+Le champ de L.113-9 couvre **le logiciel ET sa documentation** — penser à la
+documentation technique (architecture, API, manuels d'installation) qui suit
+le même régime.
+
+### Cas analysés
+
+| Cas | L.113-9 applicable ? | Conséquence titularité |
+|---|---|---|
+| Salarié développeur, **fonctions habituelles** (développeur full-stack qui développe la feature roadmap) | ✅ OUI | Employeur titulaire patrimoniaux ; salarié garde droit moral (paternité + intégrité, dans la mesure compatible avec exploitation logiciel) |
+| Salarié développeur, **hors fonctions habituelles** (ex : développeur web salarié qui code un jeu vidéo sur temps personnel) | ❌ NON | Salarié reste titulaire patrimoniaux personnels ; employeur peut négocier cession écrite L.131-3 a posteriori |
+| **Prestataire externe** (freelance, agence, ESN, consultant indépendant) | ❌ NON | Prestataire titulaire — **cession écrite obligatoire L.131-3** dans le contrat de prestation (énumération droits + domaines + territoires + durée + rémunération) |
+| **Stagiaire / apprenti** sous convention | ⚠️ Ambigu | Généralement L.113-9 par analogie si convention encadre les missions et qu'un lien de subordination existe — sinon cession écrite recommandée par prudence `[review]` |
+| **Contributeur open source bénévole** (community external contributor) | ❌ NON | Contributeur reste titulaire de sa contribution sauf **CLA (Contributor License Agreement) signé** explicite |
+| **Cofondateur** qui développe MVP **avant signature contrat de travail** | ❌ NON | Cofondateur titulaire personnel — **cession écrite rétroactive nécessaire** (avec mentions L.131-3, rémunération même symbolique mais identifiée) |
+| **Agent public** (fonctionnaire) — création par agent dans le cadre de ses missions | Régime spécifique L.131-3-1 | Variable selon mission de service public + identité de l'employeur public ; renvoi régime spécifique CPI L.131-3-1 et suiv. `[review]` |
+
+### Articulation droit moral pour le logiciel
+
+Le droit moral existe sur les logiciels (CPI L.121-7 spécifique logiciel),
+mais il est **restreint** par rapport au droit moral général :
+
+- **Droit de paternité** : maintenu (mention du nom de l'auteur sur les
+  copies — souvent sous forme de "headers" copyright dans les fichiers source
+  ou de section "credits/contributors" dans la documentation).
+- **Droit au respect (intégrité)** : maintenu mais l'auteur **NE PEUT PAS
+  s'opposer aux modifications nécessaires** à l'exploitation du logiciel
+  (corrections, mises à jour, portage, intégration) — sauf atteinte à son
+  honneur ou à sa réputation (rare en pratique).
+- **Droit de divulgation** : maintenu (l'auteur décide de la première
+  publication — peu pertinent en pratique pour logiciel sous L.113-9 où
+  l'employeur décide).
+- **Droit de retrait / repentir** : exclu pour le logiciel (L.121-7 al. 2)
+  — pas de retour possible une fois divulgué (contrairement au droit commun
+  L.121-4 qui permet le retrait moyennant indemnisation préalable).
+
+### Erreur fréquente 1 — Startup SaaS
+
+> « Notre CTO co-fondateur a développé le MVP avant de signer son contrat de
+> travail » → CTO reste **titulaire patrimoniaux personnels** jusqu'à
+> signature contrat OU cession écrite explicite L.131-3. **L'audit due
+> diligence pré-levée Series A révèle ce problème → blocage de la levée /
+> renégociation valorisation / cession rétroactive imposée en urgence sous
+> pression investisseurs.**
+
+Mécanique de la cession rétroactive (à faire valider par avocat tech) :
+- Identifier précisément la période concernée (avant signature contrat
+  de travail)
+- Énumérer les composants logiciels développés sur cette période (commits
+  Git, factures freelance s'il y en a eu, livrables identifiables)
+- Acte de cession écrit avec mentions L.131-3 (droits cédés + domaines +
+  territoires + durée + rémunération — même symbolique mais identifiée)
+- Signature **avant** clôture de la due diligence — au moins avant
+  signature term sheet pour la levée
+
+### Erreur fréquente 2 — Agence dev / ESN
+
+> « Le code livré au client est sa propriété. » **Faux par défaut.** Le code
+> développé par les salariés de l'agence appartient à l'agence en vertu de
+> L.113-9 → **AGENCE titulaire patrimoniaux**. Pour transférer au client,
+> **cession écrite obligatoire** dans le contrat de prestation.
+
+Clause type "Cession des droits de propriété intellectuelle" à insérer dans
+le contrat de prestation (renvoi rédaction → `cession-droit-auteur` V4.1) :
+- Énumération précise des droits cédés (reproduction, représentation,
+  adaptation, traduction, mise sur le marché)
+- Étendue (code source + documentation + assets)
+- Destination (utilisation du client : interne / commercialisation /
+  redistribution)
+- Lieu (territoires : France / Europe / Monde)
+- Durée (toute la durée légale ou pendant durée d'exploitation)
+- Rémunération (forfait inclus dans le prix de la prestation ou somme
+  identifiable)
+
+**Attention au champ "documentation"** : L.113-9 couvre logiciel +
+documentation, mais la cession doit **mentionner explicitement les deux** —
+une clause qui ne mentionne que "le logiciel" laisse la documentation chez
+l'agence.
+
+### Erreur fréquente 3 — Projet open source
+
+> « Tous les contributeurs ont accepté la licence GPL en commitant. »
+> **Insuffisant.** L'acceptation de la licence projet n'emporte **PAS
+> cession des droits** — elle confère seulement une licence d'utilisation
+> aux conditions GPL. Sans **CLA (Contributor License Agreement) signé**,
+> chaque contributeur reste titulaire de sa contribution.
+
+Conséquences pratiques de l'absence de CLA :
+- **Impossibilité de relicensing futur** : si le projet veut passer en
+  dual licensing (open source + commercial) ou en propriétaire, il faut
+  l'**accord de chaque contributeur** sur sa contribution — irréaliste
+  sur un projet à 40+ contributeurs avec turnover.
+- **Risque revendication titularité** : un contributeur peut a posteriori
+  revendiquer la titularité de sa contribution et l'opposer à l'éditeur.
+- **Blocage commercialisation** : modèle business pivot devient impossible.
+
+Modèles CLA usuels (renvoi `references/licences-open-source.md`) :
+- Apache CLA (https://www.apache.org/licenses/contributor-agreements.html)
+- FSF Contributor Agreement
+- Salesforce CLA (template populaire pour projets d'éditeurs)
+
+---
