@@ -237,3 +237,133 @@ plat de "pass" — distinguer ce qui a été regardé activement de ce qui est
 non-applicable.
 
 ---
+
+## Rédaction des libellés produits/services
+
+**Cœur du skill.** Le libellé produits/services (P&S) délimite la protection
+réelle de la marque. Chaque mot conditionne 10 ans renouvelables, et la
+forclusion pour défaut d'usage sérieux à 5 ans (L.714-5 CPI) sanctionne tout
+libellé non couvert par une commercialisation effective.
+
+### Méthode par classe
+
+Pour chaque classe Nice retenue, proposer un libellé conforme :
+
+- **Directives d'examen INPI** (édition 2024) et **directives EUIPO**
+  (Guidelines for Examination of European Union Trade Marks, partie B.3) :
+  - Termes **précis** et **clairs**, désignant des produits ou services
+    identifiables sans ambiguïté.
+  - Pas de **"tous produits"** ou **"tous services"** — rejet automatique.
+  - Pas de **termes génériques** type "biens commerciaux", "produits
+    industriels", "services divers" → demande de précision systématique.
+- **Liste OMPI alphabétique** des produits et services Nice (édition 12,
+  https://www.wipo.int/classifications/nice/nclpub/fr/) comme **référence
+  canonique** des termes acceptés sans discussion par les offices nationaux
+  signataires de l'Arrangement de Nice.
+- **Outil EUIPO TMclass** (https://euipo.europa.eu/ec2/) pour vérifier
+  l'acceptation d'un terme dans plusieurs offices simultanément.
+- **MGS (Madrid Goods & Services Manager) OMPI** pour les dépôts
+  internationaux Madrid.
+
+### Risque "lifestyle brand"
+
+Si le dépôt vise plusieurs catégories non-techniques sans cohérence
+sectorielle (classe 9 logiciel + classe 25 vêtements + classe 41
+divertissement + classe 43 restauration), **flagger comme "stratégie
+lifestyle"** :
+
+- Risque élevé de **déchéance partielle pour défaut d'usage sérieux** dans
+  les classes non commercialisées effectivement sous 5 ans (L.714-5 CPI ;
+  jurisprudence CJUE *Ansul* C-40/01 sur la notion d'usage sérieux).
+- L'examinateur INPI/EUIPO peut soulever des observations sur la cohérence,
+  notamment si le déposant est une jeune entreprise.
+- Recommandation : justifier l'extension par un **plan de marque** réel
+  (licences prévues, gamme de produits dérivés en développement) à
+  documenter pour le mandataire. Sinon, restreindre aux classes effectivement
+  commercialisées sous 36 mois.
+
+### Calibrage selon ambition business
+
+- **Startup mono-produit** : libellés ciblés sur l'offre actuelle + 1 à 2
+  extensions plausibles sous 24 mois. Privilégier la solidité (pas de
+  déchéance) à la largeur.
+- **ETI multi-produits** : libellés couvrant la gamme actuelle + extensions
+  cohérentes du plan stratégique 3-5 ans.
+- **Holding multi-marques / portefeuille** : libellés larges acceptables si
+  appuyés par une stratégie de licences ou de sous-marques opérationnelles.
+
+### Erreurs courantes à signaler
+
+À détecter dans les libellés candidats et flagger `[review]` :
+
+- **Marques produits dans le libellé** : "vêtements de la marque X" → interdit
+  (Directives EUIPO B.3.4). Le libellé décrit les produits, pas le signe.
+- **Description par fonction au lieu du produit** : "outil pour couper le
+  bois" → préférer "scies, outils de coupe pour le bois" (terminologie Nice
+  reconnue).
+- **Classes incohérentes** : "logiciel de comptabilité" en classe 16
+  (papier) au lieu de 9 (logiciels) ou 42 (SaaS) → ré-attribuer.
+- **Libellé identique à l'intitulé de classe** (class heading) : depuis
+  *IP TRANSLATOR* (CJUE C-307/10, 2012), un intitulé de classe ne couvre
+  plus tous les produits de la classe — il faut lister explicitement les
+  produits visés.
+- **Termes vagues type "appareils électroniques"** sans précision (classe 9
+  contient des centaines de produits hétérogènes) → demander précision.
+
+Référence détaillée : `references/redaction-libelles-nice.md`.
+
+---
+
+## Choix territoire — arbre décisionnel
+
+> **Version simplifiée.** L'arbre détaillé territoire + budget + calendrier
+> + stratégies hybrides Madrid relève d'un skill `strategie-extension-marques`
+> (prévu V2.0). Ici on donne le cadre suffisant pour pré-positionner le
+> brouillon. Le choix définitif appartient au mandataire en concertation avec
+> le déposant et la stratégie commerciale.
+
+| Critère | **FR INPI** | **EU EUTM (EUIPO)** | **Madrid OMPI** |
+|---|---|---|---|
+| Marché cible | France uniquement | 27 États membres UE | mondial (sélection de pays parmi 130+ membres) |
+| Coût indicatif 1 classe (2026) | ~190€ taxe officielle + 40€/classe additionnelle | ~850€ taxe basique + 50€ classe 2 + 150€/classe 3+ | ~700€ base (CHF 653 + complément) + frais par pays désigné |
+| Délai examen et publication | ~5-6 mois jusqu'à enregistrement | ~6-12 mois jusqu'à enregistrement | dépend des offices nationaux désignés (~12-18 mois) |
+| Mandataire | optionnel si déposant résident FR/UE | obligatoire si déposant non-résident UE | obligatoire si déposant non-résident UE |
+| Stratégie | défense locale, marché FR uniquement | conquête UE en un dépôt unique | mondialisation ciblée par pays |
+| Pré-requis | aucun | aucun | **base FR ou EU déjà déposée ou enregistrée** (Art. 2 Protocole de Madrid) |
+| Procédure d'opposition | 2 mois post-publication BOPI (L.712-4 CPI) | 3 mois post-Bulletin EUTM (RMUE Art. 46) | varie par office national (généralement 2-3 mois) |
+| Langue de procédure | français | français / anglais / allemand / espagnol / italien | français / anglais / espagnol pour la procédure OMPI |
+
+### Recommandations types (à confirmer mandataire)
+
+- **Startup FR avec marché EU futur** → **FR national d'abord** + extension
+  EUTM à 6 mois en revendiquant la priorité de l'Union de Paris (Art. 4
+  Convention de Paris, 6 mois pour les marques). Permet de tester l'usage
+  réel sur le marché FR et d'arbitrer l'extension EU au vu des premiers
+  retours commerciaux.
+- **ETI déjà internationale** → **EUTM direct** + **Madrid** désignant les
+  pays cibles (US, UK, CH, JP, CN), avec EUTM comme **marque de base**
+  (Art. 2 Protocole de Madrid). Évite le double dépôt FR + EU et capitalise
+  sur la couverture des 27 États membres en un seul titre.
+- **Marque défensive sans commercialisation prévue hors FR** → **FR
+  national seul**. Couvre la fabrication et la commercialisation sur le
+  territoire français, ce qui peut suffire (notamment pour un savoir-faire
+  ou une dénomination secondaire).
+- **Holding multi-marques avec portefeuille international** → **FR + EUTM
+  systématiquement** + Madrid pour chaque marque-phare visant l'export.
+  Centraliser dans `portfolio.yaml` (gérable via
+  `/hacienda-propriete-intellectuelle:revue-portefeuille-marques`).
+- **Marque sectorielle ultra-spécialisée (B2B, niche)** → considérer
+  **FR + EUTM** si marché EU réel, sinon **FR + pays cibles via Madrid**
+  (économique si 3-5 pays seulement).
+
+### Priorité de l'Union de Paris (6 mois pour les marques)
+
+À distinguer des brevets (12 mois). La Convention d'Union de Paris (Art. 4C)
+accorde **6 mois** à compter du premier dépôt pour effectuer des dépôts
+ultérieurs dans d'autres États membres en revendiquant la **date de priorité
+du premier dépôt**. Ces dépôts ultérieurs sont opposables comme s'ils
+avaient été déposés à la date de priorité — protection contre toute marque
+identique ou similaire déposée par un tiers entre les deux dates. Cette
+priorité est **stratégique** pour la séquence FR puis EU/Madrid à 6 mois.
+
+---
