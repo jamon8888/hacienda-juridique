@@ -108,3 +108,208 @@ Pour `entretien-demarrage` lui-même et `--check-integrations`, ne pas
 bloquer.
 
 ---
+
+## Mode `--report [--dashboard]` (défaut)
+
+Mode principal. Produit un rapport Markdown horodaté + (optionnellement) un
+dashboard HTML standardisé.
+
+### Étape 1 — Calcul de la prochaine échéance par asset
+
+Pour chaque entrée dans `assets[]` du `portfolio.yaml` :
+
+- Parcourir `territoires[]`
+- Identifier l'échéance de renouvellement la plus proche (champ
+  `dateRenouvellement`) — c'est elle qui pilote la sévérité globale de
+  l'asset
+- Conserver l'office et le numéro associés (utile pour l'action)
+
+Si plusieurs territoires partagent la même échéance, lister les offices
+concernés ensemble.
+
+### Étape 2 — Bucketisation par sévérité
+
+Calculer le nombre de jours entre aujourd'hui et l'échéance la plus proche
+(j_restants = dateRenouvellement - today).
+
+| Bucket | Jours restants | Lecture |
+|---|---|---|
+| 🔴 | < 30 j | URGENCE — renouvellement à enclencher immédiatement |
+| 🟠 | 30 à 90 j | À PRÉPARER — instruction mandataire à formaliser |
+| 🟡 | > 90 j et ≤ 365 j | À PLANIFIER — entrée dans le pipeline trimestriel |
+| 🟢 | > 365 j | STABLE — surveillance passive |
+| ❓ | dateRenouvellement absente / `statut` inconnu / parsing en erreur | À VÉRIFIER |
+
+### Étape 3 — Cross-référence avec la watchlist V1.1.0
+
+Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/watchlist.yaml`
+(si présent — sinon ignorer cette étape).
+
+Pour chaque asset :
+
+- Chercher une entrée watchlist dont `motCle` ou `motCleAlternatives` matche
+  le `signe` (égalité insensible à la casse, suppression des espaces)
+- Si match → marquer `surveillance: ✓ WATCH-XXX`
+- Sinon → marquer `surveillance: ❌ unwatched_asset`
+
+Le pattern « unwatched asset » est un finding important pour les marques
+`niveau_strategique = "core"` ou `"important"`.
+
+### Étape 4 — Format de sortie Markdown
+
+````markdown
+[EN-TÊTE CONFIDENTIALITÉ — selon rôle utilisateur du profil]
+
+# Portefeuille marques — Rapport [YYYY-MM-DD]
+
+> **Registre interne, pas démarche officielle.** [paragraphe garde-fou
+> reformulé tel quel — voir section « REGISTRE INTERNE, PAS DÉMARCHE
+> OFFICIELLE » ci-dessus]
+
+> **⚠️ Note du relecteur**
+> - **Registre :** [N marques] sur [N territoires cumulés]
+> - **Cross-watchlist :** [N marques surveillées] / [N total] · [N marques
+>   `core` non surveillées] ⚠️
+> - **Échéances < 12 mois :** [N]
+> - **Dernier audit registre :** [last_audit ou « jamais »]
+> - **Avant action :** vérifier base INPI publique
+>   (https://data.inpi.fr/marques) ou EUIPO eSearch plus + valider avec
+>   mandataire en marques
+
+**Résumé :** N total · N 🔴 · N 🟠 · N 🟡 · N 🟢 · N ❓
+
+## 🔴 ÉCHÉANCE URGENTE (< 30 jours)
+
+Pour chaque hit :
+
+- **[signe]** ([type]) · classes Nice [...] · territoires [...]
+  - Renouvellement [office] [numero] : **[dateRenouvellement] —
+    N j restants**
+  - Titulaire [...] · Mandataire [...] · Business owner [...]
+  - Niveau stratégique : [core / important / standard / heritage]
+  - Surveillance watchlist : [✓ WATCH-XXX / ❌ unwatched]
+  - Référence CPI L.712-9 (durée 10 ans renouvelable)
+
+## 🟠 ÉCHÉANCE À PRÉPARER (30 à 90 j)
+
+[même format]
+
+## 🟡 ÉCHÉANCE PLANIFIÉE (90 j à 12 mois)
+
+[même format]
+
+## 🟢 STABLE (> 12 mois)
+
+Liste compacte (ID · signe · prochaine échéance · niveau) — N entries.
+
+## ❓ ASSETS À VÉRIFIER (données manquantes / statut incertain)
+
+- **[ID] [signe]** : [nature de l'incohérence — `dateRenouvellement` vide,
+  `statut` non standard, territoires sans numero, etc.]
+
+## Findings transverses
+
+- **Marques `core` ou `important` non surveillées :** [liste ID + signe]
+  → recommander l'ajout à la watchlist via
+  `surveillance-marque --add`
+- **Désynchronisation potentielle registre interne / INPI public :** dernier
+  cross-check INPI [date ou « jamais »] — ré-exécuter si > 90 jours
+
+**Une question hors de ma checklist :** [observation seconde-ordre — omis
+si rien]
+
+## Que veux-tu faire ?
+
+1. **Préparer un renouvellement** — je rédige une note pour le mandataire
+   sur l'entrée 🔴 de ton choix
+2. **Escalader** — note pour [approbateur du profil] sur les marques
+   `core` non surveillées
+3. **Compléter les faits** — sync base INPI publique avant toute action
+4. **Ajouter à la watchlist** — pour chaque marque `core` non surveillée,
+   j'ouvre `surveillance-marque --add`
+5. **Autre chose** — dis-moi
+````
+
+### Étape 5 — Génération du dashboard HTML
+
+Déclencheur :
+
+- Flag `--dashboard` explicitement passé
+- OU nombre d'assets > 10 (seuil par défaut, modifiable via le profil
+  CLAUDE.md « Format de rapport préféré »)
+
+Workflow (à exécuter par Claude depuis le skill) :
+
+1. Construire l'objet `DashboardData` (importé de `@hacienda/core`)
+2. Appeler `renderDashboard(data)` (escape XSS automatique côté core)
+3. Écrire le HTML à côté du Markdown :
+   `<output_dir>/portefeuille-YYYY-MM-DD.html`
+4. Surfacer le chemin dans la sortie Markdown :
+   `Dashboard généré : [chemin/portefeuille-YYYY-MM-DD.html]`
+
+Squelette de l'objet `DashboardData` à construire (TypeScript pour
+illustration — Claude doit reproduire la structure quand il appelle le
+module) :
+
+```ts
+import { renderDashboard, type DashboardData } from "@hacienda/core";
+
+const data: DashboardData = {
+  title: `Portefeuille marques — ${cabinet}`,
+  generatedAt: new Date().toISOString().slice(0, 10),
+  summary: [
+    { label: "Total", value: assets.length, emoji: "📊" },
+    { label: "🔴 < 30 j", value: countRed },
+    { label: "🟠 30-90 j", value: countOrange },
+    { label: "🟡 90 j - 12 mois", value: countYellow },
+  ],
+  columns: [
+    { key: "id", label: "ID", width: "100px" },
+    { key: "signe", label: "Marque" },
+    { key: "type", label: "Type", width: "80px" },
+    { key: "classes", label: "Classes Nice" },
+    { key: "territoires", label: "Territoires" },
+    { key: "renouvellement", label: "Renouvellement" },
+    { key: "severite", label: "Sévérité", width: "100px" },
+    { key: "owner", label: "Owner" },
+    { key: "mandataire", label: "Mandataire" },
+    { key: "surveillance", label: "Surveillance" },
+    { key: "niveau", label: "Niveau" },
+  ],
+  rows: assets.map(a => ({
+    id: a.id,
+    signe: a.signe,
+    type: a.type,
+    classes: a.classes.join(", "),
+    territoires: a.territoires.map(t => t.office).join(", "),
+    renouvellement: nearestRenouvellement(a),
+    severite: severityFor(a),                  // emoji 🔴/🟠/🟡/🟢 — déclenche la
+                                               // couleur de ligne dans le template
+    owner: a.business_owner ?? "_non renseigné_",
+    mandataire: a.mandataire ?? "_n/a_",
+    surveillance: isWatched(a, watchlist) ? "✓" : "❌ unwatched",
+    niveau: a.niveau_strategique,
+  })),
+  severityLegend: {
+    "🔴": "< 30 jours",
+    "🟠": "30-90 jours",
+    "🟡": "90 j - 12 mois",
+    "🟢": "> 12 mois",
+  },
+  reviewerNote: "...", // bloc « Note du relecteur » du Markdown ci-dessus
+};
+
+const html = renderDashboard(data);
+await fs.writeFile(
+  `${outputDir}/portefeuille-${date}.html`,
+  html,
+  "utf8",
+);
+```
+
+Le dashboard est autonome (zéro CDN, ouvrable hors-ligne, imprimable A4),
+trie/filtre/recherche côté JS inline, et XSS-safe (escape côté
+`renderDashboard`). Voir `references/dashboard-template.md` (Phase 3) pour
+le détail du pattern et les conventions visuelles.
+
+---
