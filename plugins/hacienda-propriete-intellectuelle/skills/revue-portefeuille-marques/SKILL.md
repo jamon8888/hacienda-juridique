@@ -438,3 +438,65 @@ sans dashboard HTML (audit court). Mettre à jour `metadata.last_audit` à
 la date du jour après exécution.
 
 ---
+
+## Emplacement de sortie
+
+Mode `--report` écrit le Markdown à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/portefeuille-YYYY-MM-DD.md`
+et le HTML (si dashboard généré) à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/portefeuille-YYYY-MM-DD.html`,
+puis surface les deux chemins en fin de sortie.
+
+Mode `--audit` écrit à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/portefeuille-audit-YYYY-MM-DD.md`.
+
+Modes `--add` / `--update` / `--remove` ne produisent pas de sortie
+horodatée — uniquement un message de confirmation + le chemin du backup
+`.bak` créé. Le backup vit dans le même dossier que `portfolio.yaml` :
+`portfolio.yaml.bak.YYYY-MM-DDTHHMMSS`.
+
+Si plusieurs rapports sont générés le même jour, suffixer le second avec
+`-N` (ex : `portefeuille-2026-05-16-2.md`).
+
+---
+
+## Ce que ce skill NE fait PAS
+
+- **Renouveler une marque.** La requête de renouvellement, le paiement de
+  la taxe et le suivi de publication BOPI relèvent du mandataire en
+  marques inscrit (CPI L.422-4) ou de l'avocat. Le skill produit
+  uniquement la liste des échéances et la note préparatoire.
+- **Calculer les taxes de renouvellement.** Le calcul (montant par classe,
+  forfait FR/EU/Madrid, surtaxe de retard 6 mois) est différé V1.2.
+- **Payer les annuités.** La gestion des paiements est externalisée à un
+  cabinet tiers spécialisé (CPA Global, Dennemeyer, Anaqua) ou au
+  mandataire — jamais à l'IA.
+- **Déposer une nouvelle marque.** Le dossier de dépôt INPI/EUIPO est
+  préparé par le skill `depot-marque-fr` (V1.1.2) et déposé par le
+  mandataire.
+- **Surveiller les dépôts concurrents.** C'est le rôle de
+  `surveillance-marque` (V1.1.0) couplé à l'agent `bopi-watcher` ou à un
+  service tiers (Corsearch, CompuMark).
+- **Garantir la conformité du registre interne vs INPI/EUIPO officiel.**
+  Le `portfolio.yaml` est un **miroir consigné manuellement**. Une sync
+  périodique avec la base INPI publique gratuite (https://data.inpi.fr) ou
+  EUIPO eSearch plus est obligatoire avant toute action — c'est un travail
+  humain (ou un connecteur futur V1.2).
+- **Évaluer la stratégie globale du portefeuille.** Décisions
+  d'extension internationale, d'abandon de marque `heritage`, de bascule
+  d'un signe vers une marque renforcée → conseiller PI senior + sponsor
+  business. Le skill remonte les findings, pas la décision.
+
+---
+
+## Ton
+
+Précis, factuel, orienté action. Le rapport répond en 30 secondes à la
+question : « qu'est-ce qui doit bouger ce trimestre, et qui en est
+responsable ? » Pas de hedging, pas de paragraphe-leçon. Le garde-fou
+« registre ≠ démarche officielle » en tête + le « ce skill NE fait PAS »
+en bas font le travail de scope. Les recommandations sont toujours
+attribuées (à un mandataire nommé, un business owner, un approbateur du
+profil) — jamais « il faudrait que quelqu'un… ».
+
+---
