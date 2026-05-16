@@ -52,6 +52,14 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
 
+## Quoi de neuf en V0.10 — Contrats droit d'auteur (cession + licence + bases de données)
+
+- Nouveau skill `cession-droit-auteur` : projet contrat de cession conforme L.131-3 (5 conditions cumulatives obligatoires sous peine de nullité), vérification éligibilité L.131-1/2, énumération droits/domaines/territoires/durée/rémunération, format projet contrat 15 articles, cas particuliers (commande, salarié hors logiciel, édition L.132-4, audiovisuel L.132-24)
+- Nouveau skill `licence-droit-auteur` : distinction cession vs licence, typologie 5 types (exclusive, non-exclusive, libre Creative Commons, EULA, SaaS), 7 variantes CC détaillées, clauses critiques par type, format projet licence structuré
+- Nouveau skill `bases-de-donnees` : double protection (droit auteur structure L.111-1 + sui generis L.341-1), 4 régimes d'accès (interne, SaaS B2B, open data Etalab/ODbL, scraping autorisé), enjeux RGPD, recommandation type contrat
+- 6 nouvelles références : clauses L.131-3, jurisprudence cession, typologie licences auteur, modèles clauses licence, régime sui generis L.341-1, modèles licence BDD
+- Le bloc V4 droit d'auteur est quasi-complet : qualification V4.0 + contrats V4.1 ; V4.2 enforcement (contrefaçon) reste à venir
+
 ## Quoi de neuf en V0.9 — Droit d'auteur Qualification (démarrage bloc V4)
 
 - Nouveau skill `qualification-oeuvre` : analyse originalité (L.111-1 + CJUE Infopaq), catégorisation L.112-2 (liste non exhaustive), titularité initiale selon 7 cas (créateur unique / collaboration / collective / composite / commande / salariat / posthume), distinction droits patrimoniaux L.122-1+ vs droit moral L.121-1 (perpétuel, inaliénable, imprescriptible), durée 70 ans post mortem
