@@ -55,3 +55,56 @@ INPI. Cross-vérifier régulièrement contre la base INPI publique
 > ou de l'avocat.
 
 ---
+
+## Charger le profil pratique et le portefeuille
+
+Avant tout travail, lire dans cet ordre :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+3. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/portfolio.yaml`
+
+Si `portfolio.yaml` est absent, le créer avec le squelette suivant :
+
+```yaml
+metadata:
+  cabinet: "[depuis CLAUDE.md ; mettre 'à renseigner' si vide]"
+  generated: "YYYY-MM-DD"
+  last_audit: null
+  source_system: "manual"
+assets: []
+```
+
+et confirmer la création à l'utilisateur.
+
+### Récupération depuis le profil
+
+- **Rôle utilisateur** (`## Rôle de l'utilisateur courant` du profil PI) :
+  avocat inscrit / mandataire en marques inscrit INPI (CPI L.422-4) /
+  juriste interne / non-juriste avec accès avocat / non-juriste sans accès
+- **Posture enforcement** (mesurée / agressive / conservatrice)
+- **Mandataires associés** (cabinet de marques, correspondants étrangers)
+- **Cadence de revue portefeuille** (trimestrielle / annuelle) — défaut
+  trimestrielle si absent
+- **Format de rapport préféré** (Markdown seul / Markdown + dashboard HTML)
+  — défaut « Markdown + dashboard si > 10 marques »
+- **Sync avec base INPI publique** (manuel trimestriel / au moment de chaque
+  rapport) — défaut « manuel trimestriel »
+- **Approbateurs** pour décisions de renouvellement non systématique
+
+### Profil non configuré
+
+Si le profil PI ou `company-profile.md` contient encore des marqueurs
+`[A CONFIGURER]` :
+
+- Proposer `/hacienda-propriete-intellectuelle:entretien-demarrage`
+  (10-15 min) comme chemin nominal
+- OU offrir un mode `provisoire` tagué : tous les outputs sont préfixés
+  `[MODE PROVISOIRE — profil non configuré, défauts génériques appliqués]`
+  et utilisent les défauts (rôle = avocat, posture mesurée, cadence
+  trimestrielle, format Markdown + dashboard)
+
+Pour `entretien-demarrage` lui-même et `--check-integrations`, ne pas
+bloquer.
+
+---
