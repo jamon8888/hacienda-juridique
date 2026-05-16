@@ -68,3 +68,131 @@ de saisir. Le tableau **trie et rend lisible** ; il ne conclut pas. Garder
 la posture "porte à deux sens" (sur-flagger les éléments douteux en `❓` ou
 `[review]`, laisser l'avocat trancher) plutôt que "porte à sens unique"
 (décider tacitement à la place du mandataire).
+
+---
+
+## Charger le profil pratique avant de commencer
+
+Avant tout, lire :
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Récupérer :
+- **Rôle** depuis `## 1. Profil cabinet et profil de pratique PI` (avocat
+  inscrit / mandataire en brevets EQE / mandataire en marques INPI / juriste
+  interne / non-juriste — change l'en-tête de confidentialité ET le périmètre
+  du secret professionnel ; le claim chart d'un non-avocat n'est PAS couvert
+  par le secret professionnel et doit être marqué comme tel avant tout
+  partage hors équipe juridique).
+- **Juridictions et offices d'inscription** (INPI, OEB, OMPI/PCT). Pour
+  l'enforcement contrefaçon : la compétence est **exclusive du TJ Paris**
+  (CPI L.615-1) quel que soit le brevet (FR, partie française d'EP, PCT
+  désignant FR). À surfacer dans la sortie.
+- **Domaines techniques principaux** (mécanique / chimie / pharma / biotech /
+  informatique / électronique / télécom). Calibre la lecture des
+  revendications et la nature de la documentation produit attendue (notice
+  utilisateur en mécanique, MSDS et procédé en chimie, code source en
+  logiciel, séquences en biotech).
+- **Posture enforcement** (agressive / mesurée / conservatrice) — détermine
+  le ton des recommandations stratégiques (étape 5) : agressive privilégie
+  saisie-contrefaçon en premier ; conservatrice commence par mise en demeure
+  ou négociation.
+- **Matrice d'approbateurs** : qui signe une mise en demeure brevet ? qui
+  approuve une requête en saisie-contrefaçon ? qui valide une assignation
+  TJ Paris ? Ces approbateurs sont nommés dans la sortie.
+- **Partenaire mandataire en brevets externe** (depuis "Mandataires et
+  conseils externes" du profil) — destinataire naturel du brief de revue.
+
+Ce skill ne conclut JAMAIS "contrefaçon caractérisée" ni "absence de
+contrefaçon". Le tableau dit ce qui est ✅, ⚠️, ❌, ❓ — le mandataire ou
+l'avocat qualifie.
+
+Si le profil contient `[A CONFIGURER]`, surfacer :
+
+> Le profil pratique n'est pas configuré — c'est ce qui adapte la posture
+> enforcement (agressive/mesurée/conservatrice), la matrice d'approbateurs
+> et l'identité du mandataire de revue à votre cabinet ou service.
+>
+> **Deux choix :**
+> - Lancer `/hacienda-propriete-intellectuelle:entretien-demarrage` (10-15 min)
+> - Dire **"provisoire"** et je lance avec les défauts génériques (rôle
+>   avocat, FR + EP, posture mesurée) — chaque sortie sera taggée
+>   `[PROVISOIRE — configurer le profil pour une sortie sur mesure]`.
+
+### Mode provisoire
+
+Si l'utilisateur dit "provisoire", lancer normalement avec : rôle avocat,
+posture enforcement mesurée, juridiction FR (TJ Paris), pas d'approbateurs
+nommés (recommander générique "mandataire en brevets EQE + avocat PI"),
+pas de mandataire externe nommé. Tagger la note du relecteur et chaque
+recommandation `[PROVISOIRE]`. À la fin :
+
+> "C'était un run générique avec les hypothèses par défaut. Lance
+> `/hacienda-propriete-intellectuelle:entretien-demarrage` pour calibrer sur
+> VOTRE pratique — votre posture enforcement, votre mandataire en brevets
+> de revue, votre matrice d'approbateurs."
+
+---
+
+## Intake — batch unique de 4 questions
+
+Le claim chart exige beaucoup d'information précise en entrée. Demander en
+batch unique, pas en escalade de questions une par une.
+
+> Pour générer un claim chart exploitable, j'ai besoin de 4 informations.
+> Peux-tu me répondre en bloc ?
+>
+> **1. Brevet attaqué.** Numéro de publication (FR, EP ou PCT) — je
+> récupère les revendications via `inpi_brevet_details` (FR) ou
+> `espacenet_brevet_details` (EP / PCT). OU : colle le fascicule (PDF ou
+> texte intégral des revendications + description si possible).
+>
+> **2. Documentation du produit incriminé.** Plus c'est précis, plus le
+> claim chart est solide. Idéalement, plusieurs sources :
+> - notice utilisateur, manuel d'installation
+> - fiche technique / spec sheet / datasheet
+> - site marketing du produit (capture écran + URL)
+> - photos détaillées (vues éclatées si dispo)
+> - pour un logiciel : doc API publique, code source si open, captures UI
+> - pour un produit pharma/chimie : RCP, notice patient, brevet déposé par
+>   le contrefacteur (souvent révèle la composition)
+> - pour un produit biotech : publications scientifiques, séquences GenBank
+>
+> Colle les sources OU pointe vers des fichiers / URL.
+>
+> **3. Théorie souhaitée :**
+> - `littérale` uniquement (l'élément revendiqué doit être identifié tel
+>   quel dans le produit) — analyse plus rapide, conclusion plus solide si
+>   positive, conclusion fragile si négative
+> - `équivalence` uniquement (CPI L.613-3) — quand la littéralité a
+>   manifestement échoué et qu'on veut explorer la voie équivalence
+> - `les deux` (défaut) — littérale d'abord, équivalence sur les éléments
+>   ❌ absents en littéralité — recommandé pour première analyse
+>
+> **4. Contexte business :**
+> - Produit commercialisé activement en France ? Depuis quand ?
+> - Estimation du préjudice (volume vendu, prix, marge perdue) ?
+> - Relation antérieure avec le contrefacteur présumé : ex-licencié, ex-
+>   partenaire, ex-employé, concurrent direct sans historique ?
+> - Communication publique du brevet par le titulaire (marquage produit,
+>   communiqué, salon professionnel) — opposable au contrefacteur pour
+>   calcul des dommages-intérêts (CPI L.615-7) ?
+
+**Push si la documentation produit est insuffisante.** Moins de 2-3 sources
+techniques précises = on ne peut PAS faire un claim chart sérieux. Dire :
+
+> La documentation produit que tu as fournie est trop maigre pour un claim
+> chart exploitable. Avec [ce que tu as], je peux faire un pré-claim chart
+> indicatif avec beaucoup de `❓` — mais le mandataire n'en fera rien. Pour
+> un tableau qui mène à une action concrète, il faut au minimum : (a) une
+> source décrivant la fonction principale, (b) une source décrivant la
+> composition / structure / architecture, (c) idéalement une source
+> illustrée (photos, schémas, captures). Suggestion : acquérir le produit
+> et l'analyser physiquement (rétro-ingénierie — légale en FR pour
+> vérification brevet), ou demander documentation complémentaire via
+> courrier de mise en demeure légère, ou — si le titulaire est prêt à
+> avancer — saisie-contrefaçon (CPC art. 59) sur autorisation du juge
+> pour obtenir la documentation technique chez le contrefacteur.
+>
+> Tu veux que je fasse le pré-claim chart indicatif quand même, ou tu
+> reviens avec plus de doc ?
