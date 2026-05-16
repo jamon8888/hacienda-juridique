@@ -640,3 +640,110 @@ citer un document qu'on ne peut pas ouvrir.
 `````
 
 ---
+
+## Gate non-juriste
+
+Avant émettre la sortie, lire `## 1. Profil cabinet et profil de pratique PI`.
+Si **Rôle = juriste interne sans inscription** OU **non-juriste** :
+
+> Cette sortie est un triage de recherche d'antériorité brevet, pas un avis
+> juridique de brevetabilité ni une opinion de liberté d'exploitation.
+> Déposer un brevet, communiquer publiquement sur l'invention ou investir
+> dans la production sur la seule base de ce triage a des conséquences
+> juridiques et économiques majeures — y compris (a) un brevet refusé pour
+> antériorité que le triage n'avait pas trouvée, (b) la perte du droit au
+> brevet par divulgation publique antérieure au dépôt, (c) une action en
+> contrefaçon d'un tiers titulaire d'un brevet en vigueur que le triage
+> n'a pas vu (FTO non couverte ici). Un **mandataire en brevets inscrit à
+> l'OEB (qualifié EQE)** ou un **avocat spécialisé en propriété
+> industrielle** doit évaluer avant que vous bougiez.
+>
+> Voici un brief à apporter à votre mandataire/avocat — ça réduira le temps
+> de la conversation :
+>
+> [Générer un résumé 1 page : **(1)** description technique de l'invention
+> (problème + solution), **(2)** classification CIB proposée, **(3)**
+> exclusions L.611-10 flaggées (le cas échéant), **(4)** antériorités
+> trouvées avec statut OEB X/Y/A/E, **(5)** ce qui a et ce qui n'a PAS été
+> cherché (bases non interrogées, NPL non couverte, CIB voisines non
+> balayées), **(6)** 3 questions à poser au mandataire : "ces antériorités
+> détruisent-elles la nouveauté de quelle revendication ?", "quelle
+> reformulation des revendications préserverait la portée commerciale ?",
+> "faut-il une opinion FTO avant exploitation industrielle ?"]
+>
+> Pour trouver un mandataire en brevets ou un avocat PI :
+>
+> - **Annuaire des avocats** : https://www.avocat.fr (Conseil National des Barreaux)
+> - **Annuaire des conseils en propriété industrielle (mandataires INPI)** :
+>   https://www.inpi.fr/conseils-en-propriete-industrielle
+> - **Liste des mandataires européens (qualifiés EQE) auprès de l'OEB** :
+>   https://www.epo.org/en/searching-for-patents/legal/professional-representatives
+
+Livrer le triage complet À CÔTÉ du brief. Ne pas retenir l'analyse.
+
+---
+
+## Emplacement de la sortie
+
+Écrire à
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/anteriorite-brevet-<slug-invention>-YYYY-MM-DD.md`
+et surfacer le chemin à l'utilisateur.
+
+Si le profil contient déjà un slug identique pour aujourd'hui, ajouter un
+suffixe `-2`, `-3`, etc. Le slug est dérivé du titre ou du domaine de
+l'invention (ex. `filtration-membranaire-polymere-x`, `compression-video-nn`).
+
+Matter workspaces hors V1 (cf. `CLAUDE.md` `## 11. Workspaces de dossier`).
+
+---
+
+## Fermeture avec l'arbre de décision
+
+Fermer avec l'arbre de décision suivant `CLAUDE.md` `## 2. Sorties standardisées`
+— les 5 options par défaut sont un point de départ, à personnaliser aux
+findings du triage (par exemple, l'option 1 "Rédiger" devient "Préparer le
+dépôt" et route vers `preparation-depot-brevet` ; l'option 4 "Surveiller et
+attendre" peut router vers une veille concurrentielle CIB si pertinent).
+
+---
+
+## Ce que ce skill NE fait PAS
+
+- **Conclure que l'invention est brevetable.** Jamais. Le garde-fou le plus
+  visible.
+- **Conclure à la liberté d'exploitation (FTO).** Un brevet du tiers en
+  vigueur dans un territoire visé peut bloquer l'exploitation même d'une
+  invention nouvelle et inventive. L'analyse FTO est un exercice distinct,
+  exécuté par un mandataire en brevets ou un avocat PI, sur la base de
+  toutes les revendications en vigueur dans les territoires d'exploitation.
+- **Substituer une recherche professionnelle exhaustive** : Espacenet
+  complet, Google Patents, WIPO PatentScope, littérature non-brevet
+  sectorielle (Google Scholar, IEEE, PubMed, ACS, ACM, arXiv, thèses).
+- **Déposer un brevet.** Le dépôt est une tâche mandataire en brevets ou
+  avocat PI ; ce skill informe la décision de déposer. Le brouillon de
+  dossier est produit par `preparation-depot-brevet` puis soumis en revue
+  mandataire.
+- **Analyser la contrefaçon de brevets de tiers** (= `tableau-contrefacon-brevet`).
+  Ce skill regarde si l'invention est nouvelle, pas si elle empiète sur des
+  brevets en vigueur.
+- **Répondre à un refus INPI ou à une notification de motifs OEB**
+  (= `analyse-refus-inpi`, prévu V2.1). Ce skill est un triage *avant*
+  dépôt, pas une réponse *après* notification.
+- **Évaluer la chaîne de priorité** (priorité Union de Paris, revendications
+  internes, divisionnaires) — à valider par le mandataire avant tout dépôt
+  exploitant une priorité.
+- **Quoter la sortie à des clients, partenaires, investisseurs ou la presse.**
+  C'est de la recherche interne. Une communication publique partielle peut
+  par ailleurs constituer une divulgation antérieure qui détruira la
+  nouveauté du dépôt à venir.
+
+---
+
+## Ton
+
+Précis, concret, honnête sur le périmètre. Le mandataire lisant cette sortie
+doit savoir en 10 secondes ce que le triage a trouvé, ce qu'il n'a PAS
+trouvé, et ce qui doit se passer avant qu'un dépôt soit déposé ou qu'une
+communication publique soit faite. Pas de prose hedgée. Le garde-fou en tête
+et la ligne "ne conclut pas" sur la brevetabilité font le travail de scope.
+Le triage informe une décision ; il ne la prend pas.
