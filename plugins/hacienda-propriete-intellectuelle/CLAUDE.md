@@ -121,6 +121,19 @@ les valeurs `[A CONFIGURER]` sont présentes, c'est un template. Une fois peupl�
 **Volume portefeuille estimé :** [A CONFIGURER — < 20 / 20-100 / > 100 = envisager IPMS commercial (Anaqua, Dennemeyer, Questel, Clarivate IPfolio)]
 **Cap recommandé sans IPMS :** ~50 brevets (au-delà, risque erreur humaine annuités)
 
+## Dessins et modèles
+
+**Pratique D&M :** [A CONFIGURER — mode / mobilier / packaging / automobile / électronique / bijouterie / produits de consommation / transversal]
+**Secteurs Locarno dominants :** [A CONFIGURER — ex. 09-01 bouteilles, 06-01 sièges, 26-05 luminaires, 02-01 vêtements]
+**Territoires de dépôt habituels :** [A CONFIGURER — France (INPI) seul / France + UE (DMC EUIPO) / France + UE + international (La Haye)]
+**Stratégie ajournement par défaut :** [A CONFIGURER — systématique (secret jusqu'à lancement) / jamais (publication immédiate préférée) / au cas par cas]
+**Posture contrefaçon D&M :** [A CONFIGURER — agressive (mise en demeure dès constat) / mesurée (contact informel puis escalade) / conservatrice (action uniquement si préjudice commercial avéré)]
+**Volume portefeuille D&M estimé :** [A CONFIGURER — < 10 / 10-50 / > 50 dessins et modèles]
+**Reproductions :** [A CONFIGURER — photographe interne / prestataire externe / rendus 3D (designer CAO) / mixte]
+**Mandataire D&M :** [A CONFIGURER — même que marques / mandataire spécialisé design / interne]
+
+---
+
 ## Droit d'auteur
 
 **Pratique droit d'auteur :** [A CONFIGURER — édition / audiovisuel / logiciel SaaS / design / mode / publicité / multimedia / transversal]
