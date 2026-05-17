@@ -112,6 +112,23 @@ ces sources doit être taguée avec le tag de provenance correspondant
 
 ## 2. Brevets
 
+### 2.0 Certificats complémentaires de protection (CCP) — V2.3
+
+| Texte | Objet | Usage skill |
+|---|---|---|
+| **Règlement UE 469/2009** | CCP médicaments — conditions, durée, demande | `certificat-complementaire-protection` |
+| **Règlement UE 1610/96** | CCP produits phytopharmaceutiques | `certificat-complementaire-protection` |
+| **Règlement UE 1901/2006** | Extension pédiatrique (+6 mois) | `certificat-complementaire-protection` |
+| **Règlement UE 2019/933** | SPC manufacturing waiver (export + stockage day-1) | `certificat-complementaire-protection` |
+| **Art. 3 règlement 469/2009** | 4 conditions cumulatives d'éligibilité | Analyse éligibilité |
+| **Art. 13 règlement 469/2009** | Calcul durée CCP (max 5 ans) | Calcul durée |
+
+**Jurisprudence CCP — arrêts de référence :**
+- **CJUE C-322/10 *Medeva*** (2011) — Art. 3(a) : le produit doit être « identifié dans le libellé des revendications »
+- **CJUE C-493/12 *Eli Lilly*** (2013) — Formule de Markush acceptable si le produit est « implicitement mais nécessairement » visé
+- **CJUE C-121/17 *Teva v Gilead*** (2018) — Test en 2 étapes : (1) relève nécessairement de l'invention, (2) identifiable spécifiquement par l'homme du métier
+- **CJUE C-650/17 *Royalty Pharma*** (2020) — Précise *Teva* : substance « identifiable de manière spécifique » à la lumière de l'ensemble des éléments divulgués
+
 ### 2.1 Brevets — bases techniques (V0.4 — bloc Brevets MVP)
 
 | Ressource | URL | Tag | Usage | Connecteur Hacienda |

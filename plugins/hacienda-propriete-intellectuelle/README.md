@@ -37,6 +37,7 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 - `audit-pi-ma`
 - `saisie-contrefacon`
 - `contentieux-pi`
+- `certificat-complementaire-protection`
 
 ## Agents
 
@@ -44,6 +45,7 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 - `veilleur-marques` : surveille marques et oppositions.
 - `surveillant-oss` : surveille licences et dependances.
 - `veilleur-contrefacon` : surveille signaux d'atteinte.
+- `contrefacon-web` : surveillance contrefaçon en ligne (marketplaces, réseaux sociaux, web).
 
 ## Livrables
 
@@ -58,6 +60,12 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 ## Mode Silencieux
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
+
+## Quoi de neuf en V0.15 — Agent contrefaçon web (V1.2) + CCP pharma (V2.3)
+
+- Nouvel agent `contrefacon-web` : surveillance contrefaçon en ligne sur marketplaces (Amazon, AliExpress, eBay, Wish, Cdiscount, Etsy), réseaux sociaux (Instagram, Facebook, TikTok Shop), web général. Détections cotées par sévérité (Critical/High/Medium/Low), templates notification retrait (programme marketplace + LCEN art. 6-I-5 + DSA art. 16), coordination avec skills contrefaçon. Cadence configurable.
+- Nouveau skill `certificat-complementaire-protection` : CCP médicaments (règlement UE 469/2009) et phyto (1610/96), 4 conditions art. 3, jurisprudence CJUE (Medeva, Eli Lilly, Teva v Gilead, Royalty Pharma), calcul durée (art. 13, max 5 ans), extension pédiatrique (+6 mois), SPC manufacturing waiver (2019/933), demande INPI
+- **Tout le roadmap CHANGELOG est livré.** Le plugin PI couvre désormais : marques (V1.0-V1.2) + brevets (V2.0-V2.3) + D&M (V3.0) + droit d'auteur (V4.0-V4.2) + contrats PI + audit M&A (V5.0) + contentieux & enforcement (V6.0)
 
 ## Quoi de neuf en V0.14 — Contentieux & Enforcement (V6.0)
 
