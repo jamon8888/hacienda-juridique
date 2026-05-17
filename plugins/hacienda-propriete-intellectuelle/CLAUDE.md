@@ -162,6 +162,17 @@ les valeurs `[A CONFIGURER]` sont présentes, c'est un template. Une fois peupl�
 **Approbateur contrats PI transversaux :** [A CONFIGURER — avocat PI seul / avocat PI + GC / avocat PI + Direction business]
 **Seuil audit PI complet :** [A CONFIGURER — toute acquisition / acquisition > X€ / acquisition avec composante PI significative uniquement]
 
+## Contentieux PI
+
+**Tribunal habituel :** TJ Paris 3e chambre (compétence exclusive brevets, MUE, DMC — L.615-17, art. 123 RMUE, art. 80 RDMC)
+**Avocat contentieux PI :** [A CONFIGURER — nom / cabinet / spécialité]
+**Huissier/commissaire de justice PI :** [A CONFIGURER — nom / étude / spécialité saisie-contrefaçon]
+**Expert technique brevets :** [A CONFIGURER — nom / spécialité / inscription liste experts TJ Paris]
+**Posture contentieuse :** [A CONFIGURER — agressive (action rapide, référé systématique) / mesurée (mise en demeure puis fond si échec) / défensive (transaction privilégiée)]
+**Budget contentieux annuel :** [A CONFIGURER — < 50k€ / 50-200k€ / > 200k€ / illimité selon enjeu]
+**Seuil go/no-go :** [A CONFIGURER — score matrice minimum pour engager une action : 20/40 / 25/40 / 30/40]
+**Mode de résolution préféré :** [A CONFIGURER — judiciaire (TJ Paris) / médiation (CMAP) / arbitrage (CCI) / transaction directe]
+
 ---
 
 ## 2. Sorties standardisées
