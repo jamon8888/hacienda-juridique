@@ -138,7 +138,7 @@ assets:
   Mettre à jour `dernier_audit` après chaque cross-check.
 - **Ne JAMAIS écrire les credentials INPI/EUIPO dans `portfolio.yaml`.**
   Les identifiants techniques (API keys INPI Data, comptes EUIPO User
-  Area) vont **uniquement** dans `.claude/settings.local.json` (gitignore)
+  Area) vont **uniquement** dans `~/.config/Hacienda/credentials.json`
   ou les variables d'environnement. Le `portfolio.yaml` ne contient que
   des données métier.
 - **Backup avant écriture.** Le skill produit automatiquement

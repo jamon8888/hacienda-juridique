@@ -261,7 +261,7 @@ dans 8 pays/régions à 30 mois (ou 31 mois selon office).
     UIBM (IT), OEPM (ES), USPTO (US), JPO (JP), CNIPA (CN), etc.
 - **Ne JAMAIS écrire les credentials API (INPI Data, OEB Open Patent
   Services, etc.) dans `portfolio-brevets.yaml`.** Les identifiants
-  techniques vont **uniquement** dans `.claude/settings.local.json`
+  techniques vont **uniquement** dans `~/.config/Hacienda/credentials.json`
   (gitignored) ou les variables d'environnement. Le
   `portfolio-brevets.yaml` ne contient que des données métier.
 - **Backup avant écriture.** Le skill produit automatiquement

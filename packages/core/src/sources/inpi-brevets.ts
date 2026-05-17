@@ -38,7 +38,9 @@ export type InpiBrevetDetails = z.infer<typeof InpiBrevetDetailsSchema>;
 
 export class InpiBrevetsCredentialsMissingError extends Error {
   constructor() {
-    super("INPI_DATA_LOGIN / INPI_DATA_PASSWORD non définis dans .claude/settings.local.json");
+    super(
+      "INPI_DATA_LOGIN / INPI_DATA_PASSWORD non définis dans ~/.config/Hacienda/credentials.json ou dans l'environnement du process MCP"
+    );
     this.name = "InpiBrevetsCredentialsMissingError";
   }
 }

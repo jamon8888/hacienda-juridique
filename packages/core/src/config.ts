@@ -20,6 +20,12 @@ interface CredentialsFile {
   PISTE_CLIENT_ID?: string;
   PISTE_CLIENT_SECRET?: string;
   PISTE_ENV?: PisteEnv;
+  PAPPERS_API_KEY?: string;
+  INPI_DATA_LOGIN?: string;
+  INPI_DATA_PASSWORD?: string;
+  EUIPO_API_KEY?: string;
+  OEB_CONSUMER_KEY?: string;
+  OEB_CONSUMER_SECRET?: string;
 }
 
 /**
@@ -55,6 +61,13 @@ function cleanEnv(v: string | undefined): string | undefined {
   if (!v) return undefined;
   if (/^\$\{[^}]+\}$/.test(v)) return undefined;
   return v;
+}
+
+function readCredential(
+  envValue: string | undefined,
+  fileValue: string | undefined
+): string | undefined {
+  return cleanEnv(envValue) ?? fileValue;
 }
 
 export function loadConfig(): Config {
@@ -103,14 +116,19 @@ export interface InpiCredentials { login: string; password: string }
 export interface EuipoCredentials { apiKey: string }
 
 export function loadInpiCredentials(): InpiCredentials | null {
-  const login = process.env.INPI_DATA_LOGIN;
-  const password = process.env.INPI_DATA_PASSWORD;
+  const fileCreds = loadCredentialsFile();
+  const login = readCredential(process.env.INPI_DATA_LOGIN, fileCreds?.INPI_DATA_LOGIN);
+  const password = readCredential(
+    process.env.INPI_DATA_PASSWORD,
+    fileCreds?.INPI_DATA_PASSWORD
+  );
   if (!login || !password) return null;
   return { login, password };
 }
 
 export function loadEuipoCredentials(): EuipoCredentials | null {
-  const apiKey = process.env.EUIPO_API_KEY;
+  const fileCreds = loadCredentialsFile();
+  const apiKey = readCredential(process.env.EUIPO_API_KEY, fileCreds?.EUIPO_API_KEY);
   if (!apiKey) return null;
   return { apiKey };
 }
@@ -118,8 +136,15 @@ export function loadEuipoCredentials(): EuipoCredentials | null {
 export interface OebCredentials { consumerKey: string; consumerSecret: string }
 
 export function loadOebCredentials(): OebCredentials | null {
-  const consumerKey = process.env.OEB_CONSUMER_KEY;
-  const consumerSecret = process.env.OEB_CONSUMER_SECRET;
+  const fileCreds = loadCredentialsFile();
+  const consumerKey = readCredential(
+    process.env.OEB_CONSUMER_KEY,
+    fileCreds?.OEB_CONSUMER_KEY
+  );
+  const consumerSecret = readCredential(
+    process.env.OEB_CONSUMER_SECRET,
+    fileCreds?.OEB_CONSUMER_SECRET
+  );
   if (!consumerKey || !consumerSecret) return null;
   return { consumerKey, consumerSecret };
 }

@@ -4,6 +4,20 @@
 
 Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `[a verifier]`, Note de revue, Arbre de decision, validation humaine et dossier de preuve.
 
+## Ce Que Couvre Le Plugin
+
+Le plugin PI couvre aujourd'hui :
+
+- marques : recherche d'anteriorite, surveillance BOPI, depot, opposition,
+  portefeuille et contentieux ;
+- brevets : recherche d'anteriorite, preparation depot, extension
+  internationale, refus INPI/OEB, nullite, portefeuille et claim chart ;
+- dessins et modeles : recherche d'anteriorite, depot et contrefacon ;
+- droit d'auteur et logiciel : qualification, cession, licence, bases de
+  donnees, open source et enforcement ;
+- contrats PI, audit PI M&A, saisie-contrefacon et contentieux PI ;
+- droits voisins, OGC et enjeux IA generative.
+
 ## Premier Lancement
 
 ```text
@@ -17,6 +31,67 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 - registres domaines, depots, portefeuilles ;
 - SBOM, notices OSS, contrats et licences ;
 - preuves de creation, captures et correspondances.
+
+## Configuration Des Sources PI
+
+Le plugin PI lit ses credentials de source via `~/.config/Hacienda/credentials.json`,
+avec priorite a l'environnement du processus MCP si les variables sont deja presentes.
+
+| Source | Tools principaux | Credentials requis | Variables |
+| --- | --- | --- | --- |
+| INPI Data marques | `inpi_search_marques`, `inpi_marque_details`, `inpi_marques_publications_recentes` | oui | `INPI_DATA_LOGIN`, `INPI_DATA_PASSWORD` |
+| BOPI | `bopi_dernieres_publications` | non pour le cache local | aucune |
+| EUIPO TMview | `euipo_tmview_search` | oui | `EUIPO_API_KEY` |
+| INPI brevets | `inpi_search_brevets`, `inpi_brevet_details` | oui | `INPI_DATA_LOGIN`, `INPI_DATA_PASSWORD` |
+| OEB Espacenet | `espacenet_search`, `espacenet_brevet_details` | oui | `OEB_CONSUMER_KEY`, `OEB_CONSUMER_SECRET` |
+
+Configuration recommandee :
+
+```text
+~/.config/Hacienda/credentials.json
+```
+
+```json
+{
+  "INPI_DATA_LOGIN": "<login-inpi>",
+  "INPI_DATA_PASSWORD": "<password-inpi>",
+  "EUIPO_API_KEY": "<euipo-api-key>",
+  "OEB_CONSUMER_KEY": "<oeb-consumer-key>",
+  "OEB_CONSUMER_SECRET": "<oeb-consumer-secret>"
+}
+```
+
+Override ponctuel PowerShell :
+
+```powershell
+$env:INPI_DATA_LOGIN = "<login-inpi>"
+$env:INPI_DATA_PASSWORD = "<password-inpi>"
+$env:EUIPO_API_KEY = "<euipo-api-key>"
+$env:OEB_CONSUMER_KEY = "<oeb-consumer-key>"
+$env:OEB_CONSUMER_SECRET = "<oeb-consumer-secret>"
+```
+
+Validation rapide :
+
+```text
+inpi_search_marques q="apexleaf"
+inpi_marque_details numero="FR1234567"
+euipo_tmview_search q="apexleaf"
+inpi_search_brevets q="graphene"
+espacenet_search q="graphene"
+```
+
+Comportement sans credentials :
+
+- les tools INPI retournent `INPI not configured` ;
+- `euipo_tmview_search` retourne `EUIPO not configured` ;
+- les tools OEB retournent `OEB not configured` ;
+- `bopi_dernieres_publications` depend d'un cache local et ne remplace pas une
+  verification live de registre.
+
+Les secrets PI ne doivent pas etre commites. Sur `main`, les tools PI Hacienda
+lisent `credentials.json` et retombent sur l'environnement si celui-ci est deja
+configure.
 
 ## Skills
 
@@ -48,6 +123,26 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 - `veilleur-contrefacon` : surveille signaux d'atteinte.
 - `contrefacon-web` : surveillance contrefaçon en ligne (marketplaces, réseaux sociaux, web).
 
+## Tools MCP
+
+Le serveur MCP du plugin PI s'appuie sur le socle `@hacienda/core` et expose
+sur `main` :
+
+- recherche et consultation Légifrance, JORF, KALI et jurisprudence via le
+  socle sources officielles ;
+- `inpi_search_marques` ;
+- `inpi_marque_details` ;
+- `euipo_tmview_search` ;
+- `bopi_dernieres_publications` ;
+- `inpi_marques_publications_recentes` ;
+- `inpi_search_brevets` ;
+- `inpi_brevet_details` ;
+- `espacenet_search` ;
+- `espacenet_brevet_details`.
+
+Ces tools servent a alimenter les analyses PI, mais ne remplacent jamais la
+relecture humaine ni les formalites officielles de depot ou de contentieux.
+
 ## Livrables
 
 - dossier de preuve ;
@@ -55,8 +150,19 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 - revue de clauses ;
 - rapport OSS ;
 - registre portefeuille ;
+- tableau ou dashboard HTML quand le workflow s'y prete ;
 - projet de mise en demeure ;
 - Note de revue.
+
+## Positionnement
+
+Le plugin PI n'est pas un robot de depot. Il aide a :
+
+- cadrer les faits et les titres ;
+- rechercher les sources et registres utiles ;
+- preparer un dossier de travail coherent ;
+- produire une analyse relisible et un arbre de decision ;
+- conserver la validation humaine au bon endroit.
 
 ## Mode Silencieux
 
@@ -168,6 +274,6 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 - Nouveau skill `recherche-anteriorite-marque` : knockout L.711-2, recherche de similaires (3 cas), sweep des familles adjacentes FR/EU, appréciation globale CJUE, recommandations et garde-fou non-juriste.
 - Nouveau MCP server dédié au plugin (`mcp-server/dist/index.js`), branché via `.mcp.json`.
-- Quatre nouveaux outils marques : `inpi_search_marques`, `inpi_marque_details`, `euipo_tmview_search`, `bopi_dernieres_publications`. Sans credentials, ils retournent un message « INPI not configured » avec lien vers `.claude/settings.local.json`.
+- Quatre nouveaux outils marques : `inpi_search_marques`, `inpi_marque_details`, `euipo_tmview_search`, `bopi_dernieres_publications`. Sans credentials, ils retournent un message `INPI not configured` avec indication vers `~/.config/Hacienda/credentials.json`.
 - Cold-start `entretien-demarrage` refondu : profil utilisateur user-stable enregistre dans `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/`, intake des integrations, peuplement du `CLAUDE.md` du plugin.
 - Skills v0.1 preserves avec banner de transition (sauvegarde dans `CLAUDE.v0.1.md.bak`).

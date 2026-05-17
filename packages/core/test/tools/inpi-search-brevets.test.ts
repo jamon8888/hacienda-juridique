@@ -55,6 +55,7 @@ describe("callInpiSearchBrevets", () => {
       null
     );
     expect(out).toMatch(/not configured/i);
-    expect(out).toMatch(/\.claude\/settings\.local\.json/);
+    expect(out).toMatch(/~\/\.config\/Hacienda\/credentials\.json/);
+    expect(out).not.toMatch(/settings\.local\.json/);
   });
 });

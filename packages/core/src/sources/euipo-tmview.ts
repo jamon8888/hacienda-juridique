@@ -2,7 +2,9 @@ import { z } from "zod";
 
 export class EuipoCredentialsMissingError extends Error {
   constructor() {
-    super("EUIPO_API_KEY non défini dans .claude/settings.local.json");
+    super(
+      "EUIPO_API_KEY non défini dans ~/.config/Hacienda/credentials.json ou dans l'environnement du process MCP"
+    );
     this.name = "EuipoCredentialsMissingError";
   }
 }

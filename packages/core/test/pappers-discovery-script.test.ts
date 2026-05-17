@@ -16,6 +16,12 @@ describe("Pappers MCP discovery script", () => {
     expect(script).not.toMatch(/[a-f0-9]{40,}/iu);
   });
 
+  it("supports the shared Hacienda credentials file as a fallback", () => {
+    expect(script).toContain("HACIENDA_CREDENTIALS_FILE");
+    expect(script).toContain(".config");
+    expect(script).toContain("credentials.json");
+  });
+
   it("prints only tool summaries by default", () => {
     expect(script).toContain("inputSchemaSummary");
     expect(script).toContain("required");

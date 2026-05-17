@@ -33,7 +33,7 @@ export async function callEuipoTmviewSearch(
   if (!client) {
     return [
       `**EUIPO not configured** — EUIPO_API_KEY absent.`,
-      `Action: ajouter cette variable dans \`.claude/settings.local.json\`.`,
+      `Action: ajouter ce secret dans \`~/.config/Hacienda/credentials.json\` ou dans l'environnement du process MCP.`,
     ].join("\n");
   }
   const res = await client.search(args);

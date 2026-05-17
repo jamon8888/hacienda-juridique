@@ -29,5 +29,7 @@ describe("callEspacenetBrevetDetails", () => {
   it("retourne erreur structurée si client absent", async () => {
     const out = await callEspacenetBrevetDetails({ numero: "EP1234567" }, null);
     expect(out).toMatch(/not configured/i);
+    expect(out).toMatch(/~\/\.config\/Hacienda\/credentials\.json/);
+    expect(out).not.toMatch(/settings\.local\.json/);
   });
 });

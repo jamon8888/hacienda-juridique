@@ -30,4 +30,18 @@ describe("callEuipoTmviewSearch", () => {
     expect(out).toMatch(/EM12345/);
     expect(out).toMatch(/Offices interrogés : EM, FR/);
   });
+
+  it("retourne erreur structurée si client absent", async () => {
+    const out = await callEuipoTmviewSearch(
+      {
+        query: "APEXLEAF",
+        statut: "en_vigueur",
+        limite: 25,
+      },
+      null
+    );
+    expect(out).toMatch(/EUIPO not configured/i);
+    expect(out).toMatch(/~\/\.config\/Hacienda\/credentials\.json/);
+    expect(out).not.toMatch(/settings\.local\.json/);
+  });
 });

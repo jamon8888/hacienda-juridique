@@ -6,10 +6,14 @@ This runbook validates the external Pappers MCP connector before Hacienda enable
 
 ## Secret Handling
 
-Set the key only in the shell environment:
+Set the key in the shell environment or in the shared Hacienda credentials file:
 
 ```powershell
 $env:PAPPERS_API_KEY = "<rotated-key>"
+```
+
+```text
+~/.config/Hacienda/credentials.json
 ```
 
 Never commit the key. Rotate any key pasted into chat, logs or source files.
@@ -25,6 +29,10 @@ Expected with a valid key:
 - endpoint is printed as `https://mcp.pappers.fr/[masked]`;
 - tool count is visible;
 - no API key appears in output.
+
+Note: the discovery script now supports `PAPPERS_API_KEY` from the environment
+or from `~/.config/Hacienda/credentials.json`. The external Cowork connector
+still resolves its `.mcp.json` URL placeholder client-side.
 
 ## Credited Validation Matrix
 

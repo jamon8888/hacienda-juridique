@@ -4,10 +4,30 @@ Hacienda est une marketplace de plugins juridiques francais pour avocats, jurist
 
 Le depot contient un socle de sources officielles, des plugins metiers et des garde-fous de revue humaine. Tous les plugins suivent la meme posture : aider a structurer le travail juridique, documenter les sources, conserver un dossier de preuve et laisser la decision finale a un professionnel habilite.
 
+## Ce Que Fait Hacienda Aujourd'hui
+
+- expose un serveur MCP local de sources officielles pour Légifrance, BOFiP,
+  JORF, KALI, Judilibre, BOSS et EUR-Lex ;
+- connecte des sources PI et registres utiles au travail de recherche :
+  INPI marques, publications recentes INPI, BOPI, INPI brevets, EUIPO
+  TMview et OEB Espacenet ;
+- distribue des plugins metiers specialises pour fiscal, social, contrats,
+  societes, contentieux, donnees personnelles, produit/consommation,
+  reglementaire, gouvernance IA, propriete intellectuelle, droit public et
+  permanences juridiques ;
+- ajoute un mode hybride pour les donnees d'entreprise via Pappers, avec
+  obligation de recoupement par source officielle avant toute conclusion
+  normative ;
+- impose des garde-fous communs : provenance reelle des citations, Note de
+  revue, validation humaine et distinction entre faits, sources, analyse et
+  decision.
+
 ## Plugins
 
-- `hacienda-sources-officielles` : Legifrance, BOFiP, JORF, KALI, Judilibre, BOSS et sources primaires.
-- `hacienda-recherche-documentaire` : recherche supervisée dans les bases professionnelles, avec verification des sources primaires.
+- `hacienda-sources-officielles` : socle MCP live pour Légifrance, BOFiP,
+  JORF, KALI, Judilibre, BOSS, EUR-Lex et plusieurs sources PI publiques.
+- `hacienda-recherche-documentaire` : recherche documentaire supervisée dans
+  les bases professionnelles, avec verification des sources primaires.
 - `hacienda-fiscal` : fiscalite francaise, BOFiP, CGI, LPF, TVA, controle fiscal et rescrit.
 - `hacienda-social` : droit social, conventions collectives, CSE, licenciement et prud'hommes.
 - `hacienda-contrats` : contrats commerciaux, CGV/CGU, SaaS, NDA, distribution et baux commerciaux.
@@ -17,10 +37,43 @@ Le depot contient un socle de sources officielles, des plugins metiers et des ga
 - `hacienda-produit-consommation` : lancement produit, claims, prix, parcours consommateur et plateformes.
 - `hacienda-reglementaire` : veille JORF/LODA/UE, autorites sectorielles, gaps et consultations.
 - `hacienda-gouvernance-ia` : AI Act, RGPD, registre IA, AIA, fournisseurs et politique interne.
-- `hacienda-propriete-intellectuelle` : marques, PI, logiciel, open source, preuves et enforcement.
+- `hacienda-propriete-intellectuelle` : marques, brevets, dessins et
+  modeles, droit d'auteur, logiciel, open source, opposition, portefeuille,
+  preuves et enforcement.
 - `hacienda-droit-public` : commande publique, urbanisme, collectivites, fonction publique et contentieux administratif.
 - `hacienda-permanences-juridiques` : accueil supervise, conflits, pieces, delais, memos et handoffs.
-- `hacienda-hub-confiance` : installation, evaluation et maintenance de plugins juridiques tiers.
+- `hacienda-hub-confiance` : centre de confiance pour installer, evaluer,
+  auditer et maintenir des plugins juridiques et leurs connecteurs MCP.
+
+## Fonctionnalites Transverses
+
+- **Configuration MCP simple** : chaque plugin declare ses connecteurs dans
+  `.mcp.json`, avec une logique d'installation et de test live documentee dans
+  `docs/integrations/mcp-configuration-simple.md`.
+- **Profils utilisateur stables** : les profils ne vivent pas dans le depot,
+  mais dans `~/.claude/plugins/config/hacienda-juridique/<plugin>/CLAUDE.md`.
+- **Sources officielles avant synthese** : les plugins Hacienda sont conçus
+  pour relire la source brute, puis produire un brouillon professionnel avec
+  tags de provenance et validation humaine.
+- **Recoupement obligatoire des donnees d'appoint** : Pappers et autres
+  donnees de contexte ne remplacent jamais une source normative officielle.
+- **Secrets hors depot** : les credentials doivent passer par variables
+  d'environnement ou fichiers locaux de configuration, jamais par commit.
+
+## Capabilities MCP Sur `main`
+
+Le socle `@hacienda/core` expose aujourd'hui des tools couvrant notamment :
+
+- recherche et consultation Légifrance ;
+- statut OAuth et cache local PISTE ;
+- recherche et consultation Judilibre ;
+- recherche et consultation BOSS ;
+- recherche et consultation EUR-Lex ;
+- recherche marques INPI et publications recentes ;
+- recherche BOPI ;
+- recherche brevets INPI ;
+- recherche EUIPO TMview ;
+- recherche OEB Espacenet.
 
 ## Installation Dev
 
@@ -29,6 +82,7 @@ npm install
 npm test
 npm run typecheck
 npm run build
+npm run branding:check
 ```
 
 ## Marketplace
@@ -100,6 +154,69 @@ judilibre_recherche query="licenciement" pageSize=2
 
 Guide installateur complet : `docs/integrations/piste-connection.md`.
 
+### Sources PI Via Hacienda Propriete Intellectuelle
+
+Le plugin `hacienda-propriete-intellectuelle` s'appuie sur le socle MCP local
+Hacienda et sur des credentials d'API ou de portail selon la source.
+
+Sources actuellement raccordees sur `main` :
+
+| Source | Usage principal | Credentials requis | Variables |
+| --- | --- | --- | --- |
+| INPI Data marques | recherche de marques, details, publications recentes | oui | `INPI_DATA_LOGIN`, `INPI_DATA_PASSWORD` |
+| BOPI | dernieres publications BOPI | non pour le cache local | aucune |
+| EUIPO TMview | recherche marques UE/internationales | oui | `EUIPO_API_KEY` |
+| INPI brevets | recherche et details brevets | oui | `INPI_DATA_LOGIN`, `INPI_DATA_PASSWORD` |
+| OEB Espacenet | recherche et details brevets | oui | `OEB_CONSUMER_KEY`, `OEB_CONSUMER_SECRET` |
+
+Configuration recommandee pour Claude Desktop Cowork :
+
+```text
+~/.config/Hacienda/credentials.json
+```
+
+```json
+{
+  "INPI_DATA_LOGIN": "<login-inpi>",
+  "INPI_DATA_PASSWORD": "<password-inpi>",
+  "EUIPO_API_KEY": "<euipo-api-key>",
+  "OEB_CONSUMER_KEY": "<oeb-consumer-key>",
+  "OEB_CONSUMER_SECRET": "<oeb-consumer-secret>"
+}
+```
+
+Override ponctuel PowerShell :
+
+```powershell
+$env:INPI_DATA_LOGIN = "<login-inpi>"
+$env:INPI_DATA_PASSWORD = "<password-inpi>"
+$env:EUIPO_API_KEY = "<euipo-api-key>"
+$env:OEB_CONSUMER_KEY = "<oeb-consumer-key>"
+$env:OEB_CONSUMER_SECRET = "<oeb-consumer-secret>"
+```
+
+Validation rapide apres configuration :
+
+```text
+inpi_search_marques q="apexleaf"
+inpi_marque_details numero="FR1234567"
+inpi_marques_publications_recentes
+euipo_tmview_search q="apexleaf"
+inpi_search_brevets q="graphene"
+espacenet_search q="graphene"
+```
+
+Comportement attendu sans credentials :
+
+- INPI : message `INPI not configured` ;
+- EUIPO : message `EUIPO not configured` ;
+- OEB : message `OEB not configured` ;
+- BOPI : fonctionne sur cache local si le cache est present.
+
+Les secrets PI restent hors depot. Sur `main`, les tools PI Hacienda lisent
+desormais `~/.config/Hacienda/credentials.json` avec priorite a
+l'environnement du processus MCP si celui-ci fournit deja les variables.
+
 ### Pappers MCP Hybride
 
 Pappers est integre comme connecteur MCP externe optionnel pour les donnees d'entreprise : identification SIREN/SIRET, dirigeants, beneficiaires effectifs, comptes, cartographie de groupe, signaux BODACC, solvabilite, risques contractuels et signaux contentieux.
@@ -145,9 +262,17 @@ npm install
 ```
 
 ```powershell
-$env:PAPPERS_API_KEY = "<rotated-key>"
 node scripts/pappers-mcp-discover.mjs
 ```
+
+Le script de decouverte Pappers lit `PAPPERS_API_KEY` dans l'environnement ou
+dans `~/.config/Hacienda/credentials.json`.
+
+Point de conception important : le connecteur Pappers lui-meme reste un MCP
+`streamable-http` externe declare dans `.mcp.json`. Sur `main`, son URL
+`https://mcp.pappers.fr/${PAPPERS_API_KEY}` doit encore etre resolue par le
+client Cowork. Le fichier `credentials.json` simplifie la validation locale,
+mais ne remplace pas encore cette resolution cote client.
 
 La cle Pappers ne doit jamais etre commitee. Les cles exposees dans un chat, un log ou un fichier doivent etre considerees compromises et remplacees.
 

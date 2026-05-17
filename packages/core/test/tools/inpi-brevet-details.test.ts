@@ -37,5 +37,7 @@ describe("callInpiBrevetDetails", () => {
   it("retourne erreur structurée si client absent", async () => {
     const out = await callInpiBrevetDetails({ numero: "FR2700123" }, null);
     expect(out).toMatch(/not configured/i);
+    expect(out).toMatch(/~\/\.config\/Hacienda\/credentials\.json/);
+    expect(out).not.toMatch(/settings\.local\.json/);
   });
 });

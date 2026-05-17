@@ -2,7 +2,9 @@ import { z } from "zod";
 
 export class EspacenetCredentialsMissingError extends Error {
   constructor() {
-    super("OEB_CONSUMER_KEY / OEB_CONSUMER_SECRET non définis dans .claude/settings.local.json");
+    super(
+      "OEB_CONSUMER_KEY / OEB_CONSUMER_SECRET non définis dans ~/.config/Hacienda/credentials.json ou dans l'environnement du process MCP"
+    );
     this.name = "EspacenetCredentialsMissingError";
   }
 }

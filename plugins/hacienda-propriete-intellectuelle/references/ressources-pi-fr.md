@@ -143,7 +143,7 @@ ces sources doit être taguée avec le tag de provenance correspondant
 
 - L'authentification INPI brevets réutilise le même OAuth password grant que les marques (variables `INPI_DATA_LOGIN` / `INPI_DATA_PASSWORD`). Pas de refactor du token cache prévu avant V2.1.
 - L'OEB OPS exige `OEB_CONSUMER_KEY` + `OEB_CONSUMER_SECRET` (créer un compte développeur sur https://developers.epo.org/). Le quota gratuit (4 Go/semaine) est suffisant pour un usage cabinet courant ; au-delà, basculer en pay-as-you-go.
-- Sans credentials, les tools retournent un message « INPI not configured » / « OEB not configured » propre — voir `.claude/settings.local.json`.
+- Sans credentials, les tools retournent un message `INPI not configured` / `OEB not configured` propre — voir `~/.config/Hacienda/credentials.json`.
 - Pour le tag de provenance des résultats Patentscope : utiliser `[OMPI Patentscope]` (distinct de `[OMPI Madrid Monitor]` qui couvre les marques internationales).
 
 ### 2.2 Articles CPI brevets — voir aussi

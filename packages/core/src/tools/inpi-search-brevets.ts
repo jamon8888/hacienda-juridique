@@ -46,7 +46,7 @@ export async function callInpiSearchBrevets(
   if (!client) {
     return [
       `**INPI not configured** — INPI_DATA_LOGIN / INPI_DATA_PASSWORD absents.`,
-      `Action: ajouter ces variables dans \`.claude/settings.local.json\`.`,
+      `Action: ajouter ces secrets dans \`~/.config/Hacienda/credentials.json\` ou dans l'environnement du process MCP.`,
     ].join("\n");
   }
   const res = await client.searchBrevets(args);

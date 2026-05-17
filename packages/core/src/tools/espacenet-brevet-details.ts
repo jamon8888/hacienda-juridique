@@ -16,7 +16,7 @@ export async function callEspacenetBrevetDetails(
   if (!client) {
     return [
       `**OEB not configured** — OEB_CONSUMER_KEY / OEB_CONSUMER_SECRET absents.`,
-      `Action: ajouter ces variables dans \`.claude/settings.local.json\`.`,
+      `Action: ajouter ces secrets dans \`~/.config/Hacienda/credentials.json\` ou dans l'environnement du process MCP.`,
     ].join("\n");
   }
   const b = await client.getBrevetDetails(args.numero);

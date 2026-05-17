@@ -1,11 +1,36 @@
 #!/usr/bin/env node
+import { existsSync, readFileSync } from "node:fs";
+import { homedir } from "node:os";
+import { resolve } from "node:path";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 
-const key = process.env.PAPPERS_API_KEY;
+function cleanEnv(value) {
+  if (!value) return undefined;
+  if (/^\$\{[^}]+\}$/.test(value)) return undefined;
+  return value;
+}
+
+function loadCredentialsFile() {
+  const path =
+    process.env.HACIENDA_CREDENTIALS_FILE ??
+    resolve(homedir(), ".config", "Hacienda", "credentials.json");
+  if (!existsSync(path)) return undefined;
+  try {
+    return JSON.parse(readFileSync(path, "utf8"));
+  } catch {
+    return undefined;
+  }
+}
+
+const key =
+  cleanEnv(process.env.PAPPERS_API_KEY) ??
+  loadCredentialsFile()?.PAPPERS_API_KEY;
 
 if (!key) {
-  console.error("PAPPERS_API_KEY is required. The key must be provided via environment variable and must not be committed.");
+  console.error(
+    "PAPPERS_API_KEY is required. Provide it via environment variable or ~/.config/Hacienda/credentials.json and never commit it."
+  );
   process.exit(2);
 }
 

@@ -48,7 +48,8 @@ describe("callInpiSearchMarques", () => {
       null
     );
     expect(out).toMatch(/not configured/i);
-    expect(out).toMatch(/\.claude\/settings\.local\.json/);
+    expect(out).toMatch(/~\/\.config\/Hacienda\/credentials\.json/);
+    expect(out).not.toMatch(/settings\.local\.json/);
   });
 });
 
@@ -72,5 +73,12 @@ describe("callInpiMarqueDetails", () => {
     const out = await callInpiMarqueDetails({ numero: "FR1234567" }, client);
     expect(out).toMatch(/OPP-2020-001/);
     expect(out).toMatch(/Cabinet X/);
+  });
+
+  it("retourne erreur structurée si client absent", async () => {
+    const out = await callInpiMarqueDetails({ numero: "FR1234567" }, null);
+    expect(out).toMatch(/not configured/i);
+    expect(out).toMatch(/~\/\.config\/Hacienda\/credentials\.json/);
+    expect(out).not.toMatch(/settings\.local\.json/);
   });
 });

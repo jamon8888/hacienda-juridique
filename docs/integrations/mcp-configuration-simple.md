@@ -54,17 +54,35 @@ PISTE_CLIENT_SECRET
 PISTE_ENV
 ```
 
-Pappers :
-
-```text
-PAPPERS_API_KEY
-```
-
-Fallback local pour PISTE :
+Fichier local unique pour les serveurs et scripts Hacienda :
 
 ```text
 ~/.config/Hacienda/credentials.json
 ```
+
+Exemple :
+
+```json
+{
+  "PISTE_CLIENT_ID": "<client-id>",
+  "PISTE_CLIENT_SECRET": "<client-secret>",
+  "PISTE_ENV": "production",
+  "INPI_DATA_LOGIN": "<login-inpi>",
+  "INPI_DATA_PASSWORD": "<password-inpi>",
+  "EUIPO_API_KEY": "<euipo-api-key>",
+  "OEB_CONSUMER_KEY": "<oeb-consumer-key>",
+  "OEB_CONSUMER_SECRET": "<oeb-consumer-secret>",
+  "PAPPERS_API_KEY": "<pappers-api-key>"
+}
+```
+
+Les variables d'environnement restent prioritaires si le process MCP les reçoit deja.
+
+Exception importante :
+
+- les serveurs MCP locaux Hacienda et les scripts de validation peuvent lire `credentials.json` ;
+- le connecteur Pappers reste un MCP `streamable-http` externe dans `.mcp.json` ;
+- sur `main`, la resolution de son URL `https://mcp.pappers.fr/${PAPPERS_API_KEY}` depend encore du `PAPPERS_API_KEY` visible par le client Cowork.
 
 ## Check Integrations
 
@@ -104,9 +122,12 @@ Pappers est un MCP externe optionnel.
 Verification :
 
 ```powershell
-$env:PAPPERS_API_KEY = "<rotated-key>"
 node scripts/pappers-mcp-discover.mjs
 ```
+
+Le script lit d'abord `PAPPERS_API_KEY` dans l'environnement, puis `~/.config/Hacienda/credentials.json` si la variable n'est pas presente.
+
+Pour activer le connecteur externe Pappers lui-meme dans Cowork, `PAPPERS_API_KEY` doit encore etre resolu par le client au moment d'interpreter `.mcp.json`.
 
 Resultats attendus :
 
