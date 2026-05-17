@@ -35,6 +35,8 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 - `contrefacon-dessin-modele`
 - `contrats-pi`
 - `audit-pi-ma`
+- `saisie-contrefacon`
+- `contentieux-pi`
 
 ## Agents
 
@@ -56,6 +58,13 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 ## Mode Silencieux
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
+
+## Quoi de neuf en V0.14 — Contentieux & Enforcement (V6.0)
+
+- Nouveau skill `saisie-contrefacon` : préparation requête saisie-contrefaçon multi-droits (brevets L.615-5, marques L.716-7, D&M L.521-4, droit d'auteur L.332-1), choix type de saisie (descriptive/réelle/documents/mixte/internet), instructions huissier/commissaire de justice, gestion post-saisie, délai 20 jours ouvrables pour assigner, risques de rétractation, spécificités par droit, coordination douanes UE 608/2013
+- Nouveau skill `contentieux-pi` : stratégie contentieuse judiciaire PI (contrefaçon, nullité, déchéance, concurrence déloyale/parasitisme), recevabilité, compétence exclusive TJ Paris, stratégie procédurale (référé-interdiction + fond), calcul préjudice (3 méthodes directive 2004/48/CE), matrice go/no-go scorée, tracker multi-affaires avec échéances, budget/calendrier, bi-mode `--attack` / `--defense`
+- **V6.0 complet** : saisie-contrefaçon + contentieux judiciaire = enforcement PI end-to-end
+- **Le plugin PI couvre désormais le cycle complet** : recherche antériorité → dépôt → portefeuille → surveillance → contrefaçon → saisie → contentieux → transaction
 
 ## Quoi de neuf en V0.13 — Contrats PI + Audit PI M&A (V5.0)
 

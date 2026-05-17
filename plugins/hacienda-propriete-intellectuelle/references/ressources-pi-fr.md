@@ -357,6 +357,37 @@ Pour la référence détaillée des articles CPI brevets utilisés par les skill
 - **Cass. com. 13 septembre 2017, n° 16-13.674** — Licence de brevet : l'inscription au RNB est une condition d'opposabilité aux tiers, pas de validité entre les parties.
 - **Cass. com. 7 mars 2018, n° 15-21.468** — Copropriété brevet : en l'absence de règlement de copropriété, le régime légal L.613-29 s'applique (exploitation personnelle libre, licence requiert unanimité).
 
+### 3bis.5 Contentieux PI — procédures judiciaires
+
+| Procédure | Fondement | Tribunal | Durée indicative | Coût indicatif |
+|---|---|---|---|---|
+| Référé-interdiction brevet | L.615-3 CPI | TJ Paris | 2-4 mois | 10-30 k€ |
+| Référé-interdiction marque | L.716-6 CPI | TJ Paris | 2-4 mois | 10-20 k€ |
+| Référé-interdiction D&M | L.521-6 CPI | TJ Paris | 2-4 mois | 10-20 k€ |
+| Fond contrefaçon brevet | L.615-1 CPI | TJ Paris exclusif | 18-48 mois | 50-300 k€ |
+| Fond contrefaçon marque | L.716-1 CPI | TJ Paris exclusif | 12-24 mois | 30-80 k€ |
+| Appel CA Paris | Art. 542 CPC | CA Paris pôle 5 | 12-18 mois | 30-80 k€ |
+| Médiation CMAP Paris | Art. 131-1 CPC | CMAP | 2-6 mois | 10-30 k€ |
+| Saisie-contrefaçon (tous droits) | L.615-5/L.716-7/L.521-4/L.332-1 | TJ compétent | 1-2 semaines (requête → exécution) | 2-10 k€ |
+
+### 3bis.6 Articles CPI — Contentieux et enforcement
+
+| Article | Objet | Usage skill |
+|---|---|---|
+| **L.615-3** | Référé-interdiction brevet — mesures provisoires d'urgence | `contentieux-pi` |
+| **L.615-5** | Saisie-contrefaçon brevet — requête au président TJ | `saisie-contrefacon` |
+| **L.615-7** | Calcul préjudice brevet — 3 méthodes (directive 2004/48/CE) | `contentieux-pi` |
+| **L.615-8** | Prescription action contrefaçon brevet — 5 ans | `contentieux-pi` |
+| **L.615-17** | Compétence exclusive TJ Paris — brevets | `contentieux-pi` |
+| **L.716-6** | Référé-interdiction marque | `contentieux-pi` |
+| **L.716-7** | Saisie-contrefaçon marque | `saisie-contrefacon` |
+| **L.716-14** | Préjudice marque — 3 méthodes | `contentieux-pi` |
+| **L.714-5** | Déchéance pour non-usage — 5 ans sans usage sérieux | `contentieux-pi` |
+| **L.716-4-5** | Forclusion par tolérance — 5 ans de connaissance + inaction | `contentieux-pi` |
+| **L.332-1** | Saisie-contrefaçon droit d'auteur | `saisie-contrefacon` |
+| **L.332-4** | Saisie logiciel — expert informatique | `saisie-contrefacon` |
+| **Art. 1240 CC** | Concurrence déloyale / parasitisme | `contentieux-pi` |
+
 ---
 
 ## 4. Textes et jurisprudence
