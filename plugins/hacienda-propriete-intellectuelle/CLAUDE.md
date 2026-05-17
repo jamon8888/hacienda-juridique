@@ -153,6 +153,15 @@ les valeurs `[A CONFIGURER]` sont présentes, c'est un template. Une fois peupl�
 **Seuil d'action contrefaçon :** [A CONFIGURER — toute atteinte / atteinte commerciale significative / atteinte à la notoriété ou CA > X€]
 **Budget contentieux PI annuel :** [A CONFIGURER — < 10k€ / 10-50k€ / > 50k€ / illimité selon enjeu]
 
+## Contrats PI et M&A
+
+**Rôle habituel en transaction :** [A CONFIGURER — côté acquéreur / côté vendeur / conseil des deux côtés / pas de pratique M&A]
+**Secteur dominant des cibles M&A :** [A CONFIGURER — tech/SaaS / pharma/biotech / luxe/mode / industrie / transversal]
+**Posture contractuelle PI par défaut :** [A CONFIGURER — protecteur titulaire (clauses restrictives, non-contestation) / équilibré / facilitateur preneur (flexibilité, sous-licence)]
+**Outil de data room :** [A CONFIGURER — Intralinks / Datasite / DiliTrust / Notion / SharePoint / aucun]
+**Approbateur contrats PI transversaux :** [A CONFIGURER — avocat PI seul / avocat PI + GC / avocat PI + Direction business]
+**Seuil audit PI complet :** [A CONFIGURER — toute acquisition / acquisition > X€ / acquisition avec composante PI significative uniquement]
+
 ---
 
 ## 2. Sorties standardisées

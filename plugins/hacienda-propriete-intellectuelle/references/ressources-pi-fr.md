@@ -316,6 +316,49 @@ Pour la référence détaillée des articles CPI brevets utilisés par les skill
 
 ---
 
+## 3bis. Contrats PI et M&A
+
+### 3bis.1 Articles CPI — Contrats et transactions PI
+
+| Article | Objet | Usage skill |
+|---|---|---|
+| **L.613-8** | Licence et cession de brevet — transmission des droits | `contrats-pi` — licence/cession brevet |
+| **L.613-9** | Inscription au Registre national des brevets — opposabilité aux tiers | `contrats-pi` + `audit-pi-ma` — formalités |
+| **L.714-7** | Inscription des actes au registre des marques — opposabilité | `contrats-pi` + `audit-pi-ma` |
+| **L.613-29 à L.613-32** | Copropriété de brevets — régime légal supplétif | `contrats-pi` — R&D collaborative |
+| **L.611-7** | Inventions de salariés (mission / hors mission attribuable / hors mission) | `audit-pi-ma` — chaîne titularité |
+| **L.113-9** | Dévolution automatique logiciel salarié à l'employeur | `audit-pi-ma` — titularité logiciel |
+| **L.131-3** | Cession droit d'auteur — 5 conditions cumulatives | `audit-pi-ma` — cessions freelances |
+| **L.151-1 C.com** | Secret des affaires — conditions de protection | `contrats-pi` — NDA, savoir-faire |
+| **L.330-3 C.com** | Document d'information précontractuel (DIP) — franchise | `contrats-pi` — franchise PI |
+
+### 3bis.2 Droit de la concurrence — Transfert de technologie
+
+| Texte | Objet | Usage |
+|---|---|---|
+| **Règlement UE 316/2014 (TTBER)** | Exemption par catégorie accords transfert technologie | `contrats-pi` — licences brevet/savoir-faire |
+| **Règlement UE 1217/2010** | Exemption par catégorie accords R&D | `contrats-pi` — R&D collaborative |
+| **Art. 101 TFUE** | Interdiction ententes anticoncurrentielles | `contrats-pi` — coexistence marques, grant-back |
+| **Lignes directrices Commission sur art. 101(3)** | Analyse individuelle hors exemption | `contrats-pi` — parts marché > seuils |
+
+### 3bis.3 Valorisation PI
+
+| Référence | Objet | Usage |
+|---|---|---|
+| **ISO 10668:2010** | Évaluation monétaire des marques | `audit-pi-ma` — valorisation marques |
+| **ISO 10668:2010 + ISO 20671** | Brand evaluation + brand strength | `audit-pi-ma` |
+| **Méthode relief-from-royalty** | Économie de redevances actualisée | `audit-pi-ma` — brevets et marques |
+| **Méthode excess earnings (MEEM)** | Bénéfices excédentaires attribuables aux immatériels | `audit-pi-ma` — portefeuille global |
+| **IVS 210 (Intangible Assets)** | Standards internationaux d'évaluation | `audit-pi-ma` |
+
+### 3bis.4 Jurisprudence contrats PI
+
+- **CJUE 25 février 1986, *Windsurfing International c. Commission*, 193/83** — Clause de non-contestation dans licence de brevet : restrictions accessoires à la licence susceptibles d'être anticoncurrentielles au sens de l'art. 101 TFUE.
+- **Cass. com. 13 septembre 2017, n° 16-13.674** — Licence de brevet : l'inscription au RNB est une condition d'opposabilité aux tiers, pas de validité entre les parties.
+- **Cass. com. 7 mars 2018, n° 15-21.468** — Copropriété brevet : en l'absence de règlement de copropriété, le régime légal L.613-29 s'applique (exploitation personnelle libre, licence requiert unanimité).
+
+---
+
 ## 4. Textes et jurisprudence
 
 ### 4.1 Textes — Légifrance
