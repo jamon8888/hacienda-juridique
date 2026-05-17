@@ -803,7 +803,7 @@ au-delà :
 - **NE gère PAS le recours administratif** post-décision finale
   (recours auprès du directeur INPI puis CA Paris L.411-4 ; recours
   devant les chambres de recours OEB Art. 106 EPC). Ce sera couvert par
-  un skill contentieux V6.0+.
+  le skill `contentieux-pi`.
 - **NE garantit PAS le résultat** — l'acceptation de la réponse relève
   de l'autorité (examinateur INPI ou division d'examen OEB). Le skill
   prépare au mieux mais le verdict reste extérieur.

@@ -220,7 +220,7 @@ Modifications de `watchlist.yaml` (modes --add, --update, --remove) ne produisen
 - **Calculer un risque de confusion détaillé.** Pour cela, router vers `recherche-anteriorite-marque` avec le signe concurrent comme input.
 - **Envoyer une mise en demeure.** Voir `mise-en-demeure-pi` (v0.1).
 - **Modifier l'agent `bopi-watcher`.** L'agent est versionné dans `agents/bopi-watcher.md` ; modifier sa cadence ou ses tools est un ajustement utilisateur via le profil.
-- **Surveiller noms de domaine, marketplaces, réseaux sociaux.** Différé V1.2 (`contrefacon-web`).
+- **Surveiller noms de domaine, marketplaces, réseaux sociaux.** Voir l'agent `contrefacon-web`.
 - **Opérer sans `inpi_marques_publications_recentes` configuré.** Si le tool n'est pas disponible, le mode `--report` retourne le bucket "Aucune base interrogée" et propose d'exécuter `entretien-demarrage --check-integrations`.
 
 ---

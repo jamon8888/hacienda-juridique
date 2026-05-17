@@ -49,7 +49,7 @@ modalités évoluent par arrêté.
    - CPI L.411-4 : la Cour d'appel Paris est compétente exclusive pour
      les recours contre les décisions INPI.
    - Recours suspensif.
-   - Différé `contentieux-marques` V6.0+ (hors périmètre du skill
+   - Voir `contentieux-pi` (hors périmètre du skill
      `analyse-opposition-marque`).
 
 ---
@@ -133,7 +133,7 @@ actuelle avant communication au client.
 
 ---
 
-## Recours (différé `contentieux-marques` V6.0+)
+## Recours (voir `contentieux-pi`)
 
 - **Compétence** : Cour d'appel Paris (CPI L.411-4 — compétence
   exclusive pour les recours contre les décisions INPI en matière de
@@ -148,8 +148,7 @@ actuelle avant communication au client.
   dans les 2 mois.
 
 Le périmètre du skill `analyse-opposition-marque` s'arrête à la
-décision INPI. Tout ce qui suit relève du futur skill
-`contentieux-marques` (V6.0+).
+décision INPI. Tout ce qui suit relève du skill `contentieux-pi`.
 
 ---
 

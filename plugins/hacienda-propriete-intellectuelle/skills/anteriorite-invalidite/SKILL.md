@@ -989,8 +989,8 @@ périmètre :
   "redevance indemnitaire" — relève de l'avocat avec éventuel expert
   comptable)
 - **Gérer les recours Cour d'appel Paris** (procédure d'appel
-  spécifique brevets, effet suspensif, ré-examen au fond — différé
-  V6.0+ contentieux)
+  spécifique brevets, effet suspensif, ré-examen au fond — voir
+  `contentieux-pi`)
 - **Pourvoi Cour de cass. com.** (cassation sur points de droit
   uniquement, mandataire spécialisé Cour de cass. requis — Ordre
   des avocats au Conseil d'État et à la Cour de cassation)
