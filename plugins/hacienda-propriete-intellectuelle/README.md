@@ -33,6 +33,8 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 - `recherche-anteriorite-dm`
 - `depot-dessin-modele`
 - `contrefacon-dessin-modele`
+- `contrats-pi`
+- `audit-pi-ma`
 
 ## Agents
 
@@ -54,6 +56,14 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 ## Mode Silencieux
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
+
+## Quoi de neuf en V0.13 — Contrats PI + Audit PI M&A (V5.0)
+
+- Nouveau skill `contrats-pi` : contrats PI transversaux (licence brevet L.613-8, cession brevet, accord coexistence marques, NDA, R&D collaborative background/foreground/sideground, licence savoir-faire, franchise PI, transfert technologie TTBER UE 316/2014, MTA), clauses critiques par type, vérification droit de la concurrence (clauses noires/grises), formalités d'opposabilité (inscription RNB/RNM), bi-mode `--draft` / `--review`
+- Nouveau skill `audit-pi-ma` : due diligence PI pour M&A, inventaire multi-actifs (marques, brevets, D&M, droit d'auteur, logiciel, savoir-faire, noms de domaine, données), chaîne de titularité (L.113-9 salariés, L.131-3 freelances, inscriptions registres), findings cotés par sévérité (Critical/High/Medium/Low), valorisation indicative (5 méthodes), recommandations transactionnelles (reps & warranties, conditions suspensives, escrow, walk-away), bi-mode `--buyer` / `--seller`
+- Références enrichies : TTBER UE 316/2014, articles CPI contrats (L.613-8, L.714-7, L.151-1), valorisation PI (ISO 10668), jurisprudence (Windsurfing non-contestation)
+- CLAUDE.md template : section M&A / Due Diligence PI (6 champs configurables)
+- **V5.0 complet** : contrats PI transversaux + audit M&A = couverture transactionnelle PI end-to-end
 
 ## Quoi de neuf en V0.12 — Bloc Dessins & Modèles (V3.0)
 
