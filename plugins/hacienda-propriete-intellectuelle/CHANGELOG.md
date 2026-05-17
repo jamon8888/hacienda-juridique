@@ -33,13 +33,13 @@
 ### Réutilisation cross-version (preuve du standard dashboard)
 - `revue-portefeuille-brevets` (V2.2) consomme `renderDashboard` (V1.1.1) sans modification — démonstration de la réutilisabilité du standard dashboard HTML
 
-### À venir (V2.3 / V1.2 / V3.0+)
-- V2.3 : CCP (Certificats Complémentaires Protection pharma)
-- V1.2 : agent `contrefacon-web` (monitoring marketplaces / réseaux sociaux)
-- V3.0 : bloc dessins/modèles (3 skills)
-- V4.0 : bloc droit d'auteur (6 skills)
-- V5.0 : Contrats PI + audit-pi-ma M&A
-- V6.0 : Contentieux & Enforcement
+### Roadmap complète ✅
+- V2.3 : CCP (Certificats Complémentaires Protection pharma) ✅
+- V1.2 : agent `contrefacon-web` (monitoring marketplaces / réseaux sociaux) ✅
+- V3.0 : bloc dessins/modèles (3 skills) ✅
+- V4.0 : bloc droit d'auteur (6 skills) ✅
+- V5.0 : Contrats PI + audit-pi-ma M&A ✅
+- V6.0 : Contentieux & Enforcement ✅
 
 ## 0.7.0 — 2026-05-16
 
