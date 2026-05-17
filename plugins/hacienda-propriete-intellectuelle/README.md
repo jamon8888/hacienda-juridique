@@ -30,6 +30,9 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 - `depot-preuve-creation`
 - `revue-logiciel-donnees`
 - `strategie-defense-pi`
+- `recherche-anteriorite-dm`
+- `depot-dessin-modele`
+- `contrefacon-dessin-modele`
 
 ## Agents
 
@@ -51,6 +54,14 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 ## Mode Silencieux
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
+
+## Quoi de neuf en V0.12 — Bloc Dessins & Modèles (V3.0)
+
+- Nouveau skill `recherche-anteriorite-dm` : recherche antériorité D&M (INPI, EUIPO DesignView, OMPI La Haye), analyse nouveauté (L.511-2) et caractère individuel (L.511-4) par impression globale sur utilisateur averti, classification Locarno, limites inhérentes (DMCNE, divulgations non indexées)
+- Nouveau skill `depot-dessin-modele` : préparation dossier dépôt INPI (FR) / EUIPO (DMC) / OMPI (La Haye), exigences reproductions par office, arbre décisionnel territoire, stratégie ajournement/priorité unioniste, calcul taxes, checklist reproductions 7 vues, disclaimers visuels
+- Nouveau skill `contrefacon-dessin-modele` : qualification contrefaçon D&M par impression globale (L.521-1), bi-mode `--attack` / `--defense`, saisie-contrefaçon (L.521-4, délai 20 jours), évaluation préjudice (3 méthodes L.521-7), moyens de défense (nullité reconventionnelle L.512-4, possession antérieure L.513-6, épuisement L.513-8, clause réparation art. 110 RDMC), projet mise en demeure
+- Références enrichies : articles CPI D&M (L.511-1 à L.521-7), RDMC (CE 6/2002, 17 articles clés), classification Locarno (14 classes fréquentes), jurisprudence D&M (PepsiCo, Grupo Promer, Neuman, Cass. com.), procédures et taxes D&M
+- **Le bloc Dessins & Modèles est complet end-to-end** : recherche antériorité → dépôt → contrefaçon (attaque + défense)
 
 ## Quoi de neuf en V0.11 — Enforcement droit d'auteur (contrefaçon)
 

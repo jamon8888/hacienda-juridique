@@ -222,6 +222,97 @@ Pour la référence détaillée des articles CPI brevets utilisés par les skill
 | INPI Data — dessins et modèles | https://data.inpi.fr | `[INPI Data]` | DM français déposés. |
 | EUIPO DesignView | https://www.tmdn.org/tdview | `[EUIPO TMview]` | Multi-offices UE et internationaux. |
 | OMPI Hague Express | https://www.wipo.int/designdb | `[OMPI Madrid Monitor]` | Dépôts internationaux La Haye. |
+| Google Images (recherche inversée) | https://images.google.com | `[recherche web — à vérifier]` | Divulgations non enregistrées (catalogues, salons, réseaux sociaux). Non exhaustif, pas de valeur juridique directe. |
+
+### 3.1 Articles CPI dessins et modèles
+
+| Article | Objet | Usage skill |
+|---|---|---|
+| **L.511-1** | Définition — apparence d'un produit (lignes, contours, couleurs, forme, texture, matériaux, ornementation) | `depot-dessin-modele` — vérification conditions de fond |
+| **L.511-2** | Nouveauté — aucun D&M identique divulgué (détails insignifiants exclus) | `recherche-anteriorite-dm` — test nouveauté |
+| **L.511-4** | Caractère individuel — impression globale différente sur l'utilisateur averti | `recherche-anteriorite-dm` + `contrefacon-dessin-modele` |
+| **L.511-6** | Divulgation — formes de mise à disposition du public + exceptions (milieux spécialisés) | Toutes recherches D&M |
+| **L.511-6 al.2** | Grâce period 12 mois — divulgation par le créateur lui-même ne détruit pas la nouveauté | `recherche-anteriorite-dm` |
+| **L.511-8** | Exclusion fonctionnelle — caractéristiques dictées uniquement par la fonction technique | `depot-dessin-modele` — vérification exclusions |
+| **L.512-2** | Exclusion ordre public et bonnes mœurs | `depot-dessin-modele` |
+| **L.512-4** | Action en nullité — motifs (défaut nouveauté, défaut caractère individuel, exclusions) | `contrefacon-dessin-modele` — reconventionnelle en nullité |
+| **L.512-10** | Ajournement de publication — jusqu'à 3 ans (FR) | `depot-dessin-modele` — stratégie ajournement |
+| **L.513-1** | Durée de protection — 5 ans renouvelables jusqu'à 25 ans | `depot-dessin-modele` — renouvellements |
+| **L.513-6** | Droit de possession personnelle antérieure | `contrefacon-dessin-modele` — moyen de défense |
+| **L.513-8** | Épuisement des droits — mise sur le marché UE par le titulaire | `contrefacon-dessin-modele` — moyen de défense |
+| **L.521-1** | Contrefaçon — actes constitutifs (fabrication, offre, mise sur marché, importation, exportation, détention, usage) | `contrefacon-dessin-modele` — qualification |
+| **L.521-4** | Saisie-contrefaçon — requête président TJ, délai 20 jours pour assigner | `contrefacon-dessin-modele` — preuves |
+| **L.521-6** | Référé-interdiction — mesures provisoires d'urgence | `contrefacon-dessin-modele` — stratégie contentieuse |
+| **L.521-7** | Indemnisation du préjudice — 3 méthodes (conséquences éco, bénéfices contrefacteur, redevance hypothétique) | `contrefacon-dessin-modele` — évaluation préjudice |
+| **R.512-3** | Dépôt multiple — même classe Locarno obligatoire | `depot-dessin-modele` — dépôt multiple |
+
+### 3.2 Règlement communautaire dessins et modèles (RDMC — CE 6/2002)
+
+| Article | Objet |
+|---|---|
+| Art. 3 | Définition du dessin ou modèle communautaire |
+| Art. 5 | Nouveauté |
+| Art. 6 | Caractère individuel — impression globale utilisateur averti |
+| Art. 7 | Divulgation + grâce period 12 mois (art. 7(2)) |
+| Art. 8 | Exclusion fonctionnelle (must-fit, must-match) |
+| Art. 10 | Étendue de la protection — impression globale |
+| Art. 11 | DMCNE — protection automatique 3 ans sans enregistrement |
+| Art. 12 | Durée — 5 ans renouvelables jusqu'à 25 ans |
+| Art. 19 | Droits conférés par le DMC enregistré |
+| Art. 22 | Droit de possession personnelle antérieure |
+| Art. 50 | Ajournement de publication — jusqu'à 30 mois |
+| Art. 80-81 | Tribunaux des dessins communautaires — compétence |
+| Art. 82 | Compétence DMCNE — tribunal du défendeur |
+| Art. 85 | Action reconventionnelle en nullité |
+| Art. 88 | Saisie-contrefaçon — renvoi au droit national |
+| Art. 89 | Sanctions et voies de recours |
+| Art. 90 | Mesures provisoires et conservatoires |
+| Art. 110 | Clause de réparation — pièces détachées visibles (automobile) |
+
+### 3.3 Classification Locarno — classes fréquentes
+
+| Classe | Sous-classe | Produits |
+|---|---|---|
+| 02-01 | Articles vestimentaires | Mode, textile |
+| 06-01 | Sièges | Mobilier |
+| 06-03 | Tables | Mobilier |
+| 06-04 | Meubles de rangement | Mobilier |
+| 07-01 | Services à vaisselle | Arts de la table |
+| 09-01 | Bouteilles, flacons | Packaging |
+| 09-03 | Boîtes, coffrets, pots | Packaging |
+| 12-11 | Véhicules (automobile) | Automobile |
+| 14-01 | Équipements d'enregistrement | Électronique |
+| 14-03 | Équipements de communication | Électronique / téléphonie |
+| 21-01 | Jeux, jouets | Loisirs |
+| 23-04 | Matériel de distribution, distributeurs | Retail |
+| 26-05 | Luminaires | Éclairage |
+| 32-00 | Graphismes, motifs, ornements | Textile / décoration |
+
+### 3.4 Jurisprudence D&M — arrêts de référence
+
+- **CJUE 20 octobre 2011, *PepsiCo c. Grupo Promer*, C-281/10 P** — appréciation du caractère individuel : impression globale sur l'utilisateur averti, prise en compte de la liberté du créateur dans le secteur.
+- **CJUE 18 mars 2010, *Grupo Promer c. OHMI — PepsiCo (Rappeneau)*, T-9/07** — distinction entre utilisateur averti et consommateur moyen : l'utilisateur averti connaît le corpus de dessins existants dans le secteur.
+- **CJUE 20 octobre 2011, *Neuman c. José Manuel Baena Grupo*, C-101/11 P et C-102/11 P** — contours de la notion d'utilisateur averti : se situe entre expert technique et consommateur moyen.
+- **Cass. com. 4 février 2014, n° 13-10.689** — D&M : l'impression d'ensemble doit être appréciée de manière globale et non par analyse séparée de chaque élément.
+- **Cass. com. 10 février 2015, n° 13-27.225** — combinaison de caractéristiques connues : peut créer une impression globale nouvelle si l'agencement est inédit.
+- **Cass. com. 29 mars 2017, n° 15-17.804** — nouveauté D&M : seuls les détails « insignifiants » sont ignorés ; toute différence perceptible par l'utilisateur averti préserve la nouveauté.
+
+### 3.5 Procédures D&M — INPI / EUIPO / La Haye
+
+| Procédure | Délai clé | Taxe indicative 2025 | Compétence |
+|---|---|---|---|
+| Dépôt D&M FR (INPI) | enregistrement ~4-6 semaines | 39€ (1er) + 23€/suppl. + 52€ publication | INPI |
+| Dépôt DMC (EUIPO) | enregistrement ~1-2 semaines | 350€ (1er) + 175€ (2e-10e) + 80€ (11e+) | EUIPO Alicante |
+| Dépôt international La Haye (OMPI) | variable selon désignations | 397 CHF base + publication + désignations | OMPI Genève |
+| Ajournement FR | levée avant 3 ans sinon déchéance | 52€ à la levée | INPI |
+| Ajournement UE (DMC) | levée avant 30 mois | 175€ ajournement | EUIPO |
+| Renouvellement FR | 5 ans | ~50€ | INPI |
+| Renouvellement UE | 5 ans | 90€ (1er) + 120€ (2e+) | EUIPO |
+| Action en nullité D&M FR | imprescriptible tant que titre en vigueur | ~600€ | INPI ou TJ Paris |
+| Contrefaçon D&M (TJ Paris) | prescription 5 ans (L.521-3) | frais avocat variables | TJ Paris 3e ch. (L.521-3-1) |
+| Saisie-contrefaçon D&M | **20 jours ouvrables pour assigner** (L.521-4) | ~500-1500€ huissier | TJ compétent |
+
+**Note** : taxes 2025 indicatives — vérifier le tarif officiel INPI/EUIPO/OMPI avant chaque démarche.
 
 ---
 
@@ -256,6 +347,13 @@ Pour la référence détaillée des articles CPI brevets utilisés par les skill
 **Brevets** :
 - **L.611-1 et suivants** : conditions de brevetabilité.
 - **L.613-3** : actes constituant contrefaçon.
+
+**Dessins et modèles** :
+- **L.511-1 à L.511-8** : conditions de protection et exclusions.
+- **L.512-4** : action en nullité.
+- **L.521-1** : actes de contrefaçon.
+- **L.521-4** : saisie-contrefaçon (20 jours ouvrables pour assigner).
+- **L.521-7** : indemnisation (3 méthodes directive 2004/48/CE).
 
 **Droit d'auteur** :
 - **L.111-1, L.112-1, L.122-1 et suivants** : protection des œuvres de l'esprit.
