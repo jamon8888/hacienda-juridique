@@ -638,7 +638,7 @@ Si plusieurs rapports sont générés le même jour, suffixer le second avec
   d'affaires. Le skill ne calcule pas de NPV.
 - **Gérer les CCP** (Certificats Complémentaires de Protection pour
   pharma — Règlement CE 469/2009, jusqu'à +5 ans après expiration du
-  brevet de base) : différé V2.3 future. Le skill peut stocker un CCP
+  brevet de base) : voir `certificat-complementaire-protection`. Le skill peut stocker un CCP
   en `type: "CCP"` mais ne calcule pas la durée de protection
   effective ni n'optimise la stratégie CCP / pédiatrique.
 - **Garantir la conformité du registre interne vs INPI/OEB officiel.**

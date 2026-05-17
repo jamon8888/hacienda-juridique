@@ -487,7 +487,7 @@ départ différents.
 | Réplique opposant (facultative) | T0 + ~4 mois | À recevoir | Préparer arguments anticipés |
 | Contre-réplique défendeur | T0 + ~6 mois | À déposer si réplique reçue | Suivre instruction INPI |
 | Décision INPI | T0 + ~8-10 mois | Attendue | Préparer plan post-décision |
-| Recours Cour d'appel Paris (L.411-4) | Décision + 1 mois | Optionnel | Différé `contentieux-marques` V6.0+ |
+| Recours Cour d'appel Paris (L.411-4) | Décision + 1 mois | Optionnel | Voir `contentieux-pi` |
 
 Les délais > T0+2 mois sont indicatifs (variables selon charge INPI et
 complexité du dossier). Les délais ≤ T0+2 mois (mémoire défense /
@@ -659,7 +659,7 @@ en 10 minutes de lecture.
 | Réplique opposant (facultative) | J+0 + ~4 mois | Mandataire répond aux arguments du défendeur |
 | Contre-réplique défendeur | J+0 + ~6 mois | Défendeur répond à la réplique le cas échéant |
 | Décision INPI | J+0 + ~8-10 mois | Notification décision (admise totale / partielle / rejetée) |
-| Recours Cour d'appel Paris | Décision + 1 mois | Différé `contentieux-marques` V6.0+ (recours suspensif rare en pratique) |
+| Recours Cour d'appel Paris | Décision + 1 mois | Voir `contentieux-pi` (recours suspensif rare en pratique) |
 
 **Une question hors de ma checklist habituelle :** [observation seconde-ordre pertinente — omettre si rien d'honnête à dire].
 
@@ -765,8 +765,7 @@ Matter workspaces hors V1 (cf. `CLAUDE.md` `## 11. Workspaces de dossier`).
   Cour d'appel.
 - **Gérer le recours TJ / Cour d'appel Paris post-décision INPI** (CPI
   L.411-4, recours dans le mois de notification). C'est le périmètre du
-  futur skill `contentieux-marques` (V6.0+), pas ce skill — qui s'arrête
-  à la décision INPI.
+  skill `contentieux-pi`, pas ce skill — qui s'arrête à la décision INPI.
 - **Évaluer les transactions financières** (coexistence amiable, licence
   croisée, rachat de la marque adverse). Le skill **signale** l'option
   transaction comme alternative stratégique, mais l'évaluation économique

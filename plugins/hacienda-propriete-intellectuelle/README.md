@@ -38,6 +38,7 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 - `saisie-contrefacon`
 - `contentieux-pi`
 - `certificat-complementaire-protection`
+- `droits-voisins-ogc`
 
 ## Agents
 
@@ -60,6 +61,12 @@ Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `
 ## Mode Silencieux
 
 Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux risques OSS et aux signaux d'atteinte au-dessus des seuils. Il ne remplace pas la validation humaine.
+
+## Quoi de neuf en V0.16 — Droits voisins / OGC / IA générative (V4.3) + Nettoyage cross-refs
+
+- Nouveau skill `droits-voisins-ogc` : droits voisins (artistes-interprètes L.212-1, producteurs L.213-1, entreprises com. audiovisuelle L.216-1), OGC (SACEM, SACD, SCAM, ADAGP, SPRD directive 2014/26), exception TDM art. 4 directive 2019/790 + opt-out, transparence art. 19-22, IA générative (AI Act UE 2024/1689 art. 53 obligations fournisseurs, C2PA, contentieux en cours NYT v OpenAI, Le Monde/AFP), NFT (qualification juridique, smart contracts, royalties on-chain)
+- Nettoyage de toutes les références "différé V6.0+", "différé V4.3", "différé V2.3", "différé V1.2" dans les skills existants — renvoi vers les skills/agents désormais livrés
+- **Roadmap 100 % livrée** : 19 skills + 5 agents couvrent le cycle PI complet
 
 ## Quoi de neuf en V0.15 — Agent contrefaçon web (V1.2) + CCP pharma (V2.3)
 

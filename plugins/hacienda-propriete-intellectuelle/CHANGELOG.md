@@ -9,10 +9,13 @@
 - Section CLAUDE.md template "Droit d'auteur" (8 placeholders pratique)
 - Section `references/ressources-pi-fr.md` "Droit d'auteur — sources et juridictions"
 
-### À venir (V4.1 / V4.2)
-- V4.1 : `cession-droit-auteur` + `licence-droit-auteur` + `bases-de-donnees` (contrats)
-- V4.2 : `contrefacon-droit-auteur` (enforcement)
-- V4.3 : droits voisins (artistes-interprètes, producteurs) + SACEM/OGC + NFT/IA générative
+### À venir
+- Aucun — roadmap 100 % livrée ✅
+
+### Livré (V4.1 / V4.2 / V4.3)
+- V4.1 : `cession-droit-auteur` + `licence-droit-auteur` + `bases-de-donnees` ✅
+- V4.2 : `contrefacon-droit-auteur` ✅
+- V4.3 : `droits-voisins-ogc` (droits voisins + OGC + IA générative + NFT) ✅
 
 ### Distinction critique avec régime US
 - Droit FR : pas de formalité (≠ US Copyright Office), droit moral central perpétuel inaliénable (vs VARA US limité), L.113-9 logiciel = inverse du US work-for-hire général

@@ -667,7 +667,7 @@ déclencheur** (article L.123-7).
 | **Œuvre collective / pseudonyme / anonyme** | 70 ans à compter de la **publication** (du 1er janvier de l'année suivante) | L.123-3 |
 | **Œuvre posthume divulguée pendant la période de protection** | Durée standard (70 ans post mortem) — pas de prolongation | L.123-1 |
 | **Œuvre posthume divulguée après expiration du monopole** | **25 ans** à compter du 1er janvier de l'année suivant la divulgation, au profit du propriétaire du manuscrit ou de l'ayant droit divulgateur | L.123-4 |
-| **Droits voisins (artistes-interprètes, producteurs phonogrammes et vidéogrammes, entreprises de communication audiovisuelle)** | **70 ans** à compter de la fixation, de la publication ou de la communication au public (selon le droit voisin concerné) — régime distinct du droit d'auteur, différé V4.3 | L.211-4 |
+| **Droits voisins (artistes-interprètes, producteurs phonogrammes et vidéogrammes, entreprises de communication audiovisuelle)** | **70 ans** à compter de la fixation, de la publication ou de la communication au public (selon le droit voisin concerné) — régime distinct du droit d'auteur, voir `droits-voisins-ogc` | L.211-4 |
 
 **Prolongations historiques de guerre** (L.123-8 à L.123-10) : pour les
 œuvres créées avant le 1er janvier 1948, des prolongations spéciales
@@ -990,10 +990,10 @@ créer. Si plusieurs qualifications du même jour pour la même œuvre, suffixer
   successoral.
 - **Traiter les droits voisins** (artistes-interprètes, producteurs
   phonogrammes et vidéogrammes, entreprises de communication audiovisuelle
-  L.211-1+) — régime distinct du droit d'auteur, différé V4.3.
+  L.211-1+) — régime distinct du droit d'auteur, voir `droits-voisins-ogc`.
 - **Gérer les rapports avec les organismes de gestion collective (OGC)** —
   adhésion SACEM / SCAM / SACD / SDRM, déclaration des œuvres au répertoire,
-  répartition des redevances — différé V4.2+.
+  répartition des redevances — voir `droits-voisins-ogc`.
 - **Conduire une recherche d'antériorité** sur l'œuvre (vérifier qu'elle ne
   contrefait pas une œuvre préexistante) — pas d'équivalent strict des
   recherches d'antériorité brevet ou marque en droit d'auteur (le droit

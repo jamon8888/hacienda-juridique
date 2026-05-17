@@ -19,7 +19,7 @@ argument-hint: "[num brevet | doc produit | théorie : littérale/équivalence/l
 l'avocat à préparer une stratégie d'enforcement. Il NE qualifie PAS la
 contrefaçon (= rôle du juge ou du mandataire/avocat), NE rédige PAS de mise
 en demeure (= rôle `mise-en-demeure-pi`), NE prépare PAS la requête en
-saisie-contrefaçon (= `saisie-contrefacon` V6.0 future). **La qualification
+saisie-contrefaçon (= `saisie-contrefacon`). **La qualification
 de contrefaçon est une décision juridique aux conséquences lourdes** :
 risques d'action en concurrence déloyale en cas de mise en demeure abusive,
 dommages-intérêts si saisie injustifiée (CPC art. 78). **Toujours valider
@@ -955,7 +955,7 @@ lecture technique** — la qualification juridique appartient au mandataire,
 ## Que veux-tu faire ?
 
 1. **Préparer la mise en demeure** — j'ouvre `mise-en-demeure-pi` (V0.1) avec le claim chart en pièce jointe interne
-2. **Préparer la saisie-contrefaçon** — `saisie-contrefacon` V6.0 future, en attendant je rédige une note pour mandataire + huissier listant les éléments à saisir
+2. **Préparer la saisie-contrefaçon** — j'ouvre `saisie-contrefacon` avec le claim chart en contexte pour préparer la requête et les instructions huissier
 3. **Escalader** — note pour [mandataire en brevets EQE / avocat PI / GC selon approbateurs du profil] avec faits-clés, claim chart résumé et décision attendue
 4. **Approfondir l'analyse équivalence** — itérer sur les éléments ❌ avec données techniques supplémentaires (avis expert, dossier de poursuite, art antérieur)
 5. **Acquérir et analyser le produit** — checklist rétro-ingénierie technique (huissier + laboratoire indépendant) pour transformer les ❓ en ✅ ou ❌
@@ -1050,12 +1050,10 @@ concluant.
 - **Préparer la requête en saisie-contrefaçon judiciaire** (CPC art. 59,
   CPI L.615-5) — exige une requête motivée présentée au président TJ
   Paris, accompagnée du brevet, de la preuve de vraisemblance, et de
-  l'identification des lieux et choses à saisir. = `saisie-contrefacon`
-  V6.0 future.
-- **Préparer l'assignation TJ Paris en contrefaçon.** = `action-contrefacon`
-  V6.0 future. Exige cadre procédural complet (constitution avocat
-  spécialiste PI obligatoire devant TJ Paris, calcul détaillé du
-  préjudice, conclusions).
+  l'identification des lieux et choses à saisir. = `saisie-contrefacon`.
+- **Préparer l'assignation TJ Paris en contrefaçon.** = `contentieux-pi`.
+  Exige cadre procédural complet (constitution avocat spécialiste PI
+  obligatoire devant TJ Paris, calcul détaillé du préjudice, conclusions).
 - **Calculer le préjudice** (CPI L.615-7 : manque à gagner +
   bénéfices contrefacteur + préjudice moral + redevance indemnitaire
   possible) — exige expertise comptable et financière, hors champ

@@ -1531,7 +1531,7 @@ etc. — ne **jamais écraser** un brouillon précédent.
   `/hacienda-propriete-intellectuelle:bases-de-donnees` (V4.1), qui gère
   la double protection L.111-1 + L.341-1 et les régimes d'accès.
 - **Traiter le contentieux en contrefaçon de droits d'auteur** —
-  différé V4.2 (`contrefacon-droit-auteur`).
+  voir `contentieux-pi` (branche droit d'auteur L.335-2 / L.335-3).
 
 ---
 
