@@ -1,8 +1,10 @@
 import { createHaciendaServer, log } from "@hacienda/core";
+import { PI_PLUGIN_VERSION } from "./version.js";
 
 const { start } = createHaciendaServer({
   name: "hacienda-propriete-intellectuelle",
-  version: "0.2.0"
+  version: PI_PLUGIN_VERSION,
+  toolGroups: ["legal_research", "pi_registries"]
 });
 
 start().catch((error: unknown) => {

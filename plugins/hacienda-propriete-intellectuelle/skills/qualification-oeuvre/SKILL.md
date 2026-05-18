@@ -26,7 +26,16 @@ argument-hint: "[description œuvre | nature | contexte création | objectif pr�
 > `contrefacon-droit-auteur` V4.2). Le droit d'auteur **naît automatiquement à
 > la création** (CPI L.111-1) sans formalité de dépôt — mais la **preuve de la
 > date de création et de l'identité de l'auteur** reste critique en cas de
-> litige (cf. `depot-preuve-creation` v0.1 préservé).
+> litige (cf. `depot-preuve-creation` : mode `open` pour `Evidence Register`
+> et `Proof Gaps`, puis mode
+> `timeline` si une chronologie doit être ordonnée).
+
+> **Règle de bascule — logiciel/data.** Si la question principale porte
+> d'abord sur la **titularité**, les **contributeurs**, les **datasets**,
+> les **licences entrantes** ou une **due diligence** logiciel/data, ouvrir
+> `revue-logiciel-donnees`. Dans cette configuration, `qualification-oeuvre`
+> sert seulement à qualifier l'**originalité** et le **régime juridique**
+> de chaque composant pertinent.
 
 ## Examples
 
@@ -157,7 +166,8 @@ explicitement marquées « non applicable » par l'utilisateur.
 - Si **aucune preuve formelle**, signaler immédiatement : « la qualification
   est possible, mais en cas de litige tu auras besoin de constituer la preuve
   de date — je le note en recommandation de fin et je peux ouvrir
-  `depot-preuve-creation` (v0.1) ensuite. »
+  `depot-preuve-creation` ensuite : mode `open` pour `Evidence Register` et
+  `Proof Gaps`, puis `timeline` si une `Timeline` doit être reconstituée. »
 
 **4. Catégorie suspectée** (référence non exhaustive L.112-2)
 - Littéraire / artistique (peinture, sculpture, dessin, photographie) /
@@ -316,7 +326,7 @@ critères de l'originalité (étape 1) sont remplis.
 | **Cinématographiques + audiovisuelles** | Films, séries, documentaires, vidéos | L.113-7 — œuvre de collaboration ; présomption d'auteurs : scénariste, adaptateur, dialoguiste, auteur des compositions musicales spécialement créées, réalisateur |
 | **Graphiques / typographiques** | Œuvres typographiques, calligraphies, créations graphiques | Droit commun |
 | **Arts appliqués (design)** | Mobilier, mode, objets, packaging | Droit commun + cumul possible avec dessin et modèle enregistré (cf. CJUE Cofemel) |
-| **Logiciels** | Code source + code objet + matériel de conception préparatoire | **Régime spécial** — L.113-9 (titularité employeur si salarié dans ses fonctions) ; protection de l'expression du code, pas des idées / algorithmes ; voir skill dédié `revue-logiciel-donnees` |
+| **Logiciels** | Code source + code objet + matériel de conception préparatoire | **Régime spécial** — L.113-9 (titularité employeur si salarié dans ses fonctions) ; protection de l'expression du code, pas des idées / algorithmes ; si le sujet principal devient la chaîne de droits logiciel/data (titularité, contributeurs, datasets, bases, licences entrantes, due diligence), basculer vers `revue-logiciel-donnees` |
 | **Multimedia** | Sites web créatifs, applications interactives, jeux vidéo | **Régime hybride** — composition de plusieurs catégories ; pas de qualification unifiée par la jurisprudence (jeux vidéo : Cour de cass. 25 juin 2009 retient une qualification distributive) |
 | **Bases de données** | Bases structurées de données | **Double protection possible** : (a) droit d'auteur sur la **structure** originale (L.112-3) ; (b) droit sui generis sur le **contenu** L.341-1 si investissement substantiel — régime distinct durée 15 ans renouvelable (L.342-5) |
 | **Traductions / adaptations / arrangements** | Œuvres dérivées | Œuvre composite (L.113-2 al.2) — protégée mais sous réserve des droits de l'œuvre préexistante |
@@ -496,7 +506,11 @@ l'employeur) :
   fonctions (week-end, projet personnel non lié, contribution open source
   personnelle) — la frontière « dans l'exercice des fonctions » est
   appréciée concrètement (lien avec les missions, utilisation des moyens de
-  l'entreprise, temps de travail). Voir skill dédié `revue-logiciel-donnees`.
+  l'entreprise, temps de travail). Si la question utile est de savoir qui
+  détient le code, sous quel titre, avec quelles pièces et quelles réserves,
+  ouvrir `revue-logiciel-donnees`. `qualification-oeuvre` reste ici limité à
+  l'originalité et au régime applicable ; l'audit open source composant par
+  composant relève de `revue-open-source`.
 - **Œuvres journalistiques (L.132-36 à L.132-45)** : cession encadrée par
   **convention collective des journalistes** (CCNTJ) et accord d'entreprise
   — régime spécifique avec rémunération de référence (« titre de presse »
@@ -685,7 +699,7 @@ toujours agir en respect du nom et de l'intégrité de l'œuvre.
 patrimoniaux d'une œuvre, demander la **date de naissance** de l'auteur
 (estimation prudente d'espérance de vie si vivant), calculer la date de
 décès estimée, ajouter 70 ans, et arrondir au 1er janvier suivant. Tag
-`[verify]` sur toute date d'expiration calculée à partir d'une estimation
+`[a verifier]` sur toute date d'expiration calculée à partir d'une estimation
 de durée de vie.
 
 ---
@@ -719,7 +733,9 @@ contrepartie en miroir).
 - **Chaîne de droits d'œuvre composite non documentée** (cas D) :
   contrefaçon dérivée même en cas d'originalité propre.
 - **Preuves de date insuffisantes** : risque défensif futur si contestation
-  d'antériorité — proposer `depot-preuve-creation` (v0.1).
+  d'antériorité — proposer `depot-preuve-creation` : mode `open` pour
+  `Evidence Register` et `Proof Gaps`, puis `timeline` si une `Timeline`
+  ordonnée est nécessaire.
 
 ### Objectif défensif (contestation reçue d'un tiers)
 
@@ -733,17 +749,21 @@ contrepartie en miroir).
   comparative caractéristique par caractéristique — distinguer **idée**
   (non protégée) et **expression** (protégée).
 - **Avons-nous des preuves de date de création antérieures** à l'œuvre
-  contestée ? Inventaire des preuves disponibles, recommandation `depot-preuve-creation`
-  si insuffisant.
+  contestée ? Inventaire des preuves disponibles, recommandation
+  `depot-preuve-creation` si le dossier probatoire est lacunaire : mode
+  `open` pour `Evidence Register` et `Proof Gaps`, puis `timeline` si une
+  `Timeline` ordonnée est nécessaire pour argumenter l'antériorité.
 - **Position défensive sur les exceptions L.122-5** : la partie adverse
   peut-elle invoquer copie privée, courte citation, parodie, exception
   pédagogique ?
 
 ### Objectif contentieux (préparation action contrefaçon)
 
-- **Preuves de date de création** (renvoi `depot-preuve-creation` v0.1) :
-  manuscrits horodatés, dépôts copyright.fr, enveloppe Soleau INPI, constat
-  d'huissier ou commissaire de justice.
+- **Preuves de date de création** : ouvrir `depot-preuve-creation` en mode
+  `open` pour `Evidence Register` et `Proof Gaps` sur les pièces
+  (manuscrits horodatés, dépôts copyright.fr, enveloppe Soleau INPI, constat
+  d'huissier ou commissaire de justice), puis `timeline` si une `Timeline`
+  exploitable est nécessaire avant action.
 - **Identification des droits violés** : patrimoniaux (lesquels précisément :
   reproduction, représentation, adaptation) et/ou moraux (paternité, intégrité).
 - **Évaluation préjudice préliminaire** : différé `contrefacon-droit-auteur`
@@ -785,7 +805,7 @@ backticks pour ne pas casser le rendu interne) :
 > - **Sources lues :** [CPI articles cités : L.111-1, L.112-2, L.113-1 à L.113-9, L.121-1+, L.122-1+, L.123-1+, L.131-3 + jurisprudence : CJUE Infopaq C-5/08, CJUE Painer C-145/10, CJUE Cofemel C-683/17, Cass. 1re civ. Pachot 7 mars 1986]
 > - **Objectif de qualification :** [préventif / défensif / contentieux]
 > - **Points [review] :** [N éléments à valider avocat — détailler les plus critiques]
-> - **Preuves de date disponibles :** [oui : type / non : recommandation `depot-preuve-creation`]
+> - **Preuves de date disponibles :** [oui : type / non : `depot-preuve-creation` mode `open` pour `Evidence Register` et `Proof Gaps`, puis `timeline` si une `Timeline` doit être ordonnée]
 > - **Avant action :** validation avocat spécialisé propriété littéraire et artistique **OBLIGATOIRE**
 
 **Triage :** 🟢 ORIGINALITÉ + TITULARITÉ CLAIRES / 🟡 MIXTE — POINTS À ARGUMENTER / 🔴 PROBLÉMATIQUE — RISQUE QUALIFICATION
@@ -832,7 +852,7 @@ backticks pour ne pas casser le rendu interne) :
 
 **Durée applicable :** [70 ans post mortem standard / variantes selon type]
 **Événement déclencheur :** [décès auteur unique / décès dernier coauteur / publication œuvre collective / achèvement base de données sui generis]
-**Expiration estimée :** [calcul YYYY — tag `[verify]` si basé sur estimation de durée de vie]
+**Expiration estimée :** [calcul YYYY — tag `[a verifier]` si basé sur estimation de durée de vie]
 
 ## Enjeux identifiés
 
@@ -869,7 +889,7 @@ modèle — à vérifier]` » — omettre si rien d'honnête à dire]
 1. **Rédiger une cession** — j'ouvre `cession-droit-auteur` (V4.1) avec les paramètres identifiés (cas titularité, droits à céder, mentions L.131-3 obligatoires)
 2. **Escalader** — je rédige une note pour avocat spécialisé propriété littéraire et artistique + Direction selon enjeu identifié
 3. **Compléter les faits** — il manque [preuves de date / chaîne de titularité / comparaisons avec œuvres antérieures / précisions sur le contexte de création]
-4. **Préparer les preuves de création** — j'ouvre `depot-preuve-creation` (v0.1) pour organiser dépôts horodatés (copyright.fr / huissier / enveloppe Soleau INPI)
+4. **Préparer les preuves de création** — j'ouvre `depot-preuve-creation` : mode `open` pour `Evidence Register` et `Proof Gaps` sur les dépôts horodatés (copyright.fr / huissier / enveloppe Soleau INPI), puis `timeline` si une `Timeline` doit être ordonnée
 5. **Autre chose** — dis-moi
 ````
 
@@ -980,7 +1000,8 @@ créer. Si plusieurs qualifications du même jour pour la même œuvre, suffixer
   similitudes substantielles + caractères différenciants).
 - **Déposer une preuve de création** (enveloppe Soleau INPI, copyright.fr,
   constat d'huissier ou commissaire de justice, dépôt notarié, blockchain
-  horodatée) — voir `depot-preuve-creation` v0.1.
+  horodatée) — voir `depot-preuve-creation` : mode `open` pour `Evidence Register`
+  et `Proof Gaps`, puis `timeline` si une `Timeline` ordonnée est utile.
 - **Évaluer le préjudice** en cas de contrefaçon constatée (réparation
   intégrale L.331-1-3 — conséquences économiques négatives + préjudice moral
   + bénéfices réalisés par le contrefacteur) — différé V4.2.

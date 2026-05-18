@@ -228,7 +228,7 @@ d'ordre public.
 - `contrefacon-droit-auteur` (V4.2, à venir) — qualification de la
   contrefaçon (spécificités logiciel : saisie-contrefaçon adaptée au code
   source, expertise judiciaire spécialisée).
-- `revue-open-source` (v0.1 préservé) — audit de conformité open source
+- `revue-open-source` — audit de conformité open source
   (structure de l'audit, sans scan technique des dépendances).
 
 ---

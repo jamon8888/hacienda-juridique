@@ -106,13 +106,14 @@ Chaque plugin Hacienda contient :
 ## Integrations
 
 - Simple MCP configuration: `docs/integrations/mcp-configuration-simple.md`
+- Hacienda Cowork plugin convention: `docs/integrations/hacienda-cowork-plugin-convention.md`
 - PISTE connection guide: `docs/integrations/piste-connection.md`
 - Pappers MCP hybrid validation: `docs/integrations/pappers-mcp-validation.md`
 - Pappers agents and skills doctrine: `docs/integrations/pappers-agents-skills.md`
 
 ### Configuration MCP Simple
 
-Hacienda suit la logique Claude Cowork Legal : `.mcp.json` declare les connecteurs disponibles, le profil utilisateur vit dans `~/.claude/plugins/config/hacienda-juridique/<plugin>/CLAUDE.md`, et un connecteur n'est marque connecte qu'apres test live. Guide : `docs/integrations/mcp-configuration-simple.md`.
+Hacienda suit la logique Claude Cowork Legal : `.mcp.json` declare les connecteurs disponibles, le profil utilisateur vit dans `~/.claude/plugins/config/hacienda-juridique/<plugin>/CLAUDE.md`, et un connecteur n'est marque connecte qu'apres test live. Les plugins pilotes peuvent aussi embarquer un `version.json` et une declaration `stdio` executable pour leur serveur MCP local. Guides : `docs/integrations/mcp-configuration-simple.md` et `docs/integrations/hacienda-cowork-plugin-convention.md`.
 
 ### PISTE Via Hacienda Sources Officielles
 
@@ -158,6 +159,14 @@ Guide installateur complet : `docs/integrations/piste-connection.md`.
 
 Le plugin `hacienda-propriete-intellectuelle` s'appuie sur le socle MCP local
 Hacienda et sur des credentials d'API ou de portail selon la source.
+
+Sur `main`, le plugin PI sert aussi de pilote de normalisation Cowork :
+
+- `version.json` comme source de verite de version ;
+- `.mcp.json` executable pour le serveur MCP PI local ;
+- serveur MCP PI scope explicitement sur les tools de recherche juridique utiles
+  et les registres PI, sans reprendre les tools fiscaux, sociaux ou admin bas
+  niveau du socle.
 
 Sources actuellement raccordees sur `main` :
 

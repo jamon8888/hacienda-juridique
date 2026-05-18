@@ -2,8 +2,12 @@
   "mcpServers": {
     "Hacienda Propriété Intellectuelle": {
       "type": "stdio",
+      "command": "node",
+      "args": [
+        "./plugins/hacienda-propriete-intellectuelle/mcp-server/dist/index.js"
+      ],
       "title": "Hacienda Propriété Intellectuelle",
-      "description": "Recherche INPI marques, EUIPO TMview, BOPI dernières publications + sources Légifrance/jurisprudence."
+      "description": "Serveur MCP PI local Hacienda : registres INPI/EUIPO/OEB/BOPI et recherche juridique utile à la PI."
     }
   },
   "recommendedCategories": [

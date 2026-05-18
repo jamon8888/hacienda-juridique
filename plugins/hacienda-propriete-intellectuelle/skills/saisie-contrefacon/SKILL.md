@@ -287,7 +287,7 @@ outputs/saisie-contrefacon-<affaire-slug>-YYYY-MM-DD.md
 - Rédiger l'assignation au fond (skill futur `assignation-contrefacon`)
 - Traiter le référé-interdiction (procédure distincte)
 - Gérer la retenue douanière (renvoi vers procédure douanière UE 608/2013)
-- Qualifier la contrefaçon elle-même → utiliser `tableau-contrefacon-brevet`, `contrefacon-dessin-modele`, `contrefacon-droit-auteur`, `tri-contrefacon` (marques)
+- Qualifier la contrefaçon elle-même → utiliser `tableau-contrefacon-brevet`, `contrefacon-dessin-modele`, `contrefacon-droit-auteur`, `tri-contrefacon` pour l'intake et la qualification des dossiers marques
 - Évaluer le préjudice en détail (analyse financière post-saisie)
 
 ---

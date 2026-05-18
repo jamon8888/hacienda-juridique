@@ -208,8 +208,8 @@ Légende : ✅ Compatible / ⚠️ Vigilance — conditions spécifiques / ❌ I
   cofondateur / contributeur.
 - `licence-droit-auteur` (V4.1 à venir) — pour la rédaction effective de
   la licence d'utilisation (propriétaire ou open source).
-- `revue-open-source` (v0.1 préservé) — pour la structure de l'audit de
-  conformité open source.
+- `revue-open-source` — pour la structure de l'audit de conformité open
+  source.
 
 ---
 

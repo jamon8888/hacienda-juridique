@@ -9,10 +9,11 @@ description: >
   L.122-6 et exceptions d'ordre public L.122-6-1 (copie de sauvegarde, test,
   décompilation pour interopérabilité, correction d'erreurs), (3) typologie
   licences propriétaires vs open source (permissives MIT/BSD/Apache, copyleft
-  fort GPL/AGPL, copyleft faible LGPL/MPL), (4) matrices de compatibilité et
-  risque "contamination virale" GPL/AGPL, (5) cas SaaS (AGPL piégeuse) et bases
-  de données associées (double protection droit d'auteur + sui generis L.341-1),
-  (6) recommandations selon situation (startup / agence dev / projet open source
+  fort GPL/AGPL, copyleft faible LGPL/MPL), (4) triage OSS de haut niveau
+  (présence des dépendances, SBOM disponible, red flags GPL/AGPL/LGPL et
+  licences source-available), (5) alerte courte si base de données ou dataset
+  significatif, avec renvoi vers le bon skill spécialisé, (6) recommandations
+  selon situation (startup / agence dev / projet open source
   / SaaS mixed). Ne rédige PAS le contrat de cession (= cession-droit-auteur
   V4.1) ni la licence d'utilisation (= licence-droit-auteur V4.1). Ne scanne
   PAS les dépendances (= outils SCA externes).
@@ -65,17 +66,21 @@ l'utilisation prévue et les dépendances open source.)
 > public** L.122-6-1 (copie de sauvegarde, test, décompilation pour
 > interopérabilité, correction d'erreurs), la **typologie des licences**
 > applicables (propriétaires, open source permissives, copyleft fort, copyleft
-> faible) et leurs **matrices de compatibilité** (risque "contamination
-> virale" GPL/AGPL en SaaS), les régimes particuliers SaaS et **bases de
-> données associées** (double protection droit d'auteur + sui generis L.341-1
-> indépendants), et les recommandations calibrées selon la **situation**
+> faible) et un **triage OSS de haut niveau** (SBOM disponible ou non, dépendances
+> présentes, red flags GPL/AGPL/LGPL/source-available, points à escalader),
+> ainsi qu'une **alerte courte** si une base de données ou un dataset impose
+> une revue dédiée. L'inventaire détaillé composant par composant, la matrice
+> de conflits et les obligations OSS relèvent de `revue-open-source`. Les
+> sujets de chaîne de droits data et bases relèvent de `revue-logiciel-donnees`
+> ou `bases-de-donnees`. Les recommandations restent calibrées selon la **situation**
 > (startup early stage / agence dev / projet open source / SaaS mixed).
 >
 > Il NE rédige PAS un contrat de cession (= `cession-droit-auteur` V4.1) ni
 > une licence d'utilisation propriétaire ou open source (= `licence-droit-auteur`
 > V4.1). Il NE scanne PAS les dépendances open source (= outils SCA externes :
-> Snyk, FOSSA, Black Duck, GitHub Dependabot — couvert partiellement par
-> `revue-open-source` v0.1 préservé). Il NE qualifie PAS la contrefaçon
+> Snyk, FOSSA, Black Duck, GitHub Dependabot — l'audit OSS opérationnel ciblé
+> relève de `revue-open-source`, qui travaille sur SBOM, manifests ou inventaires
+> fournis, sans se présenter comme scanner autonome). Il NE qualifie PAS la contrefaçon
 > logicielle (= `contrefacon-droit-auteur` V4.2). Le régime logiciel reste un
 > exercice juridique nécessitant validation par un **avocat spécialisé tech /
 > propriété intellectuelle** avant tout acte (signature contrat de travail
@@ -156,7 +161,7 @@ explicitement marquées « non applicable » par l'utilisateur.
   pertinent
 - **Marque associée** (le cas échéant — si la marque logicielle est en
   portefeuille, signaler pour orientation vers `surveillance-marque` ou
-  `clearance-marque`)
+  `recherche-anteriorite-marque`)
 
 **2. Contexte de développement** — qui code ?
 - **Développeur(s) salarié(s) interne(s)** seuls (équipe entièrement
@@ -433,188 +438,84 @@ Réserves opérationnelles :
 
 ---
 
-## Étape 3 — Typologie des licences logiciel
+## Étape 3 — Triage OSS de haut niveau
 
-### Licences propriétaires
+Le but ici n'est pas de produire un audit composant par composant. Ce skill
+fait seulement un premier triage pour savoir s'il faut escalader.
 
-- Code source **fermé**, distribution sous **EULA** (End User License
-  Agreement)
-- Droits d'utilisation **strictement limités** (1 utilisateur, 1 serveur,
-  1 instance, etc. — variable selon EULA)
-- **Pas de modification** autorisée (sauf exception L.122-6-1 correction
-  d'erreurs si non écartée contractuellement)
-- **Pas de redistribution**
-- **Pas d'accès au code source** (ou accès très restreint sous accord
-  spécifique, parfois NDA renforcé)
-- Exemples : Microsoft Office, Adobe Creative Cloud, SAP, Oracle Database,
-  SaaS propriétaires
+### Questions OSS minimales
 
-### Licences open source — typologie 4 grandes catégories
+- Des dépendances tierces sont-elles présentes ou supposées ?
+- Un **SBOM** ou un export SCA est-il disponible ?
+- Des licences **GPL**, **AGPL**, **LGPL** ou **source-available** sont-elles
+  déjà identifiées ?
+- Le produit est-il distribué, embarqué, on-prem ou exploité en **SaaS** ?
 
-**A. Permissives (faible contrainte de réciprocité)**
+### Taxonomie de triage
 
-| Licence | Contraintes principales |
-|---|---|
-| **MIT** | "Do whatever you want, just keep copyright notice" — la plus permissive ; seule obligation : conserver le copyright + le texte de la licence |
-| **BSD 2-clause / 3-clause** | Similaire MIT ; la 3-clause ajoute une clause de non-endorsement (interdiction d'utiliser le nom des auteurs pour promouvoir des dérivés sans accord) |
-| **Apache 2.0** | MIT + protection brevet explicite (patent grant) + notice modifications (fichier NOTICE) + résiliation automatique en cas d'action en contrefaçon brevet par le licencié |
-| **ISC** | Équivalent MIT simplifié (utilisée par OpenBSD) |
+| Signal | Lecture dans `logiciels-pi` | Action |
+|---|---|---|
+| Licences permissives (MIT, BSD, Apache-2.0, ISC) | a priori peu conflictuelles au stade triage | conserver le sujet pour `revue-open-source` si inventaire détaillé requis |
+| LGPL / MPL / EPL | dépend du mode d'integration et des faits | escalader si liaison, modifications ou redistribution mal documentées |
+| GPL | forte incompatibilité présumée avec un modèle propriétaire ou mixte | escalader vers `revue-open-source` et validation humaine |
+| AGPL | forte incompatibilité présumée, surtout en contexte SaaS | escalader sans conclure sans faits précis |
+| Source-available / SSPL / BSL / Elastic License / Commons Clause | red flag contractuel ou business fréquent | revue dédiée obligatoire |
+| SBOM absent | triage incomplet par construction | recommander SBOM ou scan SCA avant conclusion ferme |
 
-**Compatibilité** : compatibles avec licences propriétaires → peuvent être
-incorporées dans un produit commercial fermé sans contamination.
+### Règle de sortie
 
-**B. Copyleft fort (réciprocité totale)**
+Quand le sujet OSS devient concret, renvoyer explicitement vers
+`revue-open-source` pour :
 
-| Licence | Contraintes principales |
-|---|---|
-| **GPL v2** | Tout logiciel intégrant du code GPL **doit être distribué sous GPL** ("contamination virale") ; code source fourni à tout distributaire |
-| **GPL v3** | GPL v2 + protection brevet (patent grant) + clause anti-tivoization (interdit le verrouillage matériel empêchant l'utilisateur d'exécuter une version modifiée) + compatibilité explicite avec Apache 2.0 |
-| **AGPL v3** | GPL v3 étendue au SaaS — **l'utilisation sur serveur compte comme redistribution** → obligation de fournir le code source aux utilisateurs distants |
+- le `License Inventory` ;
+- la `Conflict Matrix` ;
+- les `Obligations` composant par composant ;
+- le `Remediation Plan`.
 
-**Incompatibles** avec licences propriétaires (forks commerciaux interdits
-sauf si le projet original pratique du dual licensing — modèle MySQL,
-historique Qt).
+Ici, ne produire qu'un résumé de triage :
 
-**C. Copyleft faible (réciprocité limitée à la modification)**
-
-| Licence | Contraintes principales |
-|---|---|
-| **LGPL v2.1 / v3** | Les **modifications du code LGPL** doivent rester LGPL, mais la **liaison dynamique** depuis un logiciel propriétaire est autorisée (le logiciel propriétaire reste propriétaire) ; **liaison statique** plus contestée |
-| **MPL 2.0 (Mozilla Public License)** | Copyleft **fichier par fichier** — les modifications d'un fichier MPL restent MPL, mais d'autres fichiers du projet peuvent être propriétaires (modèle de "compartimentation") |
-| **EPL (Eclipse Public License)** | Similaire MPL avec spécificités plugin Eclipse |
-
-**D. Spécifiques**
-
-| Licence | Domaine |
-|---|---|
-| **Creative Commons** (CC-BY, CC-BY-SA, CC-BY-NC, CC-BY-NC-SA, etc.) | Contenus créatifs (textes, images, musique, documentation) — **généralement PAS recommandées pour du code source** (rédigées pour des œuvres au sens droit auteur général, pas pour le logiciel) |
-| **Licences custom** (BSL Business Source License, SSPL Server Side Public License, Commons Clause add-on, Elastic License v2, etc.) | Souvent licences "source-available" hybrides — **risque juridique élevé**, analyse au cas par cas obligatoire ; non reconnues comme open source par l'OSI |
-
-Référence détaillée par licence : `references/licences-open-source.md`.
-
-## Étape 4 — Compatibilité des licences (problème viral)
-
-### Risque "contamination virale"
-
-- Si un projet propriétaire intègre du code GPL → l'ensemble doit être
-  distribué sous GPL (par "contamination").
-- Conséquences pour une startup SaaS : obligation de fournir le code source
-  aux utilisateurs (AGPL) ou clients (GPL en cas de distribution).
-- Risque commercial **majeur** : le modèle business propriétaire devient
-  impossible ; soit on assume l'open source, soit on remplace la dépendance,
-  soit on isole strictement.
-
-### Matrice de compatibilité simplifiée
-
-| Combinaison | Verdict |
-|---|---|
-| MIT / BSD / Apache 2.0 + projet propriétaire | ✅ Compatible (permissive) — conserver copyright + NOTICE Apache |
-| **GPL** + projet propriétaire (intégration code) | ❌ Impossible (contamination GPL) |
-| **LGPL** + projet propriétaire (**liaison dynamique**) | ✅ OK — code LGPL séparé en bibliothèque dynamique |
-| LGPL + projet propriétaire (**liaison statique**) | ⚠️ Contesté (interprétations FSF restrictives vs pratique industrielle plus souple — `[review]` selon contexte) |
-| **AGPL** + SaaS propriétaire | ❌ Impossible (AGPL couvre l'utilisation serveur) |
-| MPL 2.0 + projet propriétaire | ✅ OK fichier par fichier (compartimentation) |
-| Apache 2.0 + GPL v2 | ❌ Incompatible (problème historique patent grant Apache) |
-| Apache 2.0 + GPL v3 | ✅ Compatible (GPL v3 a explicitement résolu le conflit) |
-| MIT + GPL | ✅ Code MIT peut être intégré dans projet GPL (l'inverse non) |
-| Creative Commons **NC** (NonCommercial) + projet commercial | ❌ Impossible (NC = non commercial) |
-| Creative Commons **ND** (NoDerivatives) + projet quel qu'il soit | ⚠️ Très restrictif — pas de modification autorisée |
-| BSL / SSPL / Elastic License + projet SaaS commercial | ❌ Souvent bloquant — analyse spécifique nécessaire `[review]` |
-
-### Recommandations cabinet
-
-- **Tout projet SaaS B2B doit scanner ses dépendances régulièrement** via
-  outils SCA :
-  - Snyk, Black Duck Synopsys, FOSSA, GitHub Dependabot, OWASP
-    Dependency-Check
-  - Cadence recommandée : **mensuelle minimum**, **hebdomadaire** en phase
-    de croissance ou pré-levée
-
-- **Politique de cabinet type** (à adapter selon secteur et tolérance
-  risque) :
-
-  - **Whitelist** (utilisation sans validation préalable) : MIT, BSD-2-Clause,
-    BSD-3-Clause, ISC, Apache 2.0, MPL 2.0 (compartimentation respectée)
-  - **Validation case par case** : LGPL v2.1 / v3 (OK si liaison
-    dynamique exclusivement) ; licences custom source-available (Elastic
-    License v2, BSL avec date de bascule, etc.)
-  - **Blacklist** (interdit sauf isolation stricte en microservice séparé
-    sans intégration directe) : GPL v2, GPL v3, AGPL v3, SSPL, Creative
-    Commons NC
-
-- **Cleanup audit pré-levée Series A+** : exiger SBOM (Software Bill of
-  Materials) au format SPDX ou CycloneDX + analyse licences avant due
-  diligence investisseurs. C'est devenu un standard de la due diligence
-  tech (les investisseurs en exigent souvent un en data room).
-
-- **Désynchronisation à surveiller** : auditer les dépendances qui ont
-  **changé de licence** par l'amont (cas devenu fréquent — ElasticSearch
-  passé en SSPL en 2021, MongoDB en 2018, Redis Stack en 2024, Terraform en
-  BSL en 2023). Tout changement de licence amont peut rendre une
-  dépendance soudainement incompatible avec le modèle business.
-
-- **Documenter** : registre des licences acceptées + responsable conformité
-  (souvent CTO ou DPO) + procédure d'ajout de dépendance (revue licence
-  obligatoire avant merge).
+- **dépendances présentes / non documentées** ;
+- **SBOM disponible / absent** ;
+- **red flags identifiés** ;
+- **escalade requise ou non**.
 
 ---
 
-## Étape 5 — Cas SaaS et bases de données associées
+## Étape 4 — Alerte courte SaaS / bases / datasets
 
-### SaaS — spécificités
+- Si un composant **AGPL** ou assimilé apparaît dans un contexte SaaS,
+  signaler une **forte incompatibilité présumée** et escalader.
+- Si une **base de données** ou un **dataset** joue un rôle matériel dans le
+  produit, ajouter une alerte courte sur la possible coexistence de sujets
+  licences, titularité, base sui generis ou droits sur les données.
+- Ne pas dérouler ici une analyse complète de chaîne de droits data/bases :
+  renvoyer vers `revue-logiciel-donnees` ou `bases-de-donnees`.
 
-- L'utilisateur **n'installe pas** le logiciel chez lui → utilisation à
-  distance via interface web ou API.
-- Le régime L.122-6 s'applique au **code serveur** hébergé chez l'éditeur
-  (l'hébergement = reproduction permanente ; l'exécution = reproduction
-  provisoire en RAM).
-- **L'épuisement du droit de distribution** UsedSoft C-128/11 **ne
-  s'applique PAS** au SaaS — il n'y a pas de "copie vendue" à l'utilisateur
-  qui pourrait être revendue.
+---
 
-**AGPL particulièrement piégeuse en SaaS** :
-- L'utilisation serveur compte comme "distribution" déclenchant l'obligation
-  source ouverte au profit des utilisateurs distants (clause spécifique
-  AGPL §13).
-- Si un SaaS B2B intègre du code AGPL → obligation de **fournir le code
-  source à chaque client utilisateur** (avec une URL de téléchargement
-  accessible depuis l'application).
-- **Pour les startups SaaS** : à éviter absolument sauf si modèle business
-  open source assumé (et même là, attention aux contributions clients qui
-  remontent par l'AGPL).
-- Cas réel piège : un développeur intègre une bibliothèque AGPL en
-  dépendance "temporaire" pour un prototype, le prototype passe en
-  production, et l'éditeur découvre la dépendance lors d'un audit
-  pré-levée — trop tard pour remplacer sans refactoring massif.
+## Étape 5 — Recommandations selon situation
 
-### Bases de données associées au logiciel
+- **Exiger un SBOM ou un export SCA** dès que le projet dépasse le prototype,
+  surtout en SaaS, on-prem, OEM, distribution client ou due diligence.
+- **Traiter GPL, AGPL et licences source-available comme red flags** :
+  triage ici, audit détaillé dans `revue-open-source`.
+- **Traiter LGPL comme point dépendant des faits** : nature de l'intégration,
+  modifications, packaging, redistribution.
+- **Si base ou dataset significatif** : ouvrir un flux séparé vers
+  `revue-logiciel-donnees` ou `bases-de-donnees`.
+- **Conserver le cœur du skill sur le régime logiciel** : titularité, chaîne
+  contractuelle code, publication, cession, licence du projet.
 
-Une base de données peut bénéficier d'une **double protection possible**
-(régimes indépendants — il faut analyser les deux séparément) :
+---
 
-| Régime | Protection | Conditions | Durée |
-|---|---|---|---|
-| **Droit d'auteur** sur la **structure** | Originalité de l'organisation, du choix ou de la disposition des données (L.111-1 + L.112-3) | Critère d'originalité au sens CJUE Infopaq C-5/08 (empreinte personnelle de l'auteur) | 70 ans post mortem auctoris (L.123-1) |
-| **Droit sui generis** L.341-1 sur le **contenu** | Investissement substantiel (financier, matériel, humain) pour constitution, vérification, présentation du contenu | Bénéficiaire = **producteur** de la base (souvent personne morale qui a pris l'initiative et le risque de l'investissement) | **15 ans** à compter de l'achèvement (L.342-5), **renouvelable si modification substantielle** (chaque nouvel investissement substantiel = nouveau délai de 15 ans) |
+### Suites combinées utiles
 
-**Important** :
-- Ces 2 droits sont **indépendants** — une base peut avoir l'un sans
-  l'autre.
-- **Exemple A** : annuaire téléphonique très simple structurellement
-  (tri alphabétique trivial) mais avec contenu massif coûteux à compiler
-  → **sui generis OK, droit d'auteur fragile**.
-- **Exemple B** : base de données scientifique avec **structure innovante**
-  (ontologie originale, schéma relationnel inventif) peu coûteuse à
-  constituer → **droit d'auteur OK, sui generis fragile**.
-- **Exemple C** : base de données client SaaS typique → combine souvent
-  les deux (structure originale + investissement substantiel constitution
-  et maintenance).
-
-**Attention scraping / extraction massive** : L.342-1 interdit l'extraction
-ou la réutilisation **substantielle** (qualitativement ou quantitativement)
-du contenu d'une base protégée par droit sui generis — c'est la base de
-nombreux contentieux contre des concurrents qui scrappent (CJUE Innoweb
-C-202/12 sur les méta-moteurs de recherche).
+- `logiciels-pi` : régime logiciel, titularité, choix de licence projet,
+  triage OSS de premier niveau.
+- `revue-open-source` : inventaire détaillé, conflits, obligations et
+  remédiation OSS.
+- `revue-logiciel-donnees` / `bases-de-donnees` : chaîne de droits data,
+  producteur de base, datasets tiers, droit sui generis.
 
 ## Étape 6 — Recommandations selon situation
 
@@ -676,20 +577,11 @@ C-202/12 sur les méta-moteurs de recherche).
 
 ### SaaS avec dépendances open source mixed
 
-- **Audit SBOM mensuel** via outils SCA (Snyk / FOSSA / Black Duck /
-  Dependabot).
-- **Politique** : isolation AGPL (microservice séparé sans appel direct
-  via API/RPC strict — vérifier avec avocat tech la solidité juridique de
-  l'isolation pour le cas concret), validation LGPL au cas par cas
-  (liaison dynamique uniquement).
-- **Documentation interne** : registre licences + responsable conformité
-  (souvent CTO ou DPO) + procédure d'ajout de dépendance (revue licence
-  obligatoire avant merge en main).
-- **Watch** : changement de licence par auteur upstream (ex : ElasticSearch
-  → SSPL en 2021, MongoDB → SSPL en 2018, Terraform → BSL en 2023,
-  Redis → SSPL en 2024) → **re-évaluation impact** à chaque alerte.
-- **Pré-levée Series A** : SBOM + analyse licences en data room (devenu
-  standard de la DD tech).
+- **SBOM requis** ou, à défaut, export SCA suffisamment exploitable.
+- **Red flags à escalader** : GPL, AGPL, LGPL mal documentée,
+  source-available, licence inconnue ou usage SaaS insuffisamment qualifié.
+- **Ouvrir `revue-open-source`** pour l'inventaire détaillé, la matrice de
+  conflits, les obligations et le plan de remédiation.
 
 ---
 
@@ -706,8 +598,9 @@ backticks pour ne pas casser le rendu interne) :
 > **Analyse régime, pas rédaction contractuelle.** Ce skill identifie la
 > titularité initiale (L.113-9 régime dérogatoire), le droit d'utilisation
 > (L.122-6 + exceptions d'ordre public L.122-6-1), la typologie des licences
-> applicables, les matrices de compatibilité (contamination GPL/AGPL), les
-> régimes particuliers SaaS et bases de données. Il NE rédige PAS le contrat
+> applicables, un triage OSS de haut niveau (dépendances présentes, SBOM
+> disponible ou non, red flags GPL/AGPL/LGPL/source-available), et une alerte
+> courte si base de données ou dataset significatif. Il NE rédige PAS le contrat
 > de cession (= `cession-droit-auteur` V4.1) ni la licence d'utilisation
 > (= `licence-droit-auteur` V4.1). Validation **avocat spécialisé tech /
 > propriété intellectuelle** OBLIGATOIRE avant tout acte (contrat de travail
@@ -716,9 +609,9 @@ backticks pour ne pas casser le rendu interne) :
 
 > **⚠️ Note du relecteur**
 > - **Sources lues :** [CPI articles cités : L.111-1, L.112-3, L.113-9, L.121-7, L.122-6, L.122-6-1, L.131-3, L.341-1, L.342-1+ + jurisprudence : Cass. Pachot 7 mars 1986, CJUE BSA C-393/09, CJUE SAS Institute C-406/10, CJUE UsedSoft C-128/11, CJUE Innoweb C-202/12]
-> - **Dépendances open source auditées :** [SBOM fourni : oui [outil] / non — recommandation scan SCA avant analyse finale]
+> - **Triage OSS :** [dépendances présentes / non documentées ; SBOM fourni : oui [outil] / non ; red flags GPL/AGPL/LGPL/source-available : oui / non / `[a verifier]`]
 > - **Points [review] :** [N éléments à valider avocat tech — détailler les plus critiques]
-> - **Risque contamination GPL/AGPL identifié :** [oui / non / à confirmer après SBOM]
+> - **Escalade OSS :** [aucune / recommandée / prioritaire] — détail composant par composant dans `revue-open-source`
 > - **Avant action :** validation avocat tech / propriété intellectuelle **OBLIGATOIRE** (contrat travail dev, contrat prestation, choix licence, publication, dual licensing, due diligence pré-levée)
 
 **Triage :** 🟢 RÉGIME CLAIR + LICENCES COMPATIBLES / 🟡 MIXTE — POINTS À ARGUMENTER OU REMÉDIER / 🔴 PROBLÉMATIQUE — RISQUE CONTAMINATION OU TITULARITÉ CONTESTABLE
@@ -730,7 +623,7 @@ backticks pour ne pas casser le rendu interne) :
 - **Contexte de développement :** [salariés internes / prestataires externes / mixte / open source community / cofondateurs pré-contrat]
 - **Statut :** [développement initial / extension / fork / dérivation]
 - **Utilisation prévue :** [interne / commercialisation propriétaire / SaaS payant / open source pur / dual licensing]
-- **Dépendances principales :** [liste avec licences ; tag `[non audité]` si SBOM absent]
+- **Dépendances principales :** [liste sommaire ; tag `[a verifier]` si SBOM absent ou inventaire partiel]
 
 ## Titularité initiale (L.113-9)
 
@@ -754,25 +647,27 @@ backticks pour ne pas casser le rendu interne) :
 - Décompilation pour interopérabilité : [applicable / non pertinent / `[review]`]
 - Correction d'erreurs : [applicable / écartée par EULA / non pertinent]
 
-## Licences (typologie + compatibilité)
+## Triage OSS
 
 **Licence du projet envisagée :** [propriétaire EULA / MIT / Apache 2.0 / GPL / AGPL / LGPL / MPL / dual licensing / autre]
 
 **Justification du choix :** [adéquation avec utilisation prévue + objectif communauté/business]
 
-**Compatibilité avec dépendances :**
+**Triage dépendances :**
 
-| Dépendance | Licence amont | Compatible avec projet ? | Action |
+| Dépendance / groupe | Licence amont | Signal de triage | Action |
 |---|---|---|---|
-| [bib 1] | [licence] | [OK / vigilance / bloquant] | [aucune / valider liaison / remplacer / isoler] |
+| [bib 1] | [licence] | [permissive / LGPL à escalader / GPL red flag / AGPL red flag / source-available red flag / `[a verifier]`] | [aucune / audit OSS / vérifier SBOM / escalader] |
 | ... | ... | ... | ... |
 
-**Risque contamination identifié :** [aucun / LGPL liaison statique à vérifier / GPL à remplacer ou isoler / AGPL incompatible avec SaaS propriétaire]
+**Lecture de triage :** [pas de red flag apparent / forte incompatibilité présumée / dépend du mode d'intégration et des faits / `[a verifier]`]
 
-## SaaS / Bases de données (si applicable)
+**Renvoi dédié :** pour l'inventaire détaillé, la matrice de conflits, les obligations notice/source et le plan de remédiation, ouvrir `revue-open-source`.
 
-**SaaS :** [analyse spécifique AGPL + UsedSoft non applicable + clauses EULA]
-**Base de données :** [droit auteur sur structure ? sui generis L.341-1 sur contenu ? producteur identifié ?]
+## SaaS / Bases / Datasets (si applicable)
+
+**SaaS :** [présence éventuelle d'AGPL ou licence assimilée = red flag à escalader ; analyse détaillée dans `revue-open-source`]
+**Base / dataset :** [présence oui/non ; si oui, alerte courte et renvoi vers `revue-logiciel-donnees` ou `bases-de-donnees`]
 
 ## Recommandations selon situation
 
@@ -789,7 +684,7 @@ d'honnête à dire]
 
 1. **Rédiger une cession** — j'ouvre `cession-droit-auteur` (V4.1) avec les paramètres identifiés (cofondateur pré-contrat / agence vers client / contributeurs vers projet)
 2. **Choisir une licence open source** — j'ouvre `licence-droit-auteur` (V4.1) avec arbitrage permissif vs copyleft vs dual licensing selon objectif
-3. **Escalader avocat tech** — je rédige une note pour avocat spécialisé tech / propriété intellectuelle + CTO/GC selon enjeu (contamination GPL/AGPL identifiée, cession rétroactive cofondateur, CLA à mettre en place)
+3. **Escalader avocat tech** — je rédige une note pour avocat spécialisé tech / propriété intellectuelle + CTO/GC selon enjeu (red flags GPL/AGPL à confirmer, cession rétroactive cofondateur, CLA à mettre en place)
 4. **Lancer un audit SBOM** — je documente la procédure d'audit (outils SCA, périmètre, fréquence) et la politique de cabinet à mettre en place
 5. **Autre chose** — dis-moi
 ````
@@ -817,11 +712,11 @@ source), appliquer le gate suivant **avant** la production du livrable :
 > - **Cofondateur qui revendique titularité personnelle** d'un MVP codé
 >   avant signature contrat de travail : blocage de levée, renégociation
 >   valorisation, voire procédure prud'homale en parallèle.
-> - **Licence open source mal choisie** : blocage du business model
->   (copyleft incompatible avec SaaS propriétaire, dual licensing impossible
+> - **Licence open source mal qualifiée** : blocage possible du business model
+>   (forte incompatibilité présumée en cas de GPL/AGPL, dual licensing impossible
 >   sans CLA).
-> - **Dépendances non auditées** : contamination GPL / AGPL imposant
->   l'ouverture du code source de toute l'application ; cas réel de
+> - **Dépendances non auditées** : risque OSS mal qualifié pouvant imposer
+>   une escalade urgente ; cas réel de
 >   contentieux gflwc (Free vs Welte, Edu4 vs AFPA).
 > - **CLA absent sur projet open source** : impossibilité de relicensing
 >   futur, blocage commercialisation.
@@ -842,7 +737,7 @@ source), appliquer le gate suivant **avant** la production du livrable :
 >    Apache 2.0 / GPL / AGPL / LGPL / MPL / dual licensing) + justification
 >    du choix
 > 5. **Dépendances open source** : SBOM (si fourni) ou liste des
->    principales avec licences ; risques contamination identifiés
+>    principales avec licences ; red flags ou points a escalader identifies
 > 6. **Risques identifiés** : verdict prima facie 🟢/🟡/🔴 + zones à
 >    sécuriser
 > 7. **3 questions critiques** à poser à l'avocat :
@@ -915,8 +810,9 @@ créer. Si plusieurs analyses du même jour pour le même projet, suffixer
   V4.1.
 - **Scanner les dépendances open source automatiquement** — relève des
   outils SCA externes : Snyk, FOSSA, Black Duck Synopsys, GitHub Dependabot,
-  OWASP Dependency-Check. Couvert partiellement par `revue-open-source` v0.1
-  préservé (qui structure l'audit mais ne scanne pas le code lui-même).
+  OWASP Dependency-Check. L'audit OSS spécialisé associé relève de
+  `revue-open-source`, qui exploite un SBOM, une liste de dépendances, un
+  manifest ou une policy interne deja fournis, sans scanner magique du depot.
 - **Évaluer la contrefaçon logicielle** (analyse contradictoire substance
   + similitudes substantielles + caractères différenciants ; spécificités
   procédurales : saisie-contrefaçon adaptée au code source, expertise

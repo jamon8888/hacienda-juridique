@@ -427,6 +427,8 @@ export interface CreateServerOptions {
   name: string;
   /** Version du plugin (cf. plugin.json). */
   version: string;
+  /** Groupes de tools à exposer. Par défaut : tous les groupes. */
+  toolGroups?: HaciendaToolGroup[];
 }
 
 export interface CreatedServer {
@@ -434,6 +436,21 @@ export interface CreatedServer {
   /** Démarre le transport stdio + handlers de signal. À await dans le main du plugin. */
   start: () => Promise<void>;
 }
+
+export type HaciendaToolGroup =
+  | "legal_research"
+  | "pi_registries"
+  | "fiscal_sources"
+  | "social_sources"
+  | "server_admin";
+
+const DEFAULT_TOOL_GROUPS: readonly HaciendaToolGroup[] = [
+  "legal_research",
+  "pi_registries",
+  "fiscal_sources",
+  "social_sources",
+  "server_admin"
+] as const;
 
 /**
  * Crée un MCP server préconfiguré avec les 10 tools Légifrance, le cache SQLite
@@ -447,6 +464,7 @@ export interface CreatedServer {
 export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
   const config = loadConfig();
   const judilibreConfig = loadJudilibreConfig();
+  const enabledToolGroups = new Set(opts.toolGroups ?? DEFAULT_TOOL_GROUPS);
   log.info(`${opts.name} mcp server starting`, { env: config.env });
 
   const cache = new ResponseCache({ path: `${config.cacheDir}/cache.db` });
@@ -456,41 +474,54 @@ export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
 
   const server = new McpServer({ name: opts.name, version: opts.version });
 
-  registerStatus(server, config, cache, auth, http);
-  registerGetArticle(server, http);
-  registerGetCode(server, http);
-  registerGetLoda(server, http);
-  registerGetJurisprudence(server, http);
-  registerGetJorf(server, http);
-  registerGetCirculaire(server, http);
-  registerRecherche(server, http);
-  registerSuggest(server, http);
-  registerCacheClear(server, cache);
-  registerApiCall(server, route);
-  registerBofipAliases(server, http);
-  registerJudilibreTools(server, judilibreConfig);
-  registerBossTools(server);
-  registerEurlexTools(server);
+  if (enabledToolGroups.has("legal_research")) {
+    registerStatus(server, config, cache, auth, http);
+    registerGetArticle(server, http);
+    registerGetCode(server, http);
+    registerGetLoda(server, http);
+    registerGetJurisprudence(server, http);
+    registerGetJorf(server, http);
+    registerGetCirculaire(server, http);
+    registerRecherche(server, http);
+    registerSuggest(server, http);
+    registerJudilibreTools(server, judilibreConfig);
+    registerEurlexTools(server);
+  }
+
+  if (enabledToolGroups.has("server_admin")) {
+    registerCacheClear(server, cache);
+    registerApiCall(server, route);
+  }
+
+  if (enabledToolGroups.has("fiscal_sources")) {
+    registerBofipAliases(server, http);
+  }
+
+  if (enabledToolGroups.has("social_sources")) {
+    registerBossTools(server);
+  }
 
   const inpiCreds = loadInpiCredentials();
-  const inpiClient = inpiCreds ? new InpiClient(inpiCreds) : null;
-  const euipoCreds = loadEuipoCredentials();
-  const euipoClient = euipoCreds ? new EuipoTmviewClient(euipoCreds) : null;
+  if (enabledToolGroups.has("pi_registries")) {
+    const inpiClient = inpiCreds ? new InpiClient(inpiCreds) : null;
+    const euipoCreds = loadEuipoCredentials();
+    const euipoClient = euipoCreds ? new EuipoTmviewClient(euipoCreds) : null;
 
-  registerInpiSearchMarques(server, inpiClient);
-  registerInpiMarqueDetails(server, inpiClient);
-  registerInpiMarquesPublicationsRecentes(server, inpiClient);
-  registerEuipoTmviewSearch(server, euipoClient);
-  registerBopiDernieresPublications(server);
+    registerInpiSearchMarques(server, inpiClient);
+    registerInpiMarqueDetails(server, inpiClient);
+    registerInpiMarquesPublicationsRecentes(server, inpiClient);
+    registerEuipoTmviewSearch(server, euipoClient);
+    registerBopiDernieresPublications(server);
 
-  const inpiBrevetsClient = inpiCreds ? new InpiBrevetsClient(inpiCreds) : null;
-  const oebCreds = loadOebCredentials();
-  const espacenetClient = oebCreds ? new EspacenetClient(oebCreds) : null;
+    const inpiBrevetsClient = inpiCreds ? new InpiBrevetsClient(inpiCreds) : null;
+    const oebCreds = loadOebCredentials();
+    const espacenetClient = oebCreds ? new EspacenetClient(oebCreds) : null;
 
-  registerInpiSearchBrevets(server, inpiBrevetsClient);
-  registerInpiBrevetDetails(server, inpiBrevetsClient);
-  registerEspacenetSearch(server, espacenetClient);
-  registerEspacenetBrevetDetails(server, espacenetClient);
+    registerInpiSearchBrevets(server, inpiBrevetsClient);
+    registerInpiBrevetDetails(server, inpiBrevetsClient);
+    registerEspacenetSearch(server, espacenetClient);
+    registerEspacenetBrevetDetails(server, espacenetClient);
+  }
 
   const start = async () => {
     const transport = new StdioServerTransport();

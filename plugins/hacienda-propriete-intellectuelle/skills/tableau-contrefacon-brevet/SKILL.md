@@ -17,8 +17,8 @@ argument-hint: "[num brevet | doc produit | théorie : littérale/équivalence/l
 **Confrontation ≠ qualification de contrefaçon.** Ce skill produit un
 **tableau d'analyse technique** pour aider le mandataire en brevets ou
 l'avocat à préparer une stratégie d'enforcement. Il NE qualifie PAS la
-contrefaçon (= rôle du juge ou du mandataire/avocat), NE rédige PAS de mise
-en demeure (= rôle `mise-en-demeure-pi`), NE prépare PAS la requête en
+contrefaçon (= rôle du juge ou du mandataire/avocat), NE rédige PAS de lettre
+ou réponse précontentieuse structurée (= rôle `mise-en-demeure-pi`), NE prépare PAS la requête en
 saisie-contrefaçon (= `saisie-contrefacon`). **La qualification
 de contrefaçon est une décision juridique aux conséquences lourdes** :
 risques d'action en concurrence déloyale en cas de mise en demeure abusive,
@@ -954,7 +954,7 @@ lecture technique** — la qualification juridique appartient au mandataire,
 
 ## Que veux-tu faire ?
 
-1. **Préparer la mise en demeure** — j'ouvre `mise-en-demeure-pi` (V0.1) avec le claim chart en pièce jointe interne
+1. **Préparer le paquet d'entrée lettre / réponse** — je prépare puis je route vers `mise-en-demeure-pi` avec `mode`, `droits invoques`, `faits resumes`, `pieces disponibles`, `objectif de ton`, `niveau d'escalade`, plus, pour `draft` / `escalate` si pertinent, `cible exploitable`, `points faibles connus`, `demande principale`, `contrainte calendrier`
 2. **Préparer la saisie-contrefaçon** — j'ouvre `saisie-contrefacon` avec le claim chart en contexte pour préparer la requête et les instructions huissier
 3. **Escalader** — note pour [mandataire en brevets EQE / avocat PI / GC selon approbateurs du profil] avec faits-clés, claim chart résumé et décision attendue
 4. **Approfondir l'analyse équivalence** — itérer sur les éléments ❌ avec données techniques supplémentaires (avis expert, dossier de poursuite, art antérieur)
@@ -1029,7 +1029,7 @@ Matter workspaces hors V1 (cf. `CLAUDE.md` `## 11`).
 Fermer avec l'arbre de décision décrit dans `## Que veux-tu faire ?` du
 template de sortie — les 6 options sont personnalisées au claim chart
 (et non les 5 génériques de `CLAUDE.md` `## 2`). L'option 1 ("Préparer
-la mise en demeure") est l'aboutissement naturel d'un claim chart 🔴 ou
+le paquet d'entrée lettre / réponse") est l'aboutissement naturel d'un claim chart 🔴 ou
 🟠 ; les options 2 et 3 sont les escalades plus lourdes ; les options 4
 et 5 sont les voies d'approfondissement si le tableau n'est pas
 concluant.
@@ -1042,11 +1042,12 @@ concluant.
   juge (TJ Paris, compétence exclusive CPI L.615-1) ou au
   mandataire/avocat dans son analyse de risque. Le claim chart
   **propose une lecture technique** ; il ne tranche pas.
-- **Rédiger la mise en demeure.** Ce livrable est produit par
-  `mise-en-demeure-pi` (V0.1) qui consomme le claim chart en entrée et
-  applique le formalisme propre à la mise en demeure (mention CPI
-  L.615-3, sommation de cesser, délai de réponse, conséquences
-  d'inaction).
+- **Rédiger la mise en demeure ou la réponse précontentieuse.** Router
+  vers `mise-en-demeure-pi` avec un paquet d'entrée compact :
+  `mode`, `droits invoques`, `faits resumes`, `pieces disponibles`,
+  `objectif de ton`, `niveau d'escalade`, plus, pour `draft` /
+  `escalate` si pertinent, `cible exploitable`, `points faibles connus`,
+  `demande principale`, `contrainte calendrier`.
 - **Préparer la requête en saisie-contrefaçon judiciaire** (CPC art. 59,
   CPI L.615-5) — exige une requête motivée présentée au président TJ
   Paris, accompagnée du brevet, de la preuve de vraisemblance, et de

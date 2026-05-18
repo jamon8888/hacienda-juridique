@@ -14,6 +14,10 @@ La regle importante : disponible ne veut pas dire connecte.
 
 Un connecteur present dans `.mcp.json` indique seulement que le plugin sait l'utiliser. Il ne faut annoncer "connecte" que si un test live a reussi.
 
+Pour un serveur MCP local Hacienda, `.mcp.json` doit maintenant declarer un
+serveur executable (`type`, `command`, `args`) et pas seulement un titre
+marketing.
+
 ## Les Trois Niveaux
 
 | Niveau | Ce que ca veut dire | Exemple Hacienda |
@@ -95,6 +99,22 @@ Un entretien de demarrage ou une commande de verification doit produire une tabl
 ```
 
 Ne jamais afficher `✓` sur la seule base d'un `.mcp.json`.
+
+## Plugin Cowork Pilote
+
+`hacienda-propriete-intellectuelle` sert de plugin pilote pour la convention
+Cowork Hacienda :
+
+- `version.json` pour synchroniser la version visible du plugin ;
+- `.mcp.json` `stdio` executable pour le serveur PI local ;
+- chemin user-stable dans `~/.claude/plugins/config/hacienda-juridique/...` ;
+- scoping explicite des tools exposes par le serveur.
+
+Convention detaillee :
+
+```text
+docs/integrations/hacienda-cowork-plugin-convention.md
+```
 
 ## PISTE
 

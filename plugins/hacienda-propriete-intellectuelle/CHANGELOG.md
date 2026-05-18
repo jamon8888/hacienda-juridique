@@ -1,5 +1,24 @@
 # Changelog — hacienda-propriete-intellectuelle
 
+Note : ce changelog resume les versions documentees du plugin. Certaines
+versions intermediaires ont pu etre consolidees dans des jalons plus larges.
+
+## 0.17.0 — 2026-05-18
+
+### Packaging du plugin
+- Ajout de `version.json` comme source de vérité de version du plugin PI
+- Version unifiée entre `.claude-plugin/plugin.json`, `version.json`, `mcp-server/package.json` et runtime MCP
+- `.mcp.json` converti en déclaration `stdio` exécutable pour le serveur MCP PI local
+
+### Structure MCP
+- Le serveur `hacienda-propriete-intellectuelle` déclare explicitement ses groupes de tools utiles à la PI
+- Le toolset PI garde les recherches juridiques utiles (Legifrance, Judilibre, EUR-Lex) et les registres PI (INPI, EUIPO, BOPI, OEB)
+- Les tools hors périmètre PI direct (`bofip_*`, `boss_*`, `legifrance_api_call`, `piste_cache_clear`) restent réservés au serveur sources officielles
+
+### Alignement documentaire
+- README PI et documentation d'intégration réalignés avec le runtime réellement livré
+- Nettoyage des références résiduelles de benchmark externe dans les fichiers livrés du plugin
+
 ## 0.9.0 — 2026-05-16
 
 ### Ajouts — Droit d'auteur Qualification (démarrage bloc V4)
@@ -9,13 +28,8 @@
 - Section CLAUDE.md template "Droit d'auteur" (8 placeholders pratique)
 - Section `references/ressources-pi-fr.md` "Droit d'auteur — sources et juridictions"
 
-### À venir
-- Aucun — roadmap 100 % livrée ✅
-
-### Livré (V4.1 / V4.2 / V4.3)
-- V4.1 : `cession-droit-auteur` + `licence-droit-auteur` + `bases-de-donnees` ✅
-- V4.2 : `contrefacon-droit-auteur` ✅
-- V4.3 : `droits-voisins-ogc` (droits voisins + OGC + IA générative + NFT) ✅
+### Suite sobre
+- Les extensions du bloc droit d'auteur sont documentees dans les versions suivantes du changelog.
 
 ### Distinction critique avec régime US
 - Droit FR : pas de formalité (≠ US Copyright Office), droit moral central perpétuel inaliénable (vs VARA US limité), L.113-9 logiciel = inverse du US work-for-hire général
@@ -30,19 +44,11 @@
 - Section CLAUDE.md "Brevets" enrichie (extension + portefeuille)
 - Section ressources "Annuités brevets et services tiers"
 
-### Bloc brevets complet (V2.0 + V2.1 + V2.2)
-- Recherche antériorité → Préparation dépôt FR → Extension internationale FR/EP/PCT → Réponse refus → Claim chart contrefaçon → Nullité (attaque/défense) → Portefeuille avec dashboard = **boucle fermée**
+### Positionnement de la version
+- Cette version ajoute l'extension internationale et la revue de portefeuille brevets au socle brevets deja present.
 
-### Réutilisation cross-version (preuve du standard dashboard)
-- `revue-portefeuille-brevets` (V2.2) consomme `renderDashboard` (V1.1.1) sans modification — démonstration de la réutilisabilité du standard dashboard HTML
-
-### Roadmap complète ✅
-- V2.3 : CCP (Certificats Complémentaires Protection pharma) ✅
-- V1.2 : agent `contrefacon-web` (monitoring marketplaces / réseaux sociaux) ✅
-- V3.0 : bloc dessins/modèles (3 skills) ✅
-- V4.0 : bloc droit d'auteur (6 skills) ✅
-- V5.0 : Contrats PI + audit-pi-ma M&A ✅
-- V6.0 : Contentieux & Enforcement ✅
+### Réutilisation cross-version
+- `revue-portefeuille-brevets` réutilise le standard dashboard HTML introduit plus tot dans le plugin.
 
 ## 0.7.0 — 2026-05-16
 
@@ -91,7 +97,7 @@
 ## 0.5.0 — 2026-05-16
 
 ### Ajouts — Portefeuille + Dashboard HTML
-- Skill `revue-portefeuille-marques` (6 modes CRUD + audit, style Anthropic ip-legal portfolio adapté FR, ~400 lignes)
+- Skill `revue-portefeuille-marques` (6 modes CRUD + audit, standard portefeuille PI adapté FR, ~400 lignes)
 - Module `@hacienda/core/dashboard/` (renderDashboard + escape XSS-safe + template HTML standalone)
 - Premier **dashboard HTML standardisé** : format autonome (zéro CDN), XSS-safe, sortable/filtrable, imprimable A4
 - Référentiel `portfolio.yaml` user-stable validé Zod
@@ -110,7 +116,7 @@
 ## 0.4.0 — 2026-05-16
 
 ### Ajouts — bloc Brevets (MVP V2.0)
-- Skill `recherche-anteriorite-brevet` (style Anthropic adapté FR, classifications X/Y/A/E OEB, approche problème-solution OEB, exclusions L.611-10 CPI, ~750 lignes)
+- Skill `recherche-anteriorite-brevet` (standard structuré adapté FR, classifications X/Y/A/E OEB, approche problème-solution OEB, exclusions L.611-10 CPI, ~750 lignes)
 - Skill `preparation-depot-brevet` (structure CPI L.611-1, rédaction revendications, choix territoire FR/EP/PCT, ~790 lignes)
 - Skill `tableau-contrefacon-brevet` (claim chart Harvey-grade, théorie équivalence L.613-3 + Cour de cass. com. 5 mai 2009, ~1090 lignes)
 - Tools MCP : `inpi_search_brevets`, `inpi_brevet_details`, `espacenet_search`, `espacenet_brevet_details`
@@ -128,7 +134,7 @@
 ## 0.3.0 — 2026-05-16
 
 ### Ajouts
-- Skill `surveillance-marque` (6 modes : --report/--add/--update/--remove/--list/--audit, style Anthropic ip-legal portfolio adapté FR)
+- Skill `surveillance-marque` (6 modes : --report/--add/--update/--remove/--list/--audit, standard portefeuille PI adapté FR)
 - Agent `bopi-watcher` quotidien (escalation immédiate sur 🔴 OPPOSITION URGENTE < 30 j post-BOPI L.712-4)
 - Tool MCP `inpi_marques_publications_recentes` (delta API depuis date X, fenêtre max 30 j)
 - Référentiel `watchlist.yaml` user-stable validé Zod
@@ -143,7 +149,7 @@
 ## 0.2.0 — 2026-05-15
 
 ### Ajouts
-- Skill `recherche-anteriorite-marque` (style Anthropic `ip-legal`, ~300 lignes)
+- Skill `recherche-anteriorite-marque` (standard structuré PI, ~300 lignes)
 - MCP server avec 4 nouveaux tools : `inpi_search_marques`,
   `inpi_marque_details`, `euipo_tmview_search`,
   `bopi_dernieres_publications` (squelette)
@@ -153,14 +159,28 @@
   `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 - Référentiels : `references/ressources-pi-fr.md` + `classifications-nice.md`
 
-### Préservés (V0.1, banner ajouté)
-- `clearance-marque` (utiliser `recherche-anteriorite-marque` à la place)
-- `depot-preuve-creation`, `mise-en-demeure-pi`, `portefeuille-pi`,
-  `revue-clause-pi`, `revue-logiciel-donnees`, `revue-open-source`,
-  `strategie-defense-pi`, `tri-contrefacon`
+### Migration des anciens skills PI
+- `depot-preuve-creation` devient la brique probatoire canonique du plugin PI
+- `tri-contrefacon` devient l'intake enforcement marques
+- `mise-en-demeure-pi` devient le moteur de lettre PI
+- `revue-open-source` devient l'audit OSS operationnel
+- `revue-logiciel-donnees` est recentre sur la chaine de droits logiciel/data
+- `portefeuille-pi` devient un hub federé marques + brevets en lecture seule
+- `revue-clause-pi` devient la revue ciblee des clauses PI dans les contrats larges
+- `strategie-defense-pi` devient un orchestrateur leger de defense et de routage
+- `clearance-marque` reste maintenu pour compatibilite historique et redirige
+  vers `recherche-anteriorite-marque`
+
+### Migration structurante des skills legacy
+- `tri-contrefacon` et `mise-en-demeure-pi` sont maintenant alignes comme meme
+  chantier d'enforcement
+- `depot-preuve-creation` alimente les skills preuves, opposition et defense
+- `portefeuille-pi` adopte le modele de hub federé en lecture seule
+- `clearance-marque` reste volontairement en alias/sunset plutot qu'en faux
+  workflow autonome
 
 ### À venir (V1.1)
 - Agent `bopi-watcher` (parser BOPI hebdomadaire)
 - Skill `surveillance-marque`
 - Skill `revue-portefeuille-marques` + tableau de bord HTML
-- Migration des 9 skills v0.1 au format V1
+- extensions futures au-dessus de ce socle V1

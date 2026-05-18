@@ -170,7 +170,10 @@ l'utilisateur ne fournit pas tout, demander avant de produire le brouillon
   proposer de la lancer avant d'aller plus loin.
 - Description précise (suffisamment pour identification sans ambiguïté
   dans 30 ans) + supports (manuscrit, fichiers source, format, hash si
-  numérique horodaté via `/hacienda-propriete-intellectuelle:depot-preuve-creation`)
+  un horodatage technique existe déjà, l'indexer et le structurer via
+  `/hacienda-propriete-intellectuelle:depot-preuve-creation` : mode `open`
+  pour `Evidence Register` et `Proof Gaps`, puis `timeline` si une
+  `Timeline` ordonnée est nécessaire avant signature)
 - Date de création (pour calcul durée 70 ans post mortem, et pour étayer
   l'antériorité en cas de contestation)
 
@@ -1558,8 +1561,10 @@ Comme pour tous les skills du plugin, **clôturer par l'arbre de décision
 les faits / Surveiller et attendre / Autre. La question hors checklist
 peut porter par exemple sur : la cohérence du contrat avec les autres
 contrats du dossier (publishing deal antérieur, contrat de prestation
-parent, accord de coproduction), la pertinence d'un dépôt de preuve
-préalable via `/hacienda-propriete-intellectuelle:depot-preuve-creation`,
+parent, accord de coproduction), la pertinence d'un dossier de preuve
+préalable via `/hacienda-propriete-intellectuelle:depot-preuve-creation`
+en mode `open` pour `Evidence Register` et `Proof Gaps`, puis `timeline`
+si une `Timeline` ordonnée est nécessaire,
 ou la nécessité d'une clause RGPD si l'œuvre comporte des données
 personnelles identifiables.
 

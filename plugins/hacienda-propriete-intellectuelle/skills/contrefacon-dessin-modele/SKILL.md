@@ -3,7 +3,7 @@ name: contrefacon-dessin-modele
 description: >
   Qualification et stratégie contentieuse en contrefaçon de dessins et modèles :
   comparaison impression globale, constitution dossier de preuves, saisie-contrefaçon
-  (L.521-4), mise en demeure, référé/fond, évaluation préjudice.
+  (L.521-4), préparation du paquet d'entrée vers `mise-en-demeure-pi`, référé/fond, évaluation préjudice.
   Conforme CPI L.521-1 à L.521-8. Brouillon soumis à validation par un avocat.
 version: "1.0.0"
 authors: ["Hacienda"]
@@ -24,7 +24,7 @@ tags: [dessins-modeles, contrefacon, impression-globale, saisie-contrefacon, pre
 
 <example>
 <user>Un concurrent vend une chaise identique à notre modèle déposé. Comment agir ?</user>
-<response>Qualification contrefaçon D&M : comparaison impression globale sur utilisateur averti (L.521-1 + L.511-4), vérification validité du titre (enregistrement en vigueur, annuités payées), identification actes contrefaisants (fabrication L.521-1, commercialisation, importation), constitution dossier preuves (constat huissier, achat-test, captures web), recommandation saisie-contrefaçon (L.521-4), projet mise en demeure, stratégie (référé interdiction + fond indemnisation).</response>
+<response>Qualification contrefaçon D&M : comparaison impression globale sur utilisateur averti (L.521-1 + L.511-4), vérification validité du titre (enregistrement en vigueur, annuités payées), identification actes contrefaisants (fabrication L.521-1, commercialisation, importation), constitution dossier preuves (constat huissier, achat-test, captures web), recommandation saisie-contrefaçon (L.521-4), préparation du paquet d'entrée pour `mise-en-demeure-pi`, stratégie (référé interdiction + fond indemnisation).</response>
 </example>
 
 <example>
@@ -191,35 +191,20 @@ Urgence ? (atteinte en cours, salon imminent, lancement produit)
 
 ---
 
-## Étape 6 — Mise en demeure (projet)
+## Étape 6 — Orientation vers la lettre ou la réponse
 
-```markdown
-# Projet de mise en demeure — Contrefaçon D&M
+Si la stratégie retient une phase amiable ou une réponse à un grief, router
+vers `mise-en-demeure-pi`.
 
-*Brouillon — à adapter et signer par l'avocat du titulaire*
+Transmettre au minimum :
 
-## Expéditeur
-[Titulaire du D&M / son conseil]
-
-## Destinataire
-[Contrefacteur présumé — dénomination + adresse]
-
-## Objet
-Mise en demeure — Atteinte au dessin/modèle n° [numéro] enregistré le [date]
-
-## Corps
-1. Rappel du titre (numéro, date, office, classe Locarno, reproductions en annexe)
-2. Description des actes contrefaisants constatés
-3. Fondement juridique (L.521-1, L.521-7 CPI ou art. 19, 89 RDMC)
-4. Demandes : cessation immédiate + retrait du marché + indemnisation réservée
-5. Délai de réponse : [15 jours]
-6. À défaut : saisie-contrefaçon + assignation
-
-## Annexes
-- Copie certificat d'enregistrement
-- Reproductions du D&M protégé
-- Preuves de la contrefaçon (constats, captures)
-```
+- `mode` ;
+- `droits invoques` ;
+- `faits resumes` ;
+- `pieces disponibles` ;
+- `objectif de ton` ;
+- `niveau d'escalade` ;
+- et, pour `draft` / `escalate` si pertinent : `cible exploitable`, `points faibles connus`, `demande principale`, `contrainte calendrier`.
 
 ---
 
@@ -267,8 +252,8 @@ Mise en demeure — Atteinte au dessin/modèle n° [numéro] enregistré le [dat
 ## 7. Évaluation préjudice (estimation)
 [Méthode retenue + postes + fourchette]
 
-## 8. Projet mise en demeure
-[Si phase amiable — cf. Étape 6]
+## 8. Orientation lettre / réponse
+[Si phase amiable ou réponse à un grief — préparer le paquet d'entrée pour `mise-en-demeure-pi` : `mode`, `droits invoques`, `faits resumes`, `pieces disponibles`, `objectif de ton`, `niveau d'escalade`, puis, pour `draft` / `escalate` si pertinent, `cible exploitable`, `points faibles connus`, `demande principale`, `contrainte calendrier`]
 
 ## 9. Moyens de défense (si mode --defense)
 [Analyse point par point — cf. Étape 7]
@@ -302,9 +287,10 @@ outputs/contrefacon-dm-<affaire-slug>-YYYY-MM-DD.md
 - Rédiger les actes de procédure (assignation, conclusions, requête saisie-contrefaçon)
 - Effectuer la saisie-contrefaçon (acte d'huissier sous autorisation judiciaire)
 - Représenter en justice (monopole de l'avocat)
+- Produire la lettre de mise en demeure ou la réponse structurée elle-même → router vers `mise-en-demeure-pi` avec le paquet d'entrée adapté
 - Rechercher les antériorités → utiliser `recherche-anteriorite-dm`
 - Préparer un dépôt → utiliser `depot-dessin-modele`
-- Traiter la contrefaçon de marques → utiliser `tri-contrefacon`
+- Traiter l'intake et la qualification d'un dossier de contrefaçon de marques → utiliser `tri-contrefacon`
 - Traiter la contrefaçon de droit d'auteur → utiliser `contrefacon-droit-auteur`
 - Gérer les procédures douanières (retenue, destruction simplifiée)
 

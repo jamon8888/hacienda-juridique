@@ -43,7 +43,10 @@ la fenêtre couverte.
 > matchent une entrée de votre watchlist. Il ne décide PAS d'une opposition,
 > ne calcule PAS un risque de confusion détaillé (= rôle du skill
 > `recherche-anteriorite-marque` ou de l'avocat), n'envoie PAS de mise en
-> demeure. Avant toute action sur une publication signalée, le mandataire
+> demeure. Avant toute action sur une publication signalée, la suite normale
+> reste `recherche-anteriorite-marque` puis opposition si le risque est
+> confirmé. `tri-contrefacon` n'intervient qu'en cas d'usage litigieux déjà
+> exploité, quand le dossier bascule en enforcement. Le mandataire
 > en marques (CPI L.422-4) ou l'avocat évalue le risque de confusion (CJUE
 > Sabel/Canon/Lloyd) sur la base d'une recherche complète.
 
@@ -218,7 +221,8 @@ Modifications de `watchlist.yaml` (modes --add, --update, --remove) ne produisen
 
 - **Décider d'une opposition.** L'évaluation du risque de confusion + la décision d'agir sont du ressort du mandataire INPI ou de l'avocat.
 - **Calculer un risque de confusion détaillé.** Pour cela, router vers `recherche-anteriorite-marque` avec le signe concurrent comme input.
-- **Envoyer une mise en demeure.** Voir `mise-en-demeure-pi` (v0.1).
+- **Envoyer une mise en demeure ou préparer une réponse structurée.** Router vers `mise-en-demeure-pi` avec un paquet d'entrée compact : `mode`, `droits invoques`, `faits resumes`, `pieces disponibles`, `objectif de ton`, `niveau d'escalade`, puis, pour `draft` / `escalate` si pertinent, `cible exploitable`, `points faibles connus`, `demande principale`, `contrainte calendrier` ; si le dossier marques n'est pas encore qualifié, passer d'abord par `tri-contrefacon`.
+- **Basculer une publication détectée en enforcement sans usage exploité identifié.** Pour une publication BOPI ou TMview, la suite normale reste `recherche-anteriorite-marque` puis opposition ; réserver `tri-contrefacon` aux usages litigieux déjà exploités.
 - **Modifier l'agent `bopi-watcher`.** L'agent est versionné dans `agents/bopi-watcher.md` ; modifier sa cadence ou ses tools est un ajustement utilisateur via le profil.
 - **Surveiller noms de domaine, marketplaces, réseaux sociaux.** Voir l'agent `contrefacon-web`.
 - **Opérer sans `inpi_marques_publications_recentes` configuré.** Si le tool n'est pas disponible, le mode `--report` retourne le bucket "Aucune base interrogée" et propose d'exécuter `entretien-demarrage --check-integrations`.

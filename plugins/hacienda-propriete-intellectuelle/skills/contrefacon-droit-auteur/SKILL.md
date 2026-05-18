@@ -3,7 +3,7 @@ name: contrefacon-droit-auteur
 description: >
   Analyse un cas de contrefaçon de droit d'auteur : qualification de l'atteinte
   (reproduction, représentation, adaptation illicites), tableau comparatif
-  œuvre originale vs œuvre contrefaisante, préparation de la mise en demeure,
+  œuvre originale vs œuvre contrefaisante, préparation du paquet d'entrée vers `mise-en-demeure-pi`,
   stratégie contentieuse (TJ Paris, saisie-contrefaçon, préjudice).
   Conforme CPI L.122-4, L.335-2 et suivants. Brouillon soumis à validation par un avocat.
 version: "1.0.0"
@@ -15,7 +15,7 @@ tags: [droit-auteur, contrefacon, enforcement, mise-en-demeure, CPI, L335, preju
 
 > **ANALYSE ET PRÉPARATION STRATÉGIQUE, PAS ACTION JUDICIAIRE.**
 >
-> Ce skill produit une **analyse de contrefaçon** et prépare les éléments nécessaires à l'action (tableau comparatif, projet de mise en demeure, stratégie contentieuse). Il ne remplace ni la saisie d'un avocat, ni l'appréciation judiciaire de la contrefaçon.
+> Ce skill produit une **analyse de contrefaçon** et prépare les éléments nécessaires à l'action (tableau comparatif, paquet de faits pour l'enforcement, stratégie contentieuse). Il ne remplace ni la saisie d'un avocat, ni l'appréciation judiciaire de la contrefaçon.
 >
 > **Contrefaçon = atteinte aux droits patrimoniaux ou moraux de l'auteur.** L'article L.335-2 CPI prévoit jusqu'à 3 ans d'emprisonnement et 300 000 € d'amende. L'action civile (L.331-1-3) permet la réparation intégrale du préjudice.
 >
@@ -25,17 +25,17 @@ tags: [droit-auteur, contrefacon, enforcement, mise-en-demeure, CPI, L335, preju
 
 <example>
 <user>Un site reprend intégralement mes photographies sans autorisation ni crédit. Je veux agir.</user>
-<response>Analyse contrefaçon par reproduction illicite (L.122-3) + atteinte au droit moral de paternité (L.121-1). Tableau comparatif établi (identité visuelle, métadonnées EXIF si disponibles). Projet mise en demeure avec délai 15 jours. Stratégie : notification hébergeur (LCEN art. 6-I-5) en parallèle + référé cessation TJ Paris si non-conformité. Évaluation préjudice : barème photographe + préjudice moral.</response>
+<response>Analyse contrefaçon par reproduction illicite (L.122-3) + atteinte au droit moral de paternité (L.121-1). Tableau comparatif établi (identité visuelle, métadonnées EXIF si disponibles). Préparation du paquet d'entrée pour `mise-en-demeure-pi`. Stratégie : notification hébergeur (LCEN art. 6-I-5) en parallèle + référé cessation TJ Paris si non-conformité. Évaluation préjudice : barème photographe + préjudice moral.</response>
 </example>
 
 <example>
 <user>Notre concurrent a copié la structure et 60% du contenu de notre base de données clients.</user>
-<response>Double fondement : contrefaçon droit auteur sur la structure originale (L.122-4 si originalité démontrée) + extraction illicite sui generis (L.342-1). Tableau comparatif structure + contenu. Mise en demeure double fondement. Stratégie : saisie-contrefaçon (L.332-1) pour préserver la preuve, puis action au fond TJ Paris. Renvoi `bases-de-donnees` pour qualification détaillée du régime de protection.</response>
+<response>Double fondement : contrefaçon droit auteur sur la structure originale (L.122-4 si originalité démontrée) + extraction illicite sui generis (L.342-1). Tableau comparatif structure + contenu. Préparation du paquet d'entrée pour `mise-en-demeure-pi` si une lettre ou une réponse structurée est retenue sur ce double fondement. Stratégie : saisie-contrefaçon (L.332-1) pour préserver la preuve, puis action au fond TJ Paris. Renvoi `bases-de-donnees` pour qualification détaillée du régime de protection.</response>
 </example>
 
 <example>
 <user>Un artiste a repris mon personnage de bande dessinée dans ses illustrations vendues en ligne.</user>
-<response>Analyse contrefaçon par adaptation illicite (L.122-4) : personnage protégeable si caractéristiques originales identifiables. Tableau comparatif traits distinctifs (graphisme, attributs, nom). Mise en demeure + notification plateforme de vente. Stratégie : preuve par constat d'huissier, assignation en contrefaçon TJ Paris, demande interdiction + dommages-intérêts + publication judiciaire.</response>
+<response>Analyse contrefaçon par adaptation illicite (L.122-4) : personnage protégeable si caractéristiques originales identifiables. Tableau comparatif traits distinctifs (graphisme, attributs, nom). Préparation du paquet d'entrée pour `mise-en-demeure-pi`, puis notification plateforme de vente si la stratégie le retient. Stratégie : preuve par constat d'huissier, assignation en contrefaçon TJ Paris, demande interdiction + dommages-intérêts + publication judiciaire.</response>
 </example>
 
 ---
@@ -184,81 +184,28 @@ Procédure d'urgence permettant de faire constater par huissier (sur ordonnance 
 
 ---
 
-## Étape 5 — Mise en demeure
+## Étape 5 — Orientation vers la lettre ou la réponse
 
-### Structure du projet de mise en demeure
+Si une prise de contact formelle, une réponse à grief ou une escalade écrite est
+retenue, préparer le paquet d'entrée et router vers `mise-en-demeure-pi`.
 
-```markdown
-# MISE EN DEMEURE — CONTREFAÇON DE DROIT D'AUTEUR
+Transmettre au minimum :
 
-*Projet — Brouillon soumis à validation par un avocat avant envoi.*
-
-**Expéditeur :** [Titulaire des droits / Avocat mandaté]
-**Destinataire :** [Contrefacteur identifié]
-**Date :** [DATE]
-**Objet :** Atteinte aux droits d'auteur — Mise en demeure de cesser
-
----
-
-Madame, Monsieur,
-
-J'ai l'honneur de vous écrire en qualité de [titulaire des droits / conseil de M./Mme X,
-auteur de l'œuvre « [TITRE] »].
-
-## 1. Faits constatés
-
-[Description factuelle de l'atteinte : œuvre, support, date de découverte, nature
-de l'atteinte (reproduction/représentation/adaptation/droit moral)]
-
-## 2. Droits du titulaire
-
-[Rappel des droits : L.111-1 (naissance à la création), L.122-1+ (droits patrimoniaux),
-L.121-1 (droit moral). Preuve d'antériorité : enveloppe Soleau / publication / dépôt]
-
-## 3. Qualification de la contrefaçon
-
-[Reproduction illicite L.122-3 / Représentation L.122-2 / Adaptation L.122-4 /
-Atteinte droit moral L.121-1. Référence au tableau comparatif annexé]
-
-## 4. Sanctions encourues
-
-La contrefaçon de droit d'auteur est sanctionnée par :
-- Pénalement : 3 ans d'emprisonnement et 300 000 € d'amende (L.335-2)
-- Civilement : dommages-intérêts (L.331-1-3), interdiction sous astreinte,
-  confiscation, publication judiciaire
-
-## 5. Demandes
-
-Je vous mets en demeure, dans un délai de [15] jours à compter de la réception
-de la présente :
-1. De cesser immédiatement toute reproduction/représentation/exploitation
-   de l'Œuvre [URL / support à retirer]
-2. De retirer tout exemplaire de l'Œuvre des supports de diffusion
-3. De mentionner le nom de l'auteur [si atteinte droit paternité]
-4. De verser une indemnisation de [montant ou « à convenir »] au titre
-   du préjudice subi
-5. De confirmer par écrit les mesures prises
-
-## 6. À défaut
-
-À défaut de réponse satisfaisante dans le délai imparti, je me réserve le droit
-de saisir les juridictions compétentes, sans nouvelle mise en demeure, aux fins
-d'obtenir la cessation de l'atteinte, la réparation intégrale du préjudice
-et la publication de la décision.
-
----
-
-[Signature]
-[Pièces jointes : preuve de création, constat d'atteinte, tableau comparatif]
-```
+- `mode` ;
+- `droits invoques` ;
+- `faits resumes` ;
+- `pieces disponibles` ;
+- `objectif de ton` ;
+- `niveau d'escalade` ;
+- et, pour `draft` / `escalate` si pertinent : `cible exploitable`, `points faibles connus`, `demande principale`, `contrainte calendrier`.
 
 ### Notification hébergeur (LCEN art. 6-I-5)
 
-En parallèle de la mise en demeure au contrefacteur, notifier l'hébergeur (si contenu en ligne) :
+En parallèle de la lettre adressée au contrefacteur, notifier l'hébergeur (si contenu en ligne) :
 - Identification du notifiant
 - Description des faits litigieux et localisation (URL)
 - Fondement juridique (CPI L.122-3/4 + LCEN art. 6-I-5)
-- Copie de la mise en demeure adressée au contrefacteur
+- Copie de la lettre adressée au contrefacteur
 
 L'hébergeur doit agir « promptement » pour retirer le contenu ou en rendre l'accès impossible.
 
@@ -425,10 +372,10 @@ outputs/contrefacon-auteur-<oeuvre-slug>-YYYY-MM-DD.md
 
 - Engager une action judiciaire ou signer une assignation
 - Remplacer l'avis d'un avocat spécialisé en PI
-- Envoyer la mise en demeure (validation avocat obligatoire)
+- Produire ou envoyer la lettre de mise en demeure ou la réponse structurée elle-même → router vers `mise-en-demeure-pi` avec le paquet d'entrée adapté
 - Réaliser un constat d'huissier (acte officiel)
 - Évaluer le montant exact du préjudice (appréciation judiciaire)
-- Traiter la contrefaçon de marques → utiliser `tri-contrefacon`
+- Traiter l'intake et la qualification d'un dossier de contrefaçon de marques → utiliser `tri-contrefacon`
 - Traiter la contrefaçon de brevets → utiliser `tableau-contrefacon-brevet`
 - Traiter le contentieux en cours (audience, conclusions) → utiliser le plugin contentieux
 - Gérer les plateformes de signalement (ARCOM, YouTube Content ID) — hors scope V4.2

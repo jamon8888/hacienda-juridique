@@ -291,7 +291,7 @@ outputs/contentieux-pi-<affaire-slug>-YYYY-MM-DD.md
 - Représenter en justice (monopole de l'avocat)
 - Préparer la saisie-contrefaçon → utiliser `saisie-contrefacon`
 - Qualifier la contrefaçon en détail → utiliser les skills spécialisés par droit
-- Rédiger la mise en demeure → utiliser `mise-en-demeure-pi`
+- Router vers `mise-en-demeure-pi` pour la lettre ou la réponse structurée précontentieuse avec un paquet d'entrée compact : `mode`, `droits invoques`, `faits resumes`, `pieces disponibles`, `objectif de ton`, `niveau d'escalade`, et, pour `draft` / `escalate` si pertinent, `cible exploitable`, `points faibles connus`, `demande principale`, `contrainte calendrier`
 - Gérer l'opposition INPI → utiliser `analyse-opposition-marque`
 - Traiter la médiation/arbitrage en détail
 - Exécuter les décisions (signification, liquidation d'astreinte)

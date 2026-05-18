@@ -373,9 +373,11 @@ Plusieurs sous-branches, chacune autonome.
   art. 9 code civil, droit au respect du nom). Le titulaire du nom peut
   s'opposer à son dépôt comme marque par un tiers sans autorisation.
 - **Droit d'auteur antérieur** sur un signe artistique (logo, illustration,
-  composition graphique). L'antériorité doit être prouvée (datation
-  certaine, dépôt SACD / SCAM / horodatage notarial / dépôt
-  `depot-preuve-creation`).
+  composition graphique). L'antériorité doit être prouvée avec un dossier
+  probatoire exploitable : datation certaine, dépôt SACD / SCAM /
+  horodatage notarial, ou ouverture de `depot-preuve-creation` en mode
+  `open` pour `Evidence Register` et `Proof Gaps`, puis `timeline` si une
+  `Timeline` de création doit être ordonnée.
 
 **Évaluation requise** (par sous-branche invoquée) :
 
