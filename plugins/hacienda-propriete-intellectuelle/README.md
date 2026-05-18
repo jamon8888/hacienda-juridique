@@ -2,7 +2,10 @@
 
 `hacienda-propriete-intellectuelle` est le plugin PI de la marketplace Hacienda : marques, portefeuille, clauses PI, open source, logiciel, preuves de creation, contrefacon, mises en demeure et strategie de defense.
 
-Chaque sortie reste un brouillon pour avocat ou juriste : source officielle ou `[a verifier]`, Note de revue, Arbre de decision, validation humaine et dossier de preuve.
+Les sorties du plugin restent des brouillons de travail pour avocat ou juriste.
+Selon le workflow, elles peuvent inclure sources officielles ou `[a verifier]`,
+note de revue, arbre de decision, validation humaine et, si necessaire,
+dossier de preuve.
 
 ## Ce Que Couvre Le Plugin
 
@@ -121,7 +124,9 @@ configure.
 - `depot-dessin-modele`
 - `contrefacon-dessin-modele`
 - `contrats-pi`
-- `audit-pi-ma`
+- `audit-pi-ma` : orchestrateur de due diligence PI M&A, avec modes
+  `buyer-dd`, `seller-clean-room`, `red-flag` et `deal-summary`, s'appuyant
+  sur les skills specialises du plugin
 - `saisie-contrefacon`
 - `contentieux-pi`
 - `certificat-complementaire-protection`
@@ -197,7 +202,7 @@ pointant vers `plugins/hacienda-propriete-intellectuelle/mcp-server/dist/index.j
 - note de clearance ;
 - revue de clauses ;
 - rapport OSS ;
-- registre portefeuille ;
+- vue portefeuille consolidee ;
 - tableau ou dashboard HTML quand le workflow s'y prete ;
 - projet de mise en demeure ;
 - Note de revue.

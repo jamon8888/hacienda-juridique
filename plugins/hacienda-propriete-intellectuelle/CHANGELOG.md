@@ -18,6 +18,9 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 ### Alignement documentaire
 - README PI et documentation d'intégration réalignés avec le runtime réellement livré
 - Nettoyage des références résiduelles de benchmark externe dans les fichiers livrés du plugin
+- `audit-pi-ma` passe d'un rapport monolithique a un orchestrateur M&A PI
+  structure avec routing, findings normalises et sorties `buyer-dd`,
+  `seller-clean-room`, `red-flag` et `deal-summary`
 
 ## 0.9.0 — 2026-05-16
 
