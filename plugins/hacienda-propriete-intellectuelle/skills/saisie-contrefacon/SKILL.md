@@ -1,297 +1,323 @@
 ---
 name: saisie-contrefacon
 description: >
-  Préparation de requête en saisie-contrefaçon (brevets L.615-5, marques L.716-7,
-  dessins et modèles L.521-4, droit d'auteur L.332-1) : projet de requête,
-  choix du type de saisie, instructions huissier, délais d'assignation,
-  gestion post-saisie. Brouillon soumis à validation par un avocat.
-version: "1.0.0"
+  Skill V2 multi-droits de preparation stricte de mesure probatoire, centre
+  sur la requete, le perimetre de saisie, les contraintes d'execution, le
+  secret des affaires et le routage immediat post-saisie. Brouillon soumis a
+  validation par un avocat.
+argument-hint: "[brevet|marque|D&M|auteur|logiciel|mixte]"
+version: "2.0.0"
 authors: ["Hacienda"]
-tags: [saisie-contrefacon, requete, huissier, preuve, brevets, marques, dessins-modeles, droit-auteur]
+tags: [saisie-contrefacon, requete, commissaire-justice, preuve, brevets, marques, dessins-modeles, droit-auteur, logiciel]
 ---
 
-# Skill — Saisie-contrefaçon
-
-> **BROUILLON DE REQUÊTE ET INSTRUCTIONS, PAS ACTE DE PROCÉDURE.**
->
-> Ce skill prépare la **requête en saisie-contrefaçon** et les instructions
-> d'exécution. La requête doit être déposée par un avocat inscrit au barreau
-> et l'exécution réalisée par un huissier de justice (commissaire de justice).
-> Ce skill ne se substitue pas à l'avocat ni à l'huissier.
->
-> Les sorties sont des **brouillons**. Validation avocat obligatoire avant dépôt.
-
-## Examples
-
-<example>
-<user>Prépare une saisie-contrefaçon de brevet chez notre concurrent qui fabrique le produit litigieux.</user>
-<response>Projet de requête en saisie-contrefaçon brevet (L.615-5) : identification du brevet, désignation des locaux (usine, entrepôt), type de saisie (description + réelle + documents comptables), commencement de preuve, nécessité d'un expert technique, instructions huissier, rappel délai 20 jours ouvrables ou 31 jours civils pour assigner (L.615-5 al.3).</response>
-</example>
-
-<example>
-<user>On a trouvé des contrefaçons de notre marque sur un site e-commerce. Comment procéder à une saisie ?</user>
-<response>Projet requête saisie-contrefaçon marque (L.716-7) : saisie sur internet (constat + capture technique par huissier), identification du site et de l'hébergeur, saisie descriptive (captures, prix, CGV, mentions légales), achat-test préalable recommandé comme commencement de preuve, délai 20 jours pour assigner.</response>
-</example>
-
----
-
-## Chargement du profil
-
-> Charger les préférences depuis le profil utilisateur :
-> - **Avocat PI référent** (constitution obligatoire)
-> - **Huissier/commissaire de justice habituel**
-> - **Expert technique habituel** (brevets)
-> - **Budget saisie-contrefaçon indicatif**
-
----
-
-## Intake
-
-1. **Droit PI violé** — brevet (L.615-5) / marque (L.716-7) / D&M (L.521-4) / droit d'auteur (L.332-1) / cumul
-2. **Titre** — numéro d'enregistrement, office, date, statut (en vigueur, annuités à jour)
-3. **Contrefacteur présumé** — identité, adresse(s) des locaux visés
-4. **Actes contrefaisants** — fabrication / stockage / vente / importation / en ligne
-5. **Commencement de preuve** — constats antérieurs, achats-test, captures, témoignages
-6. **Type de saisie souhaitée** — description / réelle / documents comptables / mixte
-7. **Expert technique ?** — nécessaire si technicité élevée (brevets, logiciel)
-8. **Urgence** — salon imminent, destruction de preuves crainte, expédition en cours
-9. **Tribunal compétent** — TJ Paris (PI exclusive) ou autre juridiction
-
----
-
-## Étape 1 — Cadre juridique par droit
-
-### Textes fondateurs
-
-| Droit | Article saisie-contrefaçon | Délai d'assignation | Particularités |
-|-------|---------------------------|--------------------|--------------------|
-| **Brevets** | L.615-5 CPI | 20 jours ouvrables ou 31 jours civils | Expert technique recommandé ; saisie réelle possible |
-| **Marques** | L.716-7 CPI | 20 jours ouvrables ou 31 jours civils | Saisie e-commerce fréquente |
-| **D&M** | L.521-4 CPI | 20 jours ouvrables ou 31 jours civils | Impression globale — bien décrire le design |
-| **Droit d'auteur** | L.332-1 CPI | 20 jours ouvrables ou 31 jours civils | Pas de titre enregistré nécessaire (mais preuve d'originalité) |
-| **Logiciel** | L.332-4 CPI | 20 jours ouvrables ou 31 jours civils | Saisie du code source possible (expert informatique) |
-
-### Conditions communes
-
-1. **Titre valide et opposable** (sauf droit d'auteur — preuve d'originalité suffit)
-2. **Commencement de preuve** (apparence sérieuse de contrefaçon — pas de preuve complète exigée)
-3. **Localisation des objets contrefaisants** (adresse précise des locaux)
-4. **Proportionnalité** (ne pas paralyser l'activité du saisi au-delà du nécessaire)
-
----
-
-## Étape 2 — Types de saisie
-
-| Type | Objet | Résultat | Quand l'utiliser |
-|------|-------|----------|-----------------|
-| **Saisie descriptive** | Description détaillée des produits/procédés contrefaisants | PV de description | Cas standard — preuve de la contrefaçon |
-| **Saisie réelle** | Prélèvement d'échantillons (produits, composants) | Objets saisis + PV | Nécessité d'analyse technique (chimie, méca, électronique) |
-| **Saisie de documents** | Comptabilité, factures, bons de commande, correspondance | Documents copiés/saisis | Évaluation du préjudice (volume de ventes) |
-| **Saisie mixte** | Combinaison des trois | PV + objets + documents | Recommandé quand possible — maximise les preuves |
-| **Saisie internet** | Captures techniques d'un site web (pages, code source, métadonnées) | PV de constat numérique | E-commerce, marketplaces, réseaux sociaux |
-
-### Limites de la saisie
-
-- Pas de saisie dans un domicile privé (sauf autorisation du JLD)
-- Respect du secret des affaires du saisi (documents sous scellés si contestation — L.615-5 al.4)
-- Pas de saisie des pièces couvertes par le secret professionnel avocat
-- Proportionnalité : ne pas bloquer la production si la contrefaçon est marginale
-
----
-
-## Étape 3 — Projet de requête
-
-```markdown
-# Requête en saisie-contrefaçon — [DROIT] — [TITRE N°]
-
-*Brouillon — à finaliser et déposer par l'avocat constitué*
-
-## AU PRÉSIDENT DU TRIBUNAL JUDICIAIRE DE [VILLE]
-
-### I. Requérant
-[Identité complète du titulaire du droit, SIREN, siège social, représenté par Me X avocat au barreau de Y]
-
-### II. Titre invoqué
-[Nature du droit (brevet / marque / D&M / droit d'auteur), numéro d'enregistrement, date de dépôt, date de publication, revendications ou reproduction, statut en vigueur, annuités à jour]
-
-### III. Faits — Commencement de preuve de contrefaçon
-[Description des actes contrefaisants constatés, avec pièces justificatives :
-- Pièce 1 : constat d'huissier du [date]
-- Pièce 2 : achat-test du [date] (facture + produit)
-- Pièce 3 : captures d'écran horodatées
-- etc.]
-
-### IV. Nécessité de la saisie
-[Motivation : les preuves sont entre les mains du contrefacteur, risque de disparition, nécessité d'accéder aux locaux pour constater les actes de contrefaçon et leur ampleur]
-
-### V. Mesures sollicitées
-[Cocher / adapter selon le cas :]
-- [ ] Saisie descriptive : autoriser l'huissier à se rendre dans les locaux sis [adresse] pour décrire les produits/procédés contrefaisants
-- [ ] Saisie réelle : autoriser le prélèvement de [N] échantillons
-- [ ] Saisie de documents : autoriser la copie des documents comptables relatifs à la fabrication/commercialisation des produits argués de contrefaçon
-- [ ] Désignation d'un expert technique : [nom, spécialité] pour assister l'huissier
-- [ ] Mesures conservatoires : séquestre des produits saisis
-
-### VI. Locaux visés
-[Adresses précises — usine, entrepôt, siège social, boutique, data center]
-
-### VII. Fondement juridique
-[L.615-5 / L.716-7 / L.521-4 / L.332-1 CPI selon le droit concerné]
-
-### VIII. Pièces jointes
-1. Certificat d'enregistrement du titre (ou preuve d'originalité)
-2. Constats/preuves antérieurs
-3. Extrait K-bis du requérant
-4. Justificatifs du paiement des annuités (brevets/D&M)
-
-## PAR CES MOTIFS
-
-Plaise au Président du Tribunal judiciaire de [ville] d'autoriser les mesures de saisie-contrefaçon sollicitées ci-dessus.
-
-[Signature avocat]
-```
-
----
-
-## Étape 4 — Instructions huissier (commissaire de justice)
-
-```markdown
-# Instructions d'exécution — Saisie-contrefaçon
-
-*À transmettre à l'huissier désigné après obtention de l'ordonnance*
-
-## Ordonnance
-[Référence ordonnance, date, tribunal, juge]
-
-## Locaux à visiter
-[Adresses + horaires d'accès recommandés (heures ouvrables)]
-
-## Personnes à requérir
-- Huissier instrumentaire : [nom]
-- Expert technique (si désigné) : [nom, spécialité]
-- Serrurier (si accès forcé autorisé) : [coordonnées]
-- Force publique (si autorisée) : commissariat de [quartier]
-
-## Opérations à réaliser
-1. Signifier l'ordonnance au saisi (ou à son représentant sur place)
-2. Procéder à la description détaillée des [produits/procédés] contrefaisants
-3. [Si saisie réelle] Prélever [N] échantillons et les placer sous scellés
-4. [Si saisie documents] Copier les documents comptables (factures, bons de commande, registres de ventes) relatifs aux produits litigieux
-5. Consigner toute déclaration du saisi
-6. Photographier les lieux, les produits, les étiquetages, l'organisation de la production
-
-## Points de vigilance
-- NE PAS excéder le périmètre de l'ordonnance
-- Si le saisi invoque le secret des affaires : placer les documents contestés sous scellés (tri ultérieur par le juge — L.615-5 al.4)
-- Si résistance : ne pas forcer sans autorisation JLD ; constater le refus au PV
-- Durée recommandée : [X] heures maximum
-
-## Délai critique
-**Assigner dans les 20 JOURS OUVRABLES ou 31 JOURS CIVILS suivant l'exécution.**
-À défaut : mainlevée de la saisie et nullité des preuves (L.615-5 al.3 / L.716-7 / L.521-4).
-
-## Remise du PV
-- Au requérant (avocat) : sous 48h
-- Copie au saisi : dans les mêmes délais (contradictoire)
-```
-
----
-
-## Étape 5 — Gestion post-saisie
-
-### Délais impératifs
-
-| Étape | Délai | Conséquence du non-respect |
-|-------|-------|---------------------------|
-| Assignation au fond | **20 jours ouvrables ou 31 jours civils** après exécution | Mainlevée + nullité des preuves |
-| Référé-rétractation par le saisi | Pas de délai fixe (urgence) | Risque d'annulation de l'ordonnance |
-| Contestation secret des affaires | Avant l'audience de tri | Documents sous scellés, accès différé |
-
-### Actions post-saisie
-
-1. **Analyser le PV de saisie** — confirmer la contrefaçon à la lecture du PV
-2. **Préparer l'assignation au fond** — dans le délai de 20/31 jours
-3. **Évaluer le préjudice** — à partir des documents comptables saisis
-4. **Décider sur le référé-interdiction** — si urgence (L.615-3 brevets, L.716-6 marques)
-5. **Gérer les scellés** — si contestation secret des affaires, demander audience de tri
-
-### Risques de rétractation (par le saisi)
-
-| Motif | Fréquence | Parade |
-|-------|-----------|--------|
-| Défaut de commencement de preuve | Élevée | Produire pièces solides dans la requête |
-| Disproportion de la mesure | Moyenne | Limiter le périmètre au strict nécessaire |
-| Atteinte au secret des affaires | Moyenne | Accepter le tri sous scellés |
-| Vice de forme (signification) | Faible | Vérifier la qualité de la signification |
-| Titre PI invalide | Rare au stade requête | Vérifier validité en amont |
-
----
-
-## Étape 6 — Spécificités par droit
-
-### Brevets (L.615-5)
-
-- Expert technique quasi-systématique (compréhension du procédé)
-- Saisie réelle fréquente (prélèvement de pièces pour analyse)
-- Attention à la théorie des équivalents (L.613-3) : décrire les variantes aussi
-- Secret de fabrication du saisi : placer sous scellés pour tri judiciaire
-
-### Marques (L.716-7)
-
-- Saisie e-commerce très fréquente (marketplace, réseaux sociaux)
-- Achat-test = meilleur commencement de preuve (produit contrefaisant en main)
-- Documenter la confusion (emballage, étiquetage, signes distinctifs)
-- Importation : coordination avec douanes (retenue douanière règlement UE 608/2013)
-
-### Dessins et modèles (L.521-4)
-
-- Impression globale : photographier sous tous les angles (cf. reproductions du titre)
-- Saisie descriptive primordiale (les visuels sont la preuve centrale)
-- DMCNE (non enregistré UE) : preuve de la date de divulgation par le titulaire
-
-### Droit d'auteur (L.332-1)
-
-- Pas de titre enregistré : fournir preuve de paternité + originalité
-- Dépôt APP/enveloppe Soleau/horodatage blockchain comme preuve de date
-- Saisie de logiciel (L.332-4) : expert informatique obligatoire pour copie code source
-- Agent assermenté possible (art. L.331-2 — organismes professionnels)
-
----
-
-## Gate non-juriste
-
-- [ ] Titre PI valide, en vigueur, annuités à jour (ou preuve originalité pour droit d'auteur)
-- [ ] Commencement de preuve solide (constat, achat-test, captures)
-- [ ] Type de saisie adapté (descriptive, réelle, documents, mixte)
-- [ ] Locaux précisément identifiés
-- [ ] Expert technique prévu si nécessaire (brevets, logiciel)
-- [ ] Délai d'assignation rappelé en gras (20 jours ouvrables / 31 jours civils)
-- [ ] Risques de rétractation anticipés
-- [ ] Secret des affaires : procédure de tri sous scellés prévue
-- [ ] Coordination douanes mentionnée si importation (règlement UE 608/2013)
-
----
-
-## Emplacement des sorties
-
-```
-outputs/saisie-contrefacon-<affaire-slug>-YYYY-MM-DD.md
-```
-
----
+# Skill - Saisie contrefacon V2
+
+> **Mesure probatoire stricte, pas contentieux global.**
+> `saisie-contrefacon` sert a preparer une requete de saisie-contrefacon, le
+> perimetre des operations, les instructions d'execution, la gestion du secret
+> des affaires et les suites immediates post-saisie. Il ne depose pas la
+> requete, ne remplace pas l'avocat ni le commissaire de justice, et ne pilote
+> pas seul la strategie contentieuse globale.
+
+Reference de travail utile :
+`references/saisie-contrefacon-routing-and-output.md`
+
+## Positionnement
+
+`saisie-contrefacon` V2 est un skill de **preparation stricte de mesure
+probatoire**.
+
+Il sert a :
+
+1. qualifier le `rights_track` applicable ;
+2. verifier si une saisie est proceduralement exploitable ;
+3. structurer le projet de requete ;
+4. cadrer le perimetre de saisie ;
+5. preparer les instructions d'execution ;
+6. borner les suites immediates apres execution.
+
+Il ne sert pas a :
+
+- deposer la requete ;
+- piloter seul le contentieux global ;
+- faire une defense de nullite ;
+- rediger une mise en demeure ;
+- se substituer a l'analyse au fond de la contrefacon.
 
 ## Ce skill ne fait pas
 
-- Déposer la requête (acte d'avocat au barreau)
-- Exécuter la saisie (acte d'huissier/commissaire de justice)
-- Rédiger l'assignation au fond (skill futur `assignation-contrefacon`)
-- Traiter le référé-interdiction (procédure distincte)
-- Gérer la retenue douanière (renvoi vers procédure douanière UE 608/2013)
-- Qualifier la contrefaçon elle-même → utiliser `tableau-contrefacon-brevet`, `contrefacon-dessin-modele`, `contrefacon-droit-auteur`, `tri-contrefacon` pour l'intake et la qualification des dossiers marques
-- Évaluer le préjudice en détail (analyse financière post-saisie)
+- Ne depose pas la requete.
+- Ne remplace pas `contentieux-pi`.
+- Ne remplace pas `mise-en-demeure-pi`.
+- Ne remplace pas `tableau-contrefacon-brevet`.
+- Ne remplace pas `contrefacon-droit-auteur`.
+- Ne remplace pas `contrefacon-dessin-modele`.
+- Ne remplace pas l'avocat ou le commissaire de justice.
 
----
+## Chargement du profil
 
-## Ton
+Avant tout, lire :
 
-Procédural, précis, urgent. Insister sur les délais impératifs (20/31 jours) et les conséquences de leur non-respect (mainlevée = perte des preuves). Rappeler systématiquement que la requête est déposée par l'avocat et exécutée par l'huissier. Anticiper les risques de rétractation.
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Rattacher ensuite :
+
+- l'avocat PI referent ;
+- le commissaire de justice habituel ;
+- l'expert technique habituel ;
+- le budget indicatif de saisie ;
+- le role utilisateur courant ;
+- les approbateurs proceduraux.
+
+Si le profil contient `[A CONFIGURER]`, le skill peut fonctionner en mode
+generique, mais chaque sortie doit etre marquee `[PROVISOIRE]`.
+
+## Contrat d'entree V2
+
+Le skill doit expliciter ou deriver :
+
+- `rights_track`: `patent`, `trademark`, `design`, `copyright`,
+  `software`, `mixed`
+- `title_status`: `valid`, `uncertain`, `blocked`
+- `proof_posture`: `strong`, `mixed`, `weak`, `none`
+- `target_location_status`: `identified`, `partial`, `unknown`
+- `seizure_scope`: `descriptive`, `real`, `documents`, `internet`, `mixed`,
+  `unclear`
+- `execution_urgency`: `routine`, `heightened`, `critical`, `unclear`
+- `trade_secret_risk`: `low`, `medium`, `high`, `unclear`
+- `post_seizure_readiness`: `ready`, `partial`, `blocked`
+
+Bloc de faits minimum :
+
+- `right_invoked`
+- `title_reference`
+- `title_validity_status`
+- `suspected_infringer`
+- `target_locations`
+- `suspected_acts`
+- `available_pre_evidence`
+- `requested_seizure_type`
+- `expert_need`
+- `urgency_context`
+- `expected_court`
+
+## Seizure Readiness Gate
+
+Le skill doit evaluer un `Seizure Readiness Gate`.
+
+Statuts :
+
+- `ready`
+- `partial`
+- `blocked`
+
+Passer en `ready` si :
+
+- le titre ou fondement est exploitable ;
+- un commencement de preuve existe ;
+- les lieux ou cibles de saisie sont identifiables ;
+- le perimetre de mesure peut etre formule proprement ;
+- le calendrier post-saisie est tenable.
+
+Passer en `partial` si :
+
+- la saisie reste envisageable ;
+- mais certains points critiques doivent etre confirms ou tags
+  `[a verifier]`.
+
+Passer en `blocked` si :
+
+- le titre est trop incertain ;
+- le commencement de preuve est trop faible ;
+- les lieux ou objets ne sont pas localisables ;
+- la mesure serait disproportionnee ou proceduralement mal fondee.
+
+En `blocked`, produire un constat de blocage et une suite de preparation, pas
+une pseudo-requete.
+
+## Rights Track Notes
+
+### `patent`
+
+- base legale principale : `L.615-5 CPI`
+- expert technique frequemment necessaire ;
+- saisie reelle souvent pertinente ;
+- attention a la technicite du perimetre et aux variantes.
+
+### `trademark`
+
+- base legale principale : `L.716-7 CPI`
+- saisie internet frequente ;
+- achat-test souvent meilleur commencement de preuve ;
+- documenter signes, confusion, emballages et flux commerciaux.
+
+### `design`
+
+- base legale principale : `L.521-4 CPI`
+- la description visuelle est centrale ;
+- bien cadrer l'impression d'ensemble et les angles utiles ;
+- attention au DMCNE si pertinent.
+
+### `copyright`
+
+- base legale principale : `L.332-1 CPI`
+- pas de titre enregistre obligatoire ;
+- verifier paternite, originalite et date ;
+- la preuve initiale doit etre particulierement soignee.
+
+### `software`
+
+- base legale principale : `L.332-4 CPI`
+- expert informatique requis si copie de code ou environnement technique ;
+- bien separer saisie du code, des logs, des binaires, des depots et des
+  documents d'exploitation ;
+- attention accrue au secret des affaires.
+
+### `mixed`
+
+- expliciter les droits cumules ;
+- ne pas fusionner les fondements sans les distinguer ;
+- borner le perimetre de chaque mesure demandee.
+
+## Sortie V2
+
+La sortie doit etre stabilisee en 9 blocs.
+
+### 1. `Case Snapshot`
+
+- droit invoque ;
+- titre ;
+- cible ;
+- actes suspectes ;
+- urgence.
+
+### 2. `Seizure Readiness Gate`
+
+- `ready` / `partial` / `blocked`
+- raison simple ;
+- niveau d'exploitabilite de la mesure.
+
+### 3. `Rights Track And Legal Basis`
+
+- base legale par droit ;
+- specificite du track ;
+- conditions particulieres.
+
+### 4. `Proposed Seizure Scope`
+
+- type de saisie ;
+- locaux / objets / supports vises ;
+- perimetre recommande ;
+- points a exclure.
+
+### 5. `Evidence And Proportionality`
+
+- commencement de preuve ;
+- adequation de la mesure ;
+- limites de proportionalite ;
+- points faibles.
+
+### 6. `Trade Secret And Execution Constraints`
+
+- secret des affaires ;
+- scelles ;
+- expert ;
+- execution pratique ;
+- points de friction previsibles.
+
+### 7. `Drafting And Execution Pack`
+
+- structure de requete ;
+- instructions commissaire de justice ;
+- pieces a joindre ;
+- personnes a mobiliser ;
+- rappel du delai 20 jours ouvrables / 31 jours civils.
+
+### 8. `Decision Routing`
+
+Le skill doit borner ses suites a un jeu ferme :
+
+- `prepare-filing-pack`
+- `prepare-execution-pack`
+- `prepare-post-seizure-assignment`
+- `prepare-evidence-hardening`
+- `route-to-substantive-infringement-review`
+- `hold-insufficient-basis`
+
+Handoffs obligatoires :
+
+- `prepare-filing-pack` : pack pour depot par l'avocat constitue
+- `prepare-execution-pack` : pack operationnel pour commissaire de justice
+- `prepare-post-seizure-assignment` : routage vers `contentieux-pi`
+- `prepare-evidence-hardening` : consolidation du commencement de preuve avant
+  nouvelle tentative
+- `route-to-substantive-infringement-review` : routage vers
+  `tableau-contrefacon-brevet`, `contrefacon-droit-auteur` ou
+  `contrefacon-dessin-modele` selon le `rights_track`
+- `hold-insufficient-basis` : pas de pseudo-requete, blocage explicite
+
+### 9. `Human Validation`
+
+- validation avocat obligatoire ;
+- coordination commissaire de justice ;
+- revue des delais post-saisie ;
+- verification humaine finale ;
+- rappel obligatoire : brouillon, pas acte de procedure final.
+
+## Drafting And Execution Pack
+
+Le skill doit pouvoir produire un pack de travail contenant au minimum :
+
+- un projet de requete structure ;
+- les mesures sollicitees ;
+- les locaux vises ;
+- les pieces jointes attendues ;
+- les instructions d'execution ;
+- les points de vigilance (secret, proportionnalite, resistance, scelles).
+
+Rappel obligatoire :
+
+- brouillon, pas acte final ;
+- validation avocat obligatoire ;
+- execution par commissaire de justice ;
+- delai critique post-saisie.
+
+## Post-Seizure Constraints
+
+Le skill doit rappeler :
+
+- assignation au fond dans les `20 jours ouvrables` ou `31 jours civils`
+  suivant l'execution ;
+- risque de mainlevee et nullite des preuves en cas de non-respect ;
+- risque de retractation si preuve ou perimetre insuffisants ;
+- gestion des scelles et du secret des affaires si contestation.
+
+## Boundary Rules
+
+- `tri-contrefacon` : intake enforcement initial
+- `mise-en-demeure-pi` : lettre et posture precontentieuse
+- `contentieux-pi` : strategie judiciaire globale
+- `tableau-contrefacon-brevet` : claim chart offensif brevet
+- `contrefacon-droit-auteur` : analyse de fond auteur
+- `contrefacon-dessin-modele` : analyse de fond D&M
+
+## Emplacement des sorties
+
+Ecrire les livrables dans :
+
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/`
+
+Format attendu :
+
+- `saisie-contrefacon-<affaire-slug>-YYYY-MM-DD.md`
+
+## Style de sortie
+
+- Procedural, precis, urgent.
+- Distinguer faits, base legale, perimetre, contraintes, routing et
+  validation humaine.
+- Utiliser `[a verifier]` pour toute donnee non recoupee.
+- Utiliser `[PROVISOIRE]` si le profil est incomplet.
+- Ne jamais presenter la requete comme un acte de procedure depose.

@@ -184,7 +184,10 @@ configure.
 - `logiciels-pi` : regime logiciel V2 structure autour de `L.113-9`, des
   droits d'utilisation, du triage OSS de haut niveau et du routage vers
   OSS, chaine de droits, cession, licence ou enforcement
-- `saisie-contrefacon`
+- `saisie-contrefacon` : skill V2 multi-droits de preparation stricte de
+  mesure probatoire, centre sur la requete, le perimetre de saisie, les
+  contraintes d'execution et le routage immediat post-saisie, sans se
+  substituer au contentieux global
 - `contentieux-pi` : strategie judiciaire PI, structuree par `contentious_track`
   et `procedure_stage`, distincte du triage, de la lettre et de la collecte
   probatoire
@@ -376,6 +379,9 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.3 : migration de `saisie-contrefacon` vers un skill V2 multi-droits
+  de preparation stricte de mesure probatoire, avec
+  `Seizure Readiness Gate`, sortie stabilisee et routage post-saisie ferme ;
 - V0.18.2 : migration de `revue-portefeuille-marques` vers un hub
   portefeuille V2, centre sur `report` et `audit`, avec
   `Portfolio Readiness Gate`, sortie `report` stabilisee et dashboard HTML

@@ -3,6 +3,26 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.3 — 2026-05-19
+
+### Alignement documentaire
+- `saisie-contrefacon` est documente en V2 comme skill multi-droits de
+  preparation stricte de mesure probatoire
+- ajout d'un `Seizure Readiness Gate` explicite (`ready`, `partial`,
+  `blocked`) pour borner l'exploitabilite de la mesure selon le titre, la
+  preuve, la localisation et la proportionnalite
+- sortie V2 stabilisee en 9 blocs, centree sur la requete, le perimetre de
+  saisie, les contraintes d'execution, le secret des affaires et le routage
+  post-saisie
+- `Decision Routing` ferme entre `prepare-filing-pack`,
+  `prepare-execution-pack`, `prepare-post-seizure-assignment`,
+  `prepare-evidence-hardening`,
+  `route-to-substantive-infringement-review` et
+  `hold-insufficient-basis`
+- frontieres explicites avec `tri-contrefacon`, `mise-en-demeure-pi`,
+  `contentieux-pi`, `tableau-contrefacon-brevet`,
+  `contrefacon-droit-auteur` et `contrefacon-dessin-modele`
+
 ## 0.18.2 — 2026-05-19
 
 ### Alignement documentaire
