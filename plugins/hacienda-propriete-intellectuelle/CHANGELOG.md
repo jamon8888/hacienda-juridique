@@ -3,6 +3,25 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.0 — 2026-05-19
+
+### Alignement documentaire
+- `strategie-extension-internationale` est documente en V2 comme skill
+  territorial et de sequencement d'un brevet FR initial, avec contrat
+  d'entree ferme, `Extension Readiness Gate` et routage final ferme
+- ajout d'une sortie stabilisee en 9 blocs pour le skill, centree sur le
+  perimetre territorial, la priorite, le budget et la maintenance annuitaire
+- ajout d'un jeu ferme de routes :
+  `stay-fr-only`, `prepare-ep-route`, `prepare-pct-route`,
+  `prepare-sequenced-route`, `hold-for-market-clarification`,
+  `hold-for-budget-clarification`, `hold-priority-risk`
+- ajout du memo de reference
+  `skills/strategie-extension-internationale/references/strategie-extension-internationale-routing-and-output.md`
+- `strategie-extension-internationale` reste distinct de
+  `preparation-depot-brevet`, `analyse-refus-inpi`, `anteriorite-invalidite`
+  et `tableau-contrefacon-brevet`, sans devenir un orchestrateur de
+  portefeuille
+
 ## 0.17.1 — 2026-05-19
 
 ### Alignement documentaire
@@ -113,7 +132,7 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 - Skill `qualification-oeuvre` (originalité L.111-1 + CJUE Infopaq, catégories L.112-2, titularité 7 cas, droits patrimoniaux vs moral L.121-1, durée 70 ans post mortem, ~1020 lignes)
 - Skill `logiciels-pi` (régime dérogatoire L.113-9 employeur titulaire, droit utilisation L.122-6, exceptions L.122-6-1, typologie licences open source + matrices compatibilité, ~970 lignes)
 - Références : `articles-cpi-droit-auteur`, `jurisprudence-originalite`, `regime-logiciel-cpi`, `licences-open-source`
-- Section CLAUDE.md template "Droit d'auteur" (8 placeholders pratique)
+- Section CLAUDE.md template "Droit d'auteur" (8 repères pratiques)
 - Section `references/ressources-pi-fr.md` "Droit d'auteur — sources et juridictions"
 
 ### Suite sobre

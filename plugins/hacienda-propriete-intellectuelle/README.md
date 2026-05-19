@@ -144,6 +144,11 @@ configure.
   distinct du premier passage d'anteriorite, de la revue d'invalidite et du
   claim chart contrefacon, avec Filing Readiness Gate et lanes FR / EP / PCT /
   sequenced
+- `strategie-extension-internationale` : skill V2 territorial et de
+  sequencement, distinct du brief de depot, de l'invalidite adverse et du
+  claim chart, centre sur un `Extension Readiness Gate` et un routing ferme
+  entre voies FR / EP / PCT / `sequenced` ou holds de clarification, y
+  compris `hold-priority-risk`, sans devenir un orchestrateur de portefeuille
 - `analyse-refus-inpi` : skill V2 bi-office `INPI` / `OEB` de reponse a
   notification, centre sur l'analyse argumentaire, distinct de la recherche
   amont, du depot, de la strategie internationale et de l'invalidite adverse,
@@ -252,6 +257,14 @@ Positionnement brevet V2 a retenir :
 - il structure la preparation autour de lanes `FR`, `EP`, `PCT` et
   `sequenced`, avec une branche de priorite / sequencement bornee sans
   absorber `strategie-extension-internationale` ;
+- `strategie-extension-internationale` est la brique territoriale et de
+  sequencement, pas un orchestrateur de portefeuille ;
+- le skill cadre FR / EP / PCT / `sequenced`, applique un
+  `Extension Readiness Gate` explicite (`ready`, `partial`, `blocked`) et
+  retourne une seule issue fermee, soit une voie territoriale (`stay-fr-only`,
+  `prepare-ep-route`, `prepare-pct-route`, `prepare-sequenced-route`) soit un
+  hold de clarification ou de risque priorite, selon marche, budget et
+  priorite ;
 - `analyse-refus-inpi` est un skill V2 bi-office `INPI` / `OEB` de reponse a
   notification, pas une reponse officielle deposee, pas un premier passage
   prior art amont, pas une preparation de depot et pas une revue
@@ -355,6 +368,9 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18 : migration de `strategie-extension-internationale` vers un skill V2
+  territorial et de sequencement, avec `Extension Readiness Gate`, contrat
+  d'entree ferme, routing ferme et reference dediee ;
 - V0.17 : alignement packaging du plugin et runtime MCP, avec `.mcp.json`
   executable, `version.json` et version unifiee sur les surfaces visibles ;
 - serveur MCP PI scope explicitement sur la recherche juridique utile et les
