@@ -104,6 +104,9 @@ Le skill V2 ne doit pas :
    rester relies aux documents consultes ou etre marques comme gaps.
 6. **Validation humaine obligatoire.** L'envoi externe reste du ressort du
    mandataire ou de l'avocat.
+7. **Profil pratique charge.** Le skill doit relire le profil pratique
+   Hacienda et tagger les hypotheses critiques `[PROVISOIRE]` si ce profil
+   est absent ou incomplet.
 
 # Approches considerees
 

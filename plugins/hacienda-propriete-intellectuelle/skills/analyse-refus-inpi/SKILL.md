@@ -47,6 +47,8 @@ Utiliser ce skill pour :
 
 - Toujours rappeler en tete de sortie : `Analyse argumentaire, pas reponse
   officielle.`
+- Si le profil pratique n'est pas stabilise, marquer les hypotheses critiques
+  `[PROVISOIRE]`.
 - Ne jamais presenter la sortie comme une reponse finale a signer ou deposer.
 - Toute objection, citation, date, priorite ou contrainte procedurale doit
   etre rattachee a un document consulte ou marquee `[a verifier]`.
@@ -100,6 +102,24 @@ Bloc de faits minimum :
 - `priority_or_added_matter_risk_status`
 - `language_and_filing_context`
 - `known_missing_material`
+
+## Charger le profil pratique avant de commencer
+
+Avant tout, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Rattacher a l'analyse :
+
+- role de l'utilisateur ;
+- office ou territoire de pratique dominant ;
+- domaines techniques principaux ;
+- niveau de validation attendu par mandataire brevets ou avocat ;
+- posture de prudence sur amendement, divisionnaire ou abandon.
+
+Si le profil est absent ou contient `[A CONFIGURER]`, le dire explicitement et
+tagger les hypotheses critiques ou la sortie `[PROVISOIRE]`.
 
 ## Intake
 
