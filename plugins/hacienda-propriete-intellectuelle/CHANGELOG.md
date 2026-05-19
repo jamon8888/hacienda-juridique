@@ -39,6 +39,11 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
   `surveillance-marque` et `analyse-opposition-marque`
 - cadrage explicite des motifs absolus, de la couverture de recherche et du
   balayage de famille adjacente dans le workflow marques
+- `depot-marque-fr` est documente en V2 comme skill strict de preparation au
+  depot, distinct du premier passage de recherche, de l'opposition et de la
+  surveillance
+- structuration explicite des lanes FR / EU / Madrid avec readiness gate avant
+  toute recommandation de depot effectif
 - `analyse-opposition-marque` passe a un skill d'opposition INPI strict,
   borne par un gate procedurale explicite
 - cartographie stabilisee des droits invoques, des motifs et de leur

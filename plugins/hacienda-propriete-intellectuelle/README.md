@@ -124,6 +124,10 @@ configure.
   marque, structure autour des motifs absolus, de la couverture de recherche,
   du balayage de famille adjacente et du routage vers clearance
   professionnelle, depot, surveillance ou analyse d'opposition
+- `depot-marque-fr` : skill V2 strict de preparation au depot, separe du
+  premier passage de recherche, de l'opposition et de la surveillance,
+  structure par lanes FR / EU / Madrid avec readiness gate avant tout depot
+  effectif
 - `analyse-opposition-marque` : skill d'opposition INPI strict, structure
   autour du gate procedurale, de la cartographie droits / motifs et d'une
   branche coexistence / transaction bornee avant toute escalade hors cadre
@@ -188,6 +192,11 @@ Positionnement marque V2 a retenir :
 - il route ensuite vers une clearance professionnelle, un depot,
   une surveillance ou `analyse-opposition-marque` selon le niveau de risque et
   l'objectif.
+- `depot-marque-fr` est une brique stricte de preparation au depot, pas un
+  moteur de recherche premier passage, pas un skill d'opposition et pas un
+  workflow de surveillance ;
+- le skill organise la preparation par lanes FR / EU / Madrid et verifie un
+  readiness gate avant toute recommandation de depot effectif ;
 - `analyse-opposition-marque` intervient uniquement sur une opposition INPI
   recevable ou imminente, avec controle du gate procedurale avant toute
   analyse au fond ;
