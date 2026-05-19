@@ -133,6 +133,10 @@ configure.
   distinct du premier passage de recherche, de la substance de l'opposition et
   de l'enforcement, avec modes clarifies et monitoring gate avant toute
   escalation
+- `revue-portefeuille-marques` : hub portefeuille marques V2, centre sur
+  `report` et `audit`, avec `Portfolio Readiness Gate`, priorisation des
+  renouvellements, dashboard HTML optionnel et CRUD maintenu comme maintenance
+  secondaire du registre interne
 - `analyse-opposition-marque` : skill d'opposition INPI strict, structure
   autour du gate procedurale, de la cartographie droits / motifs et d'une
   branche coexistence / transaction bornee avant toute escalade hors cadre
@@ -372,6 +376,10 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.2 : migration de `revue-portefeuille-marques` vers un hub
+  portefeuille V2, centre sur `report` et `audit`, avec
+  `Portfolio Readiness Gate`, sortie `report` stabilisee et dashboard HTML
+  maintenu comme vue secondaire ;
 - V0.18.1 : migration de `revue-portefeuille-brevets` vers un hub
   portefeuille V2, centre sur `report` et `audit`, avec
   `Portfolio Readiness Gate`, sortie `report` stabilisee et dashboard HTML

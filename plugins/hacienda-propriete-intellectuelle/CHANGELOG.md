@@ -3,6 +3,25 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.2 — 2026-05-19
+
+### Alignement documentaire
+- `revue-portefeuille-marques` est documente en V2 comme hub portefeuille,
+  centre sur `report` et `audit`, et non plus comme skill CRUD + audit a
+  parts egales
+- ajout d'un `Portfolio Readiness Gate` explicite (`ready`, `partial`,
+  `blocked`) pour borner l'exploitabilite des rapports et audits selon la
+  qualite du registre interne
+- sortie `report` stabilisee en 9 blocs, avec priorisation renouvellements,
+  couverture owner / mandataire, signaux watchlist et `Decision Routing`
+  ferme
+- `audit` recentre sur la sante portefeuille, les findings critiques, leur
+  severite et les regularisations attendues
+- maintien du dashboard HTML via `renderDashboard` de `@hacienda/core`,
+  sans template parallele
+- modes `add`, `update`, `remove`, `list` conserves mais explicitement
+  relegues au rang de maintenance secondaire du registre
+
 ## 0.18.1 — 2026-05-19
 
 ### Alignement documentaire

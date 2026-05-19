@@ -1,502 +1,449 @@
 ---
 name: revue-portefeuille-marques
 description: >
-  Gère le registre du portefeuille de marques détenues (CRUD + audit). Modes :
-  --report (rapport horodaté + dashboard HTML), --add, --update, --remove,
-  --list, --audit. Produit un dashboard HTML standardisé local exploitable
-  sans serveur. NE renouvelle PAS — décision et démarche INPI/EUIPO restent
-  au mandataire en marques ou avocat.
-argument-hint: "[--report [--dashboard] | --add | --update | --remove | --list | --audit]"
+  Hub portefeuille marques V2 centre sur `report` et `audit`, avec dashboard
+  HTML optionnel et priorisation des echeances, renouvellements et gaps de
+  surveillance. Les modes `add`, `update`, `remove` et `list` restent
+  disponibles comme maintenance secondaire du registre `portfolio.yaml`.
+argument-hint: "[--report [--dashboard] | --audit | --add | --update | --remove | --list]"
 ---
 
-# /revue-portefeuille-marques
+# Skill - Revue portefeuille marques V2
 
-**Registre ≠ démarche officielle.** Ce skill produit un **rapport** sur le
-portefeuille consigné dans `portfolio.yaml`. Il NE renouvelle PAS les marques
-auprès de l'INPI/EUIPO/OMPI (= mandataire ou avocat), NE paye PAS les taxes
-(= mandataire + cabinet tiers type CPA Global ou Dennemeyer), NE dépose PAS
-de nouvelle marque (= `depot-marque-fr` V1.1.2). **Un registre désynchronisé
-du registre officiel INPI/EUIPO crée une fausse confiance** : « renouvellement
-payé » dans `portfolio.yaml` ne veut PAS dire renouvellement enregistré côté
-INPI. Cross-vérifier régulièrement contre la base INPI publique
-(https://data.inpi.fr) avant tout déclenchement d'action.
+> **Hub portefeuille, pas registre officiel ni service renouvellements.**
+> `revue-portefeuille-marques` sert d'abord a produire un rapport
+> portefeuille, auditer le registre interne et prioriser les echeances,
+> renouvellements et regularisations. Il ne renouvelle pas les droits, ne paie
+> pas les taxes, ne depose pas de nouvelle marque et ne remplace pas un IPMS,
+> un mandataire en marques ou un avocat.
 
-## Examples
+Reference de travail utile :
+`references/revue-portefeuille-marques-routing-and-output.md`
 
-```
-/hacienda-propriete-intellectuelle:revue-portefeuille-marques
-```
-(défaut : `--report`)
+## Positionnement
 
-```
-/hacienda-propriete-intellectuelle:revue-portefeuille-marques --add
-```
+`revue-portefeuille-marques` V2 est un skill de **pilotage portefeuille**.
 
-```
-/hacienda-propriete-intellectuelle:revue-portefeuille-marques --report --dashboard
-```
+Il sert d'abord a :
 
----
+1. produire un rapport portefeuille exploitable ;
+2. auditer la qualite du registre interne ;
+3. prioriser renouvellements, regularisations et gaps de surveillance ;
+4. generer un dashboard HTML standardise si le contexte le justifie ;
+5. router vers la bonne suite de travail.
 
-## REGISTRE INTERNE, PAS DÉMARCHE OFFICIELLE
+Il sert ensuite, de maniere secondaire, a maintenir `portfolio.yaml` via
+`add`, `update`, `remove` et `list`.
 
-**Reformuler en tête de chaque output. Ne jamais l'enlever.**
+## Ce skill ne fait pas
 
-> **Registre interne, pas démarche officielle.** Ce rapport reflète l'état
-> consigné dans `portfolio.yaml` à la date d'édition. Il ne remplace ni
-> l'inscription au registre INPI/EUIPO/OMPI, ni le paiement effectif des
-> taxes de renouvellement, ni la notification officielle de l'office. Une
-> entrée marquée « renouvellement enregistré » dans le registre interne
-> doit être recoupée avec la base INPI publique
-> (https://data.inpi.fr/marques) ou EUIPO eSearch plus avant toute décision
-> d'arrêt de surveillance ou de communication externe. La démarche
-> officielle (dépôt de la requête de renouvellement, paiement, suivi de la
-> publication BOPI) relève du mandataire en marques inscrit (CPI L.422-4)
-> ou de l'avocat.
+- Ne renouvelle pas une marque aupres de l'INPI, de l'EUIPO ou de l'OMPI.
+- Ne paie pas les taxes de renouvellement.
+- Ne depose pas une nouvelle marque.
+- Ne remplace pas un IPMS ou un docketing professionnel.
+- Ne rend pas une confirmation officielle qu'un renouvellement est enregistre.
+- Ne remplace pas `recherche-anteriorite-marque`, `depot-marque-fr`,
+  `surveillance-marque`, `analyse-opposition-marque`, `audit-pi-ma` ou
+  `portefeuille-pi`.
 
----
+## Modes
 
-## Charger le profil pratique et le portefeuille
+Modes principaux :
+
+- `report`
+- `audit`
+
+Modes secondaires :
+
+- `add`
+- `update`
+- `remove`
+- `list`
+
+Les modes CRUD maintiennent le registre, mais ne redefinissent pas la promesse
+principale du skill, qui reste `report` / `audit`.
+
+## Chargement du profil pratique et du registre
 
 Avant tout travail, lire dans cet ordre :
 
 1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
 2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 3. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/portfolio.yaml`
+4. Optionnel :
+   `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/watchlist.yaml`
 
-Si `portfolio.yaml` est absent, le créer avec le squelette suivant :
+Si `portfolio.yaml` est absent, le creer avec :
 
 ```yaml
 metadata:
-  cabinet: "[depuis CLAUDE.md ; mettre 'à renseigner' si vide]"
+  cabinet: "[depuis CLAUDE.md ; mettre 'a renseigner' si vide]"
   generated: "YYYY-MM-DD"
   last_audit: null
   source_system: "manual"
 assets: []
 ```
 
-et confirmer la création à l'utilisateur.
+Puis confirmer la creation a l'utilisateur.
 
-### Récupération depuis le profil
+Rattacher ensuite explicitement :
 
-- **Rôle utilisateur** (`## Rôle de l'utilisateur courant` du profil PI) :
-  avocat inscrit / mandataire en marques inscrit INPI (CPI L.422-4) /
-  juriste interne / non-juriste avec accès avocat / non-juriste sans accès
-- **Posture enforcement** (mesurée / agressive / conservatrice)
-- **Mandataires associés** (cabinet de marques, correspondants étrangers)
-- **Cadence de revue portefeuille** (trimestrielle / annuelle) — défaut
-  trimestrielle si absent
-- **Format de rapport préféré** (Markdown seul / Markdown + dashboard HTML)
-  — défaut « Markdown + dashboard si > 10 marques »
-- **Sync avec base INPI publique** (manuel trimestriel / au moment de chaque
-  rapport) — défaut « manuel trimestriel »
-- **Approbateurs** pour décisions de renouvellement non systématique
+- le role utilisateur ;
+- la posture enforcement / maintenance ;
+- les mandataires associes ;
+- la cadence de revue portefeuille ;
+- le format de rapport prefere ;
+- la cadence de recoupement registre interne / bases officielles ;
+- les approbateurs pour non-renouvellement ou regularisation ;
+- la posture de surveillance.
 
-### Profil non configuré
+Si le profil contient encore `[A CONFIGURER]`, le skill peut fonctionner en
+mode generique, mais chaque sortie doit etre marquee `[PROVISOIRE]`.
 
-Si le profil PI ou `company-profile.md` contient encore des marqueurs
-`[A CONFIGURER]` :
+## Registre interne, pas demarche officielle
 
-- Proposer `/hacienda-propriete-intellectuelle:entretien-demarrage`
-  (10-15 min) comme chemin nominal
-- OU offrir un mode `provisoire` tagué : tous les outputs sont préfixés
-  `[MODE PROVISOIRE — profil non configuré, défauts génériques appliqués]`
-  et utilisent les défauts (rôle = avocat, posture mesurée, cadence
-  trimestrielle, format Markdown + dashboard)
+Chaque sortie `report` ou `audit` doit rappeler en tete :
 
-Pour `entretien-demarrage` lui-même et `--check-integrations`, ne pas
-bloquer.
+> **Registre interne, pas demarche officielle.** Ce rapport reflete l'etat
+> consigne dans `portfolio.yaml` a la date d'edition. Il ne remplace ni les
+> registres INPI / EUIPO / OMPI, ni la confirmation de paiement des taxes de
+> renouvellement, ni une notification officielle d'un office. Une marque
+> marquee "renouvelee" ou "renouvellement lance" dans le registre interne doit
+> etre recoupee avec les bases publiques et le mandataire avant toute
+> decision. La demarche officielle releve du mandataire en marques ou de
+> l'avocat.
 
----
+Toute information non recoupee reste marquee `[a verifier]`.
 
-## Mode `--report [--dashboard]` (défaut)
+## Contrat d'entree V2 pour `report` et `audit`
 
-Mode principal. Produit un rapport Markdown horodaté + (optionnellement) un
-dashboard HTML standardisé.
+Le skill doit expliciter ou deriver les dimensions suivantes :
 
-### Étape 1 — Calcul de la prochaine échéance par asset
+- `portfolio_source_status`: `present`, `missing`, `partial`
+- `renewal_visibility_status`: `clear`, `partial`, `blocked`
+- `ownership_visibility_status`: `clear`, `partial`, `blocked`
+- `watchlist_status`: `available`, `missing`, `partial`
+- `dashboard_mode`: `markdown-only`, `markdown-plus-dashboard`,
+  `dashboard-required`
+- `portfolio_readiness`: `ready`, `partial`, `blocked`
 
-Pour chaque entrée dans `assets[]` du `portfolio.yaml` :
+Bloc de faits minimum :
 
-- Parcourir `territoires[]`
-- Identifier l'échéance de renouvellement la plus proche (champ
-  `dateRenouvellement`) — c'est elle qui pilote la sévérité globale de
-  l'asset
-- Conserver l'office et le numéro associés (utile pour l'action)
+- `portfolio_path`
+- `asset_count`
+- `last_audit`
+- `renewal_entries_present`
+- `territory_entries_present`
+- `strategic_levels_present`
+- `business_owner_coverage`
+- `mandataire_coverage`
+- `watchlist_cross_reference_status`
 
-Si plusieurs territoires partagent la même échéance, lister les offices
-concernés ensemble.
+## Portfolio Readiness Gate
 
-### Étape 2 — Bucketisation par sévérité
+Le skill doit evaluer un `Portfolio Readiness Gate` pour `report` et `audit`.
 
-Calculer le nombre de jours entre aujourd'hui et l'échéance la plus proche
-(j_restants = dateRenouvellement - today).
+Statuts :
+
+- `ready`
+- `partial`
+- `blocked`
+
+Passer en `ready` si :
+
+- le registre existe ;
+- les renouvellements sont suffisamment renseignes pour prioriser ;
+- les owners et mandataires sont exploitables ;
+- les conclusions portefeuille peuvent etre routees proprement.
+
+Passer en `partial` si :
+
+- le registre existe mais reste incomplet ;
+- certaines echeances, owners, territoires ou signaux watchlist restent
+  `[a verifier]` ;
+- une priorisation partielle reste possible sans fausse certitude.
+
+Passer en `blocked` si :
+
+- le registre est absent et ne peut pas etre cree proprement ;
+- les dates de renouvellement sont trop lacunaires pour produire une
+  priorisation credible ;
+- les champs critiques de titulaire, owner ou mandataire sont trop incomplets ;
+- le recoupement registre / watchlist est trop fragile pour soutenir une
+  recommandation utile.
+
+En `blocked`, produire un constat de blocage et une suite de regularisation,
+pas un faux rapport portefeuille.
+
+## Intake de `report`
+
+Pour `report`, le skill doit :
+
+1. charger le registre et le profil ;
+2. calculer l'echeance de renouvellement la plus proche par actif ;
+3. deriver la severite de renouvellement ;
+4. verifier la couverture de territoires, owner et mandataire ;
+5. recouper, si disponible, avec `watchlist.yaml` ;
+6. evaluer le `Portfolio Readiness Gate` ;
+7. decider si le dashboard HTML est utile ou requis.
+
+### Buckets renouvellement
+
+Calculer `j_restants = dateRenouvellement - today`.
 
 | Bucket | Jours restants | Lecture |
-|---|---|---|
-| 🔴 | < 30 j | URGENCE — renouvellement à enclencher immédiatement |
-| 🟠 | 30 à 90 j | À PRÉPARER — instruction mandataire à formaliser |
-| 🟡 | > 90 j et ≤ 365 j | À PLANIFIER — entrée dans le pipeline trimestriel |
-| 🟢 | > 365 j | STABLE — surveillance passive |
-| ❓ | dateRenouvellement absente / `statut` inconnu / parsing en erreur | À VÉRIFIER |
+| --- | --- | --- |
+| `critical` | `< 30 j` | urgence renouvellement |
+| `watch` | `30 a 90 j` | a preparer ce trimestre |
+| `plan` | `> 90 j et <= 365 j` | a planifier |
+| `stable` | `> 365 j` | surveillance passive |
+| `unknown` | donnee absente / incoherente | a verifier |
 
-### Étape 3 — Cross-référence avec la watchlist V1.1.0
+## Sortie V2 de `report`
 
-Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/watchlist.yaml`
-(si présent — sinon ignorer cette étape).
+La sortie `report` doit rester fermee autour de 9 blocs :
 
-Pour chaque asset :
+1. `Portfolio Snapshot`
+2. `Portfolio Readiness Gate`
+3. `Renewal Priority`
+4. `Coverage And Territories`
+5. `Ownership And Coverage`
+6. `Watchlist Signals`
+7. `Critical Gaps`
+8. `Decision Routing`
+9. `Human Validation`
 
-- Chercher une entrée watchlist dont `motCle` ou `motCleAlternatives` matche
-  le `signe` (égalité insensible à la casse, suppression des espaces)
-- Si match → marquer `surveillance: ✓ WATCH-XXX`
-- Sinon → marquer `surveillance: ❌ unwatched_asset`
+### 1. `Portfolio Snapshot`
 
-Le pattern « unwatched asset » est un finding important pour les marques
-`niveau_strategique = "core"` ou `"important"`.
+Doit contenir au minimum :
 
-### Étape 4 — Format de sortie Markdown
+- taille du portefeuille ;
+- nombre de territoires suivis ;
+- posture enforcement / maintenance ;
+- dernier audit ;
+- nombre d'actifs `core` / `important` / `standard` / `heritage`.
 
-````markdown
-[EN-TÊTE CONFIDENTIALITÉ — selon rôle utilisateur du profil]
+### 2. `Portfolio Readiness Gate`
 
-# Portefeuille marques — Rapport [YYYY-MM-DD]
+Doit contenir :
 
-> **Registre interne, pas démarche officielle.** [paragraphe garde-fou
-> reformulé tel quel — voir section « REGISTRE INTERNE, PAS DÉMARCHE
-> OFFICIELLE » ci-dessus]
+- le statut `ready` / `partial` / `blocked` ;
+- la raison courte ;
+- le niveau de fiabilite general du registre.
 
-> **⚠️ Note du relecteur**
-> - **Registre :** [N marques] sur [N territoires cumulés]
-> - **Cross-watchlist :** [N marques surveillées] / [N total] · [N marques
->   `core` non surveillées] ⚠️
-> - **Échéances < 12 mois :** [N]
-> - **Dernier audit registre :** [last_audit ou « jamais »]
-> - **Avant action :** vérifier base INPI publique
->   (https://data.inpi.fr/marques) ou EUIPO eSearch plus + valider avec
->   mandataire en marques
-
-**Résumé :** N total · N 🔴 · N 🟠 · N 🟡 · N 🟢 · N ❓
-
-## 🔴 ÉCHÉANCE URGENTE (< 30 jours)
-
-Pour chaque hit :
-
-- **[signe]** ([type]) · classes Nice [...] · territoires [...]
-  - Renouvellement [office] [numero] : **[dateRenouvellement] —
-    N j restants**
-  - Titulaire [...] · Mandataire [...] · Business owner [...]
-  - Niveau stratégique : [core / important / standard / heritage]
-  - Surveillance watchlist : [✓ WATCH-XXX / ❌ unwatched]
-  - Référence CPI L.712-9 (durée 10 ans renouvelable)
-
-## 🟠 ÉCHÉANCE À PRÉPARER (30 à 90 j)
-
-[même format]
-
-## 🟡 ÉCHÉANCE PLANIFIÉE (90 j à 12 mois)
-
-[même format]
-
-## 🟢 STABLE (> 12 mois)
-
-Liste compacte (ID · signe · prochaine échéance · niveau) — N entries.
-
-## ❓ ASSETS À VÉRIFIER (données manquantes / statut incertain)
-
-- **[ID] [signe]** : [nature de l'incohérence — `dateRenouvellement` vide,
-  `statut` non standard, territoires sans numero, etc.]
-
-## Findings transverses
-
-- **Marques `core` ou `important` non surveillées :** [liste ID + signe]
-  → recommander l'ajout à la watchlist via
-  `surveillance-marque --add`
-- **Désynchronisation potentielle registre interne / INPI public :** dernier
-  cross-check INPI [date ou « jamais »] — ré-exécuter si > 90 jours
-
-**Une question hors de ma checklist :** [observation seconde-ordre — omis
-si rien]
-
-## Que veux-tu faire ?
-
-1. **Préparer un renouvellement** — je rédige une note pour le mandataire
-   sur l'entrée 🔴 de ton choix
-2. **Escalader** — note pour [approbateur du profil] sur les marques
-   `core` non surveillées
-3. **Compléter les faits** — sync base INPI publique avant toute action
-4. **Ajouter à la watchlist** — pour chaque marque `core` non surveillée,
-   j'ouvre `surveillance-marque --add`
-5. **Autre chose** — dis-moi
-````
-
-### Étape 5 — Génération du dashboard HTML
-
-Déclencheur :
-
-- Flag `--dashboard` explicitement passé
-- OU nombre d'assets > 10 (seuil par défaut, modifiable via le profil
-  CLAUDE.md « Format de rapport préféré »)
-
-Workflow (à exécuter par Claude depuis le skill) :
-
-1. Construire l'objet `DashboardData` (importé de `@hacienda/core`)
-2. Appeler `renderDashboard(data)` (escape XSS automatique côté core)
-3. Écrire le HTML à côté du Markdown :
-   `<output_dir>/portefeuille-YYYY-MM-DD.html`
-4. Surfacer le chemin dans la sortie Markdown :
-   `Dashboard généré : [chemin/portefeuille-YYYY-MM-DD.html]`
-
-Squelette de l'objet `DashboardData` à construire (TypeScript pour
-illustration — Claude doit reproduire la structure quand il appelle le
-module) :
-
-```ts
-import { renderDashboard, type DashboardData } from "@hacienda/core";
-
-const data: DashboardData = {
-  title: `Portefeuille marques — ${cabinet}`,
-  generatedAt: new Date().toISOString().slice(0, 10),
-  summary: [
-    { label: "Total", value: assets.length, emoji: "📊" },
-    { label: "🔴 < 30 j", value: countRed },
-    { label: "🟠 30-90 j", value: countOrange },
-    { label: "🟡 90 j - 12 mois", value: countYellow },
-  ],
-  columns: [
-    { key: "id", label: "ID", width: "100px" },
-    { key: "signe", label: "Marque" },
-    { key: "type", label: "Type", width: "80px" },
-    { key: "classes", label: "Classes Nice" },
-    { key: "territoires", label: "Territoires" },
-    { key: "renouvellement", label: "Renouvellement" },
-    { key: "severite", label: "Sévérité", width: "100px" },
-    { key: "owner", label: "Owner" },
-    { key: "mandataire", label: "Mandataire" },
-    { key: "surveillance", label: "Surveillance" },
-    { key: "niveau", label: "Niveau" },
-  ],
-  rows: assets.map(a => ({
-    id: a.id,
-    signe: a.signe,
-    type: a.type,
-    classes: a.classes.join(", "),
-    territoires: a.territoires.map(t => t.office).join(", "),
-    renouvellement: nearestRenouvellement(a),
-    severite: severityFor(a),                  // emoji 🔴/🟠/🟡/🟢 — déclenche la
-                                               // couleur de ligne dans le template
-    owner: a.business_owner ?? "_non renseigné_",
-    mandataire: a.mandataire ?? "_n/a_",
-    surveillance: isWatched(a, watchlist) ? "✓" : "❌ unwatched",
-    niveau: a.niveau_strategique,
-  })),
-  severityLegend: {
-    "🔴": "< 30 jours",
-    "🟠": "30-90 jours",
-    "🟡": "90 j - 12 mois",
-    "🟢": "> 12 mois",
-  },
-  reviewerNote: "...", // bloc « Note du relecteur » du Markdown ci-dessus
-};
-
-const html = renderDashboard(data);
-await fs.writeFile(
-  `${outputDir}/portefeuille-${date}.html`,
-  html,
-  "utf8",
-);
-```
-
-Le dashboard est autonome (zéro CDN, ouvrable hors-ligne, imprimable A4),
-trie/filtre/recherche côté JS inline, et XSS-safe (escape côté
-`renderDashboard`). Voir `references/dashboard-template.md` (Phase 3) pour
-le détail du pattern et les conventions visuelles.
-
----
-
-## Mode `--add`
-
-Walk interactif. Toutes les valeurs sont validées Zod avant écriture.
-
-1. **signe** (chaîne, ≥ 2 caractères). Refus si < 2 caractères ou chaîne
-   vide après trim — proposer une variante précise.
-2. **type** : `mot` / `figuratif` / `composite` (mot + figuratif). Aucune
-   autre valeur acceptée.
-3. **classes** Nice (1 à 45, au moins une). Validation : entiers en chaîne,
-   pas de doublon, dans la plage [1, 45].
-4. **territoires[]** — pour chaque territoire :
-   - `office` : code (`FR` = INPI, `EM` = EUIPO, autres codes OMPI/OAPI/USPTO
-     selon besoin)
-   - `numero` : numéro de dépôt / d'enregistrement
-   - `dateDepot` (YYYY-MM-DD)
-   - `dateEnregistrement` (YYYY-MM-DD, optionnel si encore en cours
-     d'examen)
-   - `dateRenouvellement` (YYYY-MM-DD — typiquement dateDepot + 10 ans pour
-     FR/EU)
-   - `statut` : `en_examen` / `enregistree` / `opposee` / `radiee` /
-     `expiree`
-5. **titulaire** (raison sociale exacte — important pour audit cross-check
-   contrats).
-6. **mandataire** (cabinet de marques associé, ou « interne » si géré en
-   propre).
-7. **business_owner** (email ou équipe propriétaire métier — ne JAMAIS
-   laisser vide pour les marques `core`/`important`, sinon alertes
-   orphelines).
-8. **niveau_strategique** : `core` / `important` / `standard` / `heritage`.
-   Voir `references/modele-portfolio.md` pour la définition de chaque
-   niveau.
-9. **notes** (libre).
-
-Avant écriture :
-
-- Générer un identifiant `TM-{office_principal}-{N+1}` (ex : `TM-FR-007`)
-  en incrémentant le dernier ID existant pour ce code office
-- Sauvegarder `portfolio.yaml.bak.YYYY-MM-DDTHHMMSS` (backup horodaté)
-- Écrire la nouvelle entrée + `dateAjout: today` + `dernier_audit: null`
-- Confirmer à l'utilisateur l'ajout + l'identifiant attribué
-
----
-
-## Mode `--update`
-
-`/revue-portefeuille-marques --update TM-FR-007`
-
-- Lire l'entrée par ID
-- Afficher en YAML
-- Demander quels champs modifier (interactif)
-- Valider Zod
-- Backup `.bak` horodaté
-- Écrire
-
-Refus si l'ID n'existe pas — proposer `--list` pour vérifier.
-
----
-
-## Mode `--remove`
-
-`/revue-portefeuille-marques --remove TM-FR-007`
-
-- Lire l'entrée
-- Si `niveau_strategique = "core"` : confirmation explicite **+ raison
-  obligatoire** (la raison est inscrite en commentaire dans le backup `.bak`
-  pour traçabilité ultérieure)
-- Si `important` : confirmation simple + raison recommandée
-- Si `standard` / `heritage` : confirmation simple suffit
-- Backup `.bak` horodaté
-- Supprimer l'entrée
-
-Rappeler à l'utilisateur que la suppression du registre interne
-**N'EFFACE PAS** l'enregistrement INPI/EUIPO. Pour radier officiellement
-une marque, voir le mandataire (procédure de renonciation art. R.714-1
-CPI).
-
----
-
-## Mode `--list`
-
-Affiche le registre en table Markdown :
-
-| ID | Signe | Type | Classes | Territoires | Échéance + proche | Niveau | Owner |
-|---|---|---|---|---|---|---|---|
-| TM-FR-001 | APEXLEAF | mot | 25, 35 | FR, EM | 2030-01-15 | core | marketing@acme.fr |
-
-Tri par défaut : échéance la plus proche en premier. Filtres optionnels via
-flags futurs : `--niveau core`, `--office FR`, `--statut enregistree`.
-
-Si registre vide, afficher : « Registre vide. Lance
-`/revue-portefeuille-marques --add` pour ajouter une marque. »
-
----
-
-## Mode `--audit`
-
-Health check du registre (équivalent du `--audit` de `surveillance-marque`).
-
-Findings types :
-
-- **Renouvellements < 12 mois sans plan déclaré** : aucune `notes` mentionnant
-  une instruction mandataire ni `dernier_audit` récent
-- **Marques absentes de la watchlist V1.1.0** : surtout pour `core` /
-  `important` — recommander `surveillance-marque --add`
-- **Classes Nice manquantes vs domaine business du profil** : ex. profil
-  dit « SaaS / logiciel » mais aucune classe 9 (logiciels) ni 42 (services
-  informatiques) sur les marques `core` → flag
-- **Titulaires obsolètes** : raison sociale différente entre `portfolio.yaml`
-  et `company-profile.md` → cross-check contrats / changement raison
-  sociale au RCS
-- **`niveau_strategique` vide ou non standard** : forcer la classification
-- **`business_owner` vide sur `core` / `important`** : marques orphelines
-  → escalation
-- **Désynchronisation INPI public** : aucun cross-check INPI depuis > 90 j
-  (champ `dernier_audit` ancien ou null)
-- **Cap > 100 assets** : recommander un IPMS commercial (Anaqua,
-  Dennemeyer, Questel, Alt Legal) — la gestion manuelle YAML n'est plus
-  raisonnable à ce volume
-
-Sortie : tableau des findings + recommandations bucketées par sévérité,
-sans dashboard HTML (audit court). Mettre à jour `metadata.last_audit` à
-la date du jour après exécution.
-
----
+### 3. `Renewal Priority`
+
+Doit contenir :
+
+- buckets critiques et a preparer ;
+- echeances proches ;
+- actifs orphelins ou ambigus ;
+- rappel que registre interne != confirmation office.
+
+### 4. `Coverage And Territories`
+
+Doit contenir :
+
+- coherence des territoires ;
+- actifs sans couverture claire ;
+- trous de perimetre FR / EU / OMPI ;
+- actifs centraux avec empreinte territoriale sous-documentee.
+
+### 5. `Ownership And Coverage`
+
+Doit contenir :
+
+- titulaires / owners / mandataires manquants ;
+- actifs critiques sans business owner ;
+- incoherences de titulaire ou couverture territoriale.
+
+### 6. `Watchlist Signals`
+
+Doit contenir :
+
+- marques surveillees vs non surveillees ;
+- marques `core` non watchlist ;
+- desalignement portefeuille / surveillance ;
+- absence de recoupement si la watchlist manque.
+
+### 7. `Critical Gaps`
+
+Doit contenir :
+
+- champs critiques manquants ;
+- sections `[a verifier]` ;
+- hypotheses provisoires ;
+- blocages de renouvellement, owner, mandataire, titulaire ou surveillance.
+
+### 8. `Decision Routing`
+
+Le skill doit borner ses suites a un jeu ferme :
+
+- `prepare-renewal-escalation`
+- `prepare-watchlist-regularization`
+- `prepare-portfolio-cleanup`
+- `prepare-territory-review`
+- `hold-for-registry-regularization`
+
+### 9. `Human Validation`
+
+Doit rappeler explicitement :
+
+- validation humaine requise ;
+- verification des bases publiques avant action ;
+- validation mandataire / avocat / owner metier selon le cas.
+
+## Dashboard HTML
+
+Le dashboard reste une sortie secondaire de `report`, jamais un substitut au
+rapport Markdown.
+
+### Regles de declenchement
+
+Le dashboard est genere si :
+
+- `--dashboard` est demande ;
+- ou le profil prefere `markdown-plus-dashboard` ;
+- ou la taille du portefeuille rend la vue tableau nettement utile ;
+- ou `dashboard-required` a ete derive.
+
+### Regles de construction
+
+- Reutiliser strictement `renderDashboard` de `@hacienda/core`.
+- Ne pas introduire de HTML artisanal parallele.
+- Le dashboard doit refleter les memes conclusions que le Markdown.
+- Toute valeur douteuse reste marquee `[a verifier]`.
+- Toute valeur provisoire reste marquee `[PROVISOIRE]`.
+
+Le memo
+`references/revue-portefeuille-marques-routing-and-output.md`
+sert de support de construction.
+
+## Intake de `audit`
+
+`audit` reste un mode portefeuille, pas un effet secondaire du CRUD.
+
+Le skill doit :
+
+1. evaluer le `Portfolio Readiness Gate` ;
+2. reperer les champs critiques manquants ;
+3. classer les findings par severite ;
+4. proposer des regularisations concretes ;
+5. conclure par validation humaine.
+
+## Sortie de `audit`
+
+La sortie `audit` doit contenir au minimum :
+
+1. `Portfolio Readiness Gate`
+2. `Critical Findings`
+3. `Severity`
+4. `Regularization Actions`
+5. `Human Validation`
+
+Les findings doivent prioriser :
+
+- renouvellements manquants ou incoherents ;
+- actifs critiques sans owner ou mandataire ;
+- territoires mal renseignes ;
+- absence de surveillance sur des marques `core` ou `important` ;
+- dates ou statuts incoherents.
+
+## Modes CRUD secondaires
+
+### `add`
+
+`add` sert a inserer une nouvelle entree dans `portfolio.yaml`.
+
+Exiger au minimum :
+
+- signe ;
+- type ;
+- classes Nice ;
+- au moins un territoire ;
+- statut ;
+- `niveau_strategique` ;
+- `business_owner` si actif `core` ou `important`.
+
+Avant ecriture :
+
+- valider le schema ;
+- sauvegarder un backup horodate ;
+- confirmer l'ID attribue ;
+- rappeler qu'ajouter une entree ne depose ni ne renouvelle rien.
+
+### `update`
+
+`update` sert a corriger ou completer une entree existante.
+
+Utilisation prioritaire :
+
+- mise a jour de `dateRenouvellement` ;
+- completude owner / mandataire ;
+- regularisation de territoires ;
+- mise en coherence avec la watchlist.
+
+Rappeler que la mise a jour du registre interne ne vaut pas confirmation
+office.
+
+### `remove`
+
+`remove` sert uniquement a retirer une entree du registre interne apres
+confirmation explicite.
+
+Exiger :
+
+- confirmation de l'ID ;
+- justification simple ;
+- backup avant suppression.
+
+Ne jamais presenter cette suppression comme une renonciation ou radiation
+officielle.
+
+### `list`
+
+`list` sert a exposer le contenu du registre de maniere compacte.
+
+Doit montrer :
+
+- ID ;
+- signe ;
+- prochaine echeance ;
+- niveau strategique ;
+- owner ;
+- statut.
+
+`list` est informatif. Il ne remplace ni `report` ni `audit`.
+
+## Frontieres explicites
+
+- `recherche-anteriorite-marque` : premier passage recherche.
+- `depot-marque-fr` : preparation de depot.
+- `surveillance-marque` : monitoring publication / watchlist.
+- `analyse-opposition-marque` : opposition INPI.
+- `audit-pi-ma` : lecture transactionnelle multi-actifs.
+- `portefeuille-pi` : lecture consolidee federée marques + brevets.
 
 ## Emplacement de sortie
 
-Mode `--report` écrit le Markdown à
-`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/portefeuille-YYYY-MM-DD.md`
-et le HTML (si dashboard généré) à
-`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/portefeuille-YYYY-MM-DD.html`,
-puis surface les deux chemins en fin de sortie.
+Ecrire les livrables dans :
 
-Mode `--audit` écrit à
-`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/portefeuille-audit-YYYY-MM-DD.md`.
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/`
 
-Modes `--add` / `--update` / `--remove` ne produisent pas de sortie
-horodatée — uniquement un message de confirmation + le chemin du backup
-`.bak` créé. Le backup vit dans le même dossier que `portfolio.yaml` :
-`portfolio.yaml.bak.YYYY-MM-DDTHHMMSS`.
+Format attendu :
 
-Si plusieurs rapports sont générés le même jour, suffixer le second avec
-`-N` (ex : `portefeuille-2026-05-16-2.md`).
+- Markdown :
+  `portefeuille-YYYY-MM-DD.md`
+- HTML si dashboard :
+  `portefeuille-YYYY-MM-DD.html`
+- Audit court :
+  `portefeuille-audit-YYYY-MM-DD.md`
 
----
+## Style de sortie
 
-## Ce que ce skill NE fait PAS
-
-- **Renouveler une marque.** La requête de renouvellement, le paiement de
-  la taxe et le suivi de publication BOPI relèvent du mandataire en
-  marques inscrit (CPI L.422-4) ou de l'avocat. Le skill produit
-  uniquement la liste des échéances et la note préparatoire.
-- **Calculer les taxes de renouvellement.** Le calcul (montant par classe,
-  forfait FR/EU/Madrid, surtaxe de retard 6 mois) est différé V1.2.
-- **Payer les annuités.** La gestion des paiements est externalisée à un
-  cabinet tiers spécialisé (CPA Global, Dennemeyer, Anaqua) ou au
-  mandataire — jamais à l'IA.
-- **Déposer une nouvelle marque.** Le dossier de dépôt INPI/EUIPO est
-  préparé par le skill `depot-marque-fr` (V1.1.2) et déposé par le
-  mandataire.
-- **Surveiller les dépôts concurrents.** C'est le rôle de
-  `surveillance-marque` (V1.1.0) couplé à l'agent `bopi-watcher` ou à un
-  service tiers (Corsearch, CompuMark).
-- **Garantir la conformité du registre interne vs INPI/EUIPO officiel.**
-  Le `portfolio.yaml` est un **miroir consigné manuellement**. Une sync
-  périodique avec la base INPI publique gratuite (https://data.inpi.fr) ou
-  EUIPO eSearch plus est obligatoire avant toute action — c'est un travail
-  humain (ou un connecteur futur V1.2).
-- **Évaluer la stratégie globale du portefeuille.** Décisions
-  d'extension internationale, d'abandon de marque `heritage`, de bascule
-  d'un signe vers une marque renforcée → conseiller PI senior + sponsor
-  business. Le skill remonte les findings, pas la décision.
-
----
-
-## Ton
-
-Précis, factuel, orienté action. Le rapport répond en 30 secondes à la
-question : « qu'est-ce qui doit bouger ce trimestre, et qui en est
-responsable ? » Pas de hedging, pas de paragraphe-leçon. Le garde-fou
-« registre ≠ démarche officielle » en tête + le « ce skill NE fait PAS »
-en bas font le travail de scope. Les recommandations sont toujours
-attribuées (à un mandataire nommé, un business owner, un approbateur du
-profil) — jamais « il faudrait que quelqu'un… ».
-
----
+- Distinguer faits, analyse, gaps, decisions et validation humaine.
+- Ne jamais presenter le registre comme une source officielle.
+- Ne jamais masquer une donnee incertaine.
+- Utiliser `[a verifier]` pour tout recoupement non fait.
+- Utiliser `[PROVISOIRE]` si le profil est incomplet.
+- Rester operationnel et concis.
