@@ -1,749 +1,347 @@
 ---
 name: recherche-anteriorite-brevet
 description: >
-  Premier passage de recherche d'antériorité brevet (knockout exclusions
-  L.611-10 CPI + recherche INPI Brevets / OEB Espacenet + appréciation
-  nouveauté et activité inventive selon l'approche problème-solution OEB) —
-  produit une liste de signaux pour décision mandataire en brevets ou avocat,
-  jamais une opinion de brevetabilité ni de liberté d'exploitation. Utiliser
-  pour une nouvelle invention, des codes CIB nouveaux, ou avant un dépôt
-  FR/EP/PCT. Ce skill ne conclut JAMAIS qu'une invention est brevetable.
-argument-hint: "[description invention | codes CIB | territoires FR/EP/PCT]"
+  Premier passage strict de recherche d'anteriorite brevet pour signaler les
+  exclusions, l'art anterieur proche, les lacunes de couverture et les routes
+  amont ou aval avant revue humaine. Ce skill ne conclut jamais qu'une
+  invention est brevetable ni exploitable.
+argument-hint: "[description invention | CIB/CPC | FR/EP/PCT]"
 ---
 
-# /recherche-anteriorite-brevet
+# Skill - Recherche d'anteriorite brevet V2
 
-**Ce n'est PAS une opinion de brevetabilité ni FTO (Liberté d'Exploitation).**
-Une opinion de brevetabilité exige une recherche professionnelle exhaustive
-(Data INPI + OEB Espacenet + Google Patents + littérature non-brevet) et le
-jugement d'un **mandataire en brevets** inscrit à l'OEB (EQE) ou d'un avocat
-spécialisé PI. "Aucune antériorité évidente" issu de ce skill = le triage n'a
-rien trouvé. Cela ne veut pas dire que l'invention est brevetable. *Des
-inventeurs ont perdu des années de R&D sur des brevets refusés pour
-antériorité que le triage n'avait pas trouvée.*
+> **Premier passage, pas une opinion de brevetabilite ni de FTO.**
+> `recherche-anteriorite-brevet` sert a faire un premier triage structure de
+> nouveaute et d'activite inventive sur la base des sources reellement
+> interrogees. Il ne remplace ni une recherche professionnelle exhaustive, ni
+> un mandataire brevets, ni une analyse de contrefacon, ni une analyse de
+> nullite.
 
-## Examples
+Reference de travail utile :
+`references/recherche-anteriorite-brevet-routing-and-output.md`
 
-```
-/hacienda-propriete-intellectuelle:recherche-anteriorite-brevet "Procédé de filtration membranaire à base de polymère X — CIB B01D 71/02 — FR + EP"
-```
+## Positionnement
 
-```
-/hacienda-propriete-intellectuelle:recherche-anteriorite-brevet "Algorithme de compression vidéo basé sur réseau de neurones — CIB H04N 19, G06N 3 — PCT"
-```
+`recherche-anteriorite-brevet` reste la premiere brique de la lane brevets :
 
-```
-/hacienda-propriete-intellectuelle:recherche-anteriorite-brevet
-```
+1. cadrage technique initial ;
+2. premier passage sur exclusions, classifications et art anterieur proche ;
+3. gate de couverture de recherche ;
+4. routage vers depot, invalidite, claim chart ou regime logiciel selon
+   l'issue.
 
-(Le skill demandera la description, la classification CIB, la date de priorité et les territoires.)
+Ce skill est strictement borne au premier passage :
 
----
+- il ne conclut jamais "brevetable" ;
+- il ne conclut jamais "liberte d'exploitation acquise" ;
+- il ne redige pas le dossier de depot ;
+- il ne monte pas un dossier de nullite ou de contrefacon.
 
-## CECI EST UN PREMIER PASSAGE, PAS UNE OPINION DE BREVETABILITÉ
+## Ce skill ne fait pas
 
-**Reformuler en tête de chaque output. Ne jamais l'enlever. Ne jamais l'adoucir.**
+- Ne rend pas une opinion finale de brevetabilite.
+- Ne rend pas une opinion FTO.
+- Ne remplace pas une recherche exhaustive brevets + NPL.
+- Ne redige pas une demande de brevet.
+- Ne prepare pas un dossier d'invalidite contentieuse.
+- Ne fait pas un claim chart de contrefacon.
 
-> **Premier passage, pas une opinion de brevetabilité.** Une opinion de
-> brevetabilité exige une recherche professionnelle exhaustive (Data INPI
-> brevets, OEB Espacenet OPS sur 160M+ documents mondiaux, Google Patents,
-> WIPO PatentScope, et la **littérature non-brevet** — Google Scholar, IEEE,
-> bases sectorielles), suivie d'une analyse revendication par revendication
-> par un **mandataire en brevets** inscrit à l'OEB (qualifié EQE) ou d'un
-> avocat spécialisé en propriété industrielle. "Aucune antériorité évidente"
-> issu de ce skill = le triage n'a rien trouvé dans les bases interrogées.
-> Cela ne veut pas dire que l'invention est nouvelle, ni qu'elle implique
-> une activité inventive, ni qu'elle est brevetable. Cela ne dit RIEN sur
-> la liberté d'exploitation (FTO) — un brevet en vigueur d'un tiers peut
-> bloquer l'exploitation même d'une invention brevetable. Un mandataire en
-> brevets ou un avocat évalue avant tout dépôt, toute communication
-> publique, ou tout investissement industriel.
+## Contrat d'entree V2
 
-C'est le garde-fou le plus visible du plugin. Sous-flagger une antériorité
-= porte à sens unique (R&D engagée, demande déposée, communication publique
-faite, brevet accordé puis annulé en nullité, tous avec une antériorité
-dessous). Sur-flagger = porte à 2 sens, le mandataire élague en revue.
-Rester sur la porte à 2 sens.
+Le skill doit expliciter ou deriver les dimensions suivantes :
 
----
+- `invention_type`: `device`, `process`, `composition`, `software-implemented`,
+  `biotech-medical`, `mixed`, `unknown`
+- `search_intent`: `pre-filing`, `portfolio-extension`, `defensive-check`,
+  `research-check`, `unknown`
+- `territory_scope`: `fr`, `ep`, `pct`, `fr-ep`, `multi-territory`, `unknown`
+- `classification_status`: `known`, `proposed`, `mixed`, `unclear`
+- `search_coverage_gate`: `sufficient-first-pass`, `partial`, `degraded`,
+  `none`
 
-## Charger le profil pratique avant de commencer
+Bloc de faits a exposer explicitement :
+
+- `proposed_invention`
+- `technical_problem`
+- `technical_solution`
+- `known_classifications`
+- `priority_reference_date`
+- `known_prior_art`
+- `search_limitations`
+
+## Chargement du profil pratique
 
 Avant tout, lire :
+
 1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
 2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
-Récupérer :
-- **Rôle** depuis `## 1. Profil cabinet et profil de pratique PI` (avocat
-  inscrit / mandataire en brevets EQE / mandataire en marques INPI / juriste
-  interne / non-juriste — change l'en-tête confidentialité ET le périmètre
-  du secret professionnel).
-- **Juridictions et offices d'inscription** (INPI, OEB, OMPI/PCT — défaut
-  territoires si l'utilisateur n'en spécifie pas).
-- **Domaines techniques principaux** depuis le secteur des clients dominants
-  (mécanique / chimie / pharma / biotech / informatique / électronique /
-  télécom — pondère la lecture des CIB et la pertinence des familles
-  voisines).
-- **Partenaire annuités** (essentiel : un brevet sans paiement d'annuités
-  tombe en domaine public — mentionne dans la sortie qui suivra le portefeuille).
-- **Posture FTO (liberté d'exploitation)** depuis la posture enforcement par
-  défaut (agressive / mesurée / conservatrice — calibre le ton des recommandations).
-- **Matrice d'approbateurs** pour les escalades.
+Rattacher ensuite :
 
-Ce skill ne conclut JAMAIS "invention brevetable" ni "liberté d'exploitation
-acquise".
+- le role utilisateur ;
+- les territoires cibles habituels ;
+- le domaine technique dominant ;
+- la posture de prudence ;
+- les integrations reellement disponibles.
 
-Si le profil contient `[A CONFIGURER]`, surfacer :
-
-> Le profil pratique n'est pas configuré — c'est ce qui adapte la posture, les
-> juridictions, les domaines techniques et la chaîne d'approbation à votre
-> cabinet ou service.
->
-> **Deux choix :**
-> - Lancer `/hacienda-propriete-intellectuelle:entretien-demarrage` (10-15 min)
-> - Dire **"provisoire"** et je lance avec les défauts génériques (rôle
->   avocat, FR + EP, posture mesurée, domaines techniques tous, sans
->   playbook) — chaque sortie sera taggée `[PROVISOIRE — configurer le
->   profil pour une sortie sur mesure]`.
-
-### Mode provisoire
-
-Si l'utilisateur dit "provisoire", lancer normalement avec : posture mesurée,
-rôle avocat, FR + EP, domaines techniques tous, pas de playbook (analyse
-complète plutôt que matching contre une position list). Tagger la note du
-relecteur et chaque finding `[PROVISOIRE]`. À la fin, ajouter :
-
-> "C'était un run générique avec les hypothèses par défaut. Lancer
-> `/hacienda-propriete-intellectuelle:entretien-demarrage` pour calibrer sur
-> VOTRE pratique — votre playbook, vos juridictions, vos domaines techniques,
-> votre tolérance au risque sur la FTO."
-
----
+Si le profil contient `[A CONFIGURER]`, le dire explicitement et tagger la
+sortie `[PROVISOIRE]`.
 
 ## Intake
 
-Demander en un seul batch (pas de jeu de questions à rallonge) :
-
-> Quelques questions avant le triage :
->
-> 1. **Description de l'invention.** Le **problème technique** que résout
->    l'invention + la **solution** apportée, en 2-3 phrases. Pas le pitch
->    commercial — la substance technique.
-> 2. **Domaine technique principal + classification CIB.** Si la CIB est
->    déjà connue (ex. `B01D 71/02` ou `H04N 19/176`), la fournir. Sinon
->    décrire le domaine et je proposerai les codes probables — tu confirmes.
-> 3. **Date de priorité visée.** Date de premier dépôt envisagée, ou date
->    de divulgation publique imminente. **Critique** : tout art antérieur
->    publié avant cette date détruit la nouveauté ; tout ce qui est publié
->    après est hors-jeu (sauf demandes antérieures non publiées au sens
->    Art. 54(3) CBE — citation de classe E).
-> 4. **Territoires cibles.** FR national (INPI) / EP (OEB désignant FR + UE) /
->    PCT international (phase nationale ultérieure). Défaut depuis le
->    profil.
-> 5. **Art antérieur déjà connu de l'inventeur.** Publications
->    scientifiques, brevets concurrents, produits commercialisés, thèses,
->    conférences — tout ce que l'inventeur a déjà identifié. Une recherche
->    qui ignore le contexte connu de l'inventeur passe à côté de
->    l'évidence.
-
-Attendre la réponse. Si la description est vague ("appli IA",
-"nouveau matériau"), pousser une fois :
-
-> Donne ce que l'invention fait techniquement — quelles entrées, quel
-> traitement, quelles sorties, quel effet technique mesurable. La CIB et
-> les antériorités pertinentes en dépendent. Sans précision technique, le
-> triage cherchera dans le mauvais voisinage.
-
----
-
-## Knockout — exclusions de brevetabilité L.611-10 CPI
-
-Avant toute recherche en bases, vérifier les exclusions intrinsèques qui
-condamnent une invention indépendamment de toute antériorité. L'article
-L.611-10 du Code de la propriété intellectuelle (transposition Art. 52 CBE)
-liste ce qui n'est **pas considéré comme une invention**, et ce qui est
-**exclu de la brevetabilité** pour des raisons éthiques ou de politique
-publique. Pour chaque exclusion, évaluer franchement et flagger. Ne pas
-rationaliser un problème évident.
-
-| Exclusion (L.611-10 CPI) | Ce que ça veut dire | Flagger quand |
-|---|---|---|
-| **Découvertes, théories scientifiques** | Loi naturelle pure, observation sans application | L'invention = observation d'un phénomène (constante physique, séquence génétique non isolée) sans procédé ou produit technique exploitant cette observation |
-| **Méthodes mathématiques** | Algorithme abstrait sans effet technique | Formule, méthode de calcul ou modèle décrit sans application technique tangible (signal traité, machine commandée, mesure physique transformée) |
-| **Créations esthétiques** | Œuvres de l'esprit | Apparence, forme purement décorative — relève du droit d'auteur ou du dessin et modèle, pas du brevet |
-| **Plans, principes, méthodes** (intellectuelles, commerciales, jeux) | Business methods, règles de jeu, schémas d'enseignement | Pas de mise en œuvre technique — règle abstraite appliquée par l'humain ou par un ordinateur générique sans effet technique sur la machine elle-même |
-| **Logiciel "en tant que tel"** | Algorithme pur sans effet technique sortant du domaine logiciel | Programme dont la contribution se limite au flux d'instructions, sans effet technique sur le système (traitement signal, contrôle processus, économie ressource physique mesurable). **Distinct des inventions mises en œuvre par ordinateur (CIB G06F) qui restent brevetables si elles résolvent un problème technique** — cf. OEB *Vicom* T-208/84 (1987), confirmé *IBM* T-1173/97 (1998) |
-| **Présentations d'informations** | Affichage UI sans solution technique | Mise en forme d'information à l'attention de l'utilisateur sans résolution d'un problème technique (le contenu informationnel n'est pas en soi brevetable) |
-| **Méthodes chirurgicales, thérapeutiques, de diagnostic** (sur corps humain ou animal) | Acte médical exécuté sur le corps | Méthode pratiquée par un praticien sur un patient. **À distinguer** : les **produits et dispositifs** (médicaments, implants, instruments) eux-mêmes restent brevetables (L.611-16 CPI, Art. 53(c) CBE) — seule la *méthode* est exclue |
-
-**Note importante sur le logiciel.** La jurisprudence OEB (notamment *Vicom*
-T-208/84 et la lignée qui suit) a établi que le critère opérationnel est la
-présence d'un **effet technique supplémentaire** (further technical effect)
-au-delà des interactions normales entre logiciel et matériel. Un algorithme
-de compression d'image qui réduit l'occupation mémoire d'un capteur,
-un protocole qui économise la batterie d'un IoT, un contrôleur PID
-implémenté en logiciel : ce sont des inventions mises en œuvre par
-ordinateur classées en CIB G06F (informatique) ou H04 (télécommunications)
-et brevetables. À l'inverse, une méthode de comptabilité analytique
-implémentée par un tableur reste un business method non-brevetable, même
-emballée en logiciel.
-
-**Note importante sur le médical.** L'exclusion porte sur la *méthode*
-appliquée *in vivo* (sur le corps). Un médicament (substance + posologie),
-un implant, un dispositif de diagnostic *in vitro*, un nouvel usage
-thérapeutique d'une substance connue (revendication de type "swiss-type" ou
-de type EPC 2000) restent brevetables. La frontière est jurisprudentielle —
-flagger en `[review]` toute invention qui mêle dispositif et méthode.
-
-**Sortie** : pour chaque exclusion, soit "aucun problème identifié", soit un
-flag spécifique avec une ligne de raison. Ne pas produire un tableau plat de
-"pass" sans analyse — l'objectif est de forcer l'inventeur et le mandataire
-à objectiver chacun des 7 motifs avant de dépenser en recherche d'antériorité.
-
----
-
-## Recherche multi-sources
-
-L'objectif : **trouver des documents d'art antérieur potentiellement
-destructeurs de nouveauté ou d'activité inventive**, pas décider si
-l'invention est brevetable. C'est le rôle du mandataire en brevets ou de
-l'avocat.
-
-### Ce que l'utilisateur a connecté
-
-Lire `## Intégrations disponibles` du profil pour déterminer quelles bases
-sont effectivement interrogeables. Trois cas :
-
-#### Cas A — INPI Brevets ✓ ET OEB Espacenet ✓ (optimal)
-
-Exécuter en parallèle :
-
-- `inpi_search_brevets({ query, classificationCIB, type: "tous", limite: 50 })`
-  pour la base FR/EP nationale (demandes FR, brevets délivrés FR, parties
-  nationales EP).
-- `espacenet_search({ query, cib, datePublicationMax: priorite, limite: 50 })`
-  pour la couverture mondiale (160M+ documents : OEB, USPTO, JPO, KIPO,
-  CNIPA, WIPO, et offices nationaux).
-
-**Filtrer impérativement par date de publication < date de priorité revendiquée.**
-Un document publié après la date de priorité n'est pas de l'art antérieur
-opposable (sauf cas Art. 54(3) CBE — demande antérieure non publiée à la
-date de dépôt, statut E).
-
-Attribuer chaque résultat à sa source (`[INPI Brevets]` ou `[OEB Espacenet]`)
-dans le tag de provenance — ne jamais agréger sans source. Pour les détails
-fins (revendications, statut juridique, annuités), enchaîner avec
-`inpi_brevet_details({ numeroPublication })` ou
-`espacenet_brevet_details({ numeroPublication })`.
-
-#### Cas B — INPI Brevets ✓ ET OEB Espacenet ✗
-
-INPI seul + ajouter une note explicite :
-
-> **OEB Espacenet non interrogé** — la couverture mondiale (USPTO, JPO,
-> CNIPA, WIPO et autres offices) est manquante. Or, l'art antérieur
-> destructeur de nouveauté peut provenir de n'importe quel pays. Une
-> recherche professionnelle Espacenet exhaustive est requise avant tout
-> dépôt EP ou PCT. Pour un dépôt FR national, le triage INPI seul reste
-> insuffisant — un brevet japonais ou américain de 2003 peut détruire la
-> nouveauté.
-
-#### Cas C — Aucun connecteur brevets
-
-Annoncer explicitement :
-
-> **Aucune base de données brevets interrogée.** Ce triage n'a pas hit
-> Data INPI brevets, OEB Espacenet, Google Patents, WIPO PatentScope, ni
-> aucune base de littérature non-brevet (Google Scholar, IEEE Xplore,
-> PubMed, ACS, ACM Digital Library). Une recherche complète sur ces
-> sources est requise avant toute conclusion sur la nouveauté ou
-> l'activité inventive. Le triage ci-dessous est limité à l'analyse
-> intrinsèque des exclusions L.611-10 et aux facteurs structurés contre
-> les antériorités que l'utilisateur a citées ou qui apparaissent dans la
-> conversation.
-
-Puis continuer — les checks intrinsèques + l'analyse facteurs restent utiles,
-juste honnêtement étiquetés. **Pas de supplémentation depuis la connaissance
-modèle** : ne JAMAIS inventer des numéros de brevet ni "remplir" un résultat
-de recherche depuis ce que le modèle "se souvient". C'est la première cause
-d'hallucination en recherche brevet.
-
-### Pour chaque résultat d'art antérieur (ou fourni)
-
-Capturer :
-- **Numéro de publication** (format réel : `FR2700123A1`, `EP1234567B1`,
-  `WO2020/123456A1`, `US10,123,456B2`)
-- **Source** (`[INPI Brevets]` / `[OEB Espacenet]` / `[utilisateur fourni]`)
-- **Titre** (langue originale + traduction FR si disponible)
-- **Classification CIB principale et secondaires** (la pluralité de
-  classifications est un signal — un brevet classé en plusieurs sous-classes
-  signale une application transversale)
-- **Déposant** (et inventeurs si pertinent — un même inventeur publiant
-  plusieurs demandes liées est un signal de famille)
-- **Date de publication** (A1 = demande publiée 18 mois après dépôt ; B1/B2 =
-  brevet délivré ; A2/A3 = rapport de recherche distinct)
-- **Date de priorité si disponible** (peut être très antérieure à la
-  publication — c'est elle qui compte pour l'opposabilité)
-- **Abrégé** (en langue originale + résumé FR si traduisible)
-- **Statut juridique** (en vigueur, expiré, abandonné, déchu pour
-  non-paiement d'annuité — un brevet déchu n'est plus opposable en
-  contrefaçon mais reste opposable comme art antérieur)
-
-**Pas de supplémentation silencieuse.** Si on cite un numéro de publication,
-il vient de la recherche exécutée ou de l'utilisateur. Si une donnée n'est
-pas dans le résultat (date de priorité absente, abrégé tronqué), écrire
-"non disponible dans le résultat" — ne jamais deviner.
-
----
-
-## Balayage des CIB voisines + littérature non-brevet (requis avant de conclure)
-
-Une recherche qui ne couvre que la sous-classe CIB principale manque les
-antériorités cross-domaine, qui sont la cause la plus fréquente de refus
-inattendus. Avant de conclure, identifier les CIB voisines à balayer et
-**demander confirmation** à l'utilisateur.
-
-### CIB voisines à explorer
-
-La Classification Internationale des Brevets est hiérarchique :
-**section** (A-H) > **classe** (deux chiffres) > **sous-classe** (lettre) >
-**groupe** (chiffres). Les 8 sections :
-
-- **A** = Nécessités courantes (médical, agriculture, alimentation, sport)
-- **B** = Techniques industrielles, transports
-- **C** = Chimie, métallurgie
-- **D** = Textiles, papier
-- **E** = Constructions fixes (bâtiment, mines)
-- **F** = Mécanique, éclairage, chauffage, armement, sautage
-- **G** = Physique (instruments, optique, informatique au sens dispositif)
-- **H** = Électricité (production, transmission, télécommunications)
-
-Pour chaque invention, balayer :
-
-- **Même classe + sous-classes voisines.** Exemple : pour `B01D 71/02`
-  (membranes filtration polymère), explorer aussi `B01D 53` (procédés
-  séparation gaz), `B01D 61` (procédés séparation membranaire en général),
-  `B01D 67` (procédés de fabrication des membranes), `C08J` (transformation
-  des polymères).
-- **Sections différentes mais application transversale.** Un procédé textile
-  (D) peut citer un brevet chimie (C) sur le même polymère. Un dispositif
-  médical (A61) peut citer un brevet électronique (H). **Application
-  transversale = piège classique.**
-- **Codes CPC (Cooperative Patent Classification) équivalents.** Pour les
-  brevets US et EP récents, la CPC offre une granularité supérieure — si
-  l'outil le permet, croiser CIB et CPC.
-
-### Littérature non-brevet (NPL)
-
-**Souvent destructive de nouveauté en biotech, semi-conducteurs, IA,
-chimie pharmaceutique.** Une thèse de doctorat publiée 3 ans avant le
-dépôt, une preprint arXiv, un article IEEE — tout ceci constitue de l'art
-antérieur opposable. Aucun outil MCP courant n'interroge ces bases ; à
-compléter manuellement après le rapport.
-
-À lister explicitement en next-step pour la recherche professionnelle :
-
-- **Google Scholar** (généraliste académique)
-- **IEEE Xplore** (électronique, télécom, informatique)
-- **PubMed / MEDLINE** (biomédical)
-- **ACS Publications** (chimie)
-- **ACM Digital Library** (informatique)
-- **arXiv / bioRxiv / chemRxiv** (preprints — souvent oubliés et
-  destructeurs)
-- **Bases sectorielles** (SAE pour automobile, ASME pour mécanique,
-  AIChE pour génie chimique)
-- **Thèses** (theses.fr pour la France, ProQuest mondial)
-
-### Bloc de confirmation
-
-Sortir un bloc avant de conclure :
-
-> **CIB voisines et littérature non-brevet à balayer (confirmer ou compléter) :**
->
-> - **CIB voisines suggérées :** [section + sous-classes adjacentes, ex.
->   `B01D 53`, `B01D 61`, `B01D 67`, `C08J`]
-> - **Codes CPC équivalents :** [si applicable, ex. `B01D 71/021`,
->   `Y02C 20/40`]
-> - **Bases NPL recommandées pour ce domaine :** [ex. pour la biotech,
->   PubMed + bioRxiv + thèses ; pour l'IA, arXiv + IEEE + ACM]
-> - **Mots-clés alternatifs à tester :** [synonymes techniques, équivalents
->   anglais, abréviations sectorielles]
->
-> Une recherche d'antériorité brevet qui ne couvre que la CIB-cible manque
-> les antériorités cross-domaine. Une recherche qui ignore la littérature
-> non-brevet manque la cause la plus fréquente de refus en biotech,
-> semi-conducteurs et IA. Confirmer cette liste avant que je continue.
-
-Si MCP brevets connecté, **re-exécuter** la recherche sur chaque CIB voisine
-confirmée et ajouter les résultats à la table d'art antérieur avec source
-"CIB voisine : [code]". Si la NPL n'est pas couverte par les outils, lister
-explicitement les bases comme input next-step pour la recherche
-professionnelle complète — **ne pas sauter silencieusement**.
-
----
-
-## Appréciation nouveauté + activité inventive (approche problème-solution OEB)
-
-> **Cadre FR/EP — pas de "obviousness" US.** Pour évaluer l'activité
-> inventive, l'OEB applique l'**approche problème-solution** (directives
-> d'examen OEB, partie G, chapitre VII, section 5). Le droit français
-> applique le même cadre via L.611-14 CPI et la jurisprudence de la
-> Chambre commerciale de la Cour de cassation. Quatre étapes :
->
-> 1. Déterminer l'**état de la technique le plus proche** (closest prior art).
-> 2. Déterminer les **caractéristiques distinctives** de l'invention
->    revendiquée par rapport à cet état.
-> 3. Définir le **problème technique objectif** que ces caractéristiques
->    distinctives résolvent.
-> 4. Évaluer si la solution **découlait de manière évidente** pour
->    l'**homme du métier** à la date de priorité, en partant de l'état le
->    plus proche et en cherchant à résoudre le problème objectif.
->
-> Ne JAMAIS appliquer le test "obviousness" US (*KSR v. Teleflex*, 2007)
-> à un dépôt FR/EP. Le standard "teaching-suggestion-motivation" (TSM)
-> américain et le standard problème-solution OEB ne donnent pas les
-> mêmes résultats sur les mêmes faits.
-
-### Classifications des citations d'art antérieur (cadre OEB)
-
-Les rapports de recherche OEB et INPI classifient chaque citation d'art
-antérieur avec un code à une lettre — à reproduire dans le tableau de
-résultats :
-
-- **X** = antériorité **destructrice de nouveauté** considérée seule
-  (le document couvre **toutes** les caractéristiques d'une revendication
-  indépendante). Une seule citation X bien fondée suffit à condamner la
-  revendication concernée.
-- **Y** = antériorité destructrice d'**activité inventive** en
-  **combinaison** avec un autre document Y (la combinaison aurait été
-  évidente pour l'homme du métier). Les citations Y vont toujours par
-  paires ou groupes.
-- **A** = état de la technique **pour information** — contexte général
-  ne détruisant ni nouveauté ni activité inventive, mais cadrant le domaine.
-- **E** = demande antérieure **non publiée à la date de dépôt** mais
-  publiée ensuite (antériorité dite "relative" au sens Art. 54(3) CBE) —
-  affecte la nouveauté **mais pas l'activité inventive**. Piège classique
-  : la citation E ne peut pas être combinée avec d'autres documents pour
-  un raisonnement d'activité inventive.
-- **D** = document cité dans la demande elle-même.
-- **P** = document publié entre la date de priorité et la date de dépôt
-  (statut à vérifier selon la chaîne de priorité revendiquée).
-- **T** = document théorique sous-jacent à l'invention.
-- **L** = document cité pour d'autres raisons (par exemple, contestation
-  de la priorité revendiquée).
-
-### Facteurs à signaler (pas conclure)
-
-Pour chaque citation potentiellement X ou Y trouvée, produire un **signal**,
-pas un verdict. Chaque facteur dit ce qui pèse de chaque côté et où est
-l'incertitude :
-
-- **Caractéristiques distinctives identifiées** par rapport au document le
-  plus proche. Lister celles qui semblent présentes dans l'invention et
-  absentes du document, et inversement.
-- **Effet technique de ces caractéristiques.** Un effet technique mesurable
-  (gain de rendement, économie d'énergie, réduction d'erreur) pèse vers
-  l'activité inventive. Pas d'effet technique = simple choix d'ingénierie =
-  pèse contre.
-- **Problème technique objectif.** Formuler tel qu'il découle des
-  caractéristiques distinctives et de leur effet — pas tel que l'inventeur
-  l'avait subjectivement formulé. La reformulation objective est centrale
-  dans l'examen OEB.
-- **Évidence pour l'homme du métier à la date de priorité.** L'homme du
-  métier ≠ l'inventeur. Il a les **capacités normales du domaine**, la
-  **connaissance générale** de la sous-classe CIB, et l'**accès à l'art
-  antérieur** publié — mais pas d'inventivité au-delà des combinaisons
-  routinières. Évaluer s'il aurait combiné le document le plus proche
-  avec un second document Y de manière évidente pour résoudre le problème
-  objectif.
-
-### Conclusion standardisée (jamais "invention brevetable")
-
-Conformément à `## 3. Posture de décision sur jugements subjectifs` du
-`CLAUDE.md` :
-
-- **Ne JAMAIS conclure "invention brevetable" ni "activité inventive
-  acquise".**
-- Si une ou plusieurs citations X plausibles ont été trouvées :
-  > "Antériorités trouvées potentiellement destructrices de nouveauté —
-  > analyse revendication par revendication à mener par mandataire en
-  > brevets avant tout dépôt."
-- Si des citations Y trouvées en combinaison plausible :
-  > "Antériorités trouvées en activité inventive (combinaison Y/Y) —
-  > argumentation problème-solution à construire avec mandataire en
-  > brevets."
-- Si aucune citation X ou Y trouvée dans les bases interrogées :
-  > "Aucune antériorité destructrice trouvée dans les bases interrogées —
-  > recherche professionnelle complète requise avant dépôt (couverture
-  > WIPO PatentScope, Google Patents et littérature non-brevet absente
-  > de ce triage)."
-- Si facteurs ambigus :
-  > "Facteurs ambigus sur l'activité inventive ; jugement mandataire requis."
-
-"Aucune antériorité trouvée" est acceptable *uniquement* si une vraie
-recherche a été exécutée — sinon utiliser le bucket "Aucune base
-interrogée".
-
----
-
-## Recommandations & prochaines étapes
-
-Chaque sortie ferme par des prochaines étapes concrètes, bucketées selon les
-findings :
-
-- **Si antériorité X trouvée (nouveauté potentiellement détruite)** :
-  reformuler les revendications avec le mandataire (limitation de portée,
-  ajout de caractéristiques distinctives effectivement absentes du document
-  X), OU abandonner le dépôt si le chevauchement est large. Une demande
-  déposée puis refusée pour antériorité X laisse une trace publique
-  (publication A1 à 18 mois) qui peut nuire à des dépôts ultérieurs et
-  divulgue l'invention sans protection.
-- **Si antériorités Y trouvées en combinaison plausible** : préparer
-  l'argumentation problème-solution avec le mandataire avant tout dépôt —
-  démonstration d'un **effet technique supplémentaire** non suggéré par la
-  combinaison, ou d'une **incompatibilité technique** que l'homme du métier
-  n'aurait pas levée.
-- **Si aucune antériorité dans les bases interrogées** : recherche
-  professionnelle complète (Espacenet exhaustive avec mots-clés étendus +
-  Google Patents + WIPO PatentScope + NPL pertinente au domaine) avant tout
-  dépôt. Nommer les bases qu'il faut hit.
-- **Si "logiciel en tant que tel" flaggé au knockout** : reformuler la
-  revendication avec un effet technique tangible (signal traité, machine
-  commandée, ressource physique économisée) — repositionner en CIB G06F
-  comme invention mise en œuvre par ordinateur. Sans reformulation,
-  refus quasi-certain.
-- **Si "méthode chirurgicale/thérapeutique/diagnostic" flaggé** : pivoter
-  vers une revendication de **dispositif** ou de **produit** (médicament,
-  implant, kit de diagnostic *in vitro*), qui restent brevetables.
-- **Si territoires PCT visés sans recherche WIPO** : la recherche
-  internationale (ISR) sera de toute façon faite par l'office récepteur
-  (OEB, INPI ou autre) — anticiper en interrogeant PatentScope avant le
-  dépôt pour éviter une mauvaise surprise dans l'opinion écrite.
-- **Toujours** :
-  - `preparation-depot-brevet` pour structurer le dossier de dépôt
-    (revendications, abrégé, dessins, description) — soumis en revue
-    mandataire.
-  - **Routing vers mandataire en brevets inscrit à l'OEB (qualifié EQE)**
-    pour étude approfondie de brevetabilité et opinion FTO si exploitation
-    industrielle prévue.
-
----
-
-## Format de sortie
-
-Préfixer l'en-tête confidentialité depuis `CLAUDE.md` `## 2. Sorties standardisées`.
-
-`````markdown
-[EN-TÊTE CONFIDENTIALITÉ — selon rôle]
-
-# Recherche d'antériorité brevet — Premier passage (PAS UNE OPINION)
-
-> **Premier passage, pas une opinion de brevetabilité.** [paragraphe garde-fou
-> en tête, reformulé tel quel — y compris le rappel FTO et "des inventeurs
-> ont perdu des années de R&D sur des brevets refusés"]
-
-> **⚠️ Note du relecteur**
-> - **Sources :** [INPI Brevets ✓ | OEB Espacenet ✓ | Google Patents ✗ (V2.1) | WIPO PatentScope ✗ (V2.2) | NPL non couvert]
-> - **Lu :** [N résultats sur N retournés ; revendications principales lues sur N documents X/Y candidats]
-> - **Signalé :** [N éléments `[review]` | aucun]
-> - **Fraîcheur :** [base INPI YYYY-MM-DD | OEB OPS YYYY-MM-DD]
-> - **Avant de s'appuyer :** [1-2 actions concrètes — ex. "vérifier les revendications du EP1234567 contre le résumé en p.X" / "lancer Espacenet sur les CIB voisines confirmées"]
-
-**Triage :** 🟢 VERT / 🟡 ORANGE / 🔴 ROUGE — une phrase pourquoi
-
-## Invention proposée
-
-- **Description technique :** [problème + solution, 2-3 phrases]
-- **Domaine technique :** [secteur]
-- **Classification CIB :** [code principal + secondaires, ex. `B01D 71/02`, `C08J 5/22`]
-- **Date de priorité visée :** [YYYY-MM-DD]
-- **Territoires :** [FR / EP / PCT / pays spécifiques]
-- **Cadre appliqué :** L.611-10 CPI (exclusions) + L.611-11 CPI (nouveauté) + approche problème-solution OEB (activité inventive)
-
-## Knockout — exclusions L.611-10 CPI
-
-| Exclusion | Flag | Note |
-|---|---|---|
-| Découvertes, théories scientifiques | [aucun / flaggé] | [si flaggé : 1 ligne] |
-| Méthodes mathématiques | ... | ... |
-| Créations esthétiques | ... | ... |
-| Plans, principes, méthodes (intel./com./jeux) | ... | ... |
-| Logiciel "en tant que tel" | ... | [si flaggé : reformulation effet technique requise — cf. *Vicom* T-208/84] |
-| Présentations d'informations | ... | ... |
-| Méthodes chirurg./thérap./diagnostic | ... | [si flaggé : envisager revendication dispositif/produit] |
-
-## Recherche antériorités
-
-**Bases interrogées :** [INPI Brevets YYYY-MM-DD (CIB X, Y) | OEB Espacenet YYYY-MM-DD (CIB X, Y, datePubMax YYYY-MM-DD) | NPL non couvert]
-**Scope :** [mots-clés, CIB principales, datePubMax, langues]
-
-**CIB voisines balayées (confirmées avec utilisateur) :**
-- [CIB voisine 1]
-- [CIB voisine 2]
-- [CIB voisine 3]
-
-**Littérature non-brevet recommandée :** [bases sectorielles à interroger manuellement]
-
-*Si aucune CIB voisine ni NPL n'a été balayée (pas de connecteur, temps), elles sont listées explicitement comme next-step pour la recherche professionnelle complète — pas silencieusement skip.*
-
-| Doc | Source | CIB | Déposant | Date pub. | Statut OEB | Note |
-|---|---|---|---|---|---|---|
-| FR2700123A1 | [INPI Brevets] | B01D 71/02 | ACME SAS | 2018-03-15 | X | Couvre revendication indépendante 1 entière |
-| EP1234567B1 | [OEB Espacenet] | B01D 53/22 | Concurrent GmbH | 2019-09-08 | Y | Combiné avec FR2700123A1 détruirait revendication 2 |
-| WO2020/123456A1 | [OEB Espacenet] | C08J 5/22 | Tier Co Ltd | 2020-06-25 | A | Contexte général procédé polymère |
-
-*Si aucune recherche n'a été exécutée :* **Aucune base de données brevets interrogée.**
-[bloc fallback complet — cf. Cas C]
-
-## Appréciation nouveauté + activité inventive (approche problème-solution OEB) — éléments pour mandataire
-
-| Étape (OEB partie G ch. VII) | Constat | Direction |
-|---|---|---|
-| État de la technique le plus proche | [document identifié, ex. FR2700123A1] | [pèse vers / contre brevetabilité / mixte] |
-| Caractéristiques distinctives | [liste — ex. "polymère greffé X, procédé recuit Y"] | [direction] |
-| Effet technique de ces caractéristiques | [ex. "+30% perméabilité, -20% encrassement"] | [direction] |
-| Problème technique objectif | [reformulé — ex. "améliorer le flux tout en réduisant le colmatage"] | [direction] |
-| Évidence pour l'homme du métier | [évaluation — ex. "combinaison FR2700123A1 + EP1234567B1 nécessite incompatibilité chimique à lever"] | [pèse vers / contre / mixte] |
-
-**Conclusion :** *Ce skill ne conclut pas.* Une de :
-- "Antériorités trouvées potentiellement destructrices de nouveauté — analyse revendication par revendication par mandataire en brevets avant dépôt."
-- "Antériorités trouvées en activité inventive (combinaison Y/Y) — argumentation problème-solution à construire avec mandataire."
-- "Aucune antériorité destructrice trouvée dans les bases interrogées — recherche professionnelle complète requise avant dépôt (WIPO + NPL absente de ce triage)."
-- "Facteurs ambigus ; jugement mandataire requis."
-
-## Recommandations & prochaines étapes
-
-- [étape 1 — recherche professionnelle complète : bases à hit, NPL à couvrir]
-- [étape 2 — reformulation revendications si X trouvé / argumentation problème-solution si Y trouvés]
-- [étape 3 — routing vers mandataire en brevets EQE depuis le profil]
-- [étape 4 — `preparation-depot-brevet` pour structurer le dossier si décision d'avancer]
-
-## Vérification des citations
-
-Chaque numéro de publication brevet, citation jurisprudence (CBE, directives
-OEB, Cour de cassation Chambre commerciale), classification CIB et date dans
-ce mémo doit être vérifié contre la source autoritative (Espacenet, INPI
-Data, registre OEB) avant que l'on s'y appuie. Les numéros de publication,
-les dates de priorité (distinctes des dates de publication) et le statut
-juridique en vigueur sont les sites les plus fréquents d'erreur. Ne pas
-citer un document qu'on ne peut pas ouvrir.
-
-**Une question hors de ma checklist :** [observation seconde-ordre — omis si rien]
-
-## Que veux-tu faire ?
-
-1. **Préparer le dépôt** — j'ouvre `preparation-depot-brevet` pour structurer le dossier FR / EP / PCT
-2. **Escalader** — note pour [mandataire en brevets / avocat PI du profil]
-3. **Compléter les faits** — recherche NPL ciblée, jurisprudence pertinente, art antérieur complémentaire fourni par l'inventeur
-4. **Approfondir l'analyse** — re-exécuter avec CIB élargies, autres mots-clés, autres langues
-5. **Autre chose** — dis-moi
-`````
-
----
-
-## Gate non-juriste
-
-Avant émettre la sortie, lire `## 1. Profil cabinet et profil de pratique PI`.
-Si **Rôle = juriste interne sans inscription** OU **non-juriste** :
-
-> Cette sortie est un triage de recherche d'antériorité brevet, pas un avis
-> juridique de brevetabilité ni une opinion de liberté d'exploitation.
-> Déposer un brevet, communiquer publiquement sur l'invention ou investir
-> dans la production sur la seule base de ce triage a des conséquences
-> juridiques et économiques majeures — y compris (a) un brevet refusé pour
-> antériorité que le triage n'avait pas trouvée, (b) la perte du droit au
-> brevet par divulgation publique antérieure au dépôt, (c) une action en
-> contrefaçon d'un tiers titulaire d'un brevet en vigueur que le triage
-> n'a pas vu (FTO non couverte ici). Un **mandataire en brevets inscrit à
-> l'OEB (qualifié EQE)** ou un **avocat spécialisé en propriété
-> industrielle** doit évaluer avant que vous bougiez.
->
-> Voici un brief à apporter à votre mandataire/avocat — ça réduira le temps
-> de la conversation :
->
-> [Générer un résumé 1 page : **(1)** description technique de l'invention
-> (problème + solution), **(2)** classification CIB proposée, **(3)**
-> exclusions L.611-10 flaggées (le cas échéant), **(4)** antériorités
-> trouvées avec statut OEB X/Y/A/E, **(5)** ce qui a et ce qui n'a PAS été
-> cherché (bases non interrogées, NPL non couverte, CIB voisines non
-> balayées), **(6)** 3 questions à poser au mandataire : "ces antériorités
-> détruisent-elles la nouveauté de quelle revendication ?", "quelle
-> reformulation des revendications préserverait la portée commerciale ?",
-> "faut-il une opinion FTO avant exploitation industrielle ?"]
->
-> Pour trouver un mandataire en brevets ou un avocat PI :
->
-> - **Annuaire des avocats** : https://www.avocat.fr (Conseil National des Barreaux)
-> - **Annuaire des conseils en propriété industrielle (mandataires INPI)** :
->   https://www.inpi.fr/conseils-en-propriete-industrielle
-> - **Liste des mandataires européens (qualifiés EQE) auprès de l'OEB** :
->   https://www.epo.org/en/searching-for-patents/legal/professional-representatives
-
-Livrer le triage complet À CÔTÉ du brief. Ne pas retenir l'analyse.
-
----
-
-## Emplacement de la sortie
-
-Écrire à
-`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/anteriorite-brevet-<slug-invention>-YYYY-MM-DD.md`
-et surfacer le chemin à l'utilisateur.
-
-Si le profil contient déjà un slug identique pour aujourd'hui, ajouter un
-suffixe `-2`, `-3`, etc. Le slug est dérivé du titre ou du domaine de
-l'invention (ex. `filtration-membranaire-polymere-x`, `compression-video-nn`).
-
-Matter workspaces hors V1 (cf. `CLAUDE.md` `## 11. Workspaces de dossier`).
-
----
-
-## Fermeture avec l'arbre de décision
-
-Fermer avec l'arbre de décision suivant `CLAUDE.md` `## 2. Sorties standardisées`
-— les 5 options par défaut sont un point de départ, à personnaliser aux
-findings du triage (par exemple, l'option 1 "Rédiger" devient "Préparer le
-dépôt" et route vers `preparation-depot-brevet` ; l'option 4 "Surveiller et
-attendre" peut router vers une veille concurrentielle CIB si pertinent).
-
----
-
-## Ce que ce skill NE fait PAS
-
-- **Conclure que l'invention est brevetable.** Jamais. Le garde-fou le plus
-  visible.
-- **Conclure à la liberté d'exploitation (FTO).** Un brevet du tiers en
-  vigueur dans un territoire visé peut bloquer l'exploitation même d'une
-  invention nouvelle et inventive. L'analyse FTO est un exercice distinct,
-  exécuté par un mandataire en brevets ou un avocat PI, sur la base de
-  toutes les revendications en vigueur dans les territoires d'exploitation.
-- **Substituer une recherche professionnelle exhaustive** : Espacenet
-  complet, Google Patents, WIPO PatentScope, littérature non-brevet
-  sectorielle (Google Scholar, IEEE, PubMed, ACS, ACM, arXiv, thèses).
-- **Déposer un brevet.** Le dépôt est une tâche mandataire en brevets ou
-  avocat PI ; ce skill informe la décision de déposer. Le brouillon de
-  dossier est produit par `preparation-depot-brevet` puis soumis en revue
-  mandataire.
-- **Analyser la contrefaçon de brevets de tiers** (= `tableau-contrefacon-brevet`).
-  Ce skill regarde si l'invention est nouvelle, pas si elle empiète sur des
-  brevets en vigueur.
-- **Répondre à un refus INPI ou à une notification de motifs OEB**
-  (= `analyse-refus-inpi`, prévu V2.1). Ce skill est un triage *avant*
-  dépôt, pas une réponse *après* notification.
-- **Évaluer la chaîne de priorité** (priorité Union de Paris, revendications
-  internes, divisionnaires) — à valider par le mandataire avant tout dépôt
-  exploitant une priorité.
-- **Quoter la sortie à des clients, partenaires, investisseurs ou la presse.**
-  C'est de la recherche interne. Une communication publique partielle peut
-  par ailleurs constituer une divulgation antérieure qui détruira la
-  nouveauté du dépôt à venir.
-
----
-
-## Ton
-
-Précis, concret, honnête sur le périmètre. Le mandataire lisant cette sortie
-doit savoir en 10 secondes ce que le triage a trouvé, ce qu'il n'a PAS
-trouvé, et ce qui doit se passer avant qu'un dépôt soit déposé ou qu'une
-communication publique soit faite. Pas de prose hedgée. Le garde-fou en tête
-et la ligne "ne conclut pas" sur la brevetabilité font le travail de scope.
-Le triage informe une décision ; il ne la prend pas.
+Demander en un seul batch, puis mapper la reponse au contrat V2 :
+
+1. probleme technique et solution technique ;
+2. type d'invention ou contexte technique ;
+3. CIB ou CPC deja connues, sinon domaine a classifier ;
+4. date de priorite ou de reference visee ;
+5. territoires cibles ;
+6. art anterieur deja connu ;
+7. limites deja identifiees de la recherche.
+
+Guidance de mapping minimale :
+
+- dispositif ou systeme materiel -> `invention_type: device`
+- procede de fabrication ou de traitement -> `invention_type: process`
+- molecule, formulation, alliage, matiere -> `invention_type: composition`
+- invention informatique avec effet technique revendique -> `invention_type: software-implemented`
+- invention biomedicale ou medtech -> `invention_type: biotech-medical`
+- CIB/CPC fournies -> `classification_status: known`
+- CIB/CPC seulement esquissees -> `classification_status: mixed`
+- simple domaine sans code -> `classification_status: proposed`
+- description trop vague -> `classification_status: unclear`
+- FR seul -> `territory_scope: fr`
+- EP seul -> `territory_scope: ep`
+- PCT seul -> `territory_scope: pct`
+- FR + EP -> `territory_scope: fr-ep`
+- plusieurs routes nationales ou mixte -> `territory_scope: multi-territory`
+
+Si la description reste vague, pousser une fois pour obtenir un effet technique
+mesurable. Si elle reste floue, reduire la confiance et marquer
+`classification_status: unclear`.
+
+## Couche 1 - Exclusions et eligibilite minimum
+
+Le premier passage doit passer au minimum les exclusions ou fragilites
+intrinseques suivantes :
+
+- decouverte ou theorie pure ;
+- methode mathematique abstraite ;
+- plan, methode intellectuelle ou business method ;
+- logiciel en tant que tel ;
+- presentation d'information ;
+- methode therapeutique / chirurgicale / diagnostic in vivo ;
+- autre point d'eligibilite evident selon le domaine.
+
+Ce bloc signale des risques d'eligibilite ; il ne tranche pas seul le depot.
+
+## Couche 2 - Search Coverage Gate
+
+Avant de commenter les documents trouves, decrire explicitement la couverture
+reelle :
+
+- bases interrogees ;
+- classifications couvertes ;
+- mots-cles ou axes couverts ;
+- territoire ou familles couverts ;
+- NPL couverte ou non ;
+- limites restantes.
+
+Le gate ne peut sortir que sur :
+
+- `sufficient-first-pass`
+- `partial`
+- `degraded`
+- `none`
+
+Si aucune base brevets n'est interrogee, le gate doit etre `none`.
+
+## Couche 3 - Art anterieur proche
+
+L'objectif est de faire remonter les documents potentiellement pertinents, pas
+de trancher la revendication finale.
+
+Pour chaque document trouve ou fourni, capturer si possible :
+
+- numero ou identifiant ;
+- source ;
+- titre ;
+- classifications principales ;
+- deposant ;
+- date de publication ;
+- date de priorite si disponible ;
+- type de signal : proche, potentiellement X, potentiellement Y, contexte ;
+- note de pertinence.
+
+Pas de supplementation silencieuse. Si une donnee manque, l'ecrire comme
+indisponible.
+
+## Couche 4 - Classifications voisines et NPL
+
+Le skill doit rendre visible si les classifications voisines et la litterature
+non-brevet ont ete couvertes, proposees ou ignorees.
+
+Le minimum attendu :
+
+1. proposer des CIB/CPC voisines plausibles ;
+2. dire si elles ont ete confirmees ou non ;
+3. lister les bases NPL recommandees quand la couverture NPL manque ;
+4. expliciter l'impact de cette lacune sur la force du triage.
+
+## Couche 5 - Signaux de nouveaute et d'activite inventive
+
+Presenter les signaux, pas une conclusion ferme.
+
+Analyser comme signaux :
+
+- closest prior art plausible ;
+- caracteristiques distinctives apparentes ;
+- effet technique annonce ou visible ;
+- probleme technique objectif plausible ;
+- signaux contre la nouveaute ;
+- signaux contre l'activite inventive.
+
+Regles de prudence :
+
+- ne jamais conclure "invention brevetable" ;
+- si la couverture est incomplete, reduire la portee de toute recommandation ;
+- distinguer clairement nouveaute, activite inventive et FTO.
+
+## Routing Boundaries
+
+### Route to `preparation-depot-brevet`
+
+- pas de blocage majeur evident au premier passage ;
+- couverture minimale exploitable pour structurer un depot ;
+- validation humaine encore obligatoire avant redaction et depot.
+
+### Route to `anteriorite-invalidite`
+
+- le besoin principal devient la contestation d'un brevet tiers ;
+- l'art anterieur doit etre structure pour une nullite ou une defense ;
+- le dossier a deja bascule vers une logique d'attaque ou de defense sur un
+  titre existant.
+
+### Route to `tableau-contrefacon-brevet`
+
+- le sujet principal devient la comparaison revendications / produit ou
+  procede accuse ;
+- il faut analyser une contrefacon potentielle ou une defense technique
+  d'atteinte ;
+- la question n'est plus la brevetabilite initiale de l'invention proposee.
+
+### Route to `logiciels-pi`
+
+- le sujet principal est le regime logiciel, la titularite, les licences ou
+  l'OSS ;
+- la question brevets n'est pas le coeur du dossier ;
+- il faut d'abord qualifier la couche logiciel avant de pousser une piste
+  brevet.
+
+### Stay in `recherche-anteriorite-brevet`
+
+- besoin principal = premier passage d'anteriorite ;
+- exclusions, couverture et art anterieur proche restent la question centrale ;
+- le dossier n'est pas encore dans une logique depot, nullite, contrefacon ou
+  regime logiciel plus specialisee.
+
+## Contrat de sortie V2
+
+La sortie doit produire exactement les neuf blocs suivants, dans cet ordre :
+
+1. `Eligibility Snapshot`
+2. `Search Coverage Gate`
+3. `Classification and Search Scope`
+4. `Closest Prior Art`
+5. `NPL and Adjacent Coverage`
+6. `Novelty Signals`
+7. `Inventive Step Signals`
+8. `Next Step Routing`
+9. `Human Validation`
+
+### 1. `Eligibility Snapshot`
+
+- type d'invention ;
+- exclusions ou fragilites d'eligibilite ;
+- points neutres et flags.
+
+### 2. `Search Coverage Gate`
+
+- etat du gate ;
+- bases interrogees ;
+- limites majeures ;
+- effet pratique sur la fiabilite du triage.
+
+### 3. `Classification and Search Scope`
+
+- CIB/CPC retenues ou proposees ;
+- mots-cles ou axes couverts ;
+- territoires couverts ;
+- portee reelle du premier passage.
+
+### 4. `Closest Prior Art`
+
+- documents les plus proches ;
+- source et donnees cle ;
+- raison du signalement ;
+- eventuel signal X/Y/contexte si pertinent.
+
+### 5. `NPL and Adjacent Coverage`
+
+- CIB/CPC voisines proposees ;
+- statut de confirmation ;
+- NPL couverte ou non ;
+- impacts des trous de couverture.
+
+### 6. `Novelty Signals`
+
+- signaux contre ou en faveur de la nouveaute ;
+- documents potentiellement destructeurs ;
+- caracteristiques apparemment deja connues ou encore distinctes ;
+- prudence sur les trous de lecture.
+
+### 7. `Inventive Step Signals`
+
+- closest prior art ;
+- caracteristiques distinctives plausibles ;
+- effet technique ;
+- probleme technique objectif ;
+- signaux pour ou contre l'activite inventive.
+
+### 8. `Next Step Routing`
+
+Ce bloc doit utiliser uniquement l'une des valeurs suivantes :
+
+- `prepare-drafting-brief`
+- `expand-search-coverage`
+- `seek-patentability-review`
+- `pivot-to-invalidity-analysis`
+- `pivot-to-infringement-chart`
+- `route-to-software-regime-review`
+- `hold-or-do-not-file`
+
+Associer la valeur choisie a 2-4 actions concretes et a sa justification.
+
+### 9. `Human Validation`
+
+- rappeler qu'il s'agit d'un premier passage ;
+- nommer les validations humaines requises ;
+- rappeler les points `[a verifier]` avant depot, communication publique ou
+  investissement industriel.
+
+## Regles de surete
+
+- Ce skill ne conclut jamais a la brevetabilite.
+- Ce skill ne conclut jamais a la FTO.
+- Une base non interrogee ou une NPL absente reste une lacune visible.
+- `logiciels-pi` doit etre utilise quand le coeur du sujet est le regime
+  logiciel plutot que l'art anterieur brevet.
+- Les numeros, dates, classifications et statuts doivent rester relies a une
+  source ouvrable avant d'etre cites comme appui.
+
+## Rappel final a conserver
+
+- premier passage strict uniquement ;
+- jamais opinion de brevetabilite ni FTO ;
+- revue humaine obligatoire avant depot, communication publique ou
+  industrialisation.

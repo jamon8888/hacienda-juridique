@@ -135,6 +135,10 @@ configure.
 - `analyse-opposition-marque` : skill d'opposition INPI strict, structure
   autour du gate procedurale, de la cartographie droits / motifs et d'une
   branche coexistence / transaction bornee avant toute escalade hors cadre
+- `recherche-anteriorite-brevet` : premier passage brevet V2 strict, distinct
+  de la redaction / preparation de depot, de la revue d'invalidite et du
+  tableau de comparaison contrefacon, avec search coverage gate avant toute
+  suite
 - `recherche-anteriorite-dm`
 - `depot-dessin-modele`
 - `contrefacon-dessin-modele`
@@ -213,6 +217,17 @@ Positionnement marque V2 a retenir :
   articulation procedurale avant de recommander la suite ;
 - la coexistence ou la transaction y reste une branche bornee, utile seulement
   si elle soutient la posture INPI sans remplacer l'analyse d'opposition.
+
+Positionnement brevet V2 a retenir :
+
+- `recherche-anteriorite-brevet` est un premier passage strict de recherche
+  brevet, pas une brique de redaction ou de preparation de depot ;
+- le skill reste distinct de `anteriorite-invalidite` pour la revue
+  d'invalidite et de `tableau-contrefacon-brevet` pour la comparaison
+  contrefacon ;
+- il expose un search coverage gate avant toute recommandation de suite,
+  afin de distinguer clairement ce qui a ete cherche, ce qui manque encore et
+  quand une revue humaine ou un skill voisin doit prendre le relais ;
 
 ## Agents
 

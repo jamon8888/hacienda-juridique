@@ -49,6 +49,11 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
   substance de l'opposition et de l'enforcement
 - clarification des modes de surveillance et ajout d'un monitoring gate avant
   toute recommandation d'escalade
+- `recherche-anteriorite-brevet` est documente en V2 comme premier passage
+  strict de recherche brevet, distinct de la redaction / preparation de depot,
+  de la revue d'invalidite et de la comparaison contrefacon
+- ajout d'un search coverage gate pour borner la couverture de recherche avant
+  toute recommandation de suite
 - `analyse-opposition-marque` passe a un skill d'opposition INPI strict,
   borne par un gate procedurale explicite
 - cartographie stabilisee des droits invoques, des motifs et de leur
