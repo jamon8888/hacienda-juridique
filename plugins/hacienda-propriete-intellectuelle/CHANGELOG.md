@@ -54,6 +54,11 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
   de la revue d'invalidite et de la comparaison contrefacon
 - ajout d'un search coverage gate pour borner la couverture de recherche avant
   toute recommandation de suite
+- `preparation-depot-brevet` est documente en V2 comme skill de preparation
+  stricte au depot, distinct du premier passage d'anteriorite, de la revue
+  d'invalidite et du claim chart contrefacon
+- ajout d'un Filing Readiness Gate et structuration explicite des lanes
+  `FR`, `EP`, `PCT` et `sequenced`, avec branche de priorite bornee
 - `analyse-opposition-marque` passe a un skill d'opposition INPI strict,
   borne par un gate procedurale explicite
 - cartographie stabilisee des droits invoques, des motifs et de leur

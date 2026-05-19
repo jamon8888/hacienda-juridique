@@ -139,6 +139,10 @@ configure.
   de la redaction / preparation de depot, de la revue d'invalidite et du
   tableau de comparaison contrefacon, avec search coverage gate avant toute
   suite
+- `preparation-depot-brevet` : skill V2 de preparation stricte au depot,
+  distinct du premier passage d'anteriorite, de la revue d'invalidite et du
+  claim chart contrefacon, avec Filing Readiness Gate et lanes FR / EP / PCT /
+  sequenced
 - `recherche-anteriorite-dm`
 - `depot-dessin-modele`
 - `contrefacon-dessin-modele`
@@ -228,6 +232,14 @@ Positionnement brevet V2 a retenir :
 - il expose un search coverage gate avant toute recommandation de suite,
   afin de distinguer clairement ce qui a ete cherche, ce qui manque encore et
   quand une revue humaine ou un skill voisin doit prendre le relais ;
+- `preparation-depot-brevet` est une brique de preparation stricte au depot,
+  pas un depot final, pas un premier passage de recherche, pas une revue
+  d'invalidite et pas un workflow de comparaison contrefacon ;
+- le skill applique un Filing Readiness Gate explicite (`ready`, `partial`,
+  `blocked`) avant toute recommandation de suite ;
+- il structure la preparation autour de lanes `FR`, `EP`, `PCT` et
+  `sequenced`, avec une branche de priorite / sequencement bornee sans
+  absorber `strategie-extension-internationale` ;
 
 ## Agents
 
