@@ -98,6 +98,9 @@ Le skill V2 ne doit pas :
 4. **Gate explicite.** La force de l'invalidite ne doit pas etre implicite.
 5. **Validation humaine obligatoire.** L'action ou la defense restent du
    ressort du mandataire ou de l'avocat.
+6. **Discipline de sources.** Aucun prior art exploitable ne doit etre
+   presente sans source consultee, date utile et rattachement minimal a la
+   revendication ciblee.
 
 # Approches considerees
 
@@ -170,6 +173,7 @@ Bloc de faits minimum :
 - `claims_targeted`
 - `priority_date_status`
 - `known_prior_art`
+- `consulted_sources_status`
 - `business_context`
 - `why_attack_or_defend`
 - `known_claim_chart_status`
@@ -182,6 +186,8 @@ Le skill doit conclure explicitement sur :
 ## `ready`
 
 - base d'art anterieur ou autre motif de nullite suffisamment exploitable ;
+- `patent_status` suffisamment stabilise pour que la validite du titre soit
+  analysee utilement ;
 - revendications cibles identifiees ;
 - articulation des moyens faisable.
 
@@ -195,6 +201,7 @@ Le skill doit conclure explicitement sur :
 
 - aucun motif serieux exploitable ;
 - prior art trop faible ;
+- `patent_status` ou posture du titre trop incertains ;
 - dates ou revendications trop incertaines ;
 - impossibilite de soutenir une nullite proprement.
 
@@ -221,6 +228,8 @@ La sortie doit etre stabilisee en 9 blocs.
 - prior art retenu ;
 - qualite de couverture ;
 - dates critiques ;
+- sources effectivement consultees et bases non encore interrogees ;
+- point d'appui minimal de chaque citation utile ;
 - trous documentaires.
 
 ## 4. `Novelty Attack Map`

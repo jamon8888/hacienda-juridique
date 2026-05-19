@@ -18,6 +18,7 @@ Faits minimums :
 - `claims_targeted`
 - `priority_date_status`
 - `known_prior_art`
+- `consulted_sources_status`
 - `business_context`
 - `why_attack_or_defend`
 - `known_claim_chart_status`
@@ -31,6 +32,7 @@ Faits minimums :
 
 Checks minimum :
 
+- `patent_status` stabilise ou reserve explicite ;
 - revendications ciblees identifiees ;
 - base de prior art ou autre motif exploitable ;
 - dates suffisamment stabilisees ;
@@ -64,3 +66,10 @@ Checks minimum :
 - `route-to-claim-chart`
 - `route-to-contentious-strategy`
 - `hold-insufficient-basis`
+
+## 6. Source discipline
+
+- pas de prior art exploitable sans source consultee ;
+- pas de citation utile sans date et point d'appui minimaux ;
+- les bases non interrogees ou documents non consultes restent visibles comme
+  gaps.

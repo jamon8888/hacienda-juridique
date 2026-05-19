@@ -58,6 +58,7 @@ Bloc de faits minimum :
 - `claims_targeted`
 - `priority_date_status`
 - `known_prior_art`
+- `consulted_sources_status`
 - `business_context`
 - `why_attack_or_defend`
 - `known_claim_chart_status`
@@ -131,6 +132,8 @@ Le skill doit conclure explicitement sur :
 Checks de gate :
 
 - si `prior_art_coverage = none`, bloquer ;
+- si `patent_status = unknown`, rester `partial` ou `blocked` tant que le
+  titre et sa posture procedurale ne sont pas stabilises ;
 - si `priority_date_status` n'est pas stabilise, rester `partial` ou `blocked` ;
 - si `claims_targeted` sont trop floues, rester `partial` ou `blocked` ;
 - si les autres motifs (`added-matter`, `insufficiency`) sont invoques sans
@@ -206,6 +209,8 @@ La sortie doit etre stabilisee en 9 blocs.
 - prior art retenu ;
 - qualite de couverture ;
 - dates critiques ;
+- sources effectivement consultees et sources non encore consultees ;
+- niveau d'appui citation par citation (date, revendication, passage utile) ;
 - trous documentaires.
 
 ### 4. Novelty Attack Map
@@ -264,6 +269,11 @@ Associer a la route :
   judiciaire`.
 - Ne jamais presenter une base de nullite faible comme exploitable sans reserve.
 - Ne jamais confondre validite du brevet et contrefacon du produit.
+- Ne jamais citer un prior art comme appui sans source consultee, date
+  exploitable et rattachement minimal a la revendication attaquee.
+- Si certaines bases n'ont pas ete interrogees ou si un document n'a pas ete
+  consulte directement, l'indiquer explicitement dans `Prior Art and Basis
+  Coverage` ou `Critical Gaps and Litigation Risk`.
 - Si la recherche d'art anterieur est trop preliminaire, router vers
   `recherche-anteriorite-brevet`.
 - Si la strategie devient principalement contentieuse, router vers
