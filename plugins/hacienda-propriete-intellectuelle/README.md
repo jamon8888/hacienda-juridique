@@ -143,6 +143,10 @@ configure.
   distinct du premier passage d'anteriorite, de la revue d'invalidite et du
   claim chart contrefacon, avec Filing Readiness Gate et lanes FR / EP / PCT /
   sequenced
+- `tableau-contrefacon-brevet` : skill V2 de claim chart brevet offensif
+  strict, distinct de la defense / invalidite, structure autour d'un Chart
+  Readiness Gate et raccorde a `mise-en-demeure-pi`, `saisie-contrefacon` et
+  `contentieux-pi`
 - `recherche-anteriorite-dm`
 - `depot-dessin-modele`
 - `contrefacon-dessin-modele`
@@ -240,6 +244,14 @@ Positionnement brevet V2 a retenir :
 - il structure la preparation autour de lanes `FR`, `EP`, `PCT` et
   `sequenced`, avec une branche de priorite / sequencement bornee sans
   absorber `strategie-extension-internationale` ;
+- `tableau-contrefacon-brevet` est un skill offensif strict de claim chart,
+  pas une qualification juridique finale, pas une defense contre une allegation
+  adverse et pas une revue d'invalidite du brevet ;
+- le skill applique un `Chart Readiness Gate` explicite (`ready`, `partial`,
+  `blocked`) selon la qualite du brevet, du mapping et de la preuve produit ;
+- il reste focalise sur la confrontation technique litterale / equivalence,
+  puis route vers `mise-en-demeure-pi`, `saisie-contrefacon` ou
+  `contentieux-pi` selon la base enforcement disponible ;
 
 ## Agents
 

@@ -59,6 +59,11 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
   d'invalidite et du claim chart contrefacon
 - ajout d'un Filing Readiness Gate et structuration explicite des lanes
   `FR`, `EP`, `PCT` et `sequenced`, avec branche de priorite bornee
+- `tableau-contrefacon-brevet` est documente en V2 comme skill offensif strict
+  de claim chart brevet, distinct de la defense / invalidite et de la
+  qualification juridique finale
+- ajout d'un `Chart Readiness Gate` et d'un routage ferme vers
+  `mise-en-demeure-pi`, `saisie-contrefacon` ou `contentieux-pi`
 - `analyse-opposition-marque` passe a un skill d'opposition INPI strict,
   borne par un gate procedurale explicite
 - cartographie stabilisee des droits invoques, des motifs et de leur
