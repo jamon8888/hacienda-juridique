@@ -3,6 +3,30 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.8 — 2026-05-19
+
+### Alignement documentaire
+- `cession-droit-auteur` est documente en V2 comme skill strict de
+  preparation d'une cession de droits patrimoniaux d'auteur
+- ajout d'un `Assignment Readiness Gate` explicite (`ready`, `partial`,
+  `blocked`) pour borner l'exploitabilite du dossier selon la qualite de la
+  qualification, de la chaine de titre, du contexte de creation et de la
+  structure economique
+- sortie V2 stabilisee en 9 blocs, centree sur les preconditions oeuvre /
+  titre, le track retenu, la structure de droits, l'economie, la cleanup
+  bornee et le routage ferme
+- `Decision Routing` ferme entre `prepare-full-assignment-draft`,
+  `prepare-partial-assignment-draft`,
+  `prepare-exclusive-assignment-draft`,
+  `prepare-non-exclusive-assignment-draft`,
+  `route-to-work-qualification`,
+  `route-to-license-instead`,
+  `route-to-title-chain-cleanup`,
+  `route-to-software-regime-review`,
+  `route-to-broader-pi-contract` et `hold-insufficient-basis`
+- frontieres explicites avec `qualification-oeuvre`,
+  `licence-droit-auteur`, `logiciels-pi` et `contrats-pi`
+
 ## 0.18.7 — 2026-05-19
 
 ### Alignement documentaire

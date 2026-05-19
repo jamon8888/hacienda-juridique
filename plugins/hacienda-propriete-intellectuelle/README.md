@@ -186,6 +186,11 @@ configure.
 - `qualification-oeuvre` : qualification droit d'auteur V2 structuree autour
   de l'originalite, de la titularite initiale, des consequences en droits et
   du routage vers preuve, cession, licence ou contrefacon
+- `cession-droit-auteur` : skill V2 strict de preparation d'une cession de
+  droits patrimoniaux, centre sur un `Assignment Readiness Gate`, des tracks
+  fermes, une branche bornee `title-chain-cleanup` et une sortie stabilisee en
+  9 blocs, distinct de `qualification-oeuvre`, `licence-droit-auteur`,
+  `logiciels-pi` et `contrats-pi`
 - `licence-droit-auteur` : skill V2 de preparation stricte d'une licence de
   droits d'auteur, structure autour de lanes fermees (`exclusive`,
   `non-exclusive`, `creative-commons`, `software-eula`,
@@ -401,6 +406,12 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.8 : migration de `cession-droit-auteur` vers un skill V2 de
+  preparation stricte d'une cession de droits patrimoniaux, avec
+  `Assignment Readiness Gate`, tracks fermes, branche `title-chain-cleanup`
+  bornee, sortie stabilisee en 9 blocs et routage ferme vers qualification,
+  licence, revue logiciel, contrat PI plus large, regularisation de chaine de
+  titre ou hold d'insuffisance ;
 - V0.18.7 : migration de `licence-droit-auteur` vers un skill V2 de
   preparation stricte, avec `License Readiness Gate`, lanes fermees,
   `creative-commons` maintenu comme branche bornee, sortie stabilisee et
