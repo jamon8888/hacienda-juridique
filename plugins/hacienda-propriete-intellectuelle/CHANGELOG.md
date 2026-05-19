@@ -3,6 +3,28 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.4 — 2026-05-19
+
+### Alignement documentaire
+- `contrefacon-droit-auteur` est documente en V2 comme skill d'analyse au
+  fond stricte de la contrefacon auteur
+- ajout d'un `Copyright Infringement Readiness Gate` explicite (`ready`,
+  `partial`, `blocked`) pour borner l'exploitabilite du dossier selon
+  l'originalite mobilisable, la titularite, la comparaison et la preuve
+- sortie V2 stabilisee en 9 blocs, centree sur l'originalite, la
+  comparabilite, les atteintes patrimoniales et morales, la preuve,
+  l'exposition aux defenses et la posture plateforme
+- `Decision Routing` ferme entre `route-to-proof-hardening`,
+  `route-to-originality-review`, `prepare-cease-and-desist`,
+  `prepare-platform-notice`, `prepare-seizure-brief`,
+  `prepare-litigation-brief`, `route-to-database-analysis` et
+  `hold-insufficient-basis`
+- branche plateforme / LCEN maintenue comme issue secondaire bornee, sans
+  remplacer l'analyse au fond du dossier
+- frontieres explicites avec `qualification-oeuvre`,
+  `depot-preuve-creation`, `mise-en-demeure-pi`, `saisie-contrefacon`,
+  `contentieux-pi` et `bases-de-donnees`
+
 ## 0.18.3 — 2026-05-19
 
 ### Alignement documentaire

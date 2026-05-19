@@ -181,6 +181,11 @@ configure.
 - `qualification-oeuvre` : qualification droit d'auteur V2 structuree autour
   de l'originalite, de la titularite initiale, des consequences en droits et
   du routage vers preuve, cession, licence ou contrefacon
+- `contrefacon-droit-auteur` : skill V2 d'analyse au fond stricte de la
+  contrefacon auteur, centre sur l'originalite mobilisable, la comparaison,
+  les atteintes patrimoniales et morales, la preuve, les defenses adverses et
+  un routage ferme vers preuve, lettre, saisie, contentieux ou base de
+  donnees, avec branche plateforme / LCEN bornee
 - `logiciels-pi` : regime logiciel V2 structure autour de `L.113-9`, des
   droits d'utilisation, du triage OSS de haut niveau et du routage vers
   OSS, chaine de droits, cession, licence ou enforcement
@@ -379,6 +384,10 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.4 : migration de `contrefacon-droit-auteur` vers un skill V2
+  d'analyse au fond stricte, avec `Copyright Infringement Readiness Gate`,
+  sortie stabilisee, branche plateforme / LCEN bornee et routage ferme vers
+  preuve, lettre, saisie, contentieux ou base de donnees ;
 - V0.18.3 : migration de `saisie-contrefacon` vers un skill V2 multi-droits
   de preparation stricte de mesure probatoire, avec
   `Seizure Readiness Gate`, sortie stabilisee et routage post-saisie ferme ;
@@ -402,5 +411,5 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 Jalons documentes :
 
-- voir [CHANGELOG.md](C:/Users/NMarchitecte/hacienda-juridique/plugins/hacienda-propriete-intellectuelle/CHANGELOG.md) pour l'historique de versions documentees et leur perimetre ;
+- voir `CHANGELOG.md` pour l'historique de versions documentees et leur perimetre ;
 - le README reste centre sur l'etat courant du plugin et la cartographie des skills.
