@@ -33,6 +33,13 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
   `mise-en-demeure-pi` et `depot-preuve-creation`
 - contrat de sortie stabilise en 8 blocs, avec `Decision Memo` borne a un jeu
   ferme d'issues
+- `qualification-oeuvre` passe a une structure V2 avec contrat d'entree
+  explicite (`objective_mode`, `work_type`, `creation_context`)
+- routage centralise vers `revue-logiciel-donnees`,
+  `depot-preuve-creation`, `cession-droit-auteur`,
+  `licence-droit-auteur` et `contrefacon-droit-auteur`
+- contrat de sortie stabilise en 9 blocs, avec `Next Step Routing` borne a un
+  jeu ferme d'issues
 
 ## 0.9.0 — 2026-05-16
 

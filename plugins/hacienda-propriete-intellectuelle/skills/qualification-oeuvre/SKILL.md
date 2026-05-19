@@ -2,20 +2,18 @@
 name: qualification-oeuvre
 description: >
   Qualification juridique d'une création au regard du droit d'auteur français
-  (CPI Livre I) — analyse multi-étapes : (1) originalité L.111-1 + CJUE Infopaq,
-  (2) catégorie L.112-2 (liste non exhaustive), (3) titularité initiale selon
-  7 cas (créateur unique / collaboration / collective / composite / commande /
-  salariat / posthume), (4) distinction droits patrimoniaux L.122-1+ vs droit
-  moral L.121-1 (perpétuel inaliénable imprescriptible), (5) durée 70 ans post
-  mortem L.123-1, (6) enjeux selon objectif (préventif / défensif / contentieux).
-  Point d'entrée du bloc droit d'auteur V4. Ne rédige PAS de contrat de cession
-  (= cession-droit-auteur V4.1), ne qualifie PAS une contrefaçon (=
-  contrefacon-droit-auteur V4.2). Ce skill NE conclut JAMAIS à l'existence ou
-  l'inexistence du droit d'auteur (= juge in fine).
+  (CPI Livre I) structuree en V2 : originalite, categorie, titularite
+  initiale, consequences de droits et de duree, puis routage vers la brique
+  specialisee suivante. Point d'entree du bloc droit d'auteur. Ne redige PAS
+  de contrat de cession ou de licence, ne traite PAS la chaine de droits
+  logiciel/data en revue globale, et ne qualifie PAS la contrefacon.
 argument-hint: "[description œuvre | nature | contexte création | objectif préventif/défensif/contentieux]"
+version: "2.0.0"
+authors: ["Hacienda"]
+tags: [droit-auteur, qualification, originalite, titularite, preuve, CPI]
 ---
 
-# /qualification-oeuvre
+# Qualification oeuvre V2
 
 > **Qualification juridique ≠ avis d'opportunité.** Ce skill produit une
 > **analyse de qualification** pour aider l'avocat spécialisé en propriété
@@ -36,6 +34,10 @@ argument-hint: "[description œuvre | nature | contexte création | objectif pr�
 > `revue-logiciel-donnees`. Dans cette configuration, `qualification-oeuvre`
 > sert seulement à qualifier l'**originalité** et le **régime juridique**
 > de chaque composant pertinent.
+
+> **Aide-memo V2.**
+> `references/qualification-oeuvre-routing-and-output.md` resume le routage et
+> les blocs de sortie. En cas d'ecart, seul ce `SKILL.md` fait foi.
 
 ## Examples
 
@@ -121,7 +123,29 @@ Si le profil contient `[A CONFIGURER]`, surfacer :
 
 ---
 
-## Intake — 5 questions en batch unique
+## Contrat d'entree V2
+
+Avant les 5 questions, expliciter ces 3 dimensions :
+
+- `objective_mode`: `preventive`, `defensive`, `litigation-prep`
+- `work_type`: `text`, `image`, `music`, `audiovisual`, `software`,
+  `database`, `design`, `mixed-media`, `other`
+- `creation_context`: `single-author`, `collaboration`, `collective`,
+  `composite`, `employee`, `commissioned`, `posthumous`, `unclear`
+
+Champs de faits a exposer ensuite :
+
+- `work_description`
+- `creation_facts`
+- `evidence_status`
+- `suspected_category`
+- `business_trigger`
+
+Tout fait, piece, date ou qualification non controle reste `[a verifier]`.
+
+---
+
+## Intake V2 — 5 questions en batch unique
 
 Avant toute analyse, poser les 5 questions ci-dessous **en une seule fois**.
 Ne pas dérouler le workflow tant que les réponses ne sont pas obtenues — ou
@@ -196,6 +220,61 @@ et la section « Recommandations » sont calibrées différemment.
 
 Si l'utilisateur ne sait pas trancher entre 2 objectifs, demander : « décris
 le déclencheur — qu'est-ce qui t'amène à qualifier cette œuvre maintenant ? »
+
+---
+
+## Routing Boundaries V2
+
+### Route to `revue-logiciel-donnees`
+
+Basculer si le sujet principal devient :
+
+- la titularite sur code, repo, dataset, base, contributions ou fondateurs ;
+- la chaine de droits sur un actif logiciel/data ;
+- la revue des pieces contractuelles permettant d'exploiter, ceder, licencier
+  ou lever des fonds.
+
+Dans ce cas, `qualification-oeuvre` reste limite a l'originalite ou au regime
+ de certains composants, sans absorber la revue globale de chaine de droits.
+
+### Route to `depot-preuve-creation`
+
+Basculer si le point bloquant principal est :
+
+- la preuve de date ;
+- la preuve de paternite ;
+- la timeline ;
+- le registre de pieces ;
+- le bundle probatoire ou les `Proof Gaps`.
+
+### Route to `cession-droit-auteur`
+
+Basculer si la qualification est suffisante et que le besoin devient la
+ redaction d'une cession.
+
+### Route to `licence-droit-auteur`
+
+Basculer si la qualification est suffisante et que le besoin devient la
+ redaction d'une licence.
+
+### Route to `contrefacon-droit-auteur`
+
+Basculer si la question dominante devient contradictoire :
+
+- reprise alleguee ;
+- comparaison des similitudes ;
+- acces a l'oeuvre ;
+- action ou defense en contrefacon.
+
+### Stay in `qualification-oeuvre`
+
+Rester ici si la question dominante est encore :
+
+- l'originalite ;
+- la categorie d'oeuvre ;
+- la titularite initiale ;
+- la consequence en droits moraux / patrimoniaux / duree ;
+- le bon skill suivant a ouvrir.
 
 ---
 
@@ -782,120 +861,84 @@ contrepartie en miroir).
 
 ---
 
-## Format de sortie
+## Format de sortie V2
 
-Le livrable se structure comme suit (Markdown, fences imbriqués en quadruple
-backticks pour ne pas casser le rendu interne) :
+Le livrable doit suivre ce contrat de sortie stable :
 
-````markdown
-[EN-TÊTE CONFIDENTIALITÉ — selon profil (avocat / juriste interne / non-juriste)]
+### 1. `Qualification Snapshot`
 
-# Qualification œuvre — [Description courte de l'œuvre] (QUALIFICATION JURIDIQUE, PAS AVIS D'OPPORTUNITÉ)
+- description courte de l'oeuvre ;
+- `objective_mode`, `work_type`, `creation_context` ;
+- triage prudent : `clair`, `mixte`, `fragile` ;
+- phrase courte sur le principal point de force ou de doute.
 
-> **Qualification juridique ≠ avis d'opportunité.** Ce skill produit une
-> analyse de qualification au regard du droit d'auteur français. Il NE
-> conclut PAS à l'existence ou à l'inexistence du droit d'auteur (= juge in
-> fine), NE rédige PAS un contrat de cession (= `cession-droit-auteur` V4.1),
-> NE qualifie PAS une contrefaçon (= `contrefacon-droit-auteur` V4.2).
-> Validation avocat spécialisé propriété littéraire et artistique
-> **OBLIGATOIRE** avant tout acte (exploitation, cession, contestation,
-> action en contrefaçon).
+### 2. `Facts and Evidence Review`
 
-> **⚠️ Note du relecteur**
-> - **Sources lues :** [CPI articles cités : L.111-1, L.112-2, L.113-1 à L.113-9, L.121-1+, L.122-1+, L.123-1+, L.131-3 + jurisprudence : CJUE Infopaq C-5/08, CJUE Painer C-145/10, CJUE Cofemel C-683/17, Cass. 1re civ. Pachot 7 mars 1986]
-> - **Objectif de qualification :** [préventif / défensif / contentieux]
-> - **Points [review] :** [N éléments à valider avocat — détailler les plus critiques]
-> - **Preuves de date disponibles :** [oui : type / non : `depot-preuve-creation` mode `open` pour `Evidence Register` et `Proof Gaps`, puis `timeline` si une `Timeline` doit être ordonnée]
-> - **Avant action :** validation avocat spécialisé propriété littéraire et artistique **OBLIGATOIRE**
+- faits recus ;
+- pieces lues ;
+- pieces annoncees mais non lues ;
+- trous critiques `[a verifier]`.
 
-**Triage :** 🟢 ORIGINALITÉ + TITULARITÉ CLAIRES / 🟡 MIXTE — POINTS À ARGUMENTER / 🔴 PROBLÉMATIQUE — RISQUE QUALIFICATION
-*(une phrase de justification)*
+### 3. `Originality Analysis`
 
-## Œuvre analysée
+- test 1 : choix libres vs contraintes ;
+- test 2 : identifiabilite ;
+- test 3 : effort intellectuel creatif ;
+- conclusion motivee, jamais definitive.
 
-- **Description :** [...]
-- **Nature :** [texte / image / musique / vidéo / logiciel / design / multimedia / autre]
-- **Forme tangible :** [manuscrit / fichier / partition / maquette / code source / autre]
-- **Date de création :** [YYYY-MM-DD ou approximation]
-- **Preuves disponibles :** [liste]
+### 4. `Category and Work-Type Map`
 
-## Analyse de l'originalité (L.111-1 + CJUE Infopaq)
+- categorie principale ;
+- regimes speciaux ou hybrides ;
+- composants a traiter distinctement si oeuvre mixte.
 
-**Test 1 — Choix libres vs contraintes techniques :** [analyse appliquée]
-**Test 2 — Identifiabilité :** [analyse appliquée]
-**Test 3 — Effort intellectuel créatif :** [analyse appliquée]
+### 5. `Initial Ownership Map`
 
-**Verdict :** 🟢 / 🟡 / 🔴 — [justification 2-3 lignes appliquée à l'œuvre concrète, pas une récitation des règles]
+- cas de titularite retenu ;
+- titulaire(s) apparent(s) ;
+- risques de chaine de droits ou d'attribution.
 
-## Catégorie L.112-2 retenue
+### 6. `Economic Rights, Moral Rights and Term`
 
-**Catégorie principale :** [littéraire / artistique / musicale / audiovisuelle / logicielle / base de données / design / multimédia / autre]
-**Sous-catégorie ou régime spécial :** [le cas échéant — L.113-7 audiovisuel, L.113-9 logiciel, L.132-36 journaliste, L.341-1 base de données sui generis]
-**Œuvre hybride :** [si oui, lister toutes les catégories applicables + qualification distributive par composant]
+- droits patrimoniaux apparents ;
+- droit moral et points de friction ;
+- duree applicable et eventuelle estimation `[a verifier]`.
 
-## Titularité initiale
+### 7. `Objective-Specific Risks`
 
-**Cas applicable :** [A / B / C / D / E / F / G — avec libellé du cas]
+- risques calibres selon `preventive`, `defensive` ou `litigation-prep` ;
+- ne pas melanger les trois listes ;
+- ne garder que les risques utiles au dossier.
 
-**Analyse détaillée :**
-- [analyse du cas appliquée aux faits concrets]
-- **Titulaire(s) identifié(s) :** [nom personne physique / personne morale / cotitulaires]
-- **Risques particuliers :** [absence de cession écrite / pacte coauteurs manquant / chaîne d'œuvre composite cassée / présomption L.113-1 contestable / autre]
+### 8. `Next Step Routing`
 
-## Droits patrimoniaux vs Droit moral (pour le cas concret)
+Utiliser uniquement une issue principale parmi :
 
-**Droits patrimoniaux dévolus à :** [créateur / employeur (L.113-9) / commanditaire (œuvre collective L.113-5) / cotitulaires (L.113-3)]
-**Droit moral conservé par :** [auteur(s) personne(s) physique(s) — TOUJOURS, perpétuel inaliénable imprescriptible]
-**Points de friction critiques :** [adaptation envisagée / contexte de diffusion / rebranding / formats dérivés / intégration tiers — à traiter explicitement dans tout contrat de cession]
+- `hold-and-document`
+- `secure-proof-first`
+- `clarify-chain-of-title`
+- `draft-assignment`
+- `draft-license`
+- `prepare-copyright-attack`
+- `insufficient-record`
 
-## Durée de protection
+Puis expliquer :
 
-**Durée applicable :** [70 ans post mortem standard / variantes selon type]
-**Événement déclencheur :** [décès auteur unique / décès dernier coauteur / publication œuvre collective / achèvement base de données sui generis]
-**Expiration estimée :** [calcul YYYY — tag `[a verifier]` si basé sur estimation de durée de vie]
+- pourquoi cette issue est la bonne ;
+- quel skill ouvrir si necessaire ;
+- quelles pieces ou validations conditionnent la suite.
 
-## Enjeux identifiés
+### 9. `Human Validation`
 
-**Selon objectif [préventif / défensif / contentieux] :**
+- ce qui est etabli ;
+- ce qui reste hypothetique ;
+- ce qui doit etre verifie ;
+- quelle validation humaine est requise avant exploitation, cession, licence
+  ou action.
 
-- [enjeu 1 — actionnable, calibré sur le cas concret]
-- [enjeu 2 — id.]
-- [enjeu 3 — id.]
-- [...]
-
-## Recommandations
-
-**Si objectif préventif :**
-- Actions avant exploitation (cession écrite L.131-3 conforme, dépôt de preuve, clauses droit moral)
-
-**Si objectif défensif :**
-- Preuves à constituer (chaîne de cessions, dates de création, originalité argumentée)
-- Argumentation à préparer (tests originalité concrets, distinguer idée/expression)
-
-**Si objectif contentieux :**
-- Étapes avant action TJ Paris ou TJ régional spécialisé PI
-- Préparation saisie-contrefaçon préalable
-- Vérification prescription 5 ans
-- Évaluation préliminaire préjudice (renvoi V4.2)
-
-**Une question hors de ma checklist :** [observation seconde-ordre — par
-exemple : « ton œuvre s'appuie sur des éléments générés par IA, ce qui
-introduit une question d'originalité non couverte par les 7 cas — la
-jurisprudence sur la titularité IA est en cours d'évolution `[connaissance
-modèle — à vérifier]` » — omettre si rien d'honnête à dire]
-
-## Que veux-tu faire ?
-
-1. **Rédiger une cession** — j'ouvre `cession-droit-auteur` (V4.1) avec les paramètres identifiés (cas titularité, droits à céder, mentions L.131-3 obligatoires)
-2. **Escalader** — je rédige une note pour avocat spécialisé propriété littéraire et artistique + Direction selon enjeu identifié
-3. **Compléter les faits** — il manque [preuves de date / chaîne de titularité / comparaisons avec œuvres antérieures / précisions sur le contexte de création]
-4. **Préparer les preuves de création** — j'ouvre `depot-preuve-creation` : mode `open` pour `Evidence Register` et `Proof Gaps` sur les dépôts horodatés (copyright.fr / huissier / enveloppe Soleau INPI), puis `timeline` si une `Timeline` doit être ordonnée
-5. **Autre chose** — dis-moi
-````
-
-Le livrable est écrit dans le fichier de sortie, sans bandeau Hacienda et
-sans narration interne (cf. mode silencieux pour livrables externes —
-`CLAUDE.md` plugin §2).
+Le livrable reste sans bandeau Hacienda et sans narration interne. Il ne doit
+ jamais conclure definitivement a l'existence ou a l'inexistence du droit
+ d'auteur.
 
 ---
 

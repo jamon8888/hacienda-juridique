@@ -130,6 +130,9 @@ configure.
 - `audit-pi-ma` : orchestrateur de due diligence PI M&A, avec modes
   `buyer-dd`, `seller-clean-room`, `red-flag` et `deal-summary`, s'appuyant
   sur les skills specialises du plugin
+- `qualification-oeuvre` : qualification droit d'auteur V2 structuree autour
+  de l'originalite, de la titularite initiale, des consequences en droits et
+  du routage vers preuve, cession, licence ou contrefacon
 - `saisie-contrefacon`
 - `contentieux-pi` : strategie judiciaire PI, structuree par `contentious_track`
   et `procedure_stage`, distincte du triage, de la lettre et de la collecte
