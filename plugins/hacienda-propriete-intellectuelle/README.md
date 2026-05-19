@@ -149,6 +149,10 @@ configure.
   claim chart, centre sur un `Extension Readiness Gate` et un routing ferme
   entre voies FR / EP / PCT / `sequenced` ou holds de clarification, y
   compris `hold-priority-risk`, sans devenir un orchestrateur de portefeuille
+- `revue-portefeuille-brevets` : hub portefeuille brevets V2, centre sur
+  `report` et `audit`, avec `Portfolio Readiness Gate`, priorisation des
+  annuites et expirations, dashboard HTML optionnel et CRUD maintenu comme
+  maintenance secondaire du registre interne
 - `analyse-refus-inpi` : skill V2 bi-office `INPI` / `OEB` de reponse a
   notification, centre sur l'analyse argumentaire, distinct de la recherche
   amont, du depot, de la strategie internationale et de l'invalidite adverse,
@@ -368,6 +372,10 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.1 : migration de `revue-portefeuille-brevets` vers un hub
+  portefeuille V2, centre sur `report` et `audit`, avec
+  `Portfolio Readiness Gate`, sortie `report` stabilisee et dashboard HTML
+  maintenu comme vue secondaire ;
 - V0.18 : migration de `strategie-extension-internationale` vers un skill V2
   territorial et de sequencement, avec `Extension Readiness Gate`, contrat
   d'entree ferme, routing ferme et reference dediee ;
