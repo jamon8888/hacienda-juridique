@@ -3,6 +3,28 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.6 — 2026-05-19
+
+### Alignement documentaire
+- `bases-de-donnees` est documente en V2 comme skill de qualification stricte
+  des regimes de protection des bases de donnees
+- ajout d'un `Database Protection Readiness Gate` explicite (`ready`,
+  `partial`, `blocked`) pour borner l'exploitabilite du dossier selon la
+  structure, l'investissement, la posture d'acces et le signal RGPD
+- sortie V2 stabilisee en 9 blocs, centree sur la structure auteur, le droit
+  sui generis, le producteur / titulaire, l'acces / reutilisation, le signal
+  RGPD et la posture contractuelle secondaire
+- `Decision Routing` ferme entre `route-to-copyright-structure-review`,
+  `route-to-investment-documentation`, `prepare-proprietary-license`,
+  `prepare-open-data-release`, `prepare-api-access-license`,
+  `prepare-scraping-enforcement-brief`, `hold-for-rgpd-review` et
+  `hold-insufficient-basis`
+- la posture contractuelle reste secondaire et ne remplace ni une licence
+  detaillee ni un audit privacy complet
+- frontieres explicites avec `qualification-oeuvre`, `logiciels-pi`,
+  `contrefacon-droit-auteur`, `licence-droit-auteur`, le plugin donnees
+  personnelles et `contentieux-pi`
+
 ## 0.18.5 — 2026-05-19
 
 ### Alignement documentaire

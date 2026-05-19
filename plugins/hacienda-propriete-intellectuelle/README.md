@@ -191,6 +191,12 @@ configure.
   les atteintes patrimoniales et morales, la preuve, les defenses adverses et
   un routage ferme vers preuve, lettre, saisie, contentieux ou base de
   donnees, avec branche plateforme / LCEN bornee
+- `bases-de-donnees` : skill V2 de qualification stricte des regimes de
+  protection des bases, centre sur la structure auteur, le droit sui
+  generis, le producteur / titulaire / exploitant, les risques d'acces,
+  d'extraction et de reutilisation, avec signal RGPD borne et posture
+  contractuelle secondaire structuree entre licence proprietaire, open data,
+  acces API et escalation scraping
 - `logiciels-pi` : regime logiciel V2 structure autour de `L.113-9`, des
   droits d'utilisation, du triage OSS de haut niveau et du routage vers
   OSS, chaine de droits, cession, licence ou enforcement
@@ -389,6 +395,12 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.6 : migration de `bases-de-donnees` vers un skill V2 de
+  qualification stricte des regimes de protection, avec
+  `Database Protection Readiness Gate`, sortie stabilisee, signal RGPD borne
+  et routage ferme vers revue structure auteur, documentation
+  d'investissement, licence proprietaire, ouverture open data, acces API,
+  enforcement scraping ou revue donnees personnelles ;
 - V0.18.5 : migration de `contrefacon-dessin-modele` vers un skill V2
   d'analyse D&M stricte, avec `Design Infringement Readiness Gate`, sortie
   stabilisee, fallback concurrence deloyale / parasitisme borne et routage
