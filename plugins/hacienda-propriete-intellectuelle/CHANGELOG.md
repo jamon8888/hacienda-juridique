@@ -33,6 +33,12 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
   `mise-en-demeure-pi` et `depot-preuve-creation`
 - contrat de sortie stabilise en 8 blocs, avec `Decision Memo` borne a un jeu
   ferme d'issues
+- `recherche-anteriorite-marque` passe a un premier passage strict de
+  recherche de marque, distinct d'une clearance juridique finale
+- frontiere explicite avec la clearance professionnelle, `depot-marque-fr`,
+  `surveillance-marque` et `analyse-opposition-marque`
+- cadrage explicite des motifs absolus, de la couverture de recherche et du
+  balayage de famille adjacente dans le workflow marques
 - `qualification-oeuvre` passe a une structure V2 avec contrat d'entree
   explicite (`objective_mode`, `work_type`, `creation_context`)
 - routage centralise vers `revue-logiciel-donnees`,

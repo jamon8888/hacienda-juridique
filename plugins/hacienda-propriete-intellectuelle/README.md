@@ -11,8 +11,8 @@ dossier de preuve.
 
 Le plugin PI couvre aujourd'hui :
 
-- marques : recherche d'anteriorite, surveillance BOPI, depot, opposition,
-  portefeuille et contentieux ;
+- marques : recherche d'anteriorite premier passage, surveillance BOPI,
+  depot, opposition, portefeuille, routage clearance et contentieux ;
 - brevets : recherche d'anteriorite, preparation depot, extension
   internationale, refus INPI/OEB, nullite, portefeuille et claim chart ;
 - dessins et modeles : recherche d'anteriorite, depot et contrefacon ;
@@ -120,6 +120,10 @@ configure.
 - Cette liste n'est pas une vue exhaustive de toutes les capabilities non-legacy.
 
 - `entretien-demarrage`
+- `recherche-anteriorite-marque` : premier passage strict de recherche de
+  marque, structure autour des motifs absolus, de la couverture de recherche,
+  du balayage de famille adjacente et du routage vers clearance
+  professionnelle, depot, surveillance ou analyse d'opposition
 - `recherche-anteriorite-dm`
 - `depot-dessin-modele`
 - `contrefacon-dessin-modele`
@@ -170,6 +174,17 @@ Lecture de cette table :
   skills d'execution ;
 - `compatibilite historique` : point d'entree conserve pour rediriger les
   anciens usages.
+
+Positionnement marque V2 a retenir :
+
+- `recherche-anteriorite-marque` n'est pas une clearance juridique finale ;
+- le skill fait un premier passage structure sur signes, classes,
+  couverture de recherche et motifs absolus ;
+- il impose un balayage de famille adjacente quand le signe ou le portefeuille
+  le justifie ;
+- il route ensuite vers une clearance professionnelle, un depot,
+  une surveillance ou `analyse-opposition-marque` selon le niveau de risque et
+  l'objectif.
 
 ## Agents
 

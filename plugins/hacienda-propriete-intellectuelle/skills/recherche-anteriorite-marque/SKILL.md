@@ -1,496 +1,335 @@
 ---
 name: recherche-anteriorite-marque
 description: >
-  Premier passage de recherche d'antériorité marque (knockout L.711-2 CPI +
-  similarités INPI/EUIPO + appréciation globale CJUE) — produit une liste de
-  signaux pour décision avocat, jamais une opinion de disponibilité. Utiliser
-  pour un nouveau signe, des classes Nice nouvelles, ou avant un dépôt.
-  Ce skill ne conclut JAMAIS qu'une marque est disponible.
+  Premier passage strict de recherche d'anteriorite marque pour signaler les
+  motifs absolus, les conflits proches et les trous de couverture avant revue
+  humaine. Ce skill ne conclut jamais qu'une marque est disponible.
 argument-hint: "[signe | classes Nice | territoires FR/EU/intl]"
 ---
 
-# /recherche-anteriorite-marque
+# Skill - Recherche d'anteriorite marque V2
 
-**Ce n'est PAS une opinion de disponibilité.** Une opinion de disponibilité
-exige une recherche professionnelle complète et le jugement d'un mandataire
-en marques (CPI L.422-4) ou d'un avocat. "Aucun conflit évident" = le triage
-n'a rien trouvé, pas que la marque est libre. *Des clients ont été assignés
-en contrefaçon sur des marques qui passaient un knockout.*
+> **Premier passage, pas une opinion de disponibilite.**
+> Une opinion de disponibilite exige une recherche professionnelle complete et
+> le jugement d'un mandataire en marques ou d'un avocat.
+>
+> "Aucun conflit evident" issu de ce skill signifie uniquement que le premier
+> passage n'a rien remonte dans son perimetre reel. Cela ne veut pas dire que
+> la marque est libre.
 
-## Examples
+`recherche-anteriorite-marque` reste la premiere brique de la lane marques :
 
-```
-/hacienda-propriete-intellectuelle:recherche-anteriorite-marque "APEXLEAF — vêtements outdoor classes 25, 35 — FR + EU"
-```
+1. premier passage de triage ;
+2. puis, selon l'issue :
+   - `depot-marque-fr`
+   - `surveillance-marque`
+   - `analyse-opposition-marque`
+   - abandon ou changement de signe.
 
-```
-/hacienda-propriete-intellectuelle:recherche-anteriorite-marque
-```
+`clearance-marque` ne reste qu'un alias de compatibilite historique. Ce n'est
+plus la voie normale a proposer.
 
-(Le skill demandera le signe, les classes et les territoires.)
+## Ce skill ne fait pas
 
----
+- Ne redige pas une opinion de disponibilite.
+- Ne fait pas un depot.
+- Ne remplace pas une recherche professionnelle exhaustive.
+- Ne fait pas une analyse contradictoire complete d'opposition.
+- Ne maintient pas un hub portefeuille.
 
-## CECI EST UN PREMIER PASSAGE, PAS UNE OPINION DE DISPONIBILITÉ
+## Contrat d'entree V2
 
-**Reformuler en tête de chaque output. Ne jamais l'enlever. Ne jamais l'adoucir.**
+Le skill doit expliciter ou deriver les dimensions suivantes :
 
-> **Premier passage, pas une opinion de disponibilité.** Une opinion de
-> disponibilité de marque exige une recherche professionnelle complète
-> (Data INPI exhaustive, EUIPO TMview tous offices, OMPI ROMARIN, recherche
-> phonétique étendue, recherche figuratif si applicable, sources non
-> enregistrées comme noms de domaine et raisons sociales) et le jugement
-> d'un mandataire en marques ou d'un avocat sur le risque de confusion.
-> "Aucun conflit évident" issu de ce skill = le triage n'a rien trouvé. Cela
-> ne veut pas dire que la marque est libre. Un mandataire ou un avocat
-> évalue avant tout dépôt, adoption ou investissement marketing.
+- `mark_type`: `word`, `figurative`, `composite`, `semi-figurative`, `unknown`
+- `filing_intent`: `exploratory`, `pre-filing`, `pre-launch`,
+  `portfolio-extension`, `reactive-check`
+- `territory_scope`: `fr`, `eu`, `fr-eu`, `international-subset`, `unknown`
+- `goods_services_scope`: `known-classes`, `described-only`, `mixed`,
+  `unclear`
+- `adjacent_families_status`: `pending-confirmation`, `confirmed`, `not-run`,
+  `insufficient-input`
 
-C'est le garde-fou le plus visible du plugin. Sous-flagger un conflit = porte
-à sens unique (logo sur camions, produit lancé, dépôt déjà fait, tous avec un
-problème dessous). Sur-flagger = porte à 2 sens, l'avocat élague en revue.
-Rester sur la porte à 2 sens.
+Bloc de faits a exposer explicitement :
 
----
+- `proposed_sign`
+- `claimed_goods_services`
+- `nice_classes`
+- `market_appearance`
+- `known_related_names`
+- `search_limitations`
 
-## Charger le profil pratique avant de commencer
+## Chargement du profil pratique
 
 Avant tout, lire :
+
 1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
 2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
-Récupérer :
-- **Rôle** depuis `## Qui utilise ce plugin` (avocat / mandataire / non-juriste — change l'en-tête confidentialité).
-- **Juridictions inscrites** depuis `## Profil pratique PI` (défaut territoires si l'utilisateur n'en spécifie pas).
-- **Intégrations** depuis `## Intégrations disponibles` (INPI Data ✓/✗, EUIPO TMview ✓/✗ — détermine quelles bases sont interrogées).
-- **Posture de décision** — ce skill ne conclut JAMAIS "absence de risque de confusion".
+Rattacher ensuite :
 
-Si le profil contient `[A CONFIGURER]`, surfacer :
+- le role utilisateur ;
+- les juridictions par defaut ;
+- les integrations disponibles ;
+- la posture de prudence.
 
-> Le profil pratique n'est pas configuré — c'est ce qui adapte la posture, les
-> juridictions et la chaîne d'approbation à votre cabinet.
->
-> **Deux choix :**
-> - Lancer `/hacienda-propriete-intellectuelle:entretien-demarrage` (10-15 min)
-> - Dire **"provisoire"** et je lance avec les défauts génériques (FR + EU,
->   posture mesurée, rôle avocat, sans playbook) — chaque sortie sera taggée
->   `[PROVISOIRE — configurer le profil pour une sortie sur mesure]`.
-
-### Mode provisoire
-
-Si l'utilisateur dit "provisoire", lancer normalement avec : posture mesurée,
-rôle avocat, FR + EU, pas de playbook (analyse complète plutôt que matching
-contre une position list). Tagger la note du relecteur et chaque finding
-`[PROVISOIRE]`. À la fin, ajouter :
-
-> "C'était un run générique avec les hypothèses par défaut. Lancer
-> `/hacienda-propriete-intellectuelle:entretien-demarrage` pour calibrer sur
-> VOTRE pratique — votre playbook, vos juridictions, votre tolérance au risque."
-
----
+Si le profil contient `[A CONFIGURER]`, surfacer explicitement le mode
+provisoire. Le skill peut tourner avec des hypotheses generiques, mais chaque
+sortie doit etre taggee `[PROVISOIRE]`.
 
 ## Intake
 
-Demander en un seul batch (pas de jeu de questions à rallonge) :
-
-> Quelques questions avant le triage :
->
-> 1. **Signe proposé.** Texte exact, stylisation éventuelle, et type :
->    mot / figuratif / composite.
-> 2. **Produits ou services.** Ce qui sera réellement vendu sous ce signe.
->    Une ou deux phrases — je proposerai les classes Nice et confirmerai.
-> 3. **Classes Nice.** Si déjà connues, lister. Sinon décrire les
->    produits/services et je proposerai les classes probables.
-> 4. **Territoires.** FR / EU / Madrid international / pays spécifiques.
->    Défaut depuis `Profil pratique PI > juridictions inscrites`.
-> 5. **Apparence en marché.** Tagline, dénominations adjacentes (gamme),
->    trade dress, éléments visuels qui apparaîtront avec.
-
-Attendre la réponse. Si la description est vague ("appli IA", "plateforme"),
-pousser une fois :
-
-> Donne ce qu'un client voit concrètement — appli mobile grand public, API
-> entreprise, produit physique, service. Les classes en dépendent.
-
----
-
-## Knockout — motifs absolus L.711-2 CPI
-
-Avant toute recherche en bases, vérifier les motifs intrinsèques qui
-condamnent un signe indépendamment de toute antériorité. Pour chaque motif,
-évaluer franchement et flagger. Ne pas rationaliser un problème évident.
-
-| Motif (L.711-2 CPI) | Ce que ça veut dire | Flagger quand |
-|---|---|---|
-| **Caractère distinctif insuffisant** (1°) | Le signe ne permet pas d'identifier un produit | Le signe désigne directement le type de produit |
-| **Descriptif** (2°) | Décrit espèce, qualité, quantité, destination, valeur, provenance, époque | Un consommateur lit le signe et sait ce que fait le produit sans imagination |
-| **Devenu usuel** (3°) | Entré dans le langage courant ou les habitudes professionnelles | Mot devenu synonyme générique de la catégorie |
-| **Forme imposée** (5°) | Forme nécessaire à la fonction technique du produit | Marque figurative — et la forme assure une fonction |
-| **Atteinte ordre public / bonnes mœurs** (7°) | Symboles d'État, AOP/IGP non autorisées, signes contraires | Signe contient un élément protégé ou choquant |
-| **Trompeur** (8°) | Risque de tromper le public sur nature, qualité, provenance | Le signe suggère une qualité que le produit n'a pas, et cette qualité importerait au consommateur |
-
-**Sortie** : pour chaque motif, soit "aucun problème identifié", soit un flag
-spécifique avec une ligne de raison. Ne pas produire un tableau plat de "pass".
-
----
-
-## Recherche similaires
-
-L'objectif : **trouver des marques antérieures potentiellement confuses**, pas
-décider si la confusion est probable. C'est le rôle de l'avocat / mandataire.
-
-### Ce que l'utilisateur a connecté
-
-Lire `## Intégrations disponibles` du profil :
-
-- **Data INPI ✓ et EUIPO TMview ✓** : exécuter
-  - `inpi_search_marques({ query, classes, similarite: "proche", limite: 50 })`
-  - `inpi_search_marques({ query, classes, similarite: "phonetique", limite: 30 })`
-  - `euipo_tmview_search({ query, classes, offices: ["EM", "FR"], limite: 50 })`
-  - Attribuer chaque résultat à sa source (`[INPI Data]` ou `[EUIPO TMview]`).
-  - Noter date de recherche et scope (classes, exact-vs-fuzzy).
-- **Data INPI seul** : INPI seul + ajouter une note "EUIPO non interrogé,
-  recherche EU recommandée avant adoption."
-- **Aucun MCP marques mais `hacienda-sources-officielles`** : recherche
-  jurisprudence opposition INPI via `recherche` (`base-jurisprudence INPI`).
-- **Aucun connecteur** : annonce explicite (voir bloc ci-dessous) — ne PAS
-  inférer des résultats depuis la connaissance modèle pour les présenter
-  comme des findings.
-
-### Fallback sans accès bases
-
-Écrire littéralement dans la sortie :
-
-> **Aucune base de données interrogée.** Ce triage n'a pas hit Data INPI,
-> EUIPO TMview, OMPI ROMARIN, base-jurisprudence INPI, ni aucune source
-> non enregistrée (noms de domaine, raisons sociales). Une recherche
-> complète sur ces bases est requise avant toute conclusion sur la
-> disponibilité. Le triage ci-dessous est limité à l'analyse intrinsèque
-> des motifs absolus et aux facteurs structurés contre les marques que
-> l'utilisateur a citées ou qui apparaissent dans la conversation.
-
-Puis continuer — les checks intrinsèques + l'analyse facteurs restent utiles,
-juste honnêtement étiquetés.
-
-### Pour chaque marque similaire trouvée (ou fournie)
-
-Capturer :
-- **Marque** (caractères exacts, stylisation éventuelle)
-- **Source** (numéro INPI / numéro EUTM / décision opposition / nom de
-  domaine / raison sociale — précis)
-- **Classes / désignation produits-services** depuis le registre
-- **Titulaire**
-- **Statut** (enregistrée / déposée / abandonnée / déchue — une marque
-  morte n'est pas un obstacle mais peut être pertinente pour la renommée
-  ou les droits d'un prédécesseur)
-- **Date de dépôt si disponible**
-
-**Pas de supplémentation silencieuse.** Si on cite un numéro INPI, il vient
-de la recherche exécutée ; si on décrit une marque que l'utilisateur a
-mentionnée, le dire. Ne jamais inventer un numéro et ne jamais "remplir"
-un détail que le record ne supporte pas. Si la recherche n'a pas retourné
-une date de dépôt, écrire "date de dépôt non disponible dans le résultat"
-— ne pas deviner.
-
----
-
-## Balayage des familles adjacentes (requis avant de conclure)
-
-Une recherche qui ne couvre que les exacts et les très proches manque les
-marques qu'un concurrent a adoptées *parce que* la vôtre était prise. Avant
-de conclure, identifier 3-5 familles adjacentes à balayer et **demander
-confirmation** à l'utilisateur.
-
-Familles adjacentes = substituts catégorie-conventionnels qu'un concurrent
-raisonnable considérerait quand le signe direct est indisponible.
-
-### Pour un signe comme `NEXUS HOME` (smart home), familles minimales :
-
-- **Synonymes catégoriels** de NEXUS : `HUB`, `NEST`, `CORE`, `LINK`,
-  `CONNECT`, `BRIDGE`, `CENTRAL`, `GATEWAY`.
-- **Noms style assistant** dans la catégorie : `ALEXA`, `ECHO`, `SIRI`,
-  `GOOGLE HOME`, `CORTANA`, `HOMEY`, `HOMEBASE`.
-- **Variantes HOME / HOUSE / SMART** : `SMART HOME`, `HOUSEHOLD`, `HOUSE`,
-  `MAISON`, `CASA`, `DOM`.
-- **Jumeaux phonétiques FR** sur la racine : `NEXIS`, `NEXXUS`, `NECTIS`.
-
-### Quand des juridictions non-anglophones sont visées
-
-L'analyse phonétique uniquement EN manque la source la plus fréquente de
-conflits cross-border. Ajouter :
-
-- **Équivalents traduits** : signe traduit dans EN / ES / IT / DE (top 5
-  langues EU TMview). **Doctrine des équivalents étrangers EUIPO** —
-  jurisprudence Matratzen Concord T-6/01 traite la traduction comme la
-  même marque pour le risque de confusion.
-- **Translitération** : signe écrit dans le script pertinent (Cyrillic,
-  CJK, arabe). Équivalence phonétique entre scripts est une base de
-  conflit reconnue.
-- **Variations de script** : marques enregistrées dans un script non-Latin
-  qui sonnent comme votre signe en romanisation.
-
-Si l'analyse cross-langue n'est pas faisable, dire : "Analyse phonétique
-cross-langue et équivalents traduits non effectuée — c'est la source la
-plus fréquente de conflits cross-border. Une recherche professionnelle
-en [juridiction] doit l'inclure."
-
-### Bloc de confirmation
-
-Sortir un bloc avant de conclure :
-
-> **Familles adjacentes à balayer (confirmer ou compléter) :**
->
-> - [famille 1 — ex. HUB / NEST / LINK / CONNECT]
-> - [famille 2 — ex. ALEXA-style assistant names]
-> - [famille 3 — ex. HOME / HOUSE / SMART variants]
-> - [famille 4 — jumeaux phonétiques FR sur la racine]
-> - [famille 5 — équivalents traduits EN/ES/IT/DE si EU visé]
->
-> Une recherche qui ne checke que exact + proche manque les marques qu'un
-> concurrent a adoptées parce que la vôtre était prise. Confirmer cette
-> liste avant que je continue.
-
-Si MCP marques connecté, **re-exécuter** la recherche sur chaque famille
-confirmée et ajouter les résultats à la table similaires avec source
-"Famille adjacente : [famille]". Sinon, lister explicitement les familles
-comme input next-step pour la recherche professionnelle complète — ne pas
-sauter silencieusement.
-
----
-
-## Appréciation globale du risque de confusion
-
-> **Cadre FR/UE — pas de test multi-facteurs US.** La CJUE applique
-> l'**appréciation globale** (Sabel/Puma C-251/95, Canon C-39/97, Lloyd
-> Schuhfabrik C-342/97) — interdépendance des facteurs analysée du point
-> de vue du **consommateur moyen normalement informé, raisonnablement
-> attentif et avisé**.
->
-> Ne JAMAIS appliquer du Pont / Polaroid / Sleekcraft à des faits FR/UE.
-
-Pour chaque facteur, produire un **signal**, pas un verdict. Chaque facteur
-dit ce qui pèse de chaque côté et où est l'incertitude :
-
-- **Similitude des signes** (visuelle / auditive / conceptuelle / impression
-  d'ensemble). Considérées **ensemble**, pas isolément (CJUE Sabel).
-- **Similitude des produits/services** (Canon). Pas l'identité — la
-  perception du consommateur quant à une origine commune.
-- **Pouvoir distinctif** intrinsèque + acquis par usage de la marque
-  antérieure. Une marque renommée a une protection plus large.
-- **Public concerné et niveau d'attention**. Achat impulsif vs. achat
-  délibéré professionnel change le standard.
-- **Principe d'interdépendance** : faible similitude des signes peut être
-  compensée par forte similitude des produits, et inversement (Canon).
-
-Conformément à `## Posture de décision sur jugements subjectifs` du
-`CLAUDE.md` :
-
-- **Ne JAMAIS conclure "absence de risque de confusion".**
-- Si incertain, écrire : "Marques similaires trouvées ; appréciation à mener
-  par l'avocat avant adoption." OU "Facteurs ambigus ; jugement avocat
-  requis."
-- "Aucune marque similaire trouvée dans les bases interrogées" est
-  acceptable *uniquement* si une vraie recherche a été exécutée — sinon
-  bucket "Aucune base interrogée".
-
----
-
-## Recommandations & prochaines étapes
-
-Chaque sortie ferme par des prochaines étapes concrètes, bucketées :
-
-- **Si knockout flaggé** : reformuler le signe, ou accepter le caractère
-  descriptif et planifier l'acquisition de distinctivité par usage ;
-  router vers mandataire/avocat avant adoption.
-- **Si marques similaires trouvées en bases** : revue avocat requise avant
-  adoption, dépôt ou marketing. Souvent étape suivante = recherche
-  professionnelle complète.
-- **Si aucune marque similaire mais aucune base interrogée** : recherche
-  complète requise avant adoption. Nommer les bases qu'il faut hit.
-- **Si marques similaires mais titulaire faible / abandonné / classe
-  différente** : flag pour revue avocat — le triage ne fait pas ce call.
-- **Toujours** : opinion de disponibilité complète d'un mandataire/avocat,
-  proportionnée à l'investissement que portera le signe. Une marque qui
-  ira sur une gamme produit + une campagne TV pèse plus qu'une marque pour
-  un pop-up unique.
-
----
-
-## Format de sortie
-
-Préfixer l'en-tête confidentialité depuis `CLAUDE.md` `## Sorties standardisées`.
-
-````markdown
-[EN-TÊTE CONFIDENTIALITÉ — selon rôle]
-
-# Recherche d'antériorité marque — Premier passage (PAS UNE OPINION)
-
-> **Premier passage, pas une opinion de disponibilité.** [paragraphe garde-fou
-> en tête, reformulé tel quel]
-
-> **⚠️ Note du relecteur**
-> - **Sources :** [INPI Data ✓ vérifié | EUIPO TMview ✓ | OMPI ✗]
-> - **Lu :** [N résultats sur N]
-> - **Signalé :** [N éléments [review]]
-> - **Fraîcheur :** [base INPI vendredi YYYY-MM-DD]
-> - **Avant de s'appuyer :** [1-2 actions concrètes]
-
-**Triage :** 🟢 VERT / 🟡 ORANGE / 🔴 ROUGE — une phrase pourquoi
-
-## Signe proposé
-
-- **Signe :** [texte exact, stylisation notée]
-- **Type :** [mot / figuratif / composite]
-- **Produits / services :** [description]
-- **Classes Nice :** [numéros + libellés courts]
-- **Territoires :** [FR / EU / Madrid / pays]
-- **Cadre confusion appliqué :** Appréciation globale CJUE (Sabel/Canon/Lloyd)
-
-## Knockout — motifs absolus L.711-2 CPI
-
-| Motif | Flag | Note |
-|---|---|---|
-| Caractère distinctif (1°) | [aucun / flaggé] | [si flaggé : 1 ligne] |
-| Descriptif (2°) | ... | ... |
-| Devenu usuel (3°) | ... | ... |
-| Forme imposée (5°) | ... | ... |
-| Atteinte ordre public (7°) | ... | ... |
-| Trompeur (8°) | ... | ... |
-
-## Recherche similaires
-
-**Bases interrogées :** [INPI Data 2026-05-12 (classes 25,35) | EUIPO TMview
-2026-05-12 (offices EM,FR) | OMPI non interrogé]
-**Scope :** [classes, exact-vs-fuzzy, figuratif inclus ou non]
-
-**Familles adjacentes balayées (confirmées avec utilisateur) :**
-- [famille 1]
-- [famille 2]
-- [famille 3]
-- [famille 4]
-
-*Si aucune famille n'a été balayée (pas de connecteur, temps), elles sont
-listées explicitement comme next-step pour la recherche professionnelle
-complète — pas silencieusement skip.*
-
-| Marque | Source | Classes | Titulaire | Statut | Date dépôt | Note |
-|---|---|---|---|---|---|---|
-| [exact] | [num INPI / EUTM / autre] | [classes] | [titulaire] | [statut] | [date / non disp.] | [pourquoi ça compte — exact / famille adjacente] |
-
-*Si aucune recherche n'a été exécutée :* **Aucune base de données interrogée.**
-[bloc fallback complet]
-
-## Appréciation globale du risque de confusion — éléments pour avocat
-
-| Facteur (CJUE) | Signal | Direction |
-|---|---|---|
-| Similitude des signes (visuelle/auditive/conceptuelle/ensemble) | [note] | [pèse vers / contre conflit / mixte] |
-| Similitude des produits/services (Canon) | [note] | [direction] |
-| Pouvoir distinctif intrinsèque + acquis | [note] | [direction] |
-| Public concerné + niveau d'attention | [note] | [direction] |
-| Interdépendance | [note] | [direction] |
-
-**Conclusion :** *Ce skill ne conclut pas.* Une de :
-- "Marques similaires trouvées ; appréciation à mener par l'avocat avant adoption."
-- "Aucune marque similaire dans les bases interrogées ; recherche complète requise avant adoption."
-- "Facteurs ambigus ; jugement avocat requis."
-
-## Recommandations & prochaines étapes
-
-- [étape 1 — ex. "Recherche professionnelle complète Data INPI exhaustive +
-  EUIPO TMview tous offices + OMPI ROMARIN avant adoption"]
-- [étape 2 — ex. "Design-around revue de la marque APEXLEAF en classe 25 si
-  intent procéder"]
-- [étape 3 — ex. "Reformuler le signe — actuel descriptif, requiert
-  acquisition de distinctivité"]
-- [routing depuis le profil — mandataire INPI ou avocat PI]
-
-## Vérification des citations
-
-Chaque numéro INPI, numéro EUTM, citation jurisprudence et résultat de base
-dans ce mémo doit être vérifié contre la source autoritative avant que l'on
-s'y appuie. Les numéros, classifications et dates de dépôt sont les sites
-les plus fréquents d'erreur. Ne pas citer un résultat qu'on ne peut pas
-ouvrir.
-
-**Une question hors de ma checklist :** [observation seconde-ordre — omis si rien]
-
-## Que veux-tu faire ?
-
-1. **Préparer le dépôt** — je rédige le projet de dépôt INPI ou EUIPO
-2. **Escalader** — note pour [approbateur du profil]
-3. **Compléter les faits** — questions au PM / client / engineering
-4. **Surveiller et attendre** — j'ajoute au tracker (V1.1 `bopi-watcher`)
-5. **Autre chose** — dis-moi
-````
-
----
-
-## Gate non-juriste
-
-Avant émettre la sortie, lire `## Qui utilise ce plugin`. Si Rôle = non-juriste :
-
-> Cette sortie est un triage de recherche, pas un avis juridique. Adopter,
-> déposer ou investir dans cette marque sur la seule base de ce triage a
-> des conséquences juridiques — y compris être assigné en contrefaçon sur
-> une marque qui "passait" ce check. Un mandataire en marques inscrit à
-> l'INPI ou un avocat doit évaluer avant que vous bougiez.
->
-> Voici un brief à apporter à votre mandataire/avocat — ça réduira le temps
-> de la conversation :
->
-> [Générer un résumé 1 page : signe proposé, produits/services et classes,
->  motifs knockout flaggés (le cas échéant), marques similaires trouvées
->  (le cas échéant), ce qui a et n'a PAS été cherché, et 3 questions à
->  poser au mandataire/avocat.]
->
-> Pour trouver un avocat ou un mandataire en marques :
-> - Annuaire des avocats : https://www.avocat.fr (Conseil National des Barreaux)
-> - Annuaire des mandataires en marques INPI : https://www.inpi.fr/conseils-en-propriete-industrielle
-
-Livrer le triage complet À CÔTÉ du brief. Ne pas retenir l'analyse.
-
----
-
-## Emplacement de la sortie
-
-Écrire à
-`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/anteriorite-<signe-slug>-YYYY-MM-DD.md`
-et surfacer le chemin à l'utilisateur.
-
-Si le profil contient déjà un signe-slug identique pour aujourd'hui, ajouter
-un suffixe `-2`, `-3`, etc.
-
-Matter workspaces hors V1 (cf. `CLAUDE.md` `## Matter workspaces`).
-
----
-
-## Fermeture avec l'arbre de décision
-
-Fermer avec l'arbre de décision suivant `CLAUDE.md` `## Sorties standardisées`.
-Personnaliser les options aux findings — les 5 par défaut sont un point de
-départ, pas un verrou.
-
----
-
-## Ce que ce skill NE fait PAS
-
-- **Conclure que la marque est libre.** Jamais. Le garde-fou le plus visible.
-- **Substituer une recherche Data INPI exhaustive, EUIPO TMview tous offices,
-  OMPI ROMARIN, recherche figuratif, recherche noms de domaine, recherche
-  raisons sociales.**
-- **Déposer une marque.** Le dépôt est une tâche mandataire/avocat ; ce
-  skill informe la décision de déposer.
-- **Évaluer la marque renommée / dilution** au-delà d'un flag préliminaire.
-- **Adresser les indications géographiques** — skill séparé en V2.
-- **Quoter la sortie à des clients, contreparties ou la presse.** C'est de
-  la recherche interne. Privilégiée si l'en-tête en haut s'applique.
-
----
-
-## Ton
-
-Précis, concret, honnête sur le périmètre. L'avocat lisant cette sortie doit
-savoir en 10 secondes ce que le triage a trouvé, ce qu'il n'a PAS trouvé, et
-ce qui doit se passer avant que quiconque adopte ce signe. Pas de prose
-hedgée. Le garde-fou en tête et la ligne "ne conclut pas" sur la confusion
-font le travail de scope.
+Demander en un seul batch, puis mapper la reponse au contrat V2 :
+
+1. signe propose, texte exact, stylisation eventuelle, type apparent ;
+2. produits ou services reels ;
+3. classes Nice si deja connues ;
+4. territoires vises ;
+5. apparence en marche ;
+6. noms relies deja connus ;
+7. limites de recherche deja identifiees.
+
+Guidance de mapping minimale :
+
+- mot seul -> `mark_type: word`
+- logo ou element graphique dominant -> `mark_type: figurative`
+- signe texte + logo -> `mark_type: composite`
+- signe mixte mais qualification visuelle encore floue -> `mark_type: semi-figurative`
+- classes deja donnees -> `goods_services_scope: known-classes`
+- simple description business -> `goods_services_scope: described-only`
+- classes partielles + description libre -> `goods_services_scope: mixed`
+- description trop vague -> `goods_services_scope: unclear`
+- FR seul -> `territory_scope: fr`
+- EU seul -> `territory_scope: eu`
+- FR + EU -> `territory_scope: fr-eu`
+- Madrid ou liste de pays ciblee -> `territory_scope: international-subset`
+
+Si la description reste vague, pousser une fois pour obtenir une description
+concrete du produit ou service. Si l'information reste insuffisante, marquer
+`goods_services_scope: unclear` et reduire la confiance.
+
+## Couche 1 - Motifs absolus
+
+Le knockout `L.711-2 CPI` reste obligatoire avant toute conclusion de triage.
+
+Le resultat du knockout ne doit pas etre un tableau plat de pass/fail. Pour
+chaque motif pertinent, produire soit :
+
+- aucun probleme identifie ;
+- soit un flag motive et concret.
+
+Motifs minimaux a passer en revue :
+
+- caractere distinctif insuffisant ;
+- descriptif ;
+- devenu usuel ;
+- forme imposee si le signe releve d'une forme ;
+- atteinte a l'ordre public ou a des signes proteges ;
+- trompeur.
+
+## Couche 2 - Search Coverage
+
+Avant de commenter les conflits, decrire explicitement la couverture reelle :
+
+- bases interrogees ;
+- classes couvertes ;
+- territoires couverts ;
+- type de recherche : exacte, proche, phonetique, partielle ;
+- statut du balayage des familles adjacentes ;
+- limitations restantes.
+
+### Integrations et degrade controle
+
+Si des connecteurs sont disponibles, attribuer chaque resultat a sa source.
+Si une integration manque, le dire explicitement.
+
+Si aucune base n'est interrogee, ecrire litteralement dans la sortie :
+
+> **Aucune base de donnees interrogee.** Ce triage n'a pas hit Data INPI,
+> EUIPO TMview, OMPI ROMARIN, base-jurisprudence INPI, ni aucune source non
+> enregistree. Une recherche complete sur ces bases est requise avant toute
+> conclusion sur la disponibilite.
+
+Puis continuer avec un triage degrade, en restant honnete sur les limites.
+
+## Couche 3 - Marques proches
+
+L'objectif est de trouver des marques anterieures potentiellement pertinentes,
+pas de trancher la confusion.
+
+Pour chaque marque proche trouvee ou fournie, capturer si possible :
+
+- signe ;
+- source ;
+- classes / designation produits-services ;
+- titulaire ;
+- statut ;
+- date de depot si disponible ;
+- note sur la raison du signalement.
+
+Pas de supplementation silencieuse. Si une date, un numero ou un statut n'est
+pas present dans la source, l'ecrire comme indisponible plutot que le deviner.
+
+## Couche 4 - Balayage des familles adjacentes
+
+Le balayage des familles adjacentes est requis avant de conclure.
+
+Si l'utilisateur n'a pas confirme la liste, exposer
+`adjacent_families_status: pending-confirmation` ou `insufficient-input`, et
+reduire la confiance du triage.
+
+Le skill doit :
+
+1. proposer 3 a 5 familles adjacentes plausibles ;
+2. demander confirmation ou complement ;
+3. rejouer la recherche sur les familles confirmees si les integrations le
+   permettent ;
+4. sinon, reporter explicitement ces familles comme couverture manquante a
+   traiter en recherche professionnelle.
+
+Le statut de cette couche doit toujours etre visible :
+
+- `pending-confirmation`
+- `confirmed`
+- `not-run`
+- `insufficient-input`
+
+## Couche 5 - Signaux de confusion FR / UE
+
+Cadre applicable : appreciation globale CJUE, pas de test multi-facteurs US.
+
+Analyser comme signaux, pas comme verdict :
+
+- similitude des signes ;
+- similitude des produits/services ;
+- pouvoir distinctif de la marque anterieure ;
+- public concerne et niveau d'attention ;
+- interdendance des facteurs.
+
+Regles de prudence :
+
+- ne jamais conclure "absence de risque de confusion" ;
+- si les facteurs sont ambigus, le dire ;
+- si la couverture est incomplete, reduire la portee de toute recommandation.
+
+## Routing Boundaries
+
+### Route to `depot-marque-fr`
+
+- pas de blocage majeur evident au premier passage ;
+- couverture minimale exploitable pour preparer un depot ;
+- validation humaine encore obligatoire avant depot.
+
+### Route to `surveillance-marque`
+
+- signe deja exploite ou en veille active ;
+- besoin principal = suivi des publications ou monitorage ;
+- pas d'escalade immediate plus utile qu'un suivi structure.
+
+### Route to `analyse-opposition-marque`
+
+- conflit proche emerge ;
+- comparaison contradictoire plus fine requise ;
+- produits/services, priorites ou strategie doivent etre approfondis.
+
+### Route to `clearance-marque`
+
+- uniquement pour compatibilite historique ;
+- si un ancien workflow l'appelle encore ;
+- a presenter comme redirection, pas comme workflow de meme rang.
+
+### Stay in `recherche-anteriorite-marque`
+
+- besoin principal = premier passage strict ;
+- motifs absolus, couverture et conflits proches restent la question centrale ;
+- le dossier n'est pas encore dans un workflow depot, opposition ou surveillance
+  plus specialise.
+
+## Contrat de sortie V2
+
+La sortie doit produire exactement les huit blocs suivants, dans cet ordre :
+
+1. `Absolute Grounds Snapshot`
+2. `Search Coverage`
+3. `Closest Conflicts`
+4. `Adjacent Family Sweep`
+5. `Confusion Risk Signals`
+6. `Uncertainty and Missing Coverage`
+7. `Next Step Routing`
+8. `Human Validation`
+
+### 1. `Absolute Grounds Snapshot`
+
+- rappeler les motifs absolus revus ;
+- signaler chaque flag motive ;
+- ne pas ecrire un simple tableau uniforme de "pass".
+
+### 2. `Search Coverage`
+
+- bases interrogees ;
+- classes et territoires couverts ;
+- type de recherche ;
+- statut du balayage adjacent ;
+- limitations explicites.
+
+### 3. `Closest Conflicts`
+
+- lister les marques les plus proches ;
+- rattacher chaque entree a sa source ;
+- dire pourquoi elle compte dans ce premier passage.
+
+### 4. `Adjacent Family Sweep`
+
+- lister les familles proposees ;
+- indiquer si elles ont ete confirmees ;
+- dire si elles ont ete rejouees ou non ;
+- exposer `adjacent_families_status`.
+
+### 5. `Confusion Risk Signals`
+
+- presenter les facteurs FR/UE comme signaux ;
+- distinguer ce qui pese vers le conflit, contre le conflit, ou reste mixte ;
+- ne pas rendre un verdict final de disponibilite.
+
+### 6. `Uncertainty and Missing Coverage`
+
+- trous de donnees ;
+- bases non interrogees ;
+- limites de territoire, classes, variantes, phonétique, figuratif ou familles
+  adjacentes ;
+- impact pratique de chaque manque.
+
+### 7. `Next Step Routing`
+
+Ce bloc doit utiliser uniquement l'une des valeurs suivantes :
+
+- `proceed-to-professional-clearance`
+- `prepare-filing`
+- `monitor-before-filing`
+- `prepare-opposition-risk-review`
+- `insufficient-search-coverage`
+- `abandon-or-rename`
+
+Associer la valeur choisie a 2-4 actions concretes et a sa justification.
+
+### 8. `Human Validation`
+
+- rappeler qu'il s'agit d'un premier passage ;
+- nommer les validations humaines requises ;
+- rappeler les points `[a verifier]` avant depot, adoption ou investissement.
+
+## Regles de surete
+
+- Ce skill ne conclut jamais qu'une marque est disponible.
+- Une base non interrogee reste une lacune, pas une absence de conflit.
+- Une famille adjacente non confirmee ou non rejouee doit etre visible.
+- Une recherche degradee sans connecteur reste permise, mais doit etre marquee
+  comme telle.
+- Les numeros, dates, statuts et classes doivent etre relies a une source
+  ouvrable avant d'etre cites comme appui.
+
+## Rappel final a conserver
+
+- premier passage uniquement ;
+- jamais une opinion de disponibilite ;
+- revue humaine obligatoire avant depot, adoption ou investissement marketing.
