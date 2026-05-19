@@ -124,6 +124,9 @@ configure.
   marque, structure autour des motifs absolus, de la couverture de recherche,
   du balayage de famille adjacente et du routage vers clearance
   professionnelle, depot, surveillance ou analyse d'opposition
+- `analyse-opposition-marque` : skill d'opposition INPI strict, structure
+  autour du gate procedurale, de la cartographie droits / motifs et d'une
+  branche coexistence / transaction bornee avant toute escalade hors cadre
 - `recherche-anteriorite-dm`
 - `depot-dessin-modele`
 - `contrefacon-dessin-modele`
@@ -185,6 +188,13 @@ Positionnement marque V2 a retenir :
 - il route ensuite vers une clearance professionnelle, un depot,
   une surveillance ou `analyse-opposition-marque` selon le niveau de risque et
   l'objectif.
+- `analyse-opposition-marque` intervient uniquement sur une opposition INPI
+  recevable ou imminente, avec controle du gate procedurale avant toute
+  analyse au fond ;
+- le skill cartographie les droits invoques, les motifs mobilisables et leur
+  articulation procedurale avant de recommander la suite ;
+- la coexistence ou la transaction y reste une branche bornee, utile seulement
+  si elle soutient la posture INPI sans remplacer l'analyse d'opposition.
 
 ## Agents
 

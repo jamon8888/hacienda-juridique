@@ -39,6 +39,12 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
   `surveillance-marque` et `analyse-opposition-marque`
 - cadrage explicite des motifs absolus, de la couverture de recherche et du
   balayage de famille adjacente dans le workflow marques
+- `analyse-opposition-marque` passe a un skill d'opposition INPI strict,
+  borne par un gate procedurale explicite
+- cartographie stabilisee des droits invoques, des motifs et de leur
+  articulation pour former ou repondre a l'opposition
+- branche coexistence / transaction maintenue mais bornee, sans diluer le role
+  principal d'analyse contentieuse administrative INPI
 - `qualification-oeuvre` passe a une structure V2 avec contrat d'entree
   explicite (`objective_mode`, `work_type`, `creation_context`)
 - routage centralise vers `revue-logiciel-donnees`,
