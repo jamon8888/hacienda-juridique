@@ -128,6 +128,10 @@ configure.
   premier passage de recherche, de l'opposition et de la surveillance,
   structure par lanes FR / EU / Madrid avec readiness gate avant tout depot
   effectif
+- `surveillance-marque` : skill V2 strict de monitoring et de priorisation,
+  distinct du premier passage de recherche, de la substance de l'opposition et
+  de l'enforcement, avec modes clarifies et monitoring gate avant toute
+  escalation
 - `analyse-opposition-marque` : skill d'opposition INPI strict, structure
   autour du gate procedurale, de la cartographie droits / motifs et d'une
   branche coexistence / transaction bornee avant toute escalade hors cadre
@@ -197,6 +201,11 @@ Positionnement marque V2 a retenir :
   workflow de surveillance ;
 - le skill organise la preparation par lanes FR / EU / Madrid et verifie un
   readiness gate avant toute recommandation de depot effectif ;
+- `surveillance-marque` est une brique stricte de monitoring et de
+  priorisation, pas un premier passage de recherche, pas une analyse
+  substantielle d'opposition et pas un workflow d'enforcement ;
+- le skill clarifie ses modes de surveillance et applique un monitoring gate
+  avant toute recommandation d'escalade vers l'opposition ou d'autres suites ;
 - `analyse-opposition-marque` intervient uniquement sur une opposition INPI
   recevable ou imminente, avec controle du gate procedurale avant toute
   analyse au fond ;

@@ -44,6 +44,11 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
   surveillance
 - structuration explicite des lanes FR / EU / Madrid avec readiness gate avant
   toute recommandation de depot effectif
+- `surveillance-marque` est documente en V2 comme skill strict de monitoring
+  et de priorisation, distinct du premier passage de recherche, de la
+  substance de l'opposition et de l'enforcement
+- clarification des modes de surveillance et ajout d'un monitoring gate avant
+  toute recommandation d'escalade
 - `analyse-opposition-marque` passe a un skill d'opposition INPI strict,
   borne par un gate procedurale explicite
 - cartographie stabilisee des droits invoques, des motifs et de leur

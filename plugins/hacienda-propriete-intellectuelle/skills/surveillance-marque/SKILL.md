@@ -1,234 +1,351 @@
 ---
 name: surveillance-marque
 description: >
-  Gère la watchlist de marques surveillées et exécute la surveillance des
-  publications INPI/EUIPO récentes. Modes : --report (rapport sur fenêtre),
-  --add (ajouter une entrée), --update, --remove, --list, --audit. Conçu
-  pour produire des alertes actionnables avant expiration du délai
-  d'opposition (2 mois post-BOPI L.712-4).
+  Monitoring strict et priorisation des publications marques pour signaler les
+  alertes a suivre avant opposition ou escalation. Ce skill surveille,
+  priorise et route ; il ne tranche pas le risque de confusion ni n'engage une
+  action formelle.
 argument-hint: "[--report [--days N] | --add | --update | --remove | --list | --audit]"
 ---
 
-# /surveillance-marque
+# Skill - Surveillance marque V2
 
-**Outil de surveillance, pas un avis juridique.** Une alerte signale un dépôt
-récent qui *peut* poser problème — l'évaluation du risque de confusion et la
-décision d'opposition reviennent au mandataire en marques (CPI L.422-4) ou à
-l'avocat. Une marque listée comme "🟢 aucun signal" ne veut PAS dire qu'aucun
-risque n'existe : elle veut dire que la surveillance n'a rien remonté dans
-la fenêtre couverte.
+> **Monitoring et priorisation, pas opinion juridique ni action formelle.**
+> `surveillance-marque` sert a detecter, trier et prioriser des publications
+> recentes au regard d'une watchlist. Il ne remplace ni
+> `recherche-anteriorite-marque`, ni `analyse-opposition-marque`, ni une mise
+> en demeure, ni un intake enforcement.
 
-## Examples
+Reference de travail utile :
+`references/surveillance-marque-routing-and-report.md`
 
-```
-/hacienda-propriete-intellectuelle:surveillance-marque
-```
-(défaut : --report --days 7)
+## Positionnement
 
-```
-/hacienda-propriete-intellectuelle:surveillance-marque --add
-```
+`surveillance-marque` reste la brique de monitoring de la lane marques :
 
-```
-/hacienda-propriete-intellectuelle:surveillance-marque --audit
-```
+1. watchlist active ;
+2. collecte des publications recentes ;
+3. priorisation par delai, proximite et completude du dossier ;
+4. routage vers le bon skill aval si une action est requise.
 
----
+Le skill est strictement borne au monitoring et a la priorisation :
 
-## SURVEILLANCE, PAS OPINION
+- il ne conclut jamais qu'une publication cree un risque de confusion etabli ;
+- il ne forme pas une opposition ;
+- il ne redige pas une mise en demeure ;
+- il ne bascule pas seul un dossier en enforcement.
 
-**Reformuler en tête de chaque rapport. Ne jamais l'enlever.**
+## Ce skill ne fait pas
 
-> **Surveillance, pas opinion.** Ce skill détecte les dépôts récents qui
-> matchent une entrée de votre watchlist. Il ne décide PAS d'une opposition,
-> ne calcule PAS un risque de confusion détaillé (= rôle du skill
-> `recherche-anteriorite-marque` ou de l'avocat), n'envoie PAS de mise en
-> demeure. Avant toute action sur une publication signalée, la suite normale
-> reste `recherche-anteriorite-marque` puis opposition si le risque est
-> confirmé. `tri-contrefacon` n'intervient qu'en cas d'usage litigieux déjà
-> exploité, quand le dossier bascule en enforcement. Le mandataire
-> en marques (CPI L.422-4) ou l'avocat évalue le risque de confusion (CJUE
-> Sabel/Canon/Lloyd) sur la base d'une recherche complète.
+- Ne rend pas une opinion de confusion ou de disponibilite.
+- Ne forme pas une opposition ni une defense d'opposition.
+- Ne redige pas une mise en demeure.
+- Ne qualifie pas a lui seul un usage litigieux hors registre.
+- Ne remplace pas la validation d'un mandataire ou d'un avocat.
 
----
+## Modes publics
 
-## Charger le profil + la watchlist
+Les seuls modes publics sont :
+
+- `--report` : produire le rapport de surveillance priorise
+- `--add` : ajouter une entree de watchlist
+- `--update` : modifier une entree existante
+- `--remove` : retirer une entree existante
+- `--list` : afficher la watchlist
+- `--audit` : verifier la sante de la watchlist et du dispositif
+
+Par defaut, sans precision, le skill doit lancer `--report`.
+
+## Contrat de rapport V2
+
+Le mode `--report` doit expliciter ou deriver les dimensions suivantes :
+
+- `report_window`: `daily`, `weekly`, `custom`, `unknown`
+- `watch_scope`: `fr-only`, `fr-eu`, `multi-office`, `unknown`
+- `source_coverage`: `full`, `partial`, `degraded`, `none`
+- `monitoring_gate`: `healthy`, `needs-review`, `degraded`, `blocked`
+- `alert_pressure`: `none`, `routine`, `elevated`, `critical`
+
+Bloc de faits a exposer explicitement :
+
+- `watch_ids_in_scope`
+- `window_dates`
+- `sources_checked`
+- `new_publications_detected`
+- `deduplication_status`
+- `record_limitations`
+
+## Chargement du profil pratique
 
 Avant tout, lire :
+
 1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
 2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
-3. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/watchlist.yaml` (créer si absent avec metadata vide + `watches: []`)
+3. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/watchlist.yaml`
 
-Récupérer :
-- **Rôle** depuis `## Qui utilise ce plugin` (avocat / mandataire INPI / non-juriste)
-- **Posture enforcement** depuis `## Posture enforcement` du profil
-- **Approbateurs** (qui signe une opposition INPI ?)
-- **Canal d'alerte** (Slack channel / email / inline) — défaut "inline" si non configuré
+Rattacher ensuite :
 
-Si le profil n'est pas configuré (`[A CONFIGURER]` présent), proposer
-`/hacienda-propriete-intellectuelle:entretien-demarrage` ou mode `provisoire`
-(défauts : avocat, FR + EU, posture mesurée, canal inline).
+- le role utilisateur ;
+- le ou les territoires de veille ;
+- la posture de priorisation ;
+- les approbateurs ou destinataires d'escalade ;
+- les integrations et outils reellement disponibles.
 
----
+Si le profil contient `[A CONFIGURER]`, le dire explicitement et tagger la
+sortie `[PROVISOIRE]`.
 
-## Mode `--report [--days N]` (défaut)
+## Mode `--report`
 
-Pour chaque entrée dans `watchlist.yaml`, exécuter `inpi_marques_publications_recentes`
-sur la fenêtre `[aujourd'hui - N jours, aujourd'hui]` (N défaut : 7, max 30).
+### Intake
 
-### Étapes
+Demander ou deriver en un seul bloc :
 
-1. Si EUIPO TMview est configuré et l'entrée a `territoires` qui inclut "EM" ou autres
-   offices européens, appeler aussi `euipo_tmview_search` avec les mêmes mots-clés
-   et filtrer par date publication ≥ since (côté skill, pas côté API).
-2. Cross-référencer : pour chaque publication détectée, vérifier si elle est
-   déjà dans `publicationsDetectees` de l'entrée — si oui, ne pas re-flagger
-   (a déjà été notifiée).
-3. Calculer la sévérité par délai opposition :
-   - 🔴 délai opposition < 30 j (action urgente)
-   - 🟠 délai opposition 30-60 j (à préparer)
-   - 🟡 nouveau dépôt similaire, délai > 60 j
-4. Mettre à jour `watchlist.yaml` :
-   - Ajouter les nouveaux hits dans `publicationsDetectees`
-   - Mettre à jour `derniereExecution` pour chaque entrée
-   - Backup `.bak` horodaté avant écriture
+1. fenetre de rapport (`--days N` ou valeur par defaut) ;
+2. watchlist entiere ou sous-ensemble vise ;
+3. territoires offices suivis ;
+4. sources disponibles ou manquantes ;
+5. exceptions deja connues (`agent_managed`, watch suspendue, source HS).
 
-### Format de sortie
+Guidance de mapping minimale :
 
-[EN-TÊTE CONFIDENTIALITÉ — selon profil]
+- 1 jour -> `report_window: daily`
+- 7 jours ou valeur par defaut -> `report_window: weekly`
+- autre fenetre explicite -> `report_window: custom`
+- FR uniquement -> `watch_scope: fr-only`
+- FR + EU -> `watch_scope: fr-eu`
+- plusieurs offices ou couverture etendue -> `watch_scope: multi-office`
+- toutes les sources attendues interrogees -> `source_coverage: full`
+- au moins une source manque ou une partie du scope n'est pas couverte ->
+  `source_coverage: partial`
+- execution degradee mais exploitable -> `source_coverage: degraded`
+- aucune base interrogee -> `source_coverage: none`
 
-# Surveillance marques — Rapport [date]
+## Monitoring Gate
 
-> **Surveillance, pas opinion.** [paragraphe garde-fou tel quel]
+Avant toute priorisation, rendre visible le gate de monitoring :
 
-> **⚠️ Note du relecteur**
-> - **Sources :** [INPI Data ✓ | EUIPO TMview ✓/✗]
-> - **Fenêtre :** [N derniers jours, du YYYY-MM-DD au YYYY-MM-DD]
-> - **Watchlist :** [N entrées surveillées sur N total]
-> - **Avant de s'appuyer :** [1-2 actions concrètes]
+1. watchlist exploitable ou non ;
+2. sources interrogees ou manquantes ;
+3. fenetre de surveillance reelle ;
+4. statut de deduplication ;
+5. integrite minimale du registre de suivi.
 
-**Résumé :** N alertes 🔴 · N alertes 🟠 · N alertes 🟡
+Le gate ne peut sortir que sur :
 
-## 🔴 OPPOSITION URGENTE (délai < 30 jours)
+- `healthy`
+- `needs-review`
+- `degraded`
+- `blocked`
 
-Pour chaque hit :
-- **[signe trouvé]** [numero] · classes [...] · titulaire [...]
-  - Publié : [datePublication] · **Opposition jusqu'au [dateLimite] ([N] j restants)**
-  - Watchlist match : entrée `WATCH-XXX` "[motCle surveillé]"
-  - Référence CPI L.712-4
-  - Lien fiche : [urlSource]
-  - **Action [review] :** [route vers `recherche-anteriorite-marque` pour analyse confusion détaillée + escalation approbateur]
+Declencheurs typiques :
 
-## 🟠 OPPOSITION À PRÉVOIR (délai 30-60 j)
+- `healthy` : watchlist exploitable, sources attendues interrogees, dedup OK
+- `needs-review` : watchlist exploitable mais trous limits ou entree fragile
+- `degraded` : source manquante, fenetre partielle ou historique incomplet
+- `blocked` : aucune base interrogee ou watchlist inutilisable
 
-[même format]
+Si `source_coverage: none`, la sortie doit rendre le gate `blocked`.
 
-## 🟡 NOUVEAU DÉPÔT SIMILAIRE (délai > 60 j)
+## Priorisation des alertes
 
-[même format, sans urgence opposition]
+Le skill doit prioriser les hits sans pretendre trancher le fond.
 
-## 🌐 AGENT-MANAGED
+Regles minimales :
 
-[entrées watchlist marquées `agent_managed: true` — surveillance externalisée
-(Corsearch, CompuMark, cabinet tiers) → confirmer directement avec l'agent]
+- `critical` si au moins une alerte est proche d'un delai d'opposition court ou
+  requiert une reaction immediate ;
+- `elevated` si plusieurs alertes ou un dossier sensible exigent une revue
+  rapide ;
+- `routine` si la surveillance remonte des elements a examiner sans urgence
+  critique ;
+- `none` si aucun hit exploitable n'est remonte.
 
-## ❓ DONNÉES MANQUANTES
+Chaque hit doit, si disponible, faire apparaitre :
 
-[entrées watchlist sans dernière exécution réussie ou avec erreur]
+- signe ;
+- source ;
+- classes / produits-services ;
+- titulaire ;
+- date de publication ;
+- date limite utile si connue ;
+- watchlist match ;
+- raison de priorisation ;
+- limites `[a verifier]`.
 
-**Une question hors de ma checklist :** [observation seconde-ordre — omis si rien]
+## Modes de maintenance
 
-## Que veux-tu faire ?
+### `--add`
 
-1. **Préparer une opposition** — j'ouvre `recherche-anteriorite-marque` sur l'entrée 🔴 de votre choix pour produire l'analyse confusion détaillée
-2. **Escalader** — note pour [approbateur du profil]
-3. **Compléter les faits** — questions au PM / client / business owner
-4. **Surveiller et attendre** — j'ajoute / mets à jour les entrées watchlist concernées
-5. **Autre chose** — dis-moi
+Ajouter une entree de watchlist avec au minimum :
 
----
+- signe surveille ;
+- variantes si utiles ;
+- classes ;
+- territoires ;
+- niveau de priorite ;
+- proprietaire business ou destinataire ;
+- notes de contexte.
 
-## Mode `--add`
+### `--update`
 
-Walk interactif :
-1. **motCle** (signe principal à surveiller). Refus si < 3 caractères ou mot du dictionnaire courant — proposer une variante plus précise.
-2. **motCleAlternatives** (variantes phonétiques / typographiques, optionnel). Suggérer des variantes en se basant sur le motCle (jumeaux phonétiques FR, transliterations).
-3. **classes** Nice 1-45 visées (au moins 1).
-4. **titulaire** (optionnel) — pour cibler les dépôts d'un concurrent particulier.
-5. **territoires** : `["FR"]` (INPI) / `["FR", "EM"]` (INPI + EUIPO) / autres codes offices.
-6. **niveauAlerte** : haut / moyen / bas. Haut = signaler même les 🟡, escalation immédiate sur 🔴. Bas = signaler uniquement 🔴.
-7. **destinataires** : canaux Slack `["#legal-marques"]` ou emails. Défaut : profil.
-8. **business_owner** : email ou équipe propriétaire métier de cette surveillance.
-9. **notes** (libre).
+Modifier une entree existante sans changer silencieusement son identite. Toute
+modification de scope, classes ou territoires doit rester visible.
 
-Validation Zod côté skill avant écriture. Backup `.bak` automatique de `watchlist.yaml` avant.
+### `--remove`
 
-Confirmer à l'utilisateur l'ajout + l'identifiant `WATCH-NNN`.
+Retirer une entree apres confirmation explicite. Si l'entree est prioritaire ou
+agent-managed, demander une raison.
 
----
+### `--list`
 
-## Mode `--update`
+Afficher la watchlist dans un format compact, avec identifiant, signe, classes,
+territoires, priorite et derniere execution.
 
-`/surveillance-marque --update WATCH-001`
+### `--audit`
 
-Lire l'entrée, afficher en YAML, demander quels champs modifier, valider Zod, écrire avec backup.
+Verifier :
 
----
+- entrees obsoletes ;
+- doublons ;
+- mots-cles trop generiques ;
+- territoires ou classes incoherents ;
+- executions trop anciennes ;
+- dependances source manquantes.
 
-## Mode `--remove`
+## Routing Boundaries
 
-`/surveillance-marque --remove WATCH-001`
+### Route to `recherche-anteriorite-marque`
 
-Si `niveauAlerte = "haut"`, demander confirmation explicite + raison (ajoutée en commentaire dans le backup `.bak`). Sinon supprimer après confirmation simple.
+- publication detectee mais besoin principal = premier passage de confusion ;
+- aucune analyse detaillee du signe n'a encore ete faite ;
+- le monitoring a remonte un hit qui doit etre qualifie avant toute autre
+  action.
 
----
+### Route to `analyse-opposition-marque`
 
-## Mode `--list`
+- publication ou notification exploitable demande une opposition ou une defense ;
+- le delai, les droits invoques ou la strategie d'opposition deviennent le
+  coeur du dossier ;
+- le monitoring a deja fait son travail de detection/priorisation.
 
-Affiche la watchlist en table Markdown :
+### Route to `mise-en-demeure-pi`
 
-| ID | motCle | Classes | Territoires | Niveau | Dernière exécution | Hits |
-|---|---|---|---|---|---|---|
-| WATCH-001 | APEXLEAF | 25, 35 | FR, EM | haut | 2026-05-15 | 3 |
+- il existe un usage exploite, un contact adverse ou une action amiable a
+  preparer ;
+- le sujet principal n'est plus la surveillance de publications mais la lettre
+  offensive ou la reponse structuree ;
+- la voie registre n'est pas l'unique levier utile.
 
----
+### Route to `tri-contrefacon`
 
-## Mode `--audit`
+- le dossier bascule vers un usage litigieux observe sur le marche ;
+- la publication de marque n'est plus le coeur exclusif du probleme ;
+- il faut d'abord qualifier un cas enforcement et structurer les faits.
 
-Health check de la watchlist :
+### Stay in `surveillance-marque`
 
-- **Entrées sans exécution > 30 j** — propose réactivation ou suppression
-- **motsCle trop génériques** (< 3 chars OU mot dictionnaire courant détecté) — flag pour révision
-- **Doublons** (même motCle + classes ⊆) — propose fusion
-- **Classes incohérentes** (ex : entrée "logiciel" sans classe 9 ni 42)
-- **Cap recommandé** : signaler si watchlist > 50 entrées (volume d'alertes risque ingérable)
+- besoin principal = monitorer, dedoublonner et prioriser ;
+- aucune action aval n'est encore assez mature pour prendre le relais ;
+- la valeur attendue reste un rapport de veille exploitable.
 
-Sortie : tableau des findings + recommandations.
+## Contrat de sortie V2
 
----
+En mode `--report`, la sortie doit produire exactement les neuf blocs suivants,
+dans cet ordre :
 
-## Emplacement de sortie
+1. `Monitoring Scope Snapshot`
+2. `Monitoring Gate`
+3. `Source Coverage`
+4. `Priority Queue`
+5. `Critical Alerts`
+6. `Watchlist Integrity and Gaps`
+7. `Escalation Candidates`
+8. `Decision Routing`
+9. `Human Validation`
 
-Mode `--report` écrit à
-`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/surveillance-YYYY-MM-DD.md`
-et surface le chemin.
+### 1. `Monitoring Scope Snapshot`
 
-Modifications de `watchlist.yaml` (modes --add, --update, --remove) ne produisent pas de sortie horodatée — juste un message de confirmation.
+- fenetre couverte ;
+- watchs traitees ;
+- territoires ou offices ;
+- volume de hits ;
+- posture de rapport.
 
----
+### 2. `Monitoring Gate`
 
-## Ce que ce skill NE fait PAS
+- etat `healthy`, `needs-review`, `degraded` ou `blocked` ;
+- raisons du gate ;
+- effet pratique sur la fiabilite du rapport.
 
-- **Décider d'une opposition.** L'évaluation du risque de confusion + la décision d'agir sont du ressort du mandataire INPI ou de l'avocat.
-- **Calculer un risque de confusion détaillé.** Pour cela, router vers `recherche-anteriorite-marque` avec le signe concurrent comme input.
-- **Envoyer une mise en demeure ou préparer une réponse structurée.** Router vers `mise-en-demeure-pi` avec un paquet d'entrée compact : `mode`, `droits invoques`, `faits resumes`, `pieces disponibles`, `objectif de ton`, `niveau d'escalade`, puis, pour `draft` / `escalate` si pertinent, `cible exploitable`, `points faibles connus`, `demande principale`, `contrainte calendrier` ; si le dossier marques n'est pas encore qualifié, passer d'abord par `tri-contrefacon`.
-- **Basculer une publication détectée en enforcement sans usage exploité identifié.** Pour une publication BOPI ou TMview, la suite normale reste `recherche-anteriorite-marque` puis opposition ; réserver `tri-contrefacon` aux usages litigieux déjà exploités.
-- **Modifier l'agent `bopi-watcher`.** L'agent est versionné dans `agents/bopi-watcher.md` ; modifier sa cadence ou ses tools est un ajustement utilisateur via le profil.
-- **Surveiller noms de domaine, marketplaces, réseaux sociaux.** Voir l'agent `contrefacon-web`.
-- **Opérer sans `inpi_marques_publications_recentes` configuré.** Si le tool n'est pas disponible, le mode `--report` retourne le bucket "Aucune base interrogée" et propose d'exécuter `entretien-demarrage --check-integrations`.
+### 3. `Source Coverage`
 
----
+- bases interrogees ;
+- bases manquantes ;
+- couverture FR / EU / autre ;
+- statut de deduplication ;
+- limitations de perimetre.
 
-## Ton
+### 4. `Priority Queue`
 
-Précis, concis. L'avocat lit le rapport en 30 secondes, repère les 🔴, décide. Pas de hedging, pas de paragraphes-leçon. Le garde-fou en tête + la conclusion "à valider par mandataire/avocat" font le travail de scope.
+- synthese des alertes par niveau ;
+- `alert_pressure` ;
+- nombre d'items critiques, eleves, routine ;
+- logique de priorisation.
+
+### 5. `Critical Alerts`
+
+- lister les hits les plus sensibles ;
+- inclure date utile, signe, classes, titulaire, source et watch match ;
+- dire pourquoi ils sont critiques ou eleves ;
+- ne pas conclure sur le fond.
+
+### 6. `Watchlist Integrity and Gaps`
+
+- watchs non executees ;
+- entrees fragiles, doublons ou trop generiques ;
+- sources absentes ;
+- effets pratiques sur la surveillance.
+
+### 7. `Escalation Candidates`
+
+- identifier les hits a rerouter ;
+- dire vers quel skill et pourquoi ;
+- distinguer opposition, recherche, mise en demeure, contrefacon.
+
+### 8. `Decision Routing`
+
+Ce bloc doit utiliser uniquement l'une des valeurs suivantes :
+
+- `continue-monitoring`
+- `run-first-pass-search`
+- `prepare-opposition-review`
+- `prepare-cease-and-desist`
+- `open-enforcement-triage`
+- `repair-watchlist`
+- `insufficient-monitoring-coverage`
+- `deadline-critical-escalation`
+
+Associer la valeur choisie a 2-4 actions concretes et a sa justification.
+
+### 9. `Human Validation`
+
+- rappeler qu'il s'agit d'un rapport de monitoring ;
+- nommer les validations mandataire / avocat / business owner utiles ;
+- rappeler les points `[a verifier]` avant toute opposition, lettre ou
+  escalation.
+
+## Regles de surete
+
+- Le garde-fou "monitoring et priorisation" doit rester visible en tete.
+- Une base non interrogee reste une lacune visible.
+- Un hit de surveillance ne vaut pas opinion de confusion.
+- La route vers `mise-en-demeure-pi` ou `tri-contrefacon` exige un basculement
+  vers un sujet d'usage ou d'enforcement, pas seulement une publication.
+- Si le gate est `blocked`, la sortie ne doit pas maquiller le rapport en
+  surveillance fiable.
+
+## Rappel final a conserver
+
+- monitoring strict uniquement ;
+- jamais opinion de confusion ou action formelle ;
+- validation humaine obligatoire avant opposition, lettre ou enforcement.
