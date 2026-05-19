@@ -3,6 +3,32 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.7 — 2026-05-19
+
+### Alignement documentaire
+- `licence-droit-auteur` est documente en V2 comme skill de preparation
+  stricte d'une licence de droits d'auteur
+- ajout d'un `License Readiness Gate` explicite (`ready`, `partial`,
+  `blocked`) pour borner l'exploitabilite du brouillon selon la qualification
+  de l'oeuvre, la titularite, la structure de la demande et le risque de
+  glissement vers une cession
+- lanes fermees `exclusive`, `non-exclusive`, `creative-commons`,
+  `software-eula`, `saas-user-content`, avec maintien borne de
+  `creative-commons` comme politique de diffusion ouverte standardisee
+- sortie V2 stabilisee en 9 blocs, centree sur les preconditions oeuvre /
+  titre, la lane retenue, la structure economique, les clauses critiques, les
+  risques de requalification et le routage de decision
+- `Decision Routing` ferme entre `prepare-exclusive-license-draft`,
+  `prepare-non-exclusive-license-draft`,
+  `prepare-creative-commons-release`, `prepare-software-eula-draft`,
+  `prepare-saas-user-content-license`, `route-to-work-qualification`,
+  `route-to-assignment`, `route-to-software-regime-review`,
+  `route-to-database-regime-review`, `route-to-broader-pi-contract`,
+  `hold-for-rgpd-review` et `hold-insufficient-basis`
+- frontieres explicites avec `qualification-oeuvre`, `cession-droit-auteur`,
+  `logiciels-pi`, `bases-de-donnees`, `contrats-pi` et le plugin donnees
+  personnelles
+
 ## 0.18.6 — 2026-05-19
 
 ### Alignement documentaire

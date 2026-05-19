@@ -186,6 +186,12 @@ configure.
 - `qualification-oeuvre` : qualification droit d'auteur V2 structuree autour
   de l'originalite, de la titularite initiale, des consequences en droits et
   du routage vers preuve, cession, licence ou contrefacon
+- `licence-droit-auteur` : skill V2 de preparation stricte d'une licence de
+  droits d'auteur, structure autour de lanes fermees (`exclusive`,
+  `non-exclusive`, `creative-commons`, `software-eula`,
+  `saas-user-content`), d'un `License Readiness Gate`, d'une sortie
+  stabilisee et d'un routage ferme vers qualification, cession, logiciel,
+  base de donnees, contrat PI plus large ou revue RGPD
 - `contrefacon-droit-auteur` : skill V2 d'analyse au fond stricte de la
   contrefacon auteur, centre sur l'originalite mobilisable, la comparaison,
   les atteintes patrimoniales et morales, la preuve, les defenses adverses et
@@ -395,6 +401,11 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.7 : migration de `licence-droit-auteur` vers un skill V2 de
+  preparation stricte, avec `License Readiness Gate`, lanes fermees,
+  `creative-commons` maintenu comme branche bornee, sortie stabilisee et
+  routage ferme vers qualification, cession, logiciel, base de donnees,
+  contrat PI plus large ou revue RGPD ;
 - V0.18.6 : migration de `bases-de-donnees` vers un skill V2 de
   qualification stricte des regimes de protection, avec
   `Database Protection Readiness Gate`, sortie stabilisee, signal RGPD borne
