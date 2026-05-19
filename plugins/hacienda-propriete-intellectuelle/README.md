@@ -133,6 +133,9 @@ configure.
 - `qualification-oeuvre` : qualification droit d'auteur V2 structuree autour
   de l'originalite, de la titularite initiale, des consequences en droits et
   du routage vers preuve, cession, licence ou contrefacon
+- `logiciels-pi` : regime logiciel V2 structure autour de `L.113-9`, des
+  droits d'utilisation, du triage OSS de haut niveau et du routage vers
+  OSS, chaine de droits, cession, licence ou enforcement
 - `saisie-contrefacon`
 - `contentieux-pi` : strategie judiciaire PI, structuree par `contentious_track`
   et `procedure_stage`, distincte du triage, de la lettre et de la collecte

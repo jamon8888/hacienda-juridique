@@ -2,25 +2,17 @@
 name: logiciels-pi
 description: >
   Analyse du régime juridique d'un logiciel sous droit d'auteur français (CPI
-  Livre I + régime spécifique L.113-9 dérogatoire au droit commun). Couvre :
-  (1) titularité initiale L.113-9 — employeur titulaire AUTOMATIQUE des droits
-  patrimoniaux pour logiciels créés par salariés dans l'exercice de leurs
-  fonctions (régime INVERSE du droit commun salariat), (2) droit d'utilisation
-  L.122-6 et exceptions d'ordre public L.122-6-1 (copie de sauvegarde, test,
-  décompilation pour interopérabilité, correction d'erreurs), (3) typologie
-  licences propriétaires vs open source (permissives MIT/BSD/Apache, copyleft
-  fort GPL/AGPL, copyleft faible LGPL/MPL), (4) triage OSS de haut niveau
-  (présence des dépendances, SBOM disponible, red flags GPL/AGPL/LGPL et
-  licences source-available), (5) alerte courte si base de données ou dataset
-  significatif, avec renvoi vers le bon skill spécialisé, (6) recommandations
-  selon situation (startup / agence dev / projet open source
-  / SaaS mixed). Ne rédige PAS le contrat de cession (= cession-droit-auteur
-  V4.1) ni la licence d'utilisation (= licence-droit-auteur V4.1). Ne scanne
-  PAS les dépendances (= outils SCA externes).
+  Livre I + régime spécifique L.113-9) restructurée en V2 : titularité
+  initiale, droits d'utilisation, triage OSS de haut niveau, signaux SaaS/data
+  et routage vers les briques spécialisées. Ne rédige PAS le contrat de
+  cession ni la licence d'utilisation. Ne scanne PAS les dépendances.
 argument-hint: "[nom projet | contexte développement | type utilisation | dépendances open source]"
+version: "2.0.0"
+authors: ["Hacienda"]
+tags: [logiciel, droit-auteur, L113-9, open-source, saas, licensing]
 ---
 
-# /logiciels-pi
+# Logiciels PI V2
 
 > **Analyse régime ≠ rédaction contractuelle.** Ce skill analyse le **régime
 > juridique** d'un logiciel sous droit d'auteur français. Il NE rédige PAS le
@@ -32,6 +24,10 @@ argument-hint: "[nom projet | contexte développement | type utilisation | dépe
 > du régime général (où le salarié reste titulaire sauf cession écrite). Cette
 > particularité est source d'erreurs récurrentes pour les startups SaaS, agences
 > dev et projets open source.
+
+> **Aide-memo V2.**
+> `references/logiciels-pi-routing-and-output.md` resume le routage et les
+> blocs de sortie. En cas d'ecart, seul ce `SKILL.md` fait foi.
 
 ## Examples
 
@@ -149,7 +145,31 @@ Si le profil contient `[A CONFIGURER]`, surfacer :
 
 ---
 
-## Intake — 5 questions en batch unique
+## Contrat d'entree V2
+
+Avant les 5 questions, expliciter :
+
+- `development_model`: `internal-employees`, `external-vendors`,
+  `mixed-team`, `open-source-community`, `founder-pre-incorporation`,
+  `unclear`
+- `distribution_model`: `internal-use`, `proprietary-license`, `saas`,
+  `open-source`, `dual-licensing`, `mixed`
+- `oss_posture`: `minimal`, `known-dependencies`, `sbom-available`,
+  `copyleft-risk`, `unknown`
+
+Champs de faits a exposer ensuite :
+
+- `project_scope`
+- `contributors_and_contracts`
+- `software_status`
+- `dependencies_overview`
+- `business_trigger`
+
+Tout manque de piece, contrat, dependance ou licence reste `[a verifier]`.
+
+---
+
+## Intake V2 — 5 questions en batch unique
 
 Avant toute analyse, poser les 5 questions ci-dessous **en une seule fois**.
 Ne pas dérouler le workflow tant que les réponses ne sont pas obtenues — ou
@@ -225,6 +245,57 @@ contrat de stage / convention de stage / CLA / aucun).
 Si l'utilisateur ne peut pas répondre à une question, demander : « lance
 le scan SCA et reviens, ou continue avec les éléments connus en taguant les
 zones non auditées `[dépendance non auditée — à scanner]` ».
+
+---
+
+## Routing Boundaries V2
+
+### Route to `revue-open-source`
+
+Basculer si le besoin principal devient :
+
+- inventaire detaille des dependances ;
+- obligations notice/source ;
+- conflits de licences ;
+- exploitation d'une SBOM ;
+- plan de remediation OSS.
+
+### Route to `revue-logiciel-donnees`
+
+Basculer si le besoin principal devient :
+
+- chaine de droits sur code, repo, fondateurs, freelancers, datasets ou bases ;
+- verification des contrats de transfert ;
+- exploitabilite data ou base.
+
+### Route to `cession-droit-auteur`
+
+Basculer si le besoin principal devient la cession des droits patrimoniaux sur
+le logiciel ou ses modules.
+
+### Route to `licence-droit-auteur`
+
+Basculer si le besoin principal devient le choix, l'arbitrage ou la redaction
+d'une licence proprietaire, open source ou dual licensing.
+
+### Route to `contrefacon-droit-auteur`
+
+Basculer si la question dominante devient contradictoire :
+
+- reprise de code ;
+- acces ;
+- similitudes ;
+- action ou defense en contrefacon logicielle.
+
+### Stay in `logiciels-pi`
+
+Rester ici si la question dominante est encore :
+
+- la titularite initiale L.113-9 ;
+- les droits d'utilisation et exceptions ;
+- le triage OSS de haut niveau ;
+- les signaux SaaS / data ;
+- la bonne brique suivante.
 
 ---
 
@@ -585,113 +656,82 @@ Ici, ne produire qu'un résumé de triage :
 
 ---
 
-## Format de sortie
+## Format de sortie V2
 
-Le livrable se structure comme suit (Markdown, fences imbriqués en quadruple
-backticks pour ne pas casser le rendu interne) :
+Le livrable doit suivre ce contrat de sortie stable :
 
-````markdown
-[EN-TÊTE CONFIDENTIALITÉ — selon profil (avocat / juriste interne / non-juriste)]
+### 1. `Software Regime Snapshot`
 
-# Régime juridique logiciel — [Nom projet] (ANALYSE RÉGIME, PAS RÉDACTION CONTRACTUELLE)
+- nom du projet ;
+- `development_model`, `distribution_model`, `oss_posture` ;
+- triage prudent : `clair`, `mixte`, `fragile` ;
+- phrase courte sur le point dominant.
 
-> **Analyse régime, pas rédaction contractuelle.** Ce skill identifie la
-> titularité initiale (L.113-9 régime dérogatoire), le droit d'utilisation
-> (L.122-6 + exceptions d'ordre public L.122-6-1), la typologie des licences
-> applicables, un triage OSS de haut niveau (dépendances présentes, SBOM
-> disponible ou non, red flags GPL/AGPL/LGPL/source-available), et une alerte
-> courte si base de données ou dataset significatif. Il NE rédige PAS le contrat
-> de cession (= `cession-droit-auteur` V4.1) ni la licence d'utilisation
-> (= `licence-droit-auteur` V4.1). Validation **avocat spécialisé tech /
-> propriété intellectuelle** OBLIGATOIRE avant tout acte (contrat de travail
-> dev, contrat de prestation, choix licence, publication, dual licensing,
-> due diligence pré-levée).
+### 2. `Facts and Contract Review`
 
-> **⚠️ Note du relecteur**
-> - **Sources lues :** [CPI articles cités : L.111-1, L.112-3, L.113-9, L.121-7, L.122-6, L.122-6-1, L.131-3, L.341-1, L.342-1+ + jurisprudence : Cass. Pachot 7 mars 1986, CJUE BSA C-393/09, CJUE SAS Institute C-406/10, CJUE UsedSoft C-128/11, CJUE Innoweb C-202/12]
-> - **Triage OSS :** [dépendances présentes / non documentées ; SBOM fourni : oui [outil] / non ; red flags GPL/AGPL/LGPL/source-available : oui / non / `[a verifier]`]
-> - **Points [review] :** [N éléments à valider avocat tech — détailler les plus critiques]
-> - **Escalade OSS :** [aucune / recommandée / prioritaire] — détail composant par composant dans `revue-open-source`
-> - **Avant action :** validation avocat tech / propriété intellectuelle **OBLIGATOIRE** (contrat travail dev, contrat prestation, choix licence, publication, dual licensing, due diligence pré-levée)
+- faits recus ;
+- pieces lues ;
+- contrats ou licences absents ;
+- points `[a verifier]`.
 
-**Triage :** 🟢 RÉGIME CLAIR + LICENCES COMPATIBLES / 🟡 MIXTE — POINTS À ARGUMENTER OU REMÉDIER / 🔴 PROBLÉMATIQUE — RISQUE CONTAMINATION OU TITULARITÉ CONTESTABLE
-*(une phrase de justification)*
+### 3. `Initial Ownership Map`
 
-## Projet analysé
+- qui code quoi ;
+- regime apparent par bloc ;
+- points L.113-9 clairs ou fragiles ;
+- trous de transfert.
 
-- **Nom :** [...]
-- **Contexte de développement :** [salariés internes / prestataires externes / mixte / open source community / cofondateurs pré-contrat]
-- **Statut :** [développement initial / extension / fork / dérivation]
-- **Utilisation prévue :** [interne / commercialisation propriétaire / SaaS payant / open source pur / dual licensing]
-- **Dépendances principales :** [liste sommaire ; tag `[a verifier]` si SBOM absent ou inventaire partiel]
+### 4. `Use Rights and Statutory Exceptions`
 
-## Titularité initiale (L.113-9)
+- droits d'utilisation apparents ;
+- exceptions `L.122-6-1` pertinentes ;
+- limites a ne pas franchir.
 
-**Cas applicable par catégorie de développeur :**
-- Salariés internes : [L.113-9 applicable / hors fonctions — analyse]
-- Prestataires externes : [L.113-9 NON applicable — cession L.131-3 nécessaire]
-- Cofondateurs pré-contrat : [titularité personnelle — cession rétroactive nécessaire]
-- Contributeurs open source : [titularité personnelle — CLA nécessaire si projet à relicensier]
+### 5. `OSS Triage Gate`
 
-**Titulaire(s) identifié(s) :** [employeur / agence / cofondateur / contributeurs cartographiés]
+- dependances connues ou inconnues ;
+- red flags de haut niveau ;
+- seuil de bascule vers `revue-open-source`.
 
-**Risques particuliers :** [cession rétroactive manquante / clause L.113-9 absente du contrat travail / CLA absent / chaîne agence-client non documentée]
+### 6. `SaaS, Data and Database Signals`
 
-## Droit d'utilisation et exceptions L.122-6-1
+- signaux AGPL / serveur / API ;
+- presence de datasets ou bases ;
+- seuil de bascule vers `revue-logiciel-donnees` ou `bases-de-donnees`.
 
-**Régime applicable :** L.122-6 (reproduction permanente/provisoire, adaptation, distribution)
+### 7. `Business-Model Risks`
 
-**Exceptions pertinentes au cas d'espèce :**
-- Copie de sauvegarde : [applicable / non pertinent]
-- Test / observation : [applicable / non pertinent]
-- Décompilation pour interopérabilité : [applicable / non pertinent / `[review]`]
-- Correction d'erreurs : [applicable / écartée par EULA / non pertinent]
+- risques calibres selon startup, agence, open source, SaaS ou mixte ;
+- ne garder que les risques concrets du dossier.
 
-## Triage OSS
+### 8. `Next Step Routing`
 
-**Licence du projet envisagée :** [propriétaire EULA / MIT / Apache 2.0 / GPL / AGPL / LGPL / MPL / dual licensing / autre]
+Utiliser uniquement une issue principale parmi :
 
-**Justification du choix :** [adéquation avec utilisation prévue + objectif communauté/business]
+- `document-and-monitor`
+- `secure-assignment-first`
+- `review-oss-operationally`
+- `clarify-data-chain`
+- `draft-assignment`
+- `draft-license`
+- `prepare-software-enforcement`
+- `insufficient-record`
 
-**Triage dépendances :**
+Puis expliquer :
 
-| Dépendance / groupe | Licence amont | Signal de triage | Action |
-|---|---|---|---|
-| [bib 1] | [licence] | [permissive / LGPL à escalader / GPL red flag / AGPL red flag / source-available red flag / `[a verifier]`] | [aucune / audit OSS / vérifier SBOM / escalader] |
-| ... | ... | ... | ... |
+- pourquoi cette issue est la bonne ;
+- quel skill ouvrir ;
+- quelles pieces conditionnent la suite.
 
-**Lecture de triage :** [pas de red flag apparent / forte incompatibilité présumée / dépend du mode d'intégration et des faits / `[a verifier]`]
+### 9. `Human Validation`
 
-**Renvoi dédié :** pour l'inventaire détaillé, la matrice de conflits, les obligations notice/source et le plan de remédiation, ouvrir `revue-open-source`.
+- ce qui est etabli ;
+- ce qui reste hypothetique ;
+- ce qui doit etre verifie ;
+- quelle validation humaine est requise avant signature, publication,
+  distribution, due diligence ou action.
 
-## SaaS / Bases / Datasets (si applicable)
-
-**SaaS :** [présence éventuelle d'AGPL ou licence assimilée = red flag à escalader ; analyse détaillée dans `revue-open-source`]
-**Base / dataset :** [présence oui/non ; si oui, alerte courte et renvoi vers `revue-logiciel-donnees` ou `bases-de-donnees`]
-
-## Recommandations selon situation
-
-[Bloc adapté selon situation : startup early stage / agence dev / projet open source / SaaS mixed — actionnable, calibré sur le cas concret]
-
-**Une question hors de ma checklist :** [observation seconde-ordre — par
-exemple : « votre projet utilise des modèles d'IA générative pré-entraînés
-distribués sous licences custom (LLaMA 3 Community License, etc.) — la
-qualification de ces licences au regard du droit français reste un sujet
-en construction `[connaissance modèle — à vérifier]` » — omettre si rien
-d'honnête à dire]
-
-## Que veux-tu faire ?
-
-1. **Rédiger une cession** — j'ouvre `cession-droit-auteur` (V4.1) avec les paramètres identifiés (cofondateur pré-contrat / agence vers client / contributeurs vers projet)
-2. **Choisir une licence open source** — j'ouvre `licence-droit-auteur` (V4.1) avec arbitrage permissif vs copyleft vs dual licensing selon objectif
-3. **Escalader avocat tech** — je rédige une note pour avocat spécialisé tech / propriété intellectuelle + CTO/GC selon enjeu (red flags GPL/AGPL à confirmer, cession rétroactive cofondateur, CLA à mettre en place)
-4. **Lancer un audit SBOM** — je documente la procédure d'audit (outils SCA, périmètre, fréquence) et la politique de cabinet à mettre en place
-5. **Autre chose** — dis-moi
-````
-
-Le livrable est écrit dans le fichier de sortie, sans bandeau Hacienda et
-sans narration interne (cf. mode silencieux pour livrables externes —
-`CLAUDE.md` plugin §2).
+Le livrable reste sans bandeau Hacienda et sans narration interne.
 
 ---
 ## Gate non-juriste — quand le profil indique « non-juriste »

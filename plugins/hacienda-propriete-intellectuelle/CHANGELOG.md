@@ -40,6 +40,13 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
   `licence-droit-auteur` et `contrefacon-droit-auteur`
 - contrat de sortie stabilise en 9 blocs, avec `Next Step Routing` borne a un
   jeu ferme d'issues
+- `logiciels-pi` passe a une structure V2 avec contrat d'entree explicite
+  (`development_model`, `distribution_model`, `oss_posture`)
+- frontieres explicites avec `revue-open-source`,
+  `revue-logiciel-donnees`, `cession-droit-auteur`,
+  `licence-droit-auteur` et `contrefacon-droit-auteur`
+- contrat de sortie stabilise en 9 blocs, avec `Next Step Routing` borne a un
+  jeu ferme d'issues
 
 ## 0.9.0 — 2026-05-16
 
