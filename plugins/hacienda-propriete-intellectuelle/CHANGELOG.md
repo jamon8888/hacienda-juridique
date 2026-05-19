@@ -64,6 +64,12 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
   qualification juridique finale
 - ajout d'un `Chart Readiness Gate` et d'un routage ferme vers
   `mise-en-demeure-pi`, `saisie-contrefacon` ou `contentieux-pi`
+- `anteriorite-invalidite` est documente en V2 comme skill de validite stricte
+  du brevet adverse, avec modes `attack` / `defense`, distinct du claim chart,
+  de la preparation de depot et de la recherche amont
+- ajout d'un `Invalidity Readiness Gate` et d'un positionnement ferme vis-a-vis
+  de `tableau-contrefacon-brevet`, `recherche-anteriorite-brevet`,
+  `preparation-depot-brevet` et `contentieux-pi`
 - `analyse-opposition-marque` passe a un skill d'opposition INPI strict,
   borne par un gate procedurale explicite
 - cartographie stabilisee des droits invoques, des motifs et de leur

@@ -147,6 +147,9 @@ configure.
   strict, distinct de la defense / invalidite, structure autour d'un Chart
   Readiness Gate et raccorde a `mise-en-demeure-pi`, `saisie-contrefacon` et
   `contentieux-pi`
+- `anteriorite-invalidite` : skill V2 de validite stricte du brevet adverse,
+  bi-mode `attack` / `defense`, distinct du claim chart, de la preparation de
+  depot et de la recherche amont, structure autour d'un `Invalidity Readiness Gate`
 - `recherche-anteriorite-dm`
 - `depot-dessin-modele`
 - `contrefacon-dessin-modele`
@@ -252,6 +255,17 @@ Positionnement brevet V2 a retenir :
 - il reste focalise sur la confrontation technique litterale / equivalence,
   puis route vers `mise-en-demeure-pi`, `saisie-contrefacon` ou
   `contentieux-pi` selon la base enforcement disponible ;
+- `anteriorite-invalidite` reste centre sur la validite du brevet adverse,
+  en bi-mode `attack` / `defense`, pas sur la confrontation produit /
+  revendications ;
+- le skill applique un `Invalidity Readiness Gate` explicite (`ready`,
+  `partial`, `blocked`) selon la qualite de l'art anterieur, des dates et des
+  moyens de nullite ;
+- le claim chart offensif reste du ressort de `tableau-contrefacon-brevet`,
+  le premier passage prior art amont reste du ressort de
+  `recherche-anteriorite-brevet`, et la preparation de notre propre depot
+  reste du ressort de `preparation-depot-brevet` ;
+- le pilotage judiciaire global reste du ressort de `contentieux-pi` ;
 
 ## Agents
 
