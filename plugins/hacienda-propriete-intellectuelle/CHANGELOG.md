@@ -21,6 +21,18 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 - `audit-pi-ma` passe d'un rapport monolithique a un orchestrateur M&A PI
   structure avec routing, findings normalises et sorties `buyer-dd`,
   `seller-clean-room`, `red-flag` et `deal-summary`
+- `contrats-pi` passe d'un flux lineaire a une structure par familles
+  (`patent-tech-transfer`, `nda-secret-knowhow`, `rnd-collaboration`,
+  `trademark-coexistence-franchise`, `mta-life-sciences`)
+- frontiere explicite entre `contrats-pi` (contrats PI complets) et
+  `revue-clause-pi` (clauses PI dans contrats larges)
+- contrat d'entree et blocs de sortie normalises pour `draft` et `review`
+- `contentieux-pi` passe d'un flux mixte a un scope judiciaire strict
+- introduction de `contentious_track` et `procedure_stage`
+- frontiere explicite avec `strategie-defense-pi`, `tri-contrefacon`,
+  `mise-en-demeure-pi` et `depot-preuve-creation`
+- contrat de sortie stabilise en 8 blocs, avec `Decision Memo` borne a un jeu
+  ferme d'issues
 
 ## 0.9.0 — 2026-05-16
 

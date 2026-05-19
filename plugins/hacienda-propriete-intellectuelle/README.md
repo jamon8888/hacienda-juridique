@@ -123,12 +123,17 @@ configure.
 - `recherche-anteriorite-dm`
 - `depot-dessin-modele`
 - `contrefacon-dessin-modele`
-- `contrats-pi`
+- `contrats-pi` : contrats PI complets structures par famille
+  (`patent-tech-transfer`, `nda-secret-knowhow`, `rnd-collaboration`,
+  `trademark-coexistence-franchise`, `mta-life-sciences`), distincts de
+  `revue-clause-pi`
 - `audit-pi-ma` : orchestrateur de due diligence PI M&A, avec modes
   `buyer-dd`, `seller-clean-room`, `red-flag` et `deal-summary`, s'appuyant
   sur les skills specialises du plugin
 - `saisie-contrefacon`
-- `contentieux-pi`
+- `contentieux-pi` : strategie judiciaire PI, structuree par `contentious_track`
+  et `procedure_stage`, distincte du triage, de la lettre et de la collecte
+  probatoire
 - `certificat-complementaire-protection`
 - `droits-voisins-ogc`
 
