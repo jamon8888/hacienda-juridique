@@ -3,6 +3,22 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.17.1 — 2026-05-19
+
+### Alignement documentaire
+- `analyse-refus-inpi` est documente en V2 comme skill bi-office `INPI` /
+  `OEB` de reponse a notification, centre sur l'analyse argumentaire et non
+  sur la reponse officielle deposee
+- ajout d'un `Response Readiness Gate` explicite (`ready`, `partial`,
+  `blocked`) pour borner l'exploitabilite de la reponse selon la notification,
+  le delai, les revendications et les citations disponibles
+- frontiere explicite avec `recherche-anteriorite-brevet`,
+  `preparation-depot-brevet`, `strategie-extension-internationale` et
+  `anteriorite-invalidite`
+- positionnement de la sortie V2 autour d'une cartographie objections /
+  citations, d'une faisabilite d'amendement, d'une strategie argumentative et
+  d'un `Decision Routing` ferme
+
 ## 0.17.0 — 2026-05-18
 
 ### Packaging du plugin

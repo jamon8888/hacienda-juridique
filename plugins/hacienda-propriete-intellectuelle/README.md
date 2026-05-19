@@ -13,8 +13,9 @@ Le plugin PI couvre aujourd'hui :
 
 - marques : recherche d'anteriorite premier passage, surveillance BOPI,
   depot, opposition, portefeuille, routage clearance et contentieux ;
-- brevets : recherche d'anteriorite, preparation depot, extension
-  internationale, refus INPI/OEB, nullite, portefeuille et claim chart ;
+- brevets : recherche d'anteriorite, preparation depot, reponse a
+  notification INPI/OEB, extension internationale, nullite, portefeuille et
+  claim chart ;
 - dessins et modeles : recherche d'anteriorite, depot et contrefacon ;
 - droit d'auteur et logiciel : qualification, cession, licence, bases de
   donnees, open source et enforcement ;
@@ -143,6 +144,10 @@ configure.
   distinct du premier passage d'anteriorite, de la revue d'invalidite et du
   claim chart contrefacon, avec Filing Readiness Gate et lanes FR / EP / PCT /
   sequenced
+- `analyse-refus-inpi` : skill V2 bi-office `INPI` / `OEB` de reponse a
+  notification, centre sur l'analyse argumentaire, distinct de la recherche
+  amont, du depot, de la strategie internationale et de l'invalidite adverse,
+  avec `Response Readiness Gate` avant toute suite
 - `tableau-contrefacon-brevet` : skill V2 de claim chart brevet offensif
   strict, distinct de la defense / invalidite, structure autour d'un Chart
   Readiness Gate et raccorde a `mise-en-demeure-pi`, `saisie-contrefacon` et
@@ -247,6 +252,26 @@ Positionnement brevet V2 a retenir :
 - il structure la preparation autour de lanes `FR`, `EP`, `PCT` et
   `sequenced`, avec une branche de priorite / sequencement bornee sans
   absorber `strategie-extension-internationale` ;
+- `analyse-refus-inpi` est un skill V2 bi-office `INPI` / `OEB` de reponse a
+  notification, pas une reponse officielle deposee, pas un premier passage
+  prior art amont, pas une preparation de depot et pas une revue
+  d'invalidite du brevet adverse ;
+- le skill reste centre sur l'analyse de la notification, la cartographie
+  citations / objections, la faisabilite d'amendement, la strategie
+  argumentative et une decision procedurale immediate bornee ;
+- il applique un `Response Readiness Gate` explicite (`ready`, `partial`,
+  `blocked`) selon l'etat de la notification consultee, du delai, des
+  revendications objectees, des citations connues et de la base reelle pour
+  amender ou argumenter ;
+- la sortie V2 est stabilisee autour d'un `Case Snapshot`, d'une posture
+  office / delai, d'une cartographie objections / citations, de la
+  faisabilite d'amendement, d'une strategie d'argumentation, des risques de
+  priorite / ajout de matiere, des gaps critiques, d'un `Decision Routing` et
+  d'une validation humaine finale ;
+- il reste distinct de `recherche-anteriorite-brevet`,
+  `preparation-depot-brevet`, `strategie-extension-internationale` et
+  `anteriorite-invalidite`, avec reroutage vers ces briques quand le besoin
+  principal sort de la reponse a notification ;
 - `tableau-contrefacon-brevet` est un skill offensif strict de claim chart,
   pas une qualification juridique finale, pas une defense contre une allegation
   adverse et pas une revue d'invalidite du brevet ;
