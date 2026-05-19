@@ -170,7 +170,12 @@ configure.
   depot et de la recherche amont, structure autour d'un `Invalidity Readiness Gate`
 - `recherche-anteriorite-dm`
 - `depot-dessin-modele`
-- `contrefacon-dessin-modele`
+- `contrefacon-dessin-modele` : skill V2 d'analyse D&M stricte, centre sur
+  la validite du titre, l'impression globale, les actes argués, la preuve,
+  l'exposition nullite / defense et un routage ferme vers
+  `recherche-anteriorite-dm`,
+  regularisation du titre, lettre, saisie ou contentieux, avec fallback
+  concurrence deloyale / parasitisme strictement secondaire
 - `contrats-pi` : contrats PI complets structures par famille
   (`patent-tech-transfer`, `nda-secret-knowhow`, `rnd-collaboration`,
   `trademark-coexistence-franchise`, `mta-life-sciences`), distincts de
@@ -384,6 +389,12 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.5 : migration de `contrefacon-dessin-modele` vers un skill V2
+  d'analyse D&M stricte, avec `Design Infringement Readiness Gate`, sortie
+  stabilisee, fallback concurrence deloyale / parasitisme borne et routage
+  ferme vers `recherche-anteriorite-dm`, regularisation du titre, lettre,
+  saisie ou
+  contentieux ;
 - V0.18.4 : migration de `contrefacon-droit-auteur` vers un skill V2
   d'analyse au fond stricte, avec `Copyright Infringement Readiness Gate`,
   sortie stabilisee, branche plateforme / LCEN bornee et routage ferme vers

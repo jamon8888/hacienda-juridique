@@ -3,6 +3,28 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.5 — 2026-05-19
+
+### Alignement documentaire
+- `contrefacon-dessin-modele` est documente en V2 comme skill d'analyse D&M
+  stricte, distinct du depot, de la saisie, de la lettre et du contentieux
+  global
+- ajout d'un `Design Infringement Readiness Gate` explicite (`ready`,
+  `partial`, `blocked`) pour borner l'exploitabilite du dossier selon le
+  titre, la comparaison, les actes argués et la preuve
+- sortie V2 stabilisee en 9 blocs, centree sur le titre, l'impression
+  globale, les actes, la preuve, l'exposition aux defenses et la branche
+  secondaire fallback
+- `Decision Routing` ferme entre `route-to-prior-art-review`,
+  `route-to-title-regularization`, `prepare-cease-and-desist`,
+  `prepare-seizure-brief`, `prepare-litigation-brief`,
+  `prepare-fallback-unfair-competition` et `hold-insufficient-basis`
+- branche concurrence deloyale / parasitisme maintenue comme issue
+  secondaire bornee, sans remplacer l'analyse D&M
+- frontieres explicites avec `recherche-anteriorite-dm`,
+  `depot-dessin-modele`, `mise-en-demeure-pi`, `saisie-contrefacon` et
+  `contentieux-pi`
+
 ## 0.18.4 — 2026-05-19
 
 ### Alignement documentaire

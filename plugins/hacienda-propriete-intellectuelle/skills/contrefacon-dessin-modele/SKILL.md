@@ -1,301 +1,351 @@
 ---
 name: contrefacon-dessin-modele
 description: >
-  Qualification et stratégie contentieuse en contrefaçon de dessins et modèles :
-  comparaison impression globale, constitution dossier de preuves, saisie-contrefaçon
-  (L.521-4), préparation du paquet d'entrée vers `mise-en-demeure-pi`, référé/fond, évaluation préjudice.
-  Conforme CPI L.521-1 à L.521-8. Brouillon soumis à validation par un avocat.
-version: "1.0.0"
+  Skill V2 d'analyse D&M stricte : validite et opposabilite du titre,
+  impression globale, actes argués, preuve et defenses. Le fallback
+  concurrence deloyale / parasitisme reste secondaire. Brouillon soumis a
+  validation par un avocat.
+argument-hint: "[--attack|--defense]"
+version: "2.0.0"
 authors: ["Hacienda"]
-tags: [dessins-modeles, contrefacon, impression-globale, saisie-contrefacon, prejudice, contentieux]
+tags: [dessins-modeles, contrefacon, impression-globale, utilisateur-averti, nullite, saisie-contrefacon]
 ---
 
-# Skill — Contrefaçon de dessins et modèles
+# Skill - Contrefacon dessin modele V2
 
-> **ANALYSE PRÉPARATOIRE, PAS ACTE DE PROCÉDURE.**
->
-> Ce skill qualifie une atteinte potentielle à un dessin ou modèle enregistré et prépare
-> la stratégie contentieuse. Il ne remplace pas l'intervention d'un avocat pour les actes
-> de procédure (assignation, saisie-contrefaçon, conclusions).
->
-> Les sorties sont des **brouillons**. Elles ne constituent pas un avis juridique.
+> **Analyse D&M stricte, pas contentieux global.**
+> `contrefacon-dessin-modele` sert a qualifier une atteinte potentielle a un
+> dessin ou modele, a mesurer la robustesse du titre et de la comparaison, et
+> a router vers la bonne brique d'escalade. Il ne depose pas un titre, ne
+> redige pas la lettre finale, ne depose pas la requete de saisie et ne pilote
+> pas seul le contentieux.
 
-## Examples
+Reference de travail utile :
+`references/contrefacon-dessin-modele-routing-and-output.md`
 
-<example>
-<user>Un concurrent vend une chaise identique à notre modèle déposé. Comment agir ?</user>
-<response>Qualification contrefaçon D&M : comparaison impression globale sur utilisateur averti (L.521-1 + L.511-4), vérification validité du titre (enregistrement en vigueur, annuités payées), identification actes contrefaisants (fabrication L.521-1, commercialisation, importation), constitution dossier preuves (constat huissier, achat-test, captures web), recommandation saisie-contrefaçon (L.521-4), préparation du paquet d'entrée pour `mise-en-demeure-pi`, stratégie (référé interdiction + fond indemnisation).</response>
-</example>
+## Positionnement
 
-<example>
-<user>On nous accuse de contrefaire un modèle EUIPO pour notre emballage. Comment se défendre ?</user>
-<response>Stratégie de défense : vérification validité du DMC adverse (nouveauté + caractère individuel — action reconventionnelle en nullité art. 85 RDMC), comparaison impression globale (différences significatives ?), moyens de défense (antériorité destructrice, absence de contrefaçon par impression différente, exception de réparation, droit de possession personnelle antérieure art. 22 RDMC), préparation conclusions en défense.</response>
-</example>
+`contrefacon-dessin-modele` V2 est le skill de :
 
----
+1. verification du titre D&M ou du droit non enregistre ;
+2. analyse de l'impression globale sur l'utilisateur averti ;
+3. qualification des actes argués ;
+4. evaluation de la preuve disponible ;
+5. anticipation des defenses et de l'exposition nullite ;
+6. routage vers la brique d'escalade adaptee.
 
-## Chargement du profil
+Le skill reste **bi-mode** :
 
-> Charger les préférences depuis le profil utilisateur :
-> - **Juridictions et tribunaux compétents** (TJ Paris 3e chambre, EUIPO Chambre de recours)
-> - **Posture contentieuse par défaut** (agressif / modéré / défensif)
-> - **Budget contentieux indicatif**
-> - **Mandataire habituel** (avocat PI)
+- `attack`
+- `defense`
 
----
-
-## Intake
-
-1. **Mode** — `--attack` (titulaire agissant en contrefaçon) ou `--defense` (accusé de contrefaçon)
-2. **Titre D&M du demandeur** — numéro d'enregistrement, office, date, classe Locarno, statut (en vigueur ?)
-3. **Design contrefaisant allégué** — description + visuels + source (produit concurrent, site web, marketplace)
-4. **Actes reprochés** — fabrication, importation, commercialisation, offre à la vente, détention, exportation
-5. **Territoire** — France (TJ) / UE (DMC — tribunaux des dessins communautaires) / international
-6. **Preuves disponibles** — constats, achats-test, captures, catalogues, factures
-7. **Urgence** — atteinte en cours (référé) / historique (fond)
-8. **Objectif** — cessation + indemnisation / cessation seule / transaction amiable
-
----
-
-## Étape 1 — Vérification de la validité du titre
-
-Avant toute action, vérifier que le titre D&M est **valide et opposable** :
-
-| Vérification | Détail | Conséquence si défaut |
-|-------------|--------|----------------------|
-| Enregistrement publié | Publication effective (ou ajournement levé) | Titre inopposable aux tiers |
-| Annuités à jour | Renouvellements payés (périodes de 5 ans) | Déchéance du titre |
-| Nouveauté maintenue | Pas d'antériorité destructrice découverte | Nullité (L.512-4) — moyen de défense |
-| Caractère individuel | Impression globale distincte de l'art antérieur | Nullité (L.512-4) |
-| Pas d'exclusion | Design pas purement fonctionnel (L.511-8) | Nullité |
-| Titulaire légitime | Chaîne de titularité valide (cession enregistrée si applicable) | Irrecevabilité |
-
-**En mode `--defense` :** cette étape sert à identifier les **failles du titre adverse** pour fonder une action reconventionnelle en nullité (L.512-4 / art. 85(1) RDMC).
-
----
-
-## Étape 2 — Qualification de la contrefaçon
-
-### Test de l'impression globale (L.521-1 + L.511-4 CPI / art. 10 RDMC)
-
-La contrefaçon D&M s'apprécie par l'**impression globale** produite sur l'**utilisateur averti**, pas par une comparaison point par point.
-
-```markdown
-## Tableau comparatif — Impression globale
-
-| Élément visuel | Design protégé | Design argué de contrefaçon | Analyse |
-|---------------|---------------|----------------------------|---------|
-| Forme générale | [description] | [description] | Identique / Similaire / Différent |
-| Proportions | [description] | [description] | ... |
-| Lignes et contours | [description] | [description] | ... |
-| Couleurs/matériaux | [description] | [description] | ... |
-| Ornementation | [description] | [description] | ... |
-| Texture/finition | [description] | [description] | ... |
-
-**Impression globale utilisateur averti :** [même / différente]
-**Liberté du créateur dans le secteur :** [contrainte / moyenne / large]
-**Conclusion :** [contrefaçon caractérisée / risque moyen / pas de contrefaçon]
-```
-
-### Actes constitutifs de contrefaçon (L.521-1 CPI)
-
-| Acte | Description | Preuve type |
-|------|-------------|-------------|
-| Fabrication | Produire le design contrefaisant | Constat usine, factures sous-traitant |
-| Offre à la vente | Proposer à la commercialisation | Captures site web, catalogues, salons |
-| Mise sur le marché | Vendre effectivement | Factures, achat-test |
-| Importation | Introduire sur le territoire | Documents douaniers, constat en douane |
-| Exportation | Expédier hors du territoire | Documents transport |
-| Détention | Stocker en vue de la commercialisation | Constat entrepôt |
-| Usage | Utiliser le design (même sans commercialisation) | Constats, publications |
-
----
-
-## Étape 3 — Constitution du dossier de preuves
-
-### Saisie-contrefaçon (L.521-4 CPI)
-
-Procédure **spécifique PI** permettant de faire constater la contrefaçon et saisir des échantillons/documents avant l'assignation.
-
-| Étape | Détail |
-|-------|--------|
-| Requête | Requête au président du TJ compétent (L.521-4) |
-| Ordonnance | Autorisation de saisie (description / réelle / documents comptables) |
-| Exécution | Huissier + éventuellement expert technique (24h pour assigner après saisie réelle) |
-| Délai d'assignation | **20 jours ouvrables** ou 31 jours civils (L.521-4 al. 5) — sinon mainlevée |
-| EUIPO / DMC | Règlement (CE) 6/2002 art. 88 — renvoi au droit national de l'État membre |
-
-### Autres modes de preuve
-
-- [ ] Constat d'huissier (internet, point de vente, salon)
-- [ ] Achat-test (produit + facture + ticket)
-- [ ] Captures d'écran horodatées (site web, marketplace, réseaux sociaux)
-- [ ] Catalogues, brochures, publicités du contrefacteur
-- [ ] Documents comptables (si saisie-contrefaçon autorisée)
-- [ ] Attestations de tiers (distributeurs, clients)
-- [ ] Rapports d'enquête douanière (retenue en douane — règlement UE 608/2013)
-
----
-
-## Étape 4 — Stratégie contentieuse
-
-### Arbre décisionnel
-
-```
-Urgence ? (atteinte en cours, salon imminent, lancement produit)
-├── OUI → Référé-interdiction (L.521-6) ou mesures provisoires (art. 90 RDMC)
-│   ├── Cessation immédiate sous astreinte
-│   ├── Rappel des circuits commerciaux
-│   └── Puis assignation au fond pour indemnisation
-├── NON → Assignation au fond directe (TJ Paris 3e ch. / tribunal D&M communautaire)
-│   ├── Cessation + interdiction
-│   ├── Indemnisation du préjudice
-│   ├── Publication judiciaire
-│   └── Destruction des produits contrefaisants
-└── AMIABLE PRÉFÉRÉ → Mise en demeure → Transaction / Licence forcée
-```
-
-### Tribunaux compétents
-
-| Titre | Juridiction | Fondement |
-|-------|-------------|-----------|
-| D&M français (INPI) | TJ Paris (compétence exclusive PI — R.211-7 COJ) | L.521-3-1 CPI |
-| DMC enregistré (EUIPO) | Tribunaux des dessins communautaires (TJ Paris en France) | Art. 80-81 RDMC |
-| DMCNE (non enregistré UE) | Tribunal du défendeur ou du lieu de contrefaçon | Art. 82 RDMC |
-| D&M international (La Haye) | Selon désignation nationale — mêmes règles que titre national | Convention La Haye |
-
-### Prescription
-
-- **France** : 5 ans à compter des faits (L.521-3 CPI, renvoi art. 2224 CC)
-- **UE (DMC)** : selon droit national applicable (5 ans en France)
-
----
-
-## Étape 5 — Évaluation du préjudice
-
-### Trois méthodes (L.521-7 CPI — transposition directive 2004/48/CE)
-
-| Méthode | Calcul | Quand l'utiliser |
-|---------|--------|-----------------|
-| **Conséquences économiques négatives** | Manque à gagner + perte subie + préjudice moral | Méthode principale — preuve des ventes perdues |
-| **Bénéfices du contrefacteur** | CA contrefaçon × marge nette | Si ventes perdues difficiles à prouver |
-| **Redevance hypothétique** | Licence qu'aurait dû payer le contrefacteur | Forfaitaire — plancher minimum |
-
-### Postes de préjudice
-
-- Manque à gagner (ventes détournées)
-- Perte de marge sur ventes conservées (érosion des prix)
-- Préjudice moral / atteinte à l'image de marque
-- Frais engagés pour faire cesser la contrefaçon
-- Banalisation du design (perte de distinctivité)
-
----
-
-## Étape 6 — Orientation vers la lettre ou la réponse
-
-Si la stratégie retient une phase amiable ou une réponse à un grief, router
-vers `mise-en-demeure-pi`.
-
-Transmettre au minimum :
-
-- `mode` ;
-- `droits invoques` ;
-- `faits resumes` ;
-- `pieces disponibles` ;
-- `objectif de ton` ;
-- `niveau d'escalade` ;
-- et, pour `draft` / `escalate` si pertinent : `cible exploitable`, `points faibles connus`, `demande principale`, `contrainte calendrier`.
-
----
-
-## Étape 7 — Moyens de défense (mode `--defense`)
-
-| Moyen | Fondement | Effet |
-|-------|-----------|-------|
-| Nullité du titre (reconventionnelle) | L.512-4 CPI / art. 85(1) RDMC | Anéantit le titre — pas de contrefaçon |
-| Absence d'impression globale identique | L.521-1 + L.511-4 | Pas de contrefaçon |
-| Antériorité destructrice de nouveauté | L.511-2 | Nullité du titre adverse |
-| Exclusion fonctionnelle | L.511-8 | Design non protégeable |
-| Droit de possession personnelle antérieure | Art. 22 RDMC (UE) / L.513-6 CPI (FR) | Exonération |
-| Épuisement des droits | L.513-8 / art. 21 RDMC | Produit mis sur le marché UE par le titulaire |
-| Prescription | L.521-3 (5 ans) | Irrecevabilité si faits > 5 ans |
-| Exception de réparation (clause de réparation) | Art. 110 RDMC (pièces détachées auto) | Non-contrefaçon pour pièces visibles réparation |
-
----
-
-## Format de sortie
-
-```markdown
-# Dossier contrefaçon D&M — [NOM AFFAIRE]
-
-*Brouillon soumis à validation avocat. Ne constitue pas un acte de procédure.*
-
-## 1. Titre D&M invoqué
-[Numéro, office, date, classe Locarno, statut, validité]
-
-## 2. Design argué de contrefaçon
-[Description + source + visuels]
-
-## 3. Comparaison impression globale
-[Tableau comparatif — cf. Étape 2]
-
-## 4. Qualification
-[Contrefaçon caractérisée / risque moyen / absence de contrefaçon]
-[Actes constitutifs identifiés]
-
-## 5. Dossier de preuves
-[Preuves réunies + preuves manquantes + saisie-contrefaçon recommandée ?]
-
-## 6. Stratégie contentieuse
-[Référé / Fond / Amiable — tribunal compétent — délais]
-
-## 7. Évaluation préjudice (estimation)
-[Méthode retenue + postes + fourchette]
-
-## 8. Orientation lettre / réponse
-[Si phase amiable ou réponse à un grief — préparer le paquet d'entrée pour `mise-en-demeure-pi` : `mode`, `droits invoques`, `faits resumes`, `pieces disponibles`, `objectif de ton`, `niveau d'escalade`, puis, pour `draft` / `escalate` si pertinent, `cible exploitable`, `points faibles connus`, `demande principale`, `contrainte calendrier`]
-
-## 9. Moyens de défense (si mode --defense)
-[Analyse point par point — cf. Étape 7]
-```
-
----
-
-## Gate non-juriste
-
-- [ ] Validité du titre vérifiée (enregistrement, annuités, pas de nullité évidente)
-- [ ] Impression globale analysée sur l'utilisateur averti (pas comparaison point par point)
-- [ ] Liberté du créateur dans le secteur prise en compte
-- [ ] Actes contrefaisants précisément identifiés (L.521-1)
-- [ ] Preuves inventoriées et lacunes signalées
-- [ ] Délai saisie-contrefaçon rappelé (20 jours ouvrables pour assigner)
-- [ ] Prescription vérifiée (< 5 ans)
-- [ ] En défense : moyens de nullité reconventionnelle explorés
-
----
-
-## Emplacement des sorties
-
-```
-outputs/contrefacon-dm-<affaire-slug>-YYYY-MM-DD.md
-```
-
----
+Une branche `fallback-unfair-competition` peut exister, mais seulement comme
+issue secondaire et bornee. Le coeur du skill reste l'analyse D&M.
 
 ## Ce skill ne fait pas
 
-- Rédiger les actes de procédure (assignation, conclusions, requête saisie-contrefaçon)
-- Effectuer la saisie-contrefaçon (acte d'huissier sous autorisation judiciaire)
-- Représenter en justice (monopole de l'avocat)
-- Produire la lettre de mise en demeure ou la réponse structurée elle-même → router vers `mise-en-demeure-pi` avec le paquet d'entrée adapté
-- Rechercher les antériorités → utiliser `recherche-anteriorite-dm`
-- Préparer un dépôt → utiliser `depot-dessin-modele`
-- Traiter l'intake et la qualification d'un dossier de contrefaçon de marques → utiliser `tri-contrefacon`
-- Traiter la contrefaçon de droit d'auteur → utiliser `contrefacon-droit-auteur`
-- Gérer les procédures douanières (retenue, destruction simplifiée)
+- Ne remplace pas `recherche-anteriorite-dm` pour l'analyse amont du paysage
+  anterieur.
+- Ne remplace pas `depot-dessin-modele` pour le depot ou la regularisation du
+  titre.
+- Ne redige pas la lettre finale ; route vers `mise-en-demeure-pi`.
+- Ne prepare pas seul la requete de saisie ; route vers `saisie-contrefacon`.
+- Ne pilote pas seul le contentieux judiciaire ; route vers `contentieux-pi`.
+- Ne devient pas un memo autonome et generaliste de concurrence deloyale.
+- Ne remplace pas l'avis final d'un avocat ou d'un juriste habilite.
 
----
+## Chargement du profil
+
+Avant tout, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Rattacher ensuite :
+
+- le role utilisateur ;
+- la posture contentieuse ;
+- l'avocat ou juriste validateur ;
+- les approbateurs proceduraux ;
+- les contraintes budget / urgence / execution ;
+- les preferences de preuve et de communication.
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, la sortie
+reste utilisable, mais les hypotheses non documentees doivent etre marquees
+`[PROVISOIRE]`.
+
+## Contrat d'entree V2
+
+Le skill doit expliciter ou deriver :
+
+- `mode`: `attack`, `defense`
+- `title_status`: `registered`, `unregistered-eu`, `uncertain`, `blocked`
+- `validity_posture`: `strong`, `mixed`, `weak`, `unknown`
+- `visual_similarity_posture`: `high`, `medium`, `low`, `unclear`
+- `creator_freedom_profile`: `narrow`, `medium`, `wide`, `unclear`
+- `proof_posture`: `strong`, `mixed`, `weak`, `none`
+- `enforcement_goal`: `internal-assessment`, `cease-and-desist`,
+  `seizure-prep`, `litigation-prep`
+
+### Minimal Fact Set
+
+- titre invoque, office, numero, date, statut, renouvellements ;
+- design adverse vise ;
+- visuels comparables ;
+- actes argués (fabrication, offre, vente, import, export, detention, usage) ;
+- territoire ;
+- preuves disponibles ;
+- urgence ;
+- antecedents de contact ou de retrait.
+
+Tout manque reste `[a verifier]`.
+
+## Frontieres de routage
+
+### Route to `recherche-anteriorite-dm`
+
+Si la vraie question dominante est l'amont :
+
+- nouveaute ;
+- baseline art anterieur ;
+- antériorités avant depot ;
+- prior art avant defense structuree.
+
+### Route to `depot-dessin-modele`
+
+Si le besoin principal devient la preparation, regularisation ou extension d'un
+depot.
+
+### Route to `mise-en-demeure-pi`
+
+Si l'analyse au fond est suffisamment stabilisee et que le besoin devient la
+lettre ou la reponse structuree.
+
+### Route to `saisie-contrefacon`
+
+Si la mesure probatoire judiciaire devient prioritaire.
+
+### Route to `contentieux-pi`
+
+Si le dossier bascule au stade judiciaire ou pre-assignation structuree.
+
+## Axes d'analyse V2
+
+### 1. Title baseline
+
+Verifier :
+
+- enregistrement, publication, renouvellements ;
+- opposabilite du titre ;
+- chaine de titularite ;
+- distinction titre enregistre / DMC non enregistre si pertinent.
+
+En `defense`, cette etape doit aussi identifier les failles mobilisables contre
+le titre adverse.
+
+### 2. Protected scope
+
+Identifier ce que couvre raisonnablement le titre :
+
+- caracteristiques visibles revendiquables ;
+- marge de protection reelle ;
+- elements fonctionnels ou imposes qui ne doivent pas etre sur-vendus.
+
+### 3. Global impression
+
+Traiter l'analyse sur l'utilisateur averti :
+
+- similitudes dominantes ;
+- differences notables ;
+- poids de la liberte du createur ;
+- perception globale, sans pseudo-comparaison mecanique point par point.
+
+Si la liberte du createur est etroite, le signaler clairement.
+
+### 4. Acts map
+
+Documenter les actes argués :
+
+- fabrication ;
+- offre ;
+- vente ;
+- importation ;
+- exportation ;
+- detention ;
+- usage.
+
+Distinguer les actes deja prouves de ceux seulement suspects.
+
+### 5. Probative posture
+
+Distinguer :
+
+- ce qui est fort ;
+- ce qui est exploitable mais incomplet ;
+- ce qu'il faut securiser avant escalation ;
+- ce qui manque pour une prochaine etape serieuse.
+
+Preuves classiques :
+
+- captures datees ;
+- constats ;
+- achat-test ;
+- catalogues ;
+- factures ;
+- echantillons ;
+- visuels comparatifs ;
+- donnees commerciales ou logistiques.
+
+### 6. Defense exposure
+
+Anticiper les defenses :
+
+- nullite du titre ;
+- impression globale differente ;
+- prior art destructeur ;
+- liberte du createur trop etroite ;
+- titre inopposable ;
+- absence de preuve des actes ;
+- exception ou limitation sectorielle.
+
+Le skill doit garder ces fragilites visibles.
+
+### 7. Fallback secondary branch
+
+Si `title_status` ou `validity_posture` rendent le titre trop fragile, le
+skill peut ajouter une branche secondaire :
+
+- `fallback-unfair-competition`
+
+Cette branche doit :
+
+- rester explicitement secondaire ;
+- ne pas remplacer silencieusement l'analyse D&M ;
+- ne pas transformer le skill en memo generaliste de concurrence deloyale.
+
+## Design Infringement Readiness Gate
+
+Le skill doit conclure sur :
+
+- `ready`
+- `partial`
+- `blocked`
+
+### `ready`
+
+- titre ou droit non enregistre suffisamment exploitable ;
+- comparaison visuelle exploitable ;
+- actes documentes ;
+- preuve suffisante pour une prochaine etape.
+
+### `partial`
+
+- dossier exploitable ;
+- mais avec hypotheses ou fragilites `[a verifier]`.
+
+### `blocked`
+
+- titre trop fragile ;
+- comparaison trop pauvre ;
+- actes non documentes ;
+- preuve trop faible.
+
+En `blocked` :
+
+- ne pas simuler de lettre forte, de saisie ou de contentieux comme si le
+  dossier etait deja pret ;
+- sortir en `hold-insufficient-basis` ou vers la brique de clarification
+  appropriee ;
+- lister explicitement les manques a combler.
+
+## Format de sortie V2
+
+Produire exactement les 9 blocs suivants :
+
+1. `Case Snapshot`
+2. `Design Infringement Readiness Gate`
+3. `Title And Protected Scope Baseline`
+4. `Global Impression Review`
+5. `Acts And Territory Map`
+6. `Evidence And Defense Exposure`
+7. `Fallback Secondary Branch`
+8. `Decision Routing`
+9. `Human Validation`
+
+### Contrat de `Decision Routing`
+
+Utiliser uniquement :
+
+- `route-to-prior-art-review`
+- `route-to-title-regularization`
+- `prepare-cease-and-desist`
+- `prepare-seizure-brief`
+- `prepare-litigation-brief`
+- `prepare-fallback-unfair-competition`
+- `hold-insufficient-basis`
+
+Chaque route doit preciser la prochaine brique :
+
+- `route-to-prior-art-review` -> `recherche-anteriorite-dm`
+- `route-to-title-regularization` -> `depot-dessin-modele`
+- `prepare-cease-and-desist` -> `mise-en-demeure-pi`
+- `prepare-seizure-brief` -> `saisie-contrefacon`
+- `prepare-litigation-brief` -> `contentieux-pi`
+- `prepare-fallback-unfair-competition` -> `contentieux-pi`, avec axe
+  secondaire concurrence deloyale / parasitisme a valider humainement hors
+  coeur D&M
+- `hold-insufficient-basis` -> blocage explicite, sans pseudo-escalade
+
+## Example output skeleton
+
+```markdown
+# Analyse contrefacon D&M - [titre] vs [design adverse]
+
+*Brouillon soumis a validation par un avocat. Pas un avis juridique final ni
+un acte de procedure.*
+
+## 1. Case Snapshot
+
+## 2. Design Infringement Readiness Gate
+
+## 3. Title And Protected Scope Baseline
+
+## 4. Global Impression Review
+
+## 5. Acts And Territory Map
+
+## 6. Evidence And Defense Exposure
+
+## 7. Fallback Secondary Branch
+
+## 8. Decision Routing
+
+## 9. Human Validation
+```
+
+## Gate non-juriste
+
+Avant transmission :
+
+- [ ] titre ou droit non enregistre explicite
+- [ ] validite / opposabilite du titre explicite
+- [ ] impression globale analysee sur utilisateur averti
+- [ ] liberte du createur prise en compte
+- [ ] actes argués qualifies precisement
+- [ ] preuve forte / faible / manquante explicitee
+- [ ] exposition nullite ou defense explicitee
+- [ ] route finale explicite vers la bonne brique
+- [ ] sortie marquee comme brouillon soumis a validation humaine
+
+## Emplacement des sorties
+
+```text
+outputs/contrefacon-dm-<affaire-slug>-YYYY-MM-DD.md
+```
 
 ## Ton
 
-Technique, stratégique, prudent. Distinguer clairement l'attaque (titulaire) de la défense (accusé). Toujours rappeler que les actes de procédure et la représentation en justice sont réservés aux avocats. Signaler les délais impératifs (20 jours saisie-contrefaçon, prescription 5 ans).
+Technique, strategique, prudent. Distinguer clairement faits, droit, analyse,
+incertitudes, prochaine etape et validation humaine. Ne jamais sur-vendre un
+dossier faible. Rappeler que la sortie reste un **brouillon**, pas une lettre
+finale ni un acte de procedure.
