@@ -1,252 +1,269 @@
 ---
 name: droits-voisins-ogc
 description: >
-  Droits voisins du droit d'auteur (artistes-interprètes, producteurs de phonogrammes
-  et vidéogrammes, entreprises de communication audiovisuelle), organismes de gestion
-  collective (SACEM, SCAM, SACD, ADAGP, SDRM, SPRE), IA générative et œuvres,
-  NFT et tokenisation. Conforme CPI L.211-1 à L.217-3, directive UE 2019/790.
-  Brouillon soumis à validation par un avocat.
-version: "1.0.0"
+  Skill V2 strict de qualification droits voisins et OGC : artistes-interpretes,
+  producteurs de phonogrammes, producteurs de videogrammes, entreprises de
+  communication audiovisuelle, editeurs de presse quand reellement pertinents,
+  gestion collective et remuneration equitable. `gen-ai-signal` et `nft-signal`
+  restent secondaires et bornes. Brouillon soumis a validation humaine.
+version: "2.0.0"
 authors: ["Hacienda"]
-tags: [droits-voisins, OGC, SACEM, artistes-interpretes, producteurs, IA-generative, NFT, directive-2019-790]
+argument-hint: "[performer-rights|phonogram-producer|videogram-producer|broadcast-organization|press-publisher|mixed]"
+tags: [droits-voisins, ogc, remuneration-equitable, artistes-interpretes, producteurs, gestion-collective]
 ---
 
-# Skill — Droits voisins, OGC et IA générative
+# Skill - Droits voisins et OGC V2
 
-> **ANALYSE PRÉPARATOIRE, PAS AVIS JURIDIQUE.**
+> **ANALYSE PREPARATOIRE, PAS AVIS JURIDIQUE FINAL.**
 >
-> Ce skill couvre le régime des droits voisins (distinct du droit d'auteur),
-> les rapports avec les organismes de gestion collective (OGC), et les enjeux
-> PI émergents liés à l'IA générative et aux NFT. Le droit applicable est
-> en évolution rapide (directive UE 2019/790, AI Act UE 2024/1689).
->
-> Les sorties sont des **brouillons**. Validation par un avocat spécialisé obligatoire.
+> Ce skill fait une analyse de readiness en droits voisins et OGC.
+> Il ne remplace pas la revue finale par un avocat ou un juriste specialise.
+> Il ne devient ni un memo AI Act autonome, ni une note blockchain/NFT generaliste.
+> Les branches `gen-ai-signal` et `nft-signal` restent bornees et secondaires.
+
+## Role
+
+Le coeur du skill reste strictement :
+
+- la qualification du titulaire ou de la categorie de titulaire de droits voisins ;
+- la cartographie de l'acte d'exploitation vise ;
+- la posture de gestion directe, OGC ou remuneration equitable ;
+- la qualite minimale de la chaine de droits ;
+- la preparation d'un brouillon relisible avec routing ferme.
+
+Le skill reste distinct de :
+
+- `qualification-oeuvre` si la question dominante devient l'originalite ou la qualification auteur ;
+- `licence-droit-auteur` si le besoin reel devient une licence d'exploitation ;
+- `cession-droit-auteur` si le besoin reel devient un transfert patrimonial ou un cleanup de chaine de titre ;
+- `contrefacon-droit-auteur` si le sujet principal devient une atteinte auteur au fond ;
+- `contentieux-pi` si le sujet principal devient la strategie judiciaire ou pre-judiciaire ;
+- `contrats-pi` si la question releve d'un montage contractuel PI plus large.
+
+## Closed Intake Contract
+
+Renseigner exactement ces champs :
+
+- `primary_track`: `performer-rights` | `phonogram-producer` | `videogram-producer` | `broadcast-organization` | `press-publisher` | `mixed`
+- `management_posture`: `direct-licensing` | `ogc-membership` | `equitable-remuneration` | `mixed`
+- `rights_chain_status`: `clear` | `mixed` | `uncertain` | `blocked`
+- `exploitation_mode`: `fixation` | `reproduction` | `communication-public` | `streaming` | `platform-use` | `mixed`
+- `emerging_signal`: `none` | `gen-ai` | `nft` | `both`
+- `territory_scope`: `fr` | `eu` | `international`
+
+## Minimum Facts
+
+Le skill ne doit pas sortir un brouillon exploitable sans au moins :
+
+- titulaire ou categorie de titulaire identifie ;
+- prestation, enregistrement ou publication identifie ;
+- acte d'exploitation cible identifie ;
+- role du producteur, diffuseur, plateforme ou OGC si pertinent ;
+- territoire minimal ;
+- sources consultees et datees.
+
+Ajouter selon les cas :
+
+- contrat ou clause disponible ;
+- preuve de fixation, publication ou premiere communication ;
+- adhesion OGC, organisme et posture de repartition ;
+- signal IA ou NFT documente ;
+- indices de remuneration equitable.
+
+Tout element manquant reste `[a verifier]`.
+
+## Neighboring Rights Readiness Gate
+
+Le skill conclut toujours sur une seule valeur :
+
+- `ready`
+- `partial`
+- `blocked`
+
+### Gate Logic
+
+- `ready` : le dossier permet un brouillon voisins/OGC exploitable avec titulaire, acte et posture de gestion suffisamment identifies.
+- `partial` : le dossier permet un brouillon structure, mais avec trous ou fragilites.
+- `blocked` : le skill s'arrete si la base factuelle ne permet pas une analyse voisins/OGC serieuse.
+
+Bloquer si :
+
+- `rights_chain_status = blocked` ;
+- aucun titulaire ou categorie de titulaire ne peut etre identifie ;
+- aucun acte d'exploitation cible ne peut etre formule ;
+- le sujet reel devient principalement auteur, contrat global ou contentieux ;
+- aucune source consultee et datee ne peut etre documentee.
+
+Si le gate est `partial`, la sortie garde obligatoirement :
+
+- `[PROVISOIRE]`
+- `[a verifier]`
+- `[A COMPLETER]`
+
+## Core Logic
+
+### Rights holder core
+
+Structurer l'analyse autour de :
+
+- artistes-interpretes ;
+- producteurs de phonogrammes ;
+- producteurs de videogrammes ;
+- entreprises de communication audiovisuelle ;
+- editeurs de presse quand ils sont reellement en cause.
+
+### Exploitation and consent core
+
+Verifier au minimum :
+
+- l'acte d'exploitation cible ;
+- le consentement ou l'autorisation necessaire ;
+- la duree apparente de protection ;
+- la posture de remuneration equitable si un phonogramme publie a des fins de commerce est en cause ;
+- la place d'un OGC, d'un mandat, d'une repartition ou d'un direct licensing.
+
+## Secondary Signals
+
+### `gen-ai-signal`
+
+Cette branche reste secondaire. Elle peut seulement :
+
+- signaler un doute sur la protegebilite d'un output IA ;
+- signaler un risque training, opt-out ou style mimicry ;
+- rerouter si le sujet dominant devient la conformite IA ou le contracting IA.
+
+Elle ne transforme pas le skill en audit AI Act autonome.
+
+### `nft-signal`
+
+Cette branche reste secondaire. Elle peut seulement :
+
+- rappeler qu'un NFT ne transfere pas les droits ;
+- signaler un risque de mint sans autorisation ;
+- signaler une confusion de titularite ;
+- rerouter si le sujet dominant devient principalement contractuel ou contentieux.
+
+Elle ne transforme pas le skill en memo blockchain generaliste.
+
+## Decision Boundaries
+
+- Si la question dominante porte sur l'originalite ou la qualification auteur de l'oeuvre : route vers `qualification-oeuvre`.
+- Si le besoin reel devient la structuration d'une licence : route vers `licence-droit-auteur`.
+- Si le besoin reel devient un transfert patrimonial ou un cleanup de title chain : route vers `cession-droit-auteur`.
+- Si le sujet principal devient une atteinte auteur au fond : route vers `contrefacon-droit-auteur`.
+- Si le sujet principal devient une strategie judiciaire ou pre-judiciaire : route vers `contentieux-pi`.
+- Si la question releve d'un montage contractuel PI plus large : route vers `contrats-pi`.
+
+## Stable 9-Block Output
+
+La sortie doit toujours utiliser exactement ces 9 blocs :
+
+1. `Case Snapshot`
+2. `Neighboring Rights Readiness Gate`
+3. `Rights Holder And Title Chain`
+4. `Exploitation And Consent Map`
+5. `Duration And Remuneration Posture`
+6. `OGC And Collective Management Posture`
+7. `Emerging Signal`
+8. `Decision Routing`
+9. `Human Validation`
+
+## Closed Decision Routing
+
+Une seule route finale est autorisee :
+
+- `proceed-with-neighboring-rights-brief`
+- `clarify-title-chain`
+- `clarify-exploitation-scope`
+- `review-ogc-membership-and-remuneration`
+- `route-to-work-qualification`
+- `route-to-copyright-license`
+- `route-to-copyright-assignment`
+- `route-to-copyright-infringement`
+- `route-to-pi-litigation`
+- `hold-insufficient-basis`
+
+## Output Template
+
+```markdown
+# Neighboring Rights And OGC Brief - [DOSSIER]
+
+## 1. Case Snapshot
+- `primary_track`:
+- `management_posture`:
+- `rights_chain_status`:
+- `exploitation_mode`:
+- `emerging_signal`:
+- `territory_scope`:
+- Sources consultees :
+
+## 2. Neighboring Rights Readiness Gate
+- Gate :
+- Motif principal :
+- Niveau de fiabilite :
+
+## 3. Rights Holder And Title Chain
+- Titulaire ou categorie de titulaire :
+- Chaine de droits :
+- Elements manquants :
+
+## 4. Exploitation And Consent Map
+- Acte d'exploitation vise :
+- Consentement/autorisation :
+- Operateurs impliques :
+
+## 5. Duration And Remuneration Posture
+- Duree apparente :
+- Remuneration equitable :
+- Fragilites :
+
+## 6. OGC And Collective Management Posture
+- OGC / mandat / adhesion :
+- Gestion directe vs collective :
+- Repartition ou perception :
+
+## 7. Emerging Signal
+- `emerging_signal` :
+- Impact reel sur le dossier :
+- Limite du signal secondaire :
+
+## 8. Decision Routing
+- Route finale :
+- Pourquoi cette route :
+- Routes ecartees :
+
+## 9. Human Validation
+- Points a confirmer :
+- Sources a relire :
+- Validation humaine requise avant usage externe.
+```
 
 ## Examples
 
 <example>
-<user>Un artiste-interprète veut savoir quels droits il a sur un enregistrement. Analyse ses droits voisins.</user>
-<response>Analyse droits voisins artiste-interprète (L.212-1+) : droit d'autoriser la fixation, reproduction, communication au public de sa prestation. Durée 50/70 ans. Rémunération équitable (L.214-1) pour diffusion radio/lieux publics. Droit moral de l'interprète (L.212-2) — respect du nom et de l'interprétation. Relations avec le producteur de phonogrammes (contrat, cession des droits patrimoniaux). Adhésion ADAMI/SPEDIDAM pour gestion collective.</response>
+<user>Un artiste-interprete veut verifier ses droits sur un phonogramme exploite en streaming et la place de l'ADAMI.</user>
+<response>Je traite le dossier comme `primary_track=performer-rights`, `management_posture=ogc-membership`, `exploitation_mode=streaming`, `emerging_signal=none`. Je verifie d'abord le titulaire, l'enregistrement, l'acte d'exploitation, la posture OGC et les sources consultees. La sortie reste bornee aux 9 blocs V2 avec `Neighboring Rights Readiness Gate`, cartographie consentement/remuneration et routing final ferme.</response>
 </example>
 
 <example>
-<user>Notre client utilise un modèle d'IA générative pour créer des visuels. Quels sont les risques PI ?</user>
-<response>Analyse IA générative et PI : (1) Protégeabilité des outputs — pas d'originalité si pas d'empreinte personnelle humaine (position USCO + tendance FR), (2) Risque contrefaçon sur les données d'entraînement (art. 4 directive 2019/790 — exception TDM, opt-out art. 4(3)), (3) Obligation transparence AI Act (art. 50(2) — contenu généré par IA doit être marqué), (4) Recommandations : documenter l'intervention humaine créative, vérifier les conditions d'utilisation du modèle, clause PI dans contrats avec clients.</response>
+<user>Un producteur veut mint un NFT d'un enregistrement et demande si le token transfere les droits.</user>
+<response>Je garde le coeur du dossier en droits voisins si l'enregistrement, le titulaire et l'acte d'exploitation sont identifies. Le `nft-signal` reste secondaire : il rappelle qu'un NFT ne transfere pas les droits, signale le risque de mint sans autorisation et reroute vers contrat ou contentieux si le sujet principal sort du couloir voisins/OGC.</response>
 </example>
 
----
+## Working Reference
 
-## Chargement du profil
+Utiliser aussi la note compacte :
 
-> Charger les préférences depuis le profil utilisateur :
-> - **Secteur** (musique, audiovisuel, arts visuels, édition, numérique)
-> - **OGC d'adhésion** (SACEM, SCAM, SACD, ADAGP, ADAMI, SPEDIDAM, etc.)
-> - **Position sur IA générative** (utilisation encadrée / interdiction / case by case)
+`references/droits-voisins-ogc-routing-and-output.md`
 
----
+## Non-goals
 
-## Intake
+Le skill ne fait pas :
 
-1. **Sujet** — droits voisins / OGC / IA générative / NFT / combinaison
-2. **Titulaire concerné** — artiste-interprète / producteur phonogrammes / producteur vidéogrammes / entreprise de communication audiovisuelle / éditeur de presse
-3. **Contexte** — exploitation d'une prestation / adhésion OGC / utilisation IA pour création / tokenisation NFT
-4. **Œuvre ou prestation** — description, support, date de fixation
-5. **Territoire** — France / UE / international
-
----
-
-## Étape 1 — Droits voisins (L.211-1 à L.217-3 CPI)
-
-### Titulaires de droits voisins
-
-| Titulaire | Fondement | Droits patrimoniaux | Durée |
-|-----------|-----------|-------------------|-------|
-| **Artistes-interprètes** | L.212-1 à L.212-11 | Fixation, reproduction, communication au public de la prestation | 50 ans (70 ans si phonogramme publié — directive 2011/77/UE) |
-| **Producteurs de phonogrammes** | L.213-1 à L.213-2 | Reproduction, mise à disposition, communication au public du phonogramme | 50 ans (70 ans si publié — directive 2011/77/UE) |
-| **Producteurs de vidéogrammes** | L.215-1 | Reproduction, mise à disposition de la première fixation | 50 ans |
-| **Entreprises de communication audiovisuelle** | L.216-1 | Reproduction, mise à disposition de leurs programmes | 50 ans |
-| **Éditeurs de presse** (droit voisin UE) | Directive 2019/790 art. 15 / L.218-1+ CPI | Reproduction et communication en ligne de leurs publications | 2 ans |
-
-### Droit moral de l'artiste-interprète (L.212-2)
-
-| Attribut | Contenu | Différence avec droit moral auteur |
-|----------|---------|-----------------------------------|
-| Respect du nom | Mention sur les supports et communications | Identique à L.121-1 |
-| Respect de l'interprétation | Pas de modification dénaturante | Plus limité que le droit à l'intégrité auteur |
-| Durée | Vie de l'artiste (pas perpétuel post-mortem comme L.121-1) | Différence majeure avec le droit d'auteur |
-| Inaliénable | Oui | Identique |
-
-### Rémunération équitable (L.214-1)
-
-Quand un phonogramme publié à des fins de commerce est diffusé :
-- **Radio/TV** : rémunération équitable partagée 50/50 artiste-interprète / producteur
-- **Lieux publics** (bars, restaurants, magasins) : idem via la **SPRE** (Société pour la perception de la rémunération équitable)
-- Collectée par la SPRE, répartie via ADAMI/SPEDIDAM (artistes) et SCPP/SPPF (producteurs)
-
-### Contrat artiste-interprète / producteur
-
-| Clause critique | Point d'attention |
-|----------------|-------------------|
-| Cession des droits patrimoniaux | Soumise à L.212-3 (consentement écrit pour chaque mode d'exploitation) |
-| Rémunération | Distincte du cachet d'enregistrement ; proportionnelle si possible |
-| Exclusivité | Fréquente dans l'industrie musicale (contrat d'artiste exclusif) |
-| Durée | Souvent liée à la durée des droits voisins (50/70 ans) |
-| Exploitation numérique | Streaming, téléchargement, sync — chaque mode doit être visé |
-| Réédition / compilation | Autorisation distincte si non visée au contrat initial |
-
----
-
-## Étape 2 — Organismes de gestion collective (OGC)
-
-### Principaux OGC français
-
-| OGC | Répertoire | Titulaires | Site |
-|-----|-----------|-----------|------|
-| **SACEM** | Musique (auteurs, compositeurs, éditeurs) | Auteurs + compositeurs | sacem.fr |
-| **SACD** | Théâtre, audiovisuel, spectacle vivant | Auteurs dramatiques | sacd.fr |
-| **SCAM** | Documentaire, multimédia, journalisme, radio | Auteurs multimédia | scam.fr |
-| **ADAGP** | Arts visuels (peinture, sculpture, photo, design, architecture) | Artistes visuels | adagp.fr |
-| **ADAMI** | Artistes-interprètes principaux (musique, audiovisuel) | Interprètes | adami.fr |
-| **SPEDIDAM** | Artistes-interprètes non principaux (musiciens d'accompagnement) | Interprètes | spedidam.fr |
-| **SCPP** | Producteurs de phonogrammes (majors) | Producteurs | scpp.fr |
-| **SPPF** | Producteurs indépendants de phonogrammes | Producteurs | sppf.fr |
-| **SPRE** | Perception rémunération équitable (L.214-1) | ADAMI+SPEDIDAM + SCPP+SPPF | spre.fr |
-| **CFC** | Centre français d'exploitation du droit de copie (reprographie) | Auteurs + éditeurs | cfcopies.com |
-| **SOFIA** | Société française des intérêts des auteurs de l'écrit | Auteurs + éditeurs livres | la-sofia.org |
-
-### Adhésion à un OGC — points clés
-
-| Aspect | Détail |
-|--------|--------|
-| Effet | Apport du répertoire à l'OGC (mandat exclusif de gestion) |
-| Portée | L'OGC gère les droits pour TOUTES les œuvres/prestations — pas d'opt-out sélectif (sauf exceptions récentes directive 2014/26/UE) |
-| Rémunération | Répartition selon règles internes de l'OGC (clé de répartition) |
-| Contrôle | Commission de contrôle des OGC (art. L.321-13 CPI) |
-| Résiliation | Possible avec préavis (6 mois à 1 an selon OGC) — récupération des droits |
-| Multi-OGC | Possible si répertoires distincts (ex. SACEM pour musique + ADAGP pour arts visuels) |
-| Transparence | Directive 2014/26/UE — obligations de transparence, de gouvernance et de reporting |
-
----
-
-## Étape 3 — IA générative et propriété intellectuelle
-
-### Protégeabilité des outputs IA
-
-| Question | Analyse France/UE | Tendance |
-|----------|------------------|----------|
-| L'output IA est-il une « œuvre » ? | Exige originalité = empreinte de la personnalité (L.111-1, *Infopaq* CJUE) | Pas de protection si 100% généré par IA sans intervention humaine créative |
-| Qui est l'auteur ? | Personne physique uniquement (L.111-1 al.1) — pas l'IA, pas l'opérateur sauf si intervention créative | Convergence avec position USCO (US) |
-| Le prompt constitue-t-il un acte créatif ? | Débattu — un prompt détaillé avec choix esthétiques pourrait fonder la protection | Pas de jurisprudence FR établie [à vérifier] |
-| Quid du fine-tuning / LoRA ? | Plus l'intervention humaine est importante et créative, plus la protection est défendable | Approche au cas par cas |
-
-### Risques sur les données d'entraînement
-
-| Risque | Fondement | Analyse |
-|--------|-----------|---------|
-| Contrefaçon par le training | L.122-3 CPI (reproduction) | Le scraping d'œuvres protégées pour entraîner un modèle = reproduction soumise à autorisation |
-| Exception TDM (text and data mining) | Art. 4 directive 2019/790 / L.122-5-3 CPI | Exception pour recherche (art. 3) et usage commercial (art. 4) — SAUF opt-out du titulaire (art. 4(3)) |
-| Opt-out art. 4(3) | robots.txt, métadonnées, CGU | Le titulaire peut réserver ses droits de manière « appropriée » (machine-readable) |
-| Output reproduisant une œuvre d'entraînement | Contrefaçon classique (L.335-2) | Si l'output est substantiellement similaire à une œuvre protégée = contrefaçon |
-| Risque droit moral | L.121-1 (paternité, intégrité) | Génération « dans le style de » = risque atteinte à l'intégrité/paternité si confusion |
-
-### Obligations AI Act (règlement UE 2024/1689)
-
-| Obligation | Article | Qui | Détail |
-|-----------|---------|-----|--------|
-| Marquage contenu IA | Art. 50(2) | Fournisseur du modèle | Contenu synthétique doit être marqué machine-readable |
-| Transparence données entraînement | Art. 53(1)(d) | Fournisseur GPAI | Résumé détaillé des données d'entraînement (template Commission) |
-| Respect du droit d'auteur | Art. 53(1)(c) | Fournisseur GPAI | Politique de respect du droit d'auteur UE, y compris opt-out art. 4(3) |
-| Risque systémique | Art. 55 | Fournisseur GPAI systémique | Évaluation des risques + mesures d'atténuation |
-
----
-
-## Étape 4 — NFT et tokenisation d'œuvres
-
-### Nature juridique du NFT
-
-| Aspect | Analyse |
-|--------|---------|
-| Le NFT n'est PAS l'œuvre | Le NFT est un jeton non fongible sur une blockchain, pointant vers un fichier (souvent sur IPFS) |
-| Le NFT ne transfère PAS les droits d'auteur | Sauf clause explicite de cession (L.131-3 — 5 conditions) |
-| Le NFT est un bien meuble incorporel | Susceptible de propriété, de vente, de nantissement |
-| Smart contract ≠ contrat juridique | Le smart contract code l'exécution technique, pas les obligations juridiques |
-
-### Risques PI liés aux NFT
-
-| Risque | Description | Recommandation |
-|--------|-------------|----------------|
-| Mint sans autorisation | Tiers tokenise l'œuvre d'autrui | Action en contrefaçon + notification plateforme |
-| Confusion titularité | Acheteur croit acquérir les droits d'auteur | CGV/contrat clair : « le NFT confère [licence limitée / droit de revente / affichage privé], pas la titularité des droits d'auteur » |
-| Royalties on-chain | Smart contract prévoit redevance sur reventes | Pas de force juridique automatique (dépend de la plateforme et du standard ERC) |
-| Droit de suite (L.122-8) | Applicable aux œuvres d'art originales | Le droit de suite est inaliénable et imprescriptible — il s'applique même si l'artiste n'a pas minté le NFT |
-| Preuve de création | Blockchain comme preuve d'antériorité | Valeur probatoire limitée (horodatage du mint, pas de la création) |
-
----
-
-## Étape 5 — Format de sortie
-
-```markdown
-# Analyse droits voisins / OGC / IA générative — [SUJET]
-
-*Brouillon soumis à validation. Domaine en évolution rapide.*
-
-## 1. Contexte et périmètre
-[Titulaire(s), œuvre/prestation, territoire, question posée]
-
-## 2. Droits voisins applicables (si pertinent)
-[Titulaire, fondement CPI, droits patrimoniaux, durée, droit moral]
-
-## 3. Relations OGC (si pertinent)
-[OGC concerné(s), adhésion, répartition, obligations]
-
-## 4. Analyse IA générative (si pertinent)
-[Protégeabilité output, risques training data, obligations AI Act]
-
-## 5. Analyse NFT (si pertinent)
-[Nature juridique, transfert de droits, risques]
-
-## 6. Recommandations
-[Actions concrètes — contrat, adhésion OGC, documentation intervention humaine, etc.]
-
-## 7. Limites et incertitudes
-[Absence de jurisprudence FR, évolution AI Act, interprétation art. 4(3) directive 2019/790]
-```
-
----
-
-## Gate non-juriste
-
-- [ ] Distinction claire entre droit d'auteur et droits voisins
-- [ ] Titulaire de droits voisins correctement identifié (artiste / producteur / ECA / éditeur presse)
-- [ ] Durée de protection correcte (50 ou 70 ans selon directive 2011/77/UE)
-- [ ] OGC pertinent identifié et implications de l'adhésion expliquées
-- [ ] IA générative : distinction protégeabilité output / risques training data / obligations AI Act
-- [ ] NFT : clarification que le NFT ne transfère pas les droits d'auteur sauf cession L.131-3
-- [ ] Incertitudes juridiques signalées (jurisprudence absente, droit en évolution)
-- [ ] Directive 2019/790 et AI Act correctement référencés
-
----
-
-## Emplacement des sorties
-
-```
-outputs/droits-voisins-ogc-<sujet-slug>-YYYY-MM-DD.md
-```
-
----
-
-## Ce skill ne fait pas
-
-- Qualifier l'originalité d'une œuvre → utiliser `qualification-oeuvre`
-- Rédiger un contrat de cession auteur → utiliser `cession-droit-auteur`
-- Traiter la contrefaçon de droit d'auteur → utiliser `contrefacon-droit-auteur`
-- Gérer les déclarations SACEM/SCAM/SACD (acte de l'adhérent sur le portail OGC)
-- Auditer la conformité AI Act en détail (renvoi vers spécialiste réglementaire IA)
-- Rédiger les smart contracts NFT (développement blockchain)
-- Fournir un avis fiscal sur les NFT (régime fiscal des crypto-actifs)
-
----
-
-## Ton
-
-Technique, prospectif, prudent. Signaler systématiquement les incertitudes (pas de jurisprudence FR sur la protégeabilité des outputs IA, AI Act en cours d'entrée en application). Distinguer clairement le régime des droits voisins de celui du droit d'auteur. Rappeler que le droit applicable est en évolution rapide.
+- un audit AI Act detaille ;
+- une note blockchain/NFT generaliste ;
+- une licence auteur complete ;
+- une cession auteur complete ;
+- une strategie contentieuse complete ;
+- une qualification auteur principale de l'oeuvre ;
+- un avis juridique final utilisable sans validation humaine.

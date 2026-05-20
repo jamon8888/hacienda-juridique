@@ -3,6 +3,43 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.12 — 2026-05-21
+
+### Alignement documentaire
+- `droits-voisins-ogc` migre vers un contrat V2 strict de readiness droits
+  voisins + OGC, recentre sur les artistes-interpretes, producteurs de
+  phonogrammes, producteurs de videogrammes, entreprises de communication
+  audiovisuelle et editeurs de presse quand reellement pertinents
+- ajout d'un contrat d'entree ferme autour de `primary_track`,
+  `management_posture`, `rights_chain_status`, `exploitation_mode`,
+  `emerging_signal` et `territory_scope`
+- ajout d'un `Neighboring Rights Readiness Gate` explicite (`ready`,
+  `partial`, `blocked`) pour borner l'exploitabilite du brouillon selon
+  l'identification du titulaire, de l'acte d'exploitation, de la chaine de
+  droits, de la posture OGC et de la base source consultee et datee
+- logique centrale reconstruite autour du titulaire voisins, de la carte
+  exploitation / consentement, de la duree apparente, de la remuneration
+  equitable et de la gestion collective, avec maintien obligatoire de
+  `[PROVISOIRE]`, `[a verifier]` et `[A COMPLETER]` en sortie partielle
+- `gen-ai-signal` et `nft-signal` maintenus comme branches secondaires
+  strictement bornees, avec reroutage si le sujet principal devient IA,
+  contractuel ou contentieux
+- sortie V2 stabilisee en 9 blocs, avec `Decision Routing` ferme entre
+  `proceed-with-neighboring-rights-brief`, `clarify-title-chain`,
+  `clarify-exploitation-scope`,
+  `review-ogc-membership-and-remuneration`,
+  `route-to-work-qualification`, `route-to-copyright-license`,
+  `route-to-copyright-assignment`,
+  `route-to-copyright-infringement`, `route-to-pi-litigation` et
+  `hold-insufficient-basis`
+- ajout du memo compact
+  `skills/droits-voisins-ogc/references/droits-voisins-ogc-routing-and-output.md`
+  pour le role, le gate, la logique centrale, la matrice de risque et le
+  routing ferme
+- frontieres explicites avec `qualification-oeuvre`,
+  `licence-droit-auteur`, `cession-droit-auteur`,
+  `contrefacon-droit-auteur`, `contentieux-pi` et `contrats-pi`
+
 ## 0.18.11 — 2026-05-20
 
 ### Alignement documentaire

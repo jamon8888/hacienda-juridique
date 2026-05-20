@@ -20,7 +20,11 @@ Le plugin PI couvre aujourd'hui :
 - droit d'auteur et logiciel : qualification, cession, licence, bases de
   donnees, open source et enforcement ;
 - contrats PI, audit PI M&A, saisie-contrefacon et contentieux PI ;
-- droits voisins, OGC et enjeux IA generative.
+- droits voisins et OGC : skill V2 strict centre sur la qualification voisins,
+  la posture OGC / remuneration equitable, un `Neighboring Rights Readiness Gate`,
+  une sortie stable en 9 blocs et des signaux `gen-ai-signal` / `nft-signal`
+  secondaires et bornes, distinct de la qualification auteur, des licences,
+  des cessions et du contentieux PI.
 
 ## Premier Lancement
 
@@ -234,7 +238,11 @@ configure.
   `manufacturing-waiver-signal` maintenus comme branches secondaires bornees,
   distinct de la prosecution du brevet de base, de l'invalidite et du
   portefeuille
-- `droits-voisins-ogc`
+- `droits-voisins-ogc` : skill V2 strict de readiness droits voisins + OGC,
+  avec contrat d'entree ferme, `Neighboring Rights Readiness Gate`, sortie
+  stabilisee en 9 blocs, routing ferme et frontieres explicites avec
+  `qualification-oeuvre`, `licence-droit-auteur`, `cession-droit-auteur`,
+  `contrefacon-droit-auteur`, `contentieux-pi` et `contrats-pi`
 
 ### Skills legacy en migration
 
@@ -462,6 +470,10 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.12 : migration de `droits-voisins-ogc` vers un skill V2 strict de
+  readiness droits voisins + OGC, avec contrat d'entree ferme, `Neighboring
+  Rights Readiness Gate`, sortie stabilisee en 9 blocs, routing ferme et
+  `gen-ai-signal` / `nft-signal` maintenus comme signaux secondaires bornes ;
 - V0.18.11 : migration de `certificat-complementaire-protection` vers un
   skill V2 strict de readiness CCP, centre sur `eligibility` et `apply`,
   avec `CCP Readiness Gate`, revue article 3, calcul de duree, fenetre de
