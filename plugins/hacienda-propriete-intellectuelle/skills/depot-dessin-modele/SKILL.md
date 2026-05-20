@@ -1,252 +1,395 @@
 ---
 name: depot-dessin-modele
 description: >
-  Préparation de dépôt de dessin ou modèle : dossier complet pour enregistrement
-  auprès de l'INPI (D&M français), EUIPO (DMC communautaire), ou OMPI (système de La Haye).
-  Vérifie conditions L.511-1 à L.511-4, prépare reproductions, libellé Locarno, revendication
-  de priorité. Brouillon soumis à validation par un avocat ou mandataire.
-version: "1.0.0"
+  Preparation stricte d'un brouillon de dossier de depot de dessin ou modele
+  enregistre, centre sur les lanes `fr`, `eu`, `hague`, `sequenced`, avec
+  `Filing Readiness Gate`, sorties stabilisees et validation humaine finale.
+version: "2.0.0"
+argument-hint: "[fr|eu|hague|sequenced]"
 authors: ["Hacienda"]
-tags: [dessins-modeles, depot, INPI, EUIPO, La-Haye, Locarno, reproductions]
+tags:
+  [
+    dessins-modeles,
+    depot,
+    INPI,
+    EUIPO,
+    La-Haye,
+    Locarno,
+    reproductions,
+    V2,
+  ]
 ---
 
-# Skill — Préparation de dépôt dessin ou modèle
+# Skill — Depot dessin ou modele V2
 
-> **BROUILLON DE DOSSIER, PAS DÉPÔT EFFECTIF.**
+> **BROUILLON DE DOSSIER, PAS DEPOT EFFECTIF.**
 >
-> Ce skill prépare un **dossier de dépôt** de dessin ou modèle (reproductions, classification, formulaire). Il ne procède pas au dépôt lui-même (acte réservé au déposant ou à son mandataire). Les reproductions graphiques doivent être préparées par un professionnel (photographe, designer 3D) conformément aux exigences techniques de chaque office.
->
-> Les sorties sont des **brouillons**. Elles ne garantissent pas l'enregistrement.
+> Ce skill prepare un brouillon de dossier de depot de dessin ou modele
+> enregistre. Il ne remplace ni la recherche d'anteriorites, ni l'analyse de
+> contrefacon, ni le depot effectif devant l'office. Il ne transforme pas
+> `DMCNE` en filing lane autonome.
 
-## Examples
+## Role strict
 
-<example>
-<user>Prépare le dépôt de ma lampe design auprès de l'INPI. J'ai les photos sous 7 vues. Classe Locarno 26-05.</user>
-<response>Dossier dépôt D&M INPI : vérification conditions (nouveauté + caractère individuel), classification Locarno 26-05 (luminaires), checklist reproductions 7 vues (face, dos, côtés, dessus, dessous, perspective), formulaire INPI pré-rempli, calcul taxes, recommandations (ajournement publication, priorité unioniste si extension UE prévue).</response>
-</example>
+Le skill :
 
-<example>
-<user>On veut protéger notre packaging en UE. Dépôt DMC auprès de l'EUIPO pour 3 variantes de notre flacon.</user>
-<response>Dossier dépôt DMC multiple (3 dessins, même classe Locarno 09-01) : reproductions conformes aux Guidelines EUIPO, indication de produit, demande groupée (réduction taxes), option ajournement 30 mois, revendication priorité Paris si dépôt FR antérieur < 6 mois.</response>
-</example>
+- prepare un dossier de depot de dessin ou modele enregistre ;
+- reste borne aux lanes `fr`, `eu`, `hague`, `sequenced` ;
+- applique un `Filing Readiness Gate` avant toute sortie exploitable ;
+- garde `DMCNE` uniquement comme signal ou fallback secondaire borne ;
+- produit un brouillon soumis a validation humaine par avocat, juriste ou
+  mandataire.
 
----
+Le skill ne fait pas :
+
+- la recherche d'anteriorites au fond ;
+- l'analyse de contrefacon D&M ;
+- le depot effectif aupres de l'INPI, de l'EUIPO ou de l'OMPI ;
+- un memo autonome sur le DMCNE ;
+- une validation juridique finale.
+
+## Sources et garde-fous
+
+- Prioriser `hacienda-sources-officielles` pour les exigences d'office, taxes,
+  formulaires et references officielles.
+- Toute source non consultee reste marquee `[a verifier]`.
+- Distinguer faits, droit, analyse, incertitudes, decisions et validation
+  humaine.
+- Si le dossier est incomplet, conserver les marqueurs `[PROVISOIRE]`,
+  `[a verifier]`, `[A COMPLETER]`.
+- Mettre les reproductions au centre du risque de qualite.
 
 ## Chargement du profil
 
-> Charger les préférences depuis le profil utilisateur :
-> - **Juridictions et offices préférés** (INPI, EUIPO, OMPI La Haye)
-> - **Secteurs des clients dominants** (mode, packaging, mobilier, automobile, électronique…)
-> - **Mandataire habituel** (CPI, avocat)
-> - **Stratégie d'ajournement par défaut**
+Charger si disponible :
 
----
+- preferences d'office et de territoire ;
+- secteur dominant du client ;
+- politique habituelle de priorite et d'ajournement ;
+- circuit de validation humaine.
 
-## Intake
+## Contrat d'entree V2
 
-1. **Design à déposer** — description textuelle + visuels (photos, rendus 3D, croquis)
-2. **Classification Locarno** — classe et sous-classe (vérifier via classification officielle OMPI)
-3. **Territoire(s) visé(s)** — France (INPI) / UE (EUIPO DMC) / International (La Haye)
-4. **Déposant** — personne physique ou morale, adresse, nationalité
-5. **Créateur** — identité (obligatoire FR L.511-2, facultatif EUIPO)
-6. **Reproductions disponibles** — nombre de vues, format (JPEG/PNG/TIFF), résolution
-7. **Nombre de dessins** — dépôt simple ou multiple (même classe Locarno obligatoire pour multiple FR)
-8. **Priorité unioniste ?** — dépôt antérieur < 6 mois dans un pays de l'Union de Paris (art. 4 CUP)
-9. **Ajournement de publication ?** — FR : 3 ans max (L.512-10) / UE : 30 mois max (art. 50 RDMC)
-10. **Recherche antériorité effectuée ?** — si non, recommander `recherche-anteriorite-dm` d'abord
+### Closed intake contract
 
----
+- `filing_lane`: `fr` | `eu` | `hague` | `sequenced`
+- `design_status`: `new` | `possibly-disclosed` | `already-disclosed` | `uncertain`
+- `filing_scope`: `single` | `multiple`
+- `priority_status`: `none` | `available` | `expiring` | `lost`
+- `publication_strategy`: `immediate` | `deferred` | `undecided`
+- `visual_readiness`: `complete` | `partial` | `weak` | `blocked`
+- `classification_status`: `clear` | `mixed` | `uncertain`
 
-## Étape 1 — Vérification des conditions de fond
+### Faits minimums
 
-### Conditions cumulatives (L.511-1 à L.511-4 CPI / art. 3-9 RDMC)
+Ne jamais presenter le dossier comme pret au depot si manquent :
 
-| Condition | Vérification | Référence |
-|-----------|-------------|-----------|
-| Apparence d'un produit | Le design porte sur les caractéristiques visuelles (lignes, contours, couleurs, forme, texture, matériaux, ornementation) | L.511-1 / art. 3 RDMC |
-| Nouveauté | Aucun D&M identique divulgué antérieurement (différences non insignifiantes) | L.511-2 / art. 5 RDMC |
-| Caractère individuel | Impression globale différente sur l'utilisateur averti | L.511-4 / art. 6 RDMC |
-| Pas d'exclusion | Pas dicté uniquement par la fonction technique (L.511-8) ni contraire à l'ordre public (L.512-2) | L.511-8, L.512-2 |
+- design ou serie de designs visee ;
+- visuels disponibles ;
+- produit ou indication produit ;
+- deposant ;
+- createur ;
+- territoire vise ;
+- posture simple ou multiple ;
+- priorite oui/non et date si invoquee ;
+- choix ou etat d'ajournement.
 
-### Exclusions (L.511-8 CPI / art. 8 RDMC)
+## Filing Readiness Gate
 
-- Caractéristiques dictées **uniquement** par la fonction technique
-- Caractéristiques d'interconnexion (pièces de rechange "must-fit") — sauf clause de réparation UE
-- Atteinte à l'ordre public ou aux bonnes mœurs
-- Utilisation abusive d'emblèmes protégés (drapeaux, signes d'État)
+Le skill doit qualifier le dossier avec une seule valeur :
 
----
+- `ready`
+- `partial`
+- `blocked`
 
-## Étape 2 — Exigences par office
+### `ready`
 
-### INPI — Dessin ou modèle français
+Le dossier permet un brouillon de depot exploitable, sous reserve de validation
+humaine finale.
 
-| Élément | Exigence |
-|---------|----------|
-| Formulaire | Demande en ligne via e-procédures INPI |
-| Reproductions | 1 à 10 reproductions par dessin, format JPEG ≤ 20 Mo, fond neutre, pas de mise en scène |
-| Indication de produit | Obligatoire, en français |
-| Classification Locarno | Obligatoire (classe + sous-classe) |
-| Dépôt multiple | Jusqu'à 100 dessins, **même classe Locarno** obligatoire (R.512-3) |
-| Créateur | Désignation obligatoire (L.511-2 al.3) |
-| Ajournement | Publication différée jusqu'à 3 ans (L.512-10), levée avant expiration sinon déchéance |
-| Taxes (2025) | 39 € (1er dessin) + 23 € par dessin supplémentaire + 52 € publication (si non ajournée) |
-| Durée | 5 ans renouvelables jusqu'à 25 ans maximum (L.513-1) |
+### `partial`
 
-### EUIPO — Dessin ou modèle communautaire (DMC)
+Le dossier permet un brouillon structure, mais des briques restent a completer :
 
-| Élément | Exigence |
-|---------|----------|
-| Formulaire | Demande en ligne via EUIPO eFilings |
-| Reproductions | 1 à 7 vues par dessin, JPEG/PNG/TIFF ≤ 2 Mo par fichier, fond neutre uni |
-| Indication de produit | Obligatoire, en langue officielle UE |
-| Classification Locarno | Obligatoire |
-| Dépôt multiple | Jusqu'à 99 dessins, même classe Locarno |
-| Créateur | Facultatif |
-| Ajournement | Publication différée jusqu'à 30 mois (art. 50 RDMC) |
-| Taxes (2025) | 350 € (1er dessin, avec publication) / 175 € ajournement ; 2e-10e : 175 € ; 11e+ : 80 € |
-| Durée | 5 ans renouvelables jusqu'à 25 ans maximum (art. 12 RDMC) |
+- vues manquantes ;
+- Locarno incertain ;
+- priorite non securisee ;
+- ajournement non arbitre ;
+- depot multiple a rationaliser.
 
-### OMPI — Système de La Haye (enregistrement international)
+Dans ce cas, maintenir visiblement :
 
-| Élément | Exigence |
-|---------|----------|
-| Formulaire | DM/1 via Hague eFilings (WIPO) |
-| Reproductions | Conformes au règlement d'exécution commun (max 7 vues par dessin) |
-| Désignations | Choix des parties contractantes (pays/régions), désignation UE possible |
-| Classification Locarno | Obligatoire |
-| Dépôt multiple | Jusqu'à 100 dessins, même classe Locarno |
-| Taxes | Taxe de base 397 CHF + taxe de publication + désignation individuelle variable par pays |
-| Durée | 5 ans initial, renouvelable selon législation de chaque désignation (max 15 ou 25 ans) |
-| Priorité | Revendication priorité Union de Paris (6 mois) |
+- `[PROVISOIRE]`
+- `[a verifier]`
+- `[A COMPLETER]`
 
----
+### `blocked`
 
-## Étape 3 — Checklist reproductions
+Bloquer le skill si :
 
-Les reproductions sont l'élément **le plus critique** du dépôt : elles définissent l'étendue de la protection.
+- reproductions insuffisantes ;
+- Locarno trop incertain ;
+- deposant ou createur mal identifies ;
+- nouveaute possiblement detruite sans clarification ;
+- priorite mal documentee ;
+- depot multiple incoherent.
 
-### Règles communes
+## Frontieres obligatoires
 
-- [ ] Fond neutre et uniforme (blanc ou gris clair recommandé)
-- [ ] Pas d'objet tiers, pas de mise en scène, pas de main tenant le produit
-- [ ] Produit seul, bien cadré, occupant au moins 80% du cadre
-- [ ] Éclairage uniforme sans ombres marquées
-- [ ] Résolution suffisante (300 dpi minimum pour impression)
-- [ ] Traits en pointillés pour les parties non revendiquées (disclaimers visuels)
-- [ ] Vues cohérentes entre elles (même produit, même échelle relative)
+### Route to `recherche-anteriorite-dm`
 
-### Vues recommandées
+Basculer si le vrai point dominant devient :
 
-| Vue | Description | Obligatoire ? |
-|-----|-------------|---------------|
-| Face | Vue frontale | Recommandée |
-| Dos | Vue arrière | Si différente de la face |
-| Côté gauche | Profil gauche | Recommandée |
-| Côté droit | Profil droit | Si asymétrique |
-| Dessus | Vue plongeante | Si caractéristique |
-| Dessous | Vue en contre-plongée | Si visible en usage normal |
-| Perspective | Vue 3/4 donnant le volume | Fortement recommandée |
+- la robustesse de la nouveaute ;
+- la divulgation anterieure ;
+- le caractere individuel ;
+- la recherche d'anteriorites manquante.
 
----
+### Route to `contrefacon-dessin-modele`
 
-## Étape 4 — Stratégie de dépôt
+Basculer si la question devient surtout :
 
-### Arbre décisionnel territoire
+- l'impression globale entre titres ou produits compares ;
+- des actes argués de reproduction, offre, commercialisation ou importation ;
+- une posture defensive ou contentieuse ;
+- un besoin de preuve ou de reaction aval.
 
-```
-Protection souhaitée ?
-├── France uniquement → Dépôt INPI direct
-├── UE entière → DMC EUIPO (protection 27 États)
-├── France + extension UE prévue < 6 mois → INPI + priorité → EUIPO
-├── Multiple pays hors UE → Système de La Haye (OMPI)
-└── France + UE + hors UE → INPI (priorité) → La Haye désignant UE + pays tiers
-```
+### Stay in `depot-dessin-modele`
 
-### Ajournement de publication
+Rester dans ce skill si le sujet principal est la preparation d'un depot
+enregistre, meme si la priorite, l'ajournement, les taxes ou le sequencing
+restent a arbitrer.
 
-| Situation | Recommandation |
-|-----------|---------------|
-| Produit pas encore commercialisé | ✅ Ajourner (garder le design secret) |
-| Lancement imminent (< 3 mois) | ⚠️ Ajourner si secret commercial important |
-| Produit déjà sur le marché | ❌ Pas d'intérêt (déjà divulgué) |
-| Recherche d'investisseurs/licenciés | ✅ Ajourner (lever sous NDA seulement) |
+## Lane structure
 
-### Priorité unioniste (Convention de Paris, art. 4)
+### `fr`
 
-- Délai : **6 mois** à compter du premier dépôt
-- Effet : la date de priorité est celle du premier dépôt (antériorités entre les deux dates inopposables)
-- Obligatoire de la revendiquer dans la demande (pas de rajout a posteriori)
+Utiliser pour un depot francais aupres de l'INPI quand le besoin principal
+reste France et que la structure du dossier peut etre portee par un depot
+national.
 
----
+Points a traiter :
 
-## Étape 5 — Format de sortie
+- produit et indication produit en francais ;
+- createur correctement designe ;
+- coherence du simple ou multiple ;
+- compatibilite des reproductions avec les exigences INPI ;
+- publication immediate ou differee selon la strategie retenue.
+
+### `eu`
+
+Utiliser pour un depot aupres de l'EUIPO quand la protection ciblee est
+l'Union europeenne.
+
+Points a traiter :
+
+- coherence des dessins dans un multiple ;
+- qualification de la publication immediate ou differee ;
+- dependance des taxes au nombre de dessins ;
+- risque de divulgation deja intervenue en UE ou hors UE ;
+- articulation avec une eventuelle priorite encore disponible.
+
+### `hague`
+
+Utiliser pour une trajectoire OMPI / systeme de La Haye quand plusieurs
+designations internationales sont visees.
+
+Points a traiter :
+
+- liste des designations ;
+- dependance du cout a la designation ;
+- verification des exigences de representation et de publication ;
+- articulation avec une priorite et avec une designation UE eventuelle ;
+- validation humaine renforcee en cas de divergences de perimetre.
+
+### `sequenced`
+
+Utiliser pour une strategie sequentielle, par exemple FR puis extension UE ou
+internationale, lorsque la priorite reste tactiquement utile.
+
+Points a traiter :
+
+- premier depot ou depot source ;
+- date de priorite, delai restant, risque d'expiration ;
+- ordre des depots a venir ;
+- coherence entre le premier visuel, les reproductions ulterieures et le
+  perimetre produit ;
+- justification economique et territoriale du sequencing.
+
+## Axes d'analyse stables
+
+### 1. Office And Lane Selection
+
+Justifier le choix entre :
+
+- `fr`
+- `eu`
+- `hague`
+- `sequenced`
+
+Expliquer en quelques lignes :
+
+- le territoire utile ;
+- la logique de sequencing si applicable ;
+- les preconditions specifiques a l'office ;
+- les points qui restent `[a verifier]`.
+
+### 2. Design And Product Definition
+
+Rendre lisibles :
+
+- le design ou la serie de designs ;
+- le produit ou l'indication produit ;
+- la classe Locarno et son niveau de certitude ;
+- la posture `single` ou `multiple` ;
+- la coherence interne du multiple.
+
+### 3. Reproductions And Visual Scope
+
+Traiter en priorite :
+
+- nombre et qualite des vues ;
+- coherence visuelle entre vues ;
+- parties revendiquees / non revendiquees ;
+- suffisance des reproductions pour definir l'etendue du titre ;
+- travaux visuels encore necessaires.
+
+### 4. Priority And Publication Strategy
+
+Toujours traiter :
+
+- priorite oui/non ;
+- delai restant ou perte de priorite ;
+- publication immediate ou differee ;
+- interet de l'ajournement ;
+- effet de la divulgation deja intervenue.
+
+### 5. Fees And Filing Mechanics
+
+Toujours rendre visibles :
+
+- taxes attendues ;
+- dependance au nombre de dessins ;
+- dependance a l'ajournement ;
+- dependance a l'office choisi ;
+- tout montant ou bareme restant `[a verifier]` si la source primaire n'a pas
+  ete consultee.
+
+## Signal secondaire `DMCNE`
+
+Le bloc `DMCNE` sert uniquement a signaler :
+
+- une possible divulgation anterieure ;
+- une possible posture residuelle de dessin ou modele communautaire non
+  enregistre ;
+- le besoin d'une analyse complementaire aval.
+
+`DMCNE` n'est jamais une filing lane. Le coeur du skill reste le depot
+enregistre.
+
+## Decision Routing ferme
+
+La sortie doit se terminer par une seule route principale :
+
+- `prepare-fr-filing`
+- `prepare-eu-filing`
+- `prepare-hague-filing`
+- `prepare-sequenced-filing`
+- `hold-for-prior-art-review`
+- `hold-for-visual-cleanup`
+- `signal-unregistered-eu-design-posture`
+- `hold-insufficient-basis`
+
+## Sortie V2 stable
+
+Produire exactement les 9 blocs suivants :
+
+1. `Case Snapshot`
+2. `Filing Readiness Gate`
+3. `Office And Lane Selection`
+4. `Design And Product Definition`
+5. `Reproductions And Visual Scope`
+6. `Priority And Publication Strategy`
+7. `Fees And Filing Mechanics`
+8. `Decision Routing`
+9. `Human Validation`
+
+## Format de sortie
 
 ```markdown
-# Dossier dépôt D&M — [NOM DESIGN]
+# Dossier depot D&M — [NOM DOSSIER]
 
-*Brouillon soumis à validation. Ne constitue pas le dépôt effectif.*
+## 1. Case Snapshot
+- Faits : [design, produit, territoire, deposant, createur]
+- Droit : [base de depot et office cible]
+- Analyse : [resume bref]
+- Incertitudes : [points [a verifier] ou [A COMPLETER]]
 
-## 1. Déposant et créateur
-[Identité déposant + créateur + qualité + adresse]
+## 2. Filing Readiness Gate
+- Gate : `ready|partial|blocked`
+- Motifs : [liste courte]
+- Effet : [ce qui peut ou ne peut pas etre produit]
 
-## 2. Design
-[Description textuelle + classification Locarno + indication de produit]
+## 3. Office And Lane Selection
+- Lane retenue : `fr|eu|hague|sequenced`
+- Justification : [pourquoi cette lane]
+- Alternatives ecartees : [si utile]
 
-## 3. Territoire et stratégie
-[Office(s) visé(s) + arbre décisionnel + priorité + ajournement]
+## 4. Design And Product Definition
+- Produit / indication produit : [...]
+- Locarno : `clear|mixed|uncertain`
+- Scope : `single|multiple`
+- Coherence du multiple : [...]
 
-## 4. Reproductions
-[Liste des vues préparées + conformité checklist + disclaimers visuels]
+## 5. Reproductions And Visual Scope
+- Etat visuel : `complete|partial|weak|blocked`
+- Vues disponibles : [...]
+- Parties revendiquees / non revendiquees : [...]
+- Nettoyage visuel requis : [...]
 
-## 5. Dépôt multiple (si applicable)
-[Nombre de dessins + cohérence classe Locarno]
+## 6. Priority And Publication Strategy
+- Priorite : `none|available|expiring|lost`
+- Publication : `immediate|deferred|undecided`
+- Divulgation / DMCNE : [...]
+- Arbitrages requis : [...]
 
-## 6. Calcul des taxes
-[Détail taxes par office + total]
+## 7. Fees And Filing Mechanics
+- Office et mecanique de depot : [...]
+- Taxes / baremes : [source ou `[a verifier]`]
+- Points operatoires : [...]
 
-## 7. Délais et prochaines étapes
-[Calendrier : dépôt → publication (ou ajournement) → enregistrement → renouvellements]
+## 8. Decision Routing
+- Route unique : `...`
+- Motif : [...]
+- Routage adjacent : [si orientation vers skill voisin]
 
-## 8. Recommandations
-[Ajournement ? Priorité ? Extension ? Recherche antériorité préalable ?]
+## 9. Human Validation
+- Validation requise : avocat / juriste / mandataire
+- Points a confirmer : [...]
+- Decision finale humaine attendue : [...]
 ```
 
----
+## Execution discipline
 
-## Gate non-juriste
+1. Qualifier le dossier avec le closed intake contract.
+2. Determiner le `Filing Readiness Gate`.
+3. Choisir une seule lane principale.
+4. Traiter les cinq axes d'analyse stables.
+5. Signaler `DMCNE` seulement si pertinent.
+6. Sortir une route unique du `Decision Routing`.
+7. Clore par `Human Validation`.
 
-- [ ] Conditions de fond vérifiées (nouveauté + caractère individuel + pas d'exclusion)
-- [ ] Classification Locarno correcte et cohérente avec le produit
-- [ ] Reproductions conformes aux exigences de l'office visé
-- [ ] Priorité unioniste vérifiée si dépôt antérieur < 6 mois
-- [ ] Taxes calculées et à jour (vérifier barèmes annuels)
-- [ ] Ajournement recommandé si produit non encore divulgué
-- [ ] Recherche antériorité préalable recommandée si non effectuée
-- [ ] Disclaimers visuels pour parties non revendiquées
+## Cas de reroutage prioritaire
 
----
-
-## Emplacement des sorties
-
-```
-outputs/depot-dm-<design-slug>-YYYY-MM-DD.md
-```
-
----
-
-## Ce skill ne fait pas
-
-- Déposer effectivement le design (acte réservé au déposant/mandataire)
-- Préparer les reproductions graphiques (travail de photographe/designer)
-- Rechercher les antériorités → utiliser `recherche-anteriorite-dm`
-- Traiter la contrefaçon D&M → utiliser `contrefacon-dessin-modele`
-- Gérer le portefeuille D&M existant → utiliser `portefeuille-dessins-modeles` (futur)
-- Rédiger les réponses aux notifications d'examen (EUIPO/OMPI)
-- Couvrir les dessins et modèles non enregistrés (DMCNE — protection automatique 3 ans UE)
-
----
+- dossier centre sur nouveaute / caractere individuel incertains :
+  `hold-for-prior-art-review` puis `recherche-anteriorite-dm`
+- dossier centre sur visuels inutilisables : `hold-for-visual-cleanup`
+- dossier deja divulgue avec posture UE residuelle possible :
+  `signal-unregistered-eu-design-posture`
+- dossier insuffisant ou incoherent : `hold-insufficient-basis`
 
 ## Ton
 
-Technique, méthodique. Insister sur la qualité des reproductions (élément le plus critique). Toujours rappeler que le dossier est un brouillon et que le dépôt effectif relève du déposant ou de son mandataire agréé.
+Technique, borne, operatoire. Toujours rappeler qu'il s'agit d'un brouillon
+de preparation de depot soumis a validation humaine et non d'un conseil
+juridique final ni d'un depot effectif.

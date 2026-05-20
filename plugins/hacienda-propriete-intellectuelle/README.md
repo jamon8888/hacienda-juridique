@@ -169,7 +169,11 @@ configure.
   bi-mode `attack` / `defense`, distinct du claim chart, de la preparation de
   depot et de la recherche amont, structure autour d'un `Invalidity Readiness Gate`
 - `recherche-anteriorite-dm`
-- `depot-dessin-modele`
+- `depot-dessin-modele` : skill V2 strict de preparation au depot de dessin
+  ou modele enregistre, centre sur des lanes fermees `fr`, `eu`, `hague`,
+  `sequenced`, garde par un `Filing Readiness Gate`, distinct de
+  `recherche-anteriorite-dm` et `contrefacon-dessin-modele`, avec `DMCNE`
+  maintenu uniquement comme signal ou fallback secondaire borne
 - `contrefacon-dessin-modele` : skill V2 d'analyse D&M stricte, centre sur
   la validite du titre, l'impression globale, les actes argués, la preuve,
   l'exposition nullite / defense et un routage ferme vers
@@ -406,6 +410,12 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.9 : migration de `depot-dessin-modele` vers un skill V2 de
+  preparation stricte au depot de dessin ou modele enregistre, avec
+  `Filing Readiness Gate`, lanes fermees `fr`, `eu`, `hague`, `sequenced`,
+  signal `DMCNE` strictement borne, sortie stabilisee en 9 blocs et routage
+  ferme vers preparation de depot, revue d'anteriorite, nettoyage visuel,
+  signal non enregistre UE ou hold d'insuffisance ;
 - V0.18.8 : migration de `cession-droit-auteur` vers un skill V2 de
   preparation stricte d'une cession de droits patrimoniaux, avec
   `Assignment Readiness Gate`, tracks fermes, branche `title-chain-cleanup`

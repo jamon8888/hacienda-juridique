@@ -3,6 +3,27 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.9 — 2026-05-20
+
+### Alignement documentaire
+- `depot-dessin-modele` migre vers un contrat V2 strict de preparation au
+  depot de dessin ou modele enregistre
+- ajout d'un `Filing Readiness Gate` explicite (`ready`, `partial`,
+  `blocked`) pour borner l'exploitabilite du brouillon selon la qualite des
+  visuels, de la classification, de la priorite et de l'identification des
+  parties
+- lanes fermees `fr`, `eu`, `hague`, `sequenced`, avec maintien d'un signal
+  `DMCNE` strictement borne et secondaire
+- sortie V2 stabilisee en 9 blocs, centree sur la lane, les reproductions, la
+  priorite, la publication et la mecanique de depot
+- `Decision Routing` ferme entre `prepare-fr-filing`,
+  `prepare-eu-filing`, `prepare-hague-filing`,
+  `prepare-sequenced-filing`, `hold-for-prior-art-review`,
+  `hold-for-visual-cleanup`, `signal-unregistered-eu-design-posture` et
+  `hold-insufficient-basis`
+- frontieres explicites avec `recherche-anteriorite-dm` et
+  `contrefacon-dessin-modele`
+
 ## 0.18.8 — 2026-05-19
 
 ### Alignement documentaire
