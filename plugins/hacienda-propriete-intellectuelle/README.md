@@ -168,7 +168,12 @@ configure.
 - `anteriorite-invalidite` : skill V2 de validite stricte du brevet adverse,
   bi-mode `attack` / `defense`, distinct du claim chart, de la preparation de
   depot et de la recherche amont, structure autour d'un `Invalidity Readiness Gate`
-- `recherche-anteriorite-dm`
+- `recherche-anteriorite-dm` : skill V2 strict de premier passage
+  disponibilite D&M, centre sur `filing-clearance`, avec
+  `Prior Art Readiness Gate`, couverture source graduee
+  `registers-minimum` / `registers-plus-open-web` /
+  `enhanced-sector-scan`, sortie stabilisee en 9 blocs et branche
+  `reverse-nullity-signal` strictement bornee avant tout reroutage
 - `depot-dessin-modele` : skill V2 strict de preparation au depot de dessin
   ou modele enregistre, centre sur des lanes fermees `fr`, `eu`, `hague`,
   `sequenced`, garde par un `Filing Readiness Gate`, distinct de
@@ -347,6 +352,29 @@ Positionnement brevet V2 a retenir :
   reste du ressort de `preparation-depot-brevet` ;
 - le pilotage judiciaire global reste du ressort de `contentieux-pi` ;
 
+Positionnement D&M V2 a retenir :
+
+- `recherche-anteriorite-dm` est un premier passage strict de disponibilite
+  D&M, pas une clearance juridique finale, pas une preparation de depot et
+  pas une analyse principale de contrefacon ;
+- le skill impose un `Prior Art Readiness Gate` explicite (`ready`,
+  `partial`, `blocked`) et un contrat d'entree ferme avant toute
+  recommandation exploitable ;
+- la couverture source est graduee entre `registers-minimum`,
+  `registers-plus-open-web` et `enhanced-sector-scan`, afin de rendre
+  visibles ce qui a ete cherche, ce qui manque encore et la fragilite
+  residuelle des divulgations hors registre ;
+- la branche `reverse-nullity-signal` reste strictement secondaire : elle
+  sert seulement a signaler un art anterieur destructeur plausible, a
+  securiser la preuve utile et a rerouter vers
+  `contrefacon-dessin-modele` si la posture devient adversariale ;
+- `depot-dessin-modele` reste la brique distincte de preparation stricte au
+  depot ; il prend le relais quand la disponibilite apparente est
+  suffisamment clarifiee ;
+- `contrefacon-dessin-modele` reste la brique distincte d'analyse attack /
+  defense, de comparaison au fond, de preuve et d'escalade precontentieuse
+  ou contentieuse.
+
 ## Agents
 
 - `veilleur-renouvellements-pi` : surveille echeances portefeuille.
@@ -410,6 +438,13 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.10 : migration de `recherche-anteriorite-dm` vers un skill V2 de
+  premier passage strict de disponibilite D&M, centre sur
+  `filing-clearance`, avec `Prior Art Readiness Gate`, couverture source
+  graduee, sortie stabilisee en 9 blocs, findings centres sur source / date /
+  classe / proximite visuelle / risques nouveaute et caractere individuel,
+  et branche `reverse-nullity-signal` strictement bornee avant reroutage
+  vers `contrefacon-dessin-modele` si la posture devient adversariale ;
 - V0.18.9 : migration de `depot-dessin-modele` vers un skill V2 de
   preparation stricte au depot de dessin ou modele enregistre, avec
   `Filing Readiness Gate`, lanes fermees `fr`, `eu`, `hague`, `sequenced`,

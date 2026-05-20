@@ -1,187 +1,467 @@
 ---
 name: recherche-anteriorite-dm
 description: >
-  Recherche d'antériorité pour dessins et modèles : vérifie la nouveauté et le caractère
-  individuel d'un design avant dépôt (INPI, EUIPO DesignView, OMPI La Haye).
-  Identifie les antériorités destructrices et évalue le risque de nullité.
-  Conforme CPI L.511-1 à L.511-4. Brouillon soumis à validation par un avocat ou mandataire.
-version: "1.0.0"
+  Premier passage strict de disponibilite D&M avant depot ou en signal inverse
+  borne, centre sur les registres, la divulgation anterieure, la proximite
+  visuelle et les risques nouveaute / caractere individuel. Brouillon soumis a
+  validation humaine finale.
+version: "2.0.0"
+argument-hint: "[filing-clearance|reverse-nullity-signal]"
 authors: ["Hacienda"]
-tags: [dessins-modeles, anteriorite, nouveaute, caractere-individuel, Locarno, INPI, EUIPO]
+tags:
+  [
+    dessins-modeles,
+    anteriorite,
+    nouveaute,
+    caractere-individuel,
+    Locarno,
+    INPI,
+    EUIPO,
+    prior-art,
+    V2,
+  ]
 ---
 
-# Skill — Recherche d'antériorité dessins et modèles
+# Skill - Recherche d'anteriorite dessins et modeles V2
 
-> **ANALYSE PRÉPARATOIRE, PAS GARANTIE DE VALIDITÉ.**
+> **PREMIER PASSAGE DE DISPONIBILITE, PAS CLEARANCE JURIDIQUE FINALE.**
 >
-> Ce skill produit une **recherche d'antériorité** pour évaluer la disponibilité d'un dessin ou modèle avant dépôt. Il identifie les designs antérieurs susceptibles de détruire la nouveauté ou le caractère individuel. Cependant, aucune recherche d'antériorité ne peut être exhaustive : les dessins et modèles non enregistrés (DMCNE — 3 ans UE) et les divulgations non indexées (salons, catalogues, réseaux sociaux) échappent aux registres.
->
-> Les sorties sont des **brouillons**. Elles ne garantissent pas la validité du futur dépôt.
+> `recherche-anteriorite-dm` V2 sert a cadrer un premier passage strict
+> d'anteriorites avant depot d'un dessin ou modele, ou a faire remonter un
+> signal borne d'anteriorite destructrice plausible contre un titre adverse.
+> La recherche reste non exhaustive et la sortie demeure un brouillon soumis a
+> validation humaine.
 
-## Examples
+Reference de travail utile :
+`references/recherche-anteriorite-dm-routing-and-output.md`
 
-<example>
-<user>Je veux déposer le design de ma nouvelle lampe. Recherche les antériorités en France et UE dans la classe Locarno 26-05.</user>
-<response>Recherche antériorité D&M : INPI (registre FR dessins et modèles), EUIPO DesignView (registres UE + nationaux), classe Locarno 26-05 (luminaires). Analyse des designs trouvés par impression globale sur l'utilisateur averti. Rapport avec antériorités potentiellement bloquantes, risque de nullité, et recommandations (modifier le design / déposer / abandonner).</response>
-</example>
+## Role strict
 
-<example>
-<user>Notre concurrent a déposé un modèle de bouteille similaire au nôtre. Est-ce qu'on peut l'attaquer en nullité ?</user>
-<response>Recherche antériorité inversée : votre design antérieur comme art antérieur destructeur de leur dépôt. Analyse nouveauté (L.511-2 — différences non perceptibles uniquement) et caractère individuel (L.511-4 — impression globale différente sur l'utilisateur averti). Évaluation du risque d'action en nullité (L.512-4).</response>
-</example>
+Le skill :
 
----
+- verifie en premier passage la disponibilite apparente d'un dessin ou modele ;
+- structure la recherche autour d'un minimum registres, d'extensions open web
+  et d'un scan sectoriel renforce si utile ;
+- centre l'analyse sur la date, la classe, la proximite visuelle, la
+  nouveaute, le caractere individuel et la liberte du createur ;
+- borne `reverse-nullity-signal` a un usage secondaire de signalement ;
+- route vers `depot-dessin-modele` ou `contrefacon-dessin-modele` quand la
+  question dominante sort du premier passage.
+
+Le skill ne fait pas :
+
+- une clearance juridique finale ou une opinion de validite definitive ;
+- le depot effectif d'un dessin ou modele ;
+- une analyse principale de contrefacon ;
+- une recherche presentee comme exhaustive ;
+- une substitution a la validation finale d'un avocat, juriste ou mandataire.
+
+## Positionnement V2
+
+### Branche principale `filing-clearance`
+
+`filing-clearance` est la branche normale du skill. Elle sert a :
+
+- verifier si un depot envisage dispose d'une base minimale de disponibilite ;
+- identifier les anteriorites les plus proches et les trous de couverture ;
+- decider s'il faut preparer le depot, elargir la recherche ou ajuster le
+  design avant la suite.
+
+### Branche secondaire `reverse-nullity-signal`
+
+`reverse-nullity-signal` reste strictement bornee. Elle sert seulement a :
+
+- signaler une anteriorite plausible contre un titre adverse ;
+- identifier la preuve qu'il faut securiser en priorite ;
+- preparer un reroutage vers `contrefacon-dessin-modele` si la situation
+  devient adversariale.
+
+Cette branche ne transforme pas le skill en memo complet de nullite ou en
+strategie contentieuse autonome.
+
+## Sources et garde-fous
+
+- Prioriser `hacienda-sources-officielles` pour les sources primaires et les
+  references officielles.
+- Toute source non consultee reste marquee `[a verifier]`.
+- Toute information incomplete doit conserver les marqueurs
+  `[PROVISOIRE]`, `[a verifier]`, `[A COMPLETER]`.
+- Distinguer clairement faits, droit, analyse, incertitudes, decisions et
+  validation humaine.
+- Rappeler qu'une recherche D&M ne couvre jamais de facon certaine toutes les
+  divulgations non enregistrees ou non indexees.
 
 ## Chargement du profil
 
-> Charger les préférences depuis le profil utilisateur :
-> - **Juridictions et offices d'inscription** (INPI, EUIPO, OMPI La Haye)
-> - **Secteurs des clients dominants** (mode, packaging, mobilier, automobile, électronique…)
-> - **Outil de gestion de portefeuille**
+Charger si disponible :
 
----
+- secteurs clients dominants et sensibilite design ;
+- preferences de couverture territoriale ;
+- habitudes de validation humaine ;
+- tolerances internes en matiere de risque visuel et de delai de depot.
 
-## Intake
+Si le profil est absent ou partiel, maintenir les hypotheses visibles avec
+`[PROVISOIRE]`.
 
-1. **Design à rechercher** — description textuelle + visuels (photos, rendus 3D, croquis)
-2. **Classification Locarno** — classe et sous-classe (ex. 09-01 bouteilles, 06-01 sièges, 26-05 luminaires)
-3. **Territoires visés** — France, UE (DMC), international (La Haye)
-4. **Déposant / créateur** — identité, date de création
-5. **Divulgation antérieure par le créateur ?** — la grâce period de 12 mois (L.511-6 FR / art. 7(2) RDMC) préserve la nouveauté si le créateur a lui-même divulgué
-6. **Contexte** — dépôt offensif (protéger son design) / défensif (attaquer un concurrent en nullité)
+## Contrat d'entree V2
 
----
+### Closed intake contract
 
-## Étape 1 — Conditions de protection (rappel)
+- `research_mode`: `filing-clearance` | `reverse-nullity-signal`
+- `territory_scope`: `fr` | `eu` | `international` | `mixed`
+- `design_visibility_status`: `new` | `possibly-disclosed` |
+  `already-disclosed` | `uncertain`
+- `locarno_status`: `clear` | `mixed` | `uncertain`
+- `search_coverage_target`: `registers-minimum` |
+  `registers-plus-open-web` | `enhanced-sector-scan`
+- `evidence_posture`: `strong` | `mixed` | `weak` | `blocked`
 
-### Nouveauté (L.511-2 CPI / art. 5 RDMC)
+### Minimum Fact Set
 
-Un dessin ou modèle est nouveau si aucun dessin ou modèle **identique** n'a été divulgué au public avant la date de dépôt (ou de priorité). Sont considérés comme identiques les dessins dont les caractéristiques ne diffèrent que par des **détails insignifiants**.
+Ne jamais presenter la sortie comme exploitable sans au moins :
 
-### Caractère individuel (L.511-4 CPI / art. 6 RDMC)
+- design cible clairement decrit ;
+- visuels ou descriptions comparables disponibles ;
+- produit ou gamme de produits vises ;
+- territoire de recherche vise ;
+- date de depot envisagee, de priorite ou date pivot de comparaison ;
+- statut de divulgation du design cible ;
+- classe Locarno connue, mixte ou incertaine ;
+- objectif principal : disponibilite avant depot ou signal inverse borne ;
+- sources effectivement consultees et date de consultation.
 
-Un dessin ou modèle a un caractère individuel si l'**impression globale** qu'il produit sur l'**utilisateur averti** diffère de celle produite par tout dessin ou modèle divulgué antérieurement. La liberté du créateur dans le secteur est prise en compte : plus le secteur est contraint (ex. connecteurs électroniques), plus de faibles différences suffisent.
+Selon le mode, ajouter si disponible :
 
-### Divulgation (L.511-6 CPI / art. 7 RDMC)
+- en `filing-clearance` : deposant, createur, contexte de depot, arbitrage
+  territorial ;
+- en `reverse-nullity-signal` : titre adverse vise, titulaire adverse,
+  date de depot / publication adverse, element de preuve de l'anteriorite
+  invoquee.
 
-Un dessin est divulgué s'il a été rendu accessible au public par :
-- Enregistrement + publication
-- Exposition, usage commercial, mise sur le marché
-- Toute autre forme de diffusion (catalogue, salon, réseau social, site web)
+Tout manque reste `[a verifier]`.
 
-**Exception :** pas de divulgation si les milieux spécialisés du secteur n'ont pas pu raisonnablement en avoir connaissance dans le cours normal des affaires.
+## Prior Art Readiness Gate
 
----
+Le skill doit conclure sur une seule valeur :
 
-## Étape 2 — Sources à interroger
+- `ready`
+- `partial`
+- `blocked`
 
-| Source | Couverture | Accès | Limitations |
-|--------|-----------|-------|-------------|
-| INPI Data — dessins et modèles | D&M français enregistrés | https://data.inpi.fr | Pas de recherche visuelle, texte uniquement |
-| EUIPO DesignView | D&M UE (DMC/DMCNE) + registres nationaux + La Haye désignant UE | https://www.tmdn.org/tdview | Recherche visuelle limitée |
-| OMPI Hague Express | D&M internationaux (système de La Haye) | https://www.wipo.int/designdb | Couvre 70+ pays |
-| Google Images / recherche inversée | Designs non enregistrés, divulgations commerciales | Web | Non exhaustif, pas de valeur juridique |
-| Bases sectorielles (mode, auto, packaging) | Catalogues professionnels | Privé | Accès réservé |
+### `ready`
 
-**Limitations fondamentales de la recherche D&M :**
-- Pas de base mondiale exhaustive (contrairement aux brevets)
-- Les DMCNE (3 ans UE) ne sont dans aucun registre
-- Les divulgations informelles (salons, catalogues, réseaux sociaux) échappent aux registres
-- La recherche visuelle automatisée est imprécise
+Le dossier permet un premier passage exploitable de disponibilite avec
+couverture et base factuelle suffisantes pour orienter la suite, sous reserve
+de validation humaine finale.
 
----
+### `partial`
 
-## Étape 3 — Analyse des antériorités trouvées
+Le dossier permet un brouillon structure, mais avec angles morts ou donnees
+fragiles. Dans ce cas, conserver visiblement :
 
-Pour chaque antériorité potentielle identifiée :
+- `[PROVISOIRE]`
+- `[a verifier]`
+- `[A COMPLETER]`
+
+Cas frequents :
+
+- visuels partiels ;
+- Locarno mixte ou incertain ;
+- date pivot imparfaitement securisee ;
+- open web ou scan sectoriel non encore faits ;
+- preuve de divulgation anterieure seulement partielle.
+
+### `blocked`
+
+Bloquer le skill si :
+
+- le design cible n'est pas identifiable ;
+- aucun visuel ou description exploitable ne permet une comparaison serieuse ;
+- la date pivot pertinente ne peut pas etre etablie ;
+- aucune source effectivement consultee et datee ne peut etre documentee ;
+- la posture de divulgation est trop incertaine pour cadrer la recherche ;
+- aucune hypothese Locarno raisonnable ne peut etre determinee ;
+- la base minimale registres n'a pas ete consultee alors qu'elle est requise ;
+- en `reverse-nullity-signal`, aucune anteriorite plausible ni preuve minimale
+  a securiser ne peut etre decrite.
+
+En `blocked`, ne pas simuler une conclusion de disponibilite. Sortir en
+`hold-insufficient-basis`.
+
+## Frontieres de routage
+
+### Route to `depot-dessin-modele`
+
+Basculer si la disponibilite apparente est suffisamment clarifiee et que le
+besoin principal devient :
+
+- la preparation du dossier de depot ;
+- l'arbitrage FR / UE / La Haye / sequence ;
+- les reproductions, la priorite ou la publication.
+
+### Route to `contrefacon-dessin-modele`
+
+Basculer si la question dominante devient :
+
+- une attaque ou defense contre un titre adverse ;
+- une comparaison de contrefacon au fond ;
+- une preuve a securiser en posture adversariale ;
+- une reaction precontentieuse ou contentieuse.
+
+### Stay in `recherche-anteriorite-dm`
+
+Rester dans ce skill si le besoin principal est encore :
+
+- la disponibilite avant depot ;
+- l'identification d'anteriorites proches ;
+- la couverture de recherche insuffisante ;
+- le signal borne d'une nullite plausible par art anterieur.
+
+## Source coverage V2
+
+### 1. Registers minimum
+
+Minimum attendu sauf impossibilite documentee :
+
+- INPI dessins et modeles pour le registre francais ;
+- EUIPO DesignView ou base equivalente pour les dessins et modeles de l'UE et
+  registres relies ;
+- OMPI / Hague Express ou base OMPI design pertinente quand le perimetre
+  international ou mixte le justifie.
+
+Objectif :
+
+- capter les enregistrements publies les plus proches ;
+- verifier les dates utiles ;
+- rattacher quand possible la classe Locarno et le territoire.
+
+### 2. Open web complements
+
+A activer si `search_coverage_target` atteint au moins
+`registers-plus-open-web` :
+
+- sites marchands ;
+- catalogues en ligne ;
+- resultats image et recherche web ouverte ;
+- communiques, portfolios, reseaux sociaux, pages produit datees si elles
+  servent a documenter une divulgation.
+
+Objectif :
+
+- completer les registres ;
+- faire remonter des divulgations non enregistrees ou non captees ;
+- signaler toute source restant fragile ou difficilement datee.
+
+### 3. Enhanced sector scan
+
+A activer si `search_coverage_target` = `enhanced-sector-scan` :
+
+- bases sectorielles ;
+- salons, catalogues professionnels, archives de marque ;
+- marketplaces specialisees ou sources de secteur documentees.
+
+Objectif :
+
+- renforcer la recherche la ou la probabilite de divulgations hors registre est
+  significative ;
+- mieux apprecier la liberte du createur dans le secteur ;
+- documenter les limites si le scan n'a pas pu etre mene.
+
+## Axes d'analyse stables
+
+### 1. Search framing
+
+Toujours expliciter :
+
+- mode de recherche ;
+- territoire ;
+- date pivot ;
+- niveau de couverture vise ;
+- posture de preuve.
+
+### 2. Closest prior art mapping
+
+Pour chaque resultat proche, rendre visibles :
+
+- source ;
+- date ;
+- classe ou secteur ;
+- pertinence ;
+- description breve ;
+- proximite visuelle ;
+- impression globale ;
+- impact potentiel sur la nouveaute ;
+- impact potentiel sur le caractere individuel ;
+- enseignement sur la liberte du createur.
+
+### 3. Novelty baseline
+
+Identifier si une anteriorite parait :
+
+- identique ;
+- quasi identique ;
+- proche sans destruction evidente ;
+- trop eloignee ou incertaine.
+
+### 4. Individual character baseline
+
+Comparer l'impression globale sur l'utilisateur averti en tenant compte :
+
+- des similitudes dominantes ;
+- des differences perceptibles ;
+- du niveau de contrainte du secteur ;
+- du fait que de petites differences pesent davantage si la liberte du
+  createur est etroite.
+
+### 5. Coverage limits
+
+Toujours dire ce qui manque encore :
+
+- registres non consultes ;
+- recherche open web non faite ;
+- scan sectoriel non fait ;
+- datation fragile ;
+- visuels insuffisants ;
+- angle mort sur `DMCNE` ou divulgations hors index.
+
+## Findings framing
+
+Les findings doivent etre presentes autour de :
+
+- `source`
+- `date`
+- `class`
+- `visual proximity`
+- `novelty risk`
+- `individual character risk`
+- `creator freedom`
+
+Ne jamais reduire l'analyse a une simple liste de ressemblances descriptives.
+
+## Decision Routing ferme
+
+La sortie doit se terminer par une seule route principale :
+
+- `prepare-filing`
+- `prepare-filing-with-caution`
+- `hold-for-design-adjustment`
+- `hold-for-expanded-search`
+- `signal-reverse-nullity-posture`
+- `route-to-design-infringement-analysis`
+- `hold-insufficient-basis`
+
+## Sortie V2 stable
+
+Produire exactement les 9 blocs suivants :
+
+1. `Case Snapshot`
+2. `Prior Art Readiness Gate`
+3. `Search Scope And Sources`
+4. `Closest Prior Art Findings`
+5. `Novelty Risk`
+6. `Individual Character Risk`
+7. `Coverage Limits And Unknowns`
+8. `Decision Routing`
+9. `Human Validation`
+
+## Format de sortie
 
 ```markdown
-### Antériorité [N] — [Référence enregistrement / source]
+# Revue disponibilite D&M - [NOM DOSSIER]
 
-| Critère | Analyse |
-|---------|---------|
-| Source | [INPI / EUIPO / La Haye / divulgation web] |
-| Date de divulgation | [date — antérieure à la date de priorité du design recherché ?] |
-| Classe Locarno | [classe — même secteur ?] |
-| Description | [description textuelle du design antérieur] |
-| Impression globale | [similaire / différente / identique — sur l'utilisateur averti du secteur] |
-| Détails insignifiants ? | [les différences sont-elles uniquement des détails insignifiants ?] |
-| Risque nouveauté (L.511-2) | 🔴 Élevé / 🟡 Moyen / 🟢 Faible |
-| Risque caractère individuel (L.511-4) | 🔴 / 🟡 / 🟢 |
-| Liberté du créateur dans le secteur | [contrainte forte / moyenne / large] |
+*Brouillon de premier passage. Recherche non exhaustive. Validation humaine
+finale requise.*
+
+## 1. Case Snapshot
+- Mode : `filing-clearance|reverse-nullity-signal`
+- Faits : [design, produit, territoire, date pivot]
+- Statuts fermes : [visibilite, Locarno, couverture cible, posture de preuve]
+- Analyse breve : [...]
+
+## 2. Prior Art Readiness Gate
+- Gate : `ready|partial|blocked`
+- Motifs : [...]
+- Effet : [ce que la sortie permet ou non]
+
+## 3. Search Scope And Sources
+- Registers minimum : [...]
+- Open web complements : [...]
+- Enhanced sector scan : [...]
+- Suffisance de couverture : [pourquoi la couverture est suffisante ou
+  insuffisante pour une conclusion prudente]
+- Sources non consultees : `[a verifier]`
+
+## 4. Closest Prior Art Findings
+### Finding 1 - [source / reference]
+- Source : [...]
+- Date : [...]
+- Class : [...]
+- Pertinence : [...]
+- Visual proximity : `high|medium|low|unclear`
+- Impression globale : [...]
+- Novelty risk : `high|medium|low|unclear`
+- Individual character risk : `high|medium|low|unclear`
+- Creator freedom : `narrow|medium|wide|unclear`
+- Notes : [...]
+
+## 5. Novelty Risk
+- Baseline : [...]
+- Art destructeur plausible : [...]
+- Points de rupture ou de difference : [...]
+
+## 6. Individual Character Risk
+- Impression globale : [...]
+- Similarites dominantes : [...]
+- Differences notables : [...]
+- Utilisateur averti / secteur : [...]
+- Liberte du createur : [...]
+
+## 7. Coverage Limits And Unknowns
+- Limites : [...]
+- Unknowns : [...]
+- Rappels recurrents : [DMCNE ; salons / catalogues / reseaux sociaux /
+  marketplaces ; limites de recherche visuelle ; limites de terminologie /
+  classification]
+- Marqueurs : `[PROVISOIRE]` / `[a verifier]` / `[A COMPLETER]`
+
+## 8. Decision Routing
+- Route unique : `...`
+- Motif : [...]
+- Skill suivant : [...]
+
+## 9. Human Validation
+- Validation requise : avocat / juriste / mandataire
+- Points a confirmer : [...]
+- Decision finale humaine attendue : [...]
 ```
 
----
+## Discipline d'execution
 
-## Étape 4 — Conclusion et recommandations
+1. Qualifier le dossier avec le closed intake contract.
+2. Verifier le minimum fact set.
+3. Poser le `Prior Art Readiness Gate`.
+4. Rendre visible la couverture `registers minimum`, puis les complements.
+5. Structurer les findings par source, date, classe et proximite visuelle.
+6. Distinguer `Novelty Risk` et `Individual Character Risk`.
+7. Sortir une seule route du `Decision Routing`.
+8. Clore par `Human Validation`.
 
-### Matrice de risque
+## Cas de reroutage prioritaire
 
-| Scénario | Recommandation |
-|----------|---------------|
-| Aucune antériorité pertinente trouvée | ✅ Déposer — risque faible (sous réserve divulgations non indexées) |
-| Antériorités proches mais impression globale différente | ⚠️ Déposer avec prudence — documenter les différences, envisager revendications partielles |
-| Antériorité quasi-identique (détails insignifiants) | 🔴 Ne pas déposer en l'état — modifier le design ou renoncer |
-| Design du client antérieur à celui du concurrent | ✅ Action en nullité envisageable contre le dépôt concurrent (L.512-4) |
-
-### Format de sortie
-
-```markdown
-# Rapport antériorité D&M — [NOM DESIGN]
-
-*Brouillon soumis à validation. Recherche non exhaustive.*
-
-## 1. Design recherché
-[Description + classe Locarno + territoires + date priorité]
-
-## 2. Sources interrogées
-[Liste des registres consultés + date de consultation]
-
-## 3. Antériorités identifiées
-[Tableau par antériorité — cf. Étape 3]
-
-## 4. Synthèse risque
-[Risque global nouveauté + caractère individuel]
-
-## 5. Recommandations
-[Déposer / Modifier / Renoncer / Attaquer en nullité]
-
-## 6. Limites de la recherche
-[DMCNE non couverts, divulgations informelles, limites recherche visuelle]
-```
-
----
-
-## Gate non-juriste
-
-- [ ] Classification Locarno correcte et pertinente
-- [ ] Sources INPI + EUIPO minimum consultées
-- [ ] Antériorités analysées par impression globale (pas uniquement par détails isolés)
-- [ ] Liberté du créateur dans le secteur prise en compte
-- [ ] Limites de la recherche signalées (DMCNE, divulgations informelles)
-- [ ] Grâce period vérifiée si divulgation antérieure par le créateur
-
----
-
-## Emplacement des sorties
-
-```
-outputs/anteriorite-dm-<design-slug>-YYYY-MM-DD.md
-```
-
----
-
-## Ce skill ne fait pas
-
-- Garantir la validité d'un futur dépôt (aucune recherche n'est exhaustive)
-- Effectuer une recherche visuelle automatisée (limitation technique)
-- Rédiger le dépôt → utiliser `depot-dessin-modele`
-- Traiter la contrefaçon D&M → utiliser `contrefacon-dessin-modele`
-- Évaluer la valeur commerciale du design
-- Couvrir les dessins et modèles non enregistrés (DMCNE) de manière certaine
-
----
+- disponibilite globalement rassurante mais dossier de depot a preparer :
+  `prepare-filing` -> `depot-dessin-modele`
+- disponibilite exploitable mais avec points de prudence :
+  `prepare-filing-with-caution` -> `depot-dessin-modele`
+- design a retoucher avant suite : `hold-for-design-adjustment`
+- couverture trop mince ou angles morts majeurs : `hold-for-expanded-search`
+- signal d'art anterieur potentiellement destructeur contre un titre adverse :
+  `signal-reverse-nullity-posture`
+- dossier devenu adversarial ou demande de comparaison au fond :
+  `route-to-design-infringement-analysis` -> `contrefacon-dessin-modele`
+- base trop faible pour conclure : `hold-insufficient-basis`
 
 ## Ton
 
-Technique, prudent. Toujours signaler les limites inhérentes à la recherche D&M (pas de base exhaustive mondiale). Distinguer clairement les antériorités destructrices (risque élevé) des designs proches mais non bloquants.
+Technique, prudent, borne. Toujours rappeler que la recherche est non
+exhaustive, que la sortie reste un brouillon de premier passage et qu'une
+validation humaine finale reste necessaire avant depot, attaque ou defense.

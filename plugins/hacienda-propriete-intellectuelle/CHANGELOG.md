@@ -3,6 +3,35 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.10 — 2026-05-20
+
+### Alignement documentaire
+- `recherche-anteriorite-dm` est documente en V2 comme skill strict de
+  premier passage disponibilite D&M, distinct de la preparation de depot, de
+  la contrefacon et d'une clearance juridique finale
+- ajout d'un `Prior Art Readiness Gate` explicite (`ready`, `partial`,
+  `blocked`) pour borner l'exploitabilite du brouillon selon
+  l'identifiabilite du design, la date pivot, la consultation du minimum
+  registres et la qualite de la preuve
+- contrat d'entree ferme autour de `research_mode`, `territory_scope`,
+  `design_visibility_status`, `locarno_status`,
+  `search_coverage_target` et `evidence_posture`
+- couverture source reconstruite autour de `registers-minimum`,
+  `registers-plus-open-web` et `enhanced-sector-scan`, avec limites
+  residuelles de divulgation hors registre explicites
+- sortie V2 stabilisee en 9 blocs, avec findings centres sur source, date,
+  classe, proximite visuelle, risque nouveaute, risque caractere individuel
+  et liberte du createur
+- `Decision Routing` ferme entre `prepare-filing`,
+  `prepare-filing-with-caution`, `hold-for-design-adjustment`,
+  `hold-for-expanded-search`, `signal-reverse-nullity-posture`,
+  `route-to-design-infringement-analysis` et `hold-insufficient-basis`
+- branche `reverse-nullity-signal` maintenue comme issue secondaire bornee,
+  limitee au signal d'art anterieur destructeur plausible, a la preuve a
+  securiser et au reroutage vers `contrefacon-dessin-modele`
+- frontieres explicites avec `depot-dessin-modele` et
+  `contrefacon-dessin-modele`
+
 ## 0.18.9 — 2026-05-20
 
 ### Alignement documentaire
