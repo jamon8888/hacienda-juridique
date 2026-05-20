@@ -1,253 +1,417 @@
 ---
 name: certificat-complementaire-protection
 description: >
-  Certificats complémentaires de protection (CCP) pour médicaments et produits
-  phytopharmaceutiques : éligibilité, calcul de durée, demande INPI, extension
-  pédiatrique, lien AMM/brevet, SPC manufacturing waiver. Conforme règlements
-  UE 469/2009 (médicaments) et 1610/96 (phyto). Brouillon soumis à validation
-  par un mandataire en brevets ou avocat spécialisé pharma.
-version: "1.0.0"
+  Readiness stricte CCP pour medicaments et produits phytopharmaceutiques :
+  eligibility et apply comme branches centrales, article 3, premiere AMM UE,
+  duree, fenetre de depot, extension pediatrique et verification secondaire
+  bornee. Brouillon soumis a validation humaine finale.
+version: "2.0.0"
+argument-hint: "[eligibility|apply|check]"
 authors: ["Hacienda"]
-tags: [CCP, SPC, pharma, phyto, AMM, brevet, extension-pediatrique, manufacturing-waiver]
+tags:
+  [
+    CCP,
+    SPC,
+    brevet,
+    AMM,
+    medicament,
+    phyto,
+    article-3,
+    extension-pediatrique,
+    manufacturing-waiver,
+    V2,
+  ]
 ---
 
-# Skill — Certificat complémentaire de protection (CCP)
+# Skill - Certificat complementaire de protection V2
 
-> **BROUILLON D'ANALYSE ET DE DEMANDE, PAS DÉPÔT EFFECTIF.**
+> **BROUILLON DE READINESS CCP, PAS CONSEIL JURIDIQUE FINAL NI DEPOT EFFECTIF.**
 >
-> Ce skill analyse l'éligibilité à un CCP, calcule la durée de protection
-> complémentaire et prépare le dossier de demande. Le dépôt effectif relève
-> du mandataire en brevets (CPI) ou de l'avocat spécialisé.
->
-> Les sorties sont des **brouillons**. Validation par un spécialiste pharma/PI obligatoire.
+> `certificat-complementaire-protection` V2 sert a cadrer la readiness d'un
+> dossier CCP autour de l'article 3, de la premiere AMM UE, de la duree, de la
+> fenetre de depot et de l'extension pediatrique. La sortie reste un brouillon
+> de travail Hacienda, soumis a validation finale par un mandataire en brevets
+> ou un avocat specialise life sciences.
 
-## Examples
+Reference de travail utile :
+`references/certificat-complementaire-protection-routing-and-output.md`
 
-<example>
-<user>Notre brevet sur un anticorps monoclonal expire en 2028. On a obtenu l'AMM en 2020. Peut-on demander un CCP ?</user>
-<response>Analyse éligibilité CCP : brevet en vigueur ✅, AMM valide ✅, produit protégé par le brevet ✅ (à vérifier : le produit de l'AMM est-il couvert par les revendications ?), pas de CCP antérieur pour ce produit ✅, première AMM dans l'UE ? Calcul durée : date AMM (2020) - date dépôt brevet (ex. 2015) - 5 ans = 0 ans, donc CCP = 5 ans max si dépôt > 5 ans avant AMM. Extension pédiatrique (+6 mois) si études pédiatriques complétées.</response>
-</example>
+## Role strict
 
-<example>
-<user>Un générique veut entrer sur le marché. Vérifie si le CCP du princeps est valide et quand il expire.</user>
-<response>Vérification CCP : brevet de base valide, AMM de référence, calcul date expiration CCP (max 5 ans après expiration brevet), extension pédiatrique accordée (+6 mois) ?, SPC manufacturing waiver applicable (règlement UE 2019/933) — le générique peut fabriquer pour export ou stockage 6 mois avant expiration CCP.</response>
-</example>
+Le skill :
 
----
+- traite en priorite la readiness `eligibility` et `apply` pour un CCP ;
+- structure l'analyse autour du brevet de base, du produit, de l'AMM, de la
+  premiere AMM UE, de l'article 3, de la duree et de la fenetre de depot ;
+- borne `check` a une verification secondaire d'un CCP existant ou presume ;
+- borne `manufacturing-waiver-signal` a un simple signal de posture secondaire ;
+- route vers invalidite, portefeuille ou revue plus specialisee quand la
+  question dominante sort du readiness CCP.
+
+Le skill ne fait pas :
+
+- un depot effectif INPI ou dans un autre office ;
+- une opinion finale de validite ou de contrefacon ;
+- une revue principale de nullite du brevet de base ;
+- une revue principale de portefeuille brevets ;
+- une verification exhaustive de tous registres ou AMM non consultes ;
+- une substitution a la validation humaine finale.
+
+## Positionnement V2
+
+### Branche principale `eligibility`
+
+`eligibility` est la branche normale pour :
+
+- verifier si le dossier peut franchir un premier gate CCP exploitable ;
+- tester les conditions de l'article 3 et la posture premiere AMM UE ;
+- identifier si le dossier est pret, partiel ou bloque avant toute suite.
+
+### Branche principale `apply`
+
+`apply` sert a :
+
+- preparer un brouillon de readiness pour une demande CCP ;
+- cadrer le minimum factuel, la duree calculee, la fenetre de depot et les
+  pieces a confirmer ;
+- sortir une route fermee de preparation ou de hold documente.
+
+### Branche secondaire `check`
+
+`check` reste strictement bornee. Elle sert seulement a :
+
+- verifier un CCP existant, signale ou presume ;
+- controler la coherence apparente du titre, de la duree, de l'extension et de
+  la posture premiere AMM UE ;
+- rerouter vers `hold-for-duplicate-ccp-review` ou vers une revue plus
+  specialisee si la verification revele un risque structurel.
+
+Cette branche ne transforme pas le skill en audit complet de contentieux ou de
+nullite.
+
+### Branche secondaire `manufacturing-waiver-signal`
+
+Le manufacturing waiver reste strictement secondaire. Il sert seulement a :
+
+- signaler une exposition `export-signal` ou `stockpiling-signal` ;
+- identifier les notifications ou formalites a verifier ;
+- qualifier une pression apparente d'entree generique ou de stockage ;
+- rappeler qu'il s'agit d'une posture aval autour du CCP existant ;
+- rerouter sans absorber l'analyse principale de readiness CCP.
+
+## Sources et garde-fous
+
+- Prioriser `hacienda-sources-officielles` pour les sources primaires et
+  officielles.
+- Pour les CCP, privilegier les textes et registres officiels pertinents :
+  reglement (CE) ndeg 469/2009, reglement (CE) ndeg 1610/96,
+  reglement (CE) ndeg 1901/2006, reglement (UE) 2019/933, INPI, EMA, ANSM,
+  EU Commission et jurisprudence CJUE effectivement consultee.
+- Toute source non consultee reste marquee `[a verifier]`.
+- Toute information incomplete doit conserver les marqueurs
+  `[PROVISOIRE]`, `[a verifier]`, `[A COMPLETER]`.
+- Distinguer clairement faits, droit, analyse, incertitudes, decisions et
+  validation humaine.
+- Ne jamais presenter le resultat comme conseil juridique final ni comme
+  confirmation definitive de delivrance d'un CCP.
 
 ## Chargement du profil
 
-> Charger les préférences depuis le profil utilisateur :
-> - **Secteur pharma/biotech/phyto**
-> - **Mandataire en brevets spécialisé life sciences**
-> - **Portefeuille brevets pharma existant**
+Charger si disponible :
 
----
+- secteur life sciences dominant et track medicament / phyto ;
+- habitudes de validation humaine et pratique office ;
+- sensibilite client aux dates pivots, au risque premiere AMM et a la revue de
+  portefeuille.
 
-## Intake
+Si le profil est absent ou incomplet, garder les hypotheses visibles avec
+`[PROVISOIRE]`.
 
-1. **Mode** — `--eligibility` (analyse éligibilité) / `--apply` (préparation demande) / `--check` (vérification CCP existant)
-2. **Type** — médicament (règlement UE 469/2009) / produit phytopharmaceutique (règlement UE 1610/96)
-3. **Brevet de base** — numéro, office, date de dépôt, date d'expiration, revendications pertinentes
-4. **Produit** — DCI (dénomination commune internationale) ou substance active
-5. **AMM** — numéro, date d'octroi, autorité (ANSM/EMA), première AMM dans l'UE ?
-6. **Extension pédiatrique** — études pédiatriques complétées ? (règlement UE 1901/2006)
-7. **Territoire** — France (INPI) / autres offices nationaux UE
-8. **Contexte** — protection du princeps / entrée d'un générique / stratégie de portefeuille
+## Contrat d'entree V2
 
----
+### Closed intake contract
 
-## Étape 1 — Conditions d'éligibilité (art. 3 règlement 469/2009)
+- `mode`: `eligibility` | `apply` | `check`
+- `product_track`: `medicinal` | `plant-protection`
+- `base_patent_status`: `clear` | `mixed` | `weak` | `unknown`
+- `authorization_posture`: `valid-first-eu` |
+  `valid-but-first-eu-unclear` | `authorization-unclear` | `blocked`
+- `claim_match_posture`: `strong` | `mixed` | `weak` | `unknown`
+- `pediatric_extension_status`: `not-applicable` | `possible` |
+  `documented` | `unclear`
+- `waiver_posture`: `none` | `export-signal` | `stockpiling-signal` | `mixed`
 
-Les **4 conditions cumulatives** pour obtenir un CCP :
+### Minimum Fact Set
 
-| Condition | Article | Vérification |
-|-----------|---------|-------------|
-| **(a)** Le produit est protégé par un brevet de base en vigueur | Art. 3(a) | Le produit (substance active ou combinaison) est couvert par les revendications du brevet |
-| **(b)** Le produit a obtenu une AMM valide | Art. 3(b) | AMM en vigueur pour mise sur le marché comme médicament |
-| **(c)** Le produit n'a pas déjà fait l'objet d'un CCP | Art. 3(c) | Un seul CCP par produit par brevet (pas de double protection) |
-| **(d)** L'AMM est la première AMM du produit comme médicament | Art. 3(d) | Première mise sur le marché dans l'UE |
+Ne jamais presenter la sortie comme exploitable sans au moins :
 
-### Jurisprudence CJUE sur l'art. 3(a) — « protégé par un brevet »
+- produit identifie de facon intelligible ;
+- `product_track` retenu ;
+- brevet de base identifie avec numero, office, statut et date d'expiration ou
+  de fin attendue ;
+- date de depot du brevet de base ;
+- revendications ou logique de couverture produit minimales ;
+- autorisation invoquee identifiee avec date, autorite et statut apparent ;
+- posture premiere AMM UE documentee ou explicitement incertaine ;
+- verifications minimales sur l'absence ou l'existence presumee d'un CCP
+  anterieur pour le produit ;
+- mode demande (`eligibility`, `apply` ou `check`) ;
+- sources effectivement consultees et date de consultation.
 
-| Arrêt | Règle |
-|-------|-------|
-| **CJUE C-322/10 *Medeva*** (2011) | Le produit doit être « identifié dans le libellé des revendications » du brevet de base |
-| **CJUE C-493/12 *Eli Lilly*** (2013) | Les revendications doivent « se rapporter implicitement mais nécessairement » au produit — formule de Markush acceptable |
-| **CJUE C-121/17 *Teva v Gilead*** (2018) | Test en deux étapes : (1) le produit relève-t-il nécessairement de l'invention ? (2) identifiable spécifiquement par l'homme du métier à la date de dépôt ? |
-| **CJUE C-650/17 *Royalty Pharma*** (2020) | Précise *Teva* : la substance doit être « identifiable de manière spécifique » à la lumière de l'ensemble des éléments divulgués par le brevet |
+Ajouter selon les cas, si disponible :
 
-### Condition (d) — première AMM
+- date de delivrance du brevet si la fenetre de depot depend d'elle ;
+- date de premiere autorisation de mise sur le marche dans l'UE / EEE ;
+- produit AMM, substance active ou combinaison exacte ;
+- donnees utiles au calcul de duree ;
+- base pour l'extension pediatrique ;
+- indices documentes de waiver export / stockpiling ;
+- territoire office et numero de CCP existant si `check`.
 
-- Première AMM **dans l'UE/EEE** (pas mondiale)
-- AMM nationale (ANSM) ou centralisée (EMA)
-- Attention aux AMM antérieures pour des indications différentes du même produit
+Tout manque reste `[a verifier]`.
 
----
+## CCP Readiness Gate
 
-## Étape 2 — Calcul de la durée du CCP
+Le skill doit conclure sur une seule valeur :
 
-### Formule (art. 13 règlement 469/2009)
+- `ready`
+- `partial`
+- `blocked`
 
-```
-Durée CCP = Date première AMM UE − Date dépôt brevet − 5 ans
-```
+### `ready`
 
-### Plafonds
+Le dossier permet une analyse CCP exploitable en brouillon, avec base minimale
+factuelle suffisante pour determiner la posture article 3, la duree et la
+fenetre procedurale, sous reserve de validation humaine finale.
 
-| Élément | Règle |
-|---------|-------|
-| Durée maximale du CCP | **5 ans** (art. 13(2)) |
-| Si calcul négatif | Pas de CCP (AMM obtenue < 5 ans après dépôt brevet) |
-| Extension pédiatrique | **+6 mois** si études pédiatriques complétées (règlement 1901/2006) |
-| Durée totale max avec extension | **5 ans + 6 mois** |
+### `partial`
 
-### Exemples de calcul
+Le dossier permet un brouillon structure, mais avec trous ou fragilites.
+Conserver visiblement :
 
-```
-Brevet déposé : 1er mars 2010
-Première AMM UE : 15 septembre 2018
-Expiration brevet : 1er mars 2030
+- `[PROVISOIRE]`
+- `[a verifier]`
+- `[A COMPLETER]`
 
-Durée CCP = 15/09/2018 − 01/03/2010 − 5 ans
-          = 8 ans 6 mois 14 jours − 5 ans
-          = 3 ans 6 mois 14 jours
+Cas frequents :
 
-CCP expire le : 1er mars 2030 + 3 ans 6 mois 14 jours = 15 septembre 2033
-Avec extension pédiatrique : 15 mars 2034
-```
+- brevet de base identifiable mais posture `mixed` ou `unknown` ;
+- premiere AMM UE plausible mais non securisee ;
+- couverture revendications / produit seulement `mixed` ;
+- registre CCP ou duplications non entierement verifies ;
+- extension pediatrique seulement `possible` ou `unclear` ;
+- dates utiles au calcul presentes mais pas encore confirmees sur source
+  primaire.
 
----
+### `blocked`
 
-## Étape 3 — Demande de CCP (INPI France)
+Bloquer le skill si :
 
-### Délai de dépôt (art. 7 règlement 469/2009)
+- `authorization_posture = blocked` ;
+- le produit n'est pas identifiable avec un minimum de precision ;
+- le brevet de base n'est pas identifiable ou son statut est inutilisable ;
+- la date de depot du brevet de base ou la base minimale d'expiration ne peut
+  pas etre etablie ;
+- aucune base serieuse ne permet de decrire le lien produit / revendications ;
+- aucune autorisation exploitable ne peut etre documentee ;
+- la premiere AMM UE est determinante mais aucune base minimale ne permet de la
+  verifier ;
+- en `apply`, la fenetre de depot ne peut pas etre calculee ou est
+  manifestement depassee sur la base disponible ;
+- en `eligibility`, la base minimale manque pour conclure sur l'article 3 ou la
+  duree apparente ;
+- en `check`, aucun CCP vise ou aucune base de verification minimale ne peut
+  etre identifie, ou ses pieces minimales ne sont pas disponibles ;
+- aucune source effectivement consultee et datee ne peut etre documentee.
 
-| Situation | Délai |
-|-----------|-------|
-| AMM après délivrance brevet | **6 mois** après la date d'octroi de l'AMM |
-| Brevet délivré après AMM | **6 mois** après la date de délivrance du brevet |
+En `blocked`, ne pas simuler une conclusion positive. Sortir vers la route
+fermee correspondant au motif dominant :
 
-⚠️ **Délai impératif — pas de restauration possible.**
+- `hold-for-claim-scope-review` ;
+- `hold-for-first-amm-review` ;
+- `hold-for-duplicate-ccp-review` ;
+- `route-to-patent-invalidity-review` ;
+- `hold-insufficient-basis`.
 
-### Dossier de demande INPI
+## Logique CCP centrale
 
-| Pièce | Détail |
-|-------|--------|
-| Formulaire CCP | Formulaire INPI dédié (e-procédures) |
-| Copie de l'AMM | Avec date et numéro |
-| Si AMM pas la première UE | Indication de la première AMM UE (date + pays + numéro) |
-| Numéro du brevet de base | + date de dépôt + date de délivrance |
-| Identification du produit | DCI de la substance active |
-| Taxes | ~520 € (2025, vérifier barème INPI) |
+### Brevet de base et produit
 
-### Extension pédiatrique
+- verifier si le brevet de base est encore une base plausible de CCP ;
+- qualifier la posture `base_patent_status` sans presenter la validite comme
+  acquise si elle ne l'est pas ;
+- documenter le niveau de correspondance entre produit AMM et revendications ;
+- utiliser `claim_match_posture` pour cadrer le risque article 3(a).
 
-| Condition | Détail |
-|-----------|--------|
-| Études pédiatriques | PIP (plan d'investigation pédiatrique) complété et approuvé par l'EMA |
-| Mention au RCP | Résumé des caractéristiques du produit mis à jour |
-| Demande | Avant expiration du CCP |
-| Effet | +6 mois sur la durée du CCP |
-| Applicable aux génériques ? | Non — le manufacturing waiver couvre déjà les 6 derniers mois |
+### Article 3 review
 
----
+Analyser systematiquement :
 
-## Étape 4 — SPC Manufacturing Waiver (règlement UE 2019/933)
+- article 3(a) : produit protege par le brevet de base ;
+- article 3(b) : autorisation de mise sur le marche valide ;
+- article 3(c) : absence de CCP deja octroye pour le produit pertinent ou
+  besoin de revue duplication ;
+- article 3(d) : premiere AMM du produit dans l'UE / EEE, ou au minimum posture
+  documentee sur ce point.
 
-Depuis le 1er juillet 2019, les fabricants de génériques et biosimilaires peuvent :
+Si le track est `plant-protection`, adapter la grille au reglement (CE)
+ndeg 1610/96 en gardant la meme discipline de readiness.
 
-| Permission | Condition | Délai |
-|-----------|-----------|-------|
-| **Fabriquer pour export** hors UE | Notification au titulaire CCP + INPI | Pendant toute la durée du CCP |
-| **Fabriquer pour stockage** en UE (day-1 entry) | Notification au titulaire CCP + INPI | Pendant les **6 derniers mois** du CCP |
+### Duree et extension
 
-### Obligations du fabricant générique
+- calculer la duree apparente du CCP selon la formule applicable ;
+- borner la duree maximale a 5 ans ;
+- signaler si le calcul aboutit a une duree nulle ou non exploitable ;
+- ajouter l'extension pediatrique seulement si la base correspondante est
+  `documented`, ou la marquer `[a verifier]` si seulement `possible` ;
+- ne pas simuler une extension pediatrique pour `plant-protection` si elle
+  n'est pas applicable.
 
-- Notification écrite au titulaire du CCP et à l'INPI **au moins 3 mois avant** le début de fabrication
-- Marquage « EU export » sur les produits exportés
-- Due diligence sur la chaîne d'approvisionnement (pas de réimportation)
-- Information de tous les intermédiaires de la chaîne
+### Fenetre de depot
 
-### Impact pour le titulaire du CCP
+- verifier la logique de l'article 7 : 6 mois apres l'AMM ou 6 mois apres la
+  delivrance du brevet selon la sequence pertinente ;
+- en `apply`, traiter la fenetre de depot comme point de blocage prioritaire ;
+- si la fenetre est incertaine mais pas manifestement depassee, sortir en
+  `partial` avec dates `[A COMPLETER]`.
 
-- Pas de droit d'opposition (seulement notification)
-- Possibilité de contester si les conditions ne sont pas remplies (fabrication hors périmètre, réimportation)
-- Surveillance recommandée des notifications reçues
+### Verification secondaire `check`
 
----
+En `check`, limiter l'analyse a :
 
-## Étape 5 — Format de sortie
+- identification du CCP existe ou presume ;
+- coherence apparente entre brevet, produit, AMM et premiere AMM UE ;
+- duree, expiration et extension pediatrique apparentes ;
+- signal duplication / waiver / lacune de base.
+
+Ne pas transformer `check` en opinion contentieuse complete.
+
+### Signal secondaire `manufacturing-waiver-signal`
+
+N'activer ce signal que si `waiver_posture` n'est pas `none`.
+
+Le signal doit :
+
+- rappeler que le waiver n'elargit pas l'eligibilite CCP ;
+- distinguer `export-signal` et `stockpiling-signal` ;
+- identifier les notifications ou formalites a verifier ;
+- qualifier toute pression apparente d'entree generique ou de stockage ;
+- rester borne a une posture informative aval.
+
+## Closed routing list
+
+Une seule route finale :
+
+- `prepare-ccp-application`
+- `prepare-ccp-application-with-caution`
+- `hold-for-claim-scope-review`
+- `hold-for-first-amm-review`
+- `hold-for-duplicate-ccp-review`
+- `signal-manufacturing-waiver-posture`
+- `route-to-patent-invalidity-review`
+- `route-to-patent-portfolio-review`
+- `hold-insufficient-basis`
+
+## Output stable en 9 blocs
+
+La sortie doit toujours utiliser exactement ces 9 blocs :
+
+1. `Case Snapshot`
+2. `CCP Readiness Gate`
+3. `Base Patent And Product Match`
+4. `Authorization And First EU Marketing Posture`
+5. `Article 3 Eligibility`
+6. `Duration And Extension Calculation`
+7. `Filing Window Or Existing CCP Check`
+8. `Decision Routing`
+9. `Human Validation`
+
+## Regles de routage
+
+- router vers `prepare-ccp-application` si le gate est `ready`, que
+  l'article 3 apparait franchissable, que la fenetre de depot est exploitable
+  et qu'aucune alerte dominante ne bloque ;
+- router vers `prepare-ccp-application-with-caution` si le gate est `partial`
+  mais que le dossier reste preparable avec reservations visibles ;
+- router vers `hold-for-claim-scope-review` si le point dominant est
+  l'article 3(a) ou le couplage produit / revendications ;
+- router vers `hold-for-first-amm-review` si le point dominant est l'article
+  3(d) ou la premiere AMM UE ;
+- router vers `hold-for-duplicate-ccp-review` si l'article 3(c) reste incertain
+  ou s'il existe un risque de duplication ;
+- router vers `signal-manufacturing-waiver-posture` uniquement comme issue
+  secondaire lorsque le signal waiver est le fait saillant en `check` ou en
+  suivi d'un CCP deja constitue ;
+- router vers `route-to-patent-invalidity-review` si la faiblesse dominante est
+  le brevet de base lui-meme ;
+- router vers `route-to-patent-portfolio-review` si la question reelle porte
+  sur plusieurs brevets, familles ou arbitrages titres / pays ;
+- router vers `hold-insufficient-basis` si la base factuelle minimale manque.
+
+## Format de sortie attendu
 
 ```markdown
-# Analyse CCP — [PRODUIT / DCI]
+# Case Snapshot
+- Mode: `eligibility|apply|check`
+- Product track: `medicinal|plant-protection`
+- Produit: [...]
+- Brevet de base: [...]
+- Autorisation invoquee: [...]
+- Sources consultees: [...]
 
-*Brouillon soumis à validation mandataire/avocat spécialisé pharma-PI.*
+# CCP Readiness Gate
+- Gate: `ready|partial|blocked`
+- Motif central: [...]
+- Marqueurs visibles si `partial`: [PROVISOIRE] [a verifier] [A COMPLETER]
 
-## 1. Brevet de base
-[Numéro, office, date dépôt, date expiration, revendications pertinentes]
+# Base Patent And Product Match
+[statut brevet, produit, revendications, claim match posture]
 
-## 2. Produit et AMM
-[DCI, numéro AMM, date, autorité, première AMM UE ?]
+# Authorization And First EU Marketing Posture
+[autorisation, premiere AMM UE, dates, incertitudes]
 
-## 3. Éligibilité (art. 3)
-| Condition | Remplie ? | Analyse |
-|-----------|-----------|---------|
-| (a) Produit protégé par le brevet | ✅/❌/⚠️ | [analyse revendications — test Teva] |
-| (b) AMM valide | ✅/❌ | [statut AMM] |
-| (c) Pas de CCP antérieur | ✅/❌ | [vérification registre] |
-| (d) Première AMM UE | ✅/❌/⚠️ | [recherche AMM antérieures] |
+# Article 3 Eligibility
+- Overall eligibility posture: `franchissable|reservee|bloquee`
+- 3(a): [...]
+- 3(b): [...]
+- 3(c): [...]
+- 3(d): [...]
 
-## 4. Calcul de durée
-[Formule + résultat + date expiration CCP + extension pédiatrique si applicable]
+# Duration And Extension Calculation
+[calcul, duree, plafond, extension pediatrique ou non]
 
-## 5. Délai de dépôt
-[Date limite — 6 mois après AMM ou délivrance brevet]
+# Filing Window Or Existing CCP Check
+[fenetre article 7 ou verification du CCP existant]
 
-## 6. Manufacturing waiver (si pertinent)
-[Notifications reçues / risque d'entrée générique]
+# Decision Routing
+- Route finale: `...`
+- Raison courte: [...]
 
-## 7. Recommandations
-[Déposer / Ne pas déposer / Informations manquantes]
-
-## 8. Limites
-[Analyse revendications à confirmer par mandataire, AMM à vérifier auprès de l'ANSM/EMA]
+# Human Validation
+- Points a valider en specialiste: [...]
+- Sources primaires restant a consulter: [...]
 ```
 
----
+## Frontieres avec les skills voisins
 
-## Gate non-juriste
+- si le sujet principal devient une notification de prosecution du brevet de
+  base, router vers `analyse-refus-inpi` ;
+- si le sujet principal devient la validite du brevet adverse ou du brevet de
+  base, router vers `anteriorite-invalidite` ;
+- si le sujet principal devient l'organisation de familles, annuites,
+  expirations ou arbitrages multi-titres, router vers
+  `revue-portefeuille-brevets` ;
+- si le sujet principal devient la recherche amont de brevetabilite, router
+  vers `recherche-anteriorite-brevet` ;
+- si le sujet principal devient la preparation d'un depot de brevet initial,
+  router vers `preparation-depot-brevet`.
 
-- [ ] 4 conditions art. 3 vérifiées individuellement
-- [ ] Test *Teva* (C-121/17) appliqué pour la condition (a) si substance active complexe
-- [ ] Calcul de durée correct (formule art. 13 + plafond 5 ans)
-- [ ] Extension pédiatrique évaluée (PIP complété ?)
-- [ ] Délai de dépôt vérifié (6 mois — impératif)
-- [ ] Manufacturing waiver mentionné si contexte générique
-- [ ] Première AMM UE correctement identifiée (pas la première mondiale)
+## Rappel final
 
----
+Toujours conclure que :
 
-## Emplacement des sorties
-
-```
-outputs/ccp-<produit-slug>-YYYY-MM-DD.md
-```
-
----
-
-## Ce skill ne fait pas
-
-- Déposer la demande de CCP (acte du mandataire)
-- Analyser la brevetabilité de la molécule → utiliser `recherche-anteriorite-brevet`
-- Rédiger le brevet pharmaceutique → utiliser `preparation-depot-brevet`
-- Évaluer la liberté d'exploitation (FTO) du générique
-- Traiter les aspects réglementaires (AMM, pharmacovigilance, prix/remboursement)
-- Gérer les litiges CCP (nullité, contrefaçon pendant la durée du CCP)
-- Couvrir les CCP pour dispositifs médicaux (pas de régime CCP spécifique)
-
----
-
-## Ton
-
-Technique, rigoureux, pharma-orienté. La jurisprudence CJUE sur l'art. 3(a) est complexe et évolutive — toujours signaler le niveau d'incertitude. Insister sur le délai de dépôt impératif (6 mois, pas de rattrapage). Distinguer clairement le CCP médicament (469/2009) du CCP phyto (1610/96).
+- la sortie est un brouillon Hacienda ;
+- les marqueurs `[PROVISOIRE]`, `[a verifier]`, `[A COMPLETER]` restent en
+  place tant que la base n'est pas consolidee ;
+- la decision finale et tout depot effectif exigent validation humaine
+  specialisee.

@@ -227,7 +227,13 @@ configure.
 - `contentieux-pi` : strategie judiciaire PI, structuree par `contentious_track`
   et `procedure_stage`, distincte du triage, de la lettre et de la collecte
   probatoire
-- `certificat-complementaire-protection`
+- `certificat-complementaire-protection` : skill V2 de readiness stricte CCP,
+  centre sur `eligibility` et `apply`, structure autour d'un
+  `CCP Readiness Gate`, d'une revue article 3, du calcul de duree, de la
+  fenetre de depot et de l'extension pediatrique, avec `check` et
+  `manufacturing-waiver-signal` maintenus comme branches secondaires bornees,
+  distinct de la prosecution du brevet de base, de l'invalidite et du
+  portefeuille
 - `droits-voisins-ogc`
 
 ### Skills legacy en migration
@@ -350,6 +356,24 @@ Positionnement brevet V2 a retenir :
   le premier passage prior art amont reste du ressort de
   `recherche-anteriorite-brevet`, et la preparation de notre propre depot
   reste du ressort de `preparation-depot-brevet` ;
+- `certificat-complementaire-protection` est une brique stricte de readiness
+  CCP, pas une revue principale d'invalidite, pas un hub portefeuille et pas
+  un depot effectif ;
+- le skill applique un `CCP Readiness Gate` explicite (`ready`, `partial`,
+  `blocked`) selon le brevet de base, l'autorisation, la premiere AMM UE, la
+  duplicite CCP apparente, la duree et la fenetre de depot ;
+- il stabilise sa sortie en 9 blocs autour de `Case Snapshot`,
+  `CCP Readiness Gate`, article 3, duree / extension, fenetre de depot ou
+  check du CCP existant, puis une route finale fermee ;
+- `eligibility` et `apply` sont les branches centrales ; `check` reste un
+  controle secondaire borne et le manufacturing waiver reste un simple signal
+  aval sans absorber l'analyse principale ;
+- si le sujet dominant devient une notification de prosecution du brevet de
+  base, la route utile est `analyse-refus-inpi` ;
+- si le sujet dominant devient la faiblesse du brevet de base, la route utile
+  est `anteriorite-invalidite` ; si le besoin reel porte sur plusieurs titres,
+  pays, annuites ou arbitrages de famille, la route utile est
+  `revue-portefeuille-brevets` ;
 - le pilotage judiciaire global reste du ressort de `contentieux-pi` ;
 
 Positionnement D&M V2 a retenir :
@@ -438,6 +462,11 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.11 : migration de `certificat-complementaire-protection` vers un
+  skill V2 strict de readiness CCP, centre sur `eligibility` et `apply`,
+  avec `CCP Readiness Gate`, revue article 3, calcul de duree, fenetre de
+  depot, extension pediatrique, `check` borne et
+  `manufacturing-waiver-signal` limite a un signal secondaire ;
 - V0.18.10 : migration de `recherche-anteriorite-dm` vers un skill V2 de
   premier passage strict de disponibilite D&M, centre sur
   `filing-clearance`, avec `Prior Art Readiness Gate`, couverture source

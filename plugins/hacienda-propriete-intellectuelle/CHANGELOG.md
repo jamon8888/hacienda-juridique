@@ -3,6 +3,39 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.11 — 2026-05-20
+
+### Alignement documentaire
+- `certificat-complementaire-protection` migre vers un contrat V2 strict de
+  readiness CCP, centre sur `eligibility` et `apply`, avec `check` borne comme
+  verification secondaire
+- ajout d'un `CCP Readiness Gate` explicite (`ready`, `partial`, `blocked`)
+  pour borner l'exploitabilite du brouillon selon le brevet de base, la
+  posture autorisation / premiere AMM UE, le match revendications / produit,
+  la duplication CCP apparente, la duree et la fenetre de depot
+- contrat d'entree ferme autour de `mode`, `product_track`,
+  `base_patent_status`, `authorization_posture`, `claim_match_posture`,
+  `pediatric_extension_status` et `waiver_posture`
+- logique centrale reconstruite autour de l'article 3, du calcul de duree, de
+  la fenetre de depot article 7 et de l'extension pediatrique, avec
+  marqueurs `[PROVISOIRE]`, `[a verifier]`, `[A COMPLETER]` obligatoires en
+  sortie partielle
+- signal `manufacturing-waiver-signal` borne mais complete par les
+  notifications / formalites a verifier et la pression apparente d'entree
+  generique ou de stockage
+- sortie V2 stabilisee en 9 blocs, avec `Decision Routing` ferme entre
+  `prepare-ccp-application`, `prepare-ccp-application-with-caution`,
+  `hold-for-claim-scope-review`, `hold-for-first-amm-review`,
+  `hold-for-duplicate-ccp-review`, `signal-manufacturing-waiver-posture`,
+  `route-to-patent-invalidity-review`, `route-to-patent-portfolio-review` et
+  `hold-insufficient-basis`
+- ajout d'un memo compact `certificat-complementaire-protection-routing-and-output`
+  avec resume du role, gate, logique centrale, routing ferme et matrice de
+  risque
+- frontieres explicites avec `analyse-refus-inpi`,
+  `anteriorite-invalidite`, `revue-portefeuille-brevets`,
+  `recherche-anteriorite-brevet` et `preparation-depot-brevet`
+
 ## 0.18.10 — 2026-05-20
 
 ### Alignement documentaire
