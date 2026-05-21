@@ -1,0 +1,7 @@
+{
+  "role": "bopi-watcher",
+  "event": "scheduled_run",
+  "window_days": 1,
+  "mode": "watchlist-delta",
+  "human_validation_required": true
+}

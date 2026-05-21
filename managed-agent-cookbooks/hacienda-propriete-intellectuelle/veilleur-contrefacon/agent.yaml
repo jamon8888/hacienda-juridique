@@ -1,0 +1,21 @@
+role: veilleur-contrefacon
+plugin: hacienda-propriete-intellectuelle
+source_agent: plugins/hacienda-propriete-intellectuelle/agents/veilleur-contrefacon.md
+model: sonnet
+human_validation_required: true
+schedule: weekly
+purpose: Consolidate infringement alerts and route them to PI enforcement skills.
+tools:
+  - Read
+  - Write
+  - inpi_marque_details
+  - euipo_tmview_search
+inputs:
+  practice_profile: ~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md
+  matter_workspace: optional
+outputs:
+  default_path: ~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/
+guardrails:
+  - Do not escalate a finding below the upstream severity floor without explanation.
+  - Do not send enforcement communications without explicit human approval.
+  - Do not log client secrets or dossier evidence.

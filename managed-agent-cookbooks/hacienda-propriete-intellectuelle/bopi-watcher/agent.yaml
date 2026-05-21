@@ -1,0 +1,22 @@
+role: bopi-watcher
+plugin: hacienda-propriete-intellectuelle
+source_agent: plugins/hacienda-propriete-intellectuelle/agents/bopi-watcher.md
+model: sonnet
+human_validation_required: true
+schedule: daily
+purpose: Monitor BOPI trademark publications against the configured watchlist.
+tools:
+  - Read
+  - Write
+  - inpi_marques_publications_recentes
+  - inpi_marque_details
+  - euipo_tmview_search
+inputs:
+  practice_profile: ~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md
+  watchlist: ~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/watchlist.yaml
+outputs:
+  default_path: ~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/
+guardrails:
+  - Do not file an opposition.
+  - Do not send an external notice without explicit human approval.
+  - Do not log client secrets or dossier evidence.

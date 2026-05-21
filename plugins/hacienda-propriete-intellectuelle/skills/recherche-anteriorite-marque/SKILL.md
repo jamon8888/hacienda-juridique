@@ -1,5 +1,6 @@
 ---
 name: recherche-anteriorite-marque
+version: "2.0.0"
 description: >
   Premier passage strict de recherche d'anteriorite marque pour signaler les
   motifs absolus, les conflits proches et les trous de couverture avant revue

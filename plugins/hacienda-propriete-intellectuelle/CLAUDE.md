@@ -435,13 +435,36 @@ Une source primaire non consultée laisse l'élément `[à vérifier]` ou `[conn
 
 *Pertinent uniquement pour les pratiques multi-clients (cabinet d'avocats — solo, petit cabinet, grand cabinet). Pour un service interne mono-client, cette section est inactive et les skills utilisent automatiquement le contexte au niveau pratique.*
 
-**Activé : ✗ — disponible en V1.1**
-**Dossier actif :** sans objet
-**Contexte cross-dossiers :** sans objet
+**Activé :** [A CONFIGURER — ✓ pour cabinet multi-clients / ✗ pour service interne mono-client]
+**Dossier actif :** [A CONFIGURER — slug du dossier actif ou `practice-level`]
+**Contexte cross-dossiers :** [A CONFIGURER — `interdit` par defaut ; `autorise` seulement pour leçons transversales explicitement anonymisees]
+**Racine dossiers :** `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/`
 
-Quand les workspaces de dossier seront activés (V1.1), les skills travailleront dans le contexte du dossier actif. Ils liront ce `CLAUDE.md` pour les règles de pratique (posture enforcement, matrice d'approbation, marques surveillées) et le `matter.md` du dossier pour les faits et overrides spécifiques. Sorties écrites dans `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/`.
+Quand les workspaces de dossier sont actives, chaque skill travaille dans le
+contexte du dossier actif. Il lit ce `CLAUDE.md` pour les règles de pratique
+generales (posture enforcement, matrice d'approbation, marques surveillees) et
+le fichier `matter.md` du dossier actif pour les faits, parties, pieces,
+deadlines, restrictions de partage et overrides specifiques.
 
-Quand le contexte cross-dossiers est désactivé (défaut), un skill travaillant dans le dossier A ne lira jamais les fichiers du dossier B. Les enseignements transversaux sont écrits dans ce `CLAUDE.md` au niveau pratique, pas dans un dossier.
+Structure minimale d'un dossier :
+
+```text
+~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/
+  matter.md
+  outputs/
+  evidence/
+  verification-log.md
+```
+
+Tout livrable de dossier est ecrit dans
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+Sans dossier actif, les livrables de pratique sont ecrits dans
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/`.
+
+Quand le contexte cross-dossiers est desactive (defaut), un skill travaillant
+dans le dossier A ne lit jamais les fichiers du dossier B. Les enseignements
+transversaux sont ecrits dans ce `CLAUDE.md` au niveau pratique seulement s'ils
+sont anonymises et valides par l'utilisateur.
 
 ---
 

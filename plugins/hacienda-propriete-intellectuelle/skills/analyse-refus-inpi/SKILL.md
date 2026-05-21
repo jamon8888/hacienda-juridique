@@ -1,5 +1,6 @@
 ---
 name: analyse-refus-inpi
+version: "2.0.0"
 description: >
   Use when a patent prosecution file has an INPI or EPO office action to
   analyze, and the task is to assess objections, amendment posture, response

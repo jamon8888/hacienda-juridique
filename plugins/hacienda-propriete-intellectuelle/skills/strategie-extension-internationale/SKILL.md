@@ -1,5 +1,6 @@
 ---
 name: strategie-extension-internationale
+version: "2.0.0"
 description: >
   Skill V2 de decision territoriale et de sequencement pour l'extension
   d'un brevet FR initial vers FR seul, EP, PCT ou une route sequentielle.

@@ -1,0 +1,6 @@
+{
+  "role": "veilleur-marques",
+  "event": "scheduled_run",
+  "mode": "trademark-portfolio-watch",
+  "human_validation_required": true
+}

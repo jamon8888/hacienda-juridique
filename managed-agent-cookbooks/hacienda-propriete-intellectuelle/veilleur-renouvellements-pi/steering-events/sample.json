@@ -1,0 +1,6 @@
+{
+  "role": "veilleur-renouvellements-pi",
+  "event": "scheduled_run",
+  "mode": "renewal-deadline-review",
+  "human_validation_required": true
+}

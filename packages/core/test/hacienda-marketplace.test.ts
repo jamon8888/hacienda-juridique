@@ -23,11 +23,29 @@ const expectedPlugins = [
   "hacienda-hub-confiance"
 ];
 
-function readJson(path: string) {
-  return JSON.parse(readFileSync(path, "utf8")) as {
+type MarketplacePlugin = {
+  name: string;
+  source: string;
+  description: string;
+  author?: {
     name?: string;
-    plugins?: { name: string; source: string }[];
+    url?: string;
   };
+};
+
+type MarketplaceManifest = {
+  $schema?: string;
+  name?: string;
+  description?: string;
+  owner?: {
+    name?: string;
+    url?: string;
+  };
+  plugins?: MarketplacePlugin[];
+};
+
+function readJson(path: string) {
+  return JSON.parse(readFileSync(path, "utf8")) as MarketplaceManifest;
 }
 
 describe("hacienda marketplace", () => {
@@ -36,6 +54,25 @@ describe("hacienda marketplace", () => {
     const names = marketplace.plugins?.map((plugin) => plugin.name) ?? [];
 
     expect(names).toEqual(expectedPlugins);
+  });
+
+  it("expose les metadonnees marketplace de distribution", () => {
+    const marketplace = readJson(resolve(root, ".claude-plugin/marketplace.json"));
+
+    expect(marketplace.$schema).toBe(
+      "https://anthropic.com/claude-code/marketplace.schema.json"
+    );
+    expect(marketplace.name).toBe("hacienda-juridique");
+    expect(marketplace.description).toContain("marketplace de plugins juridiques francais");
+    expect(marketplace.owner?.name).toBe("Hacienda");
+    expect(marketplace.owner?.url).toBe("https://hacienda.diy");
+
+    for (const plugin of marketplace.plugins ?? []) {
+      expect(plugin.description, plugin.name).toBeTruthy();
+      expect(plugin.author?.name, plugin.name).toBe("Hacienda");
+      expect(plugin.author?.url, plugin.name).toBe("https://hacienda.diy");
+      expect(existsSync(resolve(root, plugin.source)), plugin.name).toBe(true);
+    }
   });
 
   it("chaque plugin a les fichiers structurants", () => {

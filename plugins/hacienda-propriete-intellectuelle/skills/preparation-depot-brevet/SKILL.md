@@ -1,5 +1,6 @@
 ---
 name: preparation-depot-brevet
+version: "2.0.0"
 description: >
   Preparation stricte d'un dossier de depot brevet V2 pour produire un brief
   de redaction exploitable avant revue humaine. Ce skill ne depose pas, ne

@@ -1,5 +1,6 @@
 ---
 name: revue-portefeuille-marques
+version: "2.0.0"
 description: >
   Hub portefeuille marques V2 centre sur `report` et `audit`, avec dashboard
   HTML optionnel et priorisation des echeances, renouvellements et gaps de

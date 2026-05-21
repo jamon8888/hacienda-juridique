@@ -1,5 +1,6 @@
 ---
 name: depot-marque-fr
+version: "2.0.0"
 description: >
   Preparation stricte d'un depot de marque V2 pour structurer un dossier FR,
   EU ou Madrid avant revue humaine. Ce skill ne depose pas et ne remplace

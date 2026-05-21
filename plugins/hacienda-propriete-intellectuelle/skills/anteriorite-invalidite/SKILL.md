@@ -1,5 +1,6 @@
 ---
 name: anteriorite-invalidite
+version: "2.0.0"
 description: >
   Analyse de validite stricte d'un brevet adverse en mode `attack` ou
   `defense`. Structure les moyens de nullite, evalue la solidite de l'art

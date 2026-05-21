@@ -1,0 +1,22 @@
+role: veilleur-marques
+plugin: hacienda-propriete-intellectuelle
+source_agent: plugins/hacienda-propriete-intellectuelle/agents/veilleur-marques.md
+model: sonnet
+human_validation_required: true
+schedule: weekly
+purpose: Watch trademark portfolio and marketplace signals for action items.
+tools:
+  - Read
+  - Write
+  - inpi_search_marques
+  - inpi_marque_details
+  - euipo_tmview_search
+inputs:
+  practice_profile: ~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md
+  portfolio: ~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/portfolio.yaml
+outputs:
+  default_path: ~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/
+guardrails:
+  - Do not file, abandon, limit or assign a trademark.
+  - Do not contact external parties without explicit human approval.
+  - Do not log client secrets or portfolio evidence.

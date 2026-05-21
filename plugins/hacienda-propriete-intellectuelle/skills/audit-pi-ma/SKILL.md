@@ -5,6 +5,7 @@ description: >
   specialisees utiles, normalise les findings et consolide une sortie
   transactionnelle par mode. Brouillon soumis a validation humaine.
 version: "2.0.0"
+argument-hint: "[buy-side|sell-side|vendor-dd] [data room | cible | perimetre | urgence]"
 authors: ["Hacienda"]
 tags: [audit, due-diligence, m-and-a, propriete-intellectuelle, findings, transaction]
 ---

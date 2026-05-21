@@ -1,0 +1,6 @@
+{
+  "role": "veilleur-contrefacon",
+  "event": "scheduled_run",
+  "mode": "infringement-alert-review",
+  "human_validation_required": true
+}

@@ -5,6 +5,17 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
 ## 0.18.14 — 2026-05-21
 
+### Distribution et parite interne
+- metadonnees de distribution alignees sur une structure plugin explicite tout
+  en conservant le branding Hacienda ;
+- versions visibles unifiees sur `0.18.14` entre manifest plugin,
+  `version.json`, package MCP et lockfile ;
+- ajout du repertoire `logs/`, d'un `.gitignore` de package et de tests de
+  distribution PI ;
+- version explicite et `argument-hint` presents sur tous les skills PI ;
+- table README exhaustive des commandes de skills, workspaces de dossier
+  operationnels et cookbooks d'agents managés.
+
 ### Alignement agents
 - agents PI alignes sur les skills V2 et leurs gates ;
 - stubs agents remplaces par des agents avec frontmatter/tools ;

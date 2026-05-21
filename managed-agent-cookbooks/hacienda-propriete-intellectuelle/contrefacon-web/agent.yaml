@@ -1,0 +1,21 @@
+role: contrefacon-web
+plugin: hacienda-propriete-intellectuelle
+source_agent: plugins/hacienda-propriete-intellectuelle/agents/contrefacon-web.md
+model: sonnet
+human_validation_required: true
+schedule: on-demand
+purpose: Triage web infringement signals and preserve evidence routing.
+tools:
+  - Read
+  - Write
+  - inpi_marque_details
+  - euipo_tmview_search
+inputs:
+  practice_profile: ~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md
+  matter_workspace: optional
+outputs:
+  default_path: ~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/
+guardrails:
+  - Do not contact a platform, host or counterparty without explicit approval.
+  - Do not present screenshots or scraped pages as verified facts without provenance.
+  - Do not log client secrets or dossier evidence.

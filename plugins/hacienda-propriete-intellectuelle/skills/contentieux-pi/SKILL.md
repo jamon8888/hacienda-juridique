@@ -5,6 +5,7 @@ description: >
   juridictions competentes, du pre-filing a l'appel, sans rediger les actes de
   procedure ni absorber les workflows precontentieux generalistes.
 version: "2.0.0"
+argument-hint: "[attack|defense|appeal|urgent] [faits | pieces | titre | juridiction | calendrier]"
 authors: ["Hacienda"]
 tags: [contentieux, PI, judiciaire, contrefacon, nullite, appel, TJ-Paris, CA-Paris]
 ---

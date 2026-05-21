@@ -1,5 +1,6 @@
 ---
 name: mise-en-demeure-pi
+version: "2.0.0"
 description: Prepare, relit ou structure une lettre PI sans jamais l'envoyer.
 argument-hint: "`draft|escalate`: [droits | faits | pieces | cible | points-faibles | demande | delai | ton | escalade] ; `review`: [brouillon | droits | faits | pieces | ton] ; `respond`: [lettre recue | assertions-demandes adverses | droits | faits | pieces | ton]"
 ---

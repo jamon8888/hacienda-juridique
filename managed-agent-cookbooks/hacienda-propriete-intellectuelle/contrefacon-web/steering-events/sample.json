@@ -1,0 +1,7 @@
+{
+  "role": "contrefacon-web",
+  "event": "user_reported_signal",
+  "mode": "web-infringement-triage",
+  "matter": "practice-level",
+  "human_validation_required": true
+}

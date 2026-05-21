@@ -1,5 +1,6 @@
 ---
 name: recherche-anteriorite-brevet
+version: "2.0.0"
 description: >
   Premier passage strict de recherche d'anteriorite brevet pour signaler les
   exclusions, l'art anterieur proche, les lacunes de couverture et les routes

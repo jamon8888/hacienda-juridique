@@ -1,0 +1,7 @@
+{
+  "role": "surveillant-oss",
+  "event": "scheduled_run",
+  "mode": "oss-risk-review",
+  "repository_or_sbom": null,
+  "human_validation_required": true
+}

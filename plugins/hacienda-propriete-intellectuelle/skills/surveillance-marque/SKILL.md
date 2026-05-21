@@ -1,5 +1,6 @@
 ---
 name: surveillance-marque
+version: "2.0.0"
 description: >
   Monitoring strict et priorisation des publications marques pour signaler les
   alertes a suivre avant opposition ou escalation. Ce skill surveille,

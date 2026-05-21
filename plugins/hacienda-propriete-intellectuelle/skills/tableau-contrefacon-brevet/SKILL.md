@@ -1,5 +1,6 @@
 ---
 name: tableau-contrefacon-brevet
+version: "2.0.0"
 description: >
   Claim chart brevet V2 offensif strict pour confronter un brevet et un
   produit ou procede cible, element par element, avant revue humaine. Ce skill

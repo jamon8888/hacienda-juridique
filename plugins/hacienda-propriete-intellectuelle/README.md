@@ -32,6 +32,50 @@ Le plugin PI couvre aujourd'hui :
 /hacienda-propriete-intellectuelle:entretien-demarrage
 ```
 
+## Commandes
+
+Chaque skill PI est invocable directement comme commande du plugin :
+
+| Commande | Usage |
+| --- | --- |
+| `/hacienda-propriete-intellectuelle:analyse-opposition-marque` | Analyse ou defense d'opposition INPI. |
+| `/hacienda-propriete-intellectuelle:analyse-refus-inpi` | Reponse a notification INPI/OEB. |
+| `/hacienda-propriete-intellectuelle:anteriorite-invalidite` | Revue validite/nullite brevet. |
+| `/hacienda-propriete-intellectuelle:audit-pi-ma` | Due diligence PI M&A. |
+| `/hacienda-propriete-intellectuelle:bases-de-donnees` | Protection base de donnees et droit sui generis. |
+| `/hacienda-propriete-intellectuelle:certificat-complementaire-protection` | Readiness CCP et depot. |
+| `/hacienda-propriete-intellectuelle:cession-droit-auteur` | Cession de droits d'auteur. |
+| `/hacienda-propriete-intellectuelle:clearance-marque` | Clearance marque approfondie. |
+| `/hacienda-propriete-intellectuelle:contentieux-pi` | Strategie judiciaire PI. |
+| `/hacienda-propriete-intellectuelle:contrats-pi` | Contrats PI autonomes. |
+| `/hacienda-propriete-intellectuelle:contrefacon-dessin-modele` | Contrefacon dessins et modeles. |
+| `/hacienda-propriete-intellectuelle:contrefacon-droit-auteur` | Contrefacon droit d'auteur. |
+| `/hacienda-propriete-intellectuelle:depot-dessin-modele` | Preparation depot dessin ou modele. |
+| `/hacienda-propriete-intellectuelle:depot-marque-fr` | Preparation depot marque FR/UE/Madrid. |
+| `/hacienda-propriete-intellectuelle:depot-preuve-creation` | Depot et dossier de preuve creation. |
+| `/hacienda-propriete-intellectuelle:droits-voisins-ogc` | Droits voisins et gestion collective. |
+| `/hacienda-propriete-intellectuelle:entretien-demarrage` | Configuration initiale du profil PI. |
+| `/hacienda-propriete-intellectuelle:licence-droit-auteur` | Licences droit d'auteur. |
+| `/hacienda-propriete-intellectuelle:logiciels-pi` | Titularite logiciel et open source. |
+| `/hacienda-propriete-intellectuelle:mise-en-demeure-pi` | Projet ou revue de mise en demeure PI. |
+| `/hacienda-propriete-intellectuelle:portefeuille-pi` | Vue portefeuille PI consolidee. |
+| `/hacienda-propriete-intellectuelle:preparation-depot-brevet` | Preparation depot brevet FR/EP/PCT. |
+| `/hacienda-propriete-intellectuelle:qualification-oeuvre` | Qualification d'oeuvre protegee. |
+| `/hacienda-propriete-intellectuelle:recherche-anteriorite-brevet` | Premier passage anteriorite brevet. |
+| `/hacienda-propriete-intellectuelle:recherche-anteriorite-dm` | Anteriorite dessins et modeles. |
+| `/hacienda-propriete-intellectuelle:recherche-anteriorite-marque` | Premier passage anteriorite marque. |
+| `/hacienda-propriete-intellectuelle:revue-clause-pi` | Revue ciblee de clauses PI. |
+| `/hacienda-propriete-intellectuelle:revue-logiciel-donnees` | Chaine de droits logiciel/data. |
+| `/hacienda-propriete-intellectuelle:revue-open-source` | Revue OSS, SBOM et licences. |
+| `/hacienda-propriete-intellectuelle:revue-portefeuille-brevets` | Rapport portefeuille brevets. |
+| `/hacienda-propriete-intellectuelle:revue-portefeuille-marques` | Rapport portefeuille marques. |
+| `/hacienda-propriete-intellectuelle:saisie-contrefacon` | Preparation saisie-contrefacon. |
+| `/hacienda-propriete-intellectuelle:strategie-defense-pi` | Defense precontentieuse PI. |
+| `/hacienda-propriete-intellectuelle:strategie-extension-internationale` | Strategie extension FR/EP/PCT. |
+| `/hacienda-propriete-intellectuelle:surveillance-marque` | Surveillance marques et BOPI. |
+| `/hacienda-propriete-intellectuelle:tableau-contrefacon-brevet` | Claim chart contrefacon brevet. |
+| `/hacienda-propriete-intellectuelle:tri-contrefacon` | Triage initial contrefacon PI. |
+
 ## Packaging Du Plugin
 
 Le plugin PI est livre comme un bundle plugin MCP :
@@ -41,6 +85,18 @@ Le plugin PI est livre comme un bundle plugin MCP :
 - `version.json` : source unique de version du plugin ;
 - `CLAUDE.md` : template versionne du profil pratique ;
 - `skills/`, `agents/`, `hooks/` : surfaces fonctionnelles du plugin.
+
+### Distribution Plugin
+
+Le package PI suit une structure de distribution explicite : manifest
+`.claude-plugin/plugin.json`, declaration MCP `.mcp.json`, profil pratique
+`CLAUDE.md`, documentation `README.md`, skills, agents, hooks et repertoire
+`logs/` local.
+
+Les divergences avec le modele public de reference sont volontaires : Hacienda
+conserve son branding, son perimetre droit francais / UE et son serveur MCP
+local `stdio`. Aucun branding tiers, secret ou dossier client ne doit etre
+livre dans le package.
 
 Le profil utilisateur reste stocke hors du depot, dans :
 
@@ -486,6 +542,11 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.14 : parite de distribution et d'ingenierie interne, alignement des
+  metadonnees marketplace, version unifiee
+  `0.18.14`, repertoire `logs/`, `.gitignore` de package, version explicite
+  et `argument-hint` sur tous les skills PI, commandes README exhaustives,
+  workspaces de dossier operationnels et cookbooks d'agents managés ;
 - V0.18.14 : alignement des agents PI sur les skills V2 et leurs gates,
   remplacement des stubs par des agents avec frontmatter/tools, raccordement
   de `bopi-watcher` au `Monitoring Gate` et de `contrefacon-web` a la lane

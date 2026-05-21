@@ -1,5 +1,6 @@
 ---
 name: strategie-defense-pi
+version: "2.0.0"
 description: Ordonne une defense ou une reponse face a une allegation PI et route vers le bon skill Hacienda selon le stade et le niveau d'escalade.
 argument-hint: "[screen | respond | prepare-escalation | defense-brief]: [allegation | lettre recue | dossier | pieces]"
 ---

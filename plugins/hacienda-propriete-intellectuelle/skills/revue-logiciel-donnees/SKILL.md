@@ -1,5 +1,6 @@
 ---
 name: revue-logiciel-donnees
+version: "2.0.0"
 description: Revue de chaine de droits logiciel et donnees pour produit, repo, dataset ou due diligence.
 argument-hint: "[produit | repo | dataset | due diligence | contrats contributeurs]"
 ---

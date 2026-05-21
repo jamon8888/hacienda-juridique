@@ -1,5 +1,6 @@
 ---
 name: entretien-demarrage
+version: "2.0.0"
 description: Entretien de configuration initial du plugin PI Hacienda. Peuple le profil de pratique utilisateur, vérifie les intégrations INPI Data et EUIPO TMview, propose un test smoke. À lancer une fois à l'installation, puis avec `--redo` pour reconfigurer ou `--check-integrations` pour ne valider que les credentials.
 argument-hint: "[--redo | --check-integrations]"
 ---

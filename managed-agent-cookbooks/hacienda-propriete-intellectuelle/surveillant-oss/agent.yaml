@@ -1,0 +1,19 @@
+role: surveillant-oss
+plugin: hacienda-propriete-intellectuelle
+source_agent: plugins/hacienda-propriete-intellectuelle/agents/surveillant-oss.md
+model: sonnet
+human_validation_required: true
+schedule: weekly
+purpose: Review open-source license and SBOM signals for PI risk.
+tools:
+  - Read
+  - Write
+inputs:
+  practice_profile: ~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md
+  repository_or_sbom: optional
+outputs:
+  default_path: ~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/
+guardrails:
+  - Do not approve commercial use of a dependency as a final legal conclusion.
+  - Do not rewrite licenses or notices without human validation.
+  - Do not log client secrets or private source extracts.

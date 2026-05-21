@@ -1,5 +1,6 @@
 ---
 name: revue-open-source
+version: "2.0.0"
 description: Audit OSS operationnel a partir d'un inventaire fourni pour qualifier licences, conflits et obligations de conformite.
 argument-hint: "[SBOM | liste de dependances | repository ou manifest | policy interne]"
 ---

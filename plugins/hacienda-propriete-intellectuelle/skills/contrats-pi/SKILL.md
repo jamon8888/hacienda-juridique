@@ -6,6 +6,7 @@ description: >
   stabilise l'intake et la sortie, et maintient une frontiere nette avec
   `revue-clause-pi` pour les simples clauses dans des contrats plus larges.
 version: "2.0.0"
+argument-hint: "[draft|review|negotiate] [famille contrat | texte | objectifs | parties]"
 authors: ["Hacienda"]
 tags: [contrats, licence-brevet, coexistence, NDA, R&D, franchise, transfert-technologie]
 ---

@@ -1,5 +1,6 @@
 ---
 name: analyse-opposition-marque
+version: "2.0.0"
 description: >
   Analyse argumentaire INPI stricte pour preparer une opposition a former ou
   une defense a opposition recue. Ce skill n'execute pas la tele-procedure

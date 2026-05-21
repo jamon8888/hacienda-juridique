@@ -1,5 +1,6 @@
 ---
 name: tri-contrefacon
+version: "2.0.0"
 description: Porte d'entree d'intake et de qualification enforcement marques.
 argument-hint: "[mode] [faits | pieces | signe | produits | canal | territoire]"
 ---

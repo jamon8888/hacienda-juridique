@@ -1,5 +1,6 @@
 ---
 name: portefeuille-pi
+version: "2.0.0"
 description: Point d'entree legacy en migration vers un hub federé de lecture consolidee du portefeuille PI.
 argument-hint: "[overview | deadlines | risk-report | export]"
 ---
