@@ -412,11 +412,24 @@ Positionnement D&M V2 a retenir :
 
 ## Agents
 
-- `veilleur-renouvellements-pi` : surveille echeances portefeuille.
-- `veilleur-marques` : surveille marques et oppositions.
-- `surveillant-oss` : surveille licences et dependances.
-- `veilleur-contrefacon` : surveille signaux d'atteinte.
-- `contrefacon-web` : surveillance contrefaçon en ligne (marketplaces, réseaux sociaux, web).
+### Agents PI
+
+| Agent | Role | Skills V2 principaux | Limite |
+| --- | --- | --- | --- |
+| `bopi-watcher` | Surveillance quotidienne publications marques | `surveillance-marque`, `analyse-opposition-marque`, `revue-portefeuille-marques` | Ne decide pas l'opposition |
+| `contrefacon-web` | Detection web / marketplaces | `tri-contrefacon`, `contrefacon-*`, `saisie-contrefacon`, `contentieux-pi` | Ne constate pas judiciairement |
+| `veilleur-renouvellements-pi` | Echeances portefeuille multi-actifs | `revue-portefeuille-marques`, `revue-portefeuille-brevets`, `certificat-complementaire-protection` | Ne paie pas les taxes |
+| `veilleur-marques` | Veille marques generale | `surveillance-marque`, `recherche-anteriorite-marque`, `depot-marque-fr`, `analyse-opposition-marque` | Ne rend pas d'opinion finale |
+| `veilleur-contrefacon` | Signaux enforcement multi-droits | `tri-contrefacon`, `tableau-contrefacon-brevet`, `saisie-contrefacon`, `contentieux-pi` | Ne lance pas d'action formelle |
+| `surveillant-oss` | OSS / logiciel / data | `revue-open-source`, `logiciels-pi`, `revue-logiciel-donnees`, `bases-de-donnees` | Ne remplace pas un audit complet |
+
+Tous les agents restent des agents de surveillance, priorisation ou routage.
+Ils ne deposent pas, ne paient pas, n'envoient pas de notification et ne
+remplacent pas la validation humaine avant action formelle.
+
+Leurs sorties gardent les marqueurs Hacienda : source officielle quand
+consultee, points `[a verifier]`, Note de revue, Arbre de decision et dossier
+de preuve lorsque le signal le justifie.
 
 ## Tools MCP
 
@@ -473,6 +486,10 @@ Le Mode silencieux limite les alertes au portefeuille, aux renouvellements, aux 
 
 ## Version Courante
 
+- V0.18.14 : alignement des agents PI sur les skills V2 et leurs gates,
+  remplacement des stubs par des agents avec frontmatter/tools, raccordement
+  de `bopi-watcher` au `Monitoring Gate` et de `contrefacon-web` a la lane
+  enforcement V2, plus ajout d'une grille d'audit agents reutilisable ;
 - V0.18.12 : migration de `droits-voisins-ogc` vers un skill V2 strict de
   readiness droits voisins + OGC, avec contrat d'entree ferme, `Neighboring
   Rights Readiness Gate`, sortie stabilisee en 9 blocs, routing ferme et

@@ -1,12 +1,11 @@
 ---
 name: bopi-watcher
 description: >
-  Agent de surveillance quotidienne. Lit la watchlist marques, appelle
-  `surveillance-marque --report --days 1` (delta depuis hier), poste les
-  résultats au canal défini dans le profil. Escalade immédiate sur
-  🔴 OPPOSITION URGENTE (délai < 30 j) regardless de l'horaire.
-  Phrases déclencheuses : "que se passe-t-il sur le BOPI", "surveillance
-  quotidienne", "alerte marques", "monitoring marques quotidien".
+  Agent Hacienda PI de surveillance quotidienne des publications marques.
+  Use when monitoring BOPI / marques needs a daily delta, watchlist
+  prioritization, escalation before opposition deadlines, or cross-check with
+  the trademark portfolio. Routes to `surveillance-marque`,
+  `analyse-opposition-marque`, and `revue-portefeuille-marques`.
 model: sonnet
 tools: ["Read", "Write", "Glob", "mcp__*__inpi_marques_publications_recentes",
         "mcp__*__inpi_marque_details", "mcp__*__euipo_tmview_search",
@@ -33,22 +32,27 @@ quotidien pour intégration future avec marketplace/web). Posts immédiats sur
 1. Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
    pour récupérer canal d'alerte, work-product header, posture surveillance.
 
-2. Charger le skill `surveillance-marque`. Exécuter `--report --days 1`
-   (fenêtre = hier → aujourd'hui).
+2. Charger `surveillance-marque` et produire un rapport `--report --days 1`.
+   La sortie doit exposer le `Monitoring Gate` (`healthy`, `needs-review`,
+   `degraded`, `blocked`).
 
-3. **Cross-référencer** : si le portefeuille (`portfolio.yaml` V1.1.1+) existe,
-   vérifier si une publication détectée touche une marque listée — surfacer le lien.
+3. Croiser avec `revue-portefeuille-marques` si `portfolio.yaml` existe ou si
+   l'alerte touche un owner, une marque core, une echeance ou une watchlist
+   fragile.
 
-4. **Escalation immédiate** : si une entrée 🔴 OPPOSITION URGENTE apparaît,
+4. Router vers `analyse-opposition-marque` seulement si l'alerte est recevable
+   ou imminente au regard du delai d'opposition.
+
+5. **Escalation immédiate** : si une entrée 🔴 OPPOSITION URGENTE apparaît,
    poster ces items immédiatement quel que soit l'horaire. Le délai 2 mois
    post-BOPI (L.712-4) ne se rattrape pas.
 
-5. **Poster le rapport** au canal :
+6. **Poster le rapport** au canal :
    - Slack : utiliser `mcp__*__slack_send_message` au canal du profil
    - Email : à venir (différé V1.2)
    - Inline : poster au stdout / au chat utilisateur
 
-6. Si rien à signaler dans la fenêtre, poster un message court "tout calme
+7. Si rien à signaler dans la fenêtre, poster un message court "tout calme
    aujourd'hui". Un silence ressemble à un cron cassé.
 
 ## Format de post

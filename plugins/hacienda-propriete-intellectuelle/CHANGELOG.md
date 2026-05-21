@@ -3,6 +3,16 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.14 — 2026-05-21
+
+### Alignement agents
+- agents PI alignes sur les skills V2 et leurs gates ;
+- stubs agents remplaces par des agents avec frontmatter/tools ;
+- `bopi-watcher` raccorde a `Monitoring Gate`, `surveillance-marque`,
+  `analyse-opposition-marque` et `revue-portefeuille-marques` ;
+- `contrefacon-web` raccorde a la lane enforcement V2 ;
+- ajout d'une grille d'audit agents reutilisable.
+
 ## 0.18.13 — 2026-05-21
 
 ### Alignement documentaire
