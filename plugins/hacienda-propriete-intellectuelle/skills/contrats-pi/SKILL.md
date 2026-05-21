@@ -1,17 +1,16 @@
 ---
 name: contrats-pi
 description: >
-  Revue et redaction de contrats de propriete intellectuelle complets, quand
-  l'objet principal du document est la PI : licence ou cession de brevet,
-  NDA/secret, R&D collaborative, coexistence ou franchise marques, transfert
-  de technologie et MTA. A utiliser pour un contrat PI autonome, pas pour
-  quelques clauses PI dans un contrat plus large.
-version: "1.0.0"
+  Skill V2 de redaction ou revue complete de contrats de propriete
+  intellectuelle PI-centriques. Il structure l'analyse par familles fermees,
+  stabilise l'intake et la sortie, et maintient une frontiere nette avec
+  `revue-clause-pi` pour les simples clauses dans des contrats plus larges.
+version: "2.0.0"
 authors: ["Hacienda"]
 tags: [contrats, licence-brevet, coexistence, NDA, R&D, franchise, transfert-technologie]
 ---
 
-# Skill - Contrats de propriete intellectuelle
+# Skill - Contrats de propriete intellectuelle V2
 
 > **BROUILLON DE CONTRAT PI COMPLET OU NOTE DE REVUE COMPLETE, PAS ACTE
 > DEFINITIF.**
@@ -25,6 +24,9 @@ tags: [contrats, licence-brevet, coexistence, NDA, R&D, franchise, transfert-tec
 >
 > Les sorties sont des brouillons de travail. Elles exigent une validation
 > humaine avant signature, envoi ou execution.
+
+Reference de travail utile :
+`references/contrats-pi-families-and-routing.md`
 
 ## Role
 
@@ -67,12 +69,25 @@ SOW, d'un contrat commercial, d'un procurement ou d'un contrat de travail.
 
 ## Chargement du profil
 
-Charger les preferences depuis le profil utilisateur :
+Avant tout, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Rattacher ensuite :
 
 - posture contractuelle par defaut ;
 - juridiction par defaut ;
 - modeles internes si disponibles ;
-- approbateur contrats PI.
+- approbateur contrats PI ;
+- preferences de nego et seuils d'escalade si documentes.
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, garder les
+marqueurs de brouillon visibles :
+
+- `[PROVISOIRE]`
+- `[a verifier]`
+- `[A COMPLETER]`
 
 ## Inputs minimaux
 

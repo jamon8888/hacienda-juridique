@@ -193,6 +193,10 @@ configure.
   (`patent-tech-transfer`, `nda-secret-knowhow`, `rnd-collaboration`,
   `trademark-coexistence-franchise`, `mta-life-sciences`), distincts de
   `revue-clause-pi`
+- `revue-clause-pi` : skill V2 strict de revue ciblee des clauses PI dans les
+  contrats larges, avec `Clause Review Readiness Gate`, sortie stabilisee en
+  9 blocs et routage ferme vers `contrats-pi`, auteur, OSS, data ou
+  contentieux
 - `audit-pi-ma` : orchestrateur de due diligence PI M&A, avec modes
   `buyer-dd`, `seller-clean-room`, `red-flag` et `deal-summary`, s'appuyant
   sur les skills specialises du plugin
@@ -257,7 +261,6 @@ comme points d'entree maintenus pour compatibilite.
 | `revue-open-source` | V1 structure | audit OSS operationnel |
 | `revue-logiciel-donnees` | V1 recentre | chaine de droits logiciel/data |
 | `portefeuille-pi` | V1 lecture seule | hub federé marques + brevets |
-| `revue-clause-pi` | V1 structure | revue ciblee des clauses PI |
 | `strategie-defense-pi` | orchestrateur leger | cadrage et routage defense |
 | `clearance-marque` | compatibilite historique | alias + sunset |
 

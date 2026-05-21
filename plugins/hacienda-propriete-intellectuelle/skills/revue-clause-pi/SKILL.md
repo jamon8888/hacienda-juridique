@@ -1,160 +1,226 @@
 ---
 name: revue-clause-pi
-description: Revue ciblee de clauses de propriete intellectuelle inserees dans des contrats larges, avec issues, redlines de repli et points de negociation.
-argument-hint: "[contrat large | clause PI | extrait contractuel]"
-version: "1.0.0"
+description: >
+  Skill V2 strict de revue ciblee de clauses de propriete intellectuelle dans
+  un contrat large. Il ferme l'intake, applique un Clause Review Readiness
+  Gate, stabilise la sortie en 9 blocs et route vers le bon skill voisin si le
+  sujet devient un contrat PI complet, un sujet auteur, OSS, data ou
+  contentieux.
+argument-hint: "[review|fallback-redline|issue-list]"
+version: "2.0.0"
 authors: ["Hacienda"]
 tags: [propriete-intellectuelle, clauses, revue, contrat-large, msa, sow, emploi, commercial, licence-tech]
 ---
 
-# Skill - Revue clause PI
+# Skill - Revue clause PI V2
 
-> **NOTE DE REVUE ET OUTILS DE NEGO, PAS AVIS JURIDIQUE DEFINITIF.**
->
-> Ce skill sert a relire des clauses de propriete intellectuelle inserees dans
-> un contrat large : MSA, SOW, contrat de travail, contrat commercial, contrat
-> de distribution, SaaS, procurement, licence tech non purement PI, accord de
-> service ou partenariat.
->
-> Toute sortie doit distinguer les faits lus, les hypotheses, les zones
-> `[a verifier]`, les arbitrages business et les points qui exigent validation
-> humaine avant signature ou redline finale.
+> **Revue ciblee de clauses PI dans un contrat large, pas contrat PI autonome
+> complet ni avis juridique final.**
+> `revue-clause-pi` sert a isoler et analyser les clauses PI dans un MSA, SOW,
+> SaaS, procurement, emploi, distribution, partenariat ou autre contrat large.
+> Il produit une note de revue, une issue list ou une fallback redline bornee,
+> distingue faits, hypotheses et pieces manquantes, et exige toujours une
+> validation humaine avant signature ou redline finale.
 
-## Role
+References de travail utiles :
 
-Ce skill intervient quand la PI n'est qu'un bloc du contrat, pas l'objet
-principal du document.
+- `references/revue-clause-pi-routing-and-output.md`
+- `references/grille-clauses-pi-contrats-larges.md`
 
-Il sert a :
+## Positionnement
 
-- isoler les clauses PI dans un contrat plus large ;
-- qualifier les risques de titularite, licence, restrictions d'usage,
-  garanties, indemnisation, OSS, donnees, IA, confidentialite et sortie ;
-- proposer une position de revue stable en francais ;
-- preparer soit une note de revue, soit une liste d'issues, soit une redline de
-  repli quand le texte source est incomplet ou peu editable.
+`revue-clause-pi` V2 est le skill de :
 
-## Frontiere avec `contrats-pi`
+1. revue ciblee de clauses PI dans un contrat large ;
+2. choix d'une posture contractuelle et d'un focus PI fermes ;
+3. qualification rapide des risques de titularite, licence, restrictions
+   d'usage, garanties, indemnites, OSS, data, IA, confidentialite et sortie ;
+4. production d'une position de nego stable ;
+5. routage ferme vers le bon skill voisin si le sujet reel depasse la simple
+   revue ciblee.
 
-Utiliser `revue-clause-pi` quand :
+Les trois modes `review`, `fallback-redline` et `issue-list` restent publics,
+mais ils sont subordonnes a la meme logique de revue ciblee. Ce skill ne
+redige pas un contrat PI autonome complet.
 
-- le contrat principal n'est pas un contrat PI autonome ;
-- la demande porte sur quelques clauses PI, un article PI, un extrait ou un
-  bloc "IP / ownership / licence / inventions / OSS / data" ;
-- il faut integrer la PI dans un deal plus large deja pilote par d'autres
-  clauses commerciales.
+## Ce skill ne fait pas
 
-Basculer vers `contrats-pi` quand :
+- Ne remplace pas `contrats-pi` quand l'objet principal du document est une
+  licence, cession, NDA PI, R&D, transfert de technologie, coexistence ou
+  autre contrat PI autonome.
+- Ne remplace pas `licence-droit-auteur` ou `cession-droit-auteur` quand le
+  sujet dominant devient une licence ou cession auteur structuree autonome.
+- Ne remplace pas `revue-open-source` quand le coeur du probleme devient la
+  conformite OSS.
+- Ne remplace pas `revue-logiciel-donnees` quand le vrai sujet est la chaine
+  de droits logiciel / data.
+- Ne remplace pas `bases-de-donnees` quand le sujet dominant devient le droit
+  sui generis, l'API, l'open data ou le scraping.
+- Ne remplace pas le plugin donnees personnelles pour une gouvernance RGPD
+  complete.
+- Ne remplace pas l'avis final d'un avocat, ni la redline finale sur un deal
+  sensible.
 
-- il faut rediger ou revoir un contrat PI complet ;
-- l'objet principal du document est une licence, cession, NDA PI, accord R&D,
-  transfert de technologie, coexistence de marques ou autre contrat PI
-  transversal ;
-- la sortie attendue est un projet de contrat complet plutot qu'une revue ciblee
-  de clauses.
+## Chargement du profil
 
-Ce skill est donc complementaire a `contrats-pi` : il cible la revue des clauses
-PI dans les contrats larges et ne remplace pas la revue ou la redaction d'un
-contrat PI complet.
+Avant tout, lire :
 
-## Modes
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
-### Mode `review` (defaut)
+Rattacher ensuite :
 
-Utiliser quand le texte contractuel est lisible et que la sortie attendue est
-une note de revue structuree.
+- la posture de negociation par defaut ;
+- la juridiction ou pratique contractuelle de reference ;
+- les preferences de redline ou d'issue list ;
+- l'approbateur contrats / PI ;
+- les contraintes business deja connues sur la diffusion, l'OSS, la data ou
+  l'IA.
 
-Sorties obligatoires :
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, la sortie
+reste utilisable, mais les hypotheses non documentees doivent etre marquees :
 
-- `Tableau de revue des clauses PI`
-- `Points de nego`
-- `Clauses a escalade`
-- `Note de revue`
+- `[PROVISOIRE]`
+- `[a verifier]`
+- `[A COMPLETER]`
 
-### Mode `fallback-redline`
+## Contrat d'entree V2
 
-Utiliser quand la demande vise une position de redline mais que :
+Le skill doit expliciter ou deriver :
 
-- le texte source est partiel ;
-- la mise en forme du contrat empeche une vraie redline ligne a ligne ;
-- il faut donner un texte de repli court, clause par clause.
+- `mode`: `review`, `fallback-redline`, `issue-list`
+- `contract_posture`: `msa-services`, `sow-deliverables`, `saas-platform`,
+  `commercial-distribution`, `employment-consulting`,
+  `procurement-vendor`, `partnership-mixed`, `other-large-contract`
+- `ip_clause_focus`: `ownership-assignment`, `license-use-rights`,
+  `inventions-improvements`, `oss-third-party`, `data-database`,
+  `ai-model-output`, `warranties-indemnities`,
+  `confidentiality-trade-secrets`, `mixed`
+- `our_role`: `customer`, `vendor`, `employer`, `employee-contractor`,
+  `licensor-platform`, `licensee-user`, `partner`, `other`
+- `negotiation_posture`: `protective`, `balanced`, `concessionary`
+- `source_completeness`: `full-text`, `partial-extract`, `clause-only`,
+  `summary-only`
 
-Sorties obligatoires :
+### Faits minimums requis
 
-- `Tableau de revue des clauses PI`
-- `Redlines de repli`
-- `Points de nego`
-- `Clauses a escalade`
-- `Note de revue`
+Ne pas presenter la sortie comme exploitable sans au moins :
 
-### Mode `issue-list`
+- texte ou extrait effectivement lu ;
+- type de contrat large identifiable ;
+- role de la partie representee ;
+- objet business minimal ;
+- focus PI principal ;
+- sources consultees et datees.
 
-Utiliser quand il faut aller vite sur un extrait, un screenshot retranscrit, un
-mail, un term sheet ou un bloc PI sans faire une note complete.
+Ajouter selon les cas :
 
-Sorties obligatoires :
+- ordre de priorite contractuel ;
+- annexes ou exhibits critiques ;
+- SOW / DPA / policy OSS ;
+- contraintes data / IA / export / secret ;
+- contexte de nego ou de signature.
 
-- `Tableau de revue des clauses PI`
-- `Liste priorisee des issues`
-- `Points de nego`
-- `Clauses a escalade`
-- `Note de revue`
+Tout manque reste `[a verifier]`.
 
-## Inputs minimaux
+## Clause Review Readiness Gate
 
-Demander le strict minimum suivant et ne pas inventer ce qui manque :
+Le skill doit conclure sur une seule valeur :
 
-1. **Mode** - `review`, `fallback-redline` ou `issue-list`
-2. **Support relu** - contrat complet, article PI, extrait, annexe, email,
-   term sheet ou clause isolee
-3. **Type de contrat large** - MSA, SOW, emploi, commercial, licence tech,
-   distribution, procurement, partenariat, autre
-4. **Notre role** - client, fournisseur, employeur, salarie, licencie,
-   distributeur, integrateur, autre
-5. **Objet business** - logiciel, livrables, marque, contenu, data, know-how,
-   invention, modele IA, mixte
-6. **Position souhaitee** - protectrice, equilibree ou preneur/facilitatrice
-7. **Juridiction ou pratique contractuelle** - France, common law, mixte,
-   inconnue `[a verifier]`
+- `ready`
+- `partial`
+- `blocked`
 
-Si une donnee manque, continuer avec hypothese explicite et la marquer
-`[a verifier]`.
+### `ready`
 
-## Pieces et sources
+Le dossier permet une revue ciblee exploitable, avec clauses lues, posture
+contractuelle identifiable et route de nego claire.
+
+### `partial`
+
+Le dossier permet une revue structuree, mais avec trous ou pieces manquantes.
+
+Cas frequents :
+
+- extrait partiel seulement ;
+- annexes critiques absentes ;
+- posture business ou juridiction floue ;
+- focus PI mixte encore mal delimite.
+
+La sortie conserve alors :
+
+- `[PROVISOIRE]`
+- `[a verifier]`
+- `[A COMPLETER]`
+
+### `blocked`
+
+Bloquer si :
+
+- aucun texte ou extrait reel n'est fourni ;
+- le sujet devient un contrat PI autonome complet ;
+- aucun role ou objet business minimal ne peut etre formule ;
+- le sujet reel devient principalement contentieux, OSS autonome, data autonome
+  ou title chain complete ;
+- aucune source consultee et datee ne peut etre documentee.
+
+## Frontieres de routage
+
+### Route to `contrats-pi`
+
+Si le besoin reel devient un contrat PI autonome complet ou une revue complete
+du document PI-centrique.
+
+### Route to `licence-droit-auteur`
+
+Si le sujet dominant devient une licence auteur autonome.
+
+### Route to `cession-droit-auteur`
+
+Si le sujet dominant devient une cession patrimoniale ou une regularisation de
+chaine de droits.
+
+### Route to `revue-open-source`
+
+Si le coeur du probleme devient la conformite OSS, la SBOM ou les obligations
+de composants tiers.
+
+### Route to `revue-logiciel-donnees`
+
+Si le coeur du probleme devient la chaine de droits logiciel / data,
+contributions, sous-traitants, datasets ou dependances techniques.
+
+### Route to `bases-de-donnees`
+
+Si le sujet dominant devient le droit sui generis, l'API, l'open data, le
+scraping ou la reutilisation de donnees.
+
+### Route to `contentieux-pi`
+
+Si la question dominante devient la mise en demeure, la saisie, la strategie
+judiciaire ou une posture precontentieuse.
+
+### Route to plugin donnees personnelles
+
+Si la question dominante devient la base legale, la gouvernance RGPD, le DPA
+ou un autre point privacy autonome.
+
+## Axes d'analyse V2
+
+### 1. Clause map and source discipline
 
 Toujours distinguer :
 
-- **Texte lu** : clauses effectivement fournies ;
-- **Contexte declare** : explications de l'utilisateur non verifiees ;
-- **Pieces manquantes** : annexes, SOW, policy OSS, exhibits, definitions,
-  ordre de priorite, DPA, annexes RH ou techniques ;
-- **Sources non consultees** : toute source primaire, interne ou tierce non lue
-  reste `[a verifier]`.
+- texte lu ;
+- contexte declare ;
+- pieces manquantes ;
+- sources non consultees ;
+- definitions ou annexes qui changent la portee de la clause.
 
 Ne jamais presenter une clause comme conforme, opposable ou suffisante sans
 tenir compte des pieces manquantes declarees ou evidentes.
 
-## Methode d'analyse
-
-1. Identifier le contrat large, son objet et le role economique des parties.
-2. Extraire les clauses PI utiles, y compris les definitions qui changent leur
-   portee.
-3. Cartographier le couple `background / foreground` ou son equivalent :
-   preexisting materials, tools, works made for hire, inventions, deliverables,
-   improvements, feedback, data, training outputs.
-4. Tester pour chaque clause :
-   - qui detient quoi ;
-   - qui recoit quel droit ;
-   - ce qui est exclus, reserve ou repris ;
-   - ce qui declenche une indemnite, une garantie ou une obligation de defense ;
-   - ce qui limite l'usage futur, la revente, la maintenance, la portabilite ou
-     la sortie.
-5. Signaler a part les sujets qui sortent de la seule clause PI : RH,
-   concurrence, open source, donnees personnelles, export, secret des affaires,
-   IA, assurance, procedure contentieuse.
-6. Produire une sortie stable adaptee au mode demande.
-
-## Familles de clauses a verifier
+### 2. Ownership, license and title chain
 
 Verifier au minimum, quand elles existent ou quand leur absence cree un risque :
 
@@ -164,135 +230,143 @@ Verifier au minimum, quand elles existent ou quand leur absence cree un risque :
   bibliotheques et savoir-faire ;
 - restrictions d'usage, sous-licence, transfert, cession, revente, reverse
   engineering, benchmark, audit ou interoperation ;
-- contribution salarie / prestataire / sous-traitant et chaine de droits ;
-- garanties de titularite, non-contrefacon, defense et indemnisation PI ;
-- open source, composants tiers, notices, copyleft, source escrow ou depots ;
-- confidentialite utile a la PI, residuals, feedback, publication,
-  communication, references client ;
-- data, IA, entrainement, sorties generees, logs, telemetry, usage pour
+- contribution salarie / prestataire / sous-traitant et chaine de droits.
+
+### 3. Risk findings and negotiation posture
+
+Qualifier les risques PI en gardant une gradation simple :
+
+- `Rouge` : blocage de signature, perte de titularite, garantie ou indemnite
+  disproportionnee, incoherence majeure ;
+- `Orange` : risque important mais negociable ;
+- `Jaune` : point de vigilance ;
+- `Vert` : acceptable en l'etat selon les informations lues, sous reserve des
+  pieces `[a verifier]`.
+
+La posture `protective`, `balanced` ou `concessionary` doit se voir dans les
+recommandations, sans contredire le risque reel.
+
+### 4. OSS, data, IA and exit signals
+
+Signaler a part :
+
+- open source, composants tiers, notices, copyleft, escrow ;
+- donnees, IA, entrainement, sorties generees, logs, telemetry, usage pour
   amelioration produit ;
 - fin de contrat : survie des licences, restitution, destruction, migration,
   escrow, assistance de sortie.
 
-Voir aussi `references/grille-clauses-pi-contrats-larges.md`.
+Ces signaux ne doivent pas aspirer le skill hors de son coeur ; ils servent a
+qualifier le risque et a rerouter si necessaire.
 
-## Grille de risque
+## Contrat de sortie V2
 
-Utiliser une gradation simple et stable :
+Toute sortie reste en francais et contient exactement ces neuf blocs, dans cet
+ordre :
 
-- `Rouge` : blocage de signature, transfert trop large, perte de titularite,
-  garantie ou indemnite disproportionnee, incoherence majeure, point a valider
-  avant accord ;
-- `Orange` : risque important mais negociable ; clause ambigue, desequilibree ou
-  incomplete ;
-- `Jaune` : point de vigilance, a cadrer ou documenter ;
-- `Vert` : acceptable en l'etat selon les informations lues, sous reserve des
-  pieces `[a verifier]`.
+1. `Case Snapshot`
+2. `Clause Review Readiness Gate`
+3. `Clause Map and Source Coverage`
+4. `Risk Findings`
+5. `Negotiation Position`
+6. `Escalation Points`
+7. `Mode-Specific Deliverable`
+8. `Decision Routing`
+9. `Human Validation`
 
-## Sortie obligatoire
+### 1. `Case Snapshot`
 
-Quelle que soit l'entree, la sortie doit rester en francais et contenir au
-minimum ces blocs nommes.
+Resumer :
 
-### 1. Tableau de revue des clauses PI
+- contrat large ;
+- role represente ;
+- objet business ;
+- focus PI ;
+- pieces lues ;
+- posture de nego.
 
-Tableau minimal obligatoire :
+### 2. `Clause Review Readiness Gate`
 
-| Clause | Extrait ou resume | Risque | Niveau | Recommandation |
+Indiquer `ready`, `partial` ou `blocked`, avec la cause principale.
+
+### 3. `Clause Map and Source Coverage`
+
+Tableau minimal recommande :
+
+| Clause | Extrait ou resume | Source | Couverture | Dependances |
 | --- | --- | --- | --- | --- |
 
-La colonne `Recommandation` doit rester actionnable et courte. Ajouter
-`[a verifier]` si l'analyse depend d'une piece ou source non consultee.
+### 4. `Risk Findings`
 
-### 2. Points de nego
+Tableau minimal recommande :
 
-Lister les points a porter en negociation, idealement en 3 colonnes :
+| Clause | Risque | Niveau | Recommandation |
+| --- | --- | --- | --- |
+
+### 5. `Negotiation Position`
+
+Tableau minimal recommande :
 
 | Point | Position cible | Concession acceptable |
 | --- | --- | --- |
 
-### 3. Clauses a escalade
+### 6. `Escalation Points`
 
-Isoler les clauses qui exigent validation humaine ou arbitrage specialise :
+Tableau minimal recommande :
 
 | Clause | Motif d'escalade | Interlocuteur conseille |
 | --- | --- | --- |
 
-Interlocuteurs typiques : avocat PI, avocat social, counsel commercial, DPO,
-RSSI, CTO, achats, RH, finance.
+### 7. `Mode-Specific Deliverable`
 
-### 4. Note de revue
+Le bloc varie selon `mode` :
 
-Conclure avec une note courte et stable :
+- `review` -> `Structured Review Memo`
+- `fallback-redline` -> `Fallback Redlines`
+- `issue-list` -> `Prioritized Issue List`
 
-- **Perimetre lu**
-- **Position d'ensemble**
-- **3 risques majeurs maximum**
-- **Hypotheses et `[a verifier]`**
-- **Decision a faire valider humainement**
+Formats recommandes :
 
-## Sorties additionnelles par mode
+#### `Structured Review Memo`
 
-La section `Sortie obligatoire` est le socle commun a tous les modes. Les
-blocs ci-dessous s'ajoutent dans l'ordre indique, apres `Tableau de revue des
-clauses PI` et avant `Points de nego`, sauf indication contraire.
+- synthese contractuelle PI ;
+- clauses manquantes si l'absence cree un risque material ;
+- 3 risques majeurs maximum.
 
-### Mode `review`
-
-Ordre final des blocs :
-
-1. `Tableau de revue des clauses PI`
-2. `Synthese contractuelle PI`
-3. `Clauses manquantes` si une absence cree un risque material
-4. `Points de nego`
-5. `Clauses a escalade`
-6. `Note de revue`
-
-Bloc additionnel a inserer :
-
-- `Synthese contractuelle PI` en 5 a 10 lignes ;
-- `Clauses manquantes` si une absence cree un risque material.
-
-### Mode `fallback-redline`
-
-Ordre final des blocs :
-
-1. `Tableau de revue des clauses PI`
-2. `Redlines de repli`
-3. `Points de nego`
-4. `Clauses a escalade`
-5. `Note de revue`
-
-Bloc additionnel a inserer :
-
-- `Redlines de repli`
-
-Format recommande pour `Redlines de repli` :
+#### `Fallback Redlines`
 
 | Clause | Texte de repli propose | Objet du repli |
 | --- | --- | --- |
 
-Le texte de repli doit etre court, operable, et ne pas pretendre remplacer une
-revue documentaire complete.
-
-### Mode `issue-list`
-
-Ordre final des blocs :
-
-1. `Tableau de revue des clauses PI`
-2. `Liste priorisee des issues`
-3. `Points de nego`
-4. `Clauses a escalade`
-5. `Note de revue`
-
-Bloc additionnel a inserer :
-
-- `Liste priorisee des issues`
-
-Format recommande :
+#### `Prioritized Issue List`
 
 | Priorite | Clause | Probleme | Action |
 | --- | --- | --- | --- |
+
+### 8. `Decision Routing`
+
+Conclure avec une seule issue principale parmi :
+
+- `proceed-with-clause-review`
+- `proceed-with-fallback-redline`
+- `proceed-with-issue-list`
+- `route-to-full-pi-contract`
+- `route-to-copyright-license`
+- `route-to-copyright-assignment`
+- `route-to-open-source-review`
+- `route-to-software-data-chain-review`
+- `route-to-database-protection-review`
+- `route-to-pi-litigation`
+- `hold-insufficient-basis`
+
+### 9. `Human Validation`
+
+Toujours rappeler :
+
+- ce qui doit etre verifie humainement ;
+- les pieces manquantes ;
+- les arbitrages business encore ouverts ;
+- la limite de la sortie comme brouillon de travail.
 
 ## Garde-fous juridiques Hacienda
 
@@ -306,28 +380,6 @@ Format recommande :
 - Si la clause PI depend fortement d'un autre bloc contractuel non lu
   (definitions, responsabilite, prix, SOW, annexe OSS, annexe data, policy RH),
   le dire clairement avant de conclure.
-
-## Escalade et bifurcation
-
-Escalader ou renvoyer quand la demande depasse ce skill :
-
-- contrat PI complet ou fortement PI-centrique -> `contrats-pi`
-- chaine de droits logiciel, contributions, datasets -> `revue-logiciel-donnees`
-- inventaire OSS, SBOM, dependances et obligations licence -> `revue-open-source`
-- donnees personnelles et base legale -> plugin
-  `hacienda-donnees-personnelles`
-- clause d'invention de salarie ou articulation RH complexe -> revue humaine
-  PI + social
-- contentieux, saisie, mise en demeure ou strategie precontentieuse ->
-  `contentieux-pi` ou skill contentieux approprie
-
-## Ce skill ne fait pas
-
-- rediger un contrat PI complet ;
-- revoir integralement un MSA ou un contrat commercial hors sujet PI ;
-- conclure a lui seul qu'une clause est juridiquement suffisante ou opposable ;
-- fournir une opinion definitive sur le droit applicable sans validation humaine ;
-- remplacer la redline finale d'un avocat sur un deal sensible.
 
 ## Emplacement de sortie suggere
 

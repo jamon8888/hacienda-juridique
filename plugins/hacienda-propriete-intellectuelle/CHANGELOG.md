@@ -3,6 +3,31 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.18.13 — 2026-05-21
+
+### Alignement documentaire
+- `contrats-pi` est harmonise explicitement en V2, avec `version: "2.0.0"`
+  visible, reference de travail compacte, chargement de profil pratique
+  explicite et garde-fous de brouillon V2 aligns sur les autres skills
+  contractuels du plugin
+- `revue-clause-pi` migre vers un contrat V2 strict de revue ciblee des
+  clauses PI dans les contrats larges
+- ajout d'un contrat d'entree ferme autour de `mode`, `contract_posture`,
+  `ip_clause_focus`, `our_role`, `negotiation_posture` et
+  `source_completeness`
+- ajout d'un `Clause Review Readiness Gate` explicite (`ready`, `partial`,
+  `blocked`) pour borner l'exploitabilite du brouillon selon le texte
+  effectivement lu, la posture contractuelle, le focus PI et la couverture
+  source
+- sortie V2 stabilisee en 9 blocs, avec `Mode-Specific Deliverable` borne
+  pour `review`, `fallback-redline` et `issue-list`, et `Decision Routing`
+  ferme vers contrat PI complet, licence auteur, cession auteur, OSS,
+  chaine logiciel / data, base de donnees ou contentieux
+- ajout du memo compact
+  `skills/revue-clause-pi/references/revue-clause-pi-routing-and-output.md`
+- `README.md` realigne pour retirer `revue-clause-pi` de la table legacy et
+  l'afficher dans la liste principale des skills V2
+
 ## 0.18.12 — 2026-05-21
 
 ### Alignement documentaire
