@@ -1,11 +1,11 @@
 ---
 name: licence-droit-auteur
 description: >
-  Skill V2 de preparation stricte d'une licence de droits d'auteur :
-  qualification minimale des preconditions, choix de lane, garde-fous
+  Skill V2 de préparation stricte d'une licence de droits d'auteur :
+  qualification minimale des préconditions, choix de voie, garde-fous
   L.131-3 / L.131-4 CPI, clauses critiques et risque de requalification en
-  cession. La diffusion ouverte reste possible via une lane bornee
-  `creative-commons`. Brouillon soumis a validation par un avocat.
+  cession. La diffusion ouverte reste possible via une voie bornée
+  `creative-commons`. Brouillon soumis à validation par un avocat.
 argument-hint: "[exclusive|non-exclusive|creative-commons|software-eula|saas-user-content]"
 version: "2.0.0"
 authors: ["Hacienda"]
@@ -14,73 +14,73 @@ tags: [droit-auteur, licence, creative-commons, eula, saas, L131-3, L131-4, CPI]
 
 # Skill - Licence droit auteur V2
 
-> **Preparation de licence stricte, pas cession ni contrat final signable.**
-> `licence-droit-auteur` sert a structurer un brouillon de licence de droits
-> d'auteur, a choisir la bonne lane, a verifier les preconditions auteur et a
+> **Préparation de licence stricte, pas cession ni contrat final signable.**
+> `licence-droit-auteur` sert à structurer un brouillon de licence de droits
+> d'auteur, à choisir la bonne voie, à vérifier les préconditions auteur et à
 > fermer le routage vers le bon skill voisin quand le dossier sort de son
-> perimetre. Il ne redige pas une cession, ne remplace pas la qualification de
-> l'oeuvre, ne tranche pas seul un regime logiciel ou base de donnees, et ne
+> périmètre. Il ne rédige pas une cession, ne remplace pas la qualification de
+> l'œuvre, ne tranche pas seul un régime logiciel ou base de données, et ne
 > produit jamais un instrument final signable sans validation humaine.
 
-Reference de travail utile :
+Référence de travail utile :
 `references/licence-droit-auteur-routing-and-output.md`
 
 ## Positionnement
 
 `licence-droit-auteur` V2 est le skill de :
 
-1. preparation d'une licence de droits d'auteur ;
-2. choix du `license_track` approprie ;
-3. verification des preconditions `L.131-3` et `L.131-4` CPI ;
+1. préparation d'une licence de droits d'auteur ;
+2. choix du `license_track` approprié ;
+3. vérification des préconditions `L.131-3` et `L.131-4` CPI ;
 4. cadrage du risque de requalification en cession ;
-5. production d'un brouillon structure avec clauses critiques ;
-6. routage ferme vers la bonne brique voisine si le sujet dominant n'est pas
+5. production d'un brouillon structuré avec clauses critiques ;
+6. routage fermé vers la bonne brique voisine si le sujet dominant n'est pas
    une simple licence.
 
-Les lanes `exclusive`, `non-exclusive`, `software-eula` et
-`saas-user-content` constituent le coeur de redaction du skill.
-`creative-commons` reste une lane secondaire de diffusion ouverte standardisee
-et ne doit pas etre traitee comme un faux contrat negocie sur mesure.
+Les voies `exclusive`, `non-exclusive`, `software-eula` et
+`saas-user-content` constituent le coeur de rédaction du skill.
+`creative-commons` reste une voie secondaire de diffusion ouverte standardisée
+et ne doit pas être traitée comme un faux contrat négocié sur mesure.
 
 ## Ce skill ne fait pas
 
-- Ne remplace pas `qualification-oeuvre` quand l'originalite, la nature de
-  l'oeuvre ou la titularite initiale sont encore trop incertaines.
-- Ne redige pas une cession de droits ; route vers `cession-droit-auteur`.
-- Ne remplace pas `logiciels-pi` quand le coeur du sujet est le regime
-  logiciel, l'interoperabilite, le code source ou la diffusion open source.
+- Ne remplace pas `qualification-oeuvre` quand l'originalité, la nature de
+  l'œuvre ou la titularité initiale sont encore trop incertaines.
+- Ne rédige pas une cession de droits ; route vers `cession-droit-auteur`.
+- Ne remplace pas `logiciels-pi` quand le coeur du sujet est le régime
+  logiciel, l'interopérabilité, le code source ou la diffusion open source.
 - Ne remplace pas `bases-de-donnees` quand le sujet dominant porte sur la
   structure auteur d'une base, le droit sui generis, l'API, l'open data ou le
   scraping.
 - Ne remplace pas `contrats-pi` quand la licence n'est qu'un volet d'un
   contrat PI plus large.
-- Ne remplace pas le plugin donnees personnelles pour une gouvernance RGPD
-  complete.
-- Ne remplace pas l'avis final d'un avocat ou d'un juriste habilite.
+- Ne remplace pas le extension données personnelles pour une gouvernance RGPD
+  complète.
+- Ne remplace pas l'avis final d'un avocat ou d'un juriste habilité.
 
 ## Chargement du profil
 
 Avant tout, lire :
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Rattacher ensuite :
 
-- le role utilisateur ;
-- la preference licence / cession si elle existe ;
-- la posture par defaut sur la remuneration ;
+- le rôle utilisateur ;
+- la préférence licence / cession si elle existe ;
+- la posture par défaut sur la rémunération ;
 - l'approbateur contrat auteur ;
 - les contraintes business de diffusion, de sous-licence et de territoire ;
-- la politique logiciel / base de donnees / RGPD si le dossier les touche.
+- la politique logiciel / base de données / RGPD si le dossier les touche.
 
 Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, la sortie
-reste utilisable, mais les hypotheses non documentees doivent etre marquees
+reste utilisable, mais les hypothèses non documentées doivent être marquées
 `[PROVISOIRE]`.
 
-## Contrat d'entree V2
+## Contrat d'entrée V2
 
-Le skill doit expliciter ou deriver :
+Le skill doit expliciter ou dériver :
 
 - `license_track`: `exclusive`, `non-exclusive`, `creative-commons`,
   `software-eula`, `saas-user-content`
@@ -95,58 +95,58 @@ Le skill doit expliciter ou deriver :
 
 ### Minimal Fact Set
 
-- oeuvre ou corpus vise ;
-- identite du concedant ;
-- identite du licencie ou du public cible ;
-- perimetre des droits accordes ;
-- duree ;
+- œuvre ou corpus visé ;
+- identité du concédant ;
+- identité du licencié ou du public cible ;
+- périmètre des droits accordés ;
+- durée ;
 - territoire ;
-- modele economique minimal ;
+- modèle économique minimal ;
 - sous-licence oui / non / incertain.
 
-Tout manque reste `[a verifier]`.
+Tout manque reste `[à vérifier]`.
 
 ## Frontieres de routage
 
-### Route to `qualification-oeuvre`
+### Router vers `qualification-oeuvre`
 
 Si la vraie question dominante est encore :
 
-- l'originalite ;
-- la qualification de l'oeuvre ;
-- la chaine de creation ;
-- la titularite initiale insuffisamment etablie.
+- l'originalité ;
+- la qualification de l'œuvre ;
+- la chaîne de création ;
+- la titularité initiale insuffisamment établie.
 
-### Route to `cession-droit-auteur`
+### Router vers `cession-droit-auteur`
 
-Si la demande ressemble a :
+Si la demande ressemble à :
 
 - un transfert complet ou quasi complet ;
-- une exclusivite trop large et quasi definitive ;
-- une logique economique de vente de droits plutot que d'autorisation
+- une exclusivité trop large et quasi définitive ;
+- une logique économique de vente de droits plutôt que d'autorisation
   d'exploitation.
 
-### Route to `logiciels-pi`
+### Router vers `logiciels-pi`
 
 Si le coeur du sujet est :
 
-- le regime logiciel ;
-- l'interoperabilite ;
-- la retro-ingenierie ;
+- le régime logiciel ;
+- l'interopérabilité ;
+- la rétro-ingénierie ;
 - le code source ;
-- la compatibilite open source ;
+- la compatibilité open source ;
 - la structure d'un produit logiciel.
 
-### Route to `bases-de-donnees`
+### Router vers `bases-de-donnees`
 
 Si le coeur du sujet est :
 
 - la structure auteur d'une base ;
 - le droit sui generis ;
-- l'extraction / reutilisation de donnees ;
+- l'extraction / réutilisation de données ;
 - l'API, le scraping ou l'open data.
 
-### Route to `contrats-pi`
+### Router vers `contrats-pi`
 
 Si la licence n'est qu'un volet d'un contrat plus large :
 
@@ -156,31 +156,31 @@ Si la licence n'est qu'un volet d'un contrat plus large :
 - franchise ;
 - transfert technologique plus large.
 
-### Route to plugin donnees personnelles
+### Router vers le extension données personnelles
 
 Si la question dominante devient :
 
-- la base legale ;
+- la base légale ;
 - le DPA ;
 - la gouvernance RGPD ;
-- la conformite privacy complete.
+- la conformité privacy complète.
 
 ## Axes d'analyse V2
 
-### 1. Work and title preconditions
+### 1. Préconditions sur l'œuvre et la titularité
 
-Verifier avant toute redaction :
+Vérifier avant toute rédaction :
 
-- que l'oeuvre ou le corpus est suffisamment qualifie ;
-- que le concedant peut legitimement concéder les droits ;
-- que les co-auteurs, employeurs, producteurs ou cessionnaires eventuels sont
-  identifies ;
-- que la lane licence est bien l'instrument adapte et ne masque pas une
+- que l'œuvre ou le corpus est suffisamment qualifié ;
+- que le concédant peut légitimement concéder les droits ;
+- que les co-auteurs, employeurs, producteurs ou cessionnaires éventuels sont
+  identifiés ;
+- que la voie licence est bien l'instrument adapté et ne masque pas une
   cession.
 
-### 2. License track selection
+### 2. Branche de licence sélectionnée
 
-Traiter la demande dans une lane fermee :
+Traiter la demande dans une voie fermée :
 
 - `exclusive`
 - `non-exclusive`
@@ -188,60 +188,60 @@ Traiter la demande dans une lane fermee :
 - `software-eula`
 - `saas-user-content`
 
-Ne jamais melanger deux lanes sans l'indiquer explicitement en `mixed factual
+Ne jamais mélanger deux voies sans l'indiquer explicitement en `mixed factual
 background` tout en gardant une seule sortie principale.
 
-### 3. Economic and exploitation structure
+### 3. Structure économique et d'exploitation
 
-Verifier :
+Vérifier :
 
-- droits exacts accordes ;
+- droits exacts accordés ;
 - domaines d'exploitation ;
 - territoire ;
-- duree ;
-- exclusivite ou non ;
-- remuneration ;
+- durée ;
+- exclusivité ou non ;
+- rémunération ;
 - sous-licence ;
 - usage cible et supports.
 
-### 4. Critical clauses
+### 4. Clauses critiques
 
 Toujours traiter au minimum :
 
 - objet ;
-- droits accordes ;
+- droits accordés ;
 - domaines d'exploitation ;
 - territoire ;
-- duree ;
-- remuneration ;
+- durée ;
+- rémunération ;
 - droit moral / attribution ;
 - sous-licence ;
 - garanties ;
-- responsabilite ;
-- resiliation ;
-- donnees / DPA si applicable.
+- responsabilité ;
+- résiliation ;
+- données / DPA si applicable.
 
-### 5. Requalification and compliance risks
+### 5. Risques de requalification et de conformité
 
 Rendre visibles :
 
 - risque de requalification en cession ;
 - faiblesse sur `L.131-3` ;
 - faiblesse sur `L.131-4` ;
-- tension sur la duree, le territoire ou la sous-licence ;
-- points RGPD ou base de donnees annexes ;
-- ambiguite sur la titularite.
+- tension sur la durée, le territoire ou la sous-licence ;
+- points RGPD ou base de données annexes ;
+- ambiguïté sur la titularité.
 
-## Lanes V2
+## Voies V2
 
 ### `exclusive`
 
 Insister sur :
 
-- perimetre exact des droits ;
-- duree raisonnable ;
+- périmètre exact des droits ;
+- durée raisonnable ;
 - territoire ;
-- exclusivite precise ;
+- exclusivité précise ;
 - minimum d'exploitation ;
 - audit ;
 - sous-licence ;
@@ -252,25 +252,25 @@ Insister sur :
 
 Insister sur :
 
-- usage autorise ;
+- usage autorisé ;
 - supports ;
 - audience ;
-- duree ;
+- durée ;
 - territoire ;
 - restrictions ;
 - attribution ;
-- sous-licence interdite ou encadree.
+- sous-licence interdite ou encadrée.
 
 ### `creative-commons`
 
-Traiter cette lane comme une politique de diffusion ouverte standardisee :
+Traiter cette voie comme une politique de diffusion ouverte standardisée :
 
-- variante proposee ;
+- variante proposée ;
 - obligations d'attribution ;
 - effet SA / ND / NC ;
-- irrevocabilite ;
+- irrévocabilité ;
 - risques de diffusion ;
-- incompatibilites principales ;
+- incompatibilités principales ;
 - validation humaine avant mise en ligne.
 
 Ne pas fabriquer un faux contrat CC sur mesure.
@@ -278,17 +278,17 @@ Ne pas fabriquer un faux contrat CC sur mesure.
 ### `software-eula`
 
 Rester sur la structure de licence et renvoyer au besoin vers `logiciels-pi`
-pour le fond technique du regime logiciel.
+pour le fond technique du régime logiciel.
 
 Points cibles :
 
-- usage autorise ;
+- usage autorisé ;
 - postes / utilisateurs ;
-- acces ;
-- mise a jour ;
+- accès ;
+- mise à jour ;
 - support ;
 - interdictions usuelles ;
-- reversibilite si necessaire.
+- réversibilité si nécessaire.
 
 ### `saas-user-content`
 
@@ -298,13 +298,13 @@ Traiter :
 - reproduction serveur ;
 - affichage ;
 - adaptation technique ;
-- moderation et retrait ;
-- duree apres cloture ;
-- donnees personnelles ;
-- sous-licence a des tiers si applicable ;
+- modération et retrait ;
+- durée après clôture ;
+- données personnelles ;
+- sous-licence à des tiers si applicable ;
 - articulation CGU / DPA / politique contenus.
 
-## License Readiness Gate
+## Seuil de préparation de la licence
 
 Le skill doit conclure sur :
 
@@ -321,108 +321,108 @@ Le dossier permet un brouillon de licence exploitable.
 Le skill peut produire un brouillon, mais doit maintenir :
 
 - `[PROVISOIRE]`
-- `[a verifier]`
-- `[A COMPLETER]`
+- `[à vérifier]`
+- `[À COMPLÉTER]`
 
 ### `blocked`
 
 Bloquer si :
 
-- l'oeuvre est trop incertaine ;
-- la titularite est trop incertaine ;
-- la demande ressemble en realite a une cession ;
-- le sujet est dominamment logiciel ou base de donnees sans analyse amont ;
-- le contrat vise est plus large qu'une simple licence.
+- l'œuvre est trop incertaine ;
+- la titularité est trop incertaine ;
+- la demande ressemble en réalité à une cession ;
+- le sujet est dominamment logiciel ou base de données sans analyse amont ;
+- le contrat visé est plus large qu'une simple licence.
 
 ## Format de sortie V2
 
-La sortie doit etre stabilisee en 9 blocs.
+La sortie doit être stabilisée en 9 blocs.
 
-1. `Case Snapshot`
-2. `License Readiness Gate`
-3. `Work And Title Preconditions`
-4. `Chosen License Track`
-5. `Economic And Exploitation Structure`
-6. `Critical Clauses`
-7. `Requalification And Compliance Risks`
-8. `Decision Routing`
-9. `Human Validation`
+1. `Synthèse du dossier`
+2. `Seuil de préparation de la licence`
+3. `Préconditions sur l'œuvre et la titularité`
+4. `Branche de licence choisie`
+5. `Structure économique et d'exploitation`
+6. `Clauses critiques`
+7. `Risques de requalification et de conformité`
+8. `Routage de décision`
+9. `Validation humaine`
 
-## Modele de sortie
+## Modèle de sortie
 
 Produire la sortie finale dans une quadruple fence Markdown :
 
 ````markdown
-# LICENSE PREPARATION - [OEUVRE / CORPUS]
+# PRÉPARATION DE LICENCE - [ŒUVRE / CORPUS]
 
 *Brouillon de travail Hacienda. Validation humaine obligatoire avant usage
 contractuel.*
 
-## 1. Case Snapshot
+## 1. Synthèse du dossier
 
 - `license_track` :
 - concedant :
 - licencie / public cible :
-- oeuvre / corpus :
+- œuvre / corpus :
 - exploitation cible :
 
-## 2. License Readiness Gate
+## 2. Seuil de préparation de la licence
 
 - statut : `ready|partial|blocked`
 - justification :
 
-## 3. Work And Title Preconditions
+## 3. Préconditions sur l'œuvre et la titularité
 
-- qualification oeuvre :
-- titularite :
-- points `[a verifier]` :
+- qualification œuvre :
+- titularité :
+- points `[à vérifier]` :
 
-## 4. Chosen License Track
+## 4. Branche de licence choisie
 
 - lane retenue :
 - pourquoi cette lane :
 - pourquoi pas cession :
 
-## 5. Economic And Exploitation Structure
+## 5. Structure économique et d'exploitation
 
-- droits accordes :
+- droits accordés :
 - territoire :
-- duree :
-- remuneration :
+- durée :
+- rémunération :
 - sous-licence :
 - restrictions :
 
-## 6. Critical Clauses
+## 6. Clauses critiques
 
 - objet :
-- droits accordes :
+- droits accordés :
 - exploitation :
 - droit moral / attribution :
 - garanties :
-- responsabilite :
-- resiliation :
+- responsabilité :
+- résiliation :
 - RGPD / DPA si applicable :
 
-## 7. Requalification And Compliance Risks
+## 7. Risques de requalification et de conformité
 
 - L.131-3 :
 - L.131-4 :
 - risque de requalification :
 - autres risques :
 
-## 8. Decision Routing
+## 8. Routage de décision
 
 - route finale :
 - actions suivantes :
 
-## 9. Human Validation
+## 9. Validation humaine
 
 - avocat / juriste requis :
 - approbateur interne :
-- clauses a arbitrer :
+- clauses à arbitrer :
 ````
 
-## Decision Routing ferme
+## Routage de décision fermé
 
 Le skill doit se terminer par une seule route principale :
 
@@ -439,18 +439,18 @@ Le skill doit se terminer par une seule route principale :
 - `hold-for-rgpd-review`
 - `hold-insufficient-basis`
 
-## Gate non-juriste
+## Seuil non-juriste
 
-Avant transmission au validateur humain, verifier :
+Avant transmission au validateur humain, vérifier :
 
-- [ ] le `license_track` retenu est coherent ;
+- [ ] le `license_track` retenu est cohérent ;
 - [ ] la distinction licence / cession est claire ;
-- [ ] les preconditions `L.131-3` sont couvertes ;
+- [ ] les préconditions `L.131-3` sont couvertes ;
 - [ ] la posture `L.131-4` est explicite ;
-- [ ] la titularite du concedant est suffisamment documentee ;
-- [ ] le risque logiciel / base de donnees / RGPD n'est pas sous-evalue ;
-- [ ] la sortie contient les marqueurs `[PROVISOIRE]`, `[a verifier]` ou
-      `[A COMPLETER]` quand necessaire.
+- [ ] la titularité du concédant est suffisamment documentée ;
+- [ ] le risque logiciel / base de données / RGPD n'est pas sous-évalué ;
+- [ ] la sortie contient les marqueurs `[PROVISOIRE]`, `[à vérifier]` ou
+      `[À COMPLÉTER]` quand nécessaire.
 
 ## Emplacement des sorties
 
@@ -460,11 +460,11 @@ outputs/licence-auteur-<oeuvre-slug>-YYYY-MM-DD.md
 
 ## Ton
 
-Juridique, precis, borne. Toujours distinguer :
+Juridique, précis, borné. Toujours distinguer :
 
 - faits ;
 - droit ;
 - analyse ;
 - risques ;
-- decisions ;
+- décisions ;
 - validation humaine.

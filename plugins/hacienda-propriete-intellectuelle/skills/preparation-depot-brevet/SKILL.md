@@ -2,48 +2,48 @@
 name: preparation-depot-brevet
 version: "2.0.0"
 description: >
-  Preparation stricte d'un dossier de depot brevet V2 pour produire un brief
-  de redaction exploitable avant revue humaine. Ce skill ne depose pas, ne
-  rend pas d'opinion finale de brevetabilite, et ne remplace pas la redaction
+  Préparation stricte d'un dossier de dépôt brevet V2 pour produire un brief
+  de rédaction exploitable avant revue humaine. Ce skill ne dépose pas, ne
+  rend pas d'opinion finale de brevetabilité, et ne remplace pas la rédaction
   finale d'un mandataire brevets ou d'un avocat.
 argument-hint: "[description invention | CIB/CPC | FR/EP/PCT]"
 ---
 
-# Skill - Preparation de depot brevet V2
+# Skill - Préparation de dépôt brevet V2
 
-> **Preparation technique, pas depot final.**
-> `preparation-depot-brevet` sert a produire un brouillon structure de dossier
-> de depot, un `Drafting Brief`, une architecture candidate de revendications
-> et un `Filing Readiness Gate`. Il ne remplace ni la redaction finale par un
-> mandataire brevets, ni le choix formel de depot, ni le depot lui-meme.
+> **Préparation technique, pas dépôt final.**
+> `preparation-depot-brevet` sert à produire un brouillon structuré de dossier
+> de dépôt, un `Brief de rédaction`, une architecture candidate de revendications
+> et un `Seuil de préparation du dépôt`. Il ne remplace ni la rédaction finale par un
+> mandataire brevets, ni le choix formel de dépôt, ni le dépôt lui-même.
 
-Reference de travail utile :
+Référence de travail utile :
 `references/preparation-depot-brevet-routing-and-output.md`
 
 ## Positionnement
 
-`preparation-depot-brevet` prend le relais apres un premier passage
+`preparation-depot-brevet` prend le relais après un premier passage
 exploitable de `recherche-anteriorite-brevet`.
 
-Il est borne a :
+Il est borné à :
 
-1. cadrer la matiere technique de depot ;
-2. verifier inventeurs, deposant et risque de divulgation ;
-3. construire un brief de redaction ;
-4. evaluer un `Filing Readiness Gate` ;
+1. cadrer la matière technique de dépôt ;
+2. vérifier inventeurs, déposant et risque de divulgation ;
+3. construire un brief de rédaction ;
+4. évaluer un `Seuil de préparation du dépôt` ;
 5. proposer une route `FR` / `EP` / `PCT` / `sequenced`.
 
 Le skill ne doit pas :
 
-- deposer un brevet ;
-- rendre une opinion finale de brevetabilite ;
+- déposer un brevet ;
+- rendre une opinion finale de brevetabilité ;
 - rendre une opinion FTO ;
-- remplacer la redaction finale d'un mandataire brevets ;
+- remplacer la rédaction finale d'un mandataire brevets ;
 - devenir un orchestrateur global de prosecution internationale.
 
-## Contrat d'entree V2
+## Contrat d'entrée V2
 
-Le skill doit expliciter ou deriver :
+Le skill doit expliciter ou dériver :
 
 - `invention_type`: `device`, `process`, `composition`,
   `software-implemented`, `biotech-medical`, `mixed`, `unknown`
@@ -73,208 +73,208 @@ Bloc de faits minimum :
 
 Avant tout, lire :
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Rattacher ensuite :
 
-- le role utilisateur ;
-- les territoires de depot habituels ;
+- le rôle utilisateur ;
+- les territoires de dépôt habituels ;
 - le domaine technique principal ;
-- le mandataire ou avocat de reference si connu ;
+- le mandataire ou avocat de référence si connu ;
 - la posture de prudence.
 
 Si le profil contient `[A CONFIGURER]`, le dire explicitement et tagger la
 sortie `[PROVISOIRE]`.
 
-## Intake
+## Cadrage initial
 
-Demander en un seul batch, puis mapper la reponse au contrat V2 :
+Demander en un seul batch, puis mapper la réponse au contrat V2 :
 
-1. probleme technique et solution technique ;
+1. problème technique et solution technique ;
 2. type d'invention ou contexte technique ;
-3. inventeurs et deposant envisages ;
-4. route de depot visee : `FR`, `EP`, `PCT` ou sequence ;
-5. priorite ou sequence envisagee ;
+3. inventeurs et déposant envisagés ;
+4. route de dépôt visée : `FR`, `EP`, `PCT` ou séquence ;
+5. priorité ou séquence envisagée ;
 6. statut de divulgation publique ;
-7. etat du prior art connu et de la recherche amont ;
-8. variantes, figures, exemples et support technique deja disponibles.
+7. état du prior art connu et de la recherche amont ;
+8. variantes, figures, exemples et support technique déjà disponibles.
 
 Guidance de mapping minimale :
 
-- dispositif, systeme, capteur, machine -> `invention_type: device`
-- procede, methode technique, chaine operatoire -> `invention_type: process`
-- molecule, formulation, materiau, composition -> `invention_type: composition`
+- dispositif, système, capteur, machine -> `invention_type: device`
+- procédé, méthode technique, chaîne opératoire -> `invention_type: process`
+- molécule, formulation, matériau, composition -> `invention_type: composition`
 - invention informatique avec effet technique -> `invention_type: software-implemented`
-- invention medtech / biotech / therapeutique outillee -> `invention_type: biotech-medical`
-- depot FR seul -> `filing_lane: fr`
-- depot EP direct -> `filing_lane: ep`
-- depot PCT direct -> `filing_lane: pct`
-- sequence de priorite ou de depot -> `filing_lane: sequenced`
+- invention medtech / biotech / thérapeutique outillée -> `invention_type: biotech-medical`
+- dépôt FR seul -> `filing_lane: fr`
+- dépôt EP direct -> `filing_lane: ep`
+- dépôt PCT direct -> `filing_lane: pct`
+- séquence de priorité ou de dépôt -> `filing_lane: sequenced`
 - pas de divulgation connue -> `disclosure_status: no-known-disclosure`
-- divulgation prevue mais pas encore faite -> `disclosure_status: planned-disclosure`
-- divulgation deja faite ou suspectee -> `disclosure_status: already-disclosed`
-- inventeurs et deposant clairs -> `inventorship_status: clear`
-- inventorship ou titularite a revoir -> `inventorship_status: needs-review`
-- conflit, doute fort ou chaine incertaine -> `inventorship_status: contested-or-unclear`
+- divulgation prévue mais pas encore faite -> `disclosure_status: planned-disclosure`
+- divulgation déjà faite ou suspectée -> `disclosure_status: already-disclosed`
+- inventeurs et déposant clairs -> `inventorship_status: clear`
+- inventorship ou titularité à revoir -> `inventorship_status: needs-review`
+- conflit, doute fort ou chaîne incertaine -> `inventorship_status: contested-or-unclear`
 
-Si la matiere technique reste vague, pousser une fois pour obtenir :
+Si la matière technique reste vague, pousser une fois pour obtenir :
 
 - un effet technique concret ;
-- au moins un mode de realisation ;
+- au moins un mode de réalisation ;
 - un minimum de variantes ou d'exemples.
 
-Sinon, reduire la confiance et marquer `readiness_status: partial` ou
-`blocked` selon la gravite.
+Sinon, réduire la confiance et marquer `readiness_status: partial` ou
+`blocked` selon la gravité.
 
-## Filing Readiness Gate
+## Seuil de préparation du dépôt
 
 Le skill doit conclure explicitement sur :
 
 - `ready`
-  - matiere technique suffisante pour produire un brief de redaction
-  - inventeurs / deposant identifiables
+  - matière technique suffisante pour produire un brief de rédaction
+  - inventeurs / déposant identifiables
   - pas de blocage majeur de divulgation connu
 - `partial`
   - dossier exploitable mais incomplet
   - variantes, figures, exemples ou support technique encore insuffisants
 - `blocked`
-  - divulgation deja intervenue avec risque majeur
+  - divulgation déjà intervenue avec risque majeur
   - invention trop vague
-  - titularite ou inventorship trop incertains
+  - titularité ou inventorship trop incertains
 
 Checks minimaux du gate :
 
-- matiere technique assez concrete pour un dossier serieux ;
-- etat du prior art connu coherent avec une preparation de depot ;
-- inventeurs et deposant identifiables ;
-- divulgation publique non bloquante ou a risque visible ;
-- support minimal en variantes, figures ou donnees.
+- matière technique assez concrète pour un dossier sérieux ;
+- état du prior art connu cohérent avec une préparation de dépôt ;
+- inventeurs et déposant identifiables ;
+- divulgation publique non bloquante ou à risque visible ;
+- support minimal en variantes, figures ou données.
 
 Si `disclosure_status = already-disclosed`, le skill doit faire remonter un
-blocage majeur et expliquer que la nouveaute peut etre compromise.
+blocage majeur et expliquer que la nouveauté peut être compromise.
 
 Si `inventorship_status = contested-or-unclear`, le skill ne doit pas
-maquiller le risque de titularite.
+maquiller le risque de titularité.
 
-## Filing lanes
+## Voies de dépôt
 
 - `FR`
-  - preparation pour depot prioritaire FR
+  - préparation pour dépôt prioritaire FR
 - `EP`
-  - preparation pour depot direct EP
+  - préparation pour dépôt direct EP
 - `PCT`
-  - preparation pour depot direct PCT
+  - préparation pour dépôt direct PCT
 - `sequenced`
-  - preparation avec route de priorite ou sequence de depot
+  - préparation avec route de priorité ou séquence de dépôt
 
-Le skill propose une route bornee. Il ne remplace pas
+Le skill propose une route bornée. Il ne remplace pas
 `strategie-extension-internationale`.
 
-## Drafting core
+## Cœur de rédaction
 
-Le coeur du skill reste la preparation du paquet de redaction :
+Le cœur du skill reste la préparation du paquet de rédaction :
 
-- probleme technique objectif ;
+- problème technique objectif ;
 - solution technique ;
 - avantages techniques revendicables ;
-- vocabulaire technique cle ;
-- revendication independante candidate ;
-- dependantes structurantes ;
+- vocabulaire technique clé ;
+- revendication indépendante candidate ;
+- dépendantes structurantes ;
 - support descriptif disponible ;
-- figures et exemples a rassembler.
+- figures et exemples à rassembler.
 
 ## Frontieres de routage
 
 - `recherche-anteriorite-brevet` : si la recherche amont est insuffisante ou
-  si le prior art connu reste trop faible pour preparer le depot proprement
-- `strategie-extension-internationale` : si le besoin devient la strategie
-  d'extension ou de portefeuille plus que le brief de depot initial
+  si le prior art connu reste trop faible pour préparer le dépôt proprement
+- `strategie-extension-internationale` : si le besoin devient la stratégie
+  d'extension ou de portefeuille plus que le brief de dépôt initial
 - `anteriorite-invalidite` : si le besoin devient l'attaque d'un brevet tiers
-  ou la nullite
+  ou la nullité
 - `tableau-contrefacon-brevet` : si le besoin devient la comparaison
-  revendications / produit ou procede
-- `logiciels-pi` : si le coeur du sujet est le regime logiciel, la titularite,
-  les licences ou l'OSS plus qu'un depot brevet
+  revendications / produit ou procédé
+- `logiciels-pi` : si le cœur du sujet est le régime logiciel, la titularité,
+  les licences ou l'OSS plus qu'un dépôt brevet
 
 ## Contrat de sortie V2
 
-La sortie doit etre structuree ainsi :
+La sortie doit être structurée ainsi :
 
-1. `Case Snapshot`
-2. `Inventorship and Ownership Check`
-3. `Disclosure Risk Check`
-4. `Drafting Brief`
-5. `Claim Architecture Candidate`
-6. `Description Coverage`
-7. `Figures and Examples Checklist`
-8. `Priority and Filing Path`
-9. `Human Validation`
+1. `Synthèse du dossier`
+2. `Contrôle inventeurs et titularité`
+3. `Contrôle du risque de divulgation`
+4. `Brief de rédaction`
+5. `Architecture candidate des revendications`
+6. `Couverture de la description`
+7. `Checklist figures et exemples`
+8. `Priorité et voie de dépôt`
+9. `Validation humaine`
 
-### 1. `Case Snapshot`
+### 1. `Synthèse du dossier`
 
 - nature de l'invention ;
-- lane envisagee ;
+- voie envisagée ;
 - objectif du travail ;
-- statut general du dossier.
+- statut général du dossier.
 
-### 2. `Inventorship and Ownership Check`
+### 2. `Contrôle inventeurs et titularité`
 
-- inventeurs identifies ;
-- deposant envisage ;
+- inventeurs identifiés ;
+- déposant envisagé ;
 - statut `inventorship_status` ;
-- points de vigilance sur `L.611-7`, cessions ou chaine de droits.
+- points de vigilance sur `L.611-7`, cessions ou chaîne de droits.
 
-### 3. `Disclosure Risk Check`
+### 3. `Contrôle du risque de divulgation`
 
-- divulgations connues ou prevues ;
+- divulgations connues ou prévues ;
 - statut `disclosure_status` ;
 - urgence ou blocage ;
-- impact potentiel sur la nouveaute.
+- impact potentiel sur la nouveauté.
 
-### 4. `Drafting Brief`
+### 4. `Brief de rédaction`
 
-- probleme technique ;
+- problème technique ;
 - solution ;
 - avantages techniques revendicables ;
-- vocabulaire technique cle ;
-- architecture generale du dossier.
+- vocabulaire technique clé ;
+- architecture générale du dossier.
 
-### 5. `Claim Architecture Candidate`
+### 5. `Architecture candidate des revendications`
 
-- revendication independante candidate ;
+- revendication indépendante candidate ;
 - sous-combinaisons plausibles ;
-- dependantes structurantes ;
-- points a ne pas sur-figer.
+- dépendantes structurantes ;
+- points à ne pas sur-figer.
 
-### 6. `Description Coverage`
+### 6. `Couverture de la description`
 
 - sections attendues ;
-- modes de realisation deja supportes ;
+- modes de réalisation déjà supportés ;
 - trous de support ;
 - besoins de variantes ou d'exemples additionnels.
 
-### 7. `Figures and Examples Checklist`
+### 7. `Checklist figures et exemples`
 
 - figures attendues ;
-- schemas ou flowcharts utiles ;
-- donnees, essais ou tableaux comparatifs manquants ;
+- schémas ou flowcharts utiles ;
+- données, essais ou tableaux comparatifs manquants ;
 - statut de `known_drawings_status` et `known_data_or_test_support`.
 
-### 8. `Priority and Filing Path`
+### 8. `Priorité et voie de dépôt`
 
-- route `FR` / `EP` / `PCT` / `sequenced` recommandee ;
-- raison de la route suggeree ;
-- conditions, reserves ou prerequis ;
+- route `FR` / `EP` / `PCT` / `sequenced` recommandée ;
+- raison de la route suggérée ;
+- conditions, réserves ou prérequis ;
 - quand rerouter vers `strategie-extension-internationale`.
 
-### 9. `Human Validation`
+### 9. `Validation humaine`
 
-- ce qui doit etre valide par un mandataire ou avocat ;
-- ce qui reste `[a verifier]` ;
-- decision finale reservee au professionnel.
+- ce qui doit être validé par un mandataire ou avocat ;
+- ce qui reste `[à vérifier]` ;
+- décision finale réservée au professionnel.
 
-## Next Step Routing
+## Routage de prochaine étape
 
 Conclure avec une seule valeur :
 
@@ -287,20 +287,20 @@ Conclure avec une seule valeur :
 - `route-to-infringement-chart`
 - `route-to-software-regime-review`
 
-Associer la valeur choisie a 2-4 actions concretes et a sa justification.
+Associer la valeur choisie à 2-4 actions concrètes et à sa justification.
 
-## Regles de surete
+## Règles de sûreté
 
-- Le garde-fou "preparation technique, pas depot final" doit rester visible.
-- Le `Filing Readiness Gate` doit etre explicite.
-- Une recherche amont insuffisante ne doit jamais etre maquillee.
-- Une divulgation deja intervenue reste un risque majeur visible.
-- Une titularite ou inventorship incertaine reste un frein visible.
-- La route FR / EP / PCT / `sequenced` reste bornee et ne remplace pas une
-  strategie complete de prosecution.
+- Le garde-fou "préparation technique, pas dépôt final" doit rester visible.
+- Le `Seuil de préparation du dépôt` doit être explicite.
+- Une recherche amont insuffisante ne doit jamais être maquillée.
+- Une divulgation déjà intervenue reste un risque majeur visible.
+- Une titularité ou inventorship incertaine reste un frein visible.
+- La route FR / EP / PCT / `sequenced` reste bornée et ne remplace pas une
+  stratégie complète de prosecution.
 
-## Rappel final a conserver
+## Rappel final à conserver
 
-- preparation stricte au depot uniquement ;
-- jamais depot final, opinion finale de brevetabilite ou opinion FTO ;
-- validation humaine obligatoire avant toute redaction finale ou depot.
+- préparation stricte au dépôt uniquement ;
+- jamais dépôt final, opinion finale de brevetabilité ou opinion FTO ;
+- validation humaine obligatoire avant toute rédaction finale ou dépôt.

@@ -2,57 +2,57 @@
 name: cession-droit-auteur
 version: "2.0.0"
 description: >
-  Skill V2 strict de preparation d'une cession de droits patrimoniaux
-  d'auteur. Il fixe un contrat d'entree ferme, un Assignment Readiness Gate,
-  une branche bornee de title-chain cleanup, une sortie stabilisee en 9
-  blocs, et un routage ferme vers la bonne voie PI. Il ne remplace pas la
-  qualification de l'oeuvre, la licence, le regime logiciel, ni un contrat PI
+  Skill V2 strict de préparation d'une cession de droits patrimoniaux
+  d'auteur. Il fixe un contrat d'entrée fermé, un seuil de préparation de cession,
+  une branche bornée de title-chain cleanup, une sortie stabilisée en 9
+  blocs, et un routage fermé vers la bonne voie PI. Il ne remplace pas la
+  qualification de l'œuvre, la licence, le regime logiciel, ni un contrat PI
   plus large.
 argument-hint: "[full-assignment|partial-assignment|exclusive-assignment|non-exclusive-assignment]"
 ---
 
 # /cession-droit-auteur
 
-Ce skill prepare un **brouillon de cession patrimoniale stricte**. Il ne
+Ce skill prépare un **brouillon de cession patrimoniale stricte**. Il ne
 produit pas un contrat final signable, ne remplace pas l'avocat, ne remplace
-pas la qualification de l'oeuvre, ne remplace pas une licence quand un
-transfert de titularite est inutile, ne remplace pas le regime logiciel, et ne
+pas la qualification de l'œuvre, ne remplace pas une licence quand un
+transfert de titularité est inutile, ne remplace pas le regime logiciel, et ne
 se transforme pas en orchestrateur de portefeuille.
 
-## Profil pratique a charger avant analyse
+## Profil pratique à charger avant analyse
 
-Avant toute redaction, charger :
+Avant toute rédaction, charger :
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Le profil pratique calibre la posture de travail, le niveau de prudence, et la
-forme des avertissements. Si le profil est incomplet ou non configure, garder
+forme des avertissements. Si le profil est incomplet ou non configuré, garder
 les marqueurs de brouillon et les faire apparaitre explicitement :
 
 - `[PROVISOIRE]`
-- `[a verifier]`
-- `[A COMPLETER]`
+- `[à vérifier]`
+- `[À COMPLÉTER]`
 
-Toute source, tout fait de contexte, ou toute base de titularite non verifies
-reste marque `[a verifier]`.
+Toute source, tout fait de contexte, ou toute base de titularité non vérifiés
+reste marqué `[à vérifier]`.
 
 ## Garde-fous juridiques permanents
 
 Le skill doit toujours garder visibles les limites suivantes :
 
 - `L.131-3` : ecrit, enumeration des droits, domaines d'exploitation,
-  territoires, duree, remuneration
-- `L.131-4` : principe de remuneration proportionnelle et cas limits du forfait
-- `L.131-1` : interdiction de la cession globale des oeuvres futures hors
+  territoires, durée, rémunération
+- `L.131-4` : principe de rémunération proportionnelle et cas limits du forfait
+- `L.131-1` : interdiction de la cession globale des œuvres futures hors
   exception
 - le droit moral est inalienable et ne se cede pas
-- la sortie distingue toujours faits, droit, analyse, risques, decision et
+- la sortie distingue toujours faits, droit, analyse, risques, décision et
   validation humaine
 
-## Contrat d'entree ferme
+## Contrat d'entrée fermé
 
-Le skill doit deriver ou expliciter un des statuts fermes suivants pour chaque
+Le skill doit dériver ou expliciter un des statuts fermés suivants pour chaque
 dossier :
 
 - `transfer_track`: `full-assignment` | `partial-assignment` |
@@ -67,31 +67,31 @@ dossier :
 - `counterparty_profile`: `publisher` | `producer` | `brand` | `platform` |
   `customer` | `internal-group` | `mixed`
 
-Les statuts sont fermes. Le skill ne doit pas inventer de semi-vrai centre ou
-de prose libre a la place du contrat d'entree.
+Les statuts sont fermés. Le skill ne doit pas inventer de semi-vrai centré ou
+de prose libre à la place du contrat d'entrée.
 
 ## Faits minimums requis
 
 Ne pas produire une sortie propre si manquent :
 
-- l'oeuvre ou le corpus vise
-- l'identite du cedant
-- l'identite du cessionnaire
-- la base de titularite du cedant
-- les droits vises
+- l'œuvre ou le corpus visé
+- l'identité du cédant
+- l'identité du cessionnaire
+- la base de titularité du cédant
+- les droits visés
 - le territoire
-- la duree
-- le modele economique
-- le contexte de creation
+- la durée
+- le modèle economique
+- le contexte de création
 - le statut coauteur / employeur / prestataire si pertinent
 
 Si les faits sont incomplets mais que le dossier reste exploitable, produire un
-brouillon `partial` et garder les marqueurs `[PROVISOIRE]`, `[a verifier]` et
-`[A COMPLETER]` visibles dans la sortie.
+brouillon `partial` et garder les marqueurs `[PROVISOIRE]`, `[à vérifier]` et
+`[À COMPLÉTER]` visibles dans la sortie.
 
-## Assignment Readiness Gate
+## Seuil de préparation de la cession
 
-Le skill applique un gate ferme avec trois issues :
+Le skill applique un seuil fermé avec trois issues :
 
 - `ready`
 - `partial`
@@ -99,70 +99,70 @@ Le skill applique un gate ferme avec trois issues :
 
 ### `ready`
 
-Le dossier permet un brouillon de cession exploitable. La base de titularite
-est suffisante, le contexte est lisible, et le track retenu est coherent avec
+Le dossier permet un brouillon de cession exploitable. La base de titularité
+est suffisante, le contexte est lisible, et le branche retenue est cohérent avec
 la demande.
 
 ### `partial`
 
-Le dossier permet un brouillon, mais certains points restent a confirmer. La
+Le dossier permet un brouillon, mais certains points restent à confirmer. La
 sortie doit alors conserver les marqueurs :
 
 - `[PROVISOIRE]`
-- `[a verifier]`
-- `[A COMPLETER]`
+- `[à vérifier]`
+- `[À COMPLÉTER]`
 
 ### `blocked`
 
 Bloquer si au moins un de ces cas domine :
 
-- chaine de titularite trop incertaine pour une cession propre
-- cession globale d'oeuvres futures hors exception admise
+- chaîne de titularité trop incertaine pour une cession propre
+- cession globale d'œuvres futures hors exception admise
 - une simple licence suffit manifestement
-- personne morale qui pretend ceder sans base de titularite claire
-- coauteurs ou ayants droit necessaires non securises
+- personne morale qui prêtend ceder sans base de titularité claire
+- coauteurs ou ayants droit nécessaires non sécurisés
 
-Quand le gate est bloque, le skill doit orienter vers la bonne branche ou
-arreter proprement avec les regularisations a faire.
+Quand le seuil est bloqué, le skill doit orienter vers la bonne branche ou
+arrêter proprement avec les régularisations à faire.
 
 ## Axe 1 - Work And Title Preconditions
 
-Cette premiere bloc doit verifier et resumer :
+Cette première bloc doit vérifier et resumer :
 
-- la qualification minimale de l'oeuvre
-- la qualite du cedant
+- la qualification minimale de l'œuvre
+- la qualité du cédant
 - la presence de coauteurs ou ayants droit
-- le contexte salarie, commande, collaboration, edition ou audiovisuel
-- l'existence d'une cession anterieure ou d'une chaine de droits
-- la limite absolue du droit moral
+- le contexte salarié, commande, collaboration, edition ou audiovisuel
+- l'existence d'une cession antérieure ou d'une chaîne de droits
+- la limité absolue du droit moral
 
-Si l'oeuvre elle-meme n'est pas encore qualifiable, router hors du skill.
+Si l'œuvre elle-même n'est pas encore qualifiable, router hors du skill.
 
-## Axe 2 - Chosen Transfer Track
+## Axe 2 - Branche de transfert choisie
 
-Le skill choisit clairement un seul track principal parmi :
+Le skill choisit clairement une seule branche principale parmi :
 
 - cession totale
 - cession partielle
-- exclusivite
-- non-exclusivite
+- exclusivité
+- non-exclusivité
 
-Le track retenu doit etre justifie par la structure de l'exploitation, la
-position du cessionnaire, la posture de la chaine de titre, et le niveau de
+La branche retenue doit être justifie par la structure de l'exploitation, la
+position du cessionnaire, la posture de la chaîne de titre, et le niveau de
 risque residuel.
 
-## Axe 3 - Rights Scope And Exploitation Structure
+## Axe 3 - Périmètre des droits et structure d’exploitation
 
 Le skill doit toujours rendre lisibles :
 
 - les droits cedes
 - les domaines d'exploitation
 - le territoire
-- la duree
-- les supports et usages vises
+- la durée
+- les supports et usages visés
 - les usages exclus
 
-Si le perimetre est trop large sans base solide, le score de readiness baisse
+Si le périmètre est trop large sans base solide, le score de préparation baisse
 et le dossier peut basculer en `partial` ou `blocked`.
 
 ## Axe 4 - Economic Structure
@@ -176,48 +176,48 @@ Le skill doit rendre visible :
 
 Ne pas masquer un forfait non justifie sous une formule prudente.
 
-## Axe 5 - Title-Chain Cleanup Or Blocking Points
+## Axe 5 - Nettoyage de chaîne de titres ou points bloquants
 
 Quand `title_chain_status` n'est pas `clear`, la sortie doit identifier :
 
 - le point de rupture
 - la personne manquante
 - le document manquant
-- la regularisation requise
+- la régularisation requise
 - la consequence sur la route finale
 
 La branche de cleanup ne doit jamais simuler un dossier complet alors que la
-chaine de titre reste instable.
+chaîne de titre reste instable.
 
-### Branche bornee `title-chain-cleanup`
+### Branche bornée `title-chain-cleanup`
 
-Cette branche sert uniquement a regulariser ou bloquer. Elle couvre :
+Cette branche sert uniquement à régulariser ou bloquer. Elle couvre :
 
-- coauteurs non securises
+- coauteurs non sécurisés
 - signatures manquantes
 - prestation commandee sans cession valable
-- salarie hors logiciel mal compris
-- personne morale sans base de titularite
-- oeuvre collective revendiquee sans base suffisante
-- cession anterieure non documentee
-- ayants droit non identifies
+- salarié hors logiciel mal compris
+- personne morale sans base de titularité
+- œuvre collective revendiquée sans base suffisante
+- cession antérieure non documentée
+- ayants droit non identifiés
 
-Elle ne devient pas un audit general du portefeuille. Elle ne remplace pas le
+Elle ne devient pas un audit général du portefeuille. Elle ne remplace pas le
 skill `contrats-pi`, ni `qualification-oeuvre`, ni `licence-droit-auteur`.
 
 ## Frontieres obligatoires
 
-### Route to `qualification-oeuvre`
+### Router vers `qualification-oeuvre`
 
-Si la qualification de l'oeuvre, son originalite, ou la titularite initiale
+Si la qualification de l'œuvre, son originalité, ou la titularité initiale
 restent trop incertaines.
 
-### Route to `licence-droit-auteur`
+### Router vers `licence-droit-auteur`
 
 Si la demande releve en realite d'une autorisation d'exploitation et non d'un
-transfert de titularite.
+transfert de titularité.
 
-### Route to `logiciels-pi`
+### Router vers `logiciels-pi`
 
 Si le coeur du sujet est le regime logiciel, notamment :
 
@@ -226,47 +226,47 @@ Si le coeur du sujet est le regime logiciel, notamment :
 - droit d'utilisation logiciel
 - licence logicielle dominante
 
-### Route to `contrats-pi`
+### Router vers `contrats-pi`
 
 Si la cession n'est qu'un volet d'un contrat PI plus large.
 
-## Sortie V2 stabilisee en 9 blocs
+## Sortie V2 stabilisée en 9 blocs
 
 La sortie doit toujours utiliser exactement ces 9 blocs et aucun autre titre
 de bloc de haut niveau :
 
-1. `Case Snapshot`
-2. `Assignment Readiness Gate`
+1. `Synthèse du dossier`
+2. `Seuil de préparation de cession`
 3. `Work And Title Preconditions`
-4. `Chosen Transfer Track`
+4. `Branche de transfert choisie`
 5. `Rights Scope And Exploitation Structure`
 6. `Economic Structure`
 7. `Title-Chain Cleanup Or Blocking Points`
-8. `Decision Routing`
-9. `Human Validation`
+8. `Routage de décision`
+9. `Validation humaine`
 
 ### Attendus par bloc
 
-- `Case Snapshot` : resume ferme des faits, du contexte, du track pressenti et
+- `Synthèse du dossier` : résumé fermé des faits, du contexte, de la branche pressentie et
   du niveau de certitude
-- `Assignment Readiness Gate` : statut `ready`, `partial` ou `blocked`,
+- `Seuil de préparation de cession` : statut `ready`, `partial` ou `blocked`,
   justifie de maniere concise
-- `Work And Title Preconditions` : qualification, titularite, auteurs, chaine
+- `Work And Title Preconditions` : qualification, titularité, auteurs, chaîne
   de droits, contexte
-- `Chosen Transfer Track` : track retenu et raison
+- `Branche de transfert choisie` : branche retenue et raison
 - `Rights Scope And Exploitation Structure` : droits, domaines, territoire,
-  duree, usages, exclusions
-- `Economic Structure` : logique remuneration, proportionnel ou forfait
+  durée, usages, exclusions
+- `Economic Structure` : logique rémunération, proportionnel ou forfait
   justifie, risques
-- `Title-Chain Cleanup Or Blocking Points` : rupture, manque, regularisation ou
+- `Title-Chain Cleanup Or Blocking Points` : rupture, manque, régularisation ou
   blocage
-- `Decision Routing` : une seule issue fermee
-- `Human Validation` : validation humaine requise avant toute suite
+- `Routage de décision` : une seule issue fermée
+- `Validation humaine` : validation humaine requise avant toute suite
 
-Les brouillons `partial` conservent partout ou necessaire les marqueurs
-`[PROVISOIRE]`, `[a verifier]` et `[A COMPLETER]`.
+Les brouillons `partial` conservent partout ou nécessaire les marqueurs
+`[PROVISOIRE]`, `[à vérifier]` et `[À COMPLÉTER]`.
 
-## Decision Routing ferme
+## Routage de décision fermé
 
 Le skill doit terminer par une seule route principale parmi :
 
@@ -287,11 +287,11 @@ Le skill doit terminer par une seule route principale parmi :
   clair
 - `prepare-partial-assignment-draft` : cession ciblee avec zones reservees ou
   facts incomplets mais exploitables
-- `prepare-exclusive-assignment-draft` : transfert exclusif securise
-- `prepare-non-exclusive-assignment-draft` : transfert non exclusif securise
+- `prepare-exclusive-assignment-draft` : transfert exclusif sécurisé
+- `prepare-non-exclusive-assignment-draft` : transfert non exclusif sécurisé
 - `route-to-work-qualification` : qualification amont encore insuffisante
-- `route-to-license-instead` : exploitation a autoriser, pas a transferer
-- `route-to-title-chain-cleanup` : regularisation de titre avant cession
+- `route-to-license-instead` : exploitation à autoriser, pas à transférer
+- `route-to-title-chain-cleanup` : régularisation de titre avant cession
 - `route-to-software-regime-review` : regime logiciel dominant
 - `route-to-broader-pi-contract` : cession incluse dans un contrat PI plus large
 - `hold-insufficient-basis` : base insuffisante ou blocage non resolu
@@ -300,11 +300,11 @@ Ne pas inventer de semantique de routage supplementaire.
 
 ## Ton et validation humaine
 
-Le ton doit rester juridique, precis et ferme. Le skill doit :
+Le ton doit rester juridique, précis et fermé. Le skill doit :
 
 - rappeler que le droit moral ne se cede pas
 - garder les garde-fous `L.131-3`, `L.131-4`, `L.131-1`
-- distinguer faits, droit, analyse, risques, decision et validation humaine
-- assumer un brouillon structure, jamais un contrat final valide
+- distinguer faits, droit, analyse, risques, décision et validation humaine
+- assumer un brouillon structuré, jamais un contrat final valide
 
-La validation humaine est obligatoire a la fin de chaque sortie.
+La validation humaine est obligatoire à la fin de chaque sortie.

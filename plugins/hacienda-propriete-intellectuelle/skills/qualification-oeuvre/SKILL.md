@@ -2,18 +2,18 @@
 name: qualification-oeuvre
 description: >
   Qualification juridique d'une création au regard du droit d'auteur français
-  (CPI Livre I) structuree en V2 : originalite, categorie, titularite
-  initiale, consequences de droits et de duree, puis routage vers la brique
-  specialisee suivante. Point d'entree du bloc droit d'auteur. Ne redige PAS
-  de contrat de cession ou de licence, ne traite PAS la chaine de droits
-  logiciel/data en revue globale, et ne qualifie PAS la contrefacon.
+  (CPI Livre I) structurée en V2 : originalité, catégorie, titularité
+  initiale, conséquences de droits et de durée, puis routage vers la brique
+  spécialisée suivante. Point d'entrée du bloc droit d'auteur. Ne rédige PAS
+  de contrat de cession ou de licence, ne traite PAS la chaîne de droits
+  logiciel/data en revue globale, et ne qualifie PAS la contrefaçon.
 argument-hint: "[description œuvre | nature | contexte création | objectif préventif/défensif/contentieux]"
 version: "2.0.0"
 authors: ["Hacienda"]
 tags: [droit-auteur, qualification, originalite, titularite, preuve, CPI]
 ---
 
-# Qualification oeuvre V2
+# Qualification œuvre V2
 
 > **Qualification juridique ≠ avis d'opportunité.** Ce skill produit une
 > **analyse de qualification** pour aider l'avocat spécialisé en propriété
@@ -35,11 +35,11 @@ tags: [droit-auteur, qualification, originalite, titularite, preuve, CPI]
 > sert seulement à qualifier l'**originalité** et le **régime juridique**
 > de chaque composant pertinent.
 
-> **Aide-memo V2.**
-> `references/qualification-oeuvre-routing-and-output.md` resume le routage et
-> les blocs de sortie. En cas d'ecart, seul ce `SKILL.md` fait foi.
+> **Aide-mémo V2.**
+> `references/qualification-oeuvre-routing-and-output.md` résume le routage et
+> les blocs de sortie. En cas d'écart, seul ce `SKILL.md` fait foi.
 
-## Examples
+## Exemples
 
 ```
 /hacienda-propriete-intellectuelle:qualification-oeuvre "Roman littéraire 320 pages — auteur personne physique seule — édition envisagée chez éditeur tiers — objectif préventif"
@@ -89,8 +89,8 @@ Rester sur la porte à 2 sens.
 ## Charger le profil pratique avant de commencer
 
 Avant tout, lire :
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Récupérer :
 - **Rôle** depuis `## 1. Profil cabinet et profil de pratique PI` (avocat
@@ -101,7 +101,7 @@ Récupérer :
   mandataire INPI marques ou OEB brevets. Le rôle pertinent est donc **avocat
   spécialisé en propriété littéraire et artistique** (ou à défaut PI générale).
 - **Secteurs des clients dominants** (édition / audiovisuel / logiciel / design
-  / mode / publicité / multimedia / transversal — calibre les exemples et la
+  / mode / publicité / multimédia / transversal — calibre les exemples et la
   vigilance sur les régimes spéciaux : L.113-9 logiciels, L.113-7 audiovisuel,
   L.132-36 journalistes, L.341-1 bases de données).
 - **Posture conseil par défaut** (préventif vs réactif — calibre le ton :
@@ -123,17 +123,17 @@ Si le profil contient `[A CONFIGURER]`, surfacer :
 
 ---
 
-## Contrat d'entree V2
+## Contrat d'entrée V2
 
 Avant les 5 questions, expliciter ces 3 dimensions :
 
-- `objective_mode`: `preventive`, `defensive`, `litigation-prep`
+- `objective_mode`: `preventive`, `défensive`, `litigation-prep`
 - `work_type`: `text`, `image`, `music`, `audiovisual`, `software`,
   `database`, `design`, `mixed-media`, `other`
 - `creation_context`: `single-author`, `collaboration`, `collective`,
   `composite`, `employee`, `commissioned`, `posthumous`, `unclear`
 
-Champs de faits a exposer ensuite :
+Champs de faits à exposer ensuite :
 
 - `work_description`
 - `creation_facts`
@@ -141,18 +141,18 @@ Champs de faits a exposer ensuite :
 - `suspected_category`
 - `business_trigger`
 
-Tout fait, piece, date ou qualification non controle reste `[a verifier]`.
+Tout fait, pièce, date ou qualification non contrôlé reste `[à vérifier]`.
 
 ---
 
-## Intake V2 — 5 questions en batch unique
+## Cadrage initial V2 — 5 questions en batch unique
 
 Avant toute analyse, poser les 5 questions ci-dessous **en une seule fois**.
-Ne pas dérouler le workflow tant que les réponses ne sont pas obtenues — ou
+Ne pas dérouler le flux de travail tant que les réponses ne sont pas obtenues — ou
 explicitement marquées « non applicable » par l'utilisateur.
 
 **1. Description de l'œuvre**
-- **Nature** : texte / image / musique / vidéo / logiciel / design / multimedia
+- **Nature** : texte / image / musique / vidéo / logiciel / design / multimédia
   / autre
 - **Forme tangible** : manuscrit / fichier numérique (préciser format) /
   partition / maquette / code source (préciser langage) / autre
@@ -196,7 +196,7 @@ explicitement marquées « non applicable » par l'utilisateur.
 **4. Catégorie suspectée** (référence non exhaustive L.112-2)
 - Littéraire / artistique (peinture, sculpture, dessin, photographie) /
   musicale / audiovisuelle (cinéma, télévision, vidéo) / logicielle / base de
-  données (structure et/ou contenu) / design (arts appliqués) / dramatique /
+  données (structuré et/ou contenu) / design (arts appliqués) / dramatique /
   chorégraphique / graphique / typographique / multimédia (composition de
   plusieurs catégories) / autre
 - En cas d'œuvre hybride (ex : site web = design + texte + logiciel +
@@ -223,58 +223,58 @@ le déclencheur — qu'est-ce qui t'amène à qualifier cette œuvre maintenant 
 
 ---
 
-## Routing Boundaries V2
+## Limites de routage V2
 
-### Route to `revue-logiciel-donnees`
+### Router vers `revue-logiciel-donnees`
 
 Basculer si le sujet principal devient :
 
-- la titularite sur code, repo, dataset, base, contributions ou fondateurs ;
-- la chaine de droits sur un actif logiciel/data ;
-- la revue des pieces contractuelles permettant d'exploiter, ceder, licencier
+- la titularité sur code, repo, dataset, base, contributions ou fondateurs ;
+- la chaîne de droits sur un actif logiciel/data ;
+- la revue des pièces contractuelles permettant d'exploiter, céder, licencier
   ou lever des fonds.
 
-Dans ce cas, `qualification-oeuvre` reste limite a l'originalite ou au regime
- de certains composants, sans absorber la revue globale de chaine de droits.
+Dans ce cas, `qualification-oeuvre` reste limité à l'originalité ou au régime
+ de certains composants, sans absorber la revue globale de chaîne de droits.
 
-### Route to `depot-preuve-creation`
+### Router vers `depot-preuve-creation`
 
 Basculer si le point bloquant principal est :
 
 - la preuve de date ;
-- la preuve de paternite ;
+- la preuve de paternité ;
 - la timeline ;
-- le registre de pieces ;
+- le registre de pièces ;
 - le bundle probatoire ou les `Proof Gaps`.
 
-### Route to `cession-droit-auteur`
+### Router vers `cession-droit-auteur`
 
 Basculer si la qualification est suffisante et que le besoin devient la
- redaction d'une cession.
+ rédaction d'une cession.
 
-### Route to `licence-droit-auteur`
+### Router vers `licence-droit-auteur`
 
 Basculer si la qualification est suffisante et que le besoin devient la
- redaction d'une licence.
+ rédaction d'une licence.
 
-### Route to `contrefacon-droit-auteur`
+### Router vers `contrefacon-droit-auteur`
 
 Basculer si la question dominante devient contradictoire :
 
-- reprise alleguee ;
+- reprise alléguée ;
 - comparaison des similitudes ;
-- acces a l'oeuvre ;
-- action ou defense en contrefacon.
+- accès à l'œuvre ;
+- action ou défense en contrefaçon.
 
-### Stay in `qualification-oeuvre`
+### Rester dans `qualification-oeuvre`
 
 Rester ici si la question dominante est encore :
 
-- l'originalite ;
-- la categorie d'oeuvre ;
-- la titularite initiale ;
-- la consequence en droits moraux / patrimoniaux / duree ;
-- le bon skill suivant a ouvrir.
+- l'originalité ;
+- la catégorie d'œuvre ;
+- la titularité initiale ;
+- la conséquence en droits moraux / patrimoniaux / durée ;
+- le bon skill suivant à ouvrir.
 
 ---
 
@@ -478,7 +478,7 @@ pour la rédaction.)
 
 **Configuration cumulative — 3 critères** :
 1. L'œuvre est créée à l'**initiative** d'une personne physique ou morale ;
-2. Cette personne **édite, publie et diffuse** l'œuvre **sous sa direction
+2. Cette personne **édite, publié et diffuse** l'œuvre **sous sa direction
    et son nom** ;
 3. Les contributions individuelles **se fondent dans l'ensemble**, sans qu'il
    soit possible d'attribuer à chaque contributeur un droit distinct sur sa
@@ -651,7 +651,7 @@ mortem standard), divisibles (peuvent être cédés droit par droit).
 | **Reproduction** | L.122-3 | Fixation matérielle de l'œuvre permettant sa communication indirecte : impression, gravure, numérisation, photocopie, enregistrement, stockage informatique |
 | **Représentation** | L.122-2 | Communication directe au public : récitation, projection, exécution publique, télédiffusion, mise à disposition en ligne (streaming) |
 | **Adaptation / traduction / transformation** | L.122-4 | Réalisation d'œuvres dérivées : traduction, adaptation cinématographique, arrangement musical, novellisation |
-| **Distribution / location / prêt** | L.122-6 (logiciel) + droit commun | Mise sur le marché de copies physiques de l'œuvre — épuisement européen après première vente licite dans l'EEE (sauf droit de location qui ne s'épuise pas) |
+| **Distribution / location / prêt** | L.122-6 (logiciel) + droit commun | Mise sur le marché de copies physiques de l'œuvre — épuisement européen après première vente licité dans l'EEE (sauf droit de location qui ne s'épuise pas) |
 | **Droit de suite** | L.122-8 | Spécifique aux œuvres graphiques et plastiques originales — participation de l'artiste au produit des reventes successives (3 % à 5 % progressif jusqu'à 12 500 €) |
 
 **Cession** : cf. L.131-3 (formalisme : énumération, étendue, destination,
@@ -711,7 +711,7 @@ Les exceptions sont **d'interprétation stricte** (jurisprudence constante).
 | Prérogative | Article | Définition |
 |---|---|---|
 | **Droit de divulgation** | L.121-2 | L'auteur a seul le droit de décider du **moment** et des **conditions** de la première publication de l'œuvre |
-| **Droit de paternité** | L.121-1 al.1 | Exigence de la mention du **nom** et de la **qualité d'auteur** sur tous les supports et toutes les exploitations (sauf si l'auteur l'a expressément refusée — œuvre anonyme ou pseudonyme) |
+| **Droit de paternité** | L.121-1 al.1 | Exigence de la mention du **nom** et de la **qualité d'auteur** sur tous les supports et toutes les exploitations (sauf si l'auteur l'à expressément refusée — œuvre anonyme ou pseudonyme) |
 | **Droit à l'intégrité (ou « respect de l'œuvre »)** | L.121-1 al.1 | Opposition à toute **modification, altération ou dénaturation** de l'œuvre, même autorisée contractuellement, dès lors qu'elle porte atteinte à son intégrité ou son esprit. Seuil élevé en jurisprudence — adaptations mineures généralement tolérées si prévues au contrat |
 | **Droit de repentir / retrait** | L.121-4 | L'auteur peut faire **cesser l'exploitation** moyennant **indemnisation préalable** du cessionnaire pour le préjudice subi. Si l'auteur reprend ensuite l'exploitation, il doit la proposer en priorité au cessionnaire évincé. Rare en pratique (coût indemnisation dissuasif) |
 
@@ -778,14 +778,14 @@ toujours agir en respect du nom et de l'intégrité de l'œuvre.
 patrimoniaux d'une œuvre, demander la **date de naissance** de l'auteur
 (estimation prudente d'espérance de vie si vivant), calculer la date de
 décès estimée, ajouter 70 ans, et arrondir au 1er janvier suivant. Tag
-`[a verifier]` sur toute date d'expiration calculée à partir d'une estimation
+`[à vérifier]` sur toute date d'expiration calculée à partir d'une estimation
 de durée de vie.
 
 ---
 
 ## Étape 6 — Enjeux identifiés (selon l'objectif de la qualification)
 
-L'objectif (préventif / défensif / contentieux) déclaré à l'intake conditionne
+L'objectif (préventif / défensif / contentieux) déclaré à l'cadrage initial conditionne
 la nature et la formulation des enjeux. Ne pas générer les 3 listes : ne
 produire que celle correspondant à l'objectif déclaré (les autres en sont la
 contrepartie en miroir).
@@ -867,50 +867,50 @@ Le livrable doit suivre ce contrat de sortie stable :
 
 ### 1. `Qualification Snapshot`
 
-- description courte de l'oeuvre ;
+- description courte de l'œuvre ;
 - `objective_mode`, `work_type`, `creation_context` ;
 - triage prudent : `clair`, `mixte`, `fragile` ;
 - phrase courte sur le principal point de force ou de doute.
 
-### 2. `Facts and Evidence Review`
+### 2. `Faits et revue probatoire`
 
-- faits recus ;
-- pieces lues ;
-- pieces annoncees mais non lues ;
-- trous critiques `[a verifier]`.
+- faits reçus ;
+- pièces lues ;
+- pièces annoncées mais non lues ;
+- trous critiques `[à vérifier]`.
 
-### 3. `Originality Analysis`
+### 3. `Analyse de l'originalité`
 
 - test 1 : choix libres vs contraintes ;
 - test 2 : identifiabilite ;
 - test 3 : effort intellectuel creatif ;
-- conclusion motivee, jamais definitive.
+- conclusion motivee, jamais définitive.
 
 ### 4. `Category and Work-Type Map`
 
-- categorie principale ;
-- regimes speciaux ou hybrides ;
-- composants a traiter distinctement si oeuvre mixte.
+- catégorie principale ;
+- régimes speciaux ou hybrides ;
+- composants à traiter distinctement si œuvre mixte.
 
 ### 5. `Initial Ownership Map`
 
-- cas de titularite retenu ;
+- cas de titularité retenu ;
 - titulaire(s) apparent(s) ;
-- risques de chaine de droits ou d'attribution.
+- risques de chaîne de droits ou d'attribution.
 
 ### 6. `Economic Rights, Moral Rights and Term`
 
 - droits patrimoniaux apparents ;
 - droit moral et points de friction ;
-- duree applicable et eventuelle estimation `[a verifier]`.
+- durée applicable et éventuelle estimation `[à vérifier]`.
 
 ### 7. `Objective-Specific Risks`
 
-- risques calibres selon `preventive`, `defensive` ou `litigation-prep` ;
-- ne pas melanger les trois listes ;
+- risques calibres selon `preventive`, `défensive` ou `litigation-prep` ;
+- ne pas mélanger les trois listes ;
 - ne garder que les risques utiles au dossier.
 
-### 8. `Next Step Routing`
+### 8. `Routage de prochaine étape`
 
 Utiliser uniquement une issue principale parmi :
 
@@ -925,24 +925,24 @@ Utiliser uniquement une issue principale parmi :
 Puis expliquer :
 
 - pourquoi cette issue est la bonne ;
-- quel skill ouvrir si necessaire ;
-- quelles pieces ou validations conditionnent la suite.
+- quel skill ouvrir si nécessaire ;
+- quelles pièces ou validations conditionnent la suite.
 
-### 9. `Human Validation`
+### 9. `Validation humaine`
 
-- ce qui est etabli ;
+- ce qui est établi ;
 - ce qui reste hypothetique ;
-- ce qui doit etre verifie ;
+- ce qui doit être vérifie ;
 - quelle validation humaine est requise avant exploitation, cession, licence
   ou action.
 
 Le livrable reste sans bandeau Hacienda et sans narration interne. Il ne doit
- jamais conclure definitivement a l'existence ou a l'inexistence du droit
+ jamais conclure definitivement à l'existence ou à l'inexistence du droit
  d'auteur.
 
 ---
 
-## Gate non-juriste — quand le profil indique « non-juriste »
+## Seuil non-juriste — quand le profil indique « non-juriste »
 
 Quand le profil pratique indique un rôle **non-juriste** (collaborateur opérationnel,
 fondateur, manager produit, créateur indépendant sans formation juridique),
@@ -950,7 +950,7 @@ appliquer le gate suivant **avant** la production du livrable :
 
 > Cette qualification est une **analyse juridique**, pas un avis d'opportunité
 > d'action. Exploiter, céder ou contester une œuvre sans validation par un
-> avocat spécialisé propriété littéraire et artistique a des conséquences
+> avocat spécialisé propriété littéraire et artistique à des conséquences
 > concrètes :
 >
 > - **Cession invalide** (non-respect L.131-3) : le créateur peut s'opposer
@@ -960,7 +960,7 @@ appliquer le gate suivant **avant** la production du livrable :
 >   d'action reconventionnelle pour concurrence déloyale (procédure abusive).
 > - **Violation droit moral non anticipée** : modification jugée dénaturante
 >   = action en cessation + dommages-intérêts, même si la cession des droits
->   patrimoniaux est valide.
+>   patrimoniaux est validé.
 > - **Chaîne de droits cassée sur œuvre composite** : exploitation qualifiée
 >   contrefaçon de l'œuvre préexistante, peu importe l'originalité propre.
 >
@@ -1007,18 +1007,18 @@ préparatoire interne**.
 Le livrable est écrit dans :
 
 ```
-~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/qualification-oeuvre-<slug-oeuvre>-YYYY-MM-DD.md
+~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/qualification-oeuvre-<slug-oeuvre>-YYYY-MM-DD.md
 ```
 
 Le slug est construit à partir de la description courte de l'œuvre, normalisé
 en minuscules sans accents, avec tirets pour les espaces (ex :
 `roman-litteraire-titre-x` pour « Roman littéraire — Titre X »).
 
-Si workspaces de dossier activés (V1.1+, cf. `CLAUDE.md` plugin §11),
+Si workspaces de dossier activés (V1.1+, cf. `CLAUDE.md` extension §11),
 l'emplacement bascule sur :
 
 ```
-~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/qualification-oeuvre-<slug-oeuvre>-YYYY-MM-DD.md
+~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/qualification-oeuvre-<slug-oeuvre>-YYYY-MM-DD.md
 ```
 
 Si le répertoire `outputs/` ou `matters/<slug-dossier>/` n'existe pas, le

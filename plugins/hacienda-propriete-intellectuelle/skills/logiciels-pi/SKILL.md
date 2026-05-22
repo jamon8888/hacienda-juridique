@@ -25,11 +25,11 @@ tags: [logiciel, droit-auteur, L113-9, open-source, saas, licensing]
 > particularité est source d'erreurs récurrentes pour les startups SaaS, agences
 > dev et projets open source.
 
-> **Aide-memo V2.**
-> `references/logiciels-pi-routing-and-output.md` resume le routage et les
-> blocs de sortie. En cas d'ecart, seul ce `SKILL.md` fait foi.
+> **Aide-mémo V2.**
+> `references/logiciels-pi-routing-and-output.md` résume le routage et les
+> blocs de sortie. En cas d'écart, seul ce `SKILL.md` fait foi.
 
-## Examples
+## Exemples
 
 ```
 /hacienda-propriete-intellectuelle:logiciels-pi "Startup SaaS B2B fintech — équipe 4 développeurs salariés + 1 CTO cofondateur ayant codé MVP avant signature contrat — dépendances majeures React (MIT), PostgreSQL (PostgreSQL License), Stripe SDK — pré-levée Series A"
@@ -84,11 +84,11 @@ l'utilisation prévue et les dépendances open source.)
 > projet, dual licensing, due diligence pré-levée).
 >
 > Une analyse erronée porte des conséquences à sens unique : cofondateur qui
-> revendique titularité personnelle d'un MVP codé avant signature contrat,
+> revendique la titularité personnelle d'un MVP codé avant signature contrat,
 > agence dev qui croit avoir transféré la propriété au client sans clause de
 > cession L.131-3 conforme, projet open source qui ne peut plus relicensier
 > faute de CLA, SaaS qui découvre une dépendance AGPL imposant l'ouverture
-> du code source, due diligence pré-Series A qui bloque sur ces points.
+> du code source, due diligence pré-Series A bloquée sur ces points.
 
 C'est le garde-fou le plus visible du skill. Sous-qualifier le régime logiciel
 = porte à sens unique (contrat de travail signé sans clause L.113-9 explicite,
@@ -101,8 +101,8 @@ Rester sur la porte à 2 sens.
 ## Charger le profil pratique avant de commencer
 
 Avant tout, lire :
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Récupérer :
 - **Rôle** depuis `## 1. Profil cabinet et profil de pratique PI` (avocat
@@ -123,12 +123,12 @@ Récupérer :
   cofondateur ou d'un avis de violation GPL).
 - **Matrice d'approbateurs** pour les escalades (avocat spécialisé tech /
   CTO / DPO / GC / Direction selon enjeu — le choix d'une licence open source
-  engage souvent CTO + GC ; un audit SBOM pré-Series A engage Direction).
+  engage souvent CTO + GC ; un audit SBOM pré-Series à engage Direction).
 - **Partenaires juridiques** :
   - **Avocat tech / propriété intellectuelle** pour rédaction contrats et
     contentieux logiciel
   - **Conseil PI** (mandataire INPI marques au titre du CPI L.422-4 si la
-    marque du logiciel est dans le scope ; sinon hors pratique INPI)
+    marque du logiciel est dans le périmètre ; sinon hors pratique INPI)
 
 Ce skill ne conclut JAMAIS « logiciel sécurisé juridiquement » ni « licence
 choisie sans risque » — il identifie les régimes applicables et les zones de
@@ -145,7 +145,7 @@ Si le profil contient `[A CONFIGURER]`, surfacer :
 
 ---
 
-## Contrat d'entree V2
+## Contrat d'entrée V2
 
 Avant les 5 questions, expliciter :
 
@@ -157,7 +157,7 @@ Avant les 5 questions, expliciter :
 - `oss_posture`: `minimal`, `known-dependencies`, `sbom-available`,
   `copyleft-risk`, `unknown`
 
-Champs de faits a exposer ensuite :
+Champs de faits à exposer ensuite :
 
 - `project_scope`
 - `contributors_and_contracts`
@@ -165,14 +165,14 @@ Champs de faits a exposer ensuite :
 - `dependencies_overview`
 - `business_trigger`
 
-Tout manque de piece, contrat, dependance ou licence reste `[a verifier]`.
+Tout manque de pièce, contrat, dépendance ou licence reste `[à vérifier]`.
 
 ---
 
-## Intake V2 — 5 questions en batch unique
+## Cadrage initial V2 — 5 questions en batch unique
 
 Avant toute analyse, poser les 5 questions ci-dessous **en une seule fois**.
-Ne pas dérouler le workflow tant que les réponses ne sont pas obtenues — ou
+Ne pas dérouler le flux de travail tant que les réponses ne sont pas obtenues — ou
 explicitement marquées « non applicable » par l'utilisateur.
 
 **1. Nom du projet / logiciel**
@@ -203,13 +203,13 @@ contrat de stage / convention de stage / CLA / aucun).
 
 **3. Statut du logiciel**
 - **Développement initial** (greenfield — création ex nihilo)
-- **Extension de produit existant** (ajout fonctionnalité, module, plugin
+- **Extension de produit existant** (ajout de fonctionnalité, module, extension
   sur produit propriétaire ou open source maison)
 - **Fork d'un projet open source** (préciser projet source + licence — la
   licence amont impose des contraintes au fork : MIT permet fork
   propriétaire, GPL impose fork GPL, etc.)
 - **Dérivation d'un produit propriétaire** (cas plus rare — licence
-  propriétaire amont autorise-t-elle la dérivation ? généralement non, sauf
+  propriétaire amont autorisé-t-elle la dérivation ? généralement non, sauf
   clause expresse)
 
 **4. Type d'utilisation prévue**
@@ -242,56 +242,56 @@ contrat de stage / convention de stage / CLA / aucun).
   SBOM (Software Bill of Materials) à jour est **incomplète par construction**
   — signaler explicitement et proposer d'attendre le résultat du scan.
 
-Si l'utilisateur ne peut pas répondre à une question, demander : « lance
+Si l'utilisateur ne peut pas répondre à une question, demander : « Lance
 le scan SCA et reviens, ou continue avec les éléments connus en taguant les
 zones non auditées `[dépendance non auditée — à scanner]` ».
 
 ---
 
-## Routing Boundaries V2
+## Limites de routage V2
 
-### Route to `revue-open-source`
+### Router vers `revue-open-source`
 
 Basculer si le besoin principal devient :
 
-- inventaire detaille des dependances ;
+- inventaire détaillé des dépendances ;
 - obligations notice/source ;
 - conflits de licences ;
 - exploitation d'une SBOM ;
-- plan de remediation OSS.
+- plan de remédiation OSS.
 
-### Route to `revue-logiciel-donnees`
+### Router vers `revue-logiciel-donnees`
 
 Basculer si le besoin principal devient :
 
-- chaine de droits sur code, repo, fondateurs, freelancers, datasets ou bases ;
-- verification des contrats de transfert ;
-- exploitabilite data ou base.
+- chaîne de droits sur code, repo, fondateurs, freelancers, datasets ou bases ;
+- vérification des contrats de transfert ;
+- exploitabilité data ou base.
 
-### Route to `cession-droit-auteur`
+### Router vers `cession-droit-auteur`
 
 Basculer si le besoin principal devient la cession des droits patrimoniaux sur
 le logiciel ou ses modules.
 
-### Route to `licence-droit-auteur`
+### Router vers `licence-droit-auteur`
 
-Basculer si le besoin principal devient le choix, l'arbitrage ou la redaction
-d'une licence proprietaire, open source ou dual licensing.
+Basculer si le besoin principal devient le choix, l'arbitrage ou la rédaction
+d'une licence propriétaire, open source ou dual licensing.
 
-### Route to `contrefacon-droit-auteur`
+### Router vers `contrefacon-droit-auteur`
 
 Basculer si la question dominante devient contradictoire :
 
 - reprise de code ;
-- acces ;
+- accès ;
 - similitudes ;
-- action ou defense en contrefacon logicielle.
+- action ou défense en contrefaçon logicielle.
 
-### Stay in `logiciels-pi`
+### Rester dans `logiciels-pi`
 
 Rester ici si la question dominante est encore :
 
-- la titularite initiale L.113-9 ;
+- la titularité initiale L.113-9 ;
 - les droits d'utilisation et exceptions ;
 - le triage OSS de haut niveau ;
 - les signaux SaaS / data ;
@@ -337,7 +337,7 @@ le même régime.
 | Salarié développeur, **hors fonctions habituelles** (ex : développeur web salarié qui code un jeu vidéo sur temps personnel) | ❌ NON | Salarié reste titulaire patrimoniaux personnels ; employeur peut négocier cession écrite L.131-3 a posteriori |
 | **Prestataire externe** (freelance, agence, ESN, consultant indépendant) | ❌ NON | Prestataire titulaire — **cession écrite obligatoire L.131-3** dans le contrat de prestation (énumération droits + domaines + territoires + durée + rémunération) |
 | **Stagiaire / apprenti** sous convention | ⚠️ Ambigu | Généralement L.113-9 par analogie si convention encadre les missions et qu'un lien de subordination existe — sinon cession écrite recommandée par prudence `[review]` |
-| **Contributeur open source bénévole** (community external contributor) | ❌ NON | Contributeur reste titulaire de sa contribution sauf **CLA (Contributor License Agreement) signé** explicite |
+| **Contributeur open source bénévole** (contributeur communautaire externe) | ❌ NON | Contributeur reste titulaire de sa contribution sauf **CLA (Contributor License Agreement) signé** explicite |
 | **Cofondateur** qui développe MVP **avant signature contrat de travail** | ❌ NON | Cofondateur titulaire personnel — **cession écrite rétroactive nécessaire** (avec mentions L.131-3, rémunération même symbolique mais identifiée) |
 | **Agent public** (fonctionnaire) — création par agent dans le cadre de ses missions | Régime spécifique L.131-3-1 | Variable selon mission de service public + identité de l'employeur public ; renvoi régime spécifique CPI L.131-3-1 et suiv. `[review]` |
 
@@ -527,11 +527,11 @@ fait seulement un premier triage pour savoir s'il faut escalader.
 | Signal | Lecture dans `logiciels-pi` | Action |
 |---|---|---|
 | Licences permissives (MIT, BSD, Apache-2.0, ISC) | a priori peu conflictuelles au stade triage | conserver le sujet pour `revue-open-source` si inventaire détaillé requis |
-| LGPL / MPL / EPL | dépend du mode d'integration et des faits | escalader si liaison, modifications ou redistribution mal documentées |
+| LGPL / MPL / EPL | dépend du mode d'intégration et des faits | escalader si liaison, modifications ou redistribution mal documentées |
 | GPL | forte incompatibilité présumée avec un modèle propriétaire ou mixte | escalader vers `revue-open-source` et validation humaine |
 | AGPL | forte incompatibilité présumée, surtout en contexte SaaS | escalader sans conclure sans faits précis |
-| Source-available / SSPL / BSL / Elastic License / Commons Clause | red flag contractuel ou business fréquent | revue dédiée obligatoire |
-| SBOM absent | triage incomplet par construction | recommander SBOM ou scan SCA avant conclusion ferme |
+| source disponible / SSPL / BSL / Elastic License / Commons Clause | alerte rouge contractuelle ou business fréquent | revue dédiée obligatoire |
+| SBOM absent | triage incomplet par construction | recommander SBOM ou scan SCA avant conclusion fermée |
 
 ### Règle de sortie
 
@@ -660,51 +660,51 @@ Ici, ne produire qu'un résumé de triage :
 
 Le livrable doit suivre ce contrat de sortie stable :
 
-### 1. `Software Regime Snapshot`
+### 1. `Synthèse du régime logiciel`
 
 - nom du projet ;
 - `development_model`, `distribution_model`, `oss_posture` ;
 - triage prudent : `clair`, `mixte`, `fragile` ;
 - phrase courte sur le point dominant.
 
-### 2. `Facts and Contract Review`
+### 2. `Faits et revue contractuelle`
 
-- faits recus ;
-- pieces lues ;
+- faits reçus ;
+- pièces lues ;
 - contrats ou licences absents ;
-- points `[a verifier]`.
+- points `[à vérifier]`.
 
-### 3. `Initial Ownership Map`
+### 3. `Cartographie de la titularité initiale`
 
 - qui code quoi ;
-- regime apparent par bloc ;
+- régime apparent par bloc ;
 - points L.113-9 clairs ou fragiles ;
 - trous de transfert.
 
-### 4. `Use Rights and Statutory Exceptions`
+### 4. `Droits d'utilisation et exceptions légales`
 
 - droits d'utilisation apparents ;
 - exceptions `L.122-6-1` pertinentes ;
-- limites a ne pas franchir.
+- limites à ne pas franchir.
 
-### 5. `OSS Triage Gate`
+### 5. `Seuil de tri OSS`
 
-- dependances connues ou inconnues ;
+- dépendances connues ou inconnues ;
 - red flags de haut niveau ;
 - seuil de bascule vers `revue-open-source`.
 
-### 6. `SaaS, Data and Database Signals`
+### 6. `Signaux SaaS, données et bases`
 
 - signaux AGPL / serveur / API ;
-- presence de datasets ou bases ;
+- présence de datasets ou bases ;
 - seuil de bascule vers `revue-logiciel-donnees` ou `bases-de-donnees`.
 
-### 7. `Business-Model Risks`
+### 7. `Risques de modèle économique`
 
-- risques calibres selon startup, agence, open source, SaaS ou mixte ;
+- risques calibrés selon startup, agence, open source, SaaS ou mixte ;
 - ne garder que les risques concrets du dossier.
 
-### 8. `Next Step Routing`
+### 8. `Routage de prochaine étape`
 
 Utiliser uniquement une issue principale parmi :
 
@@ -721,20 +721,20 @@ Puis expliquer :
 
 - pourquoi cette issue est la bonne ;
 - quel skill ouvrir ;
-- quelles pieces conditionnent la suite.
+- quelles pièces conditionnent la suite.
 
-### 9. `Human Validation`
+### 9. `Validation humaine`
 
-- ce qui est etabli ;
-- ce qui reste hypothetique ;
-- ce qui doit etre verifie ;
+- ce qui est établi ;
+- ce qui reste hypothétique ;
+- ce qui doit être vérifié ;
 - quelle validation humaine est requise avant signature, publication,
   distribution, due diligence ou action.
 
 Le livrable reste sans bandeau Hacienda et sans narration interne.
 
 ---
-## Gate non-juriste — quand le profil indique « non-juriste »
+## Seuil non-juriste — quand le profil indique « non-juriste »
 
 Quand le profil pratique indique un rôle **non-juriste** (CTO sans formation
 juridique, fondateur, manager produit, développeur lead, responsable open
@@ -749,7 +749,7 @@ source), appliquer le gate suivant **avant** la production du livrable :
 >   ou la cession rétroactive cofondateur) : le titulaire d'origine peut
 >   s'opposer à l'utilisation ultérieure, demander cessation, et obtenir
 >   indemnisation rétroactive.
-> - **Cofondateur qui revendique titularité personnelle** d'un MVP codé
+> - **Cofondateur qui revendique la titularité personnelle** d'un MVP codé
 >   avant signature contrat de travail : blocage de levée, renégociation
 >   valorisation, voire procédure prud'homale en parallèle.
 > - **Licence open source mal qualifiée** : blocage possible du business model
@@ -760,7 +760,7 @@ source), appliquer le gate suivant **avant** la production du livrable :
 >   contentieux gflwc (Free vs Welte, Edu4 vs AFPA).
 > - **CLA absent sur projet open source** : impossibilité de relicensing
 >   futur, blocage commercialisation.
-> - **Due diligence pré-levée Series A** qui bloque sur la chaîne de
+> - **Due diligence pré-levée Series A** bloquée sur la chaîne de
 >   titularité ou l'analyse SBOM des licences open source.
 >
 > **Voici un brief à apporter à l'avocat spécialisé tech / propriété
@@ -777,7 +777,7 @@ source), appliquer le gate suivant **avant** la production du livrable :
 >    Apache 2.0 / GPL / AGPL / LGPL / MPL / dual licensing) + justification
 >    du choix
 > 5. **Dépendances open source** : SBOM (si fourni) ou liste des
->    principales avec licences ; red flags ou points a escalader identifies
+>    principales avec licences ; red flags ou points à escalader identifiés
 > 6. **Risques identifiés** : verdict prima facie 🟢/🟡/🔴 + zones à
 >    sécuriser
 > 7. **3 questions critiques** à poser à l'avocat :
@@ -819,18 +819,18 @@ un tiers (contrepartie, client, investisseur, plateforme) — c'est un
 Le livrable est écrit dans :
 
 ```
-~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/logiciels-pi-<projet-slug>-YYYY-MM-DD.md
+~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/logiciels-pi-<projet-slug>-YYYY-MM-DD.md
 ```
 
 Le slug est construit à partir du nom du projet, normalisé en minuscules
 sans accents, avec tirets pour les espaces (ex : `startup-saas-fintech-mvp`
 pour « Startup SaaS fintech — MVP »).
 
-Si workspaces de dossier activés (V1.1+, cf. `CLAUDE.md` plugin §11),
+Si workspaces de dossier activés (V1.1+, cf. `CLAUDE.md` extension §11),
 l'emplacement bascule sur :
 
 ```
-~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/logiciels-pi-<projet-slug>-YYYY-MM-DD.md
+~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/logiciels-pi-<projet-slug>-YYYY-MM-DD.md
 ```
 
 Si le répertoire `outputs/` ou `matters/<slug-dossier>/` n'existe pas, le
@@ -852,7 +852,7 @@ créer. Si plusieurs analyses du même jour pour le même projet, suffixer
   outils SCA externes : Snyk, FOSSA, Black Duck Synopsys, GitHub Dependabot,
   OWASP Dependency-Check. L'audit OSS spécialisé associé relève de
   `revue-open-source`, qui exploite un SBOM, une liste de dépendances, un
-  manifest ou une policy interne deja fournis, sans scanner magique du depot.
+  manifest ou une policy interne déjà fournis, sans scanner magique du dépôt.
 - **Évaluer la contrefaçon logicielle** (analyse contradictoire substance
   + similitudes substantielles + caractères différenciants ; spécificités
   procédurales : saisie-contrefaçon adaptée au code source, expertise

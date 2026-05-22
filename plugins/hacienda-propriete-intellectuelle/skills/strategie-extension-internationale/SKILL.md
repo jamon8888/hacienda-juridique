@@ -2,60 +2,60 @@
 name: strategie-extension-internationale
 version: "2.0.0"
 description: >
-  Skill V2 de decision territoriale et de sequencement pour l'extension
+  Skill V2 de décision territoriale et de sequencement pour l'extension
   d'un brevet FR initial vers FR seul, EP, PCT ou une route sequentielle.
-  Il ferme le gate de readiness, clarifie marche/budget/priorite, et rend
-  une route fermee sans devenir un orchestrateur de portefeuille.
-argument-hint: "[FR2700123 | marches cibles | budget 12m/10y | posture maintenance]"
+  Il ferme le seuil de préparation, clarifie marché/budget/priorité, et rend
+  une route fermée sans devenir un orchestrateur de portefeuille.
+argument-hint: "[FR2700123 | marchés cibles | budget 12m/10y | posture maintenance]"
 ---
 
-# /strategie-extension-internationale
+# /stratégie-extension-internationale
 
-> **Décision territoriale et séquencement, pas démarche officielle.**
-> `strategie-extension-internationale` aide a arbitrer FR seul, EP, PCT ou
-> une route sequentielle a partir d'un brevet FR initial. Il ne depose pas
+> **Décision territoriale et séquencement, pas démarché officielle.**
+> `strategie-extension-internationale` aide à arbitrer FR seul, EP, PCT ou
+> une route séquentielle à partir d'un brevet FR initial. Il ne dépose pas
 > les demandes, ne paie pas les taxes, ne traduit pas les revendications et
 > ne devient pas un orchestrateur de portefeuille. La validation formelle
-> reste du ressort d'un mandataire en brevets qualifie EQE ou d'un avocat
-> specialise.
+> reste du ressort d'un mandataire en brevets qualifié EQE ou d'un avocat
+> spécialisé.
 
-Reference de travail utile :
+Référence de travail utile :
 `references/strategie-extension-internationale-routing-and-output.md`
 
 ## Positionnement
 
 `strategie-extension-internationale` est la brique V2 territoriale et de
-sequencement du plugin PI.
+sequencement du extension PI.
 
-Il sert a :
+Il sert à :
 
-1. cadrer le brevet FR initial, la fenetre de priorite et les marches cibles ;
+1. cadrer le brevet FR initial, la fenêtre de priorité et les marchés cibles ;
 2. clarifier les contraintes de budget et de maintenance annuitaire ;
-3. poser un `Extension Readiness Gate` explicite ;
+3. poser un `Seuil de préparation de l'extension` explicite ;
 4. comparer les routes FR / EP / PCT / sequence ;
-5. conclure par une seule route fermee.
+5. conclure par une seule route fermée.
 
 Il ne sert pas a :
 
-- rediger un dossier de depot ;
-- deposer une demande EP ou PCT ;
-- arbitrer la validite d'un brevet adverse ;
-- construire un claim chart de contrefacon ;
+- rédiger un dossier de dépôt ;
+- déposer une demande EP ou PCT ;
+- arbitrer la validité d'un brevet adverse ;
+- construire un tableau de contrefaçon de contrefaçon ;
 - piloter un portefeuille brevets complet.
 
 ## Charger le profil pratique avant de commencer
 
 Avant tout, lire :
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Récupérer :
 
 - **Rôle** depuis `## 1. Profil cabinet et profil de pratique PI` ;
 - **Juridictions et offices d'inscription** (INPI, OEB, OMPI/PCT) ;
 - **Mandataire en brevets associé** depuis `## Brevets` ;
-- **Posture extension** ;
+- **Posture d'extension** ;
 - **Budget annuel R&D / PI cabinet** ou budget famille brevet ;
 - **Marchés stratégiques principaux** ;
 - **Partenaire annuités** depuis `## Brevets`.
@@ -64,8 +64,8 @@ Si le profil contient `[A CONFIGURER]`, ou si un point critique manque :
 
 - appliquer des défauts conservateurs ;
 - taguer les hypothèses sensibles `[PROVISOIRE]` ;
-- taguer chaque point non vérifié `[a verifier]` ;
-- ne pas surpromettre la clarté de marche, de budget ou de priorite.
+- taguer chaque point non vérifié `[à vérifier]` ;
+- ne pas surpromettre la clarté de marché, de budget ou de priorité.
 
 Défauts conservateurs :
 
@@ -80,12 +80,12 @@ Usage du rôle dans ce skill :
 - si le rôle est `non-juriste`, ou si aucun mandataire brevets identifiable
   n'est rattaché au dossier, la sortie doit rester préparatoire ;
 - dans ce cas, la recommandation territoriale reste possible mais ne vaut
-  jamais go de dépôt et doit déboucher sur une escalation explicite vers
+  jamais feu vert de dépôt et doit déboucher sur une escalade explicite vers
   mandataire EQE / avocat PI ;
-- le rôle doit donc influencer le `Human Validation` final et, si besoin, le
-  niveau de prudence du gate.
+- le rôle doit donc influencer le `Validation humaine` final et, si besoin, le
+  niveau de prudence du seuil.
 
-## Intake V2
+## Cadrage initial V2
 
 Le skill doit expliciter ou dériver, sans ping-pong question par question :
 
@@ -113,7 +113,7 @@ Le skill doit expliciter ou dériver, sans ping-pong question par question :
 - `maintenance_posture` :
   - `systematic`
   - `selective`
-  - `defensive`
+  - `défensive`
   - `unknown`
 - `filing_baseline_status` :
   - `confirmed-fr-base`
@@ -122,11 +122,11 @@ Le skill doit expliciter ou dériver, sans ping-pong question par question :
 
 Interpretation attendue de `priority_window_status` :
 
-- `open-safe` : la fenetre de priorite reste exploitable sans tension
-  immediate sur le calendrier de brief et de validation mandataire ;
-- `open-tight` : la fenetre reste juridiquement ouverte mais le calendrier est
-  deja tendu et doit pousser par defaut vers `hold-priority-risk` ;
-- `expired` : la priorite est depassee ou perdue ;
+- `open-safe` : la fenêtre de priorité reste exploitable sans tension
+  immédiate sur le calendrier de brief et de validation mandataire ;
+- `open-tight` : la fenêtre reste juridiquement ouverte mais le calendrier est
+  déjà tendu et doit pousser par défaut vers `hold-priority-risk` ;
+- `expired` : la priorité est depassee ou perdue ;
 - `unknown` : la date utile n'est pas assez fiable pour arbitrer.
 
 Bloc de faits minimum :
@@ -142,21 +142,21 @@ Bloc de faits minimum :
 - `known_launch_or_disclosure_constraints`
 - `profile_practice_context`
 
-Obtention attendue des faits d'entree :
+Obtention attendue des faits d'entrée :
 
 - si `fr_initial_reference` est exploitable, utiliser `inpi_brevet_details`
-  pour recuperer au minimum la date de depot FR, la date de priorite si elle
-  existe, le statut et les elements de base du titre ;
+  pour recuperer au minimum la date de dépôt FR, la date de priorité si elle
+  existe, le statut et les éléments de base du titre ;
 - si l'outil ne repond pas ou si un champ critique manque, demander a
-  l'utilisateur la date de depot FR, le statut, les marches cibles, la
+  l'utilisateur la date de dépôt FR, le statut, les marchés cibles, la
   posture budget et la posture maintenance, puis taguer chaque valeur
   `[utilisateur fourni]` ;
 - si `fr_initial_filing_date` ou `priority_deadline_date` restent inferes sans
-  verification, les marquer `[a verifier]` avant toute recommandation.
+  vérification, les marquer `[à vérifier]` avant toute recommandation.
 
-## Extension Readiness Gate
+## Seuil de préparation de l'extension
 
-Le skill doit introduire un `Extension Readiness Gate` au debut du
+Le skill doit introduire un `Seuil de préparation de l'extension` au debut du
 raisonnement.
 
 Statuts :
@@ -169,42 +169,42 @@ Statuts :
 
 Utiliser `ready` si :
 
-- la date de depot / priorite est connue ;
+- la date de dépôt / priorité est connue ;
 - la base FR est suffisamment claire ;
-- les marches cibles sont exploitables ;
-- le budget est connu ou assez borne pour orienter la recommandation.
+- les marchés cibles sont exploitables ;
+- le budget est connu ou assez borné pour orienter la recommandation.
 
 ### Partial
 
 Utiliser `partial` si :
 
-- un ou deux elements sont incomplets ;
+- un ou deux éléments sont incomplets ;
 - une recommandation provisoire reste possible ;
-- l'analyse doit signaler explicitement les hypotheses `[a verifier]`.
+- l'analyse doit signaler explicitement les hypothèses `[à vérifier]`.
 
 ### Blocked
 
 Utiliser `blocked` si :
 
-- la fenetre de priorite est inconnue ou inexploitable ;
+- la fenêtre de priorité est inconnue ou inexploitable ;
 - la base FR est trop incertaine ;
-- les marches cibles sont trop flous ;
+- les marchés cibles sont trop flous ;
 - le budget est absent alors qu'il conditionne directement le choix de route.
 
 En `blocked`, le skill ne doit pas sur-conclure. Il doit router vers une
-clarification ou une escalation mandataire.
+clarification ou une escalade mandataire.
 
-Regles de routage prioritaires :
+Règles de routage prioritaires :
 
 - si `priority_window_status = open-tight`, prioriser `hold-priority-risk`
-  sauf si l'analyse se borne a une escalation immediate vers le mandataire ;
+  sauf si l'analyse se borné à une escalade immédiate vers le mandataire ;
 - si `priority_window_status = expired`, router vers `hold-priority-risk`
-  et interdire une recommandation positive EP ou PCT non qualifiee ;
+  et interdire une recommandation positive EP ou PCT non qualifiée ;
 - si `filing_baseline_status = unclear-fr-base`, ne pas emettre de route
-  longue sans mention explicite `[PROVISOIRE]` et `[a verifier]`.
+  longue sans mention explicite `[PROVISOIRE]` et `[à vérifier]`.
 - si le rôle est `non-juriste`, ou si le mandataire brevets n'est pas
   clairement identifié, la sortie ne peut pas valoir go autonome et doit
-  imposer une escalation explicite dans `Human Validation`.
+  imposer une escalade explicite dans `Validation humaine`.
 
 ## Territorial and sequencing routes
 
@@ -219,53 +219,53 @@ Le skill compare seulement des routes territoriales ou sequentielles :
 - `prepare-sequenced-route`
   - route FR puis EP, ou FR puis PCT, quand le gel temporel est utile.
 - `hold-for-market-clarification`
-  - clarification marche avant arbitrage territorial.
+  - clarification marché avant arbitrage territorial.
 - `hold-for-budget-clarification`
   - clarification budget avant arbitrage territorial.
 - `hold-priority-risk`
-  - risque de priorite ou d'echeance trop eleve pour arbitrer sereinement.
+  - risque de priorité ou d'échéance trop eleve pour arbitrer sereinement.
 
-## Output contract
+## Contrat de sortie
 
-La sortie V2 doit etre stabilisee en 9 blocs.
+La sortie V2 doit être stabilisée en 9 blocs.
 
 Chaque livrable genere doit :
 
-- reafficher en tete qu'il s'agit d'une **decision territoriale et de
-  sequencement, pas d'une demarche officielle** ;
+- réafficher en tête qu'il s'agit d'une **décision territoriale et de
+  sequencement, pas d'une démarche officielle** ;
 - expliciter la provenance des faits critiques
-  (`INPI Data`, `utilisateur fourni`, `profil pratique`, ou `[a verifier]`) ;
-- conserver visibles les incertitudes `[PROVISOIRE]` et `[a verifier]`.
+  (`INPI Data`, `utilisateur fourni`, `profil pratique`, ou `[à vérifier]`) ;
+- conserver visibles les incertitudes `[PROVISOIRE]` et `[à vérifier]`.
 - distinguer explicitement :
   - faits ;
   - droit ;
   - analyse ;
   - incertitudes ;
-  - decisions ;
+  - décisions ;
   - validation humaine.
-- integrer, dans `Human Validation`, l'escalade mandataire si le rôle est
+- integrer, dans `Validation humaine`, l'escalade mandataire si le rôle est
   `non-juriste` ou si le support EQE / avocat PI n'est pas clairement
   identifié.
 
-### Bloc 1 - `Case Snapshot`
+### Bloc 1 - `Synthèse du dossier`
 
-- reference FR ;
-- date de depot / priorite ;
+- référence FR ;
+- date de dépôt / priorité ;
 - statut de base ;
-- marche vise ;
+- marché visé ;
 - posture budget ;
 - posture maintenance.
 
 ### Bloc 2 - `Priority Window and Baseline`
 
-- fenetre de priorite ;
+- fenêtre de priorité ;
 - niveau d'urgence ;
-- qualite de la base FR ;
-- consequences d'un depassement ou d'une incertitude.
+- qualité de la base FR ;
+- conséquences d'un depassement ou d'une incertitude.
 
 ### Bloc 3 - `Target Market Posture`
 
-- zones visees ;
+- zones visées ;
 - intensite de besoin de couverture ;
 - horizon commercial ;
 - incoherences eventuelles entre ambition geographique et budget.
@@ -281,39 +281,39 @@ avec, pour chaque voie :
 - pertinence dans le cas ;
 - flexibilite ;
 - complexite ;
-- exposition cout / annuites ;
+- exposition coût / annuités ;
 - contrainte de calendrier.
 
 ### Bloc 5 - `Cost and Maintenance Pressure`
 
-- cout initial relatif ;
-- cout de maintien relatif ;
-- pression d'annuites ;
+- coût initial relatif ;
+- coût de maintien relatif ;
+- pression d'annuités ;
 - soutenabilite de la voie au regard de la posture maintenance.
 
-Ce bloc reste un facteur de decision, pas une sortie portefeuille complete.
+Ce bloc reste un facteur de décision, pas une sortie portefeuille complète.
 
 ### Bloc 6 - `Primary Recommendation`
 
 - voie principale ;
 - justification factuelle courte ;
-- cohérence avec la fenetre, le marche et le budget.
+- cohérence avec la fenêtre, le marché et le budget.
 
 ### Bloc 7 - `Fallback Paths`
 
-- alternatives bornees si le budget se resserre ;
-- alternatives bornees si la priorite se tend ;
-- alternatives bornees si les marches changent ;
-- alternatives bornees si la base FR doit etre consolidee.
+- alternatives bornées si le budget se resserre ;
+- alternatives bornées si la priorité se tend ;
+- alternatives bornées si les marchés changent ;
+- alternatives bornées si la base FR doit être consolidée.
 
-### Bloc 8 - `Decision Routing`
+### Bloc 8 - `Routage de décision`
 
 - une seule route finale ;
 - justification resserree ;
-- 2 a 4 actions concretes ;
+- 2 à 4 actions concrètes ;
 - aucune route concurrente ouverte.
 
-Le routing doit etre ferme sur :
+Le routing doit être fermé sur :
 - `stay-fr-only`
 - `prepare-ep-route`
 - `prepare-pct-route`
@@ -324,16 +324,16 @@ Le routing doit etre ferme sur :
 
 Le skill ne doit pas emettre d'autres issues implicites.
 
-### Bloc 9 - `Human Validation`
+### Bloc 9 - `Validation humaine`
 
-- points a faire valider par le mandataire ;
-- chiffres `[a verifier]` ;
-- decisions non automatisables ;
+- points à faire valider par le mandataire ;
+- chiffres `[à vérifier]` ;
+- décisions non automatisables ;
 - limites de la recommandation.
 - si le rôle est `non-juriste`, inclure explicitement le brief d'escalade
   vers mandataire EQE / avocat PI avant toute suite operative.
 
-## Closed Decision Routing values
+## Closed Routage de décision values
 
 Le skill doit conclure avec une seule valeur :
 
@@ -345,30 +345,30 @@ Le skill doit conclure avec une seule valeur :
 - `hold-for-budget-clarification`
 - `hold-priority-risk`
 
-## Routing boundaries
+## Limites de routage
 
 Rerouter si le besoin principal devient :
 
 - `recherche-anteriorite-brevet`
   - besoin principal = premier passage prior art.
 - `preparation-depot-brevet`
-  - besoin principal = brief de depot ou preparation redactionnelle.
+  - besoin principal = brief de dépôt ou préparation redactionnelle.
 - `anteriorite-invalidite`
-  - besoin principal = validite d'un brevet adverse.
+  - besoin principal = validité d'un brevet adverse.
 - `tableau-contrefacon-brevet`
   - besoin principal = comparaison revendications / produit.
 - `analyse-refus-inpi`
-  - besoin principal = reponse a notification de prosecution.
+  - besoin principal = réponse à notification de prosecution.
 - `revue-portefeuille-brevets`
   - besoin principal = consolidation, suivi ou pilotage d'un portefeuille
     de brevets.
 
-## Output location
+## Emplacement de sortie
 
 Ecrire le document Markdown produit dans :
 
 ```text
-~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/extension-<brevet>-YYYY-MM-DD.md
+~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/extension-<brevet>-YYYY-MM-DD.md
 ```
 
 où `<brevet>` est le numéro normalisé et `YYYY-MM-DD` la date du jour.
@@ -378,20 +378,20 @@ précédente.
 
 ## Ce que ce skill NE fait PAS
 
-- deposer EP ou PCT ;
+- déposer EP ou PCT ;
 - payer les taxes officielles ;
 - traduire les revendications ;
-- choisir a la place du mandataire la strategie juridique formelle ;
+- choisir à la place du mandataire la stratégie juridique formelle ;
 - gerer un portefeuille brevet complet ;
-- construire une analyse d'invalidite ;
-- construire un claim chart ;
+- construire une analyse d'invalidité ;
+- construire un tableau de contrefaçon ;
 - remplacer la validation humaine.
 
 ## Ton
 
-- **Strategique** : presenter la valeur territoriale autant que le cout.
-- **Factuel** : chiffres indicatifs, toujours borne par `[a verifier]` quand
-  le barème n'a pas ete confirme.
+- **Stratégique** : présenter la valeur territoriale autant que le coût.
+- **Factuel** : chiffres indicatifs, toujours borné par `[à vérifier]` quand
+  le barème n'a pas été confirmé.
 - **Calibré** : un mandataire ou une direction doit arbitrer vite.
 - **Honnête sur l'incertitude** : si le profil ou les chiffres manquent,
   le dire sans masquer le vide.

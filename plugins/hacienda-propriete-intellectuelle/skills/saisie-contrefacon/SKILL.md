@@ -1,9 +1,9 @@
 ---
 name: saisie-contrefacon
 description: >
-  Skill V2 multi-droits de preparation stricte de mesure probatoire, centre
-  sur la requete, le perimetre de saisie, les contraintes d'execution, le
-  secret des affaires et le routage immediat post-saisie. Brouillon soumis a
+  Skill V2 multi-droits de préparation stricte de mesure probatoire, centre
+  sur la requête, le périmètre de saisie, les contraintes d'exécution, le
+  secret des affaires et le routage immédiat post-saisie. Brouillon soumis à
   validation par un avocat.
 argument-hint: "[brevet|marque|D&M|auteur|logiciel|mixte]"
 version: "2.0.0"
@@ -11,43 +11,43 @@ authors: ["Hacienda"]
 tags: [saisie-contrefacon, requete, commissaire-justice, preuve, brevets, marques, dessins-modeles, droit-auteur, logiciel]
 ---
 
-# Skill - Saisie contrefacon V2
+# Skill - Saisie contrefaçon V2
 
 > **Mesure probatoire stricte, pas contentieux global.**
-> `saisie-contrefacon` sert a preparer une requete de saisie-contrefacon, le
-> perimetre des operations, les instructions d'execution, la gestion du secret
-> des affaires et les suites immediates post-saisie. Il ne depose pas la
-> requete, ne remplace pas l'avocat ni le commissaire de justice, et ne pilote
-> pas seul la strategie contentieuse globale.
+> `saisie-contrefacon` sert à préparer une requête de saisie-contrefaçon, le
+> périmètre des opérations, les instructions d'exécution, la gestion du secret
+> des affaires et les suites immédiates post-saisie. Il ne dépose pas la
+> requête, ne remplace pas l'avocat ni le commissaire de justice, et ne pilote
+> pas seul la stratégie contentieuse globale.
 
-Reference de travail utile :
+Référence de travail utile :
 `references/saisie-contrefacon-routing-and-output.md`
 
 ## Positionnement
 
-`saisie-contrefacon` V2 est un skill de **preparation stricte de mesure
+`saisie-contrefacon` V2 est un skill de **préparation stricte de mesure
 probatoire**.
 
-Il sert a :
+Il sert à :
 
 1. qualifier le `rights_track` applicable ;
-2. verifier si une saisie est proceduralement exploitable ;
-3. structurer le projet de requete ;
-4. cadrer le perimetre de saisie ;
-5. preparer les instructions d'execution ;
-6. borner les suites immediates apres execution.
+2. vérifier si une saisie est proceduralement exploitable ;
+3. structurer le projet de requête ;
+4. cadrer le périmètre de saisie ;
+5. préparer les instructions d'exécution ;
+6. borner les suites immédiates après exécution.
 
 Il ne sert pas a :
 
-- deposer la requete ;
+- déposer la requête ;
 - piloter seul le contentieux global ;
-- faire une defense de nullite ;
-- rediger une mise en demeure ;
-- se substituer a l'analyse au fond de la contrefacon.
+- faire une défense de nullité ;
+- rédiger une mise en demeure ;
+- se substituer à l'analyse au fond de la contrefaçon.
 
 ## Ce skill ne fait pas
 
-- Ne depose pas la requete.
+- Ne dépose pas la requête.
 - Ne remplace pas `contentieux-pi`.
 - Ne remplace pas `mise-en-demeure-pi`.
 - Ne remplace pas `tableau-contrefacon-brevet`.
@@ -59,8 +59,8 @@ Il ne sert pas a :
 
 Avant tout, lire :
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Rattacher ensuite :
 
@@ -68,15 +68,15 @@ Rattacher ensuite :
 - le commissaire de justice habituel ;
 - l'expert technique habituel ;
 - le budget indicatif de saisie ;
-- le role utilisateur courant ;
-- les approbateurs proceduraux.
+- le rôle utilisateur courant ;
+- les approbateurs procéduraux.
 
 Si le profil contient `[A CONFIGURER]`, le skill peut fonctionner en mode
-generique, mais chaque sortie doit etre marquee `[PROVISOIRE]`.
+générique, mais chaque sortie doit être marquée `[PROVISOIRE]`.
 
-## Contrat d'entree V2
+## Contrat d'entrée V2
 
-Le skill doit expliciter ou deriver :
+Le skill doit expliciter ou dériver :
 
 - `rights_track`: `patent`, `trademark`, `design`, `copyright`,
   `software`, `mixed`
@@ -103,9 +103,9 @@ Bloc de faits minimum :
 - `urgency_context`
 - `expected_court`
 
-## Seizure Readiness Gate
+## Seuil de préparation de la saisie
 
-Le skill doit evaluer un `Seizure Readiness Gate`.
+Le skill doit évaluer un `Seuil de préparation de la saisie`.
 
 Statuts :
 
@@ -118,60 +118,60 @@ Passer en `ready` si :
 - le titre ou fondement est exploitable ;
 - un commencement de preuve existe ;
 - les lieux ou cibles de saisie sont identifiables ;
-- le perimetre de mesure peut etre formule proprement ;
+- le périmètre de mesure peut être formule proprement ;
 - le calendrier post-saisie est tenable.
 
 Passer en `partial` si :
 
 - la saisie reste envisageable ;
-- mais certains points critiques doivent etre confirms ou tags
-  `[a verifier]`.
+- mais certains points critiques doivent être confirms ou tags
+  `[à vérifier]`.
 
 Passer en `blocked` si :
 
 - le titre est trop incertain ;
 - le commencement de preuve est trop faible ;
 - les lieux ou objets ne sont pas localisables ;
-- la mesure serait disproportionnee ou proceduralement mal fondee.
+- la mesure serait disproportionnee ou proceduralement mal fondée.
 
-En `blocked`, produire un constat de blocage et une suite de preparation, pas
-une pseudo-requete.
+En `blocked`, produire un constat de blocage et une suite de préparation, pas
+une pseudo-requête.
 
-## Rights Track Notes
+## Notes par branche de droits
 
 ### `patent`
 
-- base legale principale : `L.615-5 CPI`
-- expert technique frequemment necessaire ;
-- saisie reelle souvent pertinente ;
-- attention a la technicite du perimetre et aux variantes.
+- base légale principale : `L.615-5 CPI`
+- expert technique frequemment nécessaire ;
+- saisie réelle souvent pertinente ;
+- attention à la technicite du périmètre et aux variantes.
 
 ### `trademark`
 
-- base legale principale : `L.716-7 CPI`
-- saisie internet frequente ;
+- base légale principale : `L.716-7 CPI`
+- saisie internet fréquente ;
 - achat-test souvent meilleur commencement de preuve ;
 - documenter signes, confusion, emballages et flux commerciaux.
 
 ### `design`
 
-- base legale principale : `L.521-4 CPI`
+- base légale principale : `L.521-4 CPI`
 - la description visuelle est centrale ;
 - bien cadrer l'impression d'ensemble et les angles utiles ;
 - attention au DMCNE si pertinent.
 
 ### `copyright`
 
-- base legale principale : `L.332-1 CPI`
-- pas de titre enregistre obligatoire ;
-- verifier paternite, originalite et date ;
-- la preuve initiale doit etre particulierement soignee.
+- base légale principale : `L.332-1 CPI`
+- pas de titre enregistré obligatoire ;
+- vérifier paternite, originalité et date ;
+- la preuve initiale doit être particulierement soignee.
 
 ### `software`
 
-- base legale principale : `L.332-4 CPI`
+- base légale principale : `L.332-4 CPI`
 - expert informatique requis si copie de code ou environnement technique ;
-- bien separer saisie du code, des logs, des binaires, des depots et des
+- bien séparer saisie du code, des logs, des binaires, des dépôts et des
   documents d'exploitation ;
 - attention accrue au secret des affaires.
 
@@ -179,65 +179,65 @@ une pseudo-requete.
 
 - expliciter les droits cumules ;
 - ne pas fusionner les fondements sans les distinguer ;
-- borner le perimetre de chaque mesure demandee.
+- borner le périmètre de chaque mesure demandee.
 
 ## Sortie V2
 
-La sortie doit etre stabilisee en 9 blocs.
+La sortie doit être stabilisée en 9 blocs.
 
-### 1. `Case Snapshot`
+### 1. `Synthèse du dossier`
 
-- droit invoque ;
+- droit invoqué ;
 - titre ;
 - cible ;
 - actes suspectes ;
 - urgence.
 
-### 2. `Seizure Readiness Gate`
+### 2. `Seuil de préparation de la saisie`
 
 - `ready` / `partial` / `blocked`
 - raison simple ;
 - niveau d'exploitabilite de la mesure.
 
-### 3. `Rights Track And Legal Basis`
+### 3. `Branche de droits et base juridique`
 
-- base legale par droit ;
-- specificite du track ;
+- base légale par droit ;
+- spécificité de la branche ;
 - conditions particulieres.
 
-### 4. `Proposed Seizure Scope`
+### 4. `Périmètre de saisie proposé`
 
 - type de saisie ;
-- locaux / objets / supports vises ;
-- perimetre recommande ;
-- points a exclure.
+- locaux / objets / supports visés ;
+- périmètre recommande ;
+- points à exclure.
 
-### 5. `Evidence And Proportionality`
+### 5. `Preuve et proportionnalité`
 
 - commencement de preuve ;
-- adequation de la mesure ;
+- adéquation de la mesure ;
 - limites de proportionalite ;
 - points faibles.
 
-### 6. `Trade Secret And Execution Constraints`
+### 6. Secret des affaires et contraintes d'exécution
 
 - secret des affaires ;
 - scelles ;
 - expert ;
-- execution pratique ;
+- exécution pratique ;
 - points de friction previsibles.
 
-### 7. `Drafting And Execution Pack`
+### 7. Rédaction et pack d'exécution
 
-- structure de requete ;
+- structure de requête ;
 - instructions commissaire de justice ;
-- pieces a joindre ;
-- personnes a mobiliser ;
-- rappel du delai 20 jours ouvrables / 31 jours civils.
+- pièces à joindre ;
+- personnes à mobiliser ;
+- rappel du délai 20 jours ouvrables / 31 jours civils.
 
-### 8. `Decision Routing`
+### 8. `Routage de décision`
 
-Le skill doit borner ses suites a un jeu ferme :
+Le skill doit borner ses suites à un jeu fermé :
 
 - `prepare-filing-pack`
 - `prepare-execution-pack`
@@ -248,58 +248,58 @@ Le skill doit borner ses suites a un jeu ferme :
 
 Handoffs obligatoires :
 
-- `prepare-filing-pack` : pack pour depot par l'avocat constitue
-- `prepare-execution-pack` : pack operationnel pour commissaire de justice
+- `prepare-filing-pack` : pack pour dépôt par l'avocat constitue
+- `prepare-execution-pack` : pack opérationnel pour commissaire de justice
 - `prepare-post-seizure-assignment` : routage vers `contentieux-pi`
 - `prepare-evidence-hardening` : consolidation du commencement de preuve avant
   nouvelle tentative
 - `route-to-substantive-infringement-review` : routage vers
   `tableau-contrefacon-brevet`, `contrefacon-droit-auteur` ou
   `contrefacon-dessin-modele` selon le `rights_track`
-- `hold-insufficient-basis` : pas de pseudo-requete, blocage explicite
+- `hold-insufficient-basis` : pas de pseudo-requête, blocage explicite
 
-### 9. `Human Validation`
+### 9. `Validation humaine`
 
 - validation avocat obligatoire ;
 - coordination commissaire de justice ;
-- revue des delais post-saisie ;
-- verification humaine finale ;
-- rappel obligatoire : brouillon, pas acte de procedure final.
+- revue des délais post-saisie ;
+- vérification humaine finale ;
+- rappel obligatoire : brouillon, pas acte de procédure final.
 
-## Drafting And Execution Pack
+## Rédaction et pack d'exécution
 
 Le skill doit pouvoir produire un pack de travail contenant au minimum :
 
-- un projet de requete structure ;
+- un projet de requête structuré ;
 - les mesures sollicitees ;
-- les locaux vises ;
-- les pieces jointes attendues ;
-- les instructions d'execution ;
+- les locaux visés ;
+- les pièces jointes attendues ;
+- les instructions d'exécution ;
 - les points de vigilance (secret, proportionnalite, resistance, scelles).
 
 Rappel obligatoire :
 
 - brouillon, pas acte final ;
 - validation avocat obligatoire ;
-- execution par commissaire de justice ;
-- delai critique post-saisie.
+- exécution par commissaire de justice ;
+- délai critique post-saisie.
 
-## Post-Seizure Constraints
+## Contraintes post-saisie
 
 Le skill doit rappeler :
 
 - assignation au fond dans les `20 jours ouvrables` ou `31 jours civils`
-  suivant l'execution ;
-- risque de mainlevee et nullite des preuves en cas de non-respect ;
-- risque de retractation si preuve ou perimetre insuffisants ;
+  suivant l'exécution ;
+- risque de mainlevee et nullité des preuves en cas de non-respect ;
+- risque de retractation si preuve ou périmètre insuffisants ;
 - gestion des scelles et du secret des affaires si contestation.
 
 ## Boundary Rules
 
-- `tri-contrefacon` : intake enforcement initial
-- `mise-en-demeure-pi` : lettre et posture precontentieuse
-- `contentieux-pi` : strategie judiciaire globale
-- `tableau-contrefacon-brevet` : claim chart offensif brevet
+- `tri-contrefacon` : cadrage initial enforcement initial
+- `mise-en-demeure-pi` : lettre et posture précontentieuse
+- `contentieux-pi` : stratégie judiciaire globale
+- `tableau-contrefacon-brevet` : tableau de contrefaçon offensif brevet
 - `contrefacon-droit-auteur` : analyse de fond auteur
 - `contrefacon-dessin-modele` : analyse de fond D&M
 
@@ -307,7 +307,7 @@ Le skill doit rappeler :
 
 Ecrire les livrables dans :
 
-`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/`
+`~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/`
 
 Format attendu :
 
@@ -315,9 +315,9 @@ Format attendu :
 
 ## Style de sortie
 
-- Procedural, precis, urgent.
-- Distinguer faits, base legale, perimetre, contraintes, routing et
+- Procédural, précis, urgent.
+- Distinguer faits, base légale, périmètre, contraintes, routing et
   validation humaine.
-- Utiliser `[a verifier]` pour toute donnee non recoupee.
+- Utiliser `[à vérifier]` pour toute donnée non recoupée.
 - Utiliser `[PROVISOIRE]` si le profil est incomplet.
-- Ne jamais presenter la requete comme un acte de procedure depose.
+- Ne jamais présenter la requête comme un acte de procédure déposé.

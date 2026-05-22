@@ -2,23 +2,23 @@
 name: recherche-anteriorite-marque
 version: "2.0.0"
 description: >
-  Premier passage strict de recherche d'anteriorite marque pour signaler les
+  Premier passage strict de recherche d'antériorité marque pour signaler les
   motifs absolus, les conflits proches et les trous de couverture avant revue
   humaine. Ce skill ne conclut jamais qu'une marque est disponible.
 argument-hint: "[signe | classes Nice | territoires FR/EU/intl]"
 ---
 
-# Skill - Recherche d'anteriorite marque V2
+# Skill - Recherche d'antériorité marque V2
 
-> **Premier passage, pas une opinion de disponibilite.**
-> Une opinion de disponibilite exige une recherche professionnelle complete et
+> **Premier passage, pas une opinion de disponibilité.**
+> Une opinion de disponibilité exige une recherche professionnelle complète et
 > le jugement d'un mandataire en marques ou d'un avocat.
 >
-> "Aucun conflit evident" issu de ce skill signifie uniquement que le premier
-> passage n'a rien remonte dans son perimetre reel. Cela ne veut pas dire que
+> "Aucun conflit évident" issu de ce skill signifie uniquement que le premier
+> passage n'a rien remonté dans son périmètre réel. Cela ne veut pas dire que
 > la marque est libre.
 
-`recherche-anteriorite-marque` reste la premiere brique de la lane marques :
+`recherche-anteriorite-marque` reste la première brique de la voie marques :
 
 1. premier passage de triage ;
 2. puis, selon l'issue :
@@ -27,20 +27,20 @@ argument-hint: "[signe | classes Nice | territoires FR/EU/intl]"
    - `analyse-opposition-marque`
    - abandon ou changement de signe.
 
-`clearance-marque` ne reste qu'un alias de compatibilite historique. Ce n'est
-plus la voie normale a proposer.
+`clearance-marque` ne reste qu'un alias de compatibilité historique. Ce n'est
+plus la voie normale à proposer.
 
 ## Ce skill ne fait pas
 
-- Ne redige pas une opinion de disponibilite.
-- Ne fait pas un depot.
+- Ne rédige pas une opinion de disponibilité.
+- Ne fait pas un dépôt.
 - Ne remplace pas une recherche professionnelle exhaustive.
-- Ne fait pas une analyse contradictoire complete d'opposition.
+- Ne fait pas une analyse contradictoire complète d'opposition.
 - Ne maintient pas un hub portefeuille.
 
-## Contrat d'entree V2
+## Contrat d'entrée V2
 
-Le skill doit expliciter ou deriver les dimensions suivantes :
+Le skill doit expliciter ou dériver les dimensions suivantes :
 
 - `mark_type`: `word`, `figurative`, `composite`, `semi-figurative`, `unknown`
 - `filing_intent`: `exploratory`, `pre-filing`, `pre-launch`,
@@ -51,7 +51,7 @@ Le skill doit expliciter ou deriver les dimensions suivantes :
 - `adjacent_families_status`: `pending-confirmation`, `confirmed`, `not-run`,
   `insufficient-input`
 
-Bloc de faits a exposer explicitement :
+Bloc de faits à exposer explicitement :
 
 - `proposed_sign`
 - `claimed_goods_services`
@@ -64,131 +64,131 @@ Bloc de faits a exposer explicitement :
 
 Avant tout, lire :
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Rattacher ensuite :
 
-- le role utilisateur ;
-- les juridictions par defaut ;
-- les integrations disponibles ;
+- le rôle utilisateur ;
+- les juridictions par défaut ;
+- les intégrations disponibles ;
 - la posture de prudence.
 
 Si le profil contient `[A CONFIGURER]`, surfacer explicitement le mode
-provisoire. Le skill peut tourner avec des hypotheses generiques, mais chaque
-sortie doit etre taggee `[PROVISOIRE]`.
+provisoire. Le skill peut tourner avec des hypothèses génériques, mais chaque
+sortie doit être taguée `[PROVISOIRE]`.
 
-## Intake
+## Cadrage initial
 
-Demander en un seul batch, puis mapper la reponse au contrat V2 :
+Demander en un seul batch, puis mapper la réponse au contrat V2 :
 
-1. signe propose, texte exact, stylisation eventuelle, type apparent ;
-2. produits ou services reels ;
-3. classes Nice si deja connues ;
-4. territoires vises ;
-5. apparence en marche ;
-6. noms relies deja connus ;
-7. limites de recherche deja identifiees.
+1. signe proposé, texte exact, stylisation éventuelle, type apparent ;
+2. produits ou services réels ;
+3. classes Nice si déjà connues ;
+4. territoires visés ;
+5. apparence en marché ;
+6. noms reliés déjà connus ;
+7. limites de recherche déjà identifiées.
 
 Guidance de mapping minimale :
 
 - mot seul -> `mark_type: word`
-- logo ou element graphique dominant -> `mark_type: figurative`
+- logo ou élément graphique dominant -> `mark_type: figurative`
 - signe texte + logo -> `mark_type: composite`
 - signe mixte mais qualification visuelle encore floue -> `mark_type: semi-figurative`
-- classes deja donnees -> `goods_services_scope: known-classes`
+- classes déjà données -> `goods_services_scope: known-classes`
 - simple description business -> `goods_services_scope: described-only`
 - classes partielles + description libre -> `goods_services_scope: mixed`
 - description trop vague -> `goods_services_scope: unclear`
 - FR seul -> `territory_scope: fr`
 - EU seul -> `territory_scope: eu`
 - FR + EU -> `territory_scope: fr-eu`
-- Madrid ou liste de pays ciblee -> `territory_scope: international-subset`
+- Madrid ou liste de pays ciblée -> `territory_scope: international-subset`
 
 Si la description reste vague, pousser une fois pour obtenir une description
-concrete du produit ou service. Si l'information reste insuffisante, marquer
-`goods_services_scope: unclear` et reduire la confiance.
+concrète du produit ou service. Si l'information reste insuffisante, marquer
+`goods_services_scope: unclear` et réduire la confiance.
 
 ## Couche 1 - Motifs absolus
 
 Le knockout `L.711-2 CPI` reste obligatoire avant toute conclusion de triage.
 
-Le resultat du knockout ne doit pas etre un tableau plat de pass/fail. Pour
+Le résultat du knockout ne doit pas être un tableau plat de pass/fail. Pour
 chaque motif pertinent, produire soit :
 
-- aucun probleme identifie ;
-- soit un flag motive et concret.
+- aucun problème identifié ;
+- soit un flag motivé et concret.
 
-Motifs minimaux a passer en revue :
+Motifs minimaux à passer en revue :
 
-- caractere distinctif insuffisant ;
+- caractère distinctif insuffisant ;
 - descriptif ;
 - devenu usuel ;
-- forme imposee si le signe releve d'une forme ;
-- atteinte a l'ordre public ou a des signes proteges ;
+- forme imposée si le signe relève d'une forme ;
+- atteinte à l'ordre public ou à des signes protégés ;
 - trompeur.
 
-## Couche 2 - Search Coverage
+## Couche 2 - Couverture de recherche
 
-Avant de commenter les conflits, decrire explicitement la couverture reelle :
+Avant de commenter les conflits, décrire explicitement la couverture réelle :
 
-- bases interrogees ;
+- bases interrogées ;
 - classes couvertes ;
 - territoires couverts ;
-- type de recherche : exacte, proche, phonetique, partielle ;
+- type de recherche : exacte, proche, phonétique, partielle ;
 - statut du balayage des familles adjacentes ;
 - limitations restantes.
 
-### Integrations et degrade controle
+### Intégrations et mode dégradé contrôlé
 
-Si des connecteurs sont disponibles, attribuer chaque resultat a sa source.
-Si une integration manque, le dire explicitement.
+Si des connecteurs sont disponibles, attribuer chaque résultat à sa source.
+Si une intégration manque, le dire explicitement.
 
-Si aucune base n'est interrogee, ecrire litteralement dans la sortie :
+Si aucune base n'est interrogée, écrire littéralement dans la sortie :
 
-> **Aucune base de donnees interrogee.** Ce triage n'a pas hit Data INPI,
+> **Aucune base de données interrogée.** Ce triage n'a pas touché Data INPI,
 > EUIPO TMview, OMPI ROMARIN, base-jurisprudence INPI, ni aucune source non
-> enregistree. Une recherche complete sur ces bases est requise avant toute
-> conclusion sur la disponibilite.
+> enregistrée. Une recherche complète sur ces bases est requise avant toute
+> conclusion sur la disponibilité.
 
-Puis continuer avec un triage degrade, en restant honnete sur les limites.
+Puis continuer avec un triage dégradé, en restant honnête sur les limites.
 
 ## Couche 3 - Marques proches
 
-L'objectif est de trouver des marques anterieures potentiellement pertinentes,
+L'objectif est de trouver des marques antérieures potentiellement pertinentes,
 pas de trancher la confusion.
 
-Pour chaque marque proche trouvee ou fournie, capturer si possible :
+Pour chaque marque proche trouvée ou fournie, capturer si possible :
 
 - signe ;
 - source ;
-- classes / designation produits-services ;
+- classes / désignation produits-services ;
 - titulaire ;
 - statut ;
-- date de depot si disponible ;
+- date de dépôt si disponible ;
 - note sur la raison du signalement.
 
-Pas de supplementation silencieuse. Si une date, un numero ou un statut n'est
-pas present dans la source, l'ecrire comme indisponible plutot que le deviner.
+Pas de supplémentation silencieuse. Si une date, un numéro ou un statut n'est
+pas présent dans la source, l'écrire comme indisponible plutôt que le deviner.
 
 ## Couche 4 - Balayage des familles adjacentes
 
 Le balayage des familles adjacentes est requis avant de conclure.
 
-Si l'utilisateur n'a pas confirme la liste, exposer
+Si l'utilisateur n'a pas confirmé la liste, exposer
 `adjacent_families_status: pending-confirmation` ou `insufficient-input`, et
-reduire la confiance du triage.
+réduire la confiance du triage.
 
 Le skill doit :
 
-1. proposer 3 a 5 familles adjacentes plausibles ;
-2. demander confirmation ou complement ;
-3. rejouer la recherche sur les familles confirmees si les integrations le
+1. proposer 3 à 5 familles adjacentes plausibles ;
+2. demander confirmation ou complément ;
+3. rejouer la recherche sur les familles confirmées si les intégrations le
    permettent ;
-4. sinon, reporter explicitement ces familles comme couverture manquante a
+4. sinon, reporter explicitement ces familles comme couverture manquante à
    traiter en recherche professionnelle.
 
-Le statut de cette couche doit toujours etre visible :
+Le statut de cette couche doit toujours être visible :
 
 - `pending-confirmation`
 - `confirmed`
@@ -197,110 +197,110 @@ Le statut de cette couche doit toujours etre visible :
 
 ## Couche 5 - Signaux de confusion FR / UE
 
-Cadre applicable : appreciation globale CJUE, pas de test multi-facteurs US.
+Cadre applicable : appréciation globale CJUE, pas de test multi-facteurs US.
 
 Analyser comme signaux, pas comme verdict :
 
 - similitude des signes ;
 - similitude des produits/services ;
-- pouvoir distinctif de la marque anterieure ;
-- public concerne et niveau d'attention ;
-- interdendance des facteurs.
+- pouvoir distinctif de la marque antérieure ;
+- public concerné et niveau d'attention ;
+- interdépendance des facteurs.
 
-Regles de prudence :
+Règles de prudence :
 
 - ne jamais conclure "absence de risque de confusion" ;
 - si les facteurs sont ambigus, le dire ;
-- si la couverture est incomplete, reduire la portee de toute recommandation.
+- si la couverture est incomplète, réduire la portée de toute recommandation.
 
-## Routing Boundaries
+## Limites de routage
 
-### Route to `depot-marque-fr`
+### Router vers `depot-marque-fr`
 
-- pas de blocage majeur evident au premier passage ;
-- couverture minimale exploitable pour preparer un depot ;
-- validation humaine encore obligatoire avant depot.
+- pas de blocage majeur évident au premier passage ;
+- couverture minimale exploitable pour préparer un dépôt ;
+- validation humaine encore obligatoire avant dépôt.
 
-### Route to `surveillance-marque`
+### Router vers `surveillance-marque`
 
-- signe deja exploite ou en veille active ;
+- signe déjà exploité ou en veille active ;
 - besoin principal = suivi des publications ou monitorage ;
-- pas d'escalade immediate plus utile qu'un suivi structure.
+- pas d'escalade immédiate plus utile qu'un suivi structuré.
 
-### Route to `analyse-opposition-marque`
+### Router vers `analyse-opposition-marque`
 
-- conflit proche emerge ;
+- conflit proche émerge ;
 - comparaison contradictoire plus fine requise ;
-- produits/services, priorites ou strategie doivent etre approfondis.
+- produits/services, priorités ou stratégie doivent être approfondis.
 
-### Route to `clearance-marque`
+### Router vers `clearance-marque`
 
-- uniquement pour compatibilite historique ;
-- si un ancien workflow l'appelle encore ;
-- a presenter comme redirection, pas comme workflow de meme rang.
+- uniquement pour compatibilité historique ;
+- si un ancien flux de travail l'appelle encore ;
+- à présenter comme redirection, pas comme flux de travail de même rang.
 
-### Stay in `recherche-anteriorite-marque`
+### Rester dans `recherche-anteriorite-marque`
 
 - besoin principal = premier passage strict ;
 - motifs absolus, couverture et conflits proches restent la question centrale ;
-- le dossier n'est pas encore dans un workflow depot, opposition ou surveillance
-  plus specialise.
+- le dossier n'est pas encore dans un flux de travail dépôt, opposition ou surveillance
+  plus spécialisé.
 
 ## Contrat de sortie V2
 
 La sortie doit produire exactement les huit blocs suivants, dans cet ordre :
 
-1. `Absolute Grounds Snapshot`
-2. `Search Coverage`
-3. `Closest Conflicts`
-4. `Adjacent Family Sweep`
-5. `Confusion Risk Signals`
-6. `Uncertainty and Missing Coverage`
-7. `Next Step Routing`
-8. `Human Validation`
+1. `Synthèse des motifs absolus`
+2. `Couverture de recherche`
+3. `Conflits les plus proches`
+4. `Balayage des familles adjacentes`
+5. `Signaux de risque de confusion`
+6. `Incertitudes et couverture manquante`
+7. `Routage de prochaine étape`
+8. `Validation humaine`
 
-### 1. `Absolute Grounds Snapshot`
+### 1. `Synthèse des motifs absolus`
 
 - rappeler les motifs absolus revus ;
-- signaler chaque flag motive ;
-- ne pas ecrire un simple tableau uniforme de "pass".
+- signaler chaque alerte motivée ;
+- ne pas écrire un simple tableau uniforme de "pass".
 
-### 2. `Search Coverage`
+### 2. `Couverture de recherche`
 
-- bases interrogees ;
+- bases interrogées ;
 - classes et territoires couverts ;
 - type de recherche ;
 - statut du balayage adjacent ;
 - limitations explicites.
 
-### 3. `Closest Conflicts`
+### 3. `Conflits les plus proches`
 
 - lister les marques les plus proches ;
-- rattacher chaque entree a sa source ;
+- rattacher chaque entrée à sa source ;
 - dire pourquoi elle compte dans ce premier passage.
 
-### 4. `Adjacent Family Sweep`
+### 4. `Balayage des familles adjacentes`
 
-- lister les familles proposees ;
-- indiquer si elles ont ete confirmees ;
-- dire si elles ont ete rejouees ou non ;
+- lister les familles proposées ;
+- indiquer si elles ont été confirmées ;
+- dire si elles ont été rejouées ou non ;
 - exposer `adjacent_families_status`.
 
-### 5. `Confusion Risk Signals`
+### 5. `Signaux de risque de confusion`
 
-- presenter les facteurs FR/UE comme signaux ;
-- distinguer ce qui pese vers le conflit, contre le conflit, ou reste mixte ;
-- ne pas rendre un verdict final de disponibilite.
+- présenter les facteurs FR/UE comme signaux ;
+- distinguer ce qui pèse vers le conflit, contre le conflit, ou reste mixte ;
+- ne pas rendre un verdict final de disponibilité.
 
-### 6. `Uncertainty and Missing Coverage`
+### 6. `Incertitudes et couverture manquante`
 
-- trous de donnees ;
-- bases non interrogees ;
+- trous de données ;
+- bases non interrogées ;
 - limites de territoire, classes, variantes, phonétique, figuratif ou familles
   adjacentes ;
 - impact pratique de chaque manque.
 
-### 7. `Next Step Routing`
+### 7. `Routage de prochaine étape`
 
 Ce bloc doit utiliser uniquement l'une des valeurs suivantes :
 
@@ -311,26 +311,26 @@ Ce bloc doit utiliser uniquement l'une des valeurs suivantes :
 - `insufficient-search-coverage`
 - `abandon-or-rename`
 
-Associer la valeur choisie a 2-4 actions concretes et a sa justification.
+Associer la valeur choisie à 2-4 actions concrètes et à sa justification.
 
-### 8. `Human Validation`
+### 8. `Validation humaine`
 
 - rappeler qu'il s'agit d'un premier passage ;
 - nommer les validations humaines requises ;
-- rappeler les points `[a verifier]` avant depot, adoption ou investissement.
+- rappeler les points `[à vérifier]` avant dépôt, adoption ou investissement.
 
-## Regles de surete
+## Règles de sûreté
 
 - Ce skill ne conclut jamais qu'une marque est disponible.
-- Une base non interrogee reste une lacune, pas une absence de conflit.
-- Une famille adjacente non confirmee ou non rejouee doit etre visible.
-- Une recherche degradee sans connecteur reste permise, mais doit etre marquee
+- Une base non interrogée reste une lacune, pas une absence de conflit.
+- Une famille adjacente non confirmee ou non rejouee doit être visible.
+- Une recherche dégradée sans connecteur reste permise, mais doit être marquée
   comme telle.
-- Les numeros, dates, statuts et classes doivent etre relies a une source
-  ouvrable avant d'etre cites comme appui.
+- Les numéros, dates, statuts et classes doivent être reliés à une source
+  ouvrable avant d'être cités comme appui.
 
-## Rappel final a conserver
+## Rappel final à conserver
 
 - premier passage uniquement ;
-- jamais une opinion de disponibilite ;
-- revue humaine obligatoire avant depot, adoption ou investissement marketing.
+- jamais une opinion de disponibilité ;
+- revue humaine obligatoire avant dépôt, adoption ou investissement marketing.

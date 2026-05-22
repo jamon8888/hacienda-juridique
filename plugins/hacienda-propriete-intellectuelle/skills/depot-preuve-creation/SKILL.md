@@ -1,139 +1,139 @@
 ---
 name: depot-preuve-creation
 version: "2.0.0"
-description: Organise un dossier de preuve de creation, d'anteriorite d'usage ou de titularite avec registre, chronologie et lacunes probatoires.
+description: Organise un dossier de preuve de création, d'antériorité d'usage ou de titularité avec registre, chronologie et lacunes probatoires.
 argument-hint: "[open | add-evidence | timeline | bundle | review]"
 ---
 
-# Depot Preuve Creation
+# Dépôt Preuve Création
 
-## Role
+## Rôle
 
-Structurer, pour revue interne, un dossier de preuve de creation, d'anteriorite d'usage ou de titularite sur une oeuvre, un logiciel, un usage de marque ou un dossier precontentieux. Le skill inventorie les faits allegues, les pieces disponibles, les incertitudes et les manques, puis produit des livrables normalises inter-skills en attente de validation humaine.
+Structurer, pour revue interne, un dossier de preuve de création, d'antériorité d'usage ou de titularité sur une œuvre, un logiciel, un usage de marque ou un dossier précontentieux. Le skill inventorie les faits allégués, les pièces disponibles, les incertitudes et les manques, puis produit des livrables normalisés inter-skills en attente de validation humaine.
 
-Utiliser en priorite avec les references locales :
+Utiliser en priorité avec les références locales :
 - `references/preuve-creation-fr.md`
 - `references/grille-pieces-par-type.md`
 
 ## Ne fait pas
 
-- Ne rend pas un avis juridique definitif sur la titularite, la validite d'un droit ou l'issue d'un contentieux.
-- Ne presente pas une preuve preparee comme une force probante definitivement acquise.
-- Ne remplace pas un depot officiel, un constat, une verification de source primaire ou une validation humaine.
-- Ne transforme pas des allegations client en faits etablis sans piece associee.
-- Ne masque pas les incertitudes : tout element non documente reste indique `[a verifier]`.
+- Ne rend pas un avis juridique définitif sur la titularité, la validité d'un droit ou l'issue d'un contentieux.
+- Ne présente pas une preuve préparée comme une force probante définitivement acquise.
+- Ne remplace pas un dépôt officiel, un constat, une vérification de source primaire ou une validation humaine.
+- Ne transforme pas des allégations client en faits établis sans pièce associée.
+- Ne masque pas les incertitudes : tout élément non documenté reste indiqué `[à vérifier]`.
 
-## Intake
+## Cadrage initial
 
-Recueillir et separer clairement :
+Recueillir et séparer clairement :
 
-- **Objet** : oeuvre graphique, logiciel, marque / usage, opposition / nullite, dossier precontentieux.
-- **Question posee** : creation, anteriorite, usage, chaine de droits, preparation de dossier.
-- **Faits allegues** : dates, auteurs, contributeurs, contexte de creation, diffusion, exploitation.
-- **Pieces disponibles** : emails, commits, exports, contrats, factures, tickets, captures, constats, enveloppe Soleau / e-Soleau, horodatages techniques.
-- **Pieces manquantes** : ce qui est attendu mais absent.
-- **Incertitudes** : identite auteur, date exacte, version pertinente, perimetre des droits, source secondaire non consultee.
-- **Contrainte de sortie** : usage interne, revue contradictoire, preparation d'envoi, preparation precontentieuse.
+- **Objet** : œuvre graphique, logiciel, marque / usage, opposition / nullité, dossier précontentieux.
+- **Question posée** : création, antériorité, usage, chaîne de droits, préparation de dossier.
+- **Faits allégués** : dates, auteurs, contributeurs, contexte de création, diffusion, exploitation.
+- **Pièces disponibles** : emails, commits, exports, contrats, factures, tickets, captures, constats, enveloppe Soleau / e-Soleau, horodatages techniques.
+- **Pièces manquantes** : ce qui est attendu mais absent.
+- **Incertitudes** : identité auteur, date exacte, version pertinente, périmètre des droits, source secondaire non consultée.
+- **Contrainte de sortie** : usage interne, revue contradictoire, préparation d'envoi, préparation précontentieuse.
 
 ## Mode d'analyse
 
-Le skill opere uniquement dans l'un de ces cinq modes :
+Le skill opère uniquement dans l'un de ces cinq modes :
 
 - `open` : ouvre le dossier, qualifie l'objet, structure les faits et produit un premier `Evidence Register`.
-- `add-evidence` : ajoute une ou plusieurs pieces, met a jour le `Evidence Register` et complete `Proof Gaps`.
-- `timeline` : ordonne les evenements et versions dans une `Timeline`.
-- `bundle` : prepare un paquet de revue ou de transmission et produit une `Bundle Checklist`.
-- `review` : relit un dossier existant, teste la coherence entre faits et pieces, puis produit une `Reviewer Note`.
+- `add-evidence` : ajoute une ou plusieurs pièces, met à jour le `Evidence Register` et complète `Proof Gaps`.
+- `timeline` : ordonne les événements et versions dans une `Timeline`.
+- `bundle` : prépare un paquet de revue ou de transmission et produit une `Liste de contrôle du bundle`.
+- `review` : relit un dossier existant, teste la cohérence entre faits et pièces, puis produit une `Reviewer Note`.
 
 Pour chaque mode :
-- distinguer **faits allegues**, **pieces verifiees**, **pieces mentionnees non consultees**, **incertitudes** ;
-- indiquer la source immediate de chaque piece ;
-- signaler toute contradiction de date, d'auteur, de version ou de titularite.
+- distinguer **faits allégués**, **pièces vérifiées**, **pièces mentionnées non consultées**, **incertitudes** ;
+- indiquer la source immédiate de chaque pièce ;
+- signaler toute contradiction de date, d'auteur, de version ou de titularité.
 
-Contrat explicite `mode -> entrees minimales -> sorties obligatoires` :
+Contrat explicite `mode -> entrées minimales -> sorties obligatoires` :
 
 - `open`
-  - **Entrees minimales** : objet, question posee, faits allegues initiaux, au moins une piece disponible ou une liste de pieces attendues, contrainte de sortie.
+  - **Entrées minimales** : objet, question posée, faits allégués initiaux, au moins une pièce disponible ou une liste de pièces attendues, contrainte de sortie.
   - **Sorties obligatoires** : `Evidence Register`, `Proof Gaps`.
 - `add-evidence`
-  - **Entrees minimales** : identifiant du dossier, au moins une nouvelle piece ou une correction de piece, fait vise, source / detenteur.
+  - **Entrées minimales** : identifiant du dossier, au moins une nouvelle pièce ou une correction de pièce, fait visé, source / détenteur.
   - **Sorties obligatoires** : `Evidence Register`, `Proof Gaps`.
 - `timeline`
-  - **Entrees minimales** : identifiant du dossier, au moins deux evenements ou versions, dates ou plages de dates, pieces rattachees si disponibles.
+  - **Entrées minimales** : identifiant du dossier, au moins deux événements ou versions, dates ou plages de dates, pièces rattachées si disponibles.
   - **Sorties obligatoires** : `Timeline`, `Proof Gaps`.
 - `bundle`
-  - **Entrees minimales** : identifiant du dossier, liste des pieces a transmettre ou relire, objectif du paquet, contraintes de confidentialite ou de destinataire si connues.
-  - **Sorties obligatoires** : `Bundle Checklist`.
+  - **Entrées minimales** : identifiant du dossier, liste des pièces à transmettre ou relire, objectif du paquet, contraintes de confidentialité ou de destinataire si connues.
+  - **Sorties obligatoires** : `Liste de contrôle du bundle`.
 - `review`
-  - **Entrees minimales** : identifiant du dossier, un `Evidence Register` existant ou equivalent, objectif de revue, question(s) de validation humaine.
+  - **Entrées minimales** : identifiant du dossier, un `Evidence Register` existant ou équivalent, objectif de revue, question(s) de validation humaine.
   - **Sorties obligatoires** : `Reviewer Note`, `Proof Gaps`.
 
-## Grille des pieces
+## Grille des pièces
 
-Appliquer la grille adaptee a l'objet dans `references/grille-pieces-par-type.md`, puis classer les pieces par categorie :
+Appliquer la grille adaptée à l'objet dans `references/grille-pieces-par-type.md`, puis classer les pièces par catégorie :
 
-1. **Preuves de creation** : brouillons, maquettes, versions, exports, cahier de laboratoire, tickets, journaux de build.
-2. **Preuves de date** : enveloppe Soleau / e-Soleau, horodatage technique, email date, depot Git, constats, accuses de reception.
-3. **Preuves de contribution** : auteurs identifies, contrats, cessions, clauses salarie / freelance, bons de commande, livrables agence.
+1. **Preuves de création** : brouillons, maquettes, versions, exports, cahier de laboratoire, tickets, journaux de build.
+2. **Preuves de date** : enveloppe Soleau / e-Soleau, horodatage technique, email daté, dépôt Git, constats, accusés de réception.
+3. **Preuves de contribution** : auteurs identifiés, contrats, cessions, clauses salarié / freelance, bons de commande, livrables agence.
 4. **Preuves d'exploitation ou d'usage** : publication, mise en ligne, distribution, facture, campagne, packaging, captures de diffusion.
 5. **Preuves de contexte contentieux** : mise en demeure, captures adverses, comparatifs, rapports internes, constat.
 
-Chaque entree du registre doit preciser :
-- identifiant de piece ;
+Chaque entrée du registre doit préciser :
+- identifiant de pièce ;
 - description courte ;
-- date alleguee ;
-- source / detenteur ;
-- lien avec le fait a prouver ;
-- niveau de fiabilite apparent ;
-- reserve ou limite `[a verifier]` le cas echeant.
+- date alléguée ;
+- source / détenteur ;
+- lien avec le fait à prouver ;
+- niveau de fiabilité apparent ;
+- réserve ou limite `[à vérifier]` le cas échéant.
 
-Format stable d'identifiant de piece :
+Format stable d'identifiant de pièce :
 
 - Utiliser `PC-AAAA-NNN`.
-- `AAAA` = annee d'entree de la piece dans le dossier.
-- `NNN` = numero sequentiel sur trois chiffres, incremente sans reutilisation.
+- `AAAA` = année d'entrée de la pièce dans le dossier.
+- `NNN` = numéro séquentiel sur trois chiffres, incrémenté sans réutilisation.
 - Exemple : `PC-2026-001`.
-- Si une piece remplace une version precedente, conserver l'identifiant initial et indiquer la version en metadonnee, par exemple `v2`, sans changer l'identifiant principal.
+- Si une pièce remplace une version précédente, conserver l'identifiant initial et indiquer la version en métadonnée, par exemple `v2`, sans changer l'identifiant principal.
 
 ## Chronologie
 
-Produire une `Timeline` avec une ligne par evenement probatoire :
+Produire une `Timeline` avec une ligne par événement probatoire :
 
 - date ou plage de dates ;
-- evenement de creation, modification, livraison, publication, usage ou contestation ;
-- piece(s) rattachee(s) ;
-- personne ou entite associee ;
-- commentaire sur la solidite du point de preuve.
+- événement de création, modification, livraison, publication, usage ou contestation ;
+- pièce(s) rattachée(s) ;
+- personne ou entité associée ;
+- commentaire sur la solidité du point de preuve.
 
 Ordre de lecture recommande :
 1. naissance du projet ou du signe ;
-2. iterations et versions intermediaires ;
+2. itérations et versions intermédiaires ;
 3. livraisons ou publications ;
-4. actes de depot ou d'horodatage ;
-5. exploitation, diffusion ou usage oppose ;
-6. contestation, opposition ou precontentieux.
+4. actes de dépôt ou d'horodatage ;
+5. exploitation, diffusion ou usage opposé ;
+6. contestation, opposition ou précontentieux.
 
 ## Trous probatoires
 
 Produire `Proof Gaps` en distinguant :
 
-- **Trou critique** : impossible, en l'etat, d'etayer date, auteur, titulaire ou usage principal.
-- **Trou important** : la preuve existe peut-etre mais n'est pas localisee, complete ou lisible.
-- **Trou de coherence** : dates incompatibles, version non tracee, auteur non raccorde a une cession.
-- **Trou de forme** : piece exploitable en interne mais peu robuste seule en contradiction ou contentieux.
+- **Trou critique** : impossible, en l'état, d'étayer date, auteur, titulaire ou usage principal.
+- **Trou important** : la preuve existe peut-être mais n'est pas localisée, complète ou lisible.
+- **Trou de cohérence** : dates incompatibles, version non tracée, auteur non raccordé à une cession.
+- **Trou de forme** : pièce exploitable en interne mais peu robuste seule en contradiction ou contentieux.
 
 Pour chaque trou, proposer :
-- la piece cible attendue ;
-- le detenteur probable ;
-- le canal de recuperation ;
+- la pièce cible attendue ;
+- le détenteur probable ;
+- le canal de récupération ;
 - l'urgence ;
 - la mention explicite qu'une validation humaine reste requise avant usage externe.
 
 ## Sortie
 
-Les noms `Evidence Register`, `Timeline`, `Proof Gaps`, `Bundle Checklist`, `Reviewer Note` sont des labels techniques normalises inter-skills. Ils ne doivent pas etre traduits ni renommes.
+Les noms `Evidence Register`, `Timeline`, `Proof Gaps`, `Liste de contrôle du bundle`, `Reviewer Note` sont des labels techniques normalisés inter-skills. Ils ne doivent pas être traduits ni renommés.
 
-Selon le mode, produire les sorties nommees suivantes :
+Selon le mode, produire les sorties nommées suivantes :
 
 ### Evidence Register
 
@@ -145,7 +145,7 @@ Structure minimale fixe :
 - `date_mise_a_jour`
 - `pieces`
 
-Chaque entree de `pieces` doit contenir au minimum :
+Chaque entrée de `pieces` doit contenir au minimum :
 
 - `piece_id`
 - `categorie`
@@ -166,7 +166,7 @@ Structure minimale fixe :
 - `periode_couverte`
 - `evenements`
 
-Chaque entree de `evenements` doit contenir au minimum :
+Chaque entrée de `evenements` doit contenir au minimum :
 
 - `event_id`
 - `date_ou_plage`
@@ -185,7 +185,7 @@ Structure minimale fixe :
 - `objet`
 - `gaps`
 
-Chaque entree de `gaps` doit contenir au minimum :
+Chaque entrée de `gaps` doit contenir au minimum :
 
 - `gap_id`
 - `niveau` : `critique` | `important` | `coherence` | `forme`
@@ -197,7 +197,7 @@ Chaque entree de `gaps` doit contenir au minimum :
 - `urgence`
 - `validation_humaine_requise`
 
-### Bundle Checklist
+### Liste de contrôle du bundle
 
 Structure minimale fixe :
 
@@ -209,27 +209,27 @@ Structure minimale fixe :
 - `contraintes_confidentialite`
 - `validations_humaines_requises`
 
-Checklist de dossier a transmettre ou relire : index des pieces, nommage, pagination, source, confidentialite, doublons, pieces manquantes, validations humaines requises.
+Liste de contrôle du dossier à transmettre ou relire : index des pièces, nommage, pagination, source, confidentialité, doublons, pièces manquantes, validations humaines requises.
 
 ### Reviewer Note
 
 Note de revue courte indiquant :
-- ce que le dossier permet de soutenir a ce stade ;
+- ce que le dossier permet de soutenir à ce stade ;
 - ce qui demeure incertain ;
-- quelles verifications humaines ou sources primaires doivent encore etre faites ;
+- quelles vérifications humaines ou sources primaires doivent encore être faites ;
 - quel usage prudent est envisageable en interne.
 
 ## Validation humaine
 
 Validation humaine obligatoire avant :
 
-- depot ou declaration externe ;
-- courrier contradictoire ou precontentieux ;
-- affirmation de titularite non documentee ;
-- qualification d'une piece comme determinante ;
+- dépôt ou déclaration externe ;
+- courrier contradictoire ou précontentieux ;
+- affirmation de titularité non documentée ;
+- qualification d'une pièce comme déterminante ;
 - arbitrage final sur la suffisance probatoire.
 
 Toujours rappeler en conclusion :
-- ceci est un travail de structuration probatoire et non un conseil juridique definitif ;
-- les sources non consultees restent `[a verifier]` ;
-- la force probante finale depend du contexte, de la contradiction et de l'appreciation humaine.
+- ceci est un travail de structuration probatoire et non un conseil juridique définitif ;
+- les sources non consultées restent `[à vérifier]` ;
+- la force probante finale dépend du contexte, de la contradiction et de l'appréciation humaine.

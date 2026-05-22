@@ -2,45 +2,45 @@
 name: anteriorite-invalidite
 version: "2.0.0"
 description: >
-  Analyse de validite stricte d'un brevet adverse en mode `attack` ou
-  `defense`. Structure les moyens de nullite, evalue la solidite de l'art
-  anterieur et des autres bases d'invalidite, puis route vers la bonne suite
-  brevets/contentieux. Ne qualifie pas la contrefacon et ne remplace pas la
-  procedure judiciaire.
-argument-hint: "[num brevet cible | attack/defense | novelty/inventive-step/mixed]"
+  Analyse de validité stricte d'un brevet adverse en mode `attack` ou
+  `défense`. Structure les moyens de nullite, évalue la solidité de l'art
+  antérieur et des autres bases d'invalidité, puis route vers la bonne suite
+  brevets/contentieux. Ne qualifié pas la contrefaçon et ne remplace pas la
+  procédure judiciaire.
+argument-hint: "[num brevet cible | attack/défense | novelty/inventive-step/mixed]"
 ---
 
-# Skill - Anteriorite invalidite V2
+# Skill - Antériorité invalidité V2
 
-> **Preparation argumentaire, pas procedure judiciaire.**
-> `anteriorite-invalidite` prepare une analyse de validite stricte d'un
+> **Préparation argumentaire, pas procédure judiciaire.**
+> `anteriorite-invalidite` prépare une analyse de validité stricte d'un
 > brevet adverse, en mode `attack` ou `defense`. Il ne forme pas
 > l'assignation, ne pilote pas tout le contentieux, ne negocie pas un
-> settlement et ne remplace pas le claim chart produit/revendications.
+> settlement et ne remplace pas le tableau de contrefaçon produit/revendications.
 
-Reference de travail utile :
+Référence de travail utile :
 `references/anteriorite-invalidite-routing-and-output.md`
 
 ## Positionnement
 
-`anteriorite-invalidite` sert a :
+`anteriorite-invalidite` sert à :
 
 1. cadrer le mode `attack` ou `defense` ;
-2. structurer les moyens de nullite ;
-3. evaluer la force de l'art anterieur et des autres motifs ;
+2. structurer les moyens de nullité ;
+3. évaluer la force de l'art antérieur et des autres motifs ;
 4. poser un `Invalidity Readiness Gate` explicite ;
 5. router vers la bonne suite brevets/contentieux.
 
 ## Ce skill ne fait pas
 
-- ne qualifie pas la contrefacon ;
-- ne produit pas un claim chart offensif ;
+- ne qualifié pas la contrefaçon ;
+- ne produit pas un tableau de contrefaçon offensif ;
 - ne forme pas l'action ou les conclusions ;
 - ne negocie pas licence, transaction ou settlement ;
 - ne remplace pas `contentieux-pi` ;
 - ne remplace pas `tableau-contrefacon-brevet`.
 
-## Contrat d'entree V2
+## Contrat d'entrée V2
 
 Le skill doit expliciter ou deriver :
 
@@ -69,75 +69,75 @@ Bloc de faits minimum :
 
 Avant tout, lire :
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
-Rattacher a l'analyse :
+Rattacher à l'analyse :
 
-- role de l'utilisateur ;
+- rôle de l'utilisateur ;
 - posture du cabinet ou de l'equipe ;
 - approbateurs internes ou externes ;
 - niveau de validation attendu par mandataire brevets ou avocat.
 
 Si le profil est absent ou `[A CONFIGURER]`, travailler en mode provisoire et
-taguer les hypotheses critiques `[PROVISOIRE]`.
+taguer les hypothèses critiques `[PROVISOIRE]`.
 
-## Intake
+## Cadrage initial
 
 Si aucun mode n'est fourni, demander d'abord :
 
 - `attack`
 - `defense`
 
-Puis adapter l'intake.
+Puis adapter l'cadrage initial.
 
 ### Branche `attack`
 
-Verifier :
+Vérifier :
 
 - pourquoi attaquer le brevet ;
 - quelles revendications doivent tomber ;
-- quelle pression business ou concurrentielle existe deja ;
-- quels documents de prior art sont deja identifies.
+- quelle pression business ou concurrentielle existe déjà ;
+- quels documents de prior art sont déjà identifiés.
 
 ### Branche `defense`
 
-Verifier :
+Vérifier :
 
-- quelle menace ou action existe deja ;
+- quelle menace ou action existe déjà ;
 - quelles revendications sont opposees ;
-- si un claim chart existe deja ;
-- quelles bases de nullite peuvent soutenir la defense.
+- si un tableau de contrefaçon existe déjà ;
+- quelles bases de nullité peuvent soutenir la défense.
 
-Si `mode = defense` et qu'un claim chart existe deja, l'utiliser comme contexte
-de defense, sans absorber sa logique de comparaison produit/revendications.
+Si `mode = defense` et qu'un tableau de contrefaçon existe déjà, l'utiliser comme contexte
+de défense, sans absorber sa logique de comparaison produit/revendications.
 
-## Invalidity Readiness Gate
+## Seuil de préparation de l'invalidité
 
 Le skill doit conclure explicitement sur :
 
 - `ready`
-  - base d'art anterieur ou autre motif exploitable ;
-  - revendications cibles identifiees ;
+  - base d'art antérieur ou autre motif exploitable ;
+  - revendications cibles identifiées ;
   - articulation des moyens faisable.
 - `partial`
   - arguments plausibles mais incomplets ;
-  - prior art ou dates encore a consolider ;
+  - art antérieur ou dates encore à consolider ;
   - certains moyens restent exploratoires.
 - `blocked`
-  - aucun motif serieux exploitable ;
+  - aucun motif sérieux exploitable ;
   - prior art trop faible ;
   - dates ou revendications trop incertaines ;
-  - impossibilite de soutenir une nullite proprement.
+  - impossibilité de soutenir une nullité proprement.
 
-Checks de gate :
+Contrôles du seuil :
 
 - si `prior_art_coverage = none`, bloquer ;
 - si `patent_status = unknown`, rester `partial` ou `blocked` tant que le
-  titre et sa posture procedurale ne sont pas stabilises ;
-- si `priority_date_status` n'est pas stabilise, rester `partial` ou `blocked` ;
+  titre et sa posture procédurale ne sont pas stabilisés ;
+- si `priority_date_status` n'est pas stabilisé, rester `partial` ou `blocked` ;
 - si `claims_targeted` sont trop floues, rester `partial` ou `blocked` ;
-- si les autres motifs (`added-matter`, `insufficiency`) sont invoques sans
+- si les autres motifs (`added-matter`, `insufficiency`) sont invoqués sans
   base textuelle exploitable, ne pas les sur-vendre.
 
 ## Families de moyens
@@ -148,16 +148,16 @@ Le skill doit structurer les moyens selon trois familles V2 :
 - `Inventive Step Attack Map`
 - `Other Invalidity Grounds`
 
-### Novelty Attack Map
+### Carte d’attaque par nouveauté
 
 Pour chaque revendication ciblee :
 
 - identifier les documents destructeurs ou quasi-destructeurs ;
-- distinguer ce qui est explicitement divulgue, implicitement supporte ou
+- distinguer ce qui est explicitement divulgué, implicitement supporte ou
   manquant ;
 - marquer `unknown` si la citation n'est pas assez exploitable.
 
-### Inventive Step Attack Map
+### Carte d’attaque par activité inventive
 
 Pour chaque combinaison plausible :
 
@@ -168,13 +168,13 @@ Pour chaque combinaison plausible :
 
 ### Other Invalidity Grounds
 
-Traiter seulement si une base serieuse existe :
+Traiter seulement si une base sérieuse existe :
 
-- ajout de matiere ;
+- ajout de matière ;
 - insuffisance ;
-- autre moyen connexe de validite.
+- autre moyen connexe de validité.
 
-Les points non verifies restent `[a verifier]` ou `[review]`.
+Les points non vérifiés restent `[à vérifier]` ou `[review]`.
 
 ## Frontieres de routage
 
@@ -184,43 +184,43 @@ Les points non verifies restent `[a verifier]` ou `[review]`.
   judiciaire ;
 - `recherche-anteriorite-brevet` : si le besoin principal reste un premier
   passage prior art amont ;
-- `preparation-depot-brevet` : si le sujet concerne notre propre depot et non
-  la validite d'un brevet tiers.
+- `preparation-depot-brevet` : si le sujet concerné notre propre dépôt et non
+  la validité d'un brevet tiers.
 
 ## Format de sortie V2
 
-La sortie doit etre stabilisee en 9 blocs.
+La sortie doit être stabilisée en 9 blocs.
 
-### 1. Case Snapshot
+### 1. Synthèse du dossier
 
 - brevet ;
 - mode `attack` / `defense` ;
 - pression contentieuse ;
-- statut global du gate.
+- statut global du seuil.
 
-### 2. Patent and Procedural Posture
+### 2. Brevet et posture procédurale
 
-- titre concerne ;
+- titre concerné ;
 - revendications ciblees ;
-- contexte procedural utile ;
+- contexte procédural utile ;
 - posture du dossier.
 
-### 3. Prior Art and Basis Coverage
+### 3. Couverture de l’art antérieur et des fondements
 
 - prior art retenu ;
-- qualite de couverture ;
+- qualité de couverture ;
 - dates critiques ;
-- sources effectivement consultees et sources non encore consultees ;
+- sources effectivement consultées et sources non encore consultées ;
 - niveau d'appui citation par citation (date, revendication, passage utile) ;
 - trous documentaires.
 
-### 4. Novelty Attack Map
+### 4. Carte d’attaque par nouveauté
 
 - documents destructeurs ou quasi-destructeurs ;
-- mapping nouveaute ;
+- mapping nouveauté ;
 - points forts et faibles.
 
-### 5. Inventive Step Attack Map
+### 5. Carte d’attaque par activité inventive
 
 - closest prior art ;
 - probleme technique objectif ;
@@ -229,18 +229,18 @@ La sortie doit etre stabilisee en 9 blocs.
 
 ### 6. Other Invalidity Grounds
 
-- ajout de matiere ;
+- ajout de matière ;
 - insuffisance ;
-- autres moyens eventuels ;
-- statut `[a verifier]` si besoin.
+- autres moyens éventuels ;
+- statut `[à vérifier]` si besoin.
 
-### 7. Critical Gaps and Litigation Risk
+### 7. Lacunes critiques et risque contentieux
 
 - lacunes probatoires ;
-- risques de faiblesse de l'attaque ou de la defense ;
+- risques de faiblesse de l'attaque ou de la défense ;
 - ce qui peut faire tomber le raisonnement.
 
-### 8. Decision Routing
+### 8. Routage de décision
 
 Conclure avec une seule valeur :
 
@@ -252,37 +252,37 @@ Conclure avec une seule valeur :
 - `route-to-contentious-strategy`
 - `hold-insufficient-basis`
 
-Associer a la route :
+Associer à la route :
 
 - une justification breve ;
-- 2 a 4 actions concretes ;
+- 2 à 4 actions concrètes ;
 - le point de validation humaine requis avant usage externe.
 
-### 9. Human Validation
+### 9. Validation humaine
 
-- ce qui doit etre valide par mandataire ou avocat ;
-- les reserves ;
-- tout ce qui reste `[a verifier]`.
+- ce qui doit être valide par mandataire ou avocat ;
+- les réserves ;
+- tout ce qui reste `[à vérifier]`.
 
-## Regles de surete
+## Règles de sûreté
 
-- Toujours rappeler en tete : `Preparation argumentaire, pas procedure
+- Toujours rappeler en tete : `Préparation argumentaire, pas procédure
   judiciaire`.
-- Ne jamais presenter une base de nullite faible comme exploitable sans reserve.
-- Ne jamais confondre validite du brevet et contrefacon du produit.
-- Ne jamais citer un prior art comme appui sans source consultee, date
-  exploitable et rattachement minimal a la revendication attaquee.
-- Si certaines bases n'ont pas ete interrogees ou si un document n'a pas ete
-  consulte directement, l'indiquer explicitement dans `Prior Art and Basis
-  Coverage` ou `Critical Gaps and Litigation Risk`.
-- Si la recherche d'art anterieur est trop preliminaire, router vers
+- Ne jamais présenter une base de nullité faible comme exploitable sans réserve.
+- Ne jamais confondre validité du brevet et contrefaçon du produit.
+- Ne jamais citer un prior art comme appui sans source consultée, date
+  exploitable et rattachement minimal à la revendication attaquee.
+- Si certaines bases n'ont pas été interrogees ou si un document n'a pas été
+  consulté directement, l'indiquer explicitement dans `Prior Art and Basis
+  Coverage` ou `Lacunes critiques et risque contentieux`.
+- Si la recherche d'art antérieur est trop préliminaire, router vers
   `recherche-anteriorite-brevet`.
-- Si la strategie devient principalement contentieuse, router vers
+- Si la stratégie devient principalement contentieuse, router vers
   `contentieux-pi`.
 
-## Rappel final a conserver
+## Rappel final à conserver
 
-`anteriorite-invalidite` V2 est un skill de validite stricte seulement.
-Il structure une attaque ou une defense en nullite, mais ne remplace ni le
-claim chart offensif, ni la strategie contentieuse globale, ni la validation
+`anteriorite-invalidite` V2 est un skill de validité stricte seulement.
+Il structure une attaque ou une défense en nullité, mais ne remplace ni le
+tableau de contrefaçon offensif, ni la stratégie contentieuse globale, ni la validation
 humaine finale avant toute action externe.

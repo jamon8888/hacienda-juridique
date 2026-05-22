@@ -2,65 +2,65 @@
 name: recherche-anteriorite-brevet
 version: "2.0.0"
 description: >
-  Premier passage strict de recherche d'anteriorite brevet pour signaler les
-  exclusions, l'art anterieur proche, les lacunes de couverture et les routes
+  Premier passage strict de recherche d'antériorité brevet pour signaler les
+  exclusions, l'art antérieur proche, les lacunes de couverture et les routes
   amont ou aval avant revue humaine. Ce skill ne conclut jamais qu'une
   invention est brevetable ni exploitable.
 argument-hint: "[description invention | CIB/CPC | FR/EP/PCT]"
 ---
 
-# Skill - Recherche d'anteriorite brevet V2
+# Skill - Recherche d'antériorité brevet V2
 
-> **Premier passage, pas une opinion de brevetabilite ni de FTO.**
-> `recherche-anteriorite-brevet` sert a faire un premier triage structure de
-> nouveaute et d'activite inventive sur la base des sources reellement
-> interrogees. Il ne remplace ni une recherche professionnelle exhaustive, ni
-> un mandataire brevets, ni une analyse de contrefacon, ni une analyse de
-> nullite.
+> **Premier passage, pas une opinion de brevetabilité ni de FTO.**
+> `recherche-anteriorite-brevet` sert à faire un premier triage structuré de
+> nouveauté et d'activité inventive sur la base des sources réellement
+> interrogées. Il ne remplace ni une recherche professionnelle exhaustive, ni
+> un mandataire brevets, ni une analyse de contrefaçon, ni une analyse de
+> nullité.
 
-Reference de travail utile :
+Référence de travail utile :
 `references/recherche-anteriorite-brevet-routing-and-output.md`
 
 ## Positionnement
 
-`recherche-anteriorite-brevet` reste la premiere brique de la lane brevets :
+`recherche-anteriorite-brevet` reste la première brique de la voie brevets :
 
 1. cadrage technique initial ;
-2. premier passage sur exclusions, classifications et art anterieur proche ;
-3. gate de couverture de recherche ;
-4. routage vers depot, invalidite, claim chart ou regime logiciel selon
+2. premier passage sur exclusions, classifications et art antérieur proche ;
+3. seuil de couverture de recherche ;
+4. routage vers dépôt, invalidité, tableau de contrefaçon ou régime logiciel selon
    l'issue.
 
-Ce skill est strictement borne au premier passage :
+Ce skill est strictement borné au premier passage :
 
 - il ne conclut jamais "brevetable" ;
-- il ne conclut jamais "liberte d'exploitation acquise" ;
-- il ne redige pas le dossier de depot ;
-- il ne monte pas un dossier de nullite ou de contrefacon.
+- il ne conclut jamais "liberté d'exploitation acquise" ;
+- il ne rédige pas le dossier de dépôt ;
+- il ne monte pas un dossier de nullité ou de contrefaçon.
 
 ## Ce skill ne fait pas
 
-- Ne rend pas une opinion finale de brevetabilite.
+- Ne rend pas une opinion finale de brevetabilité.
 - Ne rend pas une opinion FTO.
 - Ne remplace pas une recherche exhaustive brevets + NPL.
-- Ne redige pas une demande de brevet.
-- Ne prepare pas un dossier d'invalidite contentieuse.
-- Ne fait pas un claim chart de contrefacon.
+- Ne rédige pas une demande de brevet.
+- Ne prépare pas un dossier d'invalidité contentieuse.
+- Ne fait pas un tableau de contrefaçon de contrefaçon.
 
-## Contrat d'entree V2
+## Contrat d'entrée V2
 
-Le skill doit expliciter ou deriver les dimensions suivantes :
+Le skill doit expliciter ou dériver les dimensions suivantes :
 
 - `invention_type`: `device`, `process`, `composition`, `software-implemented`,
   `biotech-medical`, `mixed`, `unknown`
-- `search_intent`: `pre-filing`, `portfolio-extension`, `defensive-check`,
+- `search_intent`: `pre-filing`, `portfolio-extension`, `défensive-check`,
   `research-check`, `unknown`
 - `territory_scope`: `fr`, `ep`, `pct`, `fr-ep`, `multi-territory`, `unknown`
 - `classification_status`: `known`, `proposed`, `mixed`, `unclear`
 - `search_coverage_gate`: `sufficient-first-pass`, `partial`, `degraded`,
   `none`
 
-Bloc de faits a exposer explicitement :
+Bloc de faits à exposer explicitement :
 
 - `proposed_invention`
 - `technical_problem`
@@ -74,41 +74,41 @@ Bloc de faits a exposer explicitement :
 
 Avant tout, lire :
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Rattacher ensuite :
 
-- le role utilisateur ;
+- le rôle utilisateur ;
 - les territoires cibles habituels ;
 - le domaine technique dominant ;
 - la posture de prudence ;
-- les integrations reellement disponibles.
+- les intégrations réellement disponibles.
 
 Si le profil contient `[A CONFIGURER]`, le dire explicitement et tagger la
 sortie `[PROVISOIRE]`.
 
-## Intake
+## Cadrage initial
 
-Demander en un seul batch, puis mapper la reponse au contrat V2 :
+Demander en un seul batch, puis mapper la réponse au contrat V2 :
 
-1. probleme technique et solution technique ;
+1. problème technique et solution technique ;
 2. type d'invention ou contexte technique ;
-3. CIB ou CPC deja connues, sinon domaine a classifier ;
-4. date de priorite ou de reference visee ;
+3. CIB ou CPC déjà connues, sinon domaine à classifier ;
+4. date de priorité ou de référence visée ;
 5. territoires cibles ;
-6. art anterieur deja connu ;
-7. limites deja identifiees de la recherche.
+6. art antérieur déjà connu ;
+7. limites déjà identifiées de la recherche.
 
 Guidance de mapping minimale :
 
-- dispositif ou systeme materiel -> `invention_type: device`
-- procede de fabrication ou de traitement -> `invention_type: process`
-- molecule, formulation, alliage, matiere -> `invention_type: composition`
-- invention informatique avec effet technique revendique -> `invention_type: software-implemented`
-- invention biomedicale ou medtech -> `invention_type: biotech-medical`
+- dispositif ou système matériel -> `invention_type: device`
+- procédé de fabrication ou de traitement -> `invention_type: process`
+- molécule, formulation, alliage, matière -> `invention_type: composition`
+- invention informatique avec effet technique revendiqué -> `invention_type: software-implemented`
+- invention biomédicale ou medtech -> `invention_type: biotech-medical`
 - CIB/CPC fournies -> `classification_status: known`
-- CIB/CPC seulement esquissees -> `classification_status: mixed`
+- CIB/CPC seulement esquissées -> `classification_status: mixed`
 - simple domaine sans code -> `classification_status: proposed`
 - description trop vague -> `classification_status: unclear`
 - FR seul -> `territory_scope: fr`
@@ -118,32 +118,32 @@ Guidance de mapping minimale :
 - plusieurs routes nationales ou mixte -> `territory_scope: multi-territory`
 
 Si la description reste vague, pousser une fois pour obtenir un effet technique
-mesurable. Si elle reste floue, reduire la confiance et marquer
+mesurable. Si elle reste floue, réduire la confiance et marquer
 `classification_status: unclear`.
 
-## Couche 1 - Exclusions et eligibilite minimum
+## Couche 1 - Exclusions et éligibilité minimum
 
-Le premier passage doit passer au minimum les exclusions ou fragilites
-intrinseques suivantes :
+Le premier passage doit passer au minimum les exclusions ou fragilités
+intrinsèques suivantes :
 
-- decouverte ou theorie pure ;
-- methode mathematique abstraite ;
-- plan, methode intellectuelle ou business method ;
+- découverte ou théorie pure ;
+- méthode mathématique abstraite ;
+- plan, méthode intellectuelle ou business method ;
 - logiciel en tant que tel ;
-- presentation d'information ;
-- methode therapeutique / chirurgicale / diagnostic in vivo ;
-- autre point d'eligibilite evident selon le domaine.
+- présentation d'information ;
+- méthode thérapeutique / chirurgicale / diagnostic in vivo ;
+- autre point d'éligibilité évident selon le domaine.
 
-Ce bloc signale des risques d'eligibilite ; il ne tranche pas seul le depot.
+Ce bloc signale des risques d'éligibilité ; il ne tranche pas seul le dépôt.
 
-## Couche 2 - Search Coverage Gate
+## Couche 2 - Seuil de couverture de recherche
 
-Avant de commenter les documents trouves, decrire explicitement la couverture
-reelle :
+Avant de commenter les documents trouvés, décrire explicitement la couverture
+réelle :
 
-- bases interrogees ;
+- bases interrogées ;
 - classifications couvertes ;
-- mots-cles ou axes couverts ;
+- mots-clés ou axes couverts ;
 - territoire ou familles couverts ;
 - NPL couverte ou non ;
 - limites restantes.
@@ -155,161 +155,161 @@ Le gate ne peut sortir que sur :
 - `degraded`
 - `none`
 
-Si aucune base brevets n'est interrogee, le gate doit etre `none`.
+Si aucune base brevets n'est interrogée, le seuil doit être `none`.
 
-## Couche 3 - Art anterieur proche
+## Couche 3 - Art antérieur proche
 
 L'objectif est de faire remonter les documents potentiellement pertinents, pas
 de trancher la revendication finale.
 
-Pour chaque document trouve ou fourni, capturer si possible :
+Pour chaque document trouvé ou fourni, capturer si possible :
 
-- numero ou identifiant ;
+- numéro ou identifiant ;
 - source ;
 - titre ;
 - classifications principales ;
-- deposant ;
+- déposant ;
 - date de publication ;
-- date de priorite si disponible ;
+- date de priorité si disponible ;
 - type de signal : proche, potentiellement X, potentiellement Y, contexte ;
 - note de pertinence.
 
-Pas de supplementation silencieuse. Si une donnee manque, l'ecrire comme
+Pas de supplémentation silencieuse. Si une donnée manque, l'écrire comme
 indisponible.
 
 ## Couche 4 - Classifications voisines et NPL
 
-Le skill doit rendre visible si les classifications voisines et la litterature
-non-brevet ont ete couvertes, proposees ou ignorees.
+Le skill doit rendre visible si les classifications voisines et la littérature
+non-brevet ont été couvertes, proposées ou ignorées.
 
 Le minimum attendu :
 
 1. proposer des CIB/CPC voisines plausibles ;
-2. dire si elles ont ete confirmees ou non ;
-3. lister les bases NPL recommandees quand la couverture NPL manque ;
+2. dire si elles ont été confirmées ou non ;
+3. lister les bases NPL recommandées quand la couverture NPL manque ;
 4. expliciter l'impact de cette lacune sur la force du triage.
 
-## Couche 5 - Signaux de nouveaute et d'activite inventive
+## Couche 5 - Signaux de nouveauté et d'activité inventive
 
-Presenter les signaux, pas une conclusion ferme.
+Présenter les signaux, pas une conclusion fermée.
 
 Analyser comme signaux :
 
 - closest prior art plausible ;
-- caracteristiques distinctives apparentes ;
-- effet technique annonce ou visible ;
-- probleme technique objectif plausible ;
-- signaux contre la nouveaute ;
-- signaux contre l'activite inventive.
+- caractéristiques distinctives apparentes ;
+- effet technique annoncé ou visible ;
+- problème technique objectif plausible ;
+- signaux contre la nouveauté ;
+- signaux contre l'activité inventive.
 
-Regles de prudence :
+Règles de prudence :
 
 - ne jamais conclure "invention brevetable" ;
-- si la couverture est incomplete, reduire la portee de toute recommandation ;
-- distinguer clairement nouveaute, activite inventive et FTO.
+- si la couverture est incomplète, réduire la portée de toute recommandation ;
+- distinguer clairement nouveauté, activité inventive et FTO.
 
-## Routing Boundaries
+## Limites de routage
 
-### Route to `preparation-depot-brevet`
+### Router vers `preparation-depot-brevet`
 
-- pas de blocage majeur evident au premier passage ;
-- couverture minimale exploitable pour structurer un depot ;
-- validation humaine encore obligatoire avant redaction et depot.
+- pas de blocage majeur évident au premier passage ;
+- couverture minimale exploitable pour structurer un dépôt ;
+- validation humaine encore obligatoire avant rédaction et dépôt.
 
-### Route to `anteriorite-invalidite`
+### Router vers `anteriorite-invalidite`
 
 - le besoin principal devient la contestation d'un brevet tiers ;
-- l'art anterieur doit etre structure pour une nullite ou une defense ;
-- le dossier a deja bascule vers une logique d'attaque ou de defense sur un
+- l'art antérieur doit être structuré pour une nullité ou une défense ;
+- le dossier a déjà basculé vers une logique d'attaque ou de défense sur un
   titre existant.
 
-### Route to `tableau-contrefacon-brevet`
+### Router vers `tableau-contrefacon-brevet`
 
 - le sujet principal devient la comparaison revendications / produit ou
-  procede accuse ;
-- il faut analyser une contrefacon potentielle ou une defense technique
+  procédé accusé ;
+- il faut analyser une contrefaçon potentielle ou une défense technique
   d'atteinte ;
-- la question n'est plus la brevetabilite initiale de l'invention proposee.
+- la question n'est plus la brevetabilité initiale de l'invention proposée.
 
-### Route to `logiciels-pi`
+### Router vers `logiciels-pi`
 
-- le sujet principal est le regime logiciel, la titularite, les licences ou
+- le sujet principal est le régime logiciel, la titularité, les licences ou
   l'OSS ;
-- la question brevets n'est pas le coeur du dossier ;
+- la question brevets n'est pas le cœur du dossier ;
 - il faut d'abord qualifier la couche logiciel avant de pousser une piste
   brevet.
 
-### Stay in `recherche-anteriorite-brevet`
+### Rester dans `recherche-anteriorite-brevet`
 
-- besoin principal = premier passage d'anteriorite ;
-- exclusions, couverture et art anterieur proche restent la question centrale ;
-- le dossier n'est pas encore dans une logique depot, nullite, contrefacon ou
-  regime logiciel plus specialisee.
+- besoin principal = premier passage d'antériorité ;
+- exclusions, couverture et art antérieur proche restent la question centrale ;
+- le dossier n'est pas encore dans une logique dépôt, nullité, contrefaçon ou
+  régime logiciel plus spécialisée.
 
 ## Contrat de sortie V2
 
 La sortie doit produire exactement les neuf blocs suivants, dans cet ordre :
 
-1. `Eligibility Snapshot`
-2. `Search Coverage Gate`
-3. `Classification and Search Scope`
-4. `Closest Prior Art`
-5. `NPL and Adjacent Coverage`
-6. `Novelty Signals`
-7. `Inventive Step Signals`
-8. `Next Step Routing`
-9. `Human Validation`
+1. `Synthèse d'éligibilité`
+2. `Seuil de couverture de recherche`
+3. `Classification et périmètre de recherche`
+4. `Art antérieur le plus proche`
+5. `Couverture NPL et voisine`
+6. `Signaux de nouveauté`
+7. `Signaux d'activité inventive`
+8. `Routage de prochaine étape`
+9. `Validation humaine`
 
-### 1. `Eligibility Snapshot`
+### 1. `Synthèse d'éligibilité`
 
 - type d'invention ;
-- exclusions ou fragilites d'eligibilite ;
+- exclusions ou fragilités d'éligibilité ;
 - points neutres et flags.
 
-### 2. `Search Coverage Gate`
+### 2. `Seuil de couverture de recherche`
 
-- etat du gate ;
-- bases interrogees ;
+- état du seuil ;
+- bases interrogées ;
 - limites majeures ;
-- effet pratique sur la fiabilite du triage.
+- effet pratique sur la fiabilité du triage.
 
-### 3. `Classification and Search Scope`
+### 3. `Classification et périmètre de recherche`
 
-- CIB/CPC retenues ou proposees ;
-- mots-cles ou axes couverts ;
+- CIB/CPC retenues ou proposées ;
+- mots-clés ou axes couverts ;
 - territoires couverts ;
-- portee reelle du premier passage.
+- portée réelle du premier passage.
 
-### 4. `Closest Prior Art`
+### 4. `Art antérieur le plus proche`
 
 - documents les plus proches ;
-- source et donnees cle ;
+- source et données clé ;
 - raison du signalement ;
-- eventuel signal X/Y/contexte si pertinent.
+- éventuel signal X/Y/contexte si pertinent.
 
-### 5. `NPL and Adjacent Coverage`
+### 5. `Couverture NPL et voisine`
 
-- CIB/CPC voisines proposees ;
+- CIB/CPC voisines proposées ;
 - statut de confirmation ;
 - NPL couverte ou non ;
 - impacts des trous de couverture.
 
-### 6. `Novelty Signals`
+### 6. `Signaux de nouveauté`
 
-- signaux contre ou en faveur de la nouveaute ;
+- signaux contre ou en faveur de la nouveauté ;
 - documents potentiellement destructeurs ;
-- caracteristiques apparemment deja connues ou encore distinctes ;
+- caractéristiques apparemment déjà connues ou encore distinctes ;
 - prudence sur les trous de lecture.
 
-### 7. `Inventive Step Signals`
+### 7. `Signaux d'activité inventive`
 
 - closest prior art ;
-- caracteristiques distinctives plausibles ;
+- caractéristiques distinctives plausibles ;
 - effet technique ;
-- probleme technique objectif ;
-- signaux pour ou contre l'activite inventive.
+- problème technique objectif ;
+- signaux pour ou contre l'activité inventive.
 
-### 8. `Next Step Routing`
+### 8. `Routage de prochaine étape`
 
 Ce bloc doit utiliser uniquement l'une des valeurs suivantes :
 
@@ -321,28 +321,28 @@ Ce bloc doit utiliser uniquement l'une des valeurs suivantes :
 - `route-to-software-regime-review`
 - `hold-or-do-not-file`
 
-Associer la valeur choisie a 2-4 actions concretes et a sa justification.
+Associer la valeur choisie à 2-4 actions concrètes et à sa justification.
 
-### 9. `Human Validation`
+### 9. `Validation humaine`
 
 - rappeler qu'il s'agit d'un premier passage ;
 - nommer les validations humaines requises ;
-- rappeler les points `[a verifier]` avant depot, communication publique ou
+- rappeler les points `[à vérifier]` avant dépôt, communication publique ou
   investissement industriel.
 
-## Regles de surete
+## Règles de sûreté
 
-- Ce skill ne conclut jamais a la brevetabilite.
-- Ce skill ne conclut jamais a la FTO.
-- Une base non interrogee ou une NPL absente reste une lacune visible.
-- `logiciels-pi` doit etre utilise quand le coeur du sujet est le regime
-  logiciel plutot que l'art anterieur brevet.
-- Les numeros, dates, classifications et statuts doivent rester relies a une
-  source ouvrable avant d'etre cites comme appui.
+- Ce skill ne conclut jamais à la brevetabilité.
+- Ce skill ne conclut jamais à la FTO.
+- Une base non interrogée ou une NPL absente reste une lacune visible.
+- `logiciels-pi` doit être utilisé quand le cœur du sujet est le régime
+  logiciel plutôt que l'art antérieur brevet.
+- Les numéros, dates, classifications et statuts doivent rester reliés à une
+  source ouvrable avant d'être cités comme appui.
 
-## Rappel final a conserver
+## Rappel final à conserver
 
 - premier passage strict uniquement ;
-- jamais opinion de brevetabilite ni FTO ;
-- revue humaine obligatoire avant depot, communication publique ou
+- jamais opinion de brevetabilité ni FTO ;
+- revue humaine obligatoire avant dépôt, communication publique ou
   industrialisation.

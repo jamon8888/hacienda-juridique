@@ -2,49 +2,49 @@
 name: depot-marque-fr
 version: "2.0.0"
 description: >
-  Preparation stricte d'un depot de marque V2 pour structurer un dossier FR,
-  EU ou Madrid avant revue humaine. Ce skill ne depose pas et ne remplace
+  Préparation stricte d'un dépôt de marque V2 pour structurer un dossier FR,
+  UE ou Madrid avant revue humaine. Ce skill ne dépose pas et ne remplace
   jamais la recherche amont ni la validation par mandataire ou avocat.
 argument-hint: "[signe | produits/services | FR/EU/Madrid]"
 ---
 
-# Skill - Depot marque FR V2
+# Skill - Dépôt marque FR V2
 
-> **Preparation de depot, pas depot ni opinion de disponibilite.**
-> `depot-marque-fr` intervient uniquement quand le dossier a deja franchi un
-> premier passage de recherche exploitable et qu'il faut preparer le paquet de
-> depot. Il ne remplace ni `recherche-anteriorite-marque`, ni une clearance
-> professionnelle, ni le depot formel par mandataire ou avocat.
+> **Préparation de dépôt, pas dépôt ni opinion de disponibilité.**
+> `depot-marque-fr` intervient uniquement quand le dossier a déjà franchi un
+> premier passage de recherche exploitable et qu'il faut préparer le paquet de
+> dépôt. Il ne remplace ni `recherche-anteriorite-marque`, ni une vérification
+> professionnelle, ni le dépôt formel par mandataire ou avocat.
 
-Reference de travail utile :
+Référence de travail utile :
 `references/depot-marque-fr-routing-and-output.md`
 
 ## Positionnement
 
-`depot-marque-fr` reste la brique de preparation de depot de la lane marques :
+`depot-marque-fr` reste la brique de préparation de dépôt de la voie marques :
 
 1. recherche amont exploitable ;
-2. choix de lane de depot ;
-3. preparation du paquet signe / classes / libelles / deposant / priorite ;
-4. validation humaine avant depot formel.
+2. choix de voie de dépôt ;
+3. préparation du paquet signe / classes / libellés / déposant / priorité ;
+4. validation humaine avant dépôt formel.
 
-Le skill est strictement borne a la preparation de depot :
+Le skill est strictement borné à la préparation de dépôt :
 
 - il ne conclut jamais qu'une marque est disponible ;
 - il ne traite pas la surveillance post-publication ;
-- il ne traite pas une opposition deja nee ;
-- il ne fait pas revivre `clearance-marque` comme workflow autonome.
+- il ne traite pas une opposition déjà née ;
+- il ne fait pas revivre `clearance-marque` comme flux de travail autonome.
 
 ## Ce skill ne fait pas
 
-- Ne depose pas la marque.
+- Ne dépose pas la marque.
 - Ne paye pas les taxes.
-- Ne rend pas une opinion finale de disponibilite.
+- Ne rend pas une opinion finale de disponibilité.
 - Ne remplace pas un mandataire en marques ou un avocat.
-- Ne fait pas la surveillance post-depot.
-- Ne traite pas une opposition ou une defense d'opposition.
+- Ne fait pas la surveillance post-dépôt.
+- Ne traite pas une opposition ou une défense d'opposition.
 
-## Contrat d'entree V2
+## Contrat d'entrée V2
 
 Le skill doit expliciter ou deriver les dimensions suivantes :
 
@@ -54,7 +54,7 @@ Le skill doit expliciter ou deriver les dimensions suivantes :
 - `mark_format`: `word`, `figurative`, `composite`, `other`, `unknown`
 - `priority_status`: `none`, `possible-claim`, `claimed`, `unclear`
 
-Bloc de faits a exposer explicitement :
+Bloc de faits à exposer explicitement :
 
 - `proposed_sign`
 - `goods_services_scope`
@@ -69,235 +69,235 @@ Bloc de faits a exposer explicitement :
 
 Avant tout, lire :
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Rattacher ensuite :
 
-- le role utilisateur ;
+- le rôle utilisateur ;
 - les territoires de pratique habituels ;
-- le mandataire ou l'avocat de reference si connu ;
-- les hypotheses de prudence si le profil est incomplet.
+- le mandataire ou l'avocat de référence si connu ;
+- les hypothèses de prudence si le profil est incomplet.
 
 Si le profil contient `[A CONFIGURER]`, le dire explicitement et tagger la
 sortie `[PROVISOIRE]`.
 
-## Intake
+## Cadrage initial
 
-Demander en un seul batch, puis mapper la reponse au contrat V2 :
+Demander en un seul batch, puis mapper la réponse au contrat V2 :
 
-1. signe exact, stylisation eventuelle et type apparent ;
-2. produits ou services reels, avec usage concret vise ;
-3. classes Nice deja identifiees ou a proposer ;
-4. lane de depot visee : FR, EU, Madrid, ou indecis ;
-5. deposant exact et statut de mandataire ;
-6. priorite revendiquee ou marque de base deja disponible ;
-7. reference de la recherche amont ou limites connues.
+1. signe exact, stylisation éventuelle et type apparent ;
+2. produits ou services réels, avec usage concret visé ;
+3. classes Nice déjà identifiées ou à proposer ;
+4. voie de dépôt visée : FR, EU, Madrid, ou indécis ;
+5. déposant exact et statut de mandataire ;
+6. priorité revendiquée ou marque de base déjà disponible ;
+7. référence de la recherche amont ou limites connues.
 
 Guidance de mapping minimale :
 
 - FR seul -> `filing_lane: fr-national`
 - EUTM -> `filing_lane: eu-eutm`
 - Madrid -> `filing_lane: madrid-international`
-- lane encore ouverte -> `filing_lane: undecided`
+- voie encore ouverte -> `filing_lane: undecided`
 - recherche amont exploitable -> `search_status: usable-first-pass`
 - recherche partielle -> `search_status: partial`
 - pas de recherche -> `search_status: not-run`
-- conflits deja remontes -> `search_status: conflicts-flagged`
+- conflits déjà remontés -> `search_status: conflicts-flagged`
 
 Si les produits ou services restent vagues, pousser une fois pour obtenir une
-description concrete. Si l'information reste floue, marquer
+description concrète. Si l'information reste floue, marquer
 `readiness_status: needs-clarification`.
 
-## Filing Readiness Gate
+## Seuil de préparation du dépôt
 
-Avant toute recommandation de depot, verifier explicitement :
+Avant toute recommandation de dépôt, vérifier explicitement :
 
 1. recherche amont disponible et exploitable ;
-2. motifs absolus au moins passes en revue au niveau preparation ;
-3. produits ou services assez concrets pour rediger les libelles ;
-4. deposant identifiable ;
-5. prerequis de lane satisfaits ;
-6. trous critiques visibilises.
+2. motifs absolus au moins passés en revue au niveau préparation ;
+3. produits ou services assez concrets pour rédiger les libellés ;
+4. déposant identifiable ;
+5. prérequis de voie satisfaits ;
+6. trous critiques visibilisés.
 
-Le gate ne peut sortir que sur trois etats :
+Le seuil ne peut sortir que sur trois états :
 
 - `ready`
 - `needs-clarification`
 - `blocked`
 
-Declencheurs usuels de blocage :
+Déclencheurs usuels de blocage :
 
 - `search_status: not-run`
-- conflits majeurs deja signales sans arbitrage humain ;
-- lane Madrid sans base FR ou EU exploitable ;
-- description trop vague pour rediger les libelles ;
-- deposant ou priorite non identifiables.
+- conflits majeurs déjà signalés sans arbitrage humain ;
+- voie Madrid sans base FR ou EU exploitable ;
+- description trop vague pour rédiger les libellés ;
+- déposant ou priorité non identifiables.
 
 ## Absolute Grounds Reminder
 
-Ce skill ne remplace pas `recherche-anteriorite-marque`, mais il doit verifier
-que les motifs absolus n'ont pas ete ignores au moment de preparer le depot.
+Ce skill ne remplace pas `recherche-anteriorite-marque`, mais il doit vérifier
+que les motifs absolus n'ont pas été ignorés au moment de préparer le dépôt.
 
 Passer au minimum en revue :
 
 - distinctivite insuffisante ;
 - descriptif ;
 - devenu usuel ;
-- forme imposee si pertinent ;
-- ordre public ou signe protege ;
-- caractere trompeur.
+- forme imposée si pertinent ;
+- ordre public ou signe protégé ;
+- caractère trompeur.
 
-Si un point est douteux, le faire remonter comme risque de depot, pas comme
+Si un point est douteux, le faire remonter comme risque de dépôt, pas comme
 verdict final.
 
-## FR / EU / Madrid lanes
+## FR / EU / Madrid voies
 
 ### `fr-national`
 
-Utiliser cette lane quand :
+Utiliser cette voie quand :
 
-- la cible est d'abord francaise ;
-- le budget et la portee restent nationaux ;
-- aucun besoin immediat de couverture UE entiere n'est etabli.
+- la cible est d'abord française ;
+- le budget et la portée restent nationaux ;
+- aucun besoin immédiat de couverture UE entière n'est établi.
 
-Points de preparation dominants :
+Points de préparation dominants :
 
-- adequation signe / classes / libelles FR ;
-- deposant et adresse exploitables ;
-- priorite eventuelle ;
-- articulation avec une extension ulterieure a 6 mois si pertinente.
+- adéquation signe / classes / libellés FR ;
+- déposant et adresse exploitables ;
+- priorité éventuelle ;
+- articulation avec une extension ultérieure à 6 mois si pertinente.
 
 ### `eu-eutm`
 
-Utiliser cette lane quand :
+Utiliser cette voie quand :
 
 - la cible commerciale est UE large ;
-- une couverture unitaire EUTM est recherchee ;
+- une couverture unitaire EUTM est recherchée ;
 - le dossier justifie une exposition plus large qu'un FR seul.
 
-Points de preparation dominants :
+Points de préparation dominants :
 
-- coherence des produits/services a l'echelle UE ;
+- cohérence des produits/services à l'échelle UE ;
 - risque plus large de conflit ou d'attaque centralisee ;
-- statut du representant si le deposant n'est pas resident UE ;
-- interet d'un FR d'abord vs EUTM direct.
+- statut du représentant si le déposant n'est pas résident UE ;
+- intérêt d'un FR d'abord vs EUTM direct.
 
 ### `madrid-international`
 
-Utiliser cette lane quand :
+Utiliser cette voie quand :
 
-- le besoin principal est une designation internationale ciblee ;
-- les pays vises sont identifies ;
-- une base FR ou EU existe deja ou doit etre posee d'abord.
+- le besoin principal est une désignation internationale ciblee ;
+- les pays visés sont identifiés ;
+- une base FR ou EU existe déjà ou doit être posee d'abord.
 
-Points de preparation dominants :
+Points de préparation dominants :
 
 - existence et statut de la marque de base ;
 - liste des pays designes ;
-- dependance a la base ;
-- route de preparation si la base n'existe pas encore.
+- dépendance à la base ;
+- route de préparation si la base n'existe pas encore.
 
-## Routing Boundaries
+## Limites de routage
 
-### Route to `recherche-anteriorite-marque`
+### Router vers `recherche-anteriorite-marque`
 
 - pas de recherche amont exploitable ;
 - couverture de recherche partielle ou trop faible ;
-- conflit ou doute de disponibilite a requalifier avant depot ;
+- conflit ou doute de disponibilité à requalifier avant dépôt ;
 - motifs absolus encore trop incertains au premier passage.
 
-### Route to `surveillance-marque`
+### Router vers `surveillance-marque`
 
-- la marque est deja deposee ou doit surtout etre suivie apres depot ;
+- la marque est déjà déposée ou doit surtout être suivie après dépôt ;
 - le besoin principal = monitorage des publications ou watchlist ;
-- le travail de preparation de depot est secondaire ou deja fait.
+- le travail de préparation de dépôt est secondaire ou déjà fait.
 
-### Route to `analyse-opposition-marque`
+### Router vers `analyse-opposition-marque`
 
 - une opposition, menace d'opposition ou conflit contradictoire concret existe ;
-- le sujet principal n'est plus la preparation de depot mais la reponse
-  procedurale ou l'analyse de droits/grounds ;
-- une limitation ou un changement de libelles depend d'une analyse d'opposition.
+- le sujet principal n'est plus la préparation de dépôt mais la réponse
+  procédurale ou l'analyse de droits/grounds ;
+- une limitation ou un changement de libellés dépend d'une analyse d'opposition.
 
-### Route to `clearance-marque`
+### Router vers `clearance-marque`
 
-- uniquement si un ancien workflow heritage l'appelle encore ;
-- a presenter comme alias de compatibilite ;
-- rerouter vers `recherche-anteriorite-marque`, jamais comme lane autonome.
+- uniquement si un ancien flux de travail heritage l'appelle encore ;
+- à présenter comme alias de compatibilité ;
+- rerouter vers `recherche-anteriorite-marque`, jamais comme voie autonome.
 
-### Stay in `depot-marque-fr`
+### Rester dans `depot-marque-fr`
 
-- recherche amont exploitable deja disponible ;
-- besoin principal = preparer le dossier de depot ;
-- choix de lane, libelles, deposant, priorite et formalites restent la
+- recherche amont exploitable déjà disponible ;
+- besoin principal = préparer le dossier de dépôt ;
+- choix de voie, libellés, déposant, priorité et formalités restent la
   question centrale.
 
 ## Contrat de sortie V2
 
 La sortie doit produire exactement les neuf blocs suivants, dans cet ordre :
 
-1. `Filing Intake Snapshot`
-2. `Filing Readiness Gate`
+1. `Filing Cadrage initial Snapshot`
+2. `Seuil de préparation du dépôt`
 3. `Absolute Grounds Reminder`
 4. `Search Baseline and Dependencies`
-5. `Lane Selection`
+5. `Choix de voie`
 6. `Goods and Services Draft`
 7. `Applicant Priority and Formalities`
-8. `Next Step Routing`
-9. `Human Validation`
+8. `Routage de prochaine étape`
+9. `Validation humaine`
 
-### 1. `Filing Intake Snapshot`
+### 1. `Filing Cadrage initial Snapshot`
 
 - signe ;
 - type de marque ;
 - classes et produits/services resumes ;
-- lane envisagee ;
-- deposant ;
-- priorite/base si applicable.
+- voie envisagée ;
+- déposant ;
+- priorité/base si applicable.
 
-### 2. `Filing Readiness Gate`
+### 2. `Seuil de préparation du dépôt`
 
-- etat `ready`, `needs-clarification` ou `blocked` ;
-- raisons du gate ;
-- bloqueurs ou clarifications concretes.
+- état `ready`, `needs-clarification` ou `blocked` ;
+- raisons du seuil ;
+- bloqueurs ou clarifications concrètes.
 
 ### 3. `Absolute Grounds Reminder`
 
 - motifs absolus regardes ;
 - flags ou points neutres ;
-- limites du controle a ce stade.
+- limites du contrôle à ce stade.
 
 ### 4. `Search Baseline and Dependencies`
 
-- reference du premier passage ;
+- référence du premier passage ;
 - ce que la recherche couvrait ;
 - lacunes restantes ;
-- dependances avant depot ou avant lane internationale.
+- dépendances avant dépôt ou avant voie internationale.
 
-### 5. `Lane Selection`
+### 5. Choix de voie
 
-- lane retenue ;
+- voie retenue ;
 - pourquoi ;
 - alternatives ecartees ;
-- prerequis specifiques FR / EU / Madrid.
+- prérequis specifiques FR / EU / Madrid.
 
 ### 6. `Goods and Services Draft`
 
 - classes retenues ;
-- propositions de libelles ;
-- points a restreindre, elargir ou confirmer ;
-- adequation avec l'usage reel.
+- propositions de libellés ;
+- points à restreindre, élargir ou confirmer ;
+- adéquation avec l'usage réel.
 
 ### 7. `Applicant Priority and Formalities`
 
-- deposant ;
+- déposant ;
 - mandataire ou avocat ;
-- priorite revendiquee ou non ;
+- priorité revendiquée ou non ;
 - base FR/EU si Madrid ;
-- points de formulaire ou pieces a reunir.
+- points de formulaire ou pièces à réunir.
 
-### 8. `Next Step Routing`
+### 8. `Routage de prochaine étape`
 
 Ce bloc doit utiliser uniquement l'une des valeurs suivantes :
 
@@ -311,25 +311,25 @@ Ce bloc doit utiliser uniquement l'une des valeurs suivantes :
 - `prepare-opposition-position`
 - `hold-or-rename`
 
-Associer la valeur choisie a 2-4 actions concretes et a sa justification.
+Associer la valeur choisie à 2-4 actions concrètes et à sa justification.
 
-### 9. `Human Validation`
+### 9. `Validation humaine`
 
-- rappeler que ce skill prepare mais ne depose pas ;
+- rappeler que ce skill prépare mais ne dépose pas ;
 - nommer les validations humaines requises ;
-- rappeler les points `[a verifier]` avant depot.
+- rappeler les points `[à vérifier]` avant dépôt.
 
-## Regles de surete
+## Règles de sûreté
 
-- Ce skill ne rend jamais un depot "pret juridiquement" sans validation
+- Ce skill ne rend jamais un dépôt "prêt juridiquement" sans validation
   humaine.
 - Une recherche absente ou partielle reste un bloqueur visible.
-- Madrid sans base FR ou EU doit rester bloque ou reroute.
+- Madrid sans base FR ou EU doit rester bloqué ou reroute.
 - `clearance-marque` ne doit jamais revenir comme voie normale.
-- Les libelles restent des propositions a valider, pas une redaction finale.
+- Les libellés restent des propositions à valider, pas une rédaction finale.
 
-## Rappel final a conserver
+## Rappel final à conserver
 
-- preparation stricte de depot uniquement ;
-- jamais une opinion de disponibilite ;
-- validation humaine obligatoire avant tout depot FR, EU ou Madrid.
+- préparation stricte de dépôt uniquement ;
+- jamais une opinion de disponibilité ;
+- validation humaine obligatoire avant tout dépôt FR, EU ou Madrid.

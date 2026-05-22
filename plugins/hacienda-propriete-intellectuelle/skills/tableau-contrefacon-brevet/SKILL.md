@@ -3,52 +3,52 @@ name: tableau-contrefacon-brevet
 version: "2.0.0"
 description: >
   Claim chart brevet V2 offensif strict pour confronter un brevet et un
-  produit ou procede cible, element par element, avant revue humaine. Ce skill
-  ne qualifie pas juridiquement la contrefacon et ne remplace ni la mise en
-  demeure, ni la saisie, ni la strategie contentieuse.
-argument-hint: "[brevet | produit/procede cible | literal/equivalence/both]"
+  produit ou procédé cible, élément par élément, avant revue humaine. Ce skill
+  ne qualifié pas juridiquement la contrefaçon et ne remplace ni la mise en
+  demeure, ni la saisie, ni la stratégie contentieuse.
+argument-hint: "[brevet | produit/procédé cible | literal/equivalence/both]"
 ---
 
-# Skill - Tableau contrefacon brevet V2
+# Skill - Tableau contrefaçon brevet V2
 
-> **Confrontation technique, pas qualification de contrefacon.**
-> `tableau-contrefacon-brevet` produit un claim chart offensif strict,
-> destine a confronter un brevet et un produit ou procede cible. Il ne
-> qualifie pas juridiquement la contrefacon, ne construit pas une defense,
-> ne redige pas la mise en demeure et ne remplace pas la strategie
+> **Confrontation technique, pas qualification de contrefaçon.**
+> `tableau-contrefacon-brevet` produit un tableau de contrefaçon offensif strict,
+> destiné à confronter un brevet et un produit ou procédé cible. Il ne
+> qualifié pas juridiquement la contrefaçon, ne construit pas une défense,
+> ne rédige pas la mise en demeure et ne remplace pas la stratégie
 > contentieuse.
 
-Reference de travail utile :
+Référence de travail utile :
 `references/tableau-contrefacon-brevet-routing-and-output.md`
 
 ## Positionnement
 
-`tableau-contrefacon-brevet` sert a :
+`tableau-contrefacon-brevet` sert à :
 
 1. selectionner les revendications offensives utiles ;
-2. comparer element par element avec la preuve produit ;
-3. separer litteralite, equivalence et inconnus ;
-4. evaluer la readiness du claim chart ;
+2. comparer élément par élément avec la preuve produit ;
+3. séparer littéralité, equivalence et inconnus ;
+4. évaluer la préparation du tableau de contrefaçon ;
 5. router vers la bonne suite enforcement.
 
 Le skill est strictement offensif. Il ne doit pas absorber :
 
-- la defense contre un claim chart adverse ;
-- la nullite / invalidite du brevet oppose ;
-- la strategie judiciaire generale.
+- la défense contre un tableau de contrefaçon adverse ;
+- la nullité / invalidité du brevet oppose ;
+- la stratégie judiciaire generale.
 
 ## Ce skill ne fait pas
 
-- ne conclut pas a la contrefacon ;
-- ne produit pas une defense contre une allegation adverse ;
-- n'attaque pas la validite du brevet en profondeur ;
-- ne redige pas la mise en demeure ;
-- ne prepare pas la requete de saisie complete ;
+- ne conclut pas à la contrefaçon ;
+- ne produit pas une défense contre une allégation adverse ;
+- n'attaque pas la validité du brevet en profondeur ;
+- ne rédige pas la mise en demeure ;
+- ne prépare pas la requête de saisie complète ;
 - ne remplace pas `contentieux-pi`.
 
-## Contrat d'entree V2
+## Contrat d'entrée V2
 
-Le skill doit expliciter ou deriver :
+Le skill doit expliciter ou dériver :
 
 - `assertion_mode`: `literal`, `equivalence`, `both`
 - `patent_status`: `fr`, `ep-fr`, `pct-fr`, `unknown`
@@ -72,12 +72,12 @@ Bloc de faits minimum :
 
 Avant tout, lire :
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Rattacher ensuite :
 
-- le role utilisateur ;
+- le rôle utilisateur ;
 - la posture enforcement ;
 - les approbateurs ;
 - le mandataire ou avocat de validation ;
@@ -86,71 +86,71 @@ Rattacher ensuite :
 Si le profil contient `[A CONFIGURER]`, le dire explicitement et tagger la
 sortie `[PROVISOIRE]`.
 
-## Intake
+## Cadrage initial
 
-Demander en un seul batch, puis mapper la reponse au contrat V2 :
+Demander en un seul batch, puis mapper la réponse au contrat V2 :
 
-1. reference du brevet et revendications visees ;
-2. produit ou procede cible ;
+1. référence du brevet et revendications visées ;
+2. produit ou procédé cible ;
 3. sources techniques disponibles ;
 4. theorie souhaitee : `literal`, `equivalence`, `both` ;
 5. objectif enforcement ;
 6. contexte commercial FR ;
-7. preuves ou lacunes deja connues.
+7. preuves ou lacunes déjà connues.
 
 Guidance de mapping minimale :
 
-- brevet FR en vigueur ou exploite sur FR -> `patent_status: fr`
+- brevet FR en vigueur ou exploité sur FR -> `patent_status: fr`
 - brevet EP avec partie FR utile -> `patent_status: ep-fr`
 - route PCT / titre encore flou sur FR -> `patent_status: pct-fr`
 - seulement revendication independante -> `claim_scope_status: independent-only`
 - independante + dependantes cles -> `claim_scope_status: independent-plus-key-dependent`
 - documentation produit riche et technique -> `evidence_coverage: strong`
-- documentation utile mais incomplete -> `evidence_coverage: mixed`
+- documentation utile mais incomplète -> `evidence_coverage: mixed`
 - documentation maigre ou partiale -> `evidence_coverage: weak`
 - quasi aucune documentation exploitable -> `evidence_coverage: none`
 
 Si la documentation produit est trop maigre, le skill doit le dire tout de
-suite et baisser le gate plutot que remplir les trous par speculation.
+suite et baisser le seuil plutôt que remplir les trous par spéculation.
 
-## Chart Readiness Gate
+## Seuil de préparation du tableau
 
 Le skill doit conclure explicitement sur :
 
 - `ready`
   - revendications exploitables
-  - documentation produit/procede suffisante
-  - mapping elementaire faisable
+  - documentation produit/procédé suffisante
+  - mapping élémentaire faisable
 - `partial`
   - base exploitable mais lacunaire
-  - certains elements restent `unknown` ou `review`
+  - certains éléments restent `unknown` ou `review`
 - `blocked`
   - brevet ou revendications non exploitables
   - documentation produit trop pauvre
   - theorie d'equivalence sans base minimale
 
-Checks de gate minimaux :
+Contrôles minimaux du seuil :
 
 - revendications cibles lisibles et assez stables ;
-- preuve produit/procede exploitable ;
-- objectif enforcement coherent ;
-- base suffisante pour un mapping serieux.
+- preuve produit/procédé exploitable ;
+- objectif enforcement cohérent ;
+- base suffisante pour un mapping sérieux.
 
 Si `evidence_coverage = none`, le skill doit bloquer.
 
 Si `assertion_mode = equivalence` et qu'aucune base technique minimale
 ne permet d'exposer fonction / moyen / resultat, le skill doit bloquer
-ou basculer en `partial` tres reserve.
+ou basculer en `partial` tres réserve.
 
 ## Mapping discipline
 
-Le coeur du skill reste un claim chart element par element.
+Le cœur du skill reste un tableau de contrefaçon élément par élément.
 
-Pour chaque element revendique, il faut :
+Pour chaque élément revendiqué, il faut :
 
-- isoler l'element de revendication ;
-- rattacher une preuve produit ou procede ;
-- attribuer un statut ferme ;
+- isoler l'élément de revendication ;
+- rattacher une preuve produit ou procédé ;
+- attribuer un statut fermé ;
 - noter l'incertitude ou l'interpretation utile.
 
 ## Literal Mapping Table
@@ -170,9 +170,9 @@ Statuts :
 - `unknown`
 
 Le skill ne doit pas transformer un manque documentaire en `no-match` par
-defaut. Quand la preuve manque, le statut reste `unknown`.
+défaut. Quand la preuve manque, le statut reste `unknown`.
 
-## Equivalence Review
+## Revue de l'équivalence
 
 Actif seulement si `assertion_mode = equivalence` ou `both`.
 
@@ -182,84 +182,84 @@ Analyser :
 - moyen
 - resultat
 
-Ne jamais maquiller les points fragiles. Les elements douteux restent
+Ne jamais maquiller les points fragiles. Les éléments douteux restent
 `[review]` ou `unknown`.
 
 Le bloc doit aussi dire quand l'equivalence semble trop fragile pour
-soutenir une escalade immediate.
+soutenir une escalade immédiate.
 
 ## Frontieres de routage
 
-- `mise-en-demeure-pi` : si le claim chart supporte une offensive ecrite
+- `mise-en-demeure-pi` : si le tableau de contrefaçon supporté une offensive ecrite
 - `saisie-contrefacon` : si le besoin devient l'acquisition probatoire
-- `contentieux-pi` : si le besoin devient la strategie judiciaire globale
-- `anteriorite-invalidite` : si la vraie question devient la validite ou la defense
+- `contentieux-pi` : si le besoin devient la stratégie judiciaire globale
+- `anteriorite-invalidite` : si la vraie question devient la validité ou la défense
 - `recherche-anteriorite-brevet` : si la vraie question est le prior art amont
 
 ## Format de sortie V2
 
-La sortie doit etre structuree ainsi :
+La sortie doit être structurée ainsi :
 
-1. `Case Snapshot`
-2. `Patent and Claim Scope`
-3. `Evidence Coverage`
+1. `Synthèse du dossier`
+2. `Brevet et portée des revendications`
+3. `Couverture probatoire`
 4. `Literal Mapping Table`
-5. `Equivalence Review`
+5. `Revue de l'équivalence`
 6. `Critical Gaps and Unknowns`
 7. `Enforcement Use Assessment`
-8. `Decision Routing`
-9. `Human Validation`
+8. `Routage de décision`
+9. `Validation humaine`
 
-### 1. `Case Snapshot`
+### 1. `Synthèse du dossier`
 
 - brevet ;
-- produit/procede ;
+- produit/procédé ;
 - objectif enforcement ;
 - mode d'assertion ;
 - statut global.
 
-### 2. `Patent and Claim Scope`
+### 2. `Brevet et portée des revendications`
 
 - revendications cibles ;
 - statut de scope ;
-- limites visibles du perimetre retenu.
+- limites visibles du périmètre retenu.
 
-### 3. `Evidence Coverage`
+### 3. `Couverture probatoire`
 
 - sources techniques exploitees ;
-- qualite de couverture ;
+- qualité de couverture ;
 - trous documentaires ;
-- effet pratique sur la fiabilite du chart.
+- effet pratique sur la fiabilité du chart.
 
 ### 4. `Literal Mapping Table`
 
-- tableau element par element ;
-- application stricte des quatre statuts fermes ;
+- tableau élément par élément ;
+- application stricte des quatre statuts fermés ;
 - commentaires courts, sourcables et lisibles.
 
-### 5. `Equivalence Review`
+### 5. `Revue de l'équivalence`
 
 - actif uniquement si la theorie le justifie ;
-- elements non litteraux potentiellement equivalents ;
+- éléments non littéraux potentiellement équivalents ;
 - fonction / moyen / resultat ;
-- points fragiles a reviewer.
+- points fragiles à revoir.
 
 ### 6. `Critical Gaps and Unknowns`
 
 - trous de preuve critiques ;
-- elements ambigus ;
+- éléments ambigus ;
 - points de fragilite qui empechent toute escalade propre.
 
 ### 7. `Enforcement Use Assessment`
 
-- utilite du claim chart pour :
+- utilite du tableau de contrefaçon pour :
   - mise en demeure
   - saisie
   - action
-- ce que le tableau supporte ;
-- ce qu'il ne supporte pas encore.
+- ce que le tableau supporté ;
+- ce qu'il ne supporté pas encore.
 
-### 8. `Decision Routing`
+### 8. `Routage de décision`
 
 Conclure avec une seule valeur :
 
@@ -271,26 +271,26 @@ Conclure avec une seule valeur :
 - `route-to-invalidity-defense`
 - `hold-insufficient-basis`
 
-Associer la valeur choisie a 2-4 actions concretes et a sa justification.
+Associer la valeur choisie à 2-4 actions concrètes et à sa justification.
 
-### 9. `Human Validation`
+### 9. `Validation humaine`
 
-- ce qui doit etre valide par le mandataire ou l'avocat ;
-- ce qui reste `[a verifier]` ;
-- reserve explicite sur la qualification juridique.
+- ce qui doit être valide par le mandataire ou l'avocat ;
+- ce qui reste `[à vérifier]` ;
+- réserve explicite sur la qualification juridique.
 
-## Regles de surete
+## Règles de sûreté
 
-- Le garde-fou "confrontation technique, pas qualification de contrefacon"
+- Le garde-fou "confrontation technique, pas qualification de contrefaçon"
   doit rester visible.
-- Le `Chart Readiness Gate` doit etre explicite.
-- Une preuve produit faible ou absente ne doit jamais etre maquillee.
+- Le `Chart Readiness Gate` doit être explicite.
+- Une preuve produit faible ou absente ne doit jamais être maquillee.
 - La branche equivalence ne doit jamais produire un faux sentiment de force.
-- Le skill doit rester offensif strict et router la defense / invalidite
+- Le skill doit rester offensif strict et router la défense / invalidité
   ailleurs.
 
-## Rappel final a conserver
+## Rappel final à conserver
 
-- claim chart offensif strict uniquement ;
-- jamais qualification juridique de contrefacon ;
+- tableau de contrefaçon offensif strict uniquement ;
+- jamais qualification juridique de contrefaçon ;
 - validation humaine obligatoire avant mise en demeure, saisie ou contentieux.

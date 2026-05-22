@@ -1,11 +1,11 @@
 ---
 name: droits-voisins-ogc
 description: >
-  Skill V2 strict de qualification droits voisins et OGC : artistes-interpretes,
+  Skill V2 strict de qualification droits voisins et OGC : artistes-interprètes,
   producteurs de phonogrammes, producteurs de videogrammes, entreprises de
   communication audiovisuelle, editeurs de presse quand reellement pertinents,
-  gestion collective et remuneration equitable. `gen-ai-signal` et `nft-signal`
-  restent secondaires et bornes. Brouillon soumis a validation humaine.
+  gestion collective et rémunération equitable. `gen-ai-signal` et `nft-signal`
+  restent secondaires et bornés. Brouillon soumis à validation humaine.
 version: "2.0.0"
 authors: ["Hacienda"]
 argument-hint: "[performer-rights|phonogram-producer|videogram-producer|broadcast-organization|press-publisher|mixed]"
@@ -16,31 +16,31 @@ tags: [droits-voisins, ogc, remuneration-equitable, artistes-interpretes, produc
 
 > **ANALYSE PREPARATOIRE, PAS AVIS JURIDIQUE FINAL.**
 >
-> Ce skill fait une analyse de readiness en droits voisins et OGC.
-> Il ne remplace pas la revue finale par un avocat ou un juriste specialise.
-> Il ne devient ni un memo AI Act autonome, ni une note blockchain/NFT generaliste.
-> Les branches `gen-ai-signal` et `nft-signal` restent bornees et secondaires.
+> Ce skill fait une analyse de préparation en droits voisins et OGC.
+> Il ne remplace pas la revue finale par un avocat ou un juriste spécialisé.
+> Il ne devient ni un mémo AI Act autonome, ni une note blockchain/NFT generaliste.
+> Les branches `gen-ai-signal` et `nft-signal` restent bornées et secondaires.
 
-## Role
+## Rôle
 
 Le coeur du skill reste strictement :
 
-- la qualification du titulaire ou de la categorie de titulaire de droits voisins ;
-- la cartographie de l'acte d'exploitation vise ;
-- la posture de gestion directe, OGC ou remuneration equitable ;
-- la qualite minimale de la chaine de droits ;
-- la preparation d'un brouillon relisible avec routing ferme.
+- la qualification du titulaire ou de la catégorie de titulaire de droits voisins ;
+- la cartographie de l'acte d'exploitation visé ;
+- la posture de gestion directe, OGC ou rémunération equitable ;
+- la qualité minimale de la chaîne de droits ;
+- la préparation d'un brouillon relisible avec routage fermé.
 
 Le skill reste distinct de :
 
-- `qualification-oeuvre` si la question dominante devient l'originalite ou la qualification auteur ;
-- `licence-droit-auteur` si le besoin reel devient une licence d'exploitation ;
-- `cession-droit-auteur` si le besoin reel devient un transfert patrimonial ou un cleanup de chaine de titre ;
+- `qualification-oeuvre` si la question dominante devient l'originalité ou la qualification auteur ;
+- `licence-droit-auteur` si le besoin réel devient une licence d'exploitation ;
+- `cession-droit-auteur` si le besoin réel devient un transfert patrimonial ou un cleanup de chaîne de titre ;
 - `contrefacon-droit-auteur` si le sujet principal devient une atteinte auteur au fond ;
-- `contentieux-pi` si le sujet principal devient la strategie judiciaire ou pre-judiciaire ;
+- `contentieux-pi` si le sujet principal devient la stratégie judiciaire ou pre-judiciaire ;
 - `contrats-pi` si la question releve d'un montage contractuel PI plus large.
 
-## Closed Intake Contract
+## Contrat de cadrage fermé
 
 Renseigner exactement ces champs :
 
@@ -51,28 +51,28 @@ Renseigner exactement ces champs :
 - `emerging_signal`: `none` | `gen-ai` | `nft` | `both`
 - `territory_scope`: `fr` | `eu` | `international`
 
-## Minimum Facts
+## Faits minimaux
 
 Le skill ne doit pas sortir un brouillon exploitable sans au moins :
 
-- titulaire ou categorie de titulaire identifie ;
-- prestation, enregistrement ou publication identifie ;
-- acte d'exploitation cible identifie ;
-- role du producteur, diffuseur, plateforme ou OGC si pertinent ;
+- titulaire ou catégorie de titulaire identifié ;
+- prestation, enregistrement ou publication identifié ;
+- acte d'exploitation cible identifié ;
+- rôle du producteur, diffuseur, plateforme ou OGC si pertinent ;
 - territoire minimal ;
-- sources consultees et datees.
+- sources consultées et datées.
 
 Ajouter selon les cas :
 
 - contrat ou clause disponible ;
-- preuve de fixation, publication ou premiere communication ;
-- adhesion OGC, organisme et posture de repartition ;
-- signal IA ou NFT documente ;
-- indices de remuneration equitable.
+- preuve de fixation, publication ou première communication ;
+- adhesion OGC, organisme et posture de répartition ;
+- signal IA ou NFT documenté ;
+- indices de rémunération equitable.
 
-Tout element manquant reste `[a verifier]`.
+Tout élément manquant reste `[à vérifier]`.
 
-## Neighboring Rights Readiness Gate
+## Seuil de préparation des droits voisins
 
 Le skill conclut toujours sur une seule valeur :
 
@@ -80,33 +80,33 @@ Le skill conclut toujours sur une seule valeur :
 - `partial`
 - `blocked`
 
-### Gate Logic
+### Logique du seuil
 
-- `ready` : le dossier permet un brouillon voisins/OGC exploitable avec titulaire, acte et posture de gestion suffisamment identifies.
-- `partial` : le dossier permet un brouillon structure, mais avec trous ou fragilites.
-- `blocked` : le skill s'arrete si la base factuelle ne permet pas une analyse voisins/OGC serieuse.
+- `ready` : le dossier permet un brouillon voisins/OGC exploitable avec titulaire, acte et posture de gestion suffisamment identifiés.
+- `partial` : le dossier permet un brouillon structuré, mais avec trous ou fragilités.
+- `blocked` : le skill s'arrête si la base factuelle ne permet pas une analyse voisins/OGC sérieuse.
 
 Bloquer si :
 
 - `rights_chain_status = blocked` ;
-- aucun titulaire ou categorie de titulaire ne peut etre identifie ;
-- aucun acte d'exploitation cible ne peut etre formule ;
-- le sujet reel devient principalement auteur, contrat global ou contentieux ;
-- aucune source consultee et datee ne peut etre documentee.
+- aucun titulaire ou catégorie de titulaire ne peut être identifié ;
+- aucun acte d'exploitation cible ne peut être formule ;
+- le sujet réel devient principalement auteur, contrat global ou contentieux ;
+- aucune source consultée et datée ne peut être documentée.
 
-Si le gate est `partial`, la sortie garde obligatoirement :
+Si le seuil est `partial`, la sortie garde obligatoirement :
 
 - `[PROVISOIRE]`
-- `[a verifier]`
-- `[A COMPLETER]`
+- `[à vérifier]`
+- `[À COMPLÉTER]`
 
 ## Core Logic
 
-### Rights holder core
+### Noyau titulaire des droits
 
 Structurer l'analyse autour de :
 
-- artistes-interpretes ;
+- artistes-interprètes ;
 - producteurs de phonogrammes ;
 - producteurs de videogrammes ;
 - entreprises de communication audiovisuelle ;
@@ -114,13 +114,13 @@ Structurer l'analyse autour de :
 
 ### Exploitation and consent core
 
-Verifier au minimum :
+Vérifier au minimum :
 
 - l'acte d'exploitation cible ;
-- le consentement ou l'autorisation necessaire ;
-- la duree apparente de protection ;
-- la posture de remuneration equitable si un phonogramme publie a des fins de commerce est en cause ;
-- la place d'un OGC, d'un mandat, d'une repartition ou d'un direct licensing.
+- le consentement ou l'autorisation nécessaire ;
+- la durée apparente de protection ;
+- la posture de rémunération equitable si un phonogramme publié à des fins de commerce est en cause ;
+- la place d'un OGC, d'un mandat, d'une répartition ou d'un direct licensing.
 
 ## Secondary Signals
 
@@ -128,9 +128,9 @@ Verifier au minimum :
 
 Cette branche reste secondaire. Elle peut seulement :
 
-- signaler un doute sur la protegebilite d'un output IA ;
+- signaler un doute sur la protégeabilité d'une sortie IA ;
 - signaler un risque training, opt-out ou style mimicry ;
-- rerouter si le sujet dominant devient la conformite IA ou le contracting IA.
+- rerouter si le sujet dominant devient la conformité IA ou le contracting IA.
 
 Elle ne transforme pas le skill en audit AI Act autonome.
 
@@ -138,37 +138,37 @@ Elle ne transforme pas le skill en audit AI Act autonome.
 
 Cette branche reste secondaire. Elle peut seulement :
 
-- rappeler qu'un NFT ne transfere pas les droits ;
+- rappeler qu'un NFT ne transfère pas les droits ;
 - signaler un risque de mint sans autorisation ;
-- signaler une confusion de titularite ;
+- signaler une confusion de titularité ;
 - rerouter si le sujet dominant devient principalement contractuel ou contentieux.
 
-Elle ne transforme pas le skill en memo blockchain generaliste.
+Elle ne transforme pas le skill en mémo blockchain generaliste.
 
-## Decision Boundaries
+## Frontières de décision
 
-- Si la question dominante porte sur l'originalite ou la qualification auteur de l'oeuvre : route vers `qualification-oeuvre`.
-- Si le besoin reel devient la structuration d'une licence : route vers `licence-droit-auteur`.
-- Si le besoin reel devient un transfert patrimonial ou un cleanup de title chain : route vers `cession-droit-auteur`.
+- Si la question dominante porte sur l'originalité ou la qualification auteur de l'œuvre : route vers `qualification-oeuvre`.
+- Si le besoin réel devient la structuration d'une licence : route vers `licence-droit-auteur`.
+- Si le besoin réel devient un transfert patrimonial ou un cleanup de title chain : route vers `cession-droit-auteur`.
 - Si le sujet principal devient une atteinte auteur au fond : route vers `contrefacon-droit-auteur`.
-- Si le sujet principal devient une strategie judiciaire ou pre-judiciaire : route vers `contentieux-pi`.
+- Si le sujet principal devient une stratégie judiciaire ou pre-judiciaire : route vers `contentieux-pi`.
 - Si la question releve d'un montage contractuel PI plus large : route vers `contrats-pi`.
 
-## Stable 9-Block Output
+## Sortie stable en 9 blocs
 
 La sortie doit toujours utiliser exactement ces 9 blocs :
 
-1. `Case Snapshot`
-2. `Neighboring Rights Readiness Gate`
+1. `Synthèse du dossier`
+2. `Seuil de préparation des droits voisins`
 3. `Rights Holder And Title Chain`
 4. `Exploitation And Consent Map`
 5. `Duration And Remuneration Posture`
 6. `OGC And Collective Management Posture`
 7. `Emerging Signal`
-8. `Decision Routing`
-9. `Human Validation`
+8. `Routage de décision`
+9. `Validation humaine`
 
-## Closed Decision Routing
+## Closed Routage de décision
 
 Une seule route finale est autorisee :
 
@@ -183,24 +183,24 @@ Une seule route finale est autorisee :
 - `route-to-pi-litigation`
 - `hold-insufficient-basis`
 
-## Output Template
+## Modèle de sortie
 
 ```markdown
 # Neighboring Rights And OGC Brief - [DOSSIER]
 
-## 1. Case Snapshot
+## 1. Synthèse du dossier
 - `primary_track`:
 - `management_posture`:
 - `rights_chain_status`:
 - `exploitation_mode`:
 - `emerging_signal`:
 - `territory_scope`:
-- Sources consultees :
+- Sources consultées :
 
 ## 2. Neighboring Rights Readiness Gate
 - Gate :
 - Motif principal :
-- Niveau de fiabilite :
+- Niveau de fiabilité :
 
 ## 3. Rights Holder And Title Chain
 - Titulaire ou categorie de titulaire :
@@ -233,24 +233,24 @@ Une seule route finale est autorisee :
 - Routes ecartees :
 
 ## 9. Human Validation
-- Points a confirmer :
-- Sources a relire :
+- Points à confirmer :
+- Sources à relire :
 - Validation humaine requise avant usage externe.
 ```
 
-## Examples
+## Exemples
 
 <example>
-<user>Un artiste-interprete veut verifier ses droits sur un phonogramme exploite en streaming et la place de l'ADAMI.</user>
-<response>Je traite le dossier comme `primary_track=performer-rights`, `management_posture=ogc-membership`, `exploitation_mode=streaming`, `emerging_signal=none`. Je verifie d'abord le titulaire, l'enregistrement, l'acte d'exploitation, la posture OGC et les sources consultees. La sortie reste bornee aux 9 blocs V2 avec `Neighboring Rights Readiness Gate`, cartographie consentement/remuneration et routing final ferme.</response>
+<user>Un artiste-interprete veut vérifier ses droits sur un phonogramme exploité en streaming et la place de l'ADAMI.</user>
+<response>Je traite le dossier comme `primary_track=performer-rights`, `management_posture=ogc-membership`, `exploitation_mode=streaming`, `emerging_signal=none`. Je vérifie d'abord le titulaire, l'enregistrement, l'acte d'exploitation, la posture OGC et les sources consultées. La sortie reste bornée aux 9 blocs V2 avec `Seuil de préparation des droits voisins`, cartographie consentement/rémunération et routage final fermé.</response>
 </example>
 
 <example>
-<user>Un producteur veut mint un NFT d'un enregistrement et demande si le token transfere les droits.</user>
-<response>Je garde le coeur du dossier en droits voisins si l'enregistrement, le titulaire et l'acte d'exploitation sont identifies. Le `nft-signal` reste secondaire : il rappelle qu'un NFT ne transfere pas les droits, signale le risque de mint sans autorisation et reroute vers contrat ou contentieux si le sujet principal sort du couloir voisins/OGC.</response>
+<user>Un producteur veut mint un NFT d'un enregistrement et demande si le token transfère les droits.</user>
+<response>Je garde le coeur du dossier en droits voisins si l'enregistrement, le titulaire et l'acte d'exploitation sont identifiés. Le `nft-signal` reste secondaire : il rappelle qu'un NFT ne transfère pas les droits, signalé le risque de mint sans autorisation et reroute vers contrat ou contentieux si le sujet principal sort du couloir voisins/OGC.</response>
 </example>
 
-## Working Reference
+## Working Référence
 
 Utiliser aussi la note compacte :
 
@@ -260,10 +260,10 @@ Utiliser aussi la note compacte :
 
 Le skill ne fait pas :
 
-- un audit AI Act detaille ;
+- un audit AI Act détaillé ;
 - une note blockchain/NFT generaliste ;
-- une licence auteur complete ;
-- une cession auteur complete ;
-- une strategie contentieuse complete ;
-- une qualification auteur principale de l'oeuvre ;
+- une licence auteur complète ;
+- une cession auteur complète ;
+- une stratégie contentieuse complète ;
+- une qualification auteur principale de l'œuvre ;
 - un avis juridique final utilisable sans validation humaine.

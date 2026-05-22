@@ -2,9 +2,9 @@
 name: bases-de-donnees
 description: >
   Skill V2 de qualification stricte des regimes de protection d'une base de
-  donnees : structure auteur, droit sui generis, producteur / titulaire,
-  acces, extraction et reutilisation. La posture contractuelle reste
-  secondaire et le RGPD n'est traite qu'en signal. Brouillon soumis a
+  données : structure auteur, droit sui generis, producteur / titulaire,
+  accès, extraction et réutilisation. La posture contractuelle reste
+  secondaire et le RGPD n'est traite qu'en signal. Brouillon soumis à
   validation par un avocat.
 argument-hint: "[private|public-sector|saas|api|mixed]"
 version: "2.0.0"
@@ -12,16 +12,16 @@ authors: ["Hacienda"]
 tags: [bases-de-donnees, sui-generis, droit-auteur, scraping, open-data, api, RGPD]
 ---
 
-# Skill - Bases de donnees V2
+# Skill - Bases de données V2
 
 > **Qualification des protections, pas contrat final ni audit RGPD complet.**
-> `bases-de-donnees` sert a qualifier les regimes de protection applicables a
-> une base de donnees, a mesurer la robustesse de la structure auteur et du
-> droit sui generis, puis a orienter vers la bonne posture contractuelle,
-> privacy ou contentieuse. Il ne redige pas le contrat final, ne conduit pas
+> `bases-de-donnees` sert à qualifier les régimes de protection applicables à
+> une base de données, à mesurer la robustesse de la structure auteur et du
+> droit sui generis, puis à orienter vers la bonne posture contractuelle,
+> privacy ou contentieuse. Il ne rédige pas le contrat final, ne conduit pas
 > seul l'audit RGPD et ne pilote pas seul le contentieux.
 
-Reference de travail utile :
+Référence de travail utile :
 `references/bases-de-donnees-routing-and-output.md`
 
 ## Positionnement
@@ -31,9 +31,9 @@ Reference de travail utile :
 1. qualification du droit d'auteur sur la structure ;
 2. qualification du droit sui generis sur le contenu / l'investissement ;
 3. cartographie du producteur, du titulaire et de l'exploitant ;
-4. evaluation des risques d'acces, d'extraction, de reutilisation ou de
+4. évaluation des risques d'accès, d'extraction, de réutilisation ou de
    scraping ;
-5. signalement RGPD si des donnees personnelles sont impliquees ;
+5. signalement RGPD si des données personnelles sont impliquees ;
 6. routage vers la bonne posture contractuelle ou contentieuse.
 
 La branche contractuelle reste presente, mais secondaire. Le coeur du skill
@@ -42,39 +42,39 @@ reste la qualification des protections.
 ## Ce skill ne fait pas
 
 - Ne remplace pas `qualification-oeuvre` pour une logique dominante
-  d'originalite hors base de donnees.
-- Ne remplace pas `logiciels-pi` pour la chaine de droits logiciel, repo ou
+  d'originalité hors base de données.
+- Ne remplace pas `logiciels-pi` pour la chaîne de droits logiciel, repo ou
   SaaS en tant que produit logiciel.
 - Ne remplace pas `contrefacon-droit-auteur` pour une logique contradictoire
   de reprise auteur.
-- Ne remplace pas `licence-droit-auteur` pour la redaction detaillee d'une
+- Ne remplace pas `licence-droit-auteur` pour la rédaction détaillée d'une
   licence.
-- Ne remplace pas le plugin donnees personnelles pour la conformite RGPD
-  complete.
-- Ne pilote pas seul un contentieux scraping / extraction / reutilisation.
+- Ne remplace pas le extension données personnelles pour la conformité RGPD
+  complète.
+- Ne pilote pas seul un contentieux scraping / extraction / réutilisation.
 - Ne remplace pas l'avis final d'un avocat ou d'un juriste habilite.
 
 ## Chargement du profil
 
 Avant tout, lire :
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Rattacher ensuite :
 
-- le role utilisateur ;
-- la politique base de donnees (proprietaire / open data / mixte) ;
+- le rôle utilisateur ;
+- la politique base de données (propriétaire / open data / mixte) ;
 - le DPO ou le relais privacy ;
 - l'avocat ou juriste validateur ;
-- les preferences de licensing et d'API ;
+- les préférences de licensing et d'API ;
 - les contraintes budget / open data / monetisation.
 
 Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, la sortie
-reste utilisable, mais les hypotheses non documentees doivent etre marquees
+reste utilisable, mais les hypothèses non documentées doivent être marquées
 `[PROVISOIRE]`.
 
-## Contrat d'entree V2
+## Contrat d'entrée V2
 
 Le skill doit expliciter ou deriver :
 
@@ -90,116 +90,116 @@ Le skill doit expliciter ou deriver :
 
 - nature et contenu de la base ;
 - structure, taxonomie, architecture de classement ;
-- investissement documente ;
+- investissement documenté ;
 - producteur, auteur de la structure, exploitant ;
-- mode d'acces actuel ou projete ;
-- donnees personnelles presentes ou non ;
+- mode d'accès actuel ou projete ;
+- données personnelles presentes ou non ;
 - usage tiers constate ou redoute ;
-- CGU, licence ou contrat deja en place si existants.
+- CGU, licence ou contrat déjà en place si existants.
 
-Tout manque reste `[a verifier]`.
+Tout manque reste `[à vérifier]`.
 
 ## Frontieres de routage
 
-### Route to `qualification-oeuvre`
+### Router vers `qualification-oeuvre`
 
-Si la vraie question dominante est l'originalite d'une structure ou d'un
-ensemble creatif, hors logique principale base de donnees.
+Si la vraie question dominante est l'originalité d'une structure ou d'un
+ensemble creatif, hors logique principale base de données.
 
-### Route to `logiciels-pi`
+### Router vers `logiciels-pi`
 
 Si la vraie question dominante porte sur :
 
 - logiciel ;
 - SaaS ;
-- chaine de droits code / repo / dataset ;
+- chaîne de droits code / repo / dataset ;
 - droits d'utilisation du produit logiciel.
 
-### Route to `contrefacon-droit-auteur`
+### Router vers `contrefacon-droit-auteur`
 
 Si la logique dominante devient contradictoire sur la reprise d'une structure
-ou d'un contenu protege au titre du droit d'auteur.
+ou d'un contenu protégé au titre du droit d'auteur.
 
-### Route to `licence-droit-auteur`
+### Router vers `licence-droit-auteur`
 
-Si la qualification est suffisamment stabilisee et que le besoin devient la
-redaction detaillee d'une licence.
+Si la qualification est suffisamment stabilisée et que le besoin devient la
+rédaction détaillée d'une licence.
 
-### Route to plugin donnees personnelles
+### Router vers le extension données personnelles
 
 Si la vraie question dominante devient :
 
-- base legale ;
+- base légale ;
 - DPA ;
 - registre ;
 - AIPD ;
-- gouvernance RGPD complete.
+- gouvernance RGPD complète.
 
-### Route to `contentieux-pi`
+### Router vers `contentieux-pi`
 
-Si le dossier bascule au stade judiciaire ou precontentieux structure sur
-scraping, extraction substantielle ou reutilisation illicite.
+Si le dossier bascule au stade judiciaire ou précontentieux structuré sur
+scraping, extraction substantielle ou réutilisation illicite.
 
 ## Axes d'analyse V2
 
-### 1. Copyright structure analysis
+### 1. Analyse de la structure au regard du droit d'auteur
 
-Evaluer uniquement la **structure** :
+Évaluer uniquement la **structure** :
 
 - architecture de classement ;
 - taxonomie ;
 - indexation ;
-- organisation et presentation des donnees ;
-- distinction nette entre structure protegee et donnees brutes non protegees.
+- organisation et presentation des données ;
+- distinction nette entre structure protégée et données brutes non protégées.
 
-Si l'originalite de la structure est faible ou banale, le dire clairement.
+Si l'originalité de la structure est faible ou banale, le dire clairement.
 
 ### 2. Sui generis analysis
 
-Evaluer :
+Évaluer :
 
 - investissement substantiel ;
-- constitution, verification ou presentation du contenu ;
-- distinction entre investissement de collecte et investissement de creation
+- constitution, vérification ou presentation du contenu ;
+- distinction entre investissement de collecte et investissement de création
   du contenu.
 
-Si l'investissement n'est pas documente, le garder visible comme faiblesse
+Si l'investissement n'est pas documenté, le garder visible comme faiblesse
 centrale.
 
 ### 3. Producer and title map
 
-Verifier :
+Vérifier :
 
 - qui est auteur de la structure ;
 - qui est producteur de la base ;
-- qui exploite ;
+- qui exploité ;
 - qui peut agir ;
-- quelles cessions, licences ou CGU deja en place modifient l'analyse.
+- quelles cessions, licences ou CGU déjà en place modifient l'analyse.
 
-### 4. Access and reuse risk map
+### 4. Carte des risques d'accès et de réutilisation
 
-Traiter separement :
+Traiter séparément :
 
 - usage interne ;
 - licence B2B ;
 - open data ;
 - API publique ;
 - scraping risque ou constate ;
-- extraction / reutilisation substantielle ;
-- restrictions deja opposees (CGU, contrat, licence).
+- extraction / réutilisation substantielle ;
+- restrictions déjà opposées (CGU, contrat, licence).
 
 ### 5. RGPD signal
 
 Si `data_personal_status` est `yes`, `mixed` ou `unknown`, signaler :
 
-- presence probable de donnees personnelles ;
+- presence probable de données personnelles ;
 - principaux points de vigilance ;
-- besoin de bascule vers le plugin donnees personnelles si la question devient
+- besoin de bascule vers le extension données personnelles si la question devient
   dominante.
 
 Ne pas transformer ce bloc en audit RGPD complet.
 
-### 6. Contract posture
+### 6. Posture contractuelle
 
 Traduire en couche secondaire le regime retenu vers :
 
@@ -209,10 +209,10 @@ Traduire en couche secondaire le regime retenu vers :
 - `authorized-scraping-license`
 - `hold-for-rgpd-review`
 
-Ce bloc reste secondaire. Il ne remplace pas une redaction contractuelle
-detaillee.
+Ce bloc reste secondaire. Il ne remplace pas une rédaction contractuelle
+détaillée.
 
-## Database Protection Readiness Gate
+## Seuil de préparation de la protection de la base
 
 Le skill doit conclure sur :
 
@@ -223,44 +223,44 @@ Le skill doit conclure sur :
 ### `ready`
 
 - structure et / ou investissement suffisamment qualifiables ;
-- posture d'acces ou de reutilisation suffisamment comprise ;
-- signal RGPD suffisamment borne ;
-- prochaine etape exploitable.
+- posture d'accès ou de réutilisation suffisamment comprise ;
+- signal RGPD suffisamment borné ;
+- prochaine étape exploitable.
 
 ### `partial`
 
 - analyse exploitable ;
-- mais avec hypotheses ou incertitudes `[a verifier]`.
+- mais avec hypothèses ou incertitudes `[à vérifier]`.
 
 ### `blocked`
 
 - structure insuffisamment comprise ;
-- investissement non documente ;
-- posture d'acces trop floue ;
+- investissement non documenté ;
+- posture d'accès trop floue ;
 - base personnelle / non personnelle trop incertaine.
 
 En `blocked` :
 
 - ne pas simuler de protection certaine ;
-- ne pas pousser une posture contractuelle ferme comme si les fondements
-  etaient stabilises ;
-- lister explicitement les manques a combler.
+- ne pas pousser une posture contractuelle fermée comme si les fondements
+  étaient stabilisés ;
+- lister explicitement les manques à combler.
 
 ## Format de sortie V2
 
 Produire exactement les 9 blocs suivants :
 
-1. `Case Snapshot`
+1. `Synthèse du dossier`
 2. `Database Protection Readiness Gate`
-3. `Copyright Structure Analysis`
-4. `Sui Generis Analysis`
+3. `Analyse de la structure droit d'auteur`
+4. `Analyse sui generis`
 5. `Producer And Title Map`
-6. `Access And Reuse Risk Map`
+6. `Carte des risques d'accès et de réutilisation`
 7. `RGPD Signal`
-8. `Contract Posture And Decision Routing`
-9. `Human Validation`
+8. `Posture contractuelle et routage de décision`
+9. `Validation humaine`
 
-### Contrat de `Decision Routing`
+### Contrat de `Routage de décision`
 
 Utiliser uniquement :
 
@@ -281,22 +281,22 @@ Chaque route doit preciser la prochaine brique :
   relance de `bases-de-donnees`
 - `prepare-proprietary-license` -> `licence-droit-auteur`
 - `prepare-open-data-release` -> owner juridique open data avec validation
-  humaine, et bascule vers le plugin donnees personnelles si la branche RGPD
+  humaine, et bascule vers le extension données personnelles si la branche RGPD
   devient dominante
 - `prepare-api-access-license` -> `licence-droit-auteur`
 - `prepare-scraping-enforcement-brief` -> `contentieux-pi`
-- `hold-for-rgpd-review` -> plugin donnees personnelles
+- `hold-for-rgpd-review` -> extension données personnelles
 - `hold-insufficient-basis` -> blocage explicite, sans pseudo-certitude
 
-## Example output skeleton
+## Exemple de squelette de sortie
 
 ```markdown
 # Analyse base de donnees - [nom]
 
-*Brouillon soumis a validation par un avocat. Pas un avis juridique final ni
+*Brouillon soumis à validation par un avocat. Pas un avis juridique final ni
 un contrat final.*
 
-## 1. Case Snapshot
+## 1. Synthèse du dossier
 
 ## 2. Database Protection Readiness Gate
 
@@ -315,18 +315,18 @@ un contrat final.*
 ## 9. Human Validation
 ```
 
-## Gate non-juriste
+## Seuil non-juriste
 
 Avant transmission :
 
-- [ ] structure analysee separement des donnees brutes
-- [ ] investissement documente ou manque explicite
-- [ ] producteur / auteur / exploitant identifies
-- [ ] posture d'acces ou de reutilisation explicitee
-- [ ] signal RGPD borne sans faux audit complet
+- [ ] structure analysée séparément des données brutes
+- [ ] investissement documenté ou manque explicite
+- [ ] producteur / auteur / exploitant identifiés
+- [ ] posture d'accès ou de réutilisation explicitee
+- [ ] signal RGPD borné sans faux audit complet
 - [ ] posture contractuelle secondaire coherente avec le regime retenu
 - [ ] route finale explicite vers la bonne brique
-- [ ] sortie marquee comme brouillon soumis a validation humaine
+- [ ] sortie marquée comme brouillon soumis à validation humaine
 
 ## Emplacement des sorties
 
@@ -336,7 +336,7 @@ outputs/bases-donnees-<projet-slug>-YYYY-MM-DD.md
 
 ## Ton
 
-Technique, structure, prudent. Distinguer clairement faits, droit, analyse,
-incertitudes, prochaine etape et validation humaine. Ne jamais sur-proteger ni
+Technique, structuré, prudent. Distinguer clairement faits, droit, analyse,
+incertitudes, prochaine étape et validation humaine. Ne jamais sur-proteger ni
 sous-proteger une base. Rappeler que la sortie reste un **brouillon**, pas un
 contrat final ni un audit RGPD complet.

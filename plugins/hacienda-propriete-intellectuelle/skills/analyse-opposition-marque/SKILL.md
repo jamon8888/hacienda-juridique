@@ -2,50 +2,50 @@
 name: analyse-opposition-marque
 version: "2.0.0"
 description: >
-  Analyse argumentaire INPI stricte pour preparer une opposition a former ou
-  une defense a opposition recue. Ce skill n'execute pas la tele-procedure
+  Analyse argumentaire INPI stricte pour préparer une opposition à former ou
+  une défense à opposition reçue. Ce skill n'exécute pas la téléprocédure
   officielle et ne remplace pas la validation d'un mandataire en marques ou
   d'un avocat.
-argument-hint: "[numero marque | --form | --respond]"
+argument-hint: "[numero-marque | --form | --respond]"
 ---
 
 # Skill - Analyse opposition marque V2
 
-> **Analyse argumentaire, pas procedure officielle.**
-> Cette sortie prepare l'opposition ou la defense INPI, mais ne depose pas la
-> tele-procedure officielle et ne remplace pas la validation d'un mandataire
+> **Analyse argumentaire, pas procédure officielle.**
+> Cette sortie prépare l'opposition ou la défense INPI, mais ne dépose pas la
+> téléprocédure officielle et ne remplace pas la validation d'un mandataire
 > ou d'un avocat.
 >
-> Le delai d'opposition de 2 mois post-publication BOPI et les delais INPI de
-> reponse restent fermes. Une tele-procedure ratee, incomplete ou hors delai ne
-> doit jamais etre maquillee en simple "issue procedurale". Si le delai est
+> Le délai d'opposition de 2 mois post-publication BOPI et les délais INPI de
+> réponse restent fermés. Une téléprocédure ratée, incomplète ou hors délai ne
+> doit jamais être maquillée en simple "issue procédurale". Si le délai est
 > douteux, le skill doit le dire tout de suite.
 
-`analyse-opposition-marque` reste la brique opposition INPI de la lane marques :
+`analyse-opposition-marque` reste la brique opposition INPI de la voie marques :
 
-1. publication detectee ou notification recue ;
+1. publication détectée ou notification reçue ;
 2. `analyse-opposition-marque` ;
 3. selon l'issue :
-   - depot opposition / memoire en defense ;
-   - coexistence, limitation ou autre sortie negociee ;
-   - escalation vers `contentieux-pi` si le dossier bascule hors procedure
+   - dépôt opposition / mémoire en défense ;
+   - coexistence, limitation ou autre sortie négociée ;
+   - escalade vers `contentieux-pi` si le dossier bascule hors procédure
      normale d'opposition INPI.
 
 La coexistence ou la transaction reste une issue secondaire du dossier, jamais
-un mode rival au coeur du workflow.
+un mode rival au coeur du flux de travail.
 
 ## Ce skill ne fait pas
 
-- Ne depose pas l'opposition formelle INPI.
-- Ne redige pas la tele-procedure officielle complete.
-- Ne remplace pas une clearance marque initiale.
-- Ne remplace pas un contentieux judiciaire si le dossier a deja bascule hors
-  du perimetre normal de l'opposition INPI.
+- Ne dépose pas l'opposition formelle INPI.
+- Ne rédige pas la téléprocédure officielle complète.
+- Ne remplace pas une vérification marque initiale.
+- Ne remplace pas un contentieux judiciaire si le dossier a déjà basculé hors
+  du périmètre normal de l'opposition INPI.
 - Ne transforme pas la coexistence en mode principal autonome.
 
-## Contrat d'entree V2
+## Contrat d'entrée V2
 
-Le skill doit expliciter ou deriver les dimensions suivantes :
+Le skill doit expliciter ou dériver les dimensions suivantes :
 
 - `mode`: `form`, `respond`
 - `opposition_basis`: `likelihood-of-confusion`, `reputation`,
@@ -56,7 +56,7 @@ Le skill doit expliciter ou deriver les dimensions suivantes :
 - `filing_deadline_status`: `green`, `amber`, `red`, `expired`
 - `evidence_strength`: `strong`, `mixed`, `weak`, `unknown`
 
-Bloc de faits a exposer explicitement :
+Bloc de faits à exposer explicitement :
 
 - `target_mark`
 - `opposing_rights`
@@ -70,131 +70,131 @@ Bloc de faits a exposer explicitement :
 
 Avant tout, lire :
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Rattacher ensuite :
 
-- le role utilisateur ;
+- le rôle utilisateur ;
 - la posture opposition / enforcement ;
 - la matrice d'approbateurs ;
 - le mandataire ou avocat de validation ;
-- les integrations et la chronologie BOPI disponibles.
+- les intégrations et la chronologie BOPI disponibles.
 
 Si le profil contient `[A CONFIGURER]`, le mode provisoire reste possible, mais
-chaque sortie doit etre taggee `[PROVISOIRE]`.
+chaque sortie doit être taguée `[PROVISOIRE]`.
 
-## Intake
+## Cadrage initial
 
-Le skill garde ses deux entrees publiques :
+Le skill garde ses deux entrées publiques :
 
-- `--form` : opposition a former
-- `--respond` : opposition recue a defendre
+- `--form` : opposition à former
+- `--respond` : opposition reçue à défendre
 
-Si le mode n'est pas donne, le demander d'abord. Ensuite, demander en un seul
+Si le mode n'est pas donné, le demander d'abord. Ensuite, demander en un seul
 batch :
 
-- numero de la marque cible ou opposee ;
+- numéro de la marque cible ou opposée ;
 - date de publication BOPI ou date de notification ;
-- droits anterieurs invoques ou opposants ;
-- motifs retenus ou invoques ;
-- strategie ou position envisagee ;
+- droits antérieurs invoqués ou opposants ;
+- motifs retenus ou invoqués ;
+- stratégie ou position envisagée ;
 - posture transaction / coexistence ;
-- limites deja connues du dossier.
+- limites déjà connues du dossier.
 
 Guidance de mapping minimale :
 
-- opposition en preparation avant depot INPI -> `procedure_stage: pre-filing-window`
-- dossier d'opposition en cours de redaction -> `procedure_stage: drafting`
-- opposition deja deposee, attente ou phase procedurale intermediaire ->
+- opposition en préparation avant dépôt INPI -> `procedure_stage: pre-filing-window`
+- dossier d'opposition en cours de rédaction -> `procedure_stage: drafting`
+- opposition déjà déposée, attente ou phase procédurale intermédiaire ->
   `procedure_stage: filed-waiting-response`
-- notification recue + memoire defense a preparer ->
+- notification reçue + mémoire défense à préparer ->
   `procedure_stage: response-window`
-- echanges ulterieurs ou replique -> `procedure_stage: reply-phase`
-- attente decision -> `procedure_stage: decision-pending`
+- échanges ultérieurs ou réplique -> `procedure_stage: reply-phase`
+- attente décision -> `procedure_stage: decision-pending`
 - moins de 7 jours restants -> `filing_deadline_status: red`
-- delai deja depasse ou non exploitable -> `filing_deadline_status: expired`
-- pieces fortes sur usage, renommee, similitude ou priorite ->
+- délai déjà dépassé ou non exploitable -> `filing_deadline_status: expired`
+- pièces fortes sur usage, renommée, similitude ou priorité ->
   `evidence_strength: strong`
-- dossier partiellement documente -> `evidence_strength: mixed`
+- dossier partiellement documenté -> `evidence_strength: mixed`
 - dossier mince ou contradictoire -> `evidence_strength: weak`
 
 Si `mode`, `procedure_stage` ou `filing_deadline_status` reste incertain, la
-sortie doit reduire son niveau de confiance et marquer le point `[a verifier]`.
+sortie doit réduire son niveau de confiance et marquer le point `[à vérifier]`.
 
-## Procedure Gate
+## Filtre procédural
 
-Avant toute analyse de fond, rendre visible le gate procedurale :
+Avant toute analyse de fond, rendre visible le seuil procédural :
 
 - type de dossier : `form` ou `respond` ;
-- point de depart du delai ;
-- statut du delai : `green`, `amber`, `red` ou `expired` ;
-- suffisance ou insuffisance des donnees procedurales ;
-- risque de dossier incomplet ou hors delai.
+- point de départ du délai ;
+- statut du délai : `green`, `amber`, `red` ou `expired` ;
+- suffisance ou insuffisance des données procédurales ;
+- risque de dossier incomplet ou hors délai.
 
 Si `filing_deadline_status: expired`, la sortie ne doit pas faire comme si le
 dossier suivait un chemin normal. Elle doit abaisser la recommandation,
-marquer la question de restauration ou d'autre voie `[a verifier]`, et signaler
-que l'opposition INPI peut etre perdue comme levier ordinaire.
+marquer la question de restauration ou d'autre voie `[à vérifier]`, et signaler
+que l'opposition INPI peut être perdue comme levier ordinaire.
 
 ## Analyse des motifs
 
-Pour chaque motif invoque ou oppose, produire sous un contrat stable :
+Pour chaque motif invoqué ou oppose, produire sous un contrat stable :
 
-- droit anterieur invoque ;
+- droit antérieur invoqué ;
 - branche juridique pertinente ;
 - force apparente ;
-- pieces critiques ;
+- pièces critiques ;
 - points de fragilite.
 
-Le skill reste centre sur les principaux fondements CI / CPI utiles a
+Le skill reste centré sur les principaux fondements CI / CPI utiles a
 l'opposition INPI.
 
 ### `likelihood-of-confusion`
 
-Motif principal quand l'opposition repose sur la proximite entre signes et
+Motif principal quand l'opposition repose sur la proximité entre signes et
 produits/services.
 
-Branches minimales a couvrir :
+Branches minimales à couvrir :
 
 - comparaison des signes : visuelle, auditive, conceptuelle, impression
-  d'ensemble, element dominant et distinctif ;
-- comparaison des produits/services : identite, similitude, nature,
-  destination, complementarite, concurrence, canaux ;
-- appreciation globale : interdendance des facteurs, pouvoir distinctif,
-  public concerne, risque de confusion ou d'association.
+  d'ensemble, élément dominant et distinctif ;
+- comparaison des produits/services : identité, similitude, nature,
+  destination, complémentarité, concurrence, canaux ;
+- appréciation globale : interdendance des facteurs, pouvoir distinctif,
+  public concerné, risque de confusion ou d'association.
 
 Ce bloc doit signaler :
 
 - la force de chaque branche ;
-- les points forts utiles a un memoire ;
-- les faiblesses exploitables en defense ou en attaque ;
-- les pieces critiques manquantes.
+- les points forts utiles à un mémoire ;
+- les faiblesses exploitables en défense ou en attaque ;
+- les pièces critiques manquantes.
 
 ### `reputation`
 
-Motif reserve aux dossiers ou la renommee de la marque anterieure est
+Motif réservé aux dossiers où la renommée de la marque antérieure est
 soutenable.
 
-Branches minimales a couvrir :
+Branches minimales à couvrir :
 
-- renommee prouvee : part de marche, anciennete, couverture geographique,
-  investissements, notoriete, presse, reconnaissances ;
+- renommée prouvée : part de marché, ancienneté, couverture géographique,
+  investissements, notoriété, presse, reconnaissances ;
 - lien entre les signes ;
 - profit indu, dilution ou ternissement.
 
-Ce bloc doit rester exigeant. Si la renommee n'est pas suffisamment etayee,
+Ce bloc doit rester exigeant. Si la renommée n'est pas suffisamment étayée,
 le skill doit le dire et ne pas traiter ce motif comme automatiquement robuste.
 
 ### `other-prior-right`
 
-Motif couvrant les autres droits anterieurs utiles dans une opposition INPI.
+Motif couvrant les autres droits antérieurs utiles dans une opposition INPI.
 
 Sous-branches typiques :
 
 - nom commercial / enseigne ;
 - nom de domaine avec usage actif ;
-- depot frauduleux ;
+- dépôt frauduleux ;
 - AOP / IGP ;
 - droit au nom ;
 - droit d'auteur si la base probatoire est exploitable.
@@ -202,127 +202,127 @@ Sous-branches typiques :
 Pour chaque sous-branche active, exposer :
 
 - la base juridique ou logique d'opposition ;
-- les pieces minimales requises ;
-- la portee utile du droit anterieur ;
+- les pièces minimales requises ;
+- la portée utile du droit antérieur ;
 - les faiblesses previsibles.
 
 ### `mixed`
 
-Quand plusieurs motifs sont combines, les garder distincts puis les reunir en
-strategie. Ne pas noyer un motif faible dans un motif plus fort.
+Quand plusieurs motifs sont combinés, les garder distincts puis les réunir en
+stratégie. Ne pas noyer un motif faible dans un motif plus fort.
 
 ## Coexistence ou transaction
 
-La coexistence ou la transaction est une issue strategique secondaire.
+La coexistence ou la transaction est une issue stratégique secondaire.
 
 Elle ne remplace jamais silencieusement l'analyse opposition.
 
-Elle ne doit etre proposee que si elle est coherente avec :
+Elle ne doit être proposée que si elle est cohérente avec :
 
-- le delai ;
+- le délai ;
 - la force probatoire ;
 - la posture du dossier ;
 - l'objectif business ;
-- la marge de manoeuvre reelle sur les classes, libelles ou conditions de
+- la marge de manoeuvre réelle sur les classes, libellés ou conditions de
   coexistence.
 
-Quand cette branche est envisagee, la sortie doit exposer :
+Quand cette branche est envisagée, la sortie doit exposer :
 
 - pourquoi elle est ouverte ;
-- ce qu'elle permet d'eviter ou de preserver ;
-- ce qu'elle coute en concession ou en risque residuel ;
+- ce qu'elle permet d'éviter ou de préserver ;
+- ce qu'elle coûte en concession ou en risque résiduel ;
 - pourquoi elle ne remplace pas le besoin d'une position argumentaire.
 
-## Routing Boundaries
+## Limites de routage
 
-### Route to `recherche-anteriorite-marque`
+### Router vers `recherche-anteriorite-marque`
 
 - pas encore de publication BOPI exploitable ;
 - pas encore de notification d'opposition ;
 - besoin principal = premier passage sur le signe.
 
-### Route to `surveillance-marque`
+### Router vers `surveillance-marque`
 
-- besoin principal = suivi systematique des publications ;
-- aucune opposition identifiee a analyser maintenant ;
-- objectif principal = detection continue, pas memo d'opposition.
+- besoin principal = suivi systématique des publications ;
+- aucune opposition identifiée à analyser maintenant ;
+- objectif principal = détection continue, pas mémo d'opposition.
 
-### Route to `depot-marque-fr`
+### Router vers `depot-marque-fr`
 
-- sujet principal = preparation ou limitation d'un depot en amont ;
-- pas de vrai dossier d'opposition forme ;
-- travail principal porte sur le libelle ou la preparation du depot.
+- sujet principal = préparation ou limitation d'un dépôt en amont ;
+- pas de vrai dossier d'opposition formé ;
+- travail principal porte sur le libellé ou la préparation du dépôt.
 
-### Route to `contentieux-pi`
+### Router vers `contentieux-pi`
 
-- dossier deja hors simple opposition INPI ;
-- recours ou escalation judiciaire envisage ;
-- besoin principal = strategie contentieuse formelle.
+- dossier déjà hors simple opposition INPI ;
+- recours ou escalade judiciaire envisagé ;
+- besoin principal = stratégie contentieuse formelle.
 
-### Stay in `analyse-opposition-marque`
+### Rester dans `analyse-opposition-marque`
 
 - publication BOPI ou notification exploitable existe ;
-- besoin principal = preparer une opposition INPI ou une defense argumentaire ;
-- le coeur du travail reste procedural et contradictoire dans le cadre INPI.
+- besoin principal = préparer une opposition INPI ou une défense argumentaire ;
+- le coeur du travail reste procédural et contradictoire dans le cadre INPI.
 
 ## Contrat de sortie V2
 
 La sortie doit produire exactement les huit blocs suivants, dans cet ordre :
 
-1. `Procedure Gate and Deadline`
-2. `Rights and Grounds Snapshot`
-3. `Arguments and Counter-Arguments Map`
-4. `Evidence and Record Gaps`
-5. `Procedural Strategy`
-6. `Settlement and Coexistence Option`
-7. `Decision Routing`
-8. `Human Validation`
+1. `Filtre procédural et échéance`
+2. `Synthèse des droits et fondements`
+3. `Carte arguments et contre-arguments`
+4. `Preuves et lacunes du dossier`
+5. `Stratégie procédurale`
+6. `Option transaction ou coexistence`
+7. `Routage de décision`
+8. `Validation humaine`
 
-### 1. `Procedure Gate and Deadline`
+### 1. Filtre procédural et échéance
 
 - type de dossier ;
 - date de publication ou notification ;
-- statut du delai ;
-- suffisance des donnees procedurales ;
-- tout point de hors delai ou d'incertitude `[a verifier]`.
+- statut du délai ;
+- suffisance des données procédurales ;
+- tout point de hors délai ou d'incertitude `[à vérifier]`.
 
-### 2. `Rights and Grounds Snapshot`
+### 2. `Synthèse des droits et fondements`
 
-- droits anterieurs opposes ou contestes ;
+- droits antérieurs opposés ou contestés ;
 - fondement principal ;
 - autres motifs actifs ;
 - force apparente par motif.
 
-### 3. `Arguments and Counter-Arguments Map`
+### 3. `Carte arguments et contre-arguments`
 
-- en `form` : arguments offensifs attendus et defenses adverses probables ;
-- en `respond` : arguments opposants et contre-arguments defensifs plausibles ;
-- faire apparaitre pour chaque branche la force, les pieces critiques et les
-  fragilites.
+- en `form` : arguments offensifs attendus et défenses adverses probables ;
+- en `respond` : arguments opposants et contre-arguments défensifs plausibles ;
+- faire apparaître pour chaque branche la force, les pièces critiques et les
+  fragilités.
 
-### 4. `Evidence and Record Gaps`
+### 4. `Preuves et lacunes du dossier`
 
-- pieces disponibles ;
-- pieces manquantes ;
-- fragilites de chaine, d'usage, de renommee, de priorite ou de libelle ;
-- impact de chaque trou sur la procedure.
+- pièces disponibles ;
+- pièces manquantes ;
+- fragilités de chaîne, d'usage, de renommée, de priorité ou de libellé ;
+- impact de chaque trou sur la procédure.
 
-### 5. `Procedural Strategy`
+### 5. `Stratégie procédurale`
 
-- voie recommandee dans le cadre INPI ;
-- priorites immediates ;
+- voie recommandée dans le cadre INPI ;
+- priorités immédiates ;
 - ordre des actions ;
-- traitement du delai ;
-- articulation eventuelle avec limitation, reponse, ou escalation.
+- traitement du délai ;
+- articulation éventuelle avec limitation, réponse, ou escalade.
 
-### 6. `Settlement and Coexistence Option`
+### 6. `Option transaction ou coexistence`
 
 - dire si la branche est ouverte, prudente ou inopportune ;
-- lier cette branche au risque, a la preuve, au calendrier et a l'objectif
+- lier cette branche au risque, à la preuve, au calendrier et à l'objectif
   business ;
-- ne jamais la presenter comme substitution implicite a l'analyse opposition.
+- ne jamais la présenter comme substitution implicite à l'analyse opposition.
 
-### 7. `Decision Routing`
+### 7. `Routage de décision`
 
 Ce bloc doit utiliser uniquement l'une des valeurs suivantes :
 
@@ -334,28 +334,28 @@ Ce bloc doit utiliser uniquement l'une des valeurs suivantes :
 - `insufficient-record`
 - `deadline-critical`
 
-Associer la valeur choisie a 2-4 actions concretes et a sa justification.
+Associer la valeur choisie à 2-4 actions concrètes et à sa justification.
 
-### 8. `Human Validation`
+### 8. `Validation humaine`
 
-- rappeler qu'il s'agit d'une analyse argumentaire, pas de la tele-procedure ;
+- rappeler qu'il s'agit d'une analyse argumentaire, pas de la téléprocédure ;
 - nommer les validations mandataire / avocat / client utiles ;
-- rappeler les points `[a verifier]` avant depot, memoire, accord ou escalation.
+- rappeler les points `[à vérifier]` avant dépôt, mémoire, accord ou escalade.
 
-## Regles de surete
+## Règles de sûreté
 
-- Le garde-fou "analyse argumentaire, pas procedure officielle" doit rester
-  visible en tete de sortie.
-- Les modes `form` et `respond` restent les deux seules entrees publiques.
-- Une coexistence n'efface jamais la necessite d'une analyse opposition
-  honnete quand le dossier l'exige.
-- Une information procedurale floue, un delai douteux ou une preuve faible doit
-  reduire la confiance de la recommandation.
-- Toute base INPI ou chronologie BOPI non verifiee reste une limite explicite.
+- Le garde-fou "analyse argumentaire, pas procédure officielle" doit rester
+  visible en tête de sortie.
+- Les modes `form` et `respond` restent les deux seules entrées publiques.
+- Une coexistence n'efface jamais la nécessité d'une analyse opposition
+  honnête quand le dossier l'exige.
+- Une information procédurale floue, un délai douteux ou une preuve faible doit
+  réduire la confiance de la recommandation.
+- Toute base INPI ou chronologie BOPI non vérifiée reste une limite explicite.
 
-## Rappel final a conserver
+## Rappel final à conserver
 
 - analyse argumentaire seulement ;
-- opposition INPI ou defense INPI seulement ;
-- validation humaine obligatoire avant toute tele-procedure, memoire officiel
+- opposition INPI ou défense INPI seulement ;
+- validation humaine obligatoire avant toute téléprocédure, mémoire officiel
   ou accord de coexistence engageant.
