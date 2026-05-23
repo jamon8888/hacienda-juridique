@@ -66,6 +66,10 @@ function json(value: unknown): string {
 }
 
 function commandPrefix(pluginName: string): string {
+  if (pluginName === "hacienda-propriete-intellectuelle") {
+    return "h-pi";
+  }
+
   return pluginName.replace(/^hacienda-/u, "h-");
 }
 

@@ -1467,7 +1467,7 @@ Règles pour chaque skill, commande et agent de ce plugin :
 2. Si le fichier n'existe pas ou contient encore [A CONFIGURER], STOP avant
    tout travail de fond. Dire :
    "Ce plugin doit être configuré avant de produire des résultats utiles.
-    Lance /h-propriete-intellectuelle:entretien-demarrage — 10-15 min,
+    Lance /h-pi:entretien-demarrage — 10-15 min,
     chaque commande de ce plugin en dépend."
    Seul `entretien-demarrage` (et son flag --check-integrations) tourne sans config.
 3. `entretien-demarrage` ÉCRIT à ce chemin et crée les sous-dossiers manquants.
@@ -1488,7 +1488,7 @@ posture risque, équipe) vivent dans
 
 *Ce fichier est rempli par l'entretien initial au premier lancement. D'ici-là,
 c'est un template. Si tu vois `[A CONFIGURER]` ci-dessous, lance
-`/h-propriete-intellectuelle:entretien-demarrage`.*
+`/h-pi:entretien-demarrage`.*
 
 *Une fois rempli : édite ce fichier directement. Chaque skill du plugin le lit
 avant toute action. Corrige ici, c'est corrigé partout.*
@@ -1838,7 +1838,7 @@ Configure le profil utilisateur du plugin à un chemin user-stable :
 À la fin, proposer :
 > Configuration terminée. Veux-tu tester immédiatement avec une recherche
 > d'antériorité ? Ex :
-> `/h-propriete-intellectuelle:recherche-anteriorite-marque APEXLEAF`
+> `/h-pi:recherche-anteriorite-marque APEXLEAF`
 
 ## Migration depuis v0.1
 
@@ -1883,7 +1883,7 @@ git commit -m "feat(plugin-pi): entretien-demarrage v2 — profil user-stable, i
 > **⚠️ Skill en format v0.1.** Ce skill produit des sorties de qualité limitée
 > par rapport au standard V1 (style Anthropic ip-legal). Pour une recherche
 > d'antériorité marque de qualité Harvey-grade, utiliser
-> `/h-propriete-intellectuelle:recherche-anteriorite-marque`.
+> `/h-pi:recherche-anteriorite-marque`.
 > Migration de ce skill prévue en V1.1.
 ```
 
@@ -1891,7 +1891,7 @@ git commit -m "feat(plugin-pi): entretien-demarrage v2 — profil user-stable, i
 
 ```markdown
 > **⚠️ Skill en format v0.1.** Le successeur V1
-> `/h-propriete-intellectuelle:recherche-anteriorite-marque` est
+> `/h-pi:recherche-anteriorite-marque` est
 > disponible et recommandé. Ce skill reste invoquable pour compatibilité
 > jusqu'à v0.4.
 ```
@@ -1951,11 +1951,11 @@ en contrefaçon sur des marques qui passaient un knockout.*
 ## Examples
 
 ```
-/h-propriete-intellectuelle:recherche-anteriorite-marque "APEXLEAF — vêtements outdoor classes 25, 35 — FR + EU"
+/h-pi:recherche-anteriorite-marque "APEXLEAF — vêtements outdoor classes 25, 35 — FR + EU"
 ```
 
 ```
-/h-propriete-intellectuelle:recherche-anteriorite-marque
+/h-pi:recherche-anteriorite-marque
 ```
 
 (Le skill demandera le signe, les classes et les territoires.)
@@ -2014,7 +2014,7 @@ Si le profil contient `[A CONFIGURER]`, surfacer :
 > juridictions et la chaîne d'approbation à votre cabinet.
 >
 > **Deux choix :**
-> - Lancer `/h-propriete-intellectuelle:entretien-demarrage` (10-15 min)
+> - Lancer `/h-pi:entretien-demarrage` (10-15 min)
 > - Dire **"provisoire"** et je lance avec les défauts génériques (FR + EU,
 >   posture mesurée, rôle avocat, sans playbook) — chaque sortie sera taggée
 >   `[PROVISOIRE — configurer le profil pour une sortie sur mesure]`.
@@ -2027,7 +2027,7 @@ contre une position list). Tagger la note du relecteur et chaque finding
 `[PROVISOIRE]`. À la fin, ajouter :
 
 > "C'était un run générique avec les hypothèses par défaut. Lancer
-> `/h-propriete-intellectuelle:entretien-demarrage` pour calibrer sur
+> `/h-pi:entretien-demarrage` pour calibrer sur
 > VOTRE pratique — votre playbook, vos juridictions, votre tolérance au risque."
 
 ---
@@ -2673,7 +2673,7 @@ git commit -m "docs(plugin-pi): README + CHANGELOG v0.2.0"
   Dans une session fresh, invoquer :
 
 ```
-/h-propriete-intellectuelle:entretien-demarrage --check-integrations
+/h-pi:entretien-demarrage --check-integrations
 ```
 
   Expected : INPI ✓, EUIPO ✓.
@@ -2681,7 +2681,7 @@ git commit -m "docs(plugin-pi): README + CHANGELOG v0.2.0"
 - [ ] **Step 3: Recherche réelle**
 
 ```
-/h-propriete-intellectuelle:recherche-anteriorite-marque "APEXLEAF — vêtements outdoor classes 25, 35 — FR + EU"
+/h-pi:recherche-anteriorite-marque "APEXLEAF — vêtements outdoor classes 25, 35 — FR + EU"
 ```
 
   Expected : sortie au format attendu, citations taggées `[INPI Data]` et

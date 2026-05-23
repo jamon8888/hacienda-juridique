@@ -29,7 +29,7 @@ Le plugin PI couvre aujourd'hui :
 ## Premier Lancement
 
 ```text
-/h-propriete-intellectuelle:entretien-demarrage
+/h-pi:entretien-demarrage
 ```
 
 ## Commandes
@@ -38,43 +38,43 @@ Chaque skill PI est invocable directement comme commande du plugin :
 
 | Commande | Usage |
 | --- | --- |
-| `/h-propriete-intellectuelle:analyse-opposition-marque` | Analyse ou defense d'opposition INPI. |
-| `/h-propriete-intellectuelle:analyse-refus-inpi` | Reponse a notification INPI/OEB. |
-| `/h-propriete-intellectuelle:anteriorite-invalidite` | Revue validite/nullite brevet. |
-| `/h-propriete-intellectuelle:audit-pi-ma` | Due diligence PI M&A. |
-| `/h-propriete-intellectuelle:bases-de-donnees` | Protection base de donnees et droit sui generis. |
-| `/h-propriete-intellectuelle:certificat-complementaire-protection` | Readiness CCP et depot. |
-| `/h-propriete-intellectuelle:cession-droit-auteur` | Cession de droits d'auteur. |
-| `/h-propriete-intellectuelle:clearance-marque` | Clearance marque approfondie. |
-| `/h-propriete-intellectuelle:contentieux-pi` | Strategie judiciaire PI. |
-| `/h-propriete-intellectuelle:contrats-pi` | Contrats PI autonomes. |
-| `/h-propriete-intellectuelle:contrefacon-dessin-modele` | Contrefacon dessins et modeles. |
-| `/h-propriete-intellectuelle:contrefacon-droit-auteur` | Contrefacon droit d'auteur. |
-| `/h-propriete-intellectuelle:depot-dessin-modele` | Preparation depot dessin ou modele. |
-| `/h-propriete-intellectuelle:depot-marque-fr` | Preparation depot marque FR/UE/Madrid. |
-| `/h-propriete-intellectuelle:depot-preuve-creation` | Depot et dossier de preuve creation. |
-| `/h-propriete-intellectuelle:droits-voisins-ogc` | Droits voisins et gestion collective. |
-| `/h-propriete-intellectuelle:entretien-demarrage` | Configuration initiale du profil PI. |
-| `/h-propriete-intellectuelle:licence-droit-auteur` | Licences droit d'auteur. |
-| `/h-propriete-intellectuelle:logiciels-pi` | Titularite logiciel et open source. |
-| `/h-propriete-intellectuelle:mise-en-demeure-pi` | Projet ou revue de mise en demeure PI. |
-| `/h-propriete-intellectuelle:portefeuille-pi` | Vue portefeuille PI consolidee. |
-| `/h-propriete-intellectuelle:preparation-depot-brevet` | Preparation depot brevet FR/EP/PCT. |
-| `/h-propriete-intellectuelle:qualification-oeuvre` | Qualification d'oeuvre protegee. |
-| `/h-propriete-intellectuelle:recherche-anteriorite-brevet` | Premier passage anteriorite brevet. |
-| `/h-propriete-intellectuelle:recherche-anteriorite-dm` | Anteriorite dessins et modeles. |
-| `/h-propriete-intellectuelle:recherche-anteriorite-marque` | Premier passage anteriorite marque. |
-| `/h-propriete-intellectuelle:revue-clause-pi` | Revue ciblee de clauses PI. |
-| `/h-propriete-intellectuelle:revue-logiciel-donnees` | Chaine de droits logiciel/data. |
-| `/h-propriete-intellectuelle:revue-open-source` | Revue OSS, SBOM et licences. |
-| `/h-propriete-intellectuelle:revue-portefeuille-brevets` | Rapport portefeuille brevets. |
-| `/h-propriete-intellectuelle:revue-portefeuille-marques` | Rapport portefeuille marques. |
-| `/h-propriete-intellectuelle:saisie-contrefacon` | Preparation saisie-contrefacon. |
-| `/h-propriete-intellectuelle:strategie-defense-pi` | Defense precontentieuse PI. |
-| `/h-propriete-intellectuelle:strategie-extension-internationale` | Strategie extension FR/EP/PCT. |
-| `/h-propriete-intellectuelle:surveillance-marque` | Surveillance marques et BOPI. |
-| `/h-propriete-intellectuelle:tableau-contrefacon-brevet` | Claim chart contrefacon brevet. |
-| `/h-propriete-intellectuelle:tri-contrefacon` | Triage initial contrefacon PI. |
+| `/h-pi:analyse-opposition-marque` | Analyse ou defense d'opposition INPI. |
+| `/h-pi:analyse-refus-inpi` | Reponse a notification INPI/OEB. |
+| `/h-pi:anteriorite-invalidite` | Revue validite/nullite brevet. |
+| `/h-pi:audit-pi-ma` | Due diligence PI M&A. |
+| `/h-pi:bases-de-donnees` | Protection base de donnees et droit sui generis. |
+| `/h-pi:certificat-complementaire-protection` | Readiness CCP et depot. |
+| `/h-pi:cession-droit-auteur` | Cession de droits d'auteur. |
+| `/h-pi:clearance-marque` | Clearance marque approfondie. |
+| `/h-pi:contentieux-pi` | Strategie judiciaire PI. |
+| `/h-pi:contrats-pi` | Contrats PI autonomes. |
+| `/h-pi:contrefacon-dessin-modele` | Contrefacon dessins et modeles. |
+| `/h-pi:contrefacon-droit-auteur` | Contrefacon droit d'auteur. |
+| `/h-pi:depot-dessin-modele` | Preparation depot dessin ou modele. |
+| `/h-pi:depot-marque-fr` | Preparation depot marque FR/UE/Madrid. |
+| `/h-pi:depot-preuve-creation` | Depot et dossier de preuve creation. |
+| `/h-pi:droits-voisins-ogc` | Droits voisins et gestion collective. |
+| `/h-pi:entretien-demarrage` | Configuration initiale du profil PI. |
+| `/h-pi:licence-droit-auteur` | Licences droit d'auteur. |
+| `/h-pi:logiciels-pi` | Titularite logiciel et open source. |
+| `/h-pi:mise-en-demeure-pi` | Projet ou revue de mise en demeure PI. |
+| `/h-pi:portefeuille-pi` | Vue portefeuille PI consolidee. |
+| `/h-pi:preparation-depot-brevet` | Preparation depot brevet FR/EP/PCT. |
+| `/h-pi:qualification-oeuvre` | Qualification d'oeuvre protegee. |
+| `/h-pi:recherche-anteriorite-brevet` | Premier passage anteriorite brevet. |
+| `/h-pi:recherche-anteriorite-dm` | Anteriorite dessins et modeles. |
+| `/h-pi:recherche-anteriorite-marque` | Premier passage anteriorite marque. |
+| `/h-pi:revue-clause-pi` | Revue ciblee de clauses PI. |
+| `/h-pi:revue-logiciel-donnees` | Chaine de droits logiciel/data. |
+| `/h-pi:revue-open-source` | Revue OSS, SBOM et licences. |
+| `/h-pi:revue-portefeuille-brevets` | Rapport portefeuille brevets. |
+| `/h-pi:revue-portefeuille-marques` | Rapport portefeuille marques. |
+| `/h-pi:saisie-contrefacon` | Preparation saisie-contrefacon. |
+| `/h-pi:strategie-defense-pi` | Defense precontentieuse PI. |
+| `/h-pi:strategie-extension-internationale` | Strategie extension FR/EP/PCT. |
+| `/h-pi:surveillance-marque` | Surveillance marques et BOPI. |
+| `/h-pi:tableau-contrefacon-brevet` | Claim chart contrefacon brevet. |
+| `/h-pi:tri-contrefacon` | Triage initial contrefacon PI. |
 
 ## Packaging Du Plugin
 

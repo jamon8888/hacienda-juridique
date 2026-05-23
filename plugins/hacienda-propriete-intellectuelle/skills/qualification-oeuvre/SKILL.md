@@ -42,15 +42,15 @@ tags: [droit-auteur, qualification, originalite, titularite, preuve, CPI]
 ## Exemples
 
 ```
-/h-propriete-intellectuelle:qualification-oeuvre "Roman littéraire 320 pages — auteur personne physique seule — édition envisagée chez éditeur tiers — objectif préventif"
+/h-pi:qualification-oeuvre "Roman littéraire 320 pages — auteur personne physique seule — édition envisagée chez éditeur tiers — objectif préventif"
 ```
 
 ```
-/h-propriete-intellectuelle:qualification-oeuvre "Logiciel SaaS B2B développé par équipe de 4 développeurs salariés — code source + interface graphique + base de données utilisateurs — objectif préventif avant levée de fonds"
+/h-pi:qualification-oeuvre "Logiciel SaaS B2B développé par équipe de 4 développeurs salariés — code source + interface graphique + base de données utilisateurs — objectif préventif avant levée de fonds"
 ```
 
 ```
-/h-propriete-intellectuelle:qualification-oeuvre "Contenu marketing — vidéo publicitaire 30 sec commandée à agence externe — diffusion TV + web prévue — objectif préventif avant lancement campagne"
+/h-pi:qualification-oeuvre "Contenu marketing — vidéo publicitaire 30 sec commandée à agence externe — diffusion TV + web prévue — objectif préventif avant lancement campagne"
 ```
 
 (Le skill demandera la description, le contexte de création, la date, les preuves disponibles et l'objectif.)
@@ -119,7 +119,7 @@ Si le profil contient `[A CONFIGURER]`, surfacer :
 > Le profil pratique n'est pas configuré — c'est ce qui adapte la posture, les
 > secteurs, et la chaîne d'approbation à ta pratique. Tu peux continuer en
 > mode provisoire (réponses génériques taguées `[non configuré]`) ou lancer
-> `/h-propriete-intellectuelle:entretien-demarrage` (10 à 15 minutes).
+> `/h-pi:entretien-demarrage` (10 à 15 minutes).
 
 ---
 

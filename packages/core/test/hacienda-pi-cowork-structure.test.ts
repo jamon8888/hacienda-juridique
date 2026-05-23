@@ -239,7 +239,7 @@ describe("hacienda PI cowork packaging", () => {
       const skillName = dirname(file).split(/[\\/]/).at(-1);
 
       expect(readme, skillName).toContain(
-        `/h-propriete-intellectuelle:${skillName}`
+        `/h-pi:${skillName}`
       );
     }
   });

@@ -8,7 +8,7 @@ Configuration vivante :
 Regles :
 1. Lire le profil cabinet partage puis ce profil de pratique.
 2. Si ce fichier manque ou contient [A CONFIGURER], arreter et demander :
-   /h-propriete-intellectuelle:entretien-demarrage
+   /h-pi:entretien-demarrage
 3. Toute recherche marque, brevet, depot, licence ou jurisprudence non fondee sur une source officielle reste `[a verifier]`.
 4. Toute decision de depot, opposition, mise en demeure, tolerance ou litigation exige validation humaine.
 -->

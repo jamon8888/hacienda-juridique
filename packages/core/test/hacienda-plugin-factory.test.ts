@@ -88,6 +88,30 @@ describe("hacienda plugin factory create CLI", () => {
     );
   }, 30000);
 
+  it("genere l'alias court h-pi pour le plugin propriete intellectuelle", () => {
+    const tempRoot = mkdtempSync(join(tmpdir(), "hacienda-plugin-factory-"));
+    const result = run(process.execPath, [
+      cliPath,
+      "--name",
+      "hacienda-propriete-intellectuelle",
+      "--type",
+      "legal-domain-with-mcp",
+      "--description",
+      "Plugin PI test.",
+      "--root",
+      tempRoot
+    ]);
+
+    expect(result.status, result.stderr || result.stdout).toBe(0);
+
+    const readme = read(
+      resolve(tempRoot, "plugins/hacienda-propriete-intellectuelle/README.md")
+    );
+
+    expect(readme).toContain("/h-pi:entretien-demarrage");
+    expect(readme).not.toContain("/h-propriete-intellectuelle:entretien-demarrage");
+  }, 30000);
+
   it("ajoute un skill et un agent dans un plugin temporaire", () => {
     const tempRoot = mkdtempSync(join(tmpdir(), "hacienda-plugin-factory-"));
     const createResult = run(process.execPath, [

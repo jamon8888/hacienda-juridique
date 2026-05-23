@@ -32,15 +32,15 @@ tags: [logiciel, droit-auteur, L113-9, open-source, saas, licensing]
 ## Exemples
 
 ```
-/h-propriete-intellectuelle:logiciels-pi "Startup SaaS B2B fintech — équipe 4 développeurs salariés + 1 CTO cofondateur ayant codé MVP avant signature contrat — dépendances majeures React (MIT), PostgreSQL (PostgreSQL License), Stripe SDK — pré-levée Series A"
+/h-pi:logiciels-pi "Startup SaaS B2B fintech — équipe 4 développeurs salariés + 1 CTO cofondateur ayant codé MVP avant signature contrat — dépendances majeures React (MIT), PostgreSQL (PostgreSQL License), Stripe SDK — pré-levée Series A"
 ```
 
 ```
-/h-propriete-intellectuelle:logiciels-pi "Agence dev parisienne — prestation pour grand compte e-commerce : refonte plateforme via 3 développeurs salariés agence — livraison code source au client prévue — contrat de prestation à analyser pour cession des droits"
+/h-pi:logiciels-pi "Agence dev parisienne — prestation pour grand compte e-commerce : refonte plateforme via 3 développeurs salariés agence — livraison code source au client prévue — contrat de prestation à analyser pour cession des droits"
 ```
 
 ```
-/h-propriete-intellectuelle:logiciels-pi "Projet open source bibliothèque de visualisation de données — équipe core 3 mainteneurs salariés éditeur + ~40 contributeurs externes bénévoles — choix de licence entre MIT, Apache 2.0 ou dual licensing AGPL+commercial — pas de CLA en place actuellement"
+/h-pi:logiciels-pi "Projet open source bibliothèque de visualisation de données — équipe core 3 mainteneurs salariés éditeur + ~40 contributeurs externes bénévoles — choix de licence entre MIT, Apache 2.0 ou dual licensing AGPL+commercial — pas de CLA en place actuellement"
 ```
 
 (Le skill demandera le contexte de développement, le statut du logiciel,
@@ -141,7 +141,7 @@ Si le profil contient `[A CONFIGURER]`, surfacer :
 > secteurs (SaaS / open source / agence dev), et la chaîne d'approbation à ta
 > pratique. Tu peux continuer en mode provisoire (réponses génériques taguées
 > `[non configuré]`) ou lancer
-> `/h-propriete-intellectuelle:entretien-demarrage` (10 à 15 minutes).
+> `/h-pi:entretien-demarrage` (10 à 15 minutes).
 
 ---
 

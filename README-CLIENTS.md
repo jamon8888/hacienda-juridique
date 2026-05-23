@@ -281,7 +281,7 @@ PI, preuves, contrefaçon et stratégie de défense.
 ### Commande De Demarrage
 
 ```text
-/h-propriete-intellectuelle:entretien-demarrage
+/h-pi:entretien-demarrage
 ```
 
 ### Livrables

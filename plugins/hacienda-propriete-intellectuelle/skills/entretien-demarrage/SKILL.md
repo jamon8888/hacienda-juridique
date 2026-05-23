@@ -59,7 +59,7 @@ Tester chaque intégration immédiatement après saisie : un appel `whoami` ou r
 
 ## Test smoke
 
-À la fin, proposer : « Veux-tu lancer une recherche d'antériorité de test pour valider la chaîne complète (INPI Data + EUIPO TMview) ? Je propose `/h-propriete-intellectuelle:recherche-anteriorite-marque` sur un signe fictif. » L'utilisateur tranche.
+À la fin, proposer : « Veux-tu lancer une recherche d'antériorité de test pour valider la chaîne complète (INPI Data + EUIPO TMview) ? Je propose `/h-pi:recherche-anteriorite-marque` sur un signe fictif. » L'utilisateur tranche.
 
 ## Migration depuis v0.1
 
