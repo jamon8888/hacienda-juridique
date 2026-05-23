@@ -32,3 +32,6 @@ argument-hint: "<résultats consolidés>"
 - Ne jamais transformer un commentaire doctrinal en source primaire.
 - Indiquer les sources à relire manuellement.
 - Conserver les hypothèses et angles morts visibles.
+- Toute source non consultée directement reste marquée `[à vérifier]`.
+- La validation humaine est requise avant intégration dans une consultation.
+- Conserver un dossier de preuve avec provenance, date de consultation et statut.

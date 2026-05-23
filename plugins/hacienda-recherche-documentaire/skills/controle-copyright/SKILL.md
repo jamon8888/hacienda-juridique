@@ -26,3 +26,10 @@ pas d'API privée non autorisée
 ## Sortie
 
 Classer chaque action en `autorisé`, `validation requise` ou `refusé`, avec la raison.
+
+## Garde-Fous
+
+- Toute source non consultée directement reste marquée `[à vérifier]`.
+- Ne pas reproduire de longs extraits protégés sans base légale ou autorisation.
+- La validation humaine est requise avant publication ou transmission client.
+- Conserver un dossier de preuve avec source, licence, date et justification d'usage.

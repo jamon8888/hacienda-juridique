@@ -1,7 +1,7 @@
 {
   "name": "hacienda-recherche-documentaire",
   "version": "0.1.0",
-  "description": "Recherche supervisée dans les bases documentaires utilisées par les avocats, avec vérification des sources primaires via Hacienda Sources Officielles.",
+  "description": "Recherche documentaire juridique supervisée : préparation de requêtes, comparaison de bases éditoriales, extraction de références et vérification des sources primaires via Hacienda Sources Officielles.",
   "author": {
     "name": "Hacienda",
     "url": "https://hacienda.diy"

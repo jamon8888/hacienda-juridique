@@ -12,7 +12,7 @@ Règles applicables à tout skill, commande et agent du plugin :
 2. Si ce fichier n'existe pas ou contient encore des marqueurs `[A CONFIGURER]`,
    STOPPER avant tout travail substantiel. Dire :
    « Ce plugin doit être configuré avant de produire des sorties utiles.
-   Lance `/hacienda-propriete-intellectuelle:entretien-demarrage` — environ
+   Lance `/h-propriete-intellectuelle:entretien-demarrage` — environ
    10 à 15 minutes. Tous les skills en dépendent. Sans configuration, les
    sorties resteront génériques et risquent de ne pas correspondre à ta pratique. »
    Ne pas continuer avec des valeurs par défaut. Seules exceptions : le skill
@@ -237,7 +237,7 @@ Le livrable doit se lire comme s'il avait été rédigé par un associé. Le mé
 ## Brand protection
 
 **Marques surveillées :** [A CONFIGURER — voir watchlist gérée via
-`/hacienda-propriete-intellectuelle:surveillance-marque --list` ; valeurs
+`/h-propriete-intellectuelle:surveillance-marque --list` ; valeurs
 typiques : marques produit phares, marques institutionnelles, marques avec
 historique de contrefaçon]
 
@@ -395,9 +395,9 @@ Quand l'utilisateur pose une question dans la matière du plugin — pas seuleme
 - Appliquer les garde-fous même sans skill actif : provenance, hygiène de citation, reconnaissance de juridiction, posture de décision, format de note du relecteur.
 - Cadrer la réponse comme un confrère dans la pratique le ferait — calibré sur le cadre (cabinet vs interne), le rôle (avocat / mandataire / non-juriste), la tolérance au risque.
 - Proposer l'arbre de décision quand une action en découle.
-- Suggérer un skill structuré quand il ferait mieux : « Réponse rapide. Pour le cadre complet, lance `/hacienda-propriete-intellectuelle:[skill pertinent]`. »
+- Suggérer un skill structuré quand il ferait mieux : « Réponse rapide. Pour le cadre complet, lance `/h-propriete-intellectuelle:[skill pertinent]`. »
 
-Si le profil n'est pas peuplé : « Je peux donner une réponse générique, mais ce plugin donne de bien meilleures réponses une fois configuré pour ta pratique — lance `/hacienda-propriete-intellectuelle:entretien-demarrage` (10 à 15 minutes). » Puis donner la réponse générique tout de même, taguée `[non configuré]`.
+Si le profil n'est pas peuplé : « Je peux donner une réponse générique, mais ce plugin donne de bien meilleures réponses une fois configuré pour ta pratique — lance `/h-propriete-intellectuelle:entretien-demarrage` (10 à 15 minutes). » Puis donner la réponse générique tout de même, taguée `[non configuré]`.
 
 ---
 
@@ -468,5 +468,5 @@ sont anonymises et valides par l'utilisateur.
 
 ---
 
-*Pour relancer l'entretien : `/hacienda-propriete-intellectuelle:entretien-demarrage --redo`*
-*Pour vérifier les intégrations seulement : `/hacienda-propriete-intellectuelle:entretien-demarrage --check-integrations`*
+*Pour relancer l'entretien : `/h-propriete-intellectuelle:entretien-demarrage --redo`*
+*Pour vérifier les intégrations seulement : `/h-propriete-intellectuelle:entretien-demarrage --check-integrations`*

@@ -32,3 +32,6 @@ Utilité pour le dossier
 - pas d'export massif ;
 - pas de stockage d'identifiants ;
 - envoyer toute source primaire citée vers `hacienda-sources-officielles`.
+- toute source non consultée directement reste marquée `[à vérifier]` ;
+- la validation humaine est requise avant citation comme autorité juridique ;
+- conserver un dossier de preuve avec extrait, identifiant et chemin de contrôle.

@@ -5,11 +5,18 @@
   "description": "Place de marche Hacienda pour plugins juridiques francais.",
   "workspaces": [
     "packages/*",
-    "plugins/*/mcp-server"
+    "plugins/*/mcp-server",
+    "tools/hacienda-plugin-factory"
   ],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "branding:check": "node scripts/check-branding.mjs",
+    "plugin:validate": "npm --workspace @hacienda/plugin-factory run validate",
+    "plugin:docs": "npm --workspace @hacienda/plugin-factory run docs",
+    "plugin:create": "npm --workspace @hacienda/plugin-factory run create --",
+    "plugin:add-skill": "npm --workspace @hacienda/plugin-factory run add-skill --",
+    "plugin:add-agent": "npm --workspace @hacienda/plugin-factory run add-agent --",
+    "plugin:compare-claude-legal": "npm --workspace @hacienda/plugin-factory run compare-claude-legal --",
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present"
   },

@@ -1,11 +1,6 @@
 {
-  "mcpServers": {
-    "Hacienda Sources Officielles": {
-      "type": "stdio",
-      "title": "Hacienda Sources Officielles",
-      "description": "Vérification des sources primaires françaises via PISTE."
-    }
-  },
+  "mcpServers": {},
+  "references": ["hacienda-sources-officielles"],
   "recommendedCategories": [
     "recherche-documentaire",
     "sources-officielles",

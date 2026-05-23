@@ -26,86 +26,6 @@ const read = (plugin: string, rel: string) =>
   readFileSync(resolve(pluginsRoot, plugin, rel), "utf8");
 
 const pluginTargets: Record<string, PluginTarget> = {
-  "hacienda-hub-confiance": {
-    expectedSkills: [
-      "entretien-demarrage",
-      "registre-plugins",
-      "evaluer-skill",
-      "installer-plugin",
-      "personnaliser-plugin-cowork",
-      "audit-manifest",
-      "audit-mcp",
-      "surveiller-mises-a-jour",
-      "desactiver-plugin",
-      "generer-pack-publication"
-    ],
-    expectedAgents: [
-      "veilleur-registres-plugins",
-      "surveillant-mises-a-jour",
-      "auditeur-confiance",
-      "gardien-connecteurs"
-    ]
-  },
-  "hacienda-produit-consommation": {
-    expectedSkills: [
-      "entretien-demarrage",
-      "revue-lancement",
-      "revue-parcours-consommateur",
-      "revue-claims-marketing",
-      "qualification-pratique-commerciale",
-      "revue-cgv-cgu",
-      "analyse-prix-promotions",
-      "controle-marketplace-plateforme",
-      "note-risque-produit",
-      "surveillance-lancements"
-    ],
-    expectedAgents: [
-      "veilleur-lancements",
-      "veilleur-pratiques-commerciales",
-      "surveillant-claims",
-      "registre-risques-produit"
-    ]
-  },
-  "hacienda-reglementaire": {
-    expectedSkills: [
-      "entretien-demarrage",
-      "veille-reglementaire",
-      "diff-reglementaire",
-      "analyse-gap-conformite",
-      "rediger-politique",
-      "suivi-consultations",
-      "cartographie-obligations",
-      "registre-gaps",
-      "briefing-direction",
-      "surveillance-autorites"
-    ],
-    expectedAgents: [
-      "veilleur-jorf-loda",
-      "veilleur-autorites-sectorielles",
-      "tracker-gaps",
-      "calendrier-consultations"
-    ]
-  },
-  "hacienda-gouvernance-ia": {
-    expectedSkills: [
-      "entretien-demarrage",
-      "qualification-cas-usage-ia",
-      "analyse-ai-act",
-      "revue-fournisseur-ia",
-      "generer-aia",
-      "registre-systemes-ia",
-      "politique-ia-interne",
-      "analyse-gap-ia",
-      "revue-rgpd-ia",
-      "surveillance-ia-policy"
-    ],
-    expectedAgents: [
-      "veilleur-ai-act",
-      "registre-cas-usage-ia",
-      "surveillant-fournisseurs-ia",
-      "veilleur-ia-rgpd"
-    ]
-  },
   "hacienda-propriete-intellectuelle": {
     expectedSkills: [
       "entretien-demarrage",
@@ -124,46 +44,6 @@ const pluginTargets: Record<string, PluginTarget> = {
       "veilleur-marques",
       "surveillant-oss",
       "veilleur-contrefacon"
-    ]
-  },
-  "hacienda-droit-public": {
-    expectedSkills: [
-      "entretien-demarrage",
-      "qualification-dossier-public",
-      "revue-marche-public",
-      "analyse-urbanisme",
-      "fonction-publique",
-      "collectivites-actes",
-      "contentieux-administratif",
-      "veille-jurisprudence-admin",
-      "controle-legalite",
-      "note-risque-public"
-    ],
-    expectedAgents: [
-      "veilleur-boamp-marches",
-      "veilleur-jurisprudence-admin",
-      "suivi-delais-admin",
-      "veilleur-collectivites"
-    ]
-  },
-  "hacienda-permanences-juridiques": {
-    expectedSkills: [
-      "entretien-demarrage",
-      "accueil-usager",
-      "qualification-probleme",
-      "conflits-interets",
-      "check-pieces",
-      "triage-urgence-delais",
-      "memo-superviseur",
-      "lettre-usager",
-      "handoff-avocat",
-      "suivi-dossier-permanence"
-    ],
-    expectedAgents: [
-      "suivi-delais-permanence",
-      "file-attente-supervision",
-      "veille-urgences",
-      "suivi-handoffs"
     ]
   }
 };

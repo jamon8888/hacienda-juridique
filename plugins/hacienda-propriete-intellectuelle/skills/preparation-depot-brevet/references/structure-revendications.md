@@ -194,7 +194,7 @@ encadrés par la non-extension).
 ## Validation amont indispensable
 
 **Avant de figer les revendications, valider l'absence d'antériorité X
-destructrice** via `/hacienda-propriete-intellectuelle:recherche-anteriorite-brevet`.
+destructrice** via `/h-propriete-intellectuelle:recherche-anteriorite-brevet`.
 Une revendication 1 large rédigée sans connaître l'art antérieur est dans
 le meilleur des cas reformulée en cours d'examen (au prix d'une réduction
 de portée), dans le pire des cas refusée et publiée à 18 mois (divulgation

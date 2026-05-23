@@ -43,7 +43,7 @@ Pas d'API JSON officielle confirmée à ce jour pour le Bulletin Officiel de la 
 
 ## Décision tools registry
 
-Tous les nouveaux tools `marques.*` sont enregistrés dans `createHaciendaServer` du package `@hacienda/core`. Conséquence : ils sont exposés par TOUS les MCP servers de plugins Hacienda (pas de filtrage par plugin en V1.0). Un mécanisme de filtrage par plugin sera ajouté en V1.1 si l'usage révèle du bruit pour les plugins non concernés (par exemple `hacienda-fiscal` qui n'a aucun cas d'usage marques).
+Tous les nouveaux tools `marques.*` sont enregistrés dans `createHaciendaServer` du package `@hacienda/core`. Conséquence : ils sont exposés par TOUS les MCP servers de plugins Hacienda (pas de filtrage par plugin en V1.0). Un mécanisme de filtrage par plugin sera ajouté en V1.1 si l'usage révèle du bruit pour des plugins non concernés.
 
 ## Fixtures à créer
 

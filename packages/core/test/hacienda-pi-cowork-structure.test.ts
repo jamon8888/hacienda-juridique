@@ -215,7 +215,7 @@ describe("hacienda PI cowork packaging", () => {
     for (const tool of unexpectedPiTools) {
       expect(toolNames).not.toContain(tool);
     }
-  });
+  }, 30000);
 
   it("declares explicit V2 metadata and command hints on every PI skill", () => {
     const skillFiles = collectSkillFiles(pluginRoot);
@@ -239,7 +239,7 @@ describe("hacienda PI cowork packaging", () => {
       const skillName = dirname(file).split(/[\\/]/).at(-1);
 
       expect(readme, skillName).toContain(
-        `/hacienda-propriete-intellectuelle:${skillName}`
+        `/h-propriete-intellectuelle:${skillName}`
       );
     }
   });

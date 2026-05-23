@@ -81,3 +81,5 @@ Validation humaine
 
 L'agent ne rend pas d'avis final de disponibilite, ne decide pas d'une
 opposition, ne depose pas de marque et ne contacte pas l'INPI ou l'EUIPO.
+
+- Ne jamais présenter une alerte comme décision d'opposition ou avis juridique final.

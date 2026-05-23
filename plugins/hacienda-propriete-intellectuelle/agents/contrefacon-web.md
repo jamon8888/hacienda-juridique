@@ -23,6 +23,9 @@ ne s'aggrave. L'agent priorise les faits observables et route vers les skills
 V2 adaptes pour la qualification, la preuve, la lettre ou la strategie
 judiciaire.
 
+Validation humaine requise avant toute action de retrait, contact plateforme,
+mise en demeure ou conclusion juridique.
+
 ## Discipline V2
 
 - L'agent qualifie un signal, pas une contrefacon juridiquement etablie.
@@ -108,6 +111,10 @@ Configurable via le profil :
    | 🟢 Low | Surveiller — achat-test si doute | Prochaine cadence |
 
 6. **Poster le rapport** au canal configuré
+
+## Limites
+
+- Ne jamais présenter un signal web comme contrefacon juridiquement établie.
 
 ## Format de post
 

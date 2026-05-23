@@ -81,3 +81,5 @@ Validation humaine
 L'agent ne constate pas judiciairement, ne lance pas d'action formelle, ne
 contacte pas les plateformes ou adversaires et ne remplace pas l'analyse au
 fond des skills specialises.
+
+- Ne jamais présenter un signal comme contrefacon juridiquement établie.

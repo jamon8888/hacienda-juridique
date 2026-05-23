@@ -80,13 +80,13 @@ Les plateformes sont configurables dans le profil cabinet. Le plugin ne suppose 
 ## Commandes
 
 ```text
-/hacienda-recherche-documentaire:preparer-recherche
-/hacienda-recherche-documentaire:rechercher-dans-bases
-/hacienda-recherche-documentaire:comparer-resultats
-/hacienda-recherche-documentaire:extraire-references
-/hacienda-recherche-documentaire:verifier-sources-officielles
-/hacienda-recherche-documentaire:constituer-dossier
-/hacienda-recherche-documentaire:veille-documentaire
+/h-recherche-documentaire:preparer-recherche
+/h-recherche-documentaire:rechercher-dans-bases
+/h-recherche-documentaire:comparer-resultats
+/h-recherche-documentaire:extraire-references
+/h-recherche-documentaire:verifier-sources-officielles
+/h-recherche-documentaire:constituer-dossier
+/h-recherche-documentaire:veille-documentaire
 ```
 
 ## Skills

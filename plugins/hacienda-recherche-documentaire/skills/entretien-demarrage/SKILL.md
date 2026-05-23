@@ -21,3 +21,7 @@ argument-hint: "[optionnel: --reconfigurer]"
 ```text
 ~/.claude/plugins/config/hacienda-juridique/hacienda-recherche-documentaire/CLAUDE.md
 ```
+
+Le profil doit préciser les règles de validation humaine, les bases autorisées,
+les limites de citation et le dossier de preuve attendu. Toute source non
+consultée directement reste marquée `[à vérifier]`.

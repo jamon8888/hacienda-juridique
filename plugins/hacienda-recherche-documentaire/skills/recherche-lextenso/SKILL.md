@@ -14,3 +14,6 @@ description: Guide une recherche supervisée dans Lextenso sans extraction massi
 - Ne pas copier de longs contenus.
 - Envoyer les sources primaires citées vers `hacienda-sources-officielles`.
 - Séparer doctrine, Gazette du Palais, revues et jurisprudence officielle.
+- Toute source non consultée directement reste marquée `[à vérifier]`.
+- La validation humaine est requise avant reprise dans une consultation.
+- Conserver un dossier de preuve avec base, auteur, date, référence et extrait.

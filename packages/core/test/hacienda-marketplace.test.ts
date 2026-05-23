@@ -5,23 +5,27 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 
-const expectedPlugins = [
-  "hacienda-sources-officielles",
-  "hacienda-recherche-documentaire",
-  "hacienda-fiscal",
-  "hacienda-social",
-  "hacienda-contrats",
-  "hacienda-societes",
-  "hacienda-contentieux",
-  "hacienda-donnees-personnelles",
-  "hacienda-produit-consommation",
-  "hacienda-reglementaire",
-  "hacienda-gouvernance-ia",
-  "hacienda-propriete-intellectuelle",
-  "hacienda-droit-public",
-  "hacienda-permanences-juridiques",
-  "hacienda-hub-confiance"
-];
+type PluginRegistryEntry = {
+  name: string;
+  type: "source-foundation" | "legal-domain" | "legal-domain-with-mcp" | "transversal-research";
+  source: string;
+  description: string;
+  skills: string[];
+  agents: string[];
+  mcp: {
+    mode: "none" | "references-source-foundation" | "own-stdio-server";
+  };
+};
+
+type PluginRegistry = {
+  plugins: PluginRegistryEntry[];
+};
+
+const registry = JSON.parse(
+  readFileSync(resolve(root, "plugins/registry.json"), "utf8")
+) as PluginRegistry;
+
+const expectedPlugins = registry.plugins.map((plugin) => plugin.name);
 
 type MarketplacePlugin = {
   name: string;

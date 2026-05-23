@@ -40,11 +40,7 @@ Every Pappers-based workflow must keep a dossier de preuve with:
 
 | Plugin | Pappers role | Boundary |
 | --- | --- | --- |
-| `hacienda-societes` | Company due diligence, group mapping, BODACC signals | No final corporate conclusion without official recoupement |
-| `hacienda-contrats` | Counterparty and signer power checks | No signature clearance without documents and validation humaine |
-| `hacienda-contentieux` | Solvency, procedures, assets and litigation signals | No litigation strategy as final advice |
-| `hacienda-fiscal` | Business context for tax files | No tax conclusion without BOFiP, law and official source review |
-| `hacienda-hub-confiance` | Connector audit and activation governance | No full-power activation while `credits_insufficient` |
+Les plugins metiers qui exploitaient Pappers ont ete retires de la distribution active.
 
 ## Security Rules
 

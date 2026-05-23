@@ -19,16 +19,7 @@
     {
       "name": "hacienda-recherche-documentaire",
       "source": "./plugins/hacienda-recherche-documentaire",
-      "description": "Recherche supervisée dans les bases documentaires utilisées par les avocats, avec vérification des sources primaires.",
-      "author": {
-        "name": "Hacienda",
-        "url": "https://hacienda.diy"
-      }
-    },
-    {
-      "name": "hacienda-fiscal",
-      "source": "./plugins/hacienda-fiscal",
-      "description": "Fiscalité française : CGI, LPF, BOFiP, TVA, impôts directs, contrôle fiscal, rescrit et contentieux fiscal.",
+      "description": "Recherche documentaire juridique supervisée : préparation de requêtes, comparaison de bases éditoriales, extraction de références et vérification des sources primaires.",
       "author": {
         "name": "Hacienda",
         "url": "https://hacienda.diy"
@@ -44,99 +35,9 @@
       }
     },
     {
-      "name": "hacienda-contrats",
-      "source": "./plugins/hacienda-contrats",
-      "description": "Contrats commerciaux français : CGV, CGU, SaaS, NDA, distribution, baux commerciaux et clauses sensibles.",
-      "author": {
-        "name": "Hacienda",
-        "url": "https://hacienda.diy"
-      }
-    },
-    {
-      "name": "hacienda-societes",
-      "source": "./plugins/hacienda-societes",
-      "description": "Droit des sociétés : gouvernance, assemblées, pactes, cessions, M&A, closing et vie sociale.",
-      "author": {
-        "name": "Hacienda",
-        "url": "https://hacienda.diy"
-      }
-    },
-    {
-      "name": "hacienda-contentieux",
-      "source": "./plugins/hacienda-contentieux",
-      "description": "Contentieux français : chronologie, pièces, moyens, jurisprudence, assignations, conclusions et stratégie.",
-      "author": {
-        "name": "Hacienda",
-        "url": "https://hacienda.diy"
-      }
-    },
-    {
-      "name": "hacienda-donnees-personnelles",
-      "source": "./plugins/hacienda-donnees-personnelles",
-      "description": "Données personnelles : RGPD, CNIL, DPA, AIPD, registre de traitements, cookies et violations de données.",
-      "author": {
-        "name": "Hacienda",
-        "url": "https://hacienda.diy"
-      }
-    },
-    {
-      "name": "hacienda-produit-consommation",
-      "source": "./plugins/hacienda-produit-consommation",
-      "description": "Revue de lancement produit, droit de la consommation, marketing, plateformes et parcours utilisateurs.",
-      "author": {
-        "name": "Hacienda",
-        "url": "https://hacienda.diy"
-      }
-    },
-    {
-      "name": "hacienda-reglementaire",
-      "source": "./plugins/hacienda-reglementaire",
-      "description": "Veille réglementaire française et européenne : JORF, LODA, autorités sectorielles et écarts de conformité.",
-      "author": {
-        "name": "Hacienda",
-        "url": "https://hacienda.diy"
-      }
-    },
-    {
-      "name": "hacienda-gouvernance-ia",
-      "source": "./plugins/hacienda-gouvernance-ia",
-      "description": "Gouvernance IA : AI Act, RGPD, contrats fournisseurs, politiques internes et registre des cas d'usage.",
-      "author": {
-        "name": "Hacienda",
-        "url": "https://hacienda.diy"
-      }
-    },
-    {
       "name": "hacienda-propriete-intellectuelle",
       "source": "./plugins/hacienda-propriete-intellectuelle",
       "description": "Propriété intellectuelle : droit d'auteur, logiciel, marques, open source, clauses PI et contrefaçon.",
-      "author": {
-        "name": "Hacienda",
-        "url": "https://hacienda.diy"
-      }
-    },
-    {
-      "name": "hacienda-droit-public",
-      "source": "./plugins/hacienda-droit-public",
-      "description": "Droit public : commande publique, urbanisme, collectivités, fonction publique et contentieux administratif.",
-      "author": {
-        "name": "Hacienda",
-        "url": "https://hacienda.diy"
-      }
-    },
-    {
-      "name": "hacienda-permanences-juridiques",
-      "source": "./plugins/hacienda-permanences-juridiques",
-      "description": "Permanences juridiques et dispositifs pro bono supervisés : accueil, qualification, pièces, délais et handoff.",
-      "author": {
-        "name": "Hacienda",
-        "url": "https://hacienda.diy"
-      }
-    },
-    {
-      "name": "hacienda-hub-confiance",
-      "source": "./plugins/hacienda-hub-confiance",
-      "description": "Hub de confiance pour installer, évaluer et maintenir des skills juridiques tiers avec contrôles de sécurité.",
       "author": {
         "name": "Hacienda",
         "url": "https://hacienda.diy"

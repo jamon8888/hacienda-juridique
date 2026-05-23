@@ -31,3 +31,6 @@ Critères d'exclusion
 3. Proposer des requêtes distinctes pour Doctrine, Lexis, Lefebvre Dalloz et Lextenso.
 4. Indiquer les critères d'exclusion pour éviter les résultats hors sujet.
 5. Demander validation avant toute navigation Chrome ou recherche dans une plateforme.
+6. Marquer `[à vérifier]` toute source non consultée directement.
+7. Conserver un dossier de preuve des requêtes proposées, filtres et validations humaines.
+8. Exiger une validation humaine avant de lancer une recherche dans une base privée ou sur des pièces client.

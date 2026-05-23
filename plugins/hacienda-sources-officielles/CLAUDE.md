@@ -6,9 +6,9 @@ La configuration de ce plugin vit dans :
   ~/.claude/plugins/config/hacienda-juridique/hacienda-sources-officielles/CLAUDE.md
 
 Règles :
-1. Lire le profil cabinet partagé : ~/.claude/plugins/config/hacienda-juridique/profil-cabinet.md
+1. Lire le profil cabinet partagé : ~/.claude/plugins/config/hacienda-juridique/company-profile.md
 2. Lire ce profil de pratique avant tout travail substantiel.
-3. Si ce fichier n'existe pas ou contient encore [A CONFIGURER], arrêter et demander d'exécuter /hacienda-sources-officielles:entretien-demarrage.
+3. Si ce fichier n'existe pas ou contient encore [A CONFIGURER], arrêter et demander d'exécuter /h-sources-officielles:entretien-demarrage.
 4. Ne jamais présenter une source juridique comme vérifiée sans hacienda-sources-officielles.
 -->
 

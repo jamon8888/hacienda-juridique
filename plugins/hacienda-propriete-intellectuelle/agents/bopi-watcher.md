@@ -106,3 +106,4 @@ L'agent **signale**, le mandataire ou l'avocat **décide**.
 - **Ne dépose pas** d'opposition à l'INPI.
 - **Ne modifie pas** la watchlist (les modifs passent par `surveillance-marque --add/--update/--remove`).
 - **Ne ping pas** business owners directement — le post canal les tag, ils décident.
+- **Ne jamais présenter** une alerte comme décision d'opposition ou avis juridique final.

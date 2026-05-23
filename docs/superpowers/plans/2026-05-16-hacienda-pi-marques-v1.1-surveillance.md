@@ -480,16 +480,16 @@ la fenêtre couverte.
 ## Examples
 
 ```
-/hacienda-propriete-intellectuelle:surveillance-marque
+/h-propriete-intellectuelle:surveillance-marque
 ```
 (défaut : --report --days 7)
 
 ```
-/hacienda-propriete-intellectuelle:surveillance-marque --add
+/h-propriete-intellectuelle:surveillance-marque --add
 ```
 
 ```
-/hacienda-propriete-intellectuelle:surveillance-marque --audit
+/h-propriete-intellectuelle:surveillance-marque --audit
 ```
 
 ---
@@ -535,7 +535,7 @@ Récupérer :
 - **Canal d'alerte** (Slack channel / email / inline) — défaut "inline" si non configuré
 
 Si le profil n'est pas configuré (`[A CONFIGURER]` présent), proposer
-`/hacienda-propriete-intellectuelle:entretien-demarrage` ou mode `provisoire`
+`/h-propriete-intellectuelle:entretien-demarrage` ou mode `provisoire`
 (défauts : avocat, FR + EU, posture mesurée, canal inline).
 ```
 
@@ -953,7 +953,7 @@ git commit -m "feat(plugin-pi): agent bopi-watcher quotidien (V1.1.0)"
 ## Brand protection
 
 **Marques surveillées :** [A CONFIGURER — voir watchlist gérée via
-`/hacienda-propriete-intellectuelle:surveillance-marque --list` ; valeurs
+`/h-propriete-intellectuelle:surveillance-marque --list` ; valeurs
 typiques : marques produit phares, marques institutionnelles, marques avec
 historique de contrefaçon]
 

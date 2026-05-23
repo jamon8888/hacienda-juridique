@@ -26,3 +26,7 @@ Créer ou mettre à jour le profil de pratique dans `~/.claude/plugins/config/ha
 ## Sortie
 
 Créer un profil complet sans marqueur `[A CONFIGURER]`, incluant sources sociales, conventions collectives, IDCC, types de dossiers, seuils de validation humaine, workflows prud'homaux et règles de conservation du dossier de preuve.
+
+Toute convention collective, date, pièce, seuil ou source non confirmée reste
+marquée `[à vérifier]` jusqu'à validation humaine et conservation dans le
+dossier de preuve.

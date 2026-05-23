@@ -28,3 +28,10 @@ source primaire manquante
 - tableau des divergences ;
 - sources primaires à vérifier ;
 - angles morts à relire manuellement.
+
+## Garde-Fous
+
+- Toute source non consultée directement reste marquée `[à vérifier]`.
+- Les divergences entre bases restent des signaux de recherche, pas des conclusions.
+- La validation humaine est requise avant réutilisation dans un livrable client.
+- Conserver un dossier de preuve avec base consultée, date, requête et extrait utile.

@@ -24,3 +24,5 @@ legifrance_rechercher
 3. Comparer la référence primaire avec la source éditoriale.
 4. Marquer `[à vérifier]` si la source officielle n'a pas été consultée.
 5. Ajouter chaque source contrôlée au dossier documentaire.
+6. Bloquer toute conclusion définitive en cas de discordance non résolue.
+7. Exiger une validation humaine avant citation comme source opposable.

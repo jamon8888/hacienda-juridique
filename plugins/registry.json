@@ -1,0 +1,95 @@
+{
+  "plugins": [
+    {
+      "name": "hacienda-sources-officielles",
+      "type": "source-foundation",
+      "source": "./plugins/hacienda-sources-officielles",
+      "description": "Accès local aux sources officielles françaises : Légifrance, BOFiP, JORF, KALI et jurisprudence via PISTE.",
+      "skills": ["entretien-demarrage"],
+      "agents": [],
+      "mcp": {
+        "mode": "references-source-foundation"
+      }
+    },
+    {
+      "name": "hacienda-recherche-documentaire",
+      "type": "transversal-research",
+      "source": "./plugins/hacienda-recherche-documentaire",
+      "description": "Recherche documentaire juridique supervisée : préparation de requêtes, comparaison de bases éditoriales, extraction de références et vérification des sources primaires.",
+      "skills": [
+        "entretien-demarrage",
+        "preparation-requete",
+        "recherche-doctrine",
+        "recherche-lefebvre-dalloz",
+        "recherche-lexis",
+        "recherche-lextenso",
+        "comparaison-bases",
+        "controle-copyright",
+        "dossier-documentaire",
+        "extraction-references",
+        "verification-sources-primaires"
+      ],
+      "agents": ["consolidateur-recherche", "controleur-sources", "veilleur-documentaire"],
+      "mcp": {
+        "mode": "references-source-foundation"
+      }
+    },
+    {
+      "name": "hacienda-social",
+      "type": "legal-domain",
+      "source": "./plugins/hacienda-social",
+      "description": "Droit social français : Code du travail, conventions collectives, licenciement, CSE et contentieux prud'homal.",
+      "skills": [
+        "entretien-demarrage",
+        "recherche-sociale",
+        "analyser-licenciement",
+        "analyser-rupture-conventionnelle",
+        "analyser-convention-collective",
+        "analyser-temps-travail",
+        "analyser-cse",
+        "rediger-politique-rh",
+        "memo-risque-prudhomal",
+        "classification-emploi",
+        "analyse-remuneration-variable"
+      ],
+      "agents": [
+        "veilleur-conventions-collectives",
+        "suivi-contentieux-prudhomal",
+        "suivi-procedure-licenciement",
+        "veilleur-reformes-sociales"
+      ],
+      "mcp": {
+        "mode": "references-source-foundation"
+      }
+    },
+    {
+      "name": "hacienda-propriete-intellectuelle",
+      "type": "legal-domain-with-mcp",
+      "source": "./plugins/hacienda-propriete-intellectuelle",
+      "description": "Propriété intellectuelle : droit d'auteur, logiciel, marques, open source, clauses PI et contrefaçon.",
+      "skills": [
+        "entretien-demarrage",
+        "clearance-marque",
+        "revue-clause-pi",
+        "revue-open-source",
+        "portefeuille-pi",
+        "tri-contrefacon",
+        "mise-en-demeure-pi",
+        "depot-preuve-creation",
+        "revue-logiciel-donnees",
+        "strategie-defense-pi"
+      ],
+      "agents": [
+        "bopi-watcher",
+        "contrefacon-web",
+        "surveillant-oss",
+        "veilleur-contrefacon",
+        "veilleur-marques",
+        "veilleur-renouvellements-pi"
+      ],
+      "mcp": {
+        "mode": "own-stdio-server"
+      }
+    }
+  ]
+}

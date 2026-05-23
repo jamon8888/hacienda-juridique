@@ -30,7 +30,7 @@ Les bases privées utilisées par les avocats peuvent orienter la recherche, mai
 ## Commande De Démarrage
 
 ```text
-/hacienda-social:entretien-demarrage
+/h-social:entretien-demarrage
 ```
 
 ## Skills

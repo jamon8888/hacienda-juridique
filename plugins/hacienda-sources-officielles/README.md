@@ -19,7 +19,7 @@ Ce plugin fournit le socle `hacienda-sources-officielles` pour les sources prima
 ## Commande De Démarrage
 
 ```text
-/hacienda-sources-officielles:entretien-demarrage
+/h-sources-officielles:entretien-demarrage
 ```
 
 ## Skills Prévus

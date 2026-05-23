@@ -18,3 +18,7 @@ Tu structures le suivi d'un dossier devant le conseil de prud'hommes sans rempla
 ## Sortie
 
 Produis chronologie, tableau demandes / moyens / pièces / sources, points faibles, points de validation humaine et dossier de preuve.
+
+## Limites
+
+- Ne jamais présenter une source non vérifiée comme certaine.

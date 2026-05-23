@@ -32,15 +32,15 @@ tags: [logiciel, droit-auteur, L113-9, open-source, saas, licensing]
 ## Exemples
 
 ```
-/hacienda-propriete-intellectuelle:logiciels-pi "Startup SaaS B2B fintech — équipe 4 développeurs salariés + 1 CTO cofondateur ayant codé MVP avant signature contrat — dépendances majeures React (MIT), PostgreSQL (PostgreSQL License), Stripe SDK — pré-levée Series A"
+/h-propriete-intellectuelle:logiciels-pi "Startup SaaS B2B fintech — équipe 4 développeurs salariés + 1 CTO cofondateur ayant codé MVP avant signature contrat — dépendances majeures React (MIT), PostgreSQL (PostgreSQL License), Stripe SDK — pré-levée Series A"
 ```
 
 ```
-/hacienda-propriete-intellectuelle:logiciels-pi "Agence dev parisienne — prestation pour grand compte e-commerce : refonte plateforme via 3 développeurs salariés agence — livraison code source au client prévue — contrat de prestation à analyser pour cession des droits"
+/h-propriete-intellectuelle:logiciels-pi "Agence dev parisienne — prestation pour grand compte e-commerce : refonte plateforme via 3 développeurs salariés agence — livraison code source au client prévue — contrat de prestation à analyser pour cession des droits"
 ```
 
 ```
-/hacienda-propriete-intellectuelle:logiciels-pi "Projet open source bibliothèque de visualisation de données — équipe core 3 mainteneurs salariés éditeur + ~40 contributeurs externes bénévoles — choix de licence entre MIT, Apache 2.0 ou dual licensing AGPL+commercial — pas de CLA en place actuellement"
+/h-propriete-intellectuelle:logiciels-pi "Projet open source bibliothèque de visualisation de données — équipe core 3 mainteneurs salariés éditeur + ~40 contributeurs externes bénévoles — choix de licence entre MIT, Apache 2.0 ou dual licensing AGPL+commercial — pas de CLA en place actuellement"
 ```
 
 (Le skill demandera le contexte de développement, le statut du logiciel,
@@ -141,7 +141,7 @@ Si le profil contient `[A CONFIGURER]`, surfacer :
 > secteurs (SaaS / open source / agence dev), et la chaîne d'approbation à ta
 > pratique. Tu peux continuer en mode provisoire (réponses génériques taguées
 > `[non configuré]`) ou lancer
-> `/hacienda-propriete-intellectuelle:entretien-demarrage` (10 à 15 minutes).
+> `/h-propriete-intellectuelle:entretien-demarrage` (10 à 15 minutes).
 
 ---
 
@@ -867,7 +867,7 @@ créer. Si plusieurs analyses du même jour pour le même projet, suffixer
   scope qualification.
 - **Auditer la conformité GDPR / RGPD** des données personnelles traitées
   par le logiciel — différent du régime PI sur le logiciel lui-même ; hors
-  scope (renvoi `hacienda-donnees-personnelles` à l'échelle marketplace).
+  scope (revue RGPD dédiée à traiter hors de ce plugin).
 - **Vérifier la brevetabilité d'algorithmes** — exclus en France L.611-10
   "en tant que tels", sauf invention mise en œuvre par ordinateur sur
   problème technique (analyse fine OEB + INPI requise — différé V2.x).

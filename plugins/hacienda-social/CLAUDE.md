@@ -6,9 +6,9 @@ La configuration de ce plugin vit dans :
   ~/.claude/plugins/config/hacienda-juridique/hacienda-social/CLAUDE.md
 
 Règles :
-1. Lire le profil cabinet partagé : ~/.claude/plugins/config/hacienda-juridique/profil-cabinet.md
+1. Lire le profil cabinet partagé : ~/.claude/plugins/config/hacienda-juridique/company-profile.md
 2. Lire ce profil social avant tout travail substantiel.
-3. Si ce fichier n'existe pas ou contient encore [A CONFIGURER], arrêter et demander d'exécuter /hacienda-social:entretien-demarrage.
+3. Si ce fichier n'existe pas ou contient encore [A CONFIGURER], arrêter et demander d'exécuter /h-social:entretien-demarrage.
 4. Ne jamais présenter une source sociale comme vérifiée sans hacienda-sources-officielles.
 -->
 

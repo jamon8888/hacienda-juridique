@@ -27,19 +27,8 @@ hacienda-juridique/
   plugins/
     hacienda-sources-officielles/
     hacienda-recherche-documentaire/
-    hacienda-fiscal/
     hacienda-social/
-    hacienda-contrats/
-    hacienda-societes/
-    hacienda-contentieux/
-    hacienda-donnees-personnelles/
-    hacienda-produit-consommation/
-    hacienda-reglementaire/
-    hacienda-gouvernance-ia/
     hacienda-propriete-intellectuelle/
-    hacienda-droit-public/
-    hacienda-permanences-juridiques/
-    hacienda-hub-confiance/
 ```
 
 ## Verification

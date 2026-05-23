@@ -5,7 +5,7 @@
 Lire le profil cabinet partagé :
 
 ```text
-~/.claude/plugins/config/hacienda-juridique/profil-cabinet.md
+~/.claude/plugins/config/hacienda-juridique/company-profile.md
 ```
 
 Lire ensuite le profil de ce plugin :
@@ -17,7 +17,7 @@ Lire ensuite le profil de ce plugin :
 Si le profil manque ou contient `[A CONFIGURER]`, arrêter et demander :
 
 ```text
-/hacienda-recherche-documentaire:entretien-demarrage
+/h-recherche-documentaire:entretien-demarrage
 ```
 
 ## Règles De Sécurité
