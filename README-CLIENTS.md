@@ -1,7 +1,7 @@
 # Hacienda Juridique - Guide Client
 
 Hacienda Juridique est une distribution de plugins juridiques français pour
-avocats, juristes, directions juridiques, équipes RH et legal ops.
+avocats, juristes, directions juridiques et legal ops.
 
 Le projet ne remplace pas un professionnel du droit. Il aide à cadrer un
 dossier, rechercher les sources, structurer une analyse, produire un dossier de
@@ -9,13 +9,12 @@ preuve et préparer une validation humaine.
 
 ## Ce Que Vous Installez
 
-La distribution active contient quatre plugins :
+La distribution active contient trois plugins :
 
 | Plugin | Role | Usage client |
 | --- | --- | --- |
 | `hacienda-sources-officielles` | Socle de vérification | Consulter et vérifier les sources primaires françaises et européennes. |
 | `hacienda-recherche-documentaire` | Recherche documentaire juridique supervisée | Préparer les requêtes, comparer les bases éditoriales, extraire les références utiles et vérifier les sources primaires. |
-| `hacienda-social` | Droit social français | Cadrer les recherches, procédures et risques RH avec sources officielles. |
 | `hacienda-propriete-intellectuelle` | Propriété intellectuelle | Traiter marques, brevets, dessins et modèles, droit d'auteur, logiciel, open source et enforcement PI. |
 
 Les anciens plugins métiers non distribués ne font pas partie du catalogue
@@ -188,71 +187,7 @@ Les bases privees peuvent orienter la recherche. Une conclusion juridique doit
 etre recoupee avec une source officielle, une piece du dossier ou une source
 primaire consultable.
 
-## Plugin 3 - Hacienda Social
-
-### Role
-
-`hacienda-social` aide à traiter les dossiers de droit social français :
-Code du travail, conventions collectives, procédures RH, CSE, temps de travail,
-ruptures et contentieux prud'homal.
-
-### Sources Prioritaires
-
-- Code du travail ;
-- conventions collectives KALI et IDCC ;
-- JORF et textes d'application ;
-- jurisprudence sociale ;
-- pieces du dossier : contrats, avenants, bulletins, courriers, PV CSE,
-  accords, calendriers et echanges.
-
-### Skills Disponibles
-
-| Skill | Usage |
-| --- | --- |
-| `entretien-demarrage` | Configure le profil social, les conventions et seuils de validation. |
-| `recherche-sociale` | Structure une recherche de droit social français. |
-| `analyser-licenciement` | Analyse motif, procédure, délais, indemnités et risque prud'homal. |
-| `analyser-rupture-conventionnelle` | Contrôle consentement, calendrier, homologation et indemnité. |
-| `analyser-convention-collective` | Identifie et contrôle une convention collective KALI/IDCC. |
-| `analyser-temps-travail` | Analyse forfait jours, heures supplémentaires, repos et astreintes. |
-| `analyser-cse` | Contrôle information-consultation, expertise, élections et entrave. |
-| `rediger-politique-rh` | Prépare une politique RH ou un règlement interne. |
-| `memo-risque-prudhomal` | Structure demandes, moyens, pièces, chiffrage et stratégie. |
-| `classification-emploi` | Analyse coefficient, statut, grille et rappel potentiel. |
-| `analyse-remuneration-variable` | Analyse bonus, commissions, objectifs et modification de rémunération. |
-
-### Agents Disponibles
-
-| Agent | Role |
-| --- | --- |
-| `veilleur-conventions-collectives` | Surveille KALI/IDCC, avenants et extensions. |
-| `suivi-contentieux-prudhomal` | Suit demandes, moyens, pieces et risques prud'homaux. |
-| `suivi-procedure-licenciement` | Suit calendrier, procédure, motifs et risques de nullité. |
-| `veilleur-reformes-sociales` | Surveille réformes, entrées en vigueur et impacts RH. |
-
-### Commande De Demarrage
-
-```text
-/h-social:entretien-demarrage
-```
-
-### Livrables
-
-- note de recherche sociale ;
-- memo de risque RH ;
-- chronologie de procédure ;
-- tableau loi / convention / jurisprudence / pieces ;
-- calendrier d'action ;
-- projet de courrier ou politique RH ;
-- points de validation humaine.
-
-### Limites
-
-Le plugin ne remplace pas l'analyse d'un avocat ou juriste social. Les
-contradictions entre loi, convention collective, accord d'entreprise,
-jurisprudence et pieces doivent etre remontees.
-
-## Plugin 4 - Hacienda Propriete Intellectuelle
+## Plugin 3 - Hacienda Propriete Intellectuelle
 
 ### Role
 
@@ -374,7 +309,6 @@ juridique finale.
 | --- | --- |
 | Vérifier un article, une décision ou une source primaire | `hacienda-sources-officielles` |
 | Préparer une recherche doctrinale multi-bases | `hacienda-recherche-documentaire` |
-| Analyser un licenciement, une convention collective ou un risque RH | `hacienda-social` |
 | Faire une recherche marque, brevet ou portefeuille PI | `hacienda-propriete-intellectuelle` |
 | Contrôler une citation issue d'une base privée | `hacienda-recherche-documentaire` puis `hacienda-sources-officielles` |
 | Produire un dossier de preuve avant envoi client | Plugin métier puis `hacienda-sources-officielles` |

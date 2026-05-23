@@ -27,7 +27,6 @@ hacienda-juridique/
   plugins/
     hacienda-sources-officielles/
     hacienda-recherche-documentaire/
-    hacienda-social/
     hacienda-propriete-intellectuelle/
 ```
 

@@ -26,15 +26,6 @@
       }
     },
     {
-      "name": "hacienda-social",
-      "source": "./plugins/hacienda-social",
-      "description": "Droit social français : Code du travail, conventions collectives, licenciement, CSE et contentieux prud'homal.",
-      "author": {
-        "name": "Hacienda",
-        "url": "https://hacienda.diy"
-      }
-    },
-    {
       "name": "hacienda-propriete-intellectuelle",
       "source": "./plugins/hacienda-propriete-intellectuelle",
       "description": "Propriété intellectuelle : droit d'auteur, logiciel, marques, open source, clauses PI et contrefaçon.",

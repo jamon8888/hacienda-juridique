@@ -5,7 +5,9 @@
       "type": "source-foundation",
       "source": "./plugins/hacienda-sources-officielles",
       "description": "Accès local aux sources officielles françaises : Légifrance, BOFiP, JORF, KALI et jurisprudence via PISTE.",
-      "skills": ["entretien-demarrage"],
+      "skills": [
+        "entretien-demarrage"
+      ],
       "agents": [],
       "mcp": {
         "mode": "references-source-foundation"
@@ -29,34 +31,10 @@
         "extraction-references",
         "verification-sources-primaires"
       ],
-      "agents": ["consolidateur-recherche", "controleur-sources", "veilleur-documentaire"],
-      "mcp": {
-        "mode": "references-source-foundation"
-      }
-    },
-    {
-      "name": "hacienda-social",
-      "type": "legal-domain",
-      "source": "./plugins/hacienda-social",
-      "description": "Droit social français : Code du travail, conventions collectives, licenciement, CSE et contentieux prud'homal.",
-      "skills": [
-        "entretien-demarrage",
-        "recherche-sociale",
-        "analyser-licenciement",
-        "analyser-rupture-conventionnelle",
-        "analyser-convention-collective",
-        "analyser-temps-travail",
-        "analyser-cse",
-        "rediger-politique-rh",
-        "memo-risque-prudhomal",
-        "classification-emploi",
-        "analyse-remuneration-variable"
-      ],
       "agents": [
-        "veilleur-conventions-collectives",
-        "suivi-contentieux-prudhomal",
-        "suivi-procedure-licenciement",
-        "veilleur-reformes-sociales"
+        "consolidateur-recherche",
+        "controleur-sources",
+        "veilleur-documentaire"
       ],
       "mcp": {
         "mode": "references-source-foundation"

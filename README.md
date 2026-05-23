@@ -1,7 +1,7 @@
 # Hacienda Juridique
 
 Hacienda Juridique est une marketplace de plugins juridiques français pour
-avocats, juristes, directions juridiques, équipes RH et legal ops.
+avocats, juristes, directions juridiques et legal ops.
 
 Le dépôt contient le catalogue actif, les plugins, les serveurs MCP locaux, les
 tests de distribution et les outils de validation Hacienda.
@@ -24,7 +24,6 @@ validation humaine.
 | --- | --- |
 | `hacienda-sources-officielles` | Socle de vérification des sources officielles françaises et européennes. |
 | `hacienda-recherche-documentaire` | Recherche documentaire juridique supervisée : requêtes, bases éditoriales, références et sources primaires. |
-| `hacienda-social` | Droit social français : Code du travail, conventions collectives, CSE, ruptures et prud'hommes. |
 | `hacienda-propriete-intellectuelle` | Propriété intellectuelle : marques, brevets, dessins et modèles, droit d'auteur, logiciel, open source et enforcement. |
 
 Le fichier source de vérité du catalogue actif est :
