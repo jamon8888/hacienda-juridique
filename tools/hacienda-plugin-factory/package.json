@@ -19,7 +19,9 @@
     "preadd-agent": "npm run build",
     "add-agent": "node dist/add-agent.js",
     "precompare-claude-legal": "npm run build",
-    "compare-claude-legal": "node dist/compare-with-reference.js"
+    "compare-claude-legal": "node dist/compare-with-reference.js",
+    "preanno-dist": "npm run build",
+    "anno-dist": "node dist/generate-anno-distribution.js"
   },
   "dependencies": {},
   "devDependencies": {

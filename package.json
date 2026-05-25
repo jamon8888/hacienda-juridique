@@ -17,6 +17,7 @@
     "plugin:add-skill": "npm --workspace @hacienda/plugin-factory run add-skill --",
     "plugin:add-agent": "npm --workspace @hacienda/plugin-factory run add-agent --",
     "plugin:compare-claude-legal": "npm --workspace @hacienda/plugin-factory run compare-claude-legal --",
+    "plugin:anno-dist": "npm --workspace @hacienda/plugin-factory run anno-dist --",
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present"
   },

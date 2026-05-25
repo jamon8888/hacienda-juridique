@@ -170,3 +170,54 @@ Le chemin simple pour l'utilisateur :
 ## Phrase Produit
 
 Hacienda fonctionne meme si tous les connecteurs ne sont pas connectes. Les features degrade gracefully : si une source n'est pas joignable, la sortie indique `[a verifier]` et propose le chemin de connexion.
+
+## Distribution locale Hacienda + Anno
+
+Pour les clients qui utilisent aussi le moteur local Anno, generez une distribution separee :
+
+```bash
+npm run plugin:anno-dist
+```
+
+Le dossier produit est :
+
+```text
+dist/hacienda-anno-desktop/
+```
+
+Cette distribution ajoute `anno-rag` a la configuration Claude Desktop sans rendre Anno obligatoire pour les plugins Hacienda de base.
+
+La distribution genere aussi une couche d'orchestration Anno :
+
+```text
+dist/hacienda-anno-desktop/ANNO-COORDINATOR.md
+dist/hacienda-anno-desktop/plugins/<plugin>/ANNO-WORKFLOWS.md
+```
+
+`ANNO-COORDINATOR.md` definit le socle transversal : `anno_health`,
+fallback sans Anno, PII, ingestion explicite, recherche, graphe, memoire et
+rehydratation locale.
+
+Chaque `ANNO-WORKFLOWS.md` specialise ce socle pour le plugin concerne.
+Recherche documentaire utilise Anno pour le corpus client ; propriete
+intellectuelle utilise les outils Anno de contrat, risque, timeline et
+citation ; sources officielles conserve Hacienda comme autorite primaire et
+utilise Anno seulement pour relier les faits du dossier.
+
+Par defaut, la configuration generee pointe vers :
+
+```text
+C:/Users/NMarchitecte/anno/target/release/anno-rag.exe
+```
+
+Cette valeur est un defaut de developpement local. Pour une distribution
+client, utilisez toujours un chemin explicite vers le binaire Anno installe sur
+le poste client.
+
+Pour un autre poste client, fournissez un chemin explicite :
+
+```bash
+npm run plugin:anno-dist -- --anno-binary "C:/chemin/client/anno-rag.exe"
+```
+
+Le depot Anno n'est pas modifie par cette commande. Si le binaire Anno n'existe pas, Claude Desktop ne pourra pas demarrer le serveur `anno-rag`, mais les plugins Hacienda restent utilisables sans cette couche.
