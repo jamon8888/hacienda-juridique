@@ -32,4 +32,29 @@ describe("hacienda-recherche-documentaire", () => {
     expect(combined).toContain("pas de stockage d'identifiants");
     expect(combined).toContain("mode demander avant d'agir");
   });
+
+  it("déclare les garde-fous Anno Desktop sans rendre Anno obligatoire", () => {
+    const combined = [
+      read("CLAUDE.md"),
+      read("README.md"),
+      read("skills/entretien-demarrage/SKILL.md"),
+      read("skills/preparation-requete/SKILL.md"),
+      read("skills/dossier-documentaire/SKILL.md"),
+      read("skills/extraction-references/SKILL.md"),
+      read("skills/verification-sources-primaires/SKILL.md"),
+      read("skills/comparaison-bases/SKILL.md")
+    ].join("\n");
+
+    expect(combined).toContain("Mode Anno Desktop Optionnel");
+    expect(combined).toContain("anno_health");
+    expect(combined).toContain("detect");
+    expect(combined).toContain("legal_ingest");
+    expect(combined).toContain("legal_search");
+    expect(combined).toContain("legal_graph_query");
+    expect(combined).toContain("legal_rehydrate_citation");
+    expect(combined).toContain("poursuivre en mode Hacienda");
+    expect(combined).toContain("source interne Anno");
+    expect(combined).toContain("jamais comme source primaire");
+    expect(combined).toContain("hacienda-sources-officielles");
+  });
 });

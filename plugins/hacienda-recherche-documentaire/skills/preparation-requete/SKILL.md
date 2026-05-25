@@ -34,3 +34,15 @@ Critères d'exclusion
 6. Marquer `[à vérifier]` toute source non consultée directement.
 7. Conserver un dossier de preuve des requêtes proposées, filtres et validations humaines.
 8. Exiger une validation humaine avant de lancer une recherche dans une base privée ou sur des pièces client.
+
+## Mode Anno Desktop Optionnel
+
+Si l'utilisateur veut rechercher aussi dans un dossier client local :
+
+1. appeler `anno_health` ;
+2. si Anno est indisponible, poursuivre en mode Hacienda sans mémoire/RAG local ;
+3. avant traitement du dossier client, appeler `detect` ou appliquer une gestion PII Anno équivalente ;
+4. demander validation explicite avant tout `legal_ingest` ;
+5. proposer les requêtes Anno séparément des requêtes Doctrine, Lexis, Lefebvre Dalloz et Lextenso ;
+6. utiliser `legal_search` ou `legal_graph_query` uniquement si le corpus est déjà ingéré ;
+7. marquer les résultats Anno comme sources internes de dossier, jamais comme sources primaires.

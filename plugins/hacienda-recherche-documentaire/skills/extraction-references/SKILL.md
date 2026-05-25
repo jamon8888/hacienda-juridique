@@ -35,3 +35,14 @@ Utilité pour le dossier
 - toute source non consultée directement reste marquée `[à vérifier]` ;
 - la validation humaine est requise avant citation comme autorité juridique ;
 - conserver un dossier de preuve avec extrait, identifiant et chemin de contrôle.
+
+## Passages Anno
+
+Si un résultat provient du corpus client local Anno :
+
+1. vérifier `anno_health` ;
+2. appliquer `detect` ou une gestion PII Anno équivalente avant extraction ;
+3. limiter l'extraction aux métadonnées de dossier et aux courts passages nécessaires ;
+4. utiliser `legal_rehydrate_citation` seulement pour une sortie locale autorisée ;
+5. classer le passage comme source interne Anno, jamais comme source primaire ;
+6. renvoyer toute référence juridique citée vers `verification-sources-primaires`.

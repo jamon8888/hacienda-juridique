@@ -49,6 +49,9 @@ sources primaires suffisantes pour une conclusion juridique finale.
    massive ni contournement.
 3. **Mode connecteur officiel** : utilisé seulement si un connecteur autorisé et
    conforme est disponible.
+4. **Mode Anno Desktop optionnel** : utilisé seulement dans la distribution
+   Hacienda + Anno Desktop pour rechercher dans un corpus client local déjà
+   ingéré, après `anno_health`, gestion PII et validation explicite.
 
 ## Skills
 
@@ -90,6 +93,10 @@ sources primaires suffisantes pour une conclusion juridique finale.
 Toute source primaire citée doit être vérifiée via
 `hacienda-sources-officielles`. Une référence issue d'une base éditoriale peut
 orienter l'analyse, mais ne suffit pas seule pour une conclusion normative.
+
+Les résultats Anno sont des sources internes de dossier client. Ils peuvent
+orienter la recherche documentaire, mais ne remplacent ni les bases éditoriales
+autorisées ni les sources primaires vérifiées.
 
 ## Limites
 

@@ -13,6 +13,7 @@ argument-hint: "<résultats consolidés>"
 
 ## Question
 ## Hypothèses
+## Sources Internes Anno
 ## Sources Officielles Vérifiées
 ## Résultats Doctrine
 ## Résultats Lexis
@@ -28,6 +29,11 @@ argument-hint: "<résultats consolidés>"
 
 ## Garde-Fous
 
+- La section Sources Internes Anno est optionnelle et seulement disponible dans la distribution Hacienda + Anno Desktop.
+- Avant d'utiliser des passages Anno : `anno_health`, puis `detect` ou gestion PII Anno équivalente.
+- Utiliser `legal_search` et `legal_graph_query` seulement sur un corpus client déjà ingéré.
+- Utiliser `legal_rehydrate_citation` uniquement pour une sortie locale destinée à l'utilisateur autorisé.
+- Ne jamais présenter un passage Anno comme source officielle ou source primaire.
 - Séparer les sources éditoriales et sources officielles vérifiées.
 - Ne jamais transformer un commentaire doctrinal en source primaire.
 - Indiquer les sources à relire manuellement.

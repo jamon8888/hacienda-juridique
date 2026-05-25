@@ -26,3 +26,13 @@ legifrance_rechercher
 5. Ajouter chaque source contrôlée au dossier documentaire.
 6. Bloquer toute conclusion définitive en cas de discordance non résolue.
 7. Exiger une validation humaine avant citation comme source opposable.
+
+## Résultats Anno
+
+Si une référence primaire provient d'un passage Anno :
+
+1. traiter le passage comme source interne de dossier ;
+2. ne jamais présenter Anno comme provenance officielle ;
+3. utiliser `legal_rehydrate_citation` seulement si l'utilisateur autorisé demande une citation locale ;
+4. vérifier la référence avec `hacienda-sources-officielles` ;
+5. conserver le lien entre passage Anno, source officielle consultée et statut `[à vérifier]`.
