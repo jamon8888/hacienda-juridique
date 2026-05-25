@@ -33,6 +33,28 @@ CRUD et pas un registre canonique unifié.
 Ce hub ne crée, ne modifie et ne supprime aucune entrée; toute maintenance
 bascule vers `revue-portefeuille-marques` ou `revue-portefeuille-brevets`.
 
+## Mode Anno Desktop Optionnel
+
+Si Anno Desktop est disponible, l'utiliser seulement pour consolider une lecture
+locale de registres internes, dossiers et décisions déjà ingérés. Appeler
+`anno_health` avant tout outil Anno ; en cas d'échec, poursuivre en mode
+Hacienda.
+
+Règles spécifiques :
+
+- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
+  pièce ou registre client ;
+- utiliser `legal_graph_query` pour relier actifs, titulaires, échéances,
+  familles, licences, contentieux et responsables ;
+- utiliser `memory_recall` et `memory_graph_recall` seulement pour rappeler des
+  préférences ou éléments validés par l'utilisateur ;
+- ne jamais écrire dans les registres sources depuis ce hub ;
+- ne jamais présenter Anno comme registre officiel.
+
+Tout résultat Anno est une source interne Anno, jamais comme source primaire et
+jamais comme registre officiel. Les registres INPI, EUIPO, OMPI, OEB et BOPI
+restent vérifiés via `hacienda-sources-officielles` et les outils PI Hacienda.
+
 ## Modes
 
 - `overview` : consolider une vue multi-actifs en lecture seule sur le

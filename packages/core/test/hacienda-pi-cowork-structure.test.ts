@@ -255,6 +255,43 @@ describe("hacienda PI cowork packaging", () => {
     expect(claudeTemplate).toContain("outputs/");
   });
 
+  it("documents optional Anno Desktop orchestration for high-value PI workflows", () => {
+    const annoAwareFiles = [
+      "CLAUDE.md",
+      "README.md",
+      "skills/entretien-demarrage/SKILL.md",
+      "skills/revue-clause-pi/SKILL.md",
+      "skills/contrats-pi/SKILL.md",
+      "skills/revue-logiciel-donnees/SKILL.md",
+      "skills/revue-open-source/SKILL.md",
+      "skills/tri-contrefacon/SKILL.md",
+      "skills/mise-en-demeure-pi/SKILL.md",
+      "skills/depot-preuve-creation/SKILL.md",
+      "skills/portefeuille-pi/SKILL.md"
+    ].map((path) => resolve(pluginRoot, path));
+    const combined = annoAwareFiles
+      .map((file) => readFileSync(file, "utf8"))
+      .join("\n");
+
+    expect(combined).toContain("Mode Anno Desktop Optionnel");
+    expect(combined).toContain("anno_health");
+    expect(combined).toContain("detect");
+    expect(combined).toContain("legal_ingest");
+    expect(combined).toContain("legal_search");
+    expect(combined).toContain("legal_graph_query");
+    expect(combined).toContain("legal_extract_contract");
+    expect(combined).toContain("legal_risk_review");
+    expect(combined).toContain("legal_mandatory_clause_audit");
+    expect(combined).toContain("legal_timeline");
+    expect(combined).toContain("legal_rehydrate_citation");
+    expect(combined).toContain("memory_recall");
+    expect(combined).toContain("poursuivre en mode Hacienda");
+    expect(combined).toContain("source interne Anno");
+    expect(combined).toContain("jamais comme source primaire");
+    expect(combined).toContain("jamais comme registre officiel");
+    expect(combined).toContain("hacienda-sources-officielles");
+  });
+
   it("ships managed-agent cookbooks for every PI agent", () => {
     const agentFiles = collectAgentFiles(pluginRoot);
     const cookbookRoot = resolve(

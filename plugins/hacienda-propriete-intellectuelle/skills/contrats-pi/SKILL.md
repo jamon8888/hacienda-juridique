@@ -90,6 +90,29 @@ marqueurs de brouillon visibles :
 - `[à vérifier]`
 - `[À COMPLÉTER]`
 
+## Mode Anno Desktop Optionnel
+
+Si Anno Desktop est actif, l'utiliser comme aide locale de lecture et de
+mémoire de dossier, jamais comme autorité juridique. Appeler `anno_health`
+avant tout outil Anno ; si le moteur est indisponible, poursuivre en mode
+Hacienda.
+
+Règles spécifiques :
+
+- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
+  pièce contractuelle client ;
+- utiliser `legal_extract_contract` pour extraire structure, clauses,
+  définitions et annexes d'un contrat fourni ou déjà ingéré ;
+- utiliser `legal_risk_review` pour préparer une matrice de risques
+  contractuels, sans la présenter comme avis final ;
+- utiliser `legal_search` seulement sur le corpus déjà ingéré et autorisé ;
+- utiliser `legal_rehydrate_citation` uniquement pour une citation locale
+  destinée à l'utilisateur autorisé.
+
+Tout passage Anno est une source interne Anno, jamais comme source primaire.
+Les textes, registres et références opposables restent contrôlés via
+`hacienda-sources-officielles` et les outils PI Hacienda.
+
 ## Inputs minimaux
 
 Ne pas démarrer l'analyse sans demander le minimum suivant.

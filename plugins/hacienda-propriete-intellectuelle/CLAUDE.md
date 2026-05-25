@@ -429,6 +429,43 @@ Le sur-juridisme est un mode d'échec : il enterre la réponse, entraîne l'opé
 
 Une source primaire non consultée laisse l'élément `[à vérifier]` ou `[connaissance modèle — à vérifier]`. Voir aussi `references/ressources-pi-fr.md` pour le catalogue détaillé.
 
+## Mode Anno Desktop Optionnel
+
+Si la distribution Hacienda + Anno Desktop est active, utiliser Anno seulement
+comme mémoire/RAG local de dossier client. Le plugin PI doit rester pleinement
+utilisable sans Anno.
+
+Avant tout outil Anno :
+
+1. appeler `anno_health` ;
+2. si Anno est indisponible, annoncer le fallback et poursuivre en mode Hacienda ;
+3. avant tout traitement de pièce client, appeler `detect` ou appliquer une
+   gestion PII Anno équivalente ;
+4. n'appeler `legal_ingest` que si l'utilisateur demande explicitement
+   l'indexation d'un dossier ou document local ;
+5. utiliser `legal_search` et `legal_graph_query` seulement sur un corpus déjà
+   ingéré ;
+6. utiliser `rehydrate` ou `legal_rehydrate_citation` uniquement pour une sortie
+   locale destinée à l'utilisateur autorisé.
+
+Les passages Anno sont une source interne Anno de dossier, jamais comme source
+primaire et jamais comme registre officiel. Les registres INPI, EUIPO, OMPI,
+OEB, BOPI et les textes/jurisprudences officiels restent vérifiés via
+`hacienda-sources-officielles` ou les outils PI Hacienda. Tout élément non
+consulté directement reste marqué `[à vérifier]`.
+
+Workflows Anno PI autorisés quand Anno est disponible :
+
+| Workflow PI | Outils Anno utiles |
+|---|---|
+| Revue de clauses PI | `legal_extract_contract`, `legal_risk_review`, `legal_mandatory_clause_audit` |
+| Contrats logiciel / données | `legal_extract_contract`, `legal_risk_review`, `legal_search` |
+| Revue open source | `legal_search`, `legal_risk_review`, `legal_graph_query` |
+| Contrefaçon | `legal_timeline`, `legal_graph_query`, `legal_rehydrate_citation` |
+| Preuve de création | `legal_ingest`, `legal_search`, `legal_timeline` |
+| Portefeuille PI | `legal_graph_query`, `memory_recall`, `memory_graph_recall` |
+| Mise en demeure PI | `legal_search`, `legal_rehydrate_citation`, `legal_risk_review` |
+
 ---
 
 ## 11. Workspaces de dossier (matter workspaces)

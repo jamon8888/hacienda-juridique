@@ -23,6 +23,28 @@ Utiliser en priorité avec les références locales :
 - Ne transforme pas des allégations client en faits établis sans pièce associée.
 - Ne masque pas les incertitudes : tout élément non documenté reste indiqué `[à vérifier]`.
 
+## Mode Anno Desktop Optionnel
+
+Si Anno Desktop est disponible, l'utiliser pour indexer et relier localement les
+pièces de preuve du dossier, uniquement sur demande explicite. Appeler
+`anno_health` avant tout outil Anno ; en cas d'échec, poursuivre en mode
+Hacienda.
+
+Règles spécifiques :
+
+- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
+  pièce client ;
+- n'utiliser `legal_ingest` qu'après confirmation explicite du périmètre local
+  à indexer ;
+- utiliser `legal_search` pour retrouver les pièces déjà ingérées ;
+- utiliser `legal_timeline` pour construire une chronologie probatoire ;
+- utiliser `legal_rehydrate_citation` uniquement pour une citation locale
+  destinée à l'utilisateur autorisé.
+
+Les résultats Anno sont une source interne Anno, jamais comme source primaire.
+Anno ne remplace jamais un dépôt officiel, un constat, un horodatage ou un
+registre officiel.
+
 ## Cadrage initial
 
 Recueillir et séparer clairement :

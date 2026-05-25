@@ -23,6 +23,28 @@ Référence de travail: `references/lettres-pi-structure.md`.
 - Ne transforme pas des allégations internes, captures partielles ou résumés non sourçables en assertions certaines.
 - Ne force pas une mise en demeure si `tri-contrefacon` ou l'analyse amont concluent que `watch`, `soft outreach`, `no action` ou une défense structurée sont plus adaptés.
 
+## Mode Anno Desktop Optionnel
+
+Si Anno Desktop est disponible, l'utiliser seulement pour retrouver et citer
+localement les pièces déjà autorisées du dossier. Appeler `anno_health` avant
+tout outil Anno ; si le moteur est indisponible, poursuivre en mode Hacienda.
+
+Règles spécifiques :
+
+- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
+  pièce client, capture ou correspondance ;
+- utiliser `legal_search` pour retrouver les pièces et faits déjà ingérés ;
+- utiliser `legal_rehydrate_citation` uniquement pour une citation locale
+  destinée à l'utilisateur autorisé ;
+- utiliser `legal_risk_review` pour tester sur-promesses, points faibles et
+  risques de riposte ;
+- ne jamais envoyer, préparer un envoi automatique ou durcir une qualification
+  sur la seule base d'Anno.
+
+Tout résultat Anno est une source interne Anno, jamais comme source primaire.
+Les droits invoqués et registres restent vérifiés via
+`hacienda-sources-officielles` et les outils PI Hacienda.
+
 ## Cadrage initial
 
 Toujours identifier d'abord le `mode`:

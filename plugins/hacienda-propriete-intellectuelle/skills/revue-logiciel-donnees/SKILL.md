@@ -36,6 +36,29 @@ Ce skill ne fait pas :
 Toute question d'inventaire, d'obligations ou de conflits par composant,
 dépendance, paquet, image ou SBOM relève de `revue-open-source`.
 
+## Mode Anno Desktop Optionnel
+
+Si Anno Desktop est disponible, l'utiliser pour relier localement contrats,
+commits, tickets, datasets, factures et historiques de contribution déjà
+fournis. Avant tout outil Anno, appeler `anno_health`; en cas d'échec,
+poursuivre en mode Hacienda.
+
+Règles spécifiques :
+
+- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
+  pièce client ;
+- utiliser `legal_extract_contract` pour extraire les clauses de cession,
+  licence, contribution, confidentialité ou data des contrats fournis ;
+- utiliser `legal_risk_review` pour prioriser les trous de chaîne de droits ;
+- utiliser `legal_search` et `legal_graph_query` uniquement sur un corpus déjà
+  ingéré et autorisé ;
+- traiter chaque passage Anno comme source interne Anno, jamais comme source
+  primaire.
+
+Les registres, textes et pièces officielles restent vérifiés via
+`hacienda-sources-officielles` ou les outils PI Hacienda. Toute titularité ou
+pièce non lue reste `[à vérifier]`.
+
 ## Cadrage initial
 
 Demander et séparer dès le départ :

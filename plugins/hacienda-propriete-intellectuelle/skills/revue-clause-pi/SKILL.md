@@ -84,6 +84,28 @@ reste utilisable, mais les hypothèses non documentées doivent être marquées 
 - `[à vérifier]`
 - `[À COMPLÉTER]`
 
+## Mode Anno Desktop Optionnel
+
+Si Anno Desktop est disponible, l'utiliser seulement pour accélérer la lecture
+locale du contrat et des pièces déjà autorisées. Avant tout outil Anno, appeler
+`anno_health`; en cas d'échec, poursuivre en mode Hacienda.
+
+Règles spécifiques :
+
+- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
+  clause ou pièce client ;
+- utiliser `legal_extract_contract` pour extraire les clauses seulement si le
+  document est fourni ou déjà ingéré ;
+- utiliser `legal_risk_review` et `legal_mandatory_clause_audit` comme aides de
+  revue, sans transformer leurs résultats en conclusion finale ;
+- réserver `legal_search` et `legal_graph_query` aux corpus déjà ingérés ;
+- classer tout extrait Anno comme source interne Anno, jamais comme source
+  primaire.
+
+Les textes applicables, registres et sources officielles restent vérifiés via
+`hacienda-sources-officielles`. Toute clause, pièce ou source non consultée
+directement reste `[à vérifier]`.
+
 ## Contrat d'entrée V2
 
 Le skill doit expliciter ou dériver :

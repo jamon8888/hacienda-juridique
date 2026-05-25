@@ -35,6 +35,30 @@ Produire un audit open source opérationnel centré sur :
   des datasets ; ce sujet relève de `revue-logiciel-donnees` et de
   `logiciels-pi` selon le cas.
 
+## Mode Anno Desktop Optionnel
+
+Si Anno Desktop est disponible, l'utiliser seulement pour rechercher dans les
+SBOM, exports SCA, policies internes, manifests et dossiers de remédiation déjà
+fournis ou ingérés. Appeler `anno_health` avant tout outil Anno ; si le moteur
+est indisponible, poursuivre en mode Hacienda.
+
+Règles spécifiques :
+
+- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
+  pièce client ou policy interne ;
+- utiliser `legal_search` pour retrouver les composants, notices, exceptions
+  et décisions internes déjà ingérés ;
+- utiliser `legal_risk_review` pour prioriser les conflits de licences et
+  obligations ;
+- utiliser `legal_graph_query` pour relier composants, produits, usages,
+  owners et décisions de remédiation ;
+- ne jamais présenter Anno comme scanner SCA autonome.
+
+Tout résultat Anno est une source interne Anno, jamais comme source primaire.
+Les licences, notices et sources officielles doivent rester vérifiées via
+`hacienda-sources-officielles`, les registres de packages ou les pièces
+fournies.
+
 ## Cadrage initial
 
 Demander et distinguer explicitement les entrées disponibles :

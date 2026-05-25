@@ -23,6 +23,29 @@ Référence de travail: `references/grille-enforcement-marques.md`.
 - Ne suppose pas la validité, la titularité, l'usage sérieux ou l'opposabilité territoriale d'une marque sans pièces ou vérification de source.
 - Ne transforme pas des allegations internes, captures isolees ou rumeurs commerciales en faits acquis.
 
+## Mode Anno Desktop Optionnel
+
+Si Anno Desktop est disponible, l'utiliser pour organiser localement les
+captures, URL, constats, échanges, tickets et signaux déjà fournis dans le
+dossier. Appeler `anno_health` avant tout outil Anno ; en cas d'échec,
+poursuivre en mode Hacienda.
+
+Règles spécifiques :
+
+- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
+  pièce client ou donnée adverse ;
+- utiliser `legal_timeline` pour ordonner les captures, usages, relances et
+  événements probatoires déjà ingérés ;
+- utiliser `legal_graph_query` pour relier cible, vendeur, canal, produits,
+  signes, droits invoqués et pièces ;
+- utiliser `legal_rehydrate_citation` uniquement pour une citation locale
+  destinée à l'utilisateur autorisé ;
+- ne jamais utiliser un passage Anno pour établir à lui seul la contrefaçon.
+
+Tout résultat Anno est une source interne Anno, jamais comme source primaire.
+Les droits invoqués, registres et sources officielles restent vérifiés via
+`hacienda-sources-officielles` et les outils PI Hacienda.
+
 ## Cadrage initial
 
 Toujours identifier d'abord le `mode`:

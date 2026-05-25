@@ -112,6 +112,30 @@ Le profil utilisateur reste stocke hors du depot, dans :
 - SBOM, notices OSS, contrats et licences ;
 - preuves de creation, captures et correspondances.
 
+## Mode Anno Desktop Optionnel
+
+Dans la distribution Hacienda + Anno Desktop, le plugin PI peut utiliser Anno
+comme mémoire/RAG local de dossier client. Cette capacité est optionnelle :
+sans Anno, tous les workflows doivent poursuivre en mode Hacienda.
+
+Règles d'usage :
+
+- appeler `anno_health` avant tout outil Anno ;
+- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
+  pièce client ;
+- n'utiliser `legal_ingest` qu'après demande explicite d'indexation ;
+- réserver `legal_search` et `legal_graph_query` aux corpus déjà ingérés ;
+- réserver `rehydrate` et `legal_rehydrate_citation` aux sorties locales pour
+  l'utilisateur autorisé ;
+- traiter chaque passage Anno comme source interne Anno, jamais comme source
+  primaire et jamais comme registre officiel.
+
+Les workflows PI peuvent mobiliser `legal_extract_contract`,
+`legal_risk_review`, `legal_mandatory_clause_audit`, `legal_timeline`,
+`memory_recall` et `memory_graph_recall` selon le dossier. Les sources
+officielles et registres restent vérifiés via `hacienda-sources-officielles`
+et les outils PI Hacienda.
+
 ## Configuration Des Sources PI
 
 Le plugin PI lit ses credentials de source via `~/.config/Hacienda/credentials.json`,

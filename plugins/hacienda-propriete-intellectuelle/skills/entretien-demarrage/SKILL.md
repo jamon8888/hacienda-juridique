@@ -19,6 +19,26 @@ Entretien de 10 à 15 minutes pour configurer le extension Hacienda Propriété 
 
 4. **Sinon, dérouler l'interview complète** ci-dessous. Les sections sont obligatoires ; rien n'est inventé silencieusement — toute valeur non confirmée par l'utilisateur reste `[A CONFIGURER]`.
 
+## Mode Anno Desktop Optionnel
+
+Si la distribution Hacienda + Anno Desktop est utilisée, demander si le cabinet
+veut activer la mémoire/RAG locale Anno pour les dossiers PI. Le plugin doit
+rester utilisable sans Anno et poursuivre en mode Hacienda si `anno_health`
+échoue.
+
+À documenter dans le profil si Anno est activé :
+
+- qui peut demander `legal_ingest` et sur quels dossiers locaux ;
+- quelle validation humaine est requise avant `rehydrate` ou
+  `legal_rehydrate_citation` ;
+- quelle règle de gestion PII appliquer avant toute pièce client (`detect` ou
+  gestion équivalente) ;
+- que tout passage Anno reste une source interne Anno, jamais comme source
+  primaire et jamais comme registre officiel.
+
+Rappeler que les registres, textes et jurisprudences restent vérifiés via
+`hacienda-sources-officielles` et les outils PI Hacienda.
+
 ## Interview (sections obligatoires)
 
 ### Pratique cabinet
