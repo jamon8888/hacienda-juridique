@@ -3,7 +3,10 @@ import { resolve } from "node:path";
 import {
   assertSafeOutputDir,
   buildAnnoCoordinatorMarkdown,
+  buildAnnoMatterVaultMarkdown,
   buildAnnoOverlayMarkdown,
+  buildAnnoTabularMarkdown,
+  buildAnnoWorkflowBlueprintsMarkdown,
   buildClaudeDesktopConfig,
   buildClientReadme,
   buildEngineCompat,
@@ -122,6 +125,17 @@ export function generateAnnoDistribution(options: AnnoDistributionOptions): void
   writeFileSync(
     resolve(outputDir, "ANNO-COORDINATOR.md"),
     buildAnnoCoordinatorMarkdown(),
+    "utf8"
+  );
+  writeFileSync(resolve(outputDir, "ANNO-TABULAR.md"), buildAnnoTabularMarkdown(), "utf8");
+  writeFileSync(
+    resolve(outputDir, "ANNO-MATTER-VAULT.md"),
+    buildAnnoMatterVaultMarkdown(),
+    "utf8"
+  );
+  writeFileSync(
+    resolve(outputDir, "ANNO-WORKFLOW-BLUEPRINTS.md"),
+    buildAnnoWorkflowBlueprintsMarkdown(),
     "utf8"
   );
   writeFileSync(resolve(outputDir, "README.md"), buildClientReadme(options), "utf8");

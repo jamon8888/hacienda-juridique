@@ -12,7 +12,10 @@ import {
 import {
   assertSafeOutputDir,
   buildAnnoCoordinatorMarkdown,
+  buildAnnoMatterVaultMarkdown,
   buildAnnoOverlayMarkdown,
+  buildAnnoTabularMarkdown,
+  buildAnnoWorkflowBlueprintsMarkdown,
   buildClaudeDesktopConfig,
   buildEngineCompat,
   buildPluginAnnoWorkflowMarkdown,
@@ -135,6 +138,12 @@ describe("hacienda anno desktop distribution", () => {
     expect(compat.required_tools).toContain("legal_ingest");
     expect(compat.required_tools).toContain("legal_search");
     expect(compat.required_tools).toContain("legal_graph_query");
+    expect(compat.tool_tiers.core).toContain("detect");
+    expect(compat.tool_tiers.setup).toContain("anno_init_vault");
+    expect(compat.tool_tiers.memory).toContain("memory_invalidate");
+    expect(compat.tool_tiers.legal).toContain("legal_validate_field");
+    expect(compat.tool_tiers.tabular).toContain("tabular_review_create");
+    expect(compat.tool_tiers.tabular).toContain("tabular_review_verify_citations_in_output");
     expect(compat.release_page_url).toBe("https://github.com/arclabs561/anno/releases");
   });
 
@@ -158,6 +167,43 @@ describe("hacienda anno desktop distribution", () => {
     expect(coordinator).toContain("legal_search");
     expect(coordinator).toContain("legal_graph_query");
     expect(coordinator).toContain("legal_rehydrate_citation");
+    expect(coordinator).toContain("matter_vault");
+    expect(coordinator).toContain("workflow_blueprint");
+    expect(coordinator).toContain("grid_to_work_product");
+  });
+
+  it("builds the Anno tabular review operating model", () => {
+    const tabular = buildAnnoTabularMarkdown();
+
+    expect(tabular).toContain("# Hacienda Anno Tabular Review");
+    expect(tabular).toContain("tabular_review_create");
+    expect(tabular).toContain("tabular_review_lock_cell");
+    expect(tabular).toContain("review_status");
+    expect(tabular).toContain("decision_status");
+    expect(tabular).toContain("grid_to_work_product");
+    expect(tabular).toContain("[à vérifier]");
+  });
+
+  it("builds the Anno matter vault governance model", () => {
+    const matterVault = buildAnnoMatterVaultMarkdown();
+
+    expect(matterVault).toContain("# Hacienda Anno Matter Vault");
+    expect(matterVault).toContain("matter_id");
+    expect(matterVault).toContain("authorized_users");
+    expect(matterVault).toContain("source_sets");
+    expect(matterVault).toContain("retention_policy");
+    expect(matterVault).toContain("access_policy");
+  });
+
+  it("builds reusable workflow blueprints for high-value PI work", () => {
+    const blueprints = buildAnnoWorkflowBlueprintsMarkdown();
+
+    expect(blueprints).toContain("# Hacienda Anno Workflow Blueprints");
+    expect(blueprints).toContain("pi-ma-diligence-v1");
+    expect(blueprints).toContain("clause-pi-review-v1");
+    expect(blueprints).toContain("oss-obligations-review-v1");
+    expect(blueprints).toContain("grid_to_work_product");
+    expect(blueprints).toContain("legal_validate_field");
   });
 
   it("builds the recherche documentaire Anno workflow overlay", () => {
@@ -182,6 +228,11 @@ describe("hacienda anno desktop distribution", () => {
     expect(workflow).toContain("legal_risk_review");
     expect(workflow).toContain("legal_mandatory_clause_audit");
     expect(workflow).toContain("legal_timeline");
+    expect(workflow).toContain("legal_prescription_check");
+    expect(workflow).toContain("legal_validate_field");
+    expect(workflow).toContain("revue tabulaire");
+    expect(workflow).toContain("matter_vault");
+    expect(workflow).toContain("grid_to_work_product");
     expect(workflow).toContain("legal_rehydrate_citation");
     expect(workflow).toContain("detect");
   });
@@ -213,6 +264,9 @@ describe("hacienda anno desktop distribution", () => {
 
   it("builds the generated orchestration artifact content without mutating dist", () => {
     expect(buildAnnoCoordinatorMarkdown()).toContain("fallback_hacienda");
+    expect(buildAnnoTabularMarkdown()).toContain("tabular_review_create");
+    expect(buildAnnoMatterVaultMarkdown()).toContain("matter_vault");
+    expect(buildAnnoWorkflowBlueprintsMarkdown()).toContain("workflow_blueprint");
     expect(
       buildPluginAnnoWorkflowMarkdown("hacienda-recherche-documentaire")
     ).toContain("Sources officielles Hacienda");

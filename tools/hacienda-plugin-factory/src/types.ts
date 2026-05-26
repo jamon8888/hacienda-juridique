@@ -59,5 +59,12 @@ export type AnnoEngineCompat = {
   min_engine_version: string;
   recommended_engine_version: string;
   required_tools: string[];
+  tool_tiers: {
+    core: string[];
+    setup: string[];
+    memory: string[];
+    legal: string[];
+    tabular: string[];
+  };
   release_page_url: string;
 };
