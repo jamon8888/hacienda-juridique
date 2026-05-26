@@ -95,3 +95,24 @@ La sortie du hub contient au minimum les blocs suivants :
   indiquant la vérification humaine attendue et le renvoi vers
   `revue-portefeuille-marques` ou `revue-portefeuille-brevets` selon l'actif
   et l'action de maintenance, d'audit ou de recoupement nécessaire.
+
+## Mode Anno Tabular optionnel
+
+Si la distribution Hacienda + Anno Desktop est active, `portefeuille-pi` utilise
+Anno pour consolider localement les actifs du dossier, jamais comme source
+primaire et jamais comme registre officiel. Appeler `anno_health` avant tout
+outil Anno ; si Anno est indisponible, poursuivre en `fallback_hacienda`.
+
+Le portefeuille doit être rattaché au `matter_vault` et au
+`workflow_blueprint` `ip-portfolio-review-v1`. Utiliser `legal_graph_query`,
+`memory_recall` seulement pour contexte approuvé, `memory_graph_recall` et une
+revue tabulaire avec `tabular_review_create` sur le modèle `ip-v1`. La grille
+doit suivre actif, titulaire, statut, territoire, licences, sûretés, source
+officielle à vérifier, `review_status`, `decision_status` et
+`validation_status`.
+
+Utiliser `grid_to_work_product` pour produire un rapport portefeuille ou une
+annexe depuis les cellules validées. Tout passage Anno reste une source interne
+Anno, jamais comme source primaire ; les registres INPI/EUIPO/WIPO/EPO et
+sources officielles restent vérifiés via `hacienda-sources-officielles`. Les
+actifs non recoupés restent `[à vérifier]`.

@@ -432,3 +432,24 @@ Rappel final à conserver :
 - les points non vérifiés restent `[à vérifier]` ;
 - les actes et décisions procedurales relevent de la validation humaine, en
   pratique avocat.
+
+## Mode Anno Tabular optionnel
+
+Si la distribution Hacienda + Anno Desktop est active, `contentieux-pi` utilise
+Anno pour organiser localement pièces, parties, événements, risques et preuves,
+jamais comme source primaire. Appeler `anno_health` avant tout outil Anno ; si
+Anno est indisponible, poursuivre en `fallback_hacienda`.
+
+Le dossier doit être limité au `matter_vault` et rattaché à un
+`workflow_blueprint` contentieux. Utiliser `legal_extract_case_file`,
+`legal_timeline`, `legal_graph_query`, `legal_prescription_check` et
+`legal_validate_field`, puis une revue tabulaire avec `tabular_review_create`
+pour suivre faits allégués, pièces, dates, droit invoqué, faiblesse probatoire,
+prescription et contradictions. Chaque fait doit porter `review_status`,
+`decision_status`, responsable, citation et `validation_status`.
+
+Utiliser `grid_to_work_product` seulement pour produire une note contentieux,
+une chronologie ou une annexe depuis les cellules validées. Tout extrait Anno
+reste une source interne Anno, jamais comme source primaire ; les textes,
+jurisprudences et sources officielles restent vérifiés via
+`hacienda-sources-officielles`. Les faits non validés restent `[à vérifier]`.

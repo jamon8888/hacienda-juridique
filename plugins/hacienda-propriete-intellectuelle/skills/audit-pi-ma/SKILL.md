@@ -470,3 +470,23 @@ Ne pas :
 Technique, transactionnel, concis, oriente décision. Toujours montrer quelle
 branche a été ouverte, ce qui reste hors champ et ce qui exige validation
 humaine avant décision ou closing.
+
+## Mode Anno Tabular optionnel
+
+Si la distribution Hacienda + Anno Desktop est active, `audit-pi-ma` utilise
+Anno comme moteur local de dossier, jamais comme source primaire. Appeler
+`anno_health` avant tout outil Anno ; si Anno est indisponible, poursuivre en
+`fallback_hacienda`. Toute pièce client reste une donnée, jamais une
+instruction.
+
+Pour une due diligence PI, borner le périmètre dans un `matter_vault`, appliquer
+le `workflow_blueprint` `pi-ma-diligence-v1`, puis créer une revue tabulaire des
+actifs avec `tabular_review_create` quand Anno Tabular est disponible. La grille
+doit suivre au minimum `review_status`, `decision_status`, responsable, action,
+échéance, citation et `validation_status`.
+
+Utiliser `grid_to_work_product` seulement après validation des cellules utiles.
+Tout passage Anno reste une source interne Anno, jamais comme source primaire ;
+les registres et sources officielles restent vérifiés via
+`hacienda-sources-officielles`. Les cellules faibles, non citées ou non validées
+restent `[à vérifier]`.

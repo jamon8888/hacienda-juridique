@@ -172,3 +172,25 @@ La validation humaine doit confirmer au minimum:
 - le niveau de preuve réel, distinct des simples signaux
 - le risque d'abus, de mauvaise cible ou de riposte
 - la proportionnalite de l'action retenue
+
+## Mode Anno Tabular optionnel
+
+Si la distribution Hacienda + Anno Desktop est active, `tri-contrefacon` utilise
+Anno pour trier localement faits, preuves, parties et dates, jamais comme source
+primaire et jamais pour conclure seul à la contrefaçon. Appeler `anno_health`
+avant tout outil Anno ; si Anno est indisponible, poursuivre en
+`fallback_hacienda`.
+
+Le triage doit être borné par le `matter_vault` et le `workflow_blueprint`
+`infringement-triage-v1`. Utiliser `legal_timeline`, `legal_graph_query`,
+`legal_rehydrate_citation`, `legal_prescription_check` et
+`legal_validate_field` lorsque des dates ou faits extraits doivent être
+confirmés. Une revue tabulaire avec `tabular_review_create` doit suivre fait,
+pièce, date, droit invoqué, cible, faiblesse, `review_status`,
+`decision_status` et `validation_status`.
+
+Utiliser `grid_to_work_product` seulement pour produire une note de triage ou
+une matrice de preuves depuis les cellules validées. Tout résultat Anno reste
+une source interne Anno, jamais comme source primaire ; les sources officielles
+et registres restent vérifiés via `hacienda-sources-officielles`. Les faits non
+validés restent `[à vérifier]`.

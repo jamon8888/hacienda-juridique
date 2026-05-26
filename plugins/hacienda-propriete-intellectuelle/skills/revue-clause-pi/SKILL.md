@@ -413,3 +413,23 @@ outputs/revue-clause-pi-<contrepartie-ou-projet>-YYYY-MM-DD.md
 
 Sobre, technique, français clair, orienté négo et risque. Toujours rappeler la
 frontière du skill, les pièces manquantes, et la validation humaine requise.
+
+## Mode Anno Tabular optionnel
+
+Si la distribution Hacienda + Anno Desktop est active, `revue-clause-pi` utilise
+Anno pour structurer la lecture locale du contrat, jamais comme source primaire.
+Appeler `anno_health` avant tout outil Anno ; si Anno est indisponible,
+poursuivre en `fallback_hacienda`.
+
+Le contrat doit être rattaché au `matter_vault` et au `workflow_blueprint`
+`clause-pi-review-v1`. Utiliser `legal_extract_contract`, `legal_risk_review`
+et `legal_mandatory_clause_audit`, puis une revue tabulaire avec
+`tabular_review_create` et `tabular_review_refine_cell` pour les clauses
+ambiguës. Suivre `review_status`, `decision_status`, verrouillage humain,
+action de négociation et `validation_status`.
+
+Utiliser `grid_to_work_product` pour transformer les cellules validées en note
+de revue ou matrice de négociation. Tout extrait Anno reste une source interne
+Anno, jamais comme source primaire ; les sources officielles et registres
+restent vérifiés via `hacienda-sources-officielles`. Les clauses non citées,
+faibles ou non revues restent `[à vérifier]`.

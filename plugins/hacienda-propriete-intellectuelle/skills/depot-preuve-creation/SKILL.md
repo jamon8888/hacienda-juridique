@@ -255,3 +255,24 @@ Toujours rappeler en conclusion :
 - ceci est un travail de structuration probatoire et non un conseil juridique définitif ;
 - les sources non consultées restent `[à vérifier]` ;
 - la force probante finale dépend du contexte, de la contradiction et de l'appréciation humaine.
+
+## Mode Anno Tabular optionnel
+
+Si la distribution Hacienda + Anno Desktop est active, `depot-preuve-creation`
+utilise Anno pour organiser localement pièces, dates, auteurs et supports,
+jamais comme source primaire et jamais comme dépôt officiel, constat ou
+horodatage. Appeler `anno_health` avant tout outil Anno ; si Anno est
+indisponible, poursuivre en `fallback_hacienda`.
+
+Le dossier probatoire doit être borné par le `matter_vault` et le
+`workflow_blueprint` `creation-evidence-file-v1`. Utiliser `legal_ingest`,
+`legal_search`, `legal_timeline` et une revue tabulaire avec
+`tabular_review_create` pour suivre preuve, date, auteur, fait prouvé,
+fiabilité, lacune, `review_status`, `decision_status` et `validation_status`.
+
+Utiliser `grid_to_work_product` pour produire une annexe probatoire ou un plan
+de régularisation depuis les cellules validées. Tout résultat Anno reste une
+source interne Anno, jamais comme source primaire ; les sources officielles,
+dépôts, constats et horodatages restent vérifiés via
+`hacienda-sources-officielles`. Les pièces non lues ou non validées restent
+`[à vérifier]`.

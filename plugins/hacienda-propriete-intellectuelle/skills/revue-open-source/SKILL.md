@@ -160,3 +160,24 @@ Toujours conclure par :
 - les composants au statut `non identifié` ou encore `[à vérifier]` ;
 - les points qui exigent validation humaine, notamment en cas d'AGPL, de
   copyleft fort, de dual licensing, de source-available ou de conflit policy.
+
+## Mode Anno Tabular optionnel
+
+Si la distribution Hacienda + Anno Desktop est active, `revue-open-source`
+utilise Anno pour relier localement SBOM, notices, contrats et pièces, jamais
+comme source primaire et jamais comme scanner SCA autonome. Appeler
+`anno_health` avant tout outil Anno ; si Anno est indisponible, poursuivre en
+`fallback_hacienda`.
+
+Le dossier doit être borné par le `matter_vault` et le `workflow_blueprint`
+`oss-obligations-review-v1`. Utiliser `legal_search`, `legal_risk_review`,
+`legal_graph_query` et une revue tabulaire avec `tabular_review_create` pour
+suivre composant, version, licence, usage, obligation, conflit, remédiation et
+validation. Les composants critiques doivent porter `review_status`,
+`decision_status`, responsable, action, échéance et `validation_status`.
+
+Utiliser `grid_to_work_product` pour générer une note OSS ou une annexe de
+remédiation depuis les cellules validées. Tout passage Anno reste une source
+interne Anno, jamais comme source primaire ; les sources officielles et registres
+restent vérifiés via `hacienda-sources-officielles`. Les composants non
+identifiés ou non validés restent `[à vérifier]`.

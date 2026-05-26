@@ -198,3 +198,23 @@ alléguée restent marquées `[à vérifier]`.
 ## Références
 
 - `references/chaine-droits-logiciel-data.md`
+
+## Mode Anno Tabular optionnel
+
+Si la distribution Hacienda + Anno Desktop est active, `revue-logiciel-donnees`
+utilise Anno pour relier localement contrats, contributeurs, logiciels,
+datasets et preuves, jamais comme source primaire. Appeler `anno_health` avant
+tout outil Anno ; si Anno est indisponible, poursuivre en `fallback_hacienda`.
+
+Le périmètre doit être inscrit dans le `matter_vault` et le
+`workflow_blueprint` `software-data-chain-v1`. Utiliser `legal_search`,
+`legal_graph_query` et une revue tabulaire avec `tabular_review_create` pour
+suivre actifs, contributeurs, contrats sources, cessions/licences, trous de
+chaîne de droits, dépendances et preuves. Les gaps doivent porter
+`review_status`, `decision_status`, responsable, action et `validation_status`.
+
+Utiliser `grid_to_work_product` pour produire une note de chaîne de droits ou
+une annexe de remédiation depuis les cellules validées. Tout résultat Anno reste
+une source interne Anno, jamais comme source primaire ; les sources officielles
+et registres restent vérifiés via `hacienda-sources-officielles`. Les points
+non documentés restent `[à vérifier]`.

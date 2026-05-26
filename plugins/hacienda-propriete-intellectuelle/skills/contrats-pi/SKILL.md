@@ -451,3 +451,23 @@ outputs/contrat-pi-<contract-family>-<parties-slug>-YYYY-MM-DD.md
 
 Technique, structuré, orienté décision. Toujours distinguer faits, hypothèse,
 risques, actions post-signature et validation humaine.
+
+## Mode Anno Tabular optionnel
+
+Si la distribution Hacienda + Anno Desktop est active, `contrats-pi` utilise
+Anno comme aide locale de dossier, jamais comme source primaire. Appeler
+`anno_health` avant tout outil Anno ; si Anno est indisponible, poursuivre en
+`fallback_hacienda`.
+
+Rattacher le contrat au `matter_vault` et sélectionner un `workflow_blueprint`
+adapté au contrat. Utiliser `legal_extract_contract`, `legal_search` et
+`legal_graph_query`, puis une revue tabulaire avec `tabular_review_create` pour
+suivre droits, durée, territoire, exclusivité, garanties, indemnités,
+restrictions et obligations. Chaque ligne de risque doit porter
+`review_status`, `decision_status`, responsable, action et `validation_status`.
+
+Utiliser `grid_to_work_product` pour produire une note, une liste de points de
+négociation ou un projet contractuel depuis les cellules validées. Tout passage
+Anno reste une source interne Anno, jamais comme source primaire ; les textes,
+registres et sources officielles restent vérifiés via
+`hacienda-sources-officielles`. Les points non validés restent `[à vérifier]`.

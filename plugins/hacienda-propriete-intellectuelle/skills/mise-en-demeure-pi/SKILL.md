@@ -242,3 +242,24 @@ Avant toute utilisation externe du brouillon, la validation humaine doit confirm
 - la qualité réelle des pièces et des dates
 - la proportionnalité du ton et du niveau d'escalade
 - l'absence de sur-promesse, d'assertion non vérifiée ou de qualification définitive prématurée
+
+## Mode Anno Tabular optionnel
+
+Si la distribution Hacienda + Anno Desktop est active, `mise-en-demeure-pi`
+utilise Anno pour retrouver et citer localement des faits déjà autorisés, jamais
+comme source primaire. Appeler `anno_health` avant tout outil Anno ; si Anno est
+indisponible, poursuivre en `fallback_hacienda`.
+
+Le brouillon doit être rattaché au `matter_vault` et à un `workflow_blueprint`
+de mise en demeure. Utiliser `legal_search`, `legal_rehydrate_citation`,
+`legal_risk_review`, `legal_prescription_check` et `legal_validate_field` pour
+confirmer ou corriger les faits utilisés. Une revue tabulaire avec
+`tabular_review_create` doit suivre fait invoqué, pièce, date, droit invoqué,
+risque de sur-affirmation, `review_status`, `decision_status` et
+`validation_status`.
+
+Utiliser `grid_to_work_product` seulement pour transformer des cellules validées
+en projet de lettre. Tout extrait Anno reste une source interne Anno, jamais
+comme source primaire ; les registres et sources officielles restent vérifiés
+via `hacienda-sources-officielles`. Les faits non validés restent
+`[à vérifier]` et ne doivent pas soutenir une affirmation définitive.
