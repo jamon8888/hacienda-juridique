@@ -132,9 +132,28 @@ Règles d'usage :
 
 Les workflows PI peuvent mobiliser `legal_extract_contract`,
 `legal_risk_review`, `legal_mandatory_clause_audit`, `legal_timeline`,
-`memory_recall` et `memory_graph_recall` selon le dossier. Les sources
-officielles et registres restent vérifiés via `hacienda-sources-officielles`
-et les outils PI Hacienda.
+`legal_prescription_check`, `legal_validate_field`, `memory_recall` et
+`memory_graph_recall` selon le dossier. Quand Anno Tabular est disponible,
+les workflows riches utilisent une revue tabulaire avant la rédaction :
+documents ou actifs en lignes, questions métier en colonnes, citations par
+cellule, statut de revue, assignation, décision, verrouillage humain et export.
+Les sources officielles et registres restent vérifiés via
+`hacienda-sources-officielles` et les outils PI Hacienda.
+
+Objets Anno PI attendus :
+
+- `matter_vault` : périmètre local du dossier, documents autorisés, grilles,
+  exports et règles d'accès ;
+- `workflow_blueprint` : playbook PI versionné, par exemple audit PI M&A,
+  revue de clauses, open source, contentieux ou preuve de création ;
+- `hacienda_knowledge_base` : positions cabinet, modèles de clauses, checklists
+  et précédents anonymisés, séparés des faits client ;
+- `grid_to_work_product` : transformation d'une grille validée en note, rapport,
+  courrier ou annexe avec vérification des citations.
+
+Une cellule Anno faible, non citée ou non validée reste un point `[à vérifier]`.
+Une cellule corrigée ou verrouillée par l'utilisateur ne doit pas être écrasée
+par une réextraction automatique.
 
 ## Configuration Des Sources PI
 

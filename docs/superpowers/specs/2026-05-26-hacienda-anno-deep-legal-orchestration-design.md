@@ -29,6 +29,17 @@ Créer une orchestration Hacienda + Anno qui transforme les plugins juridiques H
 
 L'intégration ne doit jamais présenter Anno comme source officielle ou comme conseil juridique final.
 
+## Patterns De Référence À Retenir
+
+L'analyse des plateformes juridiques IA avancées fait ressortir six patterns que Hacienda doit reprendre sous son propre modèle local :
+
+1. **Dossier-vault gouverné** : les documents, grilles, exports, mémoires et permissions appartiennent à un espace dossier explicite, pas à une conversation isolée.
+2. **Revue tabulaire collaborative** : les documents deviennent des lignes, les prompts deviennent des colonnes, les cellules sont citées, filtrables, verrouillables et revues par statut.
+3. **Workflows réutilisables** : les tâches métier sont des playbooks versionnés avec entrées, étapes, tools autorisés, seuils de sortie et exemples de référence.
+4. **Base de connaissance contrôlée** : précédents, clauses types, positions cabinet et checklists sont séparés des faits du dossier client.
+5. **Passage de la table à la décision** : la grille ne sert pas seulement à extraire ; elle sert à isoler les risques, comparer les documents, attribuer les actions et préparer les décisions client.
+6. **Livrable depuis données vérifiées** : tout rapport, courrier, note ou contrat produit par Hacienda doit pouvoir remonter aux cellules, citations et validations qui le supportent.
+
 ## Principes Directeurs
 
 ### 1. Anno Est Un Moteur De Dossier, Pas Une Source De Droit
@@ -63,6 +74,10 @@ Les éléments incertains restent tagués `[à vérifier]`.
 
 Tous les plugins Hacienda restent utilisables sans Anno. Si `anno_health` échoue ou si une capacité manque, le workflow bascule en `fallback_hacienda` sans interrompre le travail.
 
+### 5. Dossier Avant Conversation
+
+Les workflows Anno ne doivent pas dépendre d'un état de chat fragile. Les informations durables sont rattachées à un `matter_vault`, à une grille tabulaire, à une mémoire validée ou à une base de connaissance Hacienda.
+
 ## Architecture Cible
 
 ```text
@@ -80,6 +95,9 @@ Distribution Hacienda + Anno Desktop
   |-- Hacienda Anno Coordinator
   |     |-- health gate
   |     |-- mode selection
+  |     |-- matter vault
+  |     |-- workflow blueprints
+  |     |-- knowledge base routing
   |     |-- output contract
   |     |-- legal guardrails
   |
@@ -92,6 +110,93 @@ Distribution Hacienda + Anno Desktop
         |-- tabular review
         |-- MCP App grid
 ```
+
+## Objets Produit Hacienda + Anno
+
+### `matter_vault`
+
+Un `matter_vault` représente l'espace local d'un dossier client. Il gouverne le périmètre des documents, grilles, exports, validations et mémoires autorisées.
+
+Champs minimaux :
+
+| Champ | Rôle |
+|---|---|
+| `matter_id` | Identifiant stable du dossier |
+| `client_label` | Nom ou pseudonyme client |
+| `scope` | Périmètre validé par l'utilisateur |
+| `authorized_users` | Utilisateurs autorisés localement |
+| `source_sets` | Fichiers, dossiers, emails ou exports ingérés |
+| `review_tables` | Grilles Anno liées au dossier |
+| `knowledge_refs` | Playbooks, clauses ou précédents autorisés |
+| `exports` | Livrables produits depuis les données vérifiées |
+| `retention_policy` | Conservation et purge locale |
+| `access_policy` | Règles de lecture, modification et réhydratation |
+
+Un workflow ne doit jamais utiliser un document hors `scope`, même si Anno peut techniquement le retrouver.
+
+### `workflow_blueprint`
+
+Un `workflow_blueprint` est un playbook Hacienda versionné et rejouable.
+
+Champs minimaux :
+
+| Champ | Rôle |
+|---|---|
+| `blueprint_id` | Exemple : `pi-ma-diligence-v1` |
+| `practice_area` | Domaine juridique Hacienda |
+| `inputs_required` | Documents, questions et métadonnées nécessaires |
+| `anno_mode_required` | `anno_lite`, `anno_legal` ou `anno_tabular` |
+| `tool_sequence` | Tools autorisés, dans l'ordre logique |
+| `review_template` | Template tabulaire attendu |
+| `quality_gates` | Conditions de passage et seuils de validation |
+| `escalation_rules` | Cas nécessitant validation avocat |
+| `output_contract` | Format de sortie attendu |
+| `examples` | Exemples internes Hacienda, sans contenu client réel |
+
+Blueprints PI prioritaires :
+
+- `pi-ma-diligence-v1` ;
+- `clause-pi-review-v1` ;
+- `software-data-chain-v1` ;
+- `oss-obligations-review-v1` ;
+- `infringement-triage-v1` ;
+- `ip-portfolio-review-v1` ;
+- `creation-evidence-file-v1`.
+
+### `hacienda_knowledge_base`
+
+La base de connaissance Hacienda est séparée de la mémoire Anno.
+
+Elle peut contenir :
+
+- positions de playbook cabinet ;
+- modèles de clauses PI ;
+- précédents anonymisés ;
+- grilles de risques ;
+- seuils de validation ;
+- checklists métier ;
+- exemples de livrables approuvés.
+
+Elle ne peut pas contenir :
+
+- dossier client non anonymisé hors demande explicite ;
+- secret ;
+- passphrase ;
+- source officielle non vérifiée présentée comme vérifiée.
+
+### `grid_to_work_product`
+
+Le pipeline `grid_to_work_product` transforme une grille validée en livrable.
+
+Étapes :
+
+1. sélectionner la grille et les colonnes pertinentes ;
+2. filtrer les lignes selon `decision_status`, `risk_level`, `validation_status` et `assignee` ;
+3. vérifier que les cellules clés ont citation ou validation humaine ;
+4. générer la note, le courrier, le rapport ou l'annexe ;
+5. exécuter `tabular_review_verify_citations_in_output` sur les citations reprises ;
+6. signaler tout passage non vérifiable en `[à vérifier]` ;
+7. exporter le livrable et conserver le lien vers la grille source.
 
 ## Modes D'Exécution
 
@@ -347,8 +452,28 @@ Chaque cellule de revue doit exposer au minimum :
 | `version` | Historique append-only |
 | `author` | `System` ou `Human` |
 | `updated_at` | Horodatage |
+| `review_status` | non revu, en revue, revu, bloqué |
+| `assignee` | responsable de revue |
+| `reviewer_role` | avocat, juriste, expert technique, client |
+| `last_reviewed_at` | dernière revue humaine |
+| `decision_status` | accepté, à négocier, à régulariser, à exclure |
+| `issue_owner` | responsable de l'action suivante |
+| `action_deadline` | date limite interne |
 
 Hacienda ne doit pas écraser une cellule humaine verrouillée. Si une extraction automatique contredit une cellule verrouillée, la contradiction devient un point d'attention.
+
+## Collaboration Et Review Mode
+
+La revue tabulaire doit fonctionner comme un espace de travail contrôlé :
+
+- `Mark as Reviewed` Hacienda : une ligne ou cellule revue reçoit `review_status = reviewed` avec auteur et horodatage ;
+- `Review Mode` : seules les cellules non revues, faibles, contradictoires ou assignées sont affichées ;
+- `Lock Cells` : une correction humaine verrouillée bloque les réécritures automatiques ;
+- `Batch Review` : un lot de documents peut être assigné à un reviewer ;
+- `Second Review` : certains risques déclenchent une double validation ;
+- `External Partner View` : toute vue partagée à un tiers exclut les secrets, mémoires internes et sources non autorisées.
+
+Les statuts de collaboration sont des données de gouvernance. Ils ne doivent pas être déduits librement par le modèle sans action explicite de l'utilisateur.
 
 ## Spécialisation Recherche Documentaire
 
@@ -373,6 +498,8 @@ Hacienda ne doit pas écraser une cellule humaine verrouillée. Si une extractio
 | `hacienda_verification` | résultat sources officielles |
 | `citation` | citation Anno interne |
 | `validation_status` | validé, corrigé, rejeté, à vérifier |
+| `assignee` | responsable de vérification |
+| `decision_status` | exploiter, ignorer, vérifier source officielle |
 
 ### Règle Forte
 
@@ -426,6 +553,8 @@ Grille :
 | `risk_level` | élevé, moyen, faible |
 | `recommended_action` | action de revue |
 | `validation_status` | statut humain |
+| `decision_status` | accepter, renégocier, bloquer, vérifier |
+| `issue_owner` | responsable de l'action |
 
 ### 2. Contrats Logiciel Et Données
 
@@ -449,6 +578,7 @@ Grille :
 | `open_source_dependency` | dépendance liée |
 | `evidence` | citation |
 | `action` | régulariser, vérifier, accepter |
+| `decision_status` | closing blocker, remédiation, acceptable, à vérifier |
 
 ### 3. Revue Open Source
 
@@ -496,6 +626,7 @@ Grille :
 | `prescription_anchor` | point de départ possible |
 | `prescription_result` | résultat calculé |
 | `validation_status` | statut humain |
+| `decision_status` | exploitable, faible, à exclure, à compléter |
 
 ### 5. Mise En Demeure PI
 
@@ -553,6 +684,54 @@ Outils :
 
 Anno ne remplace jamais un dépôt officiel, un horodatage, un constat ou une preuve externe.
 
+## Requêtes Décisionnelles PI
+
+Chaque grille PI doit exposer une série de questions prêtes à l'emploi. Ces requêtes ne remplacent pas l'analyse juridique ; elles servent à transformer les cellules validées en points de décision.
+
+### Audit PI / M&A
+
+- Quels actifs PI sont des blockers de closing ?
+- Quels actifs ont une chaîne de titularité incomplète ?
+- Quels contrats contiennent une restriction de cession, change of control ou sublicence ?
+- Quels actifs ont une source officielle non vérifiée ?
+- Quelles actions doivent être closes avant signature ?
+
+### Clauses PI
+
+- Quelles clauses de cession ne couvrent pas les modes d'exploitation attendus ?
+- Quelles clauses de garantie ou indemnisation sont déséquilibrées ?
+- Quelles clauses sont contradictoires entre contrat, annexe et bon de commande ?
+- Quelles cellules faibles nécessitent une seconde revue avocat ?
+
+### Logiciel, Données Et Open Source
+
+- Quelles dépendances créent une obligation de disclosure ou de redistribution ?
+- Quels contributeurs n'ont pas de chaîne de droits documentée ?
+- Quels datasets posent un risque de réutilisation ou d'entraînement non autorisé ?
+- Quelles remédiations sont nécessaires avant livraison ou closing ?
+
+### Contentieux Et Contrefaçon
+
+- Quels faits allégués ont une preuve directe ?
+- Quels faits reposent seulement sur une inférence ?
+- Quels événements déclenchent un risque de prescription ?
+- Quelles pièces sont contradictoires ou insuffisantes ?
+
+## Livrables Générés Depuis Grille
+
+Les livrables PI doivent indiquer leur source tabulaire quand ils utilisent Anno :
+
+| Livrable | Source minimale |
+|---|---|
+| Note de due diligence PI | grille `ip-v1` ou dérivée, cellules critiques validées |
+| Rapport portefeuille | grille actifs, sources officielles à jour, actions |
+| Note revue clauses | grille clauses, risques, décisions de négociation |
+| Projet mise en demeure | grille faits/preuves, citations, validation avocat |
+| Note contentieux | grille dossier, timeline, prescription, pièces |
+| Annexe client | export filtré, sans mémoire interne ni notes confidentielles |
+
+Un livrable ne doit pas masquer les lignes `à vérifier`. Elles doivent être listées en annexe ou dans une section d'incertitudes.
+
 ## Mémoire Anno
 
 La mémoire Anno est utile pour :
@@ -597,6 +776,8 @@ Chaque usage mémoire doit avoir une sortie possible :
 - générer `engine-compat.json` par niveaux ;
 - générer `ANNO-COORDINATOR.md` enrichi ;
 - générer `ANNO-TABULAR.md` ;
+- générer `ANNO-MATTER-VAULT.md` ;
+- générer `ANNO-WORKFLOW-BLUEPRINTS.md` ;
 - générer `ANNO-WORKFLOWS.md` par plugin ;
 - générer des templates de revue Hacienda quand Anno Tabular est disponible.
 
@@ -607,6 +788,9 @@ Chaque plugin doit documenter :
 - ses modes Anno ;
 - ses outils autorisés ;
 - ses grilles tabulaires ;
+- ses workflow blueprints ;
+- ses requêtes décisionnelles ;
+- son pipeline `grid_to_work_product` ;
 - ses règles de validation ;
 - son fallback.
 
@@ -616,8 +800,10 @@ Ajouter ou étendre les tests pour vérifier :
 
 - les tiers de tools dans `engine-compat.json` ;
 - les tools tabulaires dans la distribution ;
+- la présence des objets `matter_vault`, `workflow_blueprint`, `hacienda_knowledge_base` et `grid_to_work_product` ;
 - la présence des règles `legal_validate_field` ;
 - la présence de `legal_prescription_check` dans les workflows contentieux ;
+- la présence de statuts de revue, assignation, verrouillage et décision dans les grilles ;
 - l'interdiction de présenter Anno comme source primaire ;
 - le fallback tabulaire si les tools manquent ;
 - l'absence d'écriture dans `C:\Users\NMarchitecte\anno`.
@@ -631,10 +817,12 @@ La spec est implémentée quand :
 3. `ANNO-COORDINATOR.md` explique le health gate, le fallback, la validation humaine et la revue tabulaire.
 4. Chaque plugin actif reçoit un `ANNO-WORKFLOWS.md` spécialisé.
 5. Le plugin PI contient des workflows tabulaires pour clauses, contrats, logiciel/données, open source, contentieux, portefeuille et preuve.
-6. Les sources officielles restent explicitement autoritaires face aux résultats Anno.
-7. Les sorties Hacienda distinguent faits, droit, analyse, incertitudes, décisions et validation humaine.
-8. Les tests passent : `npm test`, `npm run typecheck`, `npm run build`, `npm run branding:check`, `git diff --check`.
-9. Aucune modification n'est faite dans le dépôt Anno.
+6. Les grilles PI contiennent statuts de revue, assignation, décisions, actions et deadlines.
+7. Les workflows Hacienda peuvent produire un livrable depuis une grille validée via `grid_to_work_product`.
+8. Les sources officielles restent explicitement autoritaires face aux résultats Anno.
+9. Les sorties Hacienda distinguent faits, droit, analyse, incertitudes, décisions et validation humaine.
+10. Les tests passent : `npm test`, `npm run typecheck`, `npm run build`, `npm run branding:check`, `git diff --check`.
+11. Aucune modification n'est faite dans le dépôt Anno.
 
 ## Non-Objectifs
 
@@ -648,9 +836,10 @@ La spec est implémentée quand :
 ## Plan De Suite Recommandé
 
 1. Mettre à jour `tools/hacienda-plugin-factory/src/anno-distribution.ts` pour refléter les tiers de tools et générer `ANNO-TABULAR.md`.
-2. Étendre `packages/core/test/hacienda-anno-distribution.test.ts` avec les assertions tabulaires.
-3. Enrichir les overlays PI pour utiliser la revue tabulaire comme étape centrale.
-4. Enrichir recherche documentaire avec une grille de références et de vérification.
-5. Garder sources officielles strictement limitées au croisement de faits client et sources primaires.
-6. Générer la distribution et vérifier le contenu client.
-7. Exécuter la suite complète avant commit.
+2. Ajouter les artefacts `ANNO-MATTER-VAULT.md` et `ANNO-WORKFLOW-BLUEPRINTS.md`.
+3. Étendre `packages/core/test/hacienda-anno-distribution.test.ts` avec les assertions tabulaires, collaboration et livrables.
+4. Enrichir les overlays PI pour utiliser la revue tabulaire comme étape centrale.
+5. Enrichir recherche documentaire avec une grille de références et de vérification.
+6. Garder sources officielles strictement limitées au croisement de faits client et sources primaires.
+7. Générer la distribution et vérifier le contenu client.
+8. Exécuter la suite complète avant commit.

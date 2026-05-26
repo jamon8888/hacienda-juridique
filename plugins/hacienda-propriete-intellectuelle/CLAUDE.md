@@ -458,13 +458,36 @@ Workflows Anno PI autorisés quand Anno est disponible :
 
 | Workflow PI | Outils Anno utiles |
 |---|---|
-| Revue de clauses PI | `legal_extract_contract`, `legal_risk_review`, `legal_mandatory_clause_audit` |
-| Contrats logiciel / données | `legal_extract_contract`, `legal_risk_review`, `legal_search` |
-| Revue open source | `legal_search`, `legal_risk_review`, `legal_graph_query` |
-| Contrefaçon | `legal_timeline`, `legal_graph_query`, `legal_rehydrate_citation` |
-| Preuve de création | `legal_ingest`, `legal_search`, `legal_timeline` |
-| Portefeuille PI | `legal_graph_query`, `memory_recall`, `memory_graph_recall` |
-| Mise en demeure PI | `legal_search`, `legal_rehydrate_citation`, `legal_risk_review` |
+| Revue de clauses PI | `legal_extract_contract`, `legal_risk_review`, `legal_mandatory_clause_audit`, revue tabulaire |
+| Contrats logiciel / données | `legal_extract_contract`, `legal_risk_review`, `legal_search`, revue tabulaire |
+| Revue open source | `legal_search`, `legal_risk_review`, `legal_graph_query`, revue tabulaire |
+| Contrefaçon | `legal_timeline`, `legal_graph_query`, `legal_rehydrate_citation`, `legal_prescription_check` |
+| Preuve de création | `legal_ingest`, `legal_search`, `legal_timeline`, revue tabulaire |
+| Portefeuille PI | `legal_graph_query`, `memory_recall`, `memory_graph_recall`, template `ip-v1` |
+| Mise en demeure PI | `legal_search`, `legal_rehydrate_citation`, `legal_risk_review`, `legal_validate_field` |
+
+Quand Anno Tabular est disponible, traiter les workflows riches comme une
+revue de dossier structurée : documents, actifs, clauses, faits ou risques en
+lignes ; questions métier en colonnes ; citations par cellule ; statut de
+revue ; responsable ; décision ; échéance ; validation humaine. Une cellule
+avec confiance faible, citation absente, contradiction ou source officielle
+non consultée reste `[à vérifier]`.
+
+Le plugin peut utiliser les objets suivants dans la distribution Hacienda +
+Anno Desktop :
+
+- `matter_vault` : périmètre de dossier, documents autorisés, grilles, exports
+  et règles d'accès ;
+- `workflow_blueprint` : playbook PI versionné, avec entrées, tools, grille,
+  seuils de validation et sortie attendue ;
+- `hacienda_knowledge_base` : positions cabinet, clauses types, checklists et
+  précédents anonymisés, séparés des faits client ;
+- `grid_to_work_product` : génération d'une note, d'un courrier, d'un rapport
+  ou d'une annexe depuis une grille validée, avec vérification des citations.
+
+Ne jamais écraser une cellule corrigée ou verrouillée par l'utilisateur. Si une
+réextraction contredit une cellule verrouillée, signaler la contradiction pour
+revue humaine.
 
 ---
 
