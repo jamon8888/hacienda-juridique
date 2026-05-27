@@ -3,6 +3,7 @@ import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { tmpdir } from "node:os";
 import {
+  loadConfig,
   loadInpiCredentials,
   loadEuipoCredentials,
   loadOebCredentials,
@@ -25,6 +26,8 @@ describe("credentials loaders", () => {
     delete process.env.EUIPO_API_KEY;
     delete process.env.OEB_CONSUMER_KEY;
     delete process.env.OEB_CONSUMER_SECRET;
+    delete process.env.CACHE_DIR;
+    delete process.env.CLAUDE_PLUGIN_ROOT;
   });
 
   afterEach(() => {
@@ -110,5 +113,20 @@ describe("credentials loaders", () => {
 
   it("retourne null si les credentials OEB sont absents partout", () => {
     expect(loadOebCredentials()).toBeNull();
+  });
+
+  it("utilise le cache embarqué quand Claude Desktop expose CLAUDE_PLUGIN_ROOT", () => {
+    const pluginRoot = join(tmpdir(), "hacienda-plugin-root");
+    process.env.CLAUDE_PLUGIN_ROOT = pluginRoot;
+
+    expect(loadConfig().cacheDir).toBe(join(pluginRoot, ".cache"));
+  });
+
+  it("laisse CACHE_DIR surcharger le cache par défaut", () => {
+    const cacheDir = join(tmpdir(), "hacienda-cache");
+    process.env.CACHE_DIR = cacheDir;
+    process.env.CLAUDE_PLUGIN_ROOT = join(tmpdir(), "ignored-plugin-root");
+
+    expect(loadConfig().cacheDir).toBe(cacheDir);
   });
 });

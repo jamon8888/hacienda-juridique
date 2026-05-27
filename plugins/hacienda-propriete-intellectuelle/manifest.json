@@ -1,0 +1,48 @@
+{
+  "manifest_version": "0.3",
+  "name": "hacienda-propriete-intellectuelle",
+  "display_name": "Hacienda Propriété Intellectuelle",
+  "version": "0.18.14",
+  "description": "Connecteur MCP local Hacienda pour les workflows de propriété intellectuelle : marques, brevets, droit d'auteur, logiciel, open source, clauses PI et contrefaçon.",
+  "author": {
+    "name": "Hacienda",
+    "url": "https://hacienda.diy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamon8888/hacienda-juridique"
+  },
+  "homepage": "https://hacienda.diy",
+  "documentation": "https://github.com/jamon8888/hacienda-juridique/tree/main/plugins/hacienda-propriete-intellectuelle",
+  "support": "https://github.com/jamon8888/hacienda-juridique/issues",
+  "license": "AGPL-3.0-or-later",
+  "keywords": [
+    "hacienda",
+    "propriete-intellectuelle",
+    "mcp",
+    "marques",
+    "brevets",
+    "droit-auteur",
+    "open-source"
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32"
+    ],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "mcp-server/dist/mcpb-index.cjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/mcp-server/dist/mcpb-index.cjs"
+      ]
+    }
+  },
+  "tools_generated": true
+}

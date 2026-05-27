@@ -21,7 +21,9 @@
     "precompare-claude-legal": "npm run build",
     "compare-claude-legal": "node dist/compare-with-reference.js",
     "preanno-dist": "npm run build",
-    "anno-dist": "node dist/generate-anno-distribution.js"
+    "anno-dist": "node dist/generate-anno-distribution.js",
+    "prepackage-cowork": "npm run build",
+    "package-cowork": "node dist/package-plugin.js"
   },
   "dependencies": {},
   "devDependencies": {

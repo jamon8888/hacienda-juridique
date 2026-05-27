@@ -4,6 +4,19 @@
 
 Fournir le socle de preuve officiel pour Légifrance, BOFiP, JORF, KALI et jurisprudence officielle.
 
+## Installation Et Packaging
+
+`hacienda-sources-officielles` existe sous deux formes complémentaires :
+
+| Surface | Format | Usage |
+| --- | --- | --- |
+| Plugin Cowork / Claude Code | Dossier plugin dans la marketplace Hacienda | Profil, skill de démarrage, règles de preuve et référence par les autres plugins |
+| Connector Claude Desktop | `plugins/hacienda-sources-officielles.mcpb` | Serveur MCP Sources Officielles local bundled |
+
+Le bundle `.mcpb` installe seulement le serveur MCP local comme Connector
+Claude Desktop. Le plugin Cowork reste la forme complète pour les workflows
+Hacienda.
+
 ## Connexion PISTE
 
 PISTE n'est pas un MCP externe a installer. PISTE est l'API officielle appelee par le serveur MCP local `Hacienda Sources Officielles`.

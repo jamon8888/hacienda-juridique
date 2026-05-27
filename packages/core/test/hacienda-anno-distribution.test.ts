@@ -41,7 +41,7 @@ describe("hacienda anno desktop distribution", () => {
       command: "node"
     });
     expect(config.mcpServers["Hacienda Propriété Intellectuelle"].args[0]).toContain(
-      "dist/hacienda-anno-desktop/plugins/hacienda-propriete-intellectuelle/mcp-server/dist/index.js"
+      "dist/hacienda-anno-desktop/plugins/hacienda-propriete-intellectuelle/mcp-server/dist/mcpb-index.cjs"
     );
 
     expect(config.mcpServers["anno-rag"]).toEqual({

@@ -34,7 +34,8 @@ describe("hacienda skill guardrails", () => {
       const content = readFileSync(skill.path, "utf8");
       const label = `${skill.pluginName}/${skill.skillName}`;
 
-      expect(content, label).toMatch(/^---\r?\n/);
+      expect(content, label).toMatch(/^---\n/);
+      expect(content, label).not.toContain("\r\n");
       expect(content, label).toMatch(/validation humaine/iu);
       expect(content, label).toMatch(/\[(?:a verifier|à vérifier)\]/iu);
     }

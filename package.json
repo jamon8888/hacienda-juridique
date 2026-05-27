@@ -18,6 +18,7 @@
     "plugin:add-agent": "npm --workspace @hacienda/plugin-factory run add-agent --",
     "plugin:compare-claude-legal": "npm --workspace @hacienda/plugin-factory run compare-claude-legal --",
     "plugin:anno-dist": "npm --workspace @hacienda/plugin-factory run anno-dist --",
+    "plugin:package-cowork": "npm --workspace @hacienda/plugin-factory run package-cowork --",
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present"
   },

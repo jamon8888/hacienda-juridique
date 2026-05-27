@@ -158,11 +158,13 @@ describe("hacienda PI cowork packaging", () => {
     const logsPath = resolve(pluginRoot, "logs");
     const logsReadmePath = resolve(pluginRoot, "logs/README.md");
     const logsKeepPath = resolve(pluginRoot, "logs/.gitkeep");
+    const mcpbServerPath = resolve(pluginRoot, "mcp-server/dist/mcpb-index.cjs");
 
     expect(existsSync(gitignorePath)).toBe(true);
     expect(existsSync(logsPath)).toBe(true);
     expect(existsSync(logsReadmePath)).toBe(true);
     expect(existsSync(logsKeepPath)).toBe(true);
+    expect(existsSync(mcpbServerPath)).toBe(true);
 
     const gitignore = readFileSync(gitignorePath, "utf8");
     expect(gitignore).toContain("*.log");
@@ -182,7 +184,7 @@ describe("hacienda PI cowork packaging", () => {
     expect(piServer?.type).toBe("stdio");
     expect(piServer?.command).toBe("node");
     expect(piServer?.args).toEqual([
-      "./plugins/hacienda-propriete-intellectuelle/mcp-server/dist/index.js"
+      "${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/mcpb-index.cjs"
     ]);
     expect(piServer?.title).toBe("Hacienda Propriété Intellectuelle");
     expect(piServer?.description?.toLowerCase()).toContain("serveur mcp pi");
@@ -193,6 +195,9 @@ describe("hacienda PI cowork packaging", () => {
     const piServer = manifest.mcpServers?.["Hacienda Propriété Intellectuelle"];
     expect(piServer?.command).toBeDefined();
     expect(piServer?.args).toBeDefined();
+    const resolvedArgs = piServer!.args!.map((arg) =>
+      arg.replace("${CLAUDE_PLUGIN_ROOT}", pluginRoot)
+    );
 
     client = new Client({
       name: "hacienda-pi-cowork-test",
@@ -201,7 +206,7 @@ describe("hacienda PI cowork packaging", () => {
 
     const transport = new StdioClientTransport({
       command: piServer!.command!,
-      args: piServer!.args!,
+      args: resolvedArgs,
       cwd: root,
       stderr: "pipe"
     });

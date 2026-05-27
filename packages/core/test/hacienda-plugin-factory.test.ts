@@ -9,6 +9,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const cliPath = resolve(root, "tools/hacienda-plugin-factory/dist/create-plugin.js");
 const addSkillCliPath = resolve(root, "tools/hacienda-plugin-factory/dist/add-skill.js");
 const addAgentCliPath = resolve(root, "tools/hacienda-plugin-factory/dist/add-agent.js");
+const packageCliPath = resolve(root, "tools/hacienda-plugin-factory/dist/package-plugin.js");
 const tscPath = resolve(root, "node_modules/typescript/bin/tsc");
 
 function run(command: string, args: string[]) {
@@ -83,9 +84,10 @@ describe("hacienda plugin factory create CLI", () => {
     expect(readme).toContain("/h-test-skeleton:entretien-demarrage");
     expect(readme).not.toContain("/hacienda-test-skeleton:entretien-demarrage");
     expect(read(resolve(pluginDir, "CLAUDE.md"))).toContain("validation humaine");
-    expect(read(resolve(pluginDir, "skills/entretien-demarrage/SKILL.md"))).toContain(
-      "[a verifier]"
-    );
+    const generatedSkill = read(resolve(pluginDir, "skills/entretien-demarrage/SKILL.md"));
+    expect(generatedSkill).toContain("[a verifier]");
+    expect(generatedSkill).toMatch(/^---\n/);
+    expect(generatedSkill).not.toContain("\r\n");
   }, 30000);
 
   it("genere l'alias court h-pi pour le plugin propriete intellectuelle", () => {
@@ -161,6 +163,8 @@ describe("hacienda plugin factory create CLI", () => {
     expect(skill).toContain("[a verifier]");
     expect(skill).toContain("[à vérifier]");
     expect(skill).toContain("conseil juridique final");
+    expect(skill).toMatch(/^---\n/);
+    expect(skill).not.toContain("\r\n");
     expect(agent).toContain("validation humaine");
     expect(agent).toContain("[a verifier]");
     expect(agent).toContain("[à vérifier]");
@@ -211,5 +215,61 @@ describe("hacienda plugin factory create CLI", () => {
 
     expect(result.status).toBe(1);
     expect(result.stderr).toContain("Plugin name must start with hacienda-");
+  }, 30000);
+
+  it("genere une distribution Cowork marketplace avec dossiers installables et ZIP propres", async () => {
+    const tempRoot = mkdtempSync(join(tmpdir(), "hacienda-plugin-package-"));
+    const outputDir = resolve(tempRoot, "cowork-marketplace");
+    const result = run(process.execPath, [packageCliPath, "--out", outputDir]);
+
+    expect(result.status, result.stderr || result.stdout).toBe(0);
+
+    const marketplace = JSON.parse(
+      read(resolve(outputDir, ".claude-plugin/marketplace.json"))
+    ) as { plugins?: Array<{ name?: string; source?: string }> };
+    const pluginNames = marketplace.plugins?.map((plugin) => plugin.name).sort();
+
+    expect(pluginNames).toEqual([
+      "hacienda-propriete-intellectuelle",
+      "hacienda-recherche-documentaire",
+      "hacienda-sources-officielles"
+    ]);
+    expect(
+      marketplace.plugins?.every((plugin) => plugin.source === `./plugins/${plugin.name}`)
+    ).toBe(true);
+
+    const piDir = resolve(outputDir, "plugins/hacienda-propriete-intellectuelle");
+    expect(existsSync(resolve(piDir, ".claude-plugin/plugin.json"))).toBe(true);
+    expect(existsSync(resolve(piDir, ".mcp.json"))).toBe(true);
+    expect(existsSync(resolve(piDir, "skills/entretien-demarrage/SKILL.md"))).toBe(true);
+    expect(existsSync(resolve(piDir, "mcp-server/dist/mcpb-index.cjs"))).toBe(true);
+    expect(existsSync(resolve(piDir, "manifest.json"))).toBe(false);
+    expect(existsSync(resolve(piDir, "logs/README.md"))).toBe(false);
+    expect(existsSync(resolve(piDir, "mcp-server/src/index.ts"))).toBe(false);
+    expect(existsSync(resolve(piDir, "mcp-server/dist/index.js"))).toBe(false);
+
+    const sourcesDir = resolve(outputDir, "plugins/hacienda-sources-officielles");
+    expect(existsSync(resolve(sourcesDir, ".claude-plugin/plugin.json"))).toBe(true);
+    expect(existsSync(resolve(sourcesDir, "mcp-server/dist/mcpb-index.cjs"))).toBe(false);
+
+    const { readZipEntryNames } = (await import(
+      "../../../tools/hacienda-plugin-factory/dist/package-plugin.js"
+    )) as {
+      readZipEntryNames: (path: string) => string[];
+    };
+    const piZip = resolve(outputDir, "zips/hacienda-propriete-intellectuelle.zip");
+    const piEntries = readZipEntryNames(piZip);
+
+    expect(piEntries).toContain(".claude-plugin/plugin.json");
+    expect(piEntries).toContain(".mcp.json");
+    expect(piEntries).toContain("mcp-server/dist/mcpb-index.cjs");
+    expect(piEntries.some((entry) => entry.startsWith("hacienda-propriete-intellectuelle/"))).toBe(
+      false
+    );
+    expect(piEntries.some((entry) => entry.includes("\\"))).toBe(false);
+    expect(piEntries.some((entry) => entry === "manifest.json")).toBe(false);
+    expect(piEntries.some((entry) => entry.startsWith("logs/"))).toBe(false);
+    expect(piEntries.some((entry) => entry.startsWith("mcp-server/src/"))).toBe(false);
+    expect(piEntries.some((entry) => entry.endsWith(".bak"))).toBe(false);
   }, 30000);
 });

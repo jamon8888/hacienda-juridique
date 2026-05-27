@@ -107,7 +107,9 @@ export function buildClaudeDesktopConfig(
         continue;
       }
 
-      const entryPoint = originalEntryPoint.replace(/^\.\//, "");
+      const entryPoint = originalEntryPoint
+        .replace("${CLAUDE_PLUGIN_ROOT}", plugin.source.replace(/^\.\//, ""))
+        .replace(/^\.\//, "");
       mcpServers[serverName] = {
         ...server,
         type: "stdio",

@@ -70,6 +70,16 @@ function readCredential(
   return cleanEnv(envValue) ?? fileValue;
 }
 
+function defaultCacheDir(): string {
+  const pluginRoot = cleanEnv(process.env.CLAUDE_PLUGIN_ROOT);
+  if (pluginRoot) return resolve(pluginRoot, ".cache");
+
+  const localAppData = cleanEnv(process.env.LOCALAPPDATA);
+  if (localAppData) return resolve(localAppData, "Hacienda", "cache");
+
+  return resolve(homedir(), ".cache", "Hacienda");
+}
+
 export function loadConfig(): Config {
   // 1. Source primaire : variables d'environnement (Claude Code lancé depuis
   //    un shell qui source ~/.zshrc, ou env passées via .mcp.json).
@@ -107,7 +117,7 @@ export function loadConfig(): Config {
     env,
     oauthTokenUrl,
     apiBaseUrl,
-    cacheDir: process.env.CACHE_DIR ?? `${process.cwd()}/.cache`,
+    cacheDir: resolve(cleanEnv(process.env.CACHE_DIR) ?? defaultCacheDir()),
     credentialsSource: source,
   };
 }

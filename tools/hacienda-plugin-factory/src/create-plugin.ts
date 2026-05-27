@@ -58,7 +58,7 @@ export function parseCreatePluginArgs(args: string[]): CreatePluginOptions {
 }
 
 function writeNewFile(path: string, content: string): void {
-  writeFileSync(path, content, { encoding: "utf8", flag: "wx" });
+  writeFileSync(path, content.replace(/\r\n/gu, "\n"), { encoding: "utf8", flag: "wx" });
 }
 
 function json(value: unknown): string {

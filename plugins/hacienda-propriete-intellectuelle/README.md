@@ -76,15 +76,27 @@ Chaque skill PI est invocable directement comme commande du plugin :
 | `/h-pi:tableau-contrefacon-brevet` | Claim chart contrefacon brevet. |
 | `/h-pi:tri-contrefacon` | Triage initial contrefacon PI. |
 
-## Packaging Du Plugin
+## Installation Et Packaging
 
-Le plugin PI est livre comme un bundle plugin MCP :
+Le plugin PI existe sous deux formes complémentaires :
+
+| Surface | Format | Usage |
+| --- | --- | --- |
+| Plugin Cowork / Claude Code | Dossier plugin dans la marketplace Hacienda | Skills PI, agents, hooks, profil de pratique, déclarations MCP |
+| Connector Claude Desktop | `plugins/hacienda-propriete-intellectuelle.mcpb` | Serveur MCP PI local bundled, installable depuis Connectors / Extensions |
+
+Le plugin Cowork est le format principal. Il est livré avec :
 
 - `.claude-plugin/plugin.json` : manifest du plugin ;
-- `.mcp.json` : declaration MCP executable du serveur PI local ;
+- `.mcp.json` : déclaration MCP exécutable du serveur PI local, avec chemin
+  `${CLAUDE_PLUGIN_ROOT}` ;
 - `version.json` : source unique de version du plugin ;
 - `CLAUDE.md` : template versionne du profil pratique ;
 - `skills/`, `agents/`, `hooks/` : surfaces fonctionnelles du plugin.
+
+Le bundle `.mcpb` est uniquement la version Connector du serveur MCP local. Il
+ne contient pas le flux complet d'installation du plugin Cowork et ne remplace
+pas la marketplace Hacienda.
 
 ### Distribution Plugin
 

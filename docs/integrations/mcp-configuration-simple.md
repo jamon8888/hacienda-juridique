@@ -18,6 +18,15 @@ Pour un serveur MCP local Hacienda, `.mcp.json` doit maintenant declarer un
 serveur executable (`type`, `command`, `args`) et pas seulement un titre
 marketing.
 
+Quand le serveur est livré par un plugin Cowork, les chemins dans `.mcp.json`
+doivent pointer vers le plugin installé avec `${CLAUDE_PLUGIN_ROOT}`. Ne pas
+utiliser de chemin repo-local comme `./plugins/hacienda-...`, car Claude copie
+les plugins installés dans son cache local.
+
+Les bundles `.mcpb` sont une distribution séparée pour installer un serveur MCP
+local comme Connector Claude Desktop. Ils ne remplacent pas les plugins
+Cowork.
+
 ## Les Trois Niveaux
 
 | Niveau | Ce que ca veut dire | Exemple Hacienda |
@@ -166,6 +175,25 @@ Le chemin simple pour l'utilisateur :
 4. Lancer la verification des integrations.
 5. Utiliser les features disponibles.
 6. re-run la verification apres ajout d'un connecteur ou changement de credentials.
+
+## Installation Connector MCPB
+
+Pour un client qui veut seulement installer un serveur MCP local dans Claude
+Desktop, utiliser les bundles :
+
+```text
+plugins/hacienda-sources-officielles.mcpb
+plugins/hacienda-propriete-intellectuelle.mcpb
+```
+
+Ces bundles s'installent depuis Claude Desktop, réglages Connectors /
+Extensions. Ils contiennent un `manifest.json` MCPB et un entrypoint serveur
+bundled.
+
+Les ZIP Cowork générés par `npm run plugin:package-cowork` sont utilisables
+pour uploader un plugin isolé. Ils ne sont pas des bundles MCPB et ne
+remplacent pas les `.mcpb` quand l'objectif est d'installer seulement un
+serveur MCP local dans Claude Desktop.
 
 ## Phrase Produit
 

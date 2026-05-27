@@ -4,7 +4,7 @@
       "type": "stdio",
       "command": "node",
       "args": [
-        "./plugins/hacienda-propriete-intellectuelle/mcp-server/dist/index.js"
+        "${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/mcpb-index.cjs"
       ],
       "title": "Hacienda Propriété Intellectuelle",
       "description": "Serveur MCP PI local Hacienda : registres INPI/EUIPO/OEB/BOPI et recherche juridique utile à la PI."

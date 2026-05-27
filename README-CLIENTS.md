@@ -20,6 +20,41 @@ La distribution active contient trois plugins :
 Les anciens plugins métiers non distribués ne font pas partie du catalogue
 client actif.
 
+## Deux Modes D'installation
+
+Hacienda fournit deux surfaces complémentaires :
+
+| Besoin | Format à utiliser | Ce que cela installe |
+| --- | --- | --- |
+| Utiliser les workflows juridiques complets | Plugin Cowork / Claude Code via marketplace | Skills, agents, hooks, profils de pratique et déclarations MCP |
+| Ajouter seulement un serveur MCP local dans Claude Desktop | Bundle Connector `.mcpb` | Serveur MCP local bundled, installable depuis les réglages Connectors / Extensions |
+
+Les plugins Cowork ne sont pas des `.mcpb`. Ils suivent la structure de
+référence des plugins Legal : `.claude-plugin/plugin.json`, `.mcp.json`,
+`skills/`, `agents/`, `hooks/` et `CLAUDE.md`.
+
+Les `.mcpb` fournis sont seulement les serveurs MCP locaux packagés :
+
+```text
+plugins/hacienda-sources-officielles.mcpb
+plugins/hacienda-propriete-intellectuelle.mcpb
+```
+
+`hacienda-recherche-documentaire` ne contient pas de serveur MCP local propre ;
+il n'a donc pas de bundle `.mcpb` dédié.
+
+Les fichiers `.zip` Cowork générés sont des archives propres de plugin, utiles
+pour l'upload d'un plugin isolé dans Cowork / Claude Code. Ils ne remplacent
+pas les `.mcpb`, qui restent réservés aux connecteurs MCP locaux.
+
+La distribution générée par l'équipe Hacienda se trouve dans :
+
+```text
+dist-pkg/cowork-marketplace/
+```
+
+Elle contient un dossier marketplace installable et un ZIP par plugin actif.
+
 ## Principes De Travail
 
 Chaque plugin applique les memes garde-fous :
@@ -365,6 +400,18 @@ Le validateur des plugins vérifie aussi la cohérence du catalogue actif :
 ```bash
 npm run plugin:validate
 ```
+
+Pour les bundles Connector `.mcpb`, l'équipe vérifie aussi :
+
+```bash
+npx @anthropic-ai/mcpb validate plugins/hacienda-sources-officielles/manifest.json
+npx @anthropic-ai/mcpb clean plugins/hacienda-sources-officielles.mcpb
+npx @anthropic-ai/mcpb validate plugins/hacienda-propriete-intellectuelle/manifest.json
+npx @anthropic-ai/mcpb clean plugins/hacienda-propriete-intellectuelle.mcpb
+```
+
+Un test runtime isolé après unpack doit confirmer que les serveurs exposent
+leurs tools sans dépendre du workspace local.
 
 ## Licence
 

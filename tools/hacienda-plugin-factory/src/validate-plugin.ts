@@ -99,6 +99,29 @@ function validateMcp(findings: ValidationFinding[], plugin: PluginRegistryEntry)
         "own-stdio-server plugins must declare a stdio server with command and args"
       );
     }
+    for (const server of servers) {
+      for (const arg of server.args ?? []) {
+        if (arg.includes("./plugins/") || arg.includes("../")) {
+          add(
+            findings,
+            "mcp.plugin_root_path",
+            mcpPath,
+            "Plugin MCP server paths must use ${CLAUDE_PLUGIN_ROOT}, not repo-relative paths"
+          );
+        }
+      }
+    }
+    const usesPluginRoot = servers.some((server) =>
+      (server.args ?? []).some((arg) => arg.includes("${CLAUDE_PLUGIN_ROOT}"))
+    );
+    if (!usesPluginRoot) {
+      add(
+        findings,
+        "mcp.plugin_root_missing",
+        mcpPath,
+        "own-stdio-server plugins must reference bundled files through ${CLAUDE_PLUGIN_ROOT}"
+      );
+    }
   }
 
   if (plugin.mcp.mode === "references-source-foundation") {
@@ -144,8 +167,21 @@ function validateSkill(
   if (!existsSync(skillPath)) return;
 
   const content = readText(skillPath);
-  if (!content.match(/^---\r?\n/u)) {
-    add(findings, "skill.frontmatter", skillPath, "Skill must start with YAML frontmatter");
+  if (content.includes("\r\n")) {
+    add(
+      findings,
+      "skill.line_endings",
+      skillPath,
+      "Skill files must use LF line endings so Claude Desktop can parse YAML frontmatter"
+    );
+  }
+  if (!content.match(/^---\n/u)) {
+    add(
+      findings,
+      "skill.frontmatter",
+      skillPath,
+      "Skill must start with YAML frontmatter using LF line endings"
+    );
   }
   if (!content.match(/name:\s*.+/iu)) {
     add(findings, "skill.name", skillPath, "Skill frontmatter must include name");

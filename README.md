@@ -50,6 +50,41 @@ Chaque plugin actif conserve :
 - `agents/*.md` quand le domaine a besoin de surveillance ou de suivi
 - `hooks/hooks.json`
 
+## Installation Et Distribution
+
+Hacienda distingue deux formats qui ne remplissent pas le même rôle :
+
+| Format | Usage | Fichiers |
+| --- | --- | --- |
+| Plugin Cowork / Claude Code | Installer les skills, agents, hooks, profils et déclarations MCP depuis la marketplace Hacienda. | `.claude-plugin/marketplace.json`, `.claude-plugin/plugin.json`, `skills/`, `agents/`, `hooks/`, `.mcp.json` |
+| Connector Claude Desktop | Installer un serveur MCP local en un clic depuis les réglages Connectors / Extensions. | `*.mcpb`, `manifest.json`, serveur MCP bundled |
+
+Les plugins Hacienda restent installés via la marketplace. Les fichiers
+`.mcpb` sont des distributions optionnelles des serveurs MCP locaux, utiles
+quand le client veut ajouter seulement le connecteur MCP dans Claude Desktop.
+
+Bundles MCPB disponibles :
+
+```text
+plugins/hacienda-sources-officielles.mcpb
+plugins/hacienda-propriete-intellectuelle.mcpb
+```
+
+`hacienda-recherche-documentaire` n'a pas de serveur MCP local propre ; il
+s'appuie sur `hacienda-sources-officielles` et ne produit donc pas de bundle
+MCPB.
+
+Les ZIP Cowork générés sont des archives propres de plugin, utiles pour
+l'upload d'un plugin isolé. Ils ne sont pas des bundles MCPB. Pour installer
+un serveur MCP local dans Claude Desktop, utiliser le `.mcpb`.
+
+```bash
+npm run plugin:package-cowork
+```
+
+La sortie est générée dans `dist-pkg/cowork-marketplace/` avec un dossier
+marketplace installable et un ZIP par plugin actif.
+
 ## Garde-Fous Juridiques
 
 - Ne jamais presenter une sortie comme conseil juridique final.
@@ -88,6 +123,8 @@ git diff --check
 ## Integrations
 
 - `docs/integrations/mcp-configuration-simple.md`
+- `docs/integrations/mcpb-connectors.md`
+- `docs/integrations/cowork-marketplace-packaging.md`
 - `docs/integrations/hacienda-cowork-plugin-convention.md`
 - `docs/integrations/piste-connection.md`
 - `docs/integrations/pappers-mcp-validation.md`

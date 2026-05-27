@@ -1,0 +1,49 @@
+{
+  "manifest_version": "0.3",
+  "name": "hacienda-sources-officielles",
+  "display_name": "Hacienda Sources Officielles",
+  "version": "0.1.0",
+  "description": "Connecteur MCP local Hacienda pour la vérification des sources officielles françaises : Légifrance, JORF, Judilibre, EUR-Lex, BOFiP, BOSS, INPI, EUIPO, BOPI et Espacenet.",
+  "author": {
+    "name": "Hacienda",
+    "url": "https://hacienda.diy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamon8888/hacienda-juridique"
+  },
+  "homepage": "https://hacienda.diy",
+  "documentation": "https://github.com/jamon8888/hacienda-juridique/tree/main/plugins/hacienda-sources-officielles",
+  "support": "https://github.com/jamon8888/hacienda-juridique/issues",
+  "license": "AGPL-3.0-or-later",
+  "keywords": [
+    "hacienda",
+    "sources-officielles",
+    "mcp",
+    "legifrance",
+    "judilibre",
+    "eurlex",
+    "bofip",
+    "boss"
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32"
+    ],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "mcp-server/dist/mcpb-index.cjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/mcp-server/dist/mcpb-index.cjs"
+      ]
+    }
+  },
+  "tools_generated": true
+}

@@ -75,7 +75,7 @@ La validation humaine est obligatoire avant usage externe, depot, envoi ou decis
 }
 
 function writeNewFile(path: string, content: string): void {
-  writeFileSync(path, content, { encoding: "utf8", flag: "wx" });
+  writeFileSync(path, content.replace(/\r\n/gu, "\n"), { encoding: "utf8", flag: "wx" });
 }
 
 export function addSkill(options: AddSkillOptions): string {

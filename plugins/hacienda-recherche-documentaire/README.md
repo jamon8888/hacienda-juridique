@@ -13,6 +13,17 @@ conditions d'accès et ne copie pas massivement de contenu protégé. Il sert à
 organiser la méthode de recherche, conserver la traçabilité et produire un
 dossier documentaire vérifiable.
 
+## Installation Et Packaging
+
+`hacienda-recherche-documentaire` est un plugin Cowork transversal. Il installe
+des skills, agents, hooks, règles de recherche et un profil de pratique via la
+marketplace Hacienda.
+
+Il ne contient pas de serveur MCP local propre. Il n'a donc pas de bundle
+`.mcpb` dédié. Pour les sources primaires et la vérification officielle, il
+s'appuie sur `hacienda-sources-officielles`, qui dispose de son propre serveur
+MCP et de son bundle Connector optionnel.
+
 ## Ce Que Le Plugin Fait
 
 - prépare des requêtes adaptées à plusieurs bases ;
