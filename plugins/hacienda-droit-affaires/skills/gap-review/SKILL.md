@@ -1,0 +1,326 @@
+---
+name: gap-review
+description: >
+  Revue de Garantie d'Actif et de Passif (GAP) — spécificité française sans
+  équivalent direct R&W US. Couvre 5 axes : (1) périmètre garantie, (2)
+  mécanique financière (plafond, franchise, panier, durée), (3) procédure de
+  mise en œuvre, (4) clauses sensibles side-dependent (knowledge qualifier,
+  best knowledge, garantie de la garantie), (5) confrontation findings DD.
+  Side cédant ou acquéreur obligatoire. Brouillon, validation humaine (avocat) M&A
+  obligatoire.
+version: "1.0.0"
+authors: ["Hacienda"]
+tags: [gap, ma, garantie-actif-passif, cession, spa]
+---
+
+# Skill — Revue Garantie d'Actif et de Passif (GAP)
+
+> **BROUILLON, validation humaine (avocat) M&A OBLIGATOIRE.**
+>
+> Spécificité du droit français : la GAP n'a pas d'équivalent direct des Representations & Warranties anglo-saxonnes. Elle s'articule avec la garantie d'éviction (art. 1626 C.civ `[Légifrance]`) et la garantie des vices cachés (art. 1641 C.civ `[Légifrance]`), supplétives mais aménageables.
+>
+> Travail technique, **side-dependent** (cédant vs acquéreur — lecture inversée sur knowledge qualifier, plafond, durée), sensible aux usages marché (fourchettes = référence praticien, pas une norme codifiée).
+>
+> **Si le périmètre cédé est principalement un actif PI** (cession portefeuille brevets, licence exclusive, R&D) : renvoyer vers `/hacienda-propriete-intellectuelle:contrats-pi`. Ce skill couvre la GAP commerciale standard.
+
+---
+
+## Examples
+
+<example>
+<user>/hacienda-droit-affaires:gap-review ./GAP-cession-Y.pdf --side=acquereur --prix=15000000</user>
+<response>
+1. Pré-flight `check-pii` (typique : montants > 100k€ → seuil B → prompt utilisateur)
+2. Lecture profil bloc M&A (side acquéreur, plafond cible 20-25 %, approbateur SPA)
+3. Identification GAP : parties, date référence (closing/signing), prix cession (CLI override 15 M€)
+4. Analyse 5 axes (périmètre / mécanique / procédure / clauses sensibles / DD)
+5. Liste de points consolidée via appel interne `liste-de-points` (mode composant)
+6. Post-flight `verifier-citations`
+7. Sortie : en-tête confidentialité + note du relecteur + résumé exécutif + analyse par axe + liste de points + recommandation Accepter/Négocier/Refuser + question hors checklist + arbre 5 options
+
+Exemple finding : plafond global 12 % du prix → 🟠 (sous fourchette acquéreur 20-25 %) → négocier hausse vers 20 % ou exiger plafonds spécifiques fiscal-social non absorbés par le plafond commun.
+</response>
+</example>
+
+<example>
+<user>/hacienda-droit-affaires:gap-review ./GAP-projet.pdf --side=cedant --prix=8000000</user>
+<response>
+Posture inverse côté cédant : plafond cible 10-15 %, demander knowledge qualifier, accepter best knowledge si défini limitativement, refuser garantie de la garantie au-delà du séquestre standard. Findings calibrés en miroir : plafond 18 % → 🟠 cédant (au-dessus fourchette) là où il serait 🟡 acquéreur.
+</response>
+</example>
+
+<example>
+<user>/hacienda-droit-affaires:gap-review ./GAP.pdf --side=acquereur --dd-findings=./rapport-dd.md --prix=20000000</user>
+<response>
+Axe 5 activé : confrontation findings DD ↔ garanties. Tableau gap analysis par finding matériel : garantie applicable + couverture (Oui/Partielle/Non) + recommandation (clause ad hoc / réduction de prix / abandon point).
+
+Exemple : finding « litige fiscal pendant 450 k€ — redressement TVA 2025-03 » → garantie fiscale standard couvre l'objet, mais plafond commun 1 M€ jugé insuffisant si autre passif révélé → recommander plafond fiscal séparé minimum 500 k€ + durée jusqu'à prescription fiscale (3 ans + délai de reprise) `[a verifier]`.
+</response>
+</example>
+
+<example>
+<user>/hacienda-droit-affaires:gap-review ./GAP-FR-UK-deal.pdf --side=acquereur</user>
+<response>
+Détection clauses common law importées (waiver, indemnification, representations & warranties, disclosure letter) → traduction en concepts FR (GAP française, déclarations et garanties au sens du droit FR, devoir précontractuel art. 1112-1 C.civ `[Légifrance]`, articulation dol / réticence dolosive `[a verifier]`).
+
+Note du relecteur : « Doc bilingue détecté — ce skill applique le cadre français. La version UK doit être confrontée séparément contre le droit applicable et la juridiction effectivement retenus dans le SPA. »
+</response>
+</example>
+
+---
+
+## Chargement du profil
+
+> Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/CLAUDE.md`, bloc M&A :
+> - **Side habituel** — cédant (sell-side) / acquéreur (buy-side) / indifférent
+> - **Posture GAP par défaut** — fourchettes durée / plafond / franchise / panier
+> - **Approbateur signature SPA** — avocat M&A + GC + sponsor business
+> - **Clauses "jamais acceptées"** côté habituel (ex. acquéreur : refus knowledge qualifier ; cédant : refus garantie de la garantie au-delà séquestre standard)
+> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
+
+Si le profil n'est pas peuplé (`[A CONFIGURER]`) : stopper et demander `/hacienda-droit-affaires:entretien-demarrage`. Le bloc M&A est requis — sans side habituel ni fourchettes, le calibrage des findings est impossible.
+
+---
+
+## Intake
+
+1. **Fichier GAP** — chemin du PDF / DOCX / Markdown (clauses GAP du SPA ou acte séparé)
+2. **Side** — `--side=cedant` | `--side=acquereur` (**obligatoire**, pas d'auto-détection)
+3. **Findings DD** (optionnel) — `--dd-findings=./rapport-dd.md` — active l'axe 5
+4. **Prix cession** (optionnel) — `--prix=15000000` (en €) — active les ratios plafond/prix
+
+Si `--side` est absent : stopper et demander explicitement. Le skill est side-dependent, une analyse « neutre » n'a pas de sens praticien.
+
+---
+
+## Étape 1 — Pré-flight et identification
+
+1. Invoquer `check-pii`. **Probabilité élevée seuil B atteint** (montants nominatifs, cédants/acquéreurs personnes physiques, SIREN cible). Respecter la décision utilisateur.
+2. Lire profil cabinet (bloc M&A) et `~/.config/Hacienda/profil-cabinet.md`.
+3. Identifier : parties, side confirmé via CLI, prix de cession (CLI override prioritaire sinon extrait du doc), date de référence (signing/closing — critique pour l'axe 1), date d'effet GAP.
+4. Détection SIREN cible → `companyFullProfile` (Pappers ✓) + alerte procédure collective via BODACC. Tag `[Pappers]` ou `[BODACC]`.
+5. Si `--dd-findings` fourni : indexer chaque finding (libellé, sévérité DD, quantification).
+
+---
+
+## Étape 2 — Axe 1 : Périmètre de la garantie
+
+Vérifier :
+
+- **Actifs garantis vs périmètre de cession** — cohérence (pas de couverture hors périmètre, pas d'exclusion sans justification claire)
+- **Exclusions et réserves déclarées** — disclosure letter / annexes ; exclusions datées, identifiées, opposables (devoir précontractuel art. 1112-1 C.civ `[Légifrance]`)
+- **Date de référence** — closing ou signing ? (signing-driven : risque interim period acquéreur ; closing-driven : risque divulgation tardive cédant)
+- **Date de réalisation** — effet rétroactif au closing, à compter de la notification, etc.
+- **Articulation garanties légales** — éviction (art. 1626 C.civ `[Légifrance]`), vices cachés (art. 1641 C.civ `[Légifrance]`), délivrance (art. 1602 C.civ `[Légifrance]`) : la GAP complète, n'écarte pas par principe `[review]`
+
+Findings 🟢/🟡/🟠/🔴 par sous-point. Tag `[review]` sur jugements subjectifs (opposabilité d'une disclosure tardive, étendue raisonnable d'une exclusion).
+
+---
+
+## Étape 3 — Axe 2 : Mécanique financière
+
+Vérifier et tabuler :
+
+| Paramètre | Trouvé | Usage marché (référence praticien) | Écart | Statut |
+|---|---|---|---|---|
+| Plafond global | x % du prix | 15-25 % standard (15 % bas / 25 % haut) | ± | 🟢/🟡/🟠/🔴 |
+| Plafond fiscal / social spécifique | x € ou x % | Souvent séparé ou non-absorbé par plafond commun | ± | 🟢/🟡/🟠/🔴 |
+| Plafond environnement / RGPD / PI | x € | Selon exposition cible | ± | 🟢/🟡/🟠/🔴 |
+| Franchise / seuil de déclenchement (panier) | x € | 0,5-1 % du prix usuel | ± | 🟢/🟡/🟠/🔴 |
+| Franchise absolue vs déduite | absolue / déduite | Déduite = avantageux acquéreur ; absolue = avantageux cédant | impact économique | 🟢/🟡/🟠/🔴 |
+| Durée garantie générale | x ans | 18-24 mois standard | ± | 🟢/🟡/🟠/🔴 |
+| Durée garantie fiscale / sociale | x ans | Prescription + délai de reprise (3 ans min) [a verifier] | ± | 🟢/🟡/🟠/🔴 |
+| Durée garantie environnement | x ans | 5-10 ans selon exposition [a verifier] | ± | 🟢/🟡/🟠/🔴 |
+
+**Franchise absolue vs déduite.** Absolue = en deçà du seuil, aucune indemnisation ; au-delà, indemnisation **du dépassement seulement**. Déduite = au-delà du seuil, indemnisation **intégrale**. Impact économique très différent. `[review]` si la clause est ambiguë.
+
+Toutes les fourchettes « usage marché » sont des références praticien — taguer `[connaissance modèle — à vérifier]` à proximité, jamais comme norme codifiée.
+
+---
+
+## Étape 4 — Axe 3 : Procédure de mise en œuvre
+
+Vérifier :
+
+- **Notification de mise en jeu** — formalisme (LRAR, email avec AR, plateforme), délai (30-60 jours usuels à compter de la connaissance du fait générateur)
+- **Délai de contestation cédant** — 15-30 jours usuel ; au-delà, présomption d'acceptation possible `[review]`
+- **Mode de règlement** — compensation sur earn-out / séquestre (escrow) / paiement direct ; séquestre = option la plus sécurisante acquéreur
+- **Articulation earn-out / complément de prix** — compensation autorisée ? interdiction de retenue ?
+- **Juridiction** — TC Paris en standard / arbitrage CMAP-CCI en deal international ou sensible ; vérifier opposabilité clause attributive (art. 48 CPC `[Légifrance]` si parties commerçantes)
+- **Tiers décideur / expert** — clause d'expertise art. 1592 C.civ `[Légifrance]` pour contestations chiffrées (utile sur le quantum, à cadrer sur la procédure)
+
+Findings 🟢/🟡/🟠/🔴 par sous-point.
+
+---
+
+## Étape 5 — Axe 4 : Clauses sensibles (matrice side-dependent en miroir)
+
+| Clause | Côté acquéreur (buy-side) | Côté cédant (sell-side) |
+|---|---|---|
+| **Knowledge qualifier** (limitation aux faits connus du cédant) | ✗ Refuser — neutralise la garantie sur les passifs cachés | ✓ Demander — réduit l'exposition |
+| **Best knowledge** (meilleure connaissance après vérifications raisonnables) | ✗ Refuser sauf définition opposable du standard | ✓ Demander — middle ground |
+| **Plafond / prix ratio** | Cible 20-25 % — refus en deçà de 15 % | Cible 10-15 % — refus au-delà de 25 % |
+| **Garantie de la garantie** (caution bancaire / séquestre / nantissement) | ✓ Exiger — sécurise le recouvrement | ✗ Refuser au-delà du séquestre minimal proportionné |
+| **Durée garantie générale** | 24 mois min, 36 mois préférable | 12-18 mois |
+| **Durée fiscale / sociale** | Aligner sur prescription + délai de reprise | Strict minimum prescription |
+| **Franchise (panier)** | Faible, déduite | Élevée, absolue |
+| **Non-concurrence cédant** (le cédant s'engage à ne pas concurrencer la cible pendant N années) | ✓ Exiger — durée 2-5 ans, périmètre activité + géographie, contrepartie souvent intégrée au prix | À négocier — durée courte (1-2 ans), périmètre restreint, contrepartie identifiée — art. L.420-1 C.com. [Légifrance] si effet d'éviction de marché |
+
+Voir `references/clauses-sensibles-fr.md` (clause #9 limitation de responsabilité, clause #15 changement de contrôle) pour articulation avec le droit commun.
+
+Tag `[review]` sur l'arbitrage knowledge qualifier vs best knowledge — décision contextuelle (management dirigeant à racheter, profondeur DD, séquestre disponible).
+
+---
+
+## Étape 6 — Axe 5 : Confrontation findings DD (si `--dd-findings` fourni)
+
+Pour chaque finding matériel du rapport de DD : identifier la garantie GAP applicable et évaluer la couverture.
+
+| Finding DD | Sévérité DD | Garantie applicable | Couvert ? | Recommandation |
+|---|---|---|---|---|
+| ex. Litige fiscal pendant 450 k€ — TVA 2025-03 [utilisateur fourni] | 🟠 | Garantie fiscale | Partielle (plafond commun absorbé) | Plafond fiscal séparé 500 k€ |
+| ex. Salarié protégé, contentieux prud'homal en cours | 🟠 | Garantie sociale | Oui | Inclure dans périmètre, durée jusqu'à prescription |
+| ex. Non-conformité RGPD (registre incomplet) | 🟡 | Garantie RGPD spécifique [review] | Non si pas de garantie RGPD distincte | Ajouter clause ad hoc ou réduction de prix |
+| ex. Brevet cédé sans inscription RNB | 🟠 | Renvoi `/hacienda-propriete-intellectuelle:contrats-pi` | — | Régulariser inscription avant closing |
+
+**Plancher sévérité cross-skill.** Si la DD signale 🔴, ne pas dégrader silencieusement en 🟠 dans la GAP review. Si l'analyse GAP estime la couverture suffisante, le statut reste 🔴 sur le finding DD avec mention « couvert par garantie X » — ne pas réécrire la criticité source.
+
+Si `--dd-findings` non fourni : sauter l'axe et mentionner dans la note du relecteur : « Axe 5 non exécuté — pas de findings DD fournis. La GAP ne peut pas être validée définitivement sans confrontation à une DD documentée. »
+
+---
+
+## Étape 7 — Liste de points consolidée
+
+Appel interne au skill `liste-de-points` en **mode composant** (findings array en input, pas de fichier intermédiaire). Retour du tableau seul (6 colonnes) ; en-tête de confidentialité et note du relecteur fournis par `gap-review`.
+
+Tri par criticité décroissante 🔴 → 🟠 → 🟡 → 🟢. À criticité égale : tri par axe (1 → 5) puis par numéro de paragraphe GAP.
+
+Si aucun écart : retour explicite — `Aucun point de vigilance identifié contre la posture configurée. GAP conforme aux usages marché.` — sans remplissage.
+
+---
+
+## Étape 8 — Post-flight `verifier-citations`
+
+Appel automatique sur la sortie complète. Articles C.civ / C.com. cités doivent exister dans `references/articles-c-civ-c-com-index.md`. À défaut, tag `[a verifier]` et ligne dédiée en note du relecteur. Si PISTE non configuré : mode dégradé documenté.
+
+---
+
+## Étape 9 — Sortie
+
+### Format livrable
+
+```
+[En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin]
+
+> ⚠️ Note du relecteur
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
+> - **Lecture :** intégrale ({N} pages GAP + {M} pages annexes disclosure)
+> - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
+> - **Fraîcheur :** recherche jurisprudence post-{date} sur articulation GAP / 1112-1 / 1626 / 1641 — {N} arrêts intégrés
+> - **Avant de t'appuyer dessus :** {action concrète OU « prêt pour relecture »}
+
+# Résumé exécutif
+
+{Trois phrases pour comité d'investissement / DG / sponsor business. Pas de
+jargon. Une ligne bottom-line : signer / négocier sur N points / refuser.
+Une ligne de risque dominant (plafond insuffisant, knowledge qualifier
+abusif, exposition fiscale non couverte). Une ligne de prochaine action.}
+
+# Analyse par axe
+
+## Axe 1 — Périmètre
+{Findings + statuts}
+
+## Axe 2 — Mécanique financière
+{Tableau usage marché + écarts}
+
+## Axe 3 — Procédure
+{Notification, contestation, règlement, juridiction}
+
+## Axe 4 — Clauses sensibles (matrice side-dependent)
+{Lecture côté {side configuré} avec décision recommandée par clause}
+
+## Axe 5 — Confrontation DD (si fourni)
+{Tableau gap analysis finding par finding ; sinon mention « axe non exécuté »}
+
+# Liste de points
+
+| # | Axe | Clause | Statut | Risque | Position souhaitée ({side}) | Formulation proposée |
+|---|---|---|---|---|---|---|
+| ... | ... | ... | 🔴/🟠/🟡/🟢 | ... | ... | ... |
+
+# Recommandation
+
+{Accepter / Négocier / Refuser} — justification 2-3 lignes liée à la posture
+M&A configurée, au side et aux points 🔴 / 🟠. Pour acquéreur : exiger
+plafond minimum X %, knowledge qualifier retiré, séquestre. Pour cédant :
+plafond maximum Y %, durée plafonnée Z mois, knowledge qualifier maintenu.
+
+# Une question hors de ma checklist habituelle
+
+{Observation transversale qu'un relecteur attentif ferait. Omettre si rien
+d'honnête à dire — ne pas fabriquer.}
+
+# Que veux-tu faire ? Choisis une option et je la déroule :
+
+1. **Rédiger** — je produis un projet de courrier de négociation à la contrepartie reprenant la liste de points priorisée, ou une note GAP pour comité d'investissement.
+2. **Escalader** — note d'escalade vers {approbateur SPA configuré} avec faits-clés, risque dominant et décision attendue avant signature.
+3. **Compléter les faits** — questions ouvertes à poser au {cédant / acquéreur / management cible / conseil} avant d'avancer sur la GAP.
+4. **Surveiller et attendre** — j'ajoute la GAP au tracker du deal avec note motivée et date de revisite (closing, expiration garantie, échéance compensation).
+5. **Autre** — précise.
+
+{Footer A — si check-pii est passé en mode passif sous le seuil B :
+"Ce skill a traité {N} mentions identifiantes (parties, dirigeants,
+montants). Pour anonymiser automatiquement avant envoi à Claude, installer
+[hacienda-ghost](marketplace://hacienda-ghost)." Sinon, rien.}
+```
+
+### Mode silencieux (livrable externe)
+
+Si la sortie est destinée à un comité d'investissement, sponsor business non-juriste, contrepartie ou conseil tiers :
+
+- Conserver en-tête de confidentialité (si destinataire dans le périmètre du secret) et note du relecteur.
+- Retirer narration de skill et renvois inter-commandes (les placer dans un message séparé).
+- Le livrable doit se lire comme s'il avait été rédigé par un associé M&A.
+
+---
+
+## Emplacement des sorties
+
+```
+outputs/gap-review-<parties-slug>-YYYY-MM-DD.md
+```
+
+Si la liste de points dépasse 10 lignes ou si l'axe 5 contient des findings chiffrés sérialisables, générer en parallèle un dashboard HTML autonome via `renderDashboard()` de `@hacienda/core` (voir `references/dashboard-template.md`).
+
+---
+
+## Gate non-juriste
+
+- [ ] `--side` fourni et confirmé (cédant ou acquéreur — pas d'analyse neutre)
+- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
+- [ ] Profil cabinet bloc M&A lu, fourchettes usage cabinet identifiées
+- [ ] Renvoi PI effectué si le périmètre cédé est PI-centric
+- [ ] SIREN cible détecté → enrichissement Pappers/BODACC + alerte procédure collective si applicable
+- [ ] 5 axes couverts (axe 5 sauté seulement si `--dd-findings` absent, et mentionné en note du relecteur)
+- [ ] Matrice clauses sensibles lue côté `--side` configuré, pas en neutre
+- [ ] Citations vérifiées via `verifier-citations` ou taguées `[a verifier]`
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur + résumé exécutif + analyse par axe + liste de points + recommandation + question hors checklist + arbre 5 options
+
+---
+
+## Ce skill ne fait pas
+
+- Signer ou exécuter le SPA (acte des parties + approbateur configuré).
+- Rédiger une GAP from scratch — `v1.1+`.
+- Revue d'un SPA complet hors GAP (conditions suspensives, MAC clause, locked box vs completion accounts) — `v1.1+`.
+- Revue PI-centric d'un actif cédé → renvoyer `/hacienda-propriete-intellectuelle:contrats-pi`.
+- Conseil fiscal détaillé sur la cession (régime plus-values, droits d'enregistrement, intégration fiscale, neutralité 210-A CGI) — signalement uniquement, renvoi conseil fiscal.
+- Conseil social détaillé (information-consultation CSE art. L.2312-8 C. trav. `[a verifier]`, transfert des contrats art. L.1224-1 C. trav. `[a verifier]`) — signalement, renvoi.
+- Préparer une déclaration de créance si la cible entre en procédure collective post-signing → renvoyer `/hacienda-droit-affaires:declaration-creance`.
+
+---
+
+## Ton
+
+Technique, structuré, factuel. **Side-dépendant explicite** : à chaque recommandation, rappeler « côté acquéreur » ou « côté cédant ». Les fourchettes de marché sont des références praticien, jamais une norme codifiée (tag `[connaissance modèle — à vérifier]`). Signaler la spécificité française vs R&W US chaque fois qu'une clause importe un concept anglo-saxon (waiver, indemnification, disclosure letter). La sortie est un brouillon soumis à validation humaine (avocat) M&A avant signature du SPA — la GAP engage le quantum sur plusieurs années, l'erreur d'analyse est coûteuse.
