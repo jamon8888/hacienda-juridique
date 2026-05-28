@@ -73,6 +73,21 @@ Configure votre profil cabinet (réutilisé par les autres plugins Hacienda via
 ce plugin fonctionne mais avertit lorsque des données sensibles sont traitées
 en clair (`check-pii`).
 
+## Parcours cabinet M&A
+
+| Moment du deal | Skill |
+|---|---|
+| NDA / confidentialité data-room | `reviser-nda` |
+| NBO / LOI / Term Sheet | `loi-term-sheet` |
+| Due diligence data-room | `due-diligence-dataroom` |
+| SPA / protocole de cession | `spa-review` |
+| Garantie d'Actif et de Passif | `gap-review` |
+| Signing / closing / post-closing | `closing-checklist-fr` |
+
+`spa-review` est l'entrée naturelle pour un SPA complet. Il orchestre les
+renvois vers `gap-review` pour la GAP, `due-diligence-dataroom` pour les
+findings DD et `closing-checklist-fr` pour le pilotage du closing.
+
 ## Plugins liés
 
 - `hacienda-propriete-intellectuelle` — pour les contrats PI (licence brevet,

@@ -88,7 +88,7 @@ docs/handoff/latest.md
 - Inspect: `git status`
 - Read: spec and existing skill patterns
 
-- [ ] **Step 1: Inspecter le worktree**
+- [x] **Step 1: Inspecter le worktree**
 
 Run:
 ```bash
@@ -97,7 +97,7 @@ git status --short
 
 Expected : seules des modifications attendues apparaissent. Si un fichier non lié est déjà présent, ne pas le modifier. Au moment de la rédaction du plan, `docs/personas/ami-test-brief.md` est non suivi et doit rester intact.
 
-- [ ] **Step 2: Lire les patterns de référence**
+- [x] **Step 2: Lire les patterns de référence**
 
 Run:
 ```bash
@@ -109,7 +109,7 @@ sed -n '1,160p' plugins/hacienda-droit-affaires/references/taxonomie-contrats-fr
 
 Expected : repérer les sections `Chargement du profil`, `Intake`, `Sortie`, les renvois cross-skills, et le style de note du relecteur.
 
-- [ ] **Step 3: Confirmer que le changement est Markdown-only**
+- [x] **Step 3: Confirmer que le changement est Markdown-only**
 
 Run:
 ```bash
@@ -127,7 +127,7 @@ Expected : aucun fichier MCP à modifier. `spa-review` est un skill Markdown ; p
 **Files:**
 - Create: `plugins/hacienda-droit-affaires/skills/spa-review/SKILL.md`
 
-- [ ] **Step 1: Créer le dossier**
+- [x] **Step 1: Créer le dossier**
 
 Run:
 ```bash
@@ -136,7 +136,7 @@ mkdir -p plugins/hacienda-droit-affaires/skills/spa-review
 
 Expected : le dossier existe.
 
-- [ ] **Step 2: Ecrire le frontmatter et le titre**
+- [x] **Step 2: Ecrire le frontmatter et le titre**
 
 Create `plugins/hacienda-droit-affaires/skills/spa-review/SKILL.md` with this beginning:
 
@@ -170,7 +170,7 @@ tags: [spa, ma, cession-titres, protocole-cession, signing, closing, gap]
 > L'audit data-room reste traité par `/hacienda-droit-affaires:due-diligence-dataroom`.
 ```
 
-- [ ] **Step 3: Ajouter les Examples**
+- [x] **Step 3: Ajouter les Examples**
 
 Append a `## Examples` section with four examples:
 
@@ -214,7 +214,7 @@ Détection d'un portefeuille PI structurant dans les actifs de la cible : marque
 </example>
 ```
 
-- [ ] **Step 4: Ajouter Chargement du profil et Intake**
+- [x] **Step 4: Ajouter Chargement du profil et Intake**
 
 Append:
 
@@ -248,7 +248,7 @@ substantielle.
 7. **GAP séparée** — `--gap=./GAP-annexe.pdf` optionnel ; si fourni, renvoyer explicitement vers `gap-review` pour l'analyse technique.
 ```
 
-- [ ] **Step 5: Ajouter les étapes d'analyse**
+- [x] **Step 5: Ajouter les étapes d'analyse**
 
 Append these sections:
 
@@ -405,7 +405,7 @@ restent `[a verifier]`. Les sujets fiscaux, sociaux, PI, AMF ou réglementaires
 non traités par une source primaire consultée restent `[a verifier]`.
 ```
 
-- [ ] **Step 6: Ajouter la sortie**
+- [x] **Step 6: Ajouter la sortie**
 
 Append:
 
@@ -520,7 +520,7 @@ points qui changent la négociation, le signing ou le prix. Ne pas fabriquer de
 findings de remplissage.
 ```
 
-- [ ] **Step 7: Vérifier le fichier skill**
+- [x] **Step 7: Vérifier le fichier skill**
 
 Run:
 ```bash
@@ -535,14 +535,14 @@ Expected : le fichier se lit correctement. Le `rg` ne retourne aucune ligne avec
 **Files:**
 - Create: `plugins/hacienda-droit-affaires/tests/datasets/v2-spa/spa-review-scenario.md`
 
-- [ ] **Step 1: Créer le dossier dataset**
+- [x] **Step 1: Créer le dossier dataset**
 
 Run:
 ```bash
 mkdir -p plugins/hacienda-droit-affaires/tests/datasets/v2-spa
 ```
 
-- [ ] **Step 2: Ecrire le dataset**
+- [x] **Step 2: Ecrire le dataset**
 
 Create `plugins/hacienda-droit-affaires/tests/datasets/v2-spa/spa-review-scenario.md`:
 
@@ -666,7 +666,7 @@ Les Parties accompliront les formalités post-closing usuelles.
 - [ ] Les sujets non vérifiés sont tagués `[a verifier]`.
 ```
 
-- [ ] **Step 3: Vérifier le dataset**
+- [x] **Step 3: Vérifier le dataset**
 
 Run:
 ```bash
@@ -676,7 +676,7 @@ rg -n "TODO|TBD|fill in" plugins/hacienda-droit-affaires/tests/datasets/v2-spa/s
 
 Expected : lecture complète ; aucune ligne `TODO`, `TBD` ou `fill in`.
 
-- [ ] **Step 4: Commit Wave 1**
+- [x] **Step 4: Commit Wave 1**
 
 Run:
 ```bash
@@ -693,14 +693,14 @@ git commit -m "feat(droit-affaires): skill spa-review"
 **Files:**
 - Modify: `plugins/hacienda-droit-affaires/references/taxonomie-contrats-fr.md`
 
-- [ ] **Step 1: Lire la section M&A**
+- [x] **Step 1: Lire la section M&A**
 
 Run:
 ```bash
 sed -n '35,70p' plugins/hacienda-droit-affaires/references/taxonomie-contrats-fr.md
 ```
 
-- [ ] **Step 2: Modifier les lignes SPA / LOI**
+- [x] **Step 2: Modifier les lignes SPA / LOI**
 
 Edit the `Contrats M&A et corporate` table so these rows become:
 
@@ -717,7 +717,7 @@ Keep the `GAP` and `Closing checklist` rows, updating `Closing checklist` from `
 | Closing checklist | Pilotage closing, pièces, conditions suspensives, formalités post-closing | 🟢 `closing-checklist-fr` |
 ```
 
-- [ ] **Step 3: Mettre à jour la légende**
+- [x] **Step 3: Mettre à jour la légende**
 
 In `## Légende skill recommandé`, add:
 
@@ -729,7 +729,7 @@ In `## Légende skill recommandé`, add:
 
 Do not remove existing legend entries unless a duplicate is created.
 
-- [ ] **Step 4: Vérifier la taxonomie**
+- [x] **Step 4: Vérifier la taxonomie**
 
 Run:
 ```bash
@@ -744,7 +744,7 @@ Expected : SPA routes to `spa-review`; NBO routes to `loi-term-sheet`; Closing r
 - Modify: `plugins/hacienda-droit-affaires/README.md`
 - Modify: `plugins/hacienda-droit-affaires/CHANGELOG.md`
 
-- [ ] **Step 1: Ajouter le parcours M&A dans README**
+- [x] **Step 1: Ajouter le parcours M&A dans README**
 
 In `plugins/hacienda-droit-affaires/README.md`, after the `## Périmètre v1` table or after the plugin companion section, add:
 
@@ -765,7 +765,7 @@ renvois vers `gap-review` pour la GAP, `due-diligence-dataroom` pour les
 findings DD et `closing-checklist-fr` pour le pilotage du closing.
 ```
 
-- [ ] **Step 2: Ajouter une section CHANGELOG**
+- [x] **Step 2: Ajouter une section CHANGELOG**
 
 At the top of `plugins/hacienda-droit-affaires/CHANGELOG.md`, add:
 
@@ -786,7 +786,7 @@ At the top of `plugins/hacienda-droit-affaires/CHANGELOG.md`, add:
 - `spa-review` orchestre les skills existants sans remplacer `gap-review`, `due-diligence-dataroom` ni `closing-checklist-fr`.
 ```
 
-- [ ] **Step 3: Vérifier README et CHANGELOG**
+- [x] **Step 3: Vérifier README et CHANGELOG**
 
 Run:
 ```bash
@@ -795,7 +795,7 @@ rg -n "Parcours cabinet M&A|spa-review|NBO|Non-Binding|M&A UX" plugins/hacienda-
 
 Expected : all new routing and UX text appears.
 
-- [ ] **Step 4: Commit Wave 2**
+- [x] **Step 4: Commit Wave 2**
 
 Run:
 ```bash
