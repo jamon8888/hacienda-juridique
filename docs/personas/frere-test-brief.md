@@ -29,22 +29,22 @@ Le plugin couvre maintenant le parcours cabinet M&A complet :
 
 Le plugin tourne en local dans ton Cowork — aucune donnée ne quitte ton poste vers un cloud tiers (au-delà de l'usage normal de Cowork). Si tu installes `hacienda-ghost` à côté, les identifiants sensibles (parties nommées, montants > 10 k€, IBAN, numéros de pièce…) sont anonymisés automatiquement avant tout envoi au modèle. Sans ghost, le plugin affiche un compteur et un avertissement avant de traiter les documents les plus sensibles — c'est toi qui décides à chaque fois.
 
-## Le protocole — 3 tests qui démontrent le parcours M&A complet (~1h30)
+## Le protocole — 3 tests obligatoires + 2 mentions opportunistes (~1h30)
 
 Pour chacun : tu lances la commande sur **un dossier que tu allais traiter de toute façon**, tu lis la sortie, tu remplis le formulaire (5 min).
 
-Calibrage indicatif :
+Calibrage indicatif (timing réel variera selon ton rythme) :
 
 | Étape | Temps |
 |---|---|
 | Install + `entretien-demarrage` (1ère fois uniquement) | 15 min |
 | Test 1 — `spa-review` | 30 min |
 | Test 2 — `gap-review` (enchaîné en aval de Test 1) | 25 min |
-| Test 3 — `due-diligence-dataroom` (parcours M&A complet) | 15 min |
+| Test 3 — `loi-term-sheet` | 15 min |
 | Feedback 4 questions par skill (5 min × 3) | 15 min |
-| **Total** | **~1h30** |
+| **Total** | **~1h40** |
 
-Les 3 tests démontrent le **parcours bout-en-bout** : `spa-review` orchestre, `gap-review` complète la GAP technique, `due-diligence-dataroom` boucle la confrontation DD ↔ SPA. C'est précisément cette continuité que je veux que tu juges.
+Les 3 tests couvrent **deux axes** : (a) le nouveau workflow phare M&A — `spa-review` + sa GAP en aval, (b) un workflow que tu valides récurremment — `loi-term-sheet` sur LOI/NBO préparées par tes collab.
 
 ---
 
@@ -76,19 +76,38 @@ Spécificité franco-française sans équivalent direct en R&W US — c'est le t
 
 ---
 
-### Test 3 — Due diligence data-room (boucle le parcours M&A)
+### Test 3 — LOI / Term Sheet
+
+```
+/hacienda-droit-affaires:loi-term-sheet <chemin/de/la/LOI.pdf> --side=acquereur
+```
+(ou `--side=cedant` selon ton dossier)
+
+Le skill cartographie les clauses binding vs non-binding (exclusivité, confidentialité, répartition des coûts, breakup fee, conditions à la transaction définitive), évalue le déséquilibre côté ton side, et propose des reformulations. Sortie : analyse clause par clause + issues list + arbre de décision.
+
+C'est typiquement ce que tu valides sur une LOI/NBO préparée par un collab avant retour à la contrepartie. Le skill ne remplace pas la rédaction — il sécurise la relecture.
+
+---
+
+## Mentions opportunistes (hors protocole calibré)
+
+### Si tu reçois un NDA M&A pendant la période de test
+
+```
+/hacienda-droit-affaires:reviser-nda <chemin/du/NDA.pdf>
+```
+
+Premier point du parcours M&A (NDA data-room → NBO/LOI → DD → SPA → GAP → Closing). Triage 8 points VERT/ORANGE/ROUGE, clean teams, durée, juridiction. 5 min si tu en reçois un naturellement pendant les 2-3 semaines de test ; zappe sinon.
+
+### Si un collab te fait remonter un rapport DD généré par le plugin
 
 ```
 /hacienda-droit-affaires:due-diligence-dataroom <chemin/de/la/dataroom/> --side=acquereur
 ```
 
-7 thèmes : Corporate / Gouvernance · Contrats matériels · Social-RH · PI · Fiscal-Financier · Contentieux-Passifs · RGPD-Conformité. Rapport structuré + grille de matérialité + questions complémentaires + recommandations pour la GAP.
+Skill impressionnant — 7 thèmes (Corporate / Contrats matériels / Social-RH / PI / Fiscal-Financier / Contentieux-Passifs / RGPD), rapport structuré + grille de matérialité + questions complémentaires + recommandations pour la GAP. Plus l'enrichissement SIREN via BODACC + Pappers pour les company profiles cibles.
 
-**Nouveau** : le plugin peut maintenant enrichir l'identification des cibles via SIREN — outils BODACC (annonces publiques, procédures collectives) + Pappers si tu as une clé API. Utile pour un company profile cible en DD.
-
-C'est ce test qui démontre la confrontation DD → protections SPA : tu peux relancer `spa-review --dd-findings=<rapport-dd.md>` ensuite, le skill confronte chaque finding DD à une protection SPA attendue (CP, déclaration, indemnité, escrow, réduction de prix). Boucle complète.
-
-*Si tu n'as pas de data-room sous la main, signale-le et on ajustera — ce test perd 80 % de sa valeur sans données réelles.*
+Je sais que c'est tes collab qui organisent les DD, pas toi. Mais si l'un d'eux te fait remonter un rapport généré avec ce skill pendant la période de test, jette un œil (~10 min) et dis-moi si ça matche ce que tu attendrais d'un junior senior. Hors calibrage 1h30.
 
 ---
 
@@ -109,7 +128,7 @@ Renvoie-moi par mail (ou comme tu veux), pas besoin de format particulier.
 
 ## Ce que je ne te demande PAS
 
-- Pas de test exhaustif des 19 skills du plugin. J'ai sélectionné les 3 tests qui matchent ton flux M&A le plus dense et démontrent le parcours bout-en-bout ; les autres skills M&A (`loi-term-sheet`, `closing-checklist-fr`, `reviser-contrat`, `revue-tabulaire`) sont disponibles si tu tombes dessus naturellement, mais hors protocole.
+- Pas de test exhaustif des 19 skills du plugin. Les 3 tests sélectionnés matchent tes workflows M&A les plus denses (le phare `spa-review` + sa GAP en aval + le récurrent `loi-term-sheet`) ; les autres skills M&A (`closing-checklist-fr`, `reviser-contrat`, `pacte-associes-review`, `revue-tabulaire`) sont disponibles si tu tombes dessus naturellement, mais hors protocole.
 - Pas de revue de format ni de code — je m'en charge.
 - Pas de feedback live ni de réunion. Tout asynchrone.
 
