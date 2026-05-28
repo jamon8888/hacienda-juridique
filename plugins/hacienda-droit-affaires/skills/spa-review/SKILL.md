@@ -18,7 +18,8 @@ tags: [spa, ma, cession-titres, protocole-cession, signing, closing, gap]
 > Ce skill analyse un SPA / protocole de cession / acte de cession dans une
 > opération M&A de droit français. Il produit une liste de points de négociation
 > et un résumé partner-ready. Il ne signe pas le contrat, ne rédige pas un SPA
-> complet à partir de zéro, et ne remplace pas une validation avocat.
+> complet à partir de zéro, et ne remplace pas une validation humaine par un
+> avocat M&A inscrit au barreau.
 >
 > **Frontière avec les autres skills.** `spa-review` traite l'architecture du
 > SPA et les points de cohérence. La GAP technique reste traitée par

@@ -813,7 +813,7 @@ git commit -m "docs(droit-affaires): routage M&A SPA et NBO"
 - Inspect all changed files
 - Modify: `docs/handoff/latest.md`
 
-- [ ] **Step 1: Vérifier le périmètre**
+- [x] **Step 1: Vérifier le périmètre**
 
 Run:
 ```bash
@@ -822,7 +822,7 @@ git diff --stat HEAD~2..HEAD -- plugins/hacienda-droit-affaires/
 
 Expected : only new `spa-review`, new `tests/datasets/v2-spa`, and docs/reference updates listed. No existing skill directory except the new one.
 
-- [ ] **Step 2: Vérifier qu'aucun skill existant n'a été modifié**
+- [x] **Step 2: Vérifier qu'aucun skill existant n'a été modifié**
 
 Run:
 ```bash
@@ -831,7 +831,7 @@ git diff --name-only HEAD~2..HEAD -- plugins/hacienda-droit-affaires/skills
 
 Expected : only `plugins/hacienda-droit-affaires/skills/spa-review/SKILL.md`.
 
-- [ ] **Step 3: Rechercher placeholders et erreurs de branding**
+- [x] **Step 3: Rechercher placeholders et erreurs de branding**
 
 Run:
 ```bash
@@ -840,7 +840,7 @@ rg -n "TODO|TBD|fill in|Claude Code|Anthropic|OpenAI|ChatGPT" plugins/hacienda-d
 
 Expected : no matches except legitimate existing product names if already present outside changed sections. New text must contain only Hacienda branding.
 
-- [ ] **Step 4: Lancer les vérifications minimales**
+- [x] **Step 4: Lancer les vérifications minimales** (typecheck + build = échecs **pré-existants** identifiés au commit `828b180` — non causés par spa-review ; test + branding + diff = ✅)
 
 Run:
 ```bash
@@ -853,7 +853,7 @@ git diff --check
 
 Expected : all commands exit 0.
 
-- [ ] **Step 5: Mettre à jour le handoff**
+- [x] **Step 5: Mettre à jour le handoff**
 
 Replace `docs/handoff/latest.md` content with a new handoff summarizing:
 
@@ -894,7 +894,7 @@ Validation persona frère sur le flux : NDA -> NBO/LOI/Term Sheet -> DD -> SPA -
 
 Dans la ligne `npm test`, remplacer "nombre de tests passants relevé dans la sortie terminal" par le compteur exact affiché par la commande.
 
-- [ ] **Step 6: Commit handoff**
+- [x] **Step 6: Commit handoff**
 
 Run:
 ```bash
@@ -906,18 +906,18 @@ git commit -m "docs(droit-affaires): handoff spa-review"
 
 ## Final Verification Checklist
 
-- [ ] `plugins/hacienda-droit-affaires/skills/spa-review/SKILL.md` exists and follows canonical structure.
-- [ ] Dataset `plugins/hacienda-droit-affaires/tests/datasets/v2-spa/spa-review-scenario.md` exists.
-- [ ] Taxonomy routes SPA to `spa-review`.
-- [ ] Taxonomy routes NBO / Non-Binding Offer to `loi-term-sheet`.
-- [ ] README contains "Parcours cabinet M&A".
-- [ ] CHANGELOG contains "M&A UX + SPA review".
-- [ ] No existing skill except the new `spa-review` changed.
-- [ ] `npm test` passes.
-- [ ] `npm run typecheck` passes.
-- [ ] `npm run build` passes.
-- [ ] `npm run branding:check` passes.
-- [ ] `git diff --check` passes.
+- [x] `plugins/hacienda-droit-affaires/skills/spa-review/SKILL.md` exists and follows canonical structure.
+- [x] Dataset `plugins/hacienda-droit-affaires/tests/datasets/v2-spa/spa-review-scenario.md` exists.
+- [x] Taxonomy routes SPA to `spa-review`.
+- [x] Taxonomy routes NBO / Non-Binding Offer to `loi-term-sheet`.
+- [x] README contains "Parcours cabinet M&A".
+- [x] CHANGELOG contains "M&A UX + SPA review".
+- [x] No existing skill except the new `spa-review` changed.
+- [x] `npm test` : 68/70 passants, 1 skipped, 1 échec **pré-existant** hors scope (`hacienda-pi-cowork-structure` PISTE OAuth 401). Spa-review guardrails fix appliqué.
+- [ ] `npm run typecheck` : **échec pré-existant** sur PI MCP server (`toolGroups`) — confirmé présent au commit parent `7cc5779`, non causé par spa-review. À traiter dans PR #16.
+- [ ] `npm run build` : **échec pré-existant** sur droit-affaires MCP server (imports `bodaccBySirenTool` etc. manquants dans `@hacienda/core`) — fichier non touché par nos commits, dernière modif au commit `828b180`. À traiter dans PR #16.
+- [x] `npm run branding:check` passes.
+- [x] `git diff --check` passes.
 
 ---
 
