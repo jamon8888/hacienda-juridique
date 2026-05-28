@@ -84,7 +84,7 @@ Sortie : brouillon de LOI + note du relecteur + tableau binding / non-binding + 
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
 demander `/hacienda-droit-affaires:entretien-demarrage` avant toute revue ou
-rédaction substantielle. Voir aussi `~/.config/Hacienda/profil-cabinet.md` pour
+rédaction substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour
 les éléments cabinet partagés cross-plugins.
 
 ---
@@ -101,7 +101,7 @@ les éléments cabinet partagés cross-plugins.
 ## Étape 1 — Pré-flight + identification
 
 1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.config/Hacienda/profil-cabinet.md`. Identifier la posture contractuelle et le side habituel M&A.
+2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`. Identifier la posture contractuelle et le side habituel M&A.
 3. Identifier le document : LOI / lettre d'intention / term sheet / head of terms ; les parties (cédant, acquéreur, qualité, pays d'établissement) ; le périmètre de l'opération ; le droit applicable annoncé ; le side de l'utilisateur.
 4. Repérer la **mention générale d'engagement** du document (« sans engagement », « non contraignant », « subject to contract », « binding / non-binding »). Cette mention oriente la lecture mais **ne tranche pas** la qualification clause par clause : elle est consignée, puis confrontée au contenu réel à l'étape 2.
 

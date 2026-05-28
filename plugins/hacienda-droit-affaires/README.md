@@ -65,7 +65,7 @@ BODACC OpenDataSoft (procédures collectives, annonces) est public sans clé.
 ```
 
 Configure votre profil cabinet (réutilisé par les autres plugins Hacienda via
-`~/.config/Hacienda/profil-cabinet.md`) et vérifie l'état des connexions.
+`~/.claude/plugins/config/hacienda-juridique/company-profile.md`) et vérifie l'état des connexions.
 
 ## Plugin compagnon recommandé
 

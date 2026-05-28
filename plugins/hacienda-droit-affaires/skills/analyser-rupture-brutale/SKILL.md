@@ -121,7 +121,7 @@ Si (b) ou (c) → poursuivre l'analyse rupture brutale standard. Si (a) seul →
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
 demander `/hacienda-droit-affaires:entretien-demarrage` avant toute analyse
-substantielle. Voir aussi `~/.config/Hacienda/profil-cabinet.md` pour les
+substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour les
 éléments cabinet partagés cross-plugins.
 
 ---
@@ -141,7 +141,7 @@ Posture override possible : `--posture=protecteur` | `--posture=équilibré` | `
 ## Étape 1 — Pré-flight et identification
 
 1. Invoquer `check-pii` sur l'ensemble des documents fournis avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur. Volume modéré attendu (parties + montants + dates) ; seuil B possible selon dossier.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.config/Hacienda/profil-cabinet.md`.
+2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
 3. Identifier les parties (raison sociale, qualité — fournisseur / distributeur / prestataire / mandant, pays d'établissement), le droit applicable, la juridiction.
 4. **Test PI-centric.** Si la relation rompue est un contrat de distribution avec composante PI structurante (licence de marque, brevet, savoir-faire dominant), renvoyer vers `/hacienda-propriete-intellectuelle:contrats-pi` pour le volet PI avec les options (a) lancer ce skill en parallèle, (b) limiter `analyser-rupture-brutale` au seul volet rupture, (c) les deux en séquence.
 5. Déterminer le side (auteur / victime) à partir des documents si non précisé à l'intake.

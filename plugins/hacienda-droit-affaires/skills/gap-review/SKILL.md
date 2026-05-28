@@ -96,7 +96,7 @@ Si `--side` est absent : stopper et demander explicitement. Le skill est side-de
 ## Étape 1 — Pré-flight et identification
 
 1. Invoquer `check-pii`. **Probabilité élevée seuil B atteint** (montants nominatifs, cédants/acquéreurs personnes physiques, SIREN cible). Respecter la décision utilisateur.
-2. Lire profil cabinet (bloc M&A) et `~/.config/Hacienda/profil-cabinet.md`.
+2. Lire profil cabinet (bloc M&A) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
 3. Identifier : parties, side confirmé via CLI, prix de cession (CLI override prioritaire sinon extrait du doc), date de référence (signing/closing — critique pour l'axe 1), date d'effet GAP.
 4. Détection SIREN cible → `companyFullProfile` (Pappers ✓) + alerte procédure collective via BODACC. Tag `[Pappers]` ou `[BODACC]`.
 5. Si `--dd-findings` fourni : indexer chaque finding (libellé, sévérité DD, quantification).

@@ -98,7 +98,7 @@ Si `--siren` ou `--montant` absent : stopper et demander explicitement. Pas de v
 ## Étape 1 — Pré-flight et lookup BODACC
 
 1. Invoquer `check-pii`. Probabilité élevée seuil B (SIREN + montants + dénominations). Respecter la décision utilisateur.
-2. Lire profil cabinet (bloc procédures collectives) et `~/.config/Hacienda/profil-cabinet.md`.
+2. Lire profil cabinet (bloc procédures collectives) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
 3. Lookup procédure : `BodaccClient.searchProcedures(siren)` (wrapper MCP : `bodaccProceduresTool`). Filtre côté API : `familleavis = "procedures-collectives"`, tri `dateparution DESC`.
 4. Identifier sur l'annonce la plus récente d'ouverture :
    - **Type de procédure** — déduit de `typeavis` (sauvegarde / redressement judiciaire / liquidation judiciaire)
