@@ -76,6 +76,8 @@ Sur un dossier de contentieux affaires impliquant une rupture de relation commer
 
 ### Test 5 (passif) — Agent bodacc-procedures-watcher
 
+**Pleinement opérationnel.** Les 3 outils MCP que cet agent consomme sont maintenant restaurés : `bodacc_by_siren` (annonces BODACC par SIREN), `bodacc_procedures` (procédures collectives publiques), `company_full_profile` (profil enrichi Pappers + fallback BODACC). L'agent peut aussi être utilisé manuellement entre deux runs automatiques pour un SIREN ponctuel — utile pour vérifier rapidement un débiteur entrant.
+
 Configure une fois la liste de tes débiteurs en portefeuille dans :
 ```
 ~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/debiteurs.yaml
@@ -120,9 +122,17 @@ Saute-le, on y reviendra. Mieux vaut tester 2 skills sur de vrais dossiers que l
 
 ## Ce que je ne te demande PAS
 
-- Pas de test exhaustif des 19 skills. Les autres (M&A : `gap-review`, `due-diligence-dataroom`, `closing-checklist-fr`, `loi-term-sheet`) seront validés par le frère côté cabinet d'affaires.
+- Pas de test exhaustif des 19 skills. Les skills M&A (`spa-review`, `gap-review`, `due-diligence-dataroom`, `closing-checklist-fr`, `loi-term-sheet`) sont validés par le frère côté cabinet d'affaires — `spa-review` est son test prioritaire (SPA SAS, flux NDA → NBO → DD → SPA → GAP → Closing).
 - Pas de revue de format ni de code — je m'en occupe.
 - Pas de feedback live ni de réunion. Tout asynchrone.
+
+## Note d'installation — chemin du profil cabinet
+
+À l'installation, le profil cabinet est maintenant dans :
+```
+~/.claude/plugins/config/hacienda-juridique/company-profile.md
+```
+(ancien chemin `~/.config/Hacienda/profil-cabinet.md` — si tu réinstalles depuis zéro, rien à faire, c'est automatique).
 
 ## Si quelque chose plante
 
