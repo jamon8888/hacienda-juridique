@@ -29,6 +29,9 @@ import { registerInpiSearchBrevets } from "./tools/inpi-search-brevets.js";
 import { registerInpiBrevetDetails } from "./tools/inpi-brevet-details.js";
 import { registerEspacenetSearch } from "./tools/espacenet-search.js";
 import { registerEspacenetBrevetDetails } from "./tools/espacenet-brevet-details.js";
+import { registerBodaccBySiren } from "./tools/bodacc-by-siren.js";
+import { registerBodaccProcedures } from "./tools/bodacc-procedures.js";
+import { registerCompanyFullProfile } from "./tools/company-full-profile.js";
 import {
   registerInpiMarquesPublicationsRecentes,
   InpiMarquesPublicationsRecentesArgsSchema,
@@ -38,7 +41,7 @@ import { InpiClient } from "./sources/inpi-marques.js";
 import { EuipoTmviewClient } from "./sources/euipo-tmview.js";
 import { InpiBrevetsClient } from "./sources/inpi-brevets.js";
 import { EspacenetClient } from "./sources/espacenet.js";
-import { loadInpiCredentials, loadEuipoCredentials, loadOebCredentials } from "./config.js";
+import { loadInpiCredentials, loadEuipoCredentials, loadOebCredentials, loadPappersCredentials } from "./config.js";
 
 // Re-exports pour les plugins qui veulent un usage avancé.
 export { loadConfig } from "./config.js";
@@ -47,8 +50,11 @@ export {
   loadInpiCredentials,
   loadEuipoCredentials,
   loadOebCredentials,
+  loadPappersCredentials,
 } from "./config.js";
-export type { InpiCredentials, EuipoCredentials, OebCredentials } from "./config.js";
+export type { InpiCredentials, EuipoCredentials, OebCredentials, PappersCredentials } from "./config.js";
+export { BodaccClient } from "./sources/bodacc.js";
+export type { BodaccAnnonce } from "./sources/bodacc.js";
 export { loadJudilibreConfig } from "./judilibre/config.js";
 export type { JudilibreConfig, JudilibreEnv } from "./judilibre/config.js";
 export {
@@ -272,6 +278,9 @@ export {
   registerJudilibreTools,
   registerBossTools,
   registerEurlexTools,
+  registerBodaccBySiren,
+  registerBodaccProcedures,
+  registerCompanyFullProfile,
 };
 export {
   InpiCredentialsMissingError,
@@ -440,6 +449,7 @@ export interface CreatedServer {
 export type HaciendaToolGroup =
   | "legal_research"
   | "pi_registries"
+  | "company_registries"
   | "fiscal_sources"
   | "social_sources"
   | "server_admin";
@@ -447,6 +457,7 @@ export type HaciendaToolGroup =
 const DEFAULT_TOOL_GROUPS: readonly HaciendaToolGroup[] = [
   "legal_research",
   "pi_registries",
+  "company_registries",
   "fiscal_sources",
   "social_sources",
   "server_admin"
@@ -499,6 +510,12 @@ export function createHaciendaServer(opts: CreateServerOptions): CreatedServer {
 
   if (enabledToolGroups.has("social_sources")) {
     registerBossTools(server);
+  }
+
+  if (enabledToolGroups.has("company_registries")) {
+    registerBodaccBySiren(server);
+    registerBodaccProcedures(server);
+    registerCompanyFullProfile(server);
   }
 
   const inpiCreds = loadInpiCredentials();

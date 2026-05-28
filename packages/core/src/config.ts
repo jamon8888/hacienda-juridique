@@ -143,6 +143,15 @@ export function loadEuipoCredentials(): EuipoCredentials | null {
   return { apiKey };
 }
 
+export interface PappersCredentials { apiKey: string }
+
+export function loadPappersCredentials(): PappersCredentials | null {
+  const fileCreds = loadCredentialsFile();
+  const apiKey = readCredential(process.env.PAPPERS_API_KEY, fileCreds?.PAPPERS_API_KEY);
+  if (!apiKey) return null;
+  return { apiKey };
+}
+
 export interface OebCredentials { consumerKey: string; consumerSecret: string }
 
 export function loadOebCredentials(): OebCredentials | null {

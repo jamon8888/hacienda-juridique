@@ -46,6 +46,9 @@ const expectedTools = [
   "inpi_brevet_details",
   "espacenet_search",
   "espacenet_brevet_details",
+  "bodacc_by_siren",
+  "bodacc_procedures",
+  "company_full_profile",
   "piste_cache_clear"
 ];
 
