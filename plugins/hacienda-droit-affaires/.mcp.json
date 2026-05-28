@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "Hacienda Droit des Affaires": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "./plugins/hacienda-droit-affaires/mcp-server/dist/index.js"
+      ],
+      "title": "Hacienda Droit des Affaires",
+      "description": "Serveur MCP Hacienda droit des affaires : Légifrance, Pappers (fallback BODACC), Judilibre, outils composites entreprise pour revue contrats, M&A (GAP, DD), procédures collectives."
+    }
+  },
+  "recommendedCategories": [
+    "droit-des-affaires",
+    "contrats-commerciaux",
+    "ma-corporate",
+    "procedures-collectives",
+    "registres-officiels"
+  ]
+}

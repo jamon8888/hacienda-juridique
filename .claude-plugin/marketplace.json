@@ -26,6 +26,15 @@
       }
     },
     {
+      "name": "hacienda-droit-affaires",
+      "source": "./plugins/hacienda-droit-affaires",
+      "description": "Droit des affaires français : revue de contrats commerciaux, M&A (LOI, due diligence, GAP, closing), droit des sociétés (constitution, gouvernance AG, pacte d'associés), procédures collectives côté créancier (déclaration L.622-24, suivi forclusion), rupture brutale (L.442-1 II), génération CGV/CGU B2B+B2C, conseil financement startup (BSPCE/BSA/OC), veille jurisprudence ch. commerciale, agents BODACC et échéances sociétaires.",
+      "author": {
+        "name": "Hacienda",
+        "url": "https://hacienda.diy"
+      }
+    },
+    {
       "name": "hacienda-propriete-intellectuelle",
       "source": "./plugins/hacienda-propriete-intellectuelle",
       "description": "Propriété intellectuelle : droit d'auteur, logiciel, marques, open source, clauses PI et contrefaçon.",

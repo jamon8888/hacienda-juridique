@@ -41,6 +41,42 @@
       }
     },
     {
+      "name": "hacienda-droit-affaires",
+      "type": "legal-domain-with-mcp",
+      "source": "./plugins/hacienda-droit-affaires",
+      "description": "Droit des affaires français : revue de contrats commerciaux, M&A (LOI, due diligence, GAP, closing), droit des sociétés (constitution, gouvernance AG, pacte d'associés), procédures collectives côté créancier (déclaration L.622-24, suivi forclusion), rupture brutale (L.442-1 II), génération CGV/CGU B2B+B2C, conseil financement startup (BSPCE/BSA/OC), veille jurisprudence ch. commerciale, agents BODACC et échéances sociétaires.",
+      "skills": [
+        "entretien-demarrage",
+        "reviser-contrat",
+        "reviser-nda",
+        "liste-de-points",
+        "revue-tabulaire",
+        "gap-review",
+        "declaration-creance",
+        "verifier-citations",
+        "check-pii",
+        "pacte-associes-review",
+        "constitution-societe",
+        "gouvernance-ag",
+        "loi-term-sheet",
+        "due-diligence-dataroom",
+        "closing-checklist-fr",
+        "cgv-generator",
+        "financement-startup",
+        "consulter-digest",
+        "analyser-rupture-brutale"
+      ],
+      "agents": [
+        "bodacc-watcher",
+        "bodacc-procedures-watcher",
+        "echeances-societaires",
+        "veille-jurisprudence"
+      ],
+      "mcp": {
+        "mode": "own-stdio-server"
+      }
+    },
+    {
       "name": "hacienda-propriete-intellectuelle",
       "type": "legal-domain-with-mcp",
       "source": "./plugins/hacienda-propriete-intellectuelle",
