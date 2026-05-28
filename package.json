@@ -20,7 +20,7 @@
     "plugin:anno-dist": "npm --workspace @hacienda/plugin-factory run anno-dist --",
     "plugin:package-cowork": "npm --workspace @hacienda/plugin-factory run package-cowork --",
     "test": "npm run test --workspaces --if-present",
-    "typecheck": "npm run typecheck --workspaces --if-present"
+    "typecheck": "npm --workspace @hacienda/core run build && npm run typecheck --workspaces --if-present"
   },
   "engines": {
     "node": ">=20"
