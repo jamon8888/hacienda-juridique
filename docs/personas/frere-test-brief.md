@@ -29,9 +29,22 @@ Le plugin couvre maintenant le parcours cabinet M&A complet :
 
 Le plugin tourne en local dans ton Cowork — aucune donnée ne quitte ton poste vers un cloud tiers (au-delà de l'usage normal de Cowork). Si tu installes `hacienda-ghost` à côté, les identifiants sensibles (parties nommées, montants > 10 k€, IBAN, numéros de pièce…) sont anonymisés automatiquement avant tout envoi au modèle. Sans ghost, le plugin affiche un compteur et un avertissement avant de traiter les documents les plus sensibles — c'est toi qui décides à chaque fois.
 
-## Le protocole — 2 skills prioritaires (~1h) + 1 optionnel (~30 min)
+## Le protocole — 3 tests qui démontrent le parcours M&A complet (~1h30)
 
-J'ai restructuré le protocole autour des priorités de la V2b. **Calibrage : ~1h sur les 2 tests obligatoires**, + 30 min optionnels si tu tombes dessus naturellement. Pour chacun : tu lances la commande sur **un dossier que tu allais traiter de toute façon**, tu lis la sortie, tu remplis le formulaire (5 min).
+Pour chacun : tu lances la commande sur **un dossier que tu allais traiter de toute façon**, tu lis la sortie, tu remplis le formulaire (5 min).
+
+Calibrage indicatif :
+
+| Étape | Temps |
+|---|---|
+| Install + `entretien-demarrage` (1ère fois uniquement) | 15 min |
+| Test 1 — `spa-review` | 30 min |
+| Test 2 — `gap-review` (enchaîné en aval de Test 1) | 25 min |
+| Test 3 — `due-diligence-dataroom` (parcours M&A complet) | 15 min |
+| Feedback 4 questions par skill (5 min × 3) | 15 min |
+| **Total** | **~1h30** |
+
+Les 3 tests démontrent le **parcours bout-en-bout** : `spa-review` orchestre, `gap-review` complète la GAP technique, `due-diligence-dataroom` boucle la confrontation DD ↔ SPA. C'est précisément cette continuité que je veux que tu juges.
 
 ---
 
@@ -63,7 +76,7 @@ Spécificité franco-française sans équivalent direct en R&W US — c'est le t
 
 ---
 
-### Test 3 (optionnel) — Due diligence data-room
+### Test 3 — Due diligence data-room (boucle le parcours M&A)
 
 ```
 /hacienda-droit-affaires:due-diligence-dataroom <chemin/de/la/dataroom/> --side=acquereur
@@ -71,9 +84,11 @@ Spécificité franco-française sans équivalent direct en R&W US — c'est le t
 
 7 thèmes : Corporate / Gouvernance · Contrats matériels · Social-RH · PI · Fiscal-Financier · Contentieux-Passifs · RGPD-Conformité. Rapport structuré + grille de matérialité + questions complémentaires + recommandations pour la GAP.
 
-**Nouveau** : le plugin peut maintenant enrichir l'identification des cibles via SIREN — outils BODACC (annonces publiques, procédures collectives) + Pappers si tu as une clé API. Utile pour un company profile cible en DD. Hors protocole principal, mais si tu tombes dessus, remonte-moi.
+**Nouveau** : le plugin peut maintenant enrichir l'identification des cibles via SIREN — outils BODACC (annonces publiques, procédures collectives) + Pappers si tu as une clé API. Utile pour un company profile cible en DD.
 
-*Ce test est hors calibrage 1h30 — ne le lance que si tu as une vraie data-room sous la main.*
+C'est ce test qui démontre la confrontation DD → protections SPA : tu peux relancer `spa-review --dd-findings=<rapport-dd.md>` ensuite, le skill confronte chaque finding DD à une protection SPA attendue (CP, déclaration, indemnité, escrow, réduction de prix). Boucle complète.
+
+*Si tu n'as pas de data-room sous la main, signale-le et on ajustera — ce test perd 80 % de sa valeur sans données réelles.*
 
 ---
 
@@ -94,7 +109,7 @@ Renvoie-moi par mail (ou comme tu veux), pas besoin de format particulier.
 
 ## Ce que je ne te demande PAS
 
-- Pas de test exhaustif des 19 skills du plugin. J'ai sélectionné les 2 tests obligatoires qui matchent ton flux M&A le plus dense ; les autres skills M&A (`loi-term-sheet`, `closing-checklist-fr`, `reviser-contrat`, `revue-tabulaire`) sont disponibles si tu tombes dessus naturellement, mais hors protocole.
+- Pas de test exhaustif des 19 skills du plugin. J'ai sélectionné les 3 tests qui matchent ton flux M&A le plus dense et démontrent le parcours bout-en-bout ; les autres skills M&A (`loi-term-sheet`, `closing-checklist-fr`, `reviser-contrat`, `revue-tabulaire`) sont disponibles si tu tombes dessus naturellement, mais hors protocole.
 - Pas de revue de format ni de code — je m'en charge.
 - Pas de feedback live ni de réunion. Tout asynchrone.
 
@@ -104,4 +119,4 @@ Capture l'erreur (texte ou screenshot) + le skill utilisé + ce que tu faisais, 
 
 ---
 
-*Brief calibré sur ton temps. Si même 1h c'est trop, dis-le-moi et on réduit à 1 seul skill — `spa-review` sur le dataset synthétique (30 min, zéro préparation).*
+*Brief calibré sur ton temps. Si même 1h30 c'est trop, dis-le-moi et on réduit à 1 seul skill — `spa-review` sur le dataset synthétique (30 min, zéro préparation).*
