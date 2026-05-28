@@ -230,6 +230,7 @@ describe("hacienda plugin factory create CLI", () => {
     const pluginNames = marketplace.plugins?.map((plugin) => plugin.name).sort();
 
     expect(pluginNames).toEqual([
+      "hacienda-droit-affaires",
       "hacienda-propriete-intellectuelle",
       "hacienda-recherche-documentaire",
       "hacienda-sources-officielles"
