@@ -22,10 +22,10 @@ tagué comme recherche externe ou connaissance modèle.
 |---|---|---|---|
 | Légifrance (PISTE) | ✓ Intégré core | `legifranceCheckArticle`, `legifranceGetArticle` [a verifier selon export exact] | Articles C.civ, C.com., CPI, consolidation des codes, vérification de citations |
 | JORF (lois, décrets, ordonnances) | ✓ Intégré core | via Légifrance | Vérification des textes promulgués, réformes, entrée en vigueur |
-| Judilibre (Cour de cassation Open Data) | ✓ Intégré core | `judilibreSearch` | Arrêts ch. com., ch. soc., ch. civ., contrôle des jurisprudences citées |
+| Judilibre (Cour de cassation Open Data) | ✓ Intégré core | `judilibre_recherche`, `judilibre_get_decision` | Arrêts ch. com., ch. soc., ch. civ., contrôle des jurisprudences citées |
 | Pappers | ✓ Intégré core | `pappersCompanyProfile` si clé configurée | Fiche société enrichie : dirigeants, actionnariat, comptes, événements |
-| BODACC OpenDataSoft | ✓ Intégré core | `bodaccBySiren`, `bodaccProcedures` | Immatriculations, modifications, radiations, procédures collectives |
-| Annuaire entreprises DINUM / API Entreprise publique | ✓ Intégré core | via `companyFullProfile` | Recherche société par nom, SIREN, statut de base sans auth payante |
+| BODACC OpenDataSoft | ✓ Intégré core | `bodacc_by_siren`, `bodacc_procedures` | Immatriculations, modifications, radiations, procédures collectives |
+| Annuaire entreprises DINUM / API Entreprise publique | ✓ Intégré core | via `company_full_profile` | Recherche société par nom, SIREN, statut de base sans auth payante |
 | Eurlex | ✓ Intégré core | modules Eurlex core | Rome I, Bruxelles I bis, règlements UE, textes européens business |
 | BOFiP | ✓ Intégré core | `bofipQuery` [a verifier selon export exact] | Doctrine fiscale utile en due diligence M&A et structuration |
 | BOSS | ✓ Intégré core | `bossQuery` [a verifier selon export exact] | Doctrine sociale utile pour non-concurrence, rémunération, protection sociale |
@@ -82,10 +82,10 @@ Exemple de posture attendue :
 
 | Source indisponible | Effet | Comportement attendu |
 |---|---|---|
-| PISTE absent | pas de vérification live Légifrance | taguer `[a verifier]`, expliciter le mode dégradé |
+| PISTE absent | pas de vérification live Légifrance | taguer `[à vérifier]`, expliciter le mode dégradé |
 | Pappers absent | données corporate moins riches | fallback BODACC + Annuaire entreprises |
 | Judilibre indisponible | validation jurisprudentielle partielle | signaler l'absence de contrôle et ne pas sur-affirmer |
-| Eurlex non consulté | angle UE fragile | marquer la référence `[a verifier]` |
+| Eurlex non consulté | angle UE fragile | marquer la référence `[à vérifier]` |
 
 ---
 
@@ -93,5 +93,5 @@ Exemple de posture attendue :
 
 1. Ne pas annoncer une source comme "connectée" sur la seule base d'un fichier de config.
 2. Préférer toujours la source primaire officielle quand elle est disponible.
-3. Toute citation non consultée en session doit être marquée `[a verifier]`.
+3. Toute citation non consultée en session doit être marquée `[à vérifier]`.
 4. Si le sujet devient PI-centric, renvoyer vers `hacienda-propriete-intellectuelle` plutôt que dupliquer la logique.

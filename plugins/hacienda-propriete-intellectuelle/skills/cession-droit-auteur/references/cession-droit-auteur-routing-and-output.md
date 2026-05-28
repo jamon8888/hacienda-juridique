@@ -26,7 +26,7 @@ Charger avant analyse :
 Si le profil est incomplet, garder les marqueurs :
 
 - `[PROVISOIRE]`
-- `[a verifier]`
+- `[à vérifier]`
 - `[A COMPLETER]`
 
 ## Closed Intake Contract
@@ -128,7 +128,7 @@ Sortie stabilisee en 9 blocs exactement :
 8. `Decision Routing`
 9. `Human Validation`
 
-En `partial`, conserver les marqueurs `[PROVISOIRE]`, `[a verifier]` et
+En `partial`, conserver les marqueurs `[PROVISOIRE]`, `[à vérifier]` et
 `[A COMPLETER]` partout ou les faits ou la base de titularite restent incomplets.
 
 ## Decision Routing

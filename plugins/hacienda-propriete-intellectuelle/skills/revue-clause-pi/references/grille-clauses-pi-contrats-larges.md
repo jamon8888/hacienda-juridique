@@ -4,7 +4,7 @@ Reference courte pour stabiliser la revue ciblee des clauses PI dans les
 contrats larges.
 
 Grille non exhaustive: conserver les hypotheses, pieces manquantes et marqueurs
-`[a verifier]` du skill principal.
+`[à vérifier]` du skill principal.
 
 ## 1. Proprietes et titularite
 

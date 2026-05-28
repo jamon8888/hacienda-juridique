@@ -5,7 +5,8 @@ description: >
   de forme SAS/SARL/SA) et mode --draft (brouillon assisté de statuts, chaque
   point de décision tagué [review]). Détecte la bifurcation acte sous seing
   privé vs notarié obligatoire. Brouillon soumis à validation humaine (avocat)/notaire.
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[--comparer ou --draft, forme envisagée, associés, activité]"
 authors: ["Hacienda"]
 tags: [constitution, societes, statuts, sas, sarl, sa, actes]
 ---
@@ -36,7 +37,7 @@ tags: [constitution, societes, statuts, sas, sarl, sa, actes]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:constitution-societe --comparer</user>
+<user>/h-droit-affaires:constitution-societe --comparer</user>
 <response>
 1. Pré-flight `check-pii` (peu d'identifiants au stade du choix de forme — sous seuil B le plus souvent).
 2. Lecture profil cabinet (bloc « vie sociale » : formes pratiquées, posture rédaction statuts, notaire partenaire).
@@ -48,7 +49,7 @@ tags: [constitution, societes, statuts, sas, sarl, sa, actes]
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:constitution-societe --draft --forme=SAS</user>
+<user>/h-droit-affaires:constitution-societe --draft --forme=SAS</user>
 <response>
 1. Pré-flight `check-pii` + lecture profil cabinet (posture rédaction statuts).
 2. Intake : SAS, 2 associés, apports en numéraire uniquement, gouvernance simple (un président).
@@ -60,24 +61,24 @@ tags: [constitution, societes, statuts, sas, sarl, sa, actes]
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:constitution-societe --draft --forme=SARL</user>
+<user>/h-droit-affaires:constitution-societe --draft --forme=SARL</user>
 <response>
 Intake : SARL, 3 associés, dont un apporte un **local commercial** en nature.
 Étape 1 — détection bifurcation actes :
 - L'apport porte sur un **immeuble** → 🔴 **acte notarié obligatoire**. Motif : la mutation d'un droit réel immobilier doit être publiée au service de la publicité foncière, laquelle n'accepte que des actes authentiques. Un apport d'immeuble par simple SSP serait inopposable aux tiers. Renvoi vers le **notaire partenaire** configuré au profil cabinet.
-- L'apport en nature pose la question de l'évaluation → **commissaire aux apports** (art. L.223-9 C.com. [Légifrance]) : désignation de principe ; dispense possible à l'unanimité **et** sous double seuil réglementaire — seuils chiffrés `[a verifier]` (réglementaires). La dispense ne supprime pas la responsabilité solidaire des associés sur la valeur retenue, 5 ans `[a verifier]`.
+- L'apport en nature pose la question de l'évaluation → **commissaire aux apports** (art. L.223-9 C.com. [Légifrance]) : désignation de principe ; dispense possible à l'unanimité **et** sous double seuil réglementaire — seuils chiffrés `[à vérifier]` (réglementaires). La dispense ne supprime pas la responsabilité solidaire des associés sur la valeur retenue, 5 ans `[à vérifier]`.
 Le skill produit le brouillon assisté en signalant que la forme de l'acte n'est pas un arbitrage : elle est imposée. Validation notaire impérative.
 </response>
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:constitution-societe --draft --forme=SAS — un associé apporte un brevet valorisé 90 000 €</user>
+<user>/h-droit-affaires:constitution-societe --draft --forme=SAS — un associé apporte un brevet valorisé 90 000 €</user>
 <response>
 Étape 1 — détection bifurcation actes :
 - Apport en nature d'un brevet (bien meuble incorporel) → pas d'immeuble → **acte SSP suffit** quant à la forme.
-- Apport en nature → **commissaire aux apports** : désignation de principe (régime SARL art. L.223-9 C.com. [Légifrance] étendu à la SAS `[a verifier]`). La dispense suppose l'unanimité **et** le respect d'un double seuil réglementaire (montant unitaire de l'apport / fraction du capital) — seuils chiffrés `[a verifier]`. Une valorisation de 90 000 € peut excéder le seuil de dispense unitaire selon le décret en vigueur → **signalement : commissaire aux apports probablement requis, vérifier le seuil `[a verifier]`**.
-- Même en cas de dispense, les associés restent solidairement responsables 5 ans de la valeur attribuée au brevet `[a verifier]`.
-Renvoi : l'évaluation d'un brevet relève d'une expertise PI → signaler que le périmètre et la valorisation du droit de PI peuvent appeler `/hacienda-propriete-intellectuelle:contrats-pi`. Le brouillon de statuts est produit avec point `[review]` sur le traitement de l'apport.
+- Apport en nature → **commissaire aux apports** : désignation de principe (régime SARL art. L.223-9 C.com. [Légifrance] étendu à la SAS `[à vérifier]`). La dispense suppose l'unanimité **et** le respect d'un double seuil réglementaire (montant unitaire de l'apport / fraction du capital) — seuils chiffrés `[à vérifier]`. Une valorisation de 90 000 € peut excéder le seuil de dispense unitaire selon le décret en vigueur → **signalement : commissaire aux apports probablement requis, vérifier le seuil `[à vérifier]`**.
+- Même en cas de dispense, les associés restent solidairement responsables 5 ans de la valeur attribuée au brevet `[à vérifier]`.
+Renvoi : l'évaluation d'un brevet relève d'une expertise PI → signaler que le périmètre et la valorisation du droit de PI peuvent appeler `/h-pi:contrats-pi`. Le brouillon de statuts est produit avec point `[review]` sur le traitement de l'apport.
 </response>
 </example>
 
@@ -94,7 +95,7 @@ Renvoi : l'évaluation d'un brevet relève d'une expertise PI → signaler que l
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le sous-bloc « vie sociale » est encore en `[A CONFIGURER]` : stopper et
-demander `/hacienda-droit-affaires:entretien-demarrage`. Sans notaire partenaire
+demander `/h-droit-affaires:entretien-demarrage`. Sans notaire partenaire
 renseigné, le renvoi en cas d'acte authentique requis ne peut pas être adressé.
 
 ---
@@ -112,15 +113,104 @@ demander explicitement. Pas de valeur par défaut sur la forme sociale.
 
 ---
 
+## Gate non-juriste
+
+- [ ] Mode (`--comparer` | `--draft`) fourni ; en `--draft`, `--forme` fournie (refus du défaut)
+- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
+- [ ] Profil cabinet sous-bloc « vie sociale » lu (formes pratiquées, posture statuts, notaire partenaire)
+- [ ] Nature exacte des apports identifiée (meuble / immeuble / fonds de commerce / industrie / numéraire)
+- [ ] `--draft` : bifurcation des actes tranchée — SSP ou 🔴 acte notarié obligatoire, avec motif exposé
+- [ ] `--draft` : règle du commissaire aux apports signalée en présence d'apports en nature ; seuils chiffrés tagués `[à vérifier]` ; responsabilité 5 ans des associés explicitée
+- [ ] `--draft` : mentions obligatoires de l'art. L.210-2 C.com. présentes dans le brouillon
+- [ ] `--draft` : chaque clause d'arbitrage taguée `[review]` ; liste des points à arbitrer explicite ; livrable NON présenté comme « prêt à déposer »
+- [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]` ; articles hors index / `R.xxx` en `[à vérifier]`
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + {comparatif ou bifurcation + brouillon + points à arbitrer} + question hors checklist + arbre de décision 5 options + footer A si applicable
+
+---
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+```
+outputs/constitution-<forme>-<denomination-slug>-YYYY-MM-DD.md
+```
+
+Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
+
+---
+
+## Sortie
+
+### Format livrable
+
+```
+[En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin §2]
+
+> **⚠️ Note du relecteur**
+> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Lecture :** intake fourni par l'utilisateur — {synthèse des apports et de la forme}
+> - **Signalé pour ton jugement :** {N} éléments marqués [review] (forme/capital, agrément, quorum/majorité, direction, inaliénabilité, SSP/notarié) | aucun
+> - **Fraîcheur :** seuils réglementaires (capital SA, commissaire aux apports, commissaire aux comptes) NON figés — {N} seuils [à vérifier] à confirmer sur décret en vigueur
+> - **Avant de t'appuyer dessus :** {action concrète — ex. faire valider la forme de l'acte par le notaire si apport d'immeuble ; confirmer les seuils réglementaires} | « prêt pour relecture avocat »
+
+# {Pour --comparer} Tableau comparatif et recommandation
+[table comparative restreinte aux axes pertinents + recommandation motivée + formes écartées et pourquoi]
+
+# {Pour --draft} Bifurcation des actes
+[conclusion de l'Étape 1 : SSP suffit / 🔴 acte notarié obligatoire + motif ; commissaire aux apports : requis / dispense possible sous seuil [à vérifier]]
+
+# {Pour --draft} Brouillon assisté de statuts — PROJET DE TRAVAIL
+[projet de statuts structuré, chaque clause d'arbitrage taguée [review] — NE PAS présenter comme prêt à déposer]
+
+# {Pour --draft} Points à arbitrer
+[liste explicite et numérotée des points [review] : forme/montant du capital, libération, traitement des apports et commissaire aux apports, clause d'agrément, quorum/majorité, modalités de direction, inaliénabilité éventuelle, choix SSP/notarié — un avocat (et le notaire si acte authentique) doit trancher chacun]
+
+# Une question hors de ma checklist habituelle
+{Observation transversale qu'un relecteur attentif ferait — ex. cohérence objet social / activité réglementée, pacte d'associés à articuler avec les statuts, fiscalité du dirigeant à cadrer avec l'expert-comptable. Omettre la ligne si rien d'honnête.}
+
+# Que veux-tu faire ? Choisis une option et je la déroule :
+
+1. **Rédiger** — je produis le brouillon assisté complet (statuts projet + liste des points à arbitrer + check-list des pièces de constitution), prêt pour relecture avocat/notaire.
+2. **Escalader** — note d'escalade vers l'approbateur configuré (ou le notaire partenaire si acte authentique requis) avec faits-clés, forme de l'acte et décision attendue.
+3. **Compléter les faits** — questions ouvertes à poser aux fondateurs / à l'expert-comptable / au notaire avant d'avancer (nature exacte des apports, valorisation, régime social et fiscal souhaité).
+4. **Surveiller et attendre** — j'ajoute le dossier de constitution au tracker avec note motivée et date de revisite (ex. en attente de l'évaluation d'un apport en nature).
+5. **Autre** — précise ce que tu veux en faire.
+
+{Footer A — si check-pii est passé en mode passif sous le seuil B :
+[Ce skill a traité {N} mentions identifiantes (associés, dénomination, apports). Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
+Sinon, rien.}
+```
+
+### Mode silencieux (livrable externe)
+
+Si le brouillon de statuts est destiné à être transmis hors du périmètre cabinet
+(co-fondateurs non-juristes, notaire) :
+- En-tête de confidentialité : CONSERVER s'il protège le document ; l'adapter
+  au destinataire (un notaire a son propre en-tête, cf. CLAUDE.md §2).
+- Note du relecteur : CONSERVER (point de contrôle unique).
+- Narration de skill et renvois inter-commandes : COUPER (placer dans un message
+  d'accompagnement séparé).
+- Le statut **brouillon / projet de travail** reste affiché : un brouillon de
+  statuts transmis ne devient jamais un document final du seul fait de l'envoi.
+
+---
+
 ## Étape 1 (--comparer) — Cadrage du besoin
 
 Avant de recommander une forme, cerner le besoin réel. Questions de cadrage :
 
-- **Nombre d'associés** — un seul (SASU / EURL) ou plusieurs ? la SA exige 2 associés minimum `[a verifier]` ; la SARL plafonne à 100 `[a verifier]`.
+- **Nombre d'associés** — un seul (SASU / EURL) ou plusieurs ? la SA exige 2 associés minimum `[à vérifier]` ; la SARL plafonne à 100 `[à vérifier]`.
 - **Ambition de levée de fonds** — une entrée d'investisseurs à terme oriente vers une forme souple (actions de préférence, BSA, gouvernance modulable).
 - **Régime social souhaité du dirigeant** — assimilé salarié (président de SAS, gérant minoritaire de SARL) ou travailleur non salarié (gérant majoritaire de SARL) ? Arbitrage **coût de cotisations / niveau de protection** — dépend de critères sociaux et fiscaux → `[review]`, renvoi expert-comptable.
 - **Besoin de souplesse statutaire** — gouvernance sur-mesure, organes ad hoc, liberté des règles de cession : la SAS offre la plus grande liberté ; la SARL est plus encadrée (agrément légal des cessions à tiers, régime impératif de révocation du gérant) ; la SA est la plus formelle.
-- **Capital disponible** — la SA impose un capital minimum de 37 000 € `[a verifier]` ; SAS et SARL n'ont pas de plancher légal.
+- **Capital disponible** — la SA impose un capital minimum de 37 000 € `[à vérifier]` ; SAS et SARL n'ont pas de plancher légal.
 - **Apports en industrie** — un associé n'apportant que son savoir-faire/travail oriente hors de la SA (apport en industrie interdit en SA, art. L.225-3 C.com. `[Légifrance]`).
 
 Ne pas trancher tant que ces points ne sont pas couverts ou explicitement écartés.
@@ -172,15 +262,15 @@ forme de l'acte. Logique tirée de `references/comparatif-formes-sociales-fr.md`
    **commissaire aux apports** :
    - **désignation de principe** pour évaluer chaque apport (SARL : art. L.223-9
      C.com. `[Légifrance]`, désignation à l'unanimité ou par justice ; régime
-     étendu à la SAS `[a verifier]` ; SA : régime distinct `[a verifier]`) ;
+     étendu à la SAS `[à vérifier]` ; SA : régime distinct `[à vérifier]`) ;
    - **dispense possible** sous **deux conditions cumulatives** : décision
      **unanime** des associés **et** respect d'un **double seuil réglementaire**
      (montant unitaire de l'apport / fraction du capital). Les **seuils chiffrés**
-     sont **réglementaires** (`R.xxx`, hors index) et évoluent → `[a verifier]`,
+     sont **réglementaires** (`R.xxx`, hors index) et évoluent → `[à vérifier]`,
      renvoi au décret en vigueur ;
    - **la dispense ne supprime pas la responsabilité** : les associés restent
      **solidairement responsables, 5 ans, de la valeur attribuée** aux apports
-     en nature `[a verifier]`. À expliciter systématiquement au client.
+     en nature `[à vérifier]`. À expliciter systématiquement au client.
 
 5. **Apport en industrie** — signaler qu'il est **interdit en SA** (art. L.225-3
    C.com. `[Légifrance]`) ; possible en SAS et SARL (art. L.223-7 al. 2 C.com.
@@ -219,13 +309,13 @@ statuts :
   (art. L.227-14 C.com. `[Légifrance]`, adoption à l'unanimité, violation →
   nullité art. L.227-15 C.com. `[Légifrance]`) ; en SARL, agrément des cessions
   à tiers **légal et obligatoire** (art. L.223-14 C.com. `[Légifrance]`) ; en SA,
-  agrément possible par clause statutaire (art. L.228-23 C.com. `[a verifier]`,
+  agrément possible par clause statutaire (art. L.228-23 C.com. `[à vérifier]`,
   procédure L.228-24 C.com. `[Légifrance]`) `[review]`.
 - **Règles de quorum et de majorité** des décisions collectives — SAS : grande
   liberté statutaire (art. L.227-9 C.com. `[Légifrance]`) ; SARL : majorités
   légales (art. L.223-30 C.com. `[Légifrance]` pour les modifications
   statutaires) ; SA : quorum et majorité d'AGO (art. L.225-98 C.com.
-  `[Légifrance]`) et d'AGE (art. L.225-96 C.com. `[a verifier]`) `[review]`.
+  `[Légifrance]`) et d'AGE (art. L.225-96 C.com. `[à vérifier]`) `[review]`.
 - **Modalités de direction** — président de SAS et organes complémentaires
   éventuels ; gérant(s) de SARL ; conseil d'administration ou directoire en SA ;
   étendue des pouvoirs, durée du mandat, révocation `[review]`.
@@ -249,99 +339,18 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 
 - extrait toutes les citations (art. L.NNN-N C.com., art. NNN C.civ) ;
 - vérifie l'existence et la version en vigueur via Légifrance ;
-- annote : `[Légifrance ✓]`, `[abrogé]`, ou `[a verifier]` en mode dégradé.
+- annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
 Articles attendus présents dans `references/articles-c-civ-c-com-index.md` avec
 identifiant Légifrance réel (→ `[Légifrance]`) : L.210-2, L.210-6, L.223-2,
 L.223-7, L.223-9, L.223-14, L.223-30, L.225-3, L.225-98, L.227-9, L.227-13,
-L.227-14, L.227-15, L.228-24. En `[a compléter]` ou absents (→ `[a verifier]`
+L.227-14, L.227-15, L.228-24. En `[a compléter]` ou absents (→ `[à vérifier]`
 obligatoire) : L.223-1, L.225-1, L.225-96, L.227-1, L.228-23, et **tout article
 réglementaire `R.xxx`** (seuils commissaire aux apports).
 
 Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
 (« `verifier-citations` non exécuté — N citations à valider manuellement contre
 Légifrance »).
-
----
-
-## Sortie
-
-### Format livrable
-
-```
-[En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin §2]
-
-> **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée)
-> - **Lecture :** intake fourni par l'utilisateur — {synthèse des apports et de la forme}
-> - **Signalé pour ton jugement :** {N} éléments marqués [review] (forme/capital, agrément, quorum/majorité, direction, inaliénabilité, SSP/notarié) | aucun
-> - **Fraîcheur :** seuils réglementaires (capital SA, commissaire aux apports, commissaire aux comptes) NON figés — {N} seuils [a verifier] à confirmer sur décret en vigueur
-> - **Avant de t'appuyer dessus :** {action concrète — ex. faire valider la forme de l'acte par le notaire si apport d'immeuble ; confirmer les seuils réglementaires} | « prêt pour relecture avocat »
-
-# {Pour --comparer} Tableau comparatif et recommandation
-[table comparative restreinte aux axes pertinents + recommandation motivée + formes écartées et pourquoi]
-
-# {Pour --draft} Bifurcation des actes
-[conclusion de l'Étape 1 : SSP suffit / 🔴 acte notarié obligatoire + motif ; commissaire aux apports : requis / dispense possible sous seuil [a verifier]]
-
-# {Pour --draft} Brouillon assisté de statuts — PROJET DE TRAVAIL
-[projet de statuts structuré, chaque clause d'arbitrage taguée [review] — NE PAS présenter comme prêt à déposer]
-
-# {Pour --draft} Points à arbitrer
-[liste explicite et numérotée des points [review] : forme/montant du capital, libération, traitement des apports et commissaire aux apports, clause d'agrément, quorum/majorité, modalités de direction, inaliénabilité éventuelle, choix SSP/notarié — un avocat (et le notaire si acte authentique) doit trancher chacun]
-
-# Une question hors de ma checklist habituelle
-{Observation transversale qu'un relecteur attentif ferait — ex. cohérence objet social / activité réglementée, pacte d'associés à articuler avec les statuts, fiscalité du dirigeant à cadrer avec l'expert-comptable. Omettre la ligne si rien d'honnête.}
-
-# Que veux-tu faire ? Choisis une option et je la déroule :
-
-1. **Rédiger** — je produis le brouillon assisté complet (statuts projet + liste des points à arbitrer + check-list des pièces de constitution), prêt pour relecture avocat/notaire.
-2. **Escalader** — note d'escalade vers l'approbateur configuré (ou le notaire partenaire si acte authentique requis) avec faits-clés, forme de l'acte et décision attendue.
-3. **Compléter les faits** — questions ouvertes à poser aux fondateurs / à l'expert-comptable / au notaire avant d'avancer (nature exacte des apports, valorisation, régime social et fiscal souhaité).
-4. **Surveiller et attendre** — j'ajoute le dossier de constitution au tracker avec note motivée et date de revisite (ex. en attente de l'évaluation d'un apport en nature).
-5. **Autre** — précise ce que tu veux en faire.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B :
-[Ce skill a traité {N} mentions identifiantes (associés, dénomination, apports). Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
-Sinon, rien.}
-```
-
-### Mode silencieux (livrable externe)
-
-Si le brouillon de statuts est destiné à être transmis hors du périmètre cabinet
-(co-fondateurs non-juristes, notaire) :
-- En-tête de confidentialité : CONSERVER s'il protège le document ; l'adapter
-  au destinataire (un notaire a son propre en-tête, cf. CLAUDE.md §2).
-- Note du relecteur : CONSERVER (point de contrôle unique).
-- Narration de skill et renvois inter-commandes : COUPER (placer dans un message
-  d'accompagnement séparé).
-- Le statut **brouillon / projet de travail** reste affiché : un brouillon de
-  statuts transmis ne devient jamais un document final du seul fait de l'envoi.
-
----
-
-## Emplacement des sorties
-
-```
-outputs/constitution-<forme>-<denomination-slug>-YYYY-MM-DD.md
-```
-
-Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
-
----
-
-## Gate non-juriste
-
-- [ ] Mode (`--comparer` | `--draft`) fourni ; en `--draft`, `--forme` fournie (refus du défaut)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
-- [ ] Profil cabinet sous-bloc « vie sociale » lu (formes pratiquées, posture statuts, notaire partenaire)
-- [ ] Nature exacte des apports identifiée (meuble / immeuble / fonds de commerce / industrie / numéraire)
-- [ ] `--draft` : bifurcation des actes tranchée — SSP ou 🔴 acte notarié obligatoire, avec motif exposé
-- [ ] `--draft` : règle du commissaire aux apports signalée en présence d'apports en nature ; seuils chiffrés tagués `[a verifier]` ; responsabilité 5 ans des associés explicitée
-- [ ] `--draft` : mentions obligatoires de l'art. L.210-2 C.com. présentes dans le brouillon
-- [ ] `--draft` : chaque clause d'arbitrage taguée `[review]` ; liste des points à arbitrer explicite ; livrable NON présenté comme « prêt à déposer »
-- [ ] Citations vérifiées via `verifier-citations` ou taguées `[a verifier]` ; articles hors index / `R.xxx` en `[a verifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + {comparatif ou bifurcation + brouillon + points à arbitrer} + question hors checklist + arbre de décision 5 options + footer A si applicable
 
 ---
 

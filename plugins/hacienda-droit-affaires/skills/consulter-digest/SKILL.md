@@ -5,7 +5,8 @@ description: >
   veille-jurisprudence. Permet de filtrer par domaine de pratique, par date
   ou par criticité d'impact. Skill de lecture — ne produit pas d'analyse
   juridique nouvelle.
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[domaine, période, criticité]"
 authors: ["Hacienda"]
 tags: [veille, digest, jurisprudence, consultation]
 ---
@@ -32,7 +33,7 @@ tags: [veille, digest, jurisprudence, consultation]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:consulter-digest</user>
+<user>/h-droit-affaires:consulter-digest</user>
 <response>
 Lecture du digest le plus récent :
 `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/veille/latest.md`
@@ -41,6 +42,67 @@ Digest du 2026-05-19 — 2 domaines, 4 entrées.
 Domaines configurés dans le profil cabinet : contrats, societes, ma, procedures-collectives.
 
 ---
+
+## Chargement du profil
+
+> Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/CLAUDE.md`
+> et `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/veille-config.yaml` :
+> - **Domaines de pratique configurés** — pour ordonner les entrées du digest
+>   par pertinence (les domaines du profil cabinet passent en premier)
+> - **Rôle de l'utilisateur courant** — conditionne l'en-tête de confidentialité
+>   (avocat / notaire / juriste in-house / non-juriste)
+> - **Politique PII** — `passive` / `active` (défaut) / `strict`
+
+Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : poursuivre
+sans personnalisation de l'ordre — afficher le digest dans l'ordre du fichier,
+sans tri par domaine cabinet.
+
+---
+
+## Intake
+
+1. **Cible** — `latest` par défaut (fichier `latest.md`) ; ou une date au format
+   `YYYY-MM-DD` pour lire un digest daté (`digest-YYYY-MM-DD.md`).
+2. **Filtre optionnel** :
+   - `--domaine=<nom>` — restreindre l'affichage à un domaine (`contrats`,
+     `societes`, `ma`, `procedures-collectives`, ou tout domaine configuré)
+   - `--depuis=YYYY-MM-DD` — n'afficher que les entrées postérieures à cette date
+     (filtrage sur la date de la disposition ou de l'arrêt)
+   - `--impact=<valeur>` — filtrer par action requise :
+     `mise-a-jour-playbook` | `information-client` | `modification-modele` | `aucune`
+
+---
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+```
+[En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin §2]
+
+> **⚠️ Note du relecteur**
+> - **Sources :** Digest du {YYYY-MM-DD} — Légifrance {✓/✗} / Judilibre ch. commerciale {✓/✗} (statut repris de l'en-tête du digest)
+> - **Lecture :** digest {complet | filtré sur domaine "{domaine}" | filtré sur impact "{impact}" | filtré depuis {YYYY-MM-DD}} — {N} entrée(s) restituée(s) sur {N total}
+> - **Signalé pour ton jugement :** {N} éléments marqués [review] dans le digest | aucun
+> - **Fraîcheur :** digest produit le {YYYY-MM-DD} — éléments postérieurs au {last_run} — {N} textes / {N} arrêts
+> - **Avant de t'appuyer dessus :** {action concrète — ex. « lancer un nouveau digest si la date est > 7 jours » | « prêt pour consultation »}
+
+{Digest filtré et restitué, structuré par domaine selon l'ordre de pertinence}
+
+{Note du relecteur de l'agent veille-jurisprudence, si présente dans le digest}
 
 ## Contrats commerciaux
 
@@ -75,7 +137,7 @@ Domaines configurés dans le profil cabinet : contrats, societes, ma, procedures
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:consulter-digest --domaine=societes</user>
+<user>/h-droit-affaires:consulter-digest --domaine=societes</user>
 <response>
 Filtre appliqué : domaine = `societes`.
 Lecture de `latest.md` — digest du 2026-05-19.
@@ -101,7 +163,7 @@ Lecture de `latest.md` — digest du 2026-05-19.
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:consulter-digest --domaine=ma</user>
+<user>/h-droit-affaires:consulter-digest --domaine=ma</user>
 <response>
 Lecture de `latest.md` — digest du 2026-05-19.
 Filtre appliqué : domaine = `ma`.
@@ -109,13 +171,13 @@ Filtre appliqué : domaine = `ma`.
 Aucune entrée trouvée pour le domaine "ma" dans ce digest.
 
 Le digest le plus récent ne contient pas d'évolution sur ce domaine cette semaine.
-Pour vérifier un digest antérieur : `/hacienda-droit-affaires:consulter-digest 2026-05-12 --domaine=ma`.
+Pour vérifier un digest antérieur : `/h-droit-affaires:consulter-digest 2026-05-12 --domaine=ma`.
 Pour générer un nouveau digest à jour : lancer l'agent `veille-jurisprudence`.
 </response>
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:consulter-digest 2026-05-12</user>
+<user>/h-droit-affaires:consulter-digest 2026-05-12</user>
 <response>
 Digest demandé : 2026-05-12.
 Recherche de `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/veille/digest-2026-05-12.md`.
@@ -123,40 +185,10 @@ Recherche de `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaire
 Aucun digest disponible pour la date 2026-05-12.
 
 Digests disponibles : le plus récent est `latest.md` (2026-05-19).
-Pour consulter le dernier digest : `/hacienda-droit-affaires:consulter-digest` (sans date).
+Pour consulter le dernier digest : `/h-droit-affaires:consulter-digest` (sans date).
 Pour générer un digest couvrant une période antérieure : lancer l'agent `veille-jurisprudence`.
 </response>
 </example>
-
----
-
-## Chargement du profil
-
-> Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/CLAUDE.md`
-> et `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/veille-config.yaml` :
-> - **Domaines de pratique configurés** — pour ordonner les entrées du digest
->   par pertinence (les domaines du profil cabinet passent en premier)
-> - **Rôle de l'utilisateur courant** — conditionne l'en-tête de confidentialité
->   (avocat / notaire / juriste in-house / non-juriste)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict`
-
-Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : poursuivre
-sans personnalisation de l'ordre — afficher le digest dans l'ordre du fichier,
-sans tri par domaine cabinet.
-
----
-
-## Intake
-
-1. **Cible** — `latest` par défaut (fichier `latest.md`) ; ou une date au format
-   `YYYY-MM-DD` pour lire un digest daté (`digest-YYYY-MM-DD.md`).
-2. **Filtre optionnel** :
-   - `--domaine=<nom>` — restreindre l'affichage à un domaine (`contrats`,
-     `societes`, `ma`, `procedures-collectives`, ou tout domaine configuré)
-   - `--depuis=YYYY-MM-DD` — n'afficher que les entrées postérieures à cette date
-     (filtrage sur la date de la disposition ou de l'arrêt)
-   - `--impact=<valeur>` — filtrer par action requise :
-     `mise-a-jour-playbook` | `information-client` | `modification-modele` | `aucune`
 
 ---
 
@@ -174,7 +206,7 @@ sans tri par domaine cabinet.
    > Aucun digest disponible à ce chemin.
    > Pour générer le digest de cette semaine, lancer l'agent `veille-jurisprudence`.
    > Pour consulter un digest existant : vérifier la date ou utiliser
-   > `/hacienda-droit-affaires:consulter-digest` sans paramètre (dernier digest).
+   > `/h-droit-affaires:consulter-digest` sans paramètre (dernier digest).
 
    Arrêter l'exécution du skill.
 
@@ -219,22 +251,6 @@ sans tri par domaine cabinet.
    du digest lu et n'est ni refondue ni déplacée.
 
 ---
-
-## Sortie
-
-```
-[En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin §2]
-
-> **⚠️ Note du relecteur**
-> - **Sources :** Digest du {YYYY-MM-DD} — Légifrance {✓/✗} / Judilibre ch. commerciale {✓/✗} (statut repris de l'en-tête du digest)
-> - **Lecture :** digest {complet | filtré sur domaine "{domaine}" | filtré sur impact "{impact}" | filtré depuis {YYYY-MM-DD}} — {N} entrée(s) restituée(s) sur {N total}
-> - **Signalé pour ton jugement :** {N} éléments marqués [review] dans le digest | aucun
-> - **Fraîcheur :** digest produit le {YYYY-MM-DD} — éléments postérieurs au {last_run} — {N} textes / {N} arrêts
-> - **Avant de t'appuyer dessus :** {action concrète — ex. « lancer un nouveau digest si la date est > 7 jours » | « prêt pour consultation »}
-
-{Digest filtré et restitué, structuré par domaine selon l'ordre de pertinence}
-
-{Note du relecteur de l'agent veille-jurisprudence, si présente dans le digest}
 
 ## Une question hors de ma checklist habituelle
 

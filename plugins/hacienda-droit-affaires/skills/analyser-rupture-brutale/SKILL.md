@@ -11,7 +11,8 @@ description: >
   significatif) et L.442-1, II (rupture brutale). Renvoie vers
   `declaration-creance` si procédure collective concomitante, et vers
   `PI:contrats-pi` si composante PI. Brouillon soumis à validation humaine (avocat).
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[relation commerciale, chronologie, side, projet de préavis]"
 authors: ["Hacienda"]
 tags: [rupture-brutale, distribution, l442-1, contentieux, preavis, relation-etablie]
 ---
@@ -47,7 +48,7 @@ tags: [rupture-brutale, distribution, l442-1, contentieux, preavis, relation-eta
 >
 > **Si la relation rompue est un contrat de distribution avec composante
 > PI** (licence de marque, brevet, savoir-faire) : renvoyer vers
-> `/hacienda-propriete-intellectuelle:contrats-pi` pour le volet PI ; ce
+> `/h-pi:contrats-pi` pour le volet PI ; ce
 > skill couvre le volet rupture brutale.
 
 ---
@@ -55,7 +56,7 @@ tags: [rupture-brutale, distribution, l442-1, contentieux, preavis, relation-eta
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:analyser-rupture-brutale ./contrat-distribution-A-B.pdf ./notification-rupture-A.pdf --review --side=victime</user>
+<user>/h-droit-affaires:analyser-rupture-brutale ./contrat-distribution-A-B.pdf ./notification-rupture-A.pdf --review --side=victime</user>
 <response>
 1. Pré-flight `check-pii` (parties + volumes commerciaux → seuil B fréquent → prompt utilisateur).
 2. Lecture profil cabinet (posture contentieuse, approbateur configuré pour mise en demeure).
@@ -71,7 +72,7 @@ tags: [rupture-brutale, distribution, l442-1, contentieux, preavis, relation-eta
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:analyser-rupture-brutale ./bons-de-commande-ponctuels.pdf --review</user>
+<user>/h-droit-affaires:analyser-rupture-brutale ./bons-de-commande-ponctuels.pdf --review</user>
 <response>
 Identification : relation ponctuelle de 18 mois, bons de commande successifs sans contrat-cadre, aucune exclusivité contractuelle, aucune dépendance économique (la cible représentait < 5 % du CA de B), pas de tacite reconduction.
 
@@ -84,7 +85,7 @@ Sortie : note du relecteur (1 ligne — aucun flag), résumé exécutif court, r
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:analyser-rupture-brutale ./historique-relation-X.pdf --review</user>
+<user>/h-droit-affaires:analyser-rupture-brutale ./historique-relation-X.pdf --review</user>
 <response>
 Étape 1 — Détection : la contrepartie X (auteur de la rupture) est en redressement judiciaire (BODACC, jugement d'ouverture du 12 mars 2026, publication du 18 mars 2026) `[BODACC]`.
 
@@ -92,18 +93,18 @@ Sortie : note du relecteur (1 ligne — aucun flag), résumé exécutif court, r
 
 Date de forclusion estimée : 18 mai 2026. Le skill `analyser-rupture-brutale` chiffre l'indemnisation (préavis manquant × marge brute) ; la déclaration de créance elle-même relève de `declaration-creance`.
 
-Renvoi actif : `/hacienda-droit-affaires:declaration-creance --siren=<X> --nature=indemnisation-rupture-brutale --montant=<estimation chiffrée>`.
+Renvoi actif : `/h-droit-affaires:declaration-creance --siren=<X> --nature=indemnisation-rupture-brutale --montant=<estimation chiffrée>`.
 
 Sortie : qualification + estimation préjudice + recommandation Engager (déclarer la créance avant forclusion, parallèlement à l'éventuelle action judiciaire).
 </response>
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:analyser-rupture-brutale ./contrat-distribution-marque-Y.pdf --review</user>
+<user>/h-droit-affaires:analyser-rupture-brutale ./contrat-distribution-marque-Y.pdf --review</user>
 <response>
 Identification : contrat de distribution exclusive de produits de marque Y, incluant une licence d'usage de la marque Y au distributeur. Composante PI forte (la marque structure l'économie du contrat).
 
-Renvoi taxonomique : "Ce contrat comporte une composante PI structurante (licence de marque). Pour le volet PI (étendue de la licence, opposabilité de la résiliation, inscription RNM, sort du stock marqué post-rupture), le skill adapté est `/hacienda-propriete-intellectuelle:contrats-pi`. Le présent skill `analyser-rupture-brutale` traite le volet L.442-1, II (qualification de la relation, préavis raisonnable, préjudice). Souhaites-tu (a) lancer `contrats-pi` en parallèle, (b) limiter `analyser-rupture-brutale` au seul volet rupture, ou (c) faire les deux en séquence ?"
+Renvoi taxonomique : "Ce contrat comporte une composante PI structurante (licence de marque). Pour le volet PI (étendue de la licence, opposabilité de la résiliation, inscription RNM, sort du stock marqué post-rupture), le skill adapté est `/h-pi:contrats-pi`. Le présent skill `analyser-rupture-brutale` traite le volet L.442-1, II (qualification de la relation, préavis raisonnable, préjudice). Souhaites-tu (a) lancer `contrats-pi` en parallèle, (b) limiter `analyser-rupture-brutale` au seul volet rupture, ou (c) faire les deux en séquence ?"
 
 Si (b) ou (c) → poursuivre l'analyse rupture brutale standard. Si (a) seul → arrêt et renvoi.
 </response>
@@ -120,7 +121,7 @@ Si (b) ou (c) → poursuivre l'analyse rupture brutale standard. Si (a) seul →
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/hacienda-droit-affaires:entretien-demarrage` avant toute analyse
+demander `/h-droit-affaires:entretien-demarrage` avant toute analyse
 substantielle. Voir aussi `~/.config/Hacienda/profil-cabinet.md` pour les
 éléments cabinet partagés cross-plugins.
 
@@ -138,14 +139,143 @@ Posture override possible : `--posture=protecteur` | `--posture=équilibré` | `
 
 ---
 
+## Gate non-juriste
+
+- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
+- [ ] Profil cabinet lu et posture applicable identifiée
+- [ ] Side correctement identifié (auteur / victime)
+- [ ] Renvoi PI effectué si distribution PI-centric (pas de revue forcée)
+- [ ] Détection procédure collective → renvoi `declaration-creance` si applicable
+- [ ] Qualification 🟢 / 🟡 / ⛔ documentée sur les 7 critères jurisprudentiels
+- [ ] Préavis exprimé en fourchette (min-max) et non en chiffre figé
+- [ ] Safe harbor 18 mois mentionné comme protection défensive uniquement (jamais comme plafond), tagué `[review]` si invoqué
+- [ ] Préjudice calculé sur marge brute (pas sur chiffre d'affaires)
+- [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur 5 champs en gras + résumé exécutif + qualification + préavis + préjudice + dispense (si applicable) + liste de points + recommandation + question hors checklist + arbre 5 options + footer A PII
+
+---
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+```
+outputs/analyse-rupture-brutale-<parties-slug>-YYYY-MM-DD.md
+```
+
+Si la liste de points dépasse 10 lignes ou contient des montants chiffrés
+en fourchette, générer en parallèle un dashboard HTML autonome via
+`renderDashboard()` de `@hacienda/core` (voir `references/dashboard-template.md`).
+
+---
+
+## Sortie
+
+### Format livrable
+
+```
+[En-tête de confidentialité selon le rôle utilisateur]
+
+> **⚠️ Note du relecteur**
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée, motif)
+> - **Lecture :** intégrale ({N} pages, {M} documents) | partielle (préciser périmètre)
+> - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
+> - **Fraîcheur :** recherche jurisprudence ch. com. post-{date pivot} — {N} arrêts intégrés | recherche impossible (motif)
+> - **Avant de t'appuyer dessus :** {action concrète OU « prêt pour relecture »}
+
+# Résumé exécutif
+
+{Trois phrases pour décideur — associé, DG, sponsor business. Pas de jargon.
+Une ligne bottom-line (Engager / Négocier / Renoncer). Une ligne risque
+dominant. Une ligne prochaine action attendue.}
+
+# Qualification de la relation
+
+{🟢 établie / 🟡 borderline [review] / ⛔ non établie} — justification factuelle
+sur les critères jurisprudentiels (ancienneté, stabilité, régularité, volume,
+exclusivité, intuitu personae, dépendance). Fondement L.442-1, II C.com.
+(ex-L.442-6, I, 5°) [tag provenance].
+
+# Préavis
+
+| Champ | Valeur |
+|---|---|
+| Ancienneté | N années |
+| Plancher règle de pouce | N mois |
+| Facteurs de modulation | ... |
+| Préavis raisonnable estimé | Fourchette X-Y mois [review] |
+| Préavis effectivement accordé | Z mois |
+| Différentiel | (X-Y) − Z |
+| Statut | 🟢 / 🟠 / 🔴 |
+| Safe harbor 18 mois | applicable / non applicable / non invocable [review] |
+
+# Préjudice
+
+{Chiffré en fourchette si comptes disponibles, sinon méthodologie + [review]}.
+Base = marge brute, formule (préavis manquant × marge mensuelle).
+Postes accessoires éventuels documentés.
+
+# Dispense de préavis
+
+{Section présente uniquement si une dispense est alléguée ou défendable.
+Conclusion : défensible / fragile / non soutenable [review].}
+
+# Liste de points
+
+| # | Point | Statut | Risque | Position souhaitée | Action proposée |
+|---|---|---|---|---|---|
+| ... | ... | 🔴/🟠/🟡/🟢 | ... | ... | ... |
+
+# Recommandation
+
+{Engager / Négocier / Renoncer} — justification 2-3 lignes liée à la
+posture profil et aux points 🔴 / 🟠. Si renvoi `declaration-creance`
+(procédure collective concomitante) ou `PI:contrats-pi` (composante PI),
+mentionner explicitement.
+
+# Une question hors de ma checklist habituelle
+
+{Observation transversale qu'un relecteur attentif ferait. Omettre la ligne
+si rien d'honnête à dire — ne pas fabriquer.}
+
+# Que veux-tu faire ? Choisis une option :
+
+1. **Rédiger** — je produis un projet de courrier de mise en demeure (côté victime) ou de réponse à mise en demeure (côté auteur), reprenant la qualification, l'estimation et la demande / défense chiffrée.
+2. **Escalader** — note d'escalade vers {approbateur configuré pour action judiciaire} avec faits-clés, chiffrage, risque dominant et décision attendue.
+3. **Compléter les faits** — questions ouvertes à poser à {client / contrepartie / conseil / DAF} avant d'avancer (typiquement : comptes audités, historique exact des flux, exclusivité de fait).
+4. **Surveiller et attendre** — ajouter au tracker du dossier avec date de revisite (utile si la prescription ne court pas encore ou si une mise en demeure préalable est en cours d'échange).
+5. **Autre** — précise.
+
+{Footer A PII si check-pii est passé en mode passif sous le seuil B :
+"Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement
+avant envoi à Claude, installer [hacienda-ghost](marketplace://hacienda-ghost)." Sinon, rien.}
+```
+
+### Mode silencieux (livrable externe)
+
+Si la sortie est destinée à une contrepartie (mise en demeure adressée à
+l'auteur de la rupture) ou à un destinataire non-juriste (sponsor business) :
+
+- Conserver l'en-tête de confidentialité (s'il protège le document) et la note du relecteur.
+- Retirer la narration de skill et les renvois inter-commandes (les placer dans un message séparé).
+- Le livrable doit se lire comme s'il avait été rédigé par un associé.
+
+---
+
 ## Étape 1 — Pré-flight et identification
 
 1. Invoquer `check-pii` sur l'ensemble des documents fournis avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur. Volume modéré attendu (parties + montants + dates) ; seuil B possible selon dossier.
 2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.config/Hacienda/profil-cabinet.md`.
 3. Identifier les parties (raison sociale, qualité — fournisseur / distributeur / prestataire / mandant, pays d'établissement), le droit applicable, la juridiction.
-4. **Test PI-centric.** Si la relation rompue est un contrat de distribution avec composante PI structurante (licence de marque, brevet, savoir-faire dominant), renvoyer vers `/hacienda-propriete-intellectuelle:contrats-pi` pour le volet PI avec les options (a) lancer ce skill en parallèle, (b) limiter `analyser-rupture-brutale` au seul volet rupture, (c) les deux en séquence.
+4. **Test PI-centric.** Si la relation rompue est un contrat de distribution avec composante PI structurante (licence de marque, brevet, savoir-faire dominant), renvoyer vers `/h-pi:contrats-pi` pour le volet PI avec les options (a) lancer ce skill en parallèle, (b) limiter `analyser-rupture-brutale` au seul volet rupture, (c) les deux en séquence.
 5. Déterminer le side (auteur / victime) à partir des documents si non précisé à l'intake.
-6. **Détection SIREN et alerte procédure collective.** Si une chaîne de 9 chiffres apparaît dans les documents (regex `\b[0-9]{9}\b` + validation Luhn), tenter l'enrichissement via `companyFullProfile` de `@hacienda/core`. Si BODACC remonte une procédure collective en cours pour le débiteur de l'indemnisation, signaler immédiatement (le délai de déclaration L.622-24 court) et renvoyer vers `declaration-creance`.
+6. **Détection SIREN et alerte procédure collective.** Si une chaîne de 9 chiffres apparaît dans les documents (regex `\b[0-9]{9}\b` + validation Luhn), tenter l'enrichissement via `company_full_profile` de `@hacienda/core`. Si BODACC remonte une procédure collective en cours pour le débiteur de l'indemnisation, signaler immédiatement (le délai de déclaration L.622-24 court) et renvoyer vers `declaration-creance`.
 
 ---
 
@@ -259,7 +389,7 @@ Préjudice = (préavis raisonnable estimé − préavis effectif) × marge brute
 1. Calculer la marge brute mensuelle moyenne sur les 24-36 mois précédant la rupture (sur comptes audités si disponibles, sinon estimation et `[review]`).
 2. Multiplier par les mois de préavis manquants (différentiel Étape 3).
 3. Produire une **fourchette d'indemnisation** (min-max) calée sur la fourchette de préavis raisonnable.
-4. Ajouter éventuellement des postes accessoires (investissements spécifiques non amortis, frais de licenciement consécutifs, rupture d'agence commerciale — régime distinct L.134-12 C.com. `[a verifier]`).
+4. Ajouter éventuellement des postes accessoires (investissements spécifiques non amortis, frais de licenciement consécutifs, rupture d'agence commerciale — régime distinct L.134-12 C.com. `[à vérifier]`).
 
 **Si données comptables non fournies :** produire la méthodologie sans chiffre, tag `[review]` et demander les comptes audités N-2 / N-1 / N de la victime, ou les statistiques de marge sectorielle.
 
@@ -283,7 +413,7 @@ commerciale ou un manquement ordinaire ne suffisent pas.
 |---|---|---|
 | Inexécution grave de l'autre partie | L.442-1, II al. 1 C.com. `[stable]` | Gravité documentée (manquement substantiel, répété, non régularisé après mise en demeure). Charge de la preuve sur l'auteur. |
 | Force majeure | art. 1218 C.civ. `[stable]` | Événement extérieur, imprévisible, irrésistible. Conditions cumulatives. |
-| Événements exonératoires sectoriels | Selon réglementation sectorielle `[a verifier]` | Sanctions économiques, retraits d'agrément, embargo, etc. |
+| Événements exonératoires sectoriels | Selon réglementation sectorielle `[à vérifier]` | Sanctions économiques, retraits d'agrément, embargo, etc. |
 
 **Méthode :**
 
@@ -328,7 +458,7 @@ défaut (`articles` + `jurisprudence`). Le skill :
 - Lookup Judilibre pour la jurisprudence ch. com. sur les critères de
   relation établie, préavis raisonnable et préjudice — fraîcheur 3 ans
   recommandée.
-- Annote : `[Légifrance ✓]`, `[Judilibre ✓]`, `[abrogé]`, ou `[a verifier]`
+- Annote : `[Légifrance ✓]`, `[Judilibre ✓]`, `[abrogé]`, ou `[à vérifier]`
   en mode dégradé.
 
 Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur.
@@ -336,127 +466,6 @@ Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
 **Rappel veille.** La jurisprudence rupture brutale évolue régulièrement.
 Suggérer en note du relecteur de consulter le digest produit par
 `veille-jurisprudence` (V1.2) pour les arrêts post-date pivot.
-
----
-
-## Sortie
-
-### Format livrable
-
-```
-[En-tête de confidentialité selon le rôle utilisateur]
-
-> **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée, motif)
-> - **Lecture :** intégrale ({N} pages, {M} documents) | partielle (préciser périmètre)
-> - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
-> - **Fraîcheur :** recherche jurisprudence ch. com. post-{date pivot} — {N} arrêts intégrés | recherche impossible (motif)
-> - **Avant de t'appuyer dessus :** {action concrète OU « prêt pour relecture »}
-
-# Résumé exécutif
-
-{Trois phrases pour décideur — associé, DG, sponsor business. Pas de jargon.
-Une ligne bottom-line (Engager / Négocier / Renoncer). Une ligne risque
-dominant. Une ligne prochaine action attendue.}
-
-# Qualification de la relation
-
-{🟢 établie / 🟡 borderline [review] / ⛔ non établie} — justification factuelle
-sur les critères jurisprudentiels (ancienneté, stabilité, régularité, volume,
-exclusivité, intuitu personae, dépendance). Fondement L.442-1, II C.com.
-(ex-L.442-6, I, 5°) [tag provenance].
-
-# Préavis
-
-| Champ | Valeur |
-|---|---|
-| Ancienneté | N années |
-| Plancher règle de pouce | N mois |
-| Facteurs de modulation | ... |
-| Préavis raisonnable estimé | Fourchette X-Y mois [review] |
-| Préavis effectivement accordé | Z mois |
-| Différentiel | (X-Y) − Z |
-| Statut | 🟢 / 🟠 / 🔴 |
-| Safe harbor 18 mois | applicable / non applicable / non invocable [review] |
-
-# Préjudice
-
-{Chiffré en fourchette si comptes disponibles, sinon méthodologie + [review]}.
-Base = marge brute, formule (préavis manquant × marge mensuelle).
-Postes accessoires éventuels documentés.
-
-# Dispense de préavis
-
-{Section présente uniquement si une dispense est alléguée ou défendable.
-Conclusion : défensible / fragile / non soutenable [review].}
-
-# Liste de points
-
-| # | Point | Statut | Risque | Position souhaitée | Action proposée |
-|---|---|---|---|---|---|
-| ... | ... | 🔴/🟠/🟡/🟢 | ... | ... | ... |
-
-# Recommandation
-
-{Engager / Négocier / Renoncer} — justification 2-3 lignes liée à la
-posture profil et aux points 🔴 / 🟠. Si renvoi `declaration-creance`
-(procédure collective concomitante) ou `PI:contrats-pi` (composante PI),
-mentionner explicitement.
-
-# Une question hors de ma checklist habituelle
-
-{Observation transversale qu'un relecteur attentif ferait. Omettre la ligne
-si rien d'honnête à dire — ne pas fabriquer.}
-
-# Que veux-tu faire ? Choisis une option :
-
-1. **Rédiger** — je produis un projet de courrier de mise en demeure (côté victime) ou de réponse à mise en demeure (côté auteur), reprenant la qualification, l'estimation et la demande / défense chiffrée.
-2. **Escalader** — note d'escalade vers {approbateur configuré pour action judiciaire} avec faits-clés, chiffrage, risque dominant et décision attendue.
-3. **Compléter les faits** — questions ouvertes à poser à {client / contrepartie / conseil / DAF} avant d'avancer (typiquement : comptes audités, historique exact des flux, exclusivité de fait).
-4. **Surveiller et attendre** — ajouter au tracker du dossier avec date de revisite (utile si la prescription ne court pas encore ou si une mise en demeure préalable est en cours d'échange).
-5. **Autre** — précise.
-
-{Footer A PII si check-pii est passé en mode passif sous le seuil B :
-"Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement
-avant envoi à Claude, installer [hacienda-ghost](marketplace://hacienda-ghost)." Sinon, rien.}
-```
-
-### Mode silencieux (livrable externe)
-
-Si la sortie est destinée à une contrepartie (mise en demeure adressée à
-l'auteur de la rupture) ou à un destinataire non-juriste (sponsor business) :
-
-- Conserver l'en-tête de confidentialité (s'il protège le document) et la note du relecteur.
-- Retirer la narration de skill et les renvois inter-commandes (les placer dans un message séparé).
-- Le livrable doit se lire comme s'il avait été rédigé par un associé.
-
----
-
-## Emplacement des sorties
-
-```
-outputs/analyse-rupture-brutale-<parties-slug>-YYYY-MM-DD.md
-```
-
-Si la liste de points dépasse 10 lignes ou contient des montants chiffrés
-en fourchette, générer en parallèle un dashboard HTML autonome via
-`renderDashboard()` de `@hacienda/core` (voir `references/dashboard-template.md`).
-
----
-
-## Gate non-juriste
-
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
-- [ ] Profil cabinet lu et posture applicable identifiée
-- [ ] Side correctement identifié (auteur / victime)
-- [ ] Renvoi PI effectué si distribution PI-centric (pas de revue forcée)
-- [ ] Détection procédure collective → renvoi `declaration-creance` si applicable
-- [ ] Qualification 🟢 / 🟡 / ⛔ documentée sur les 7 critères jurisprudentiels
-- [ ] Préavis exprimé en fourchette (min-max) et non en chiffre figé
-- [ ] Safe harbor 18 mois mentionné comme protection défensive uniquement (jamais comme plafond), tagué `[review]` si invoqué
-- [ ] Préjudice calculé sur marge brute (pas sur chiffre d'affaires)
-- [ ] Citations vérifiées via `verifier-citations` ou taguées `[a verifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur 5 champs en gras + résumé exécutif + qualification + préavis + préjudice + dispense (si applicable) + liste de points + recommandation + question hors checklist + arbre 5 options + footer A PII
 
 ---
 

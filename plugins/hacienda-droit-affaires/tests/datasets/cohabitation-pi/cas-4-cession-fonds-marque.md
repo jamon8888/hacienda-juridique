@@ -1,6 +1,6 @@
 # Cas 4 — Cession de fonds de commerce incluant la marque de l'enseigne
 
-> **Entry point attendu :** `/hacienda-droit-affaires:reviser-contrat`
+> **Entry point attendu :** `/h-droit-affaires:reviser-contrat`
 > **Décision de routing attendue :** `reviser-contrat` traite le coeur (cession fonds = matière commerciale L.141+ C.com.) + renvoi PONCTUEL `contrats-pi` UNIQUEMENT pour la clause de cession de la marque. Cas inversé du cas 1.
 
 ---
@@ -82,7 +82,7 @@ Tribunal de commerce de Paris.
 
 Routing attendu :
 - `reviser-contrat` produit la revue commerciale **complète** (clauses 1, 2, 4, 5, 6, 7, 8)
-- Pour l'article 3 : note dédiée renvoyant vers `contrats-pi` avec mention : « La cession de marque article 3 mérite vérification spécifique : recherche d'antériorités INPI pour confirmer disponibilité, vérification absence de licence concédée non déclarée, contrôle classes 35/43 et leur usage effectif (déchéance pour défaut d'usage L.714-5 CPI). Lancer `/hacienda-propriete-intellectuelle:contrats-pi` sur ce seul article 3 si besoin. »
+- Pour l'article 3 : note dédiée renvoyant vers `contrats-pi` avec mention : « La cession de marque article 3 mérite vérification spécifique : recherche d'antériorités INPI pour confirmer disponibilité, vérification absence de licence concédée non déclarée, contrôle classes 35/43 et leur usage effectif (déchéance pour défaut d'usage L.714-5 CPI). Lancer `/h-pi:contrats-pi` sur ce seul article 3 si besoin. »
 
 ### Justification doctrinale
 

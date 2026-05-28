@@ -35,7 +35,7 @@ a la demande pour preparation depot ou signal d'opposition.
 1. Charger le profil PI, la watchlist et les seuils d'escalade.
 2. Consulter les publications recentes et details disponibles.
 3. Identifier les similarites, expirations, owners et delais d'opposition.
-4. Marquer les sources non consultees `[a verifier]`.
+4. Marquer les sources non consultees `[à vérifier]`.
 5. Appliquer le routage V2 et separer monitoring, recherche, depot,
    opposition et portefeuille.
 6. Restituer les faits, le gate pertinent et la prochaine action humaine.
@@ -71,7 +71,7 @@ Arbre de decision
 - [surveillance / recherche / depot / opposition / portefeuille]
 
 Limites
-- [sources non consultees] [a verifier]
+- [sources non consultees] [à vérifier]
 
 Validation humaine
 - [decision attendue]

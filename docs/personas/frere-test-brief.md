@@ -51,7 +51,7 @@ Les 3 tests couvrent **deux axes** : (a) le nouveau workflow phare M&A — `spa-
 ### Test 1 — SPA review ⭐ (priorité absolue)
 
 ```
-/hacienda-droit-affaires:spa-review <chemin/du/SPA.pdf> --side=acquereur
+/h-droit-affaires:spa-review <chemin/du/SPA.pdf> --side=acquereur
 ```
 (ou `--side=cedant` selon ton dossier)
 
@@ -66,7 +66,7 @@ Le skill produit : analyse clause par clause du SPA, identification des red flag
 ### Test 2 — Garantie d'actif et de passif (GAP)
 
 ```
-/hacienda-droit-affaires:gap-review <chemin/de/la/GAP.pdf> --side=acquereur
+/h-droit-affaires:gap-review <chemin/de/la/GAP.pdf> --side=acquereur
 ```
 (ou `--side=cedant` selon ton dossier)
 
@@ -79,7 +79,7 @@ Spécificité franco-française sans équivalent direct en R&W US — c'est le t
 ### Test 3 — LOI / Term Sheet
 
 ```
-/hacienda-droit-affaires:loi-term-sheet <chemin/de/la/LOI.pdf> --side=acquereur
+/h-droit-affaires:loi-term-sheet <chemin/de/la/LOI.pdf> --side=acquereur
 ```
 (ou `--side=cedant` selon ton dossier)
 
@@ -94,7 +94,7 @@ C'est typiquement ce que tu valides sur une LOI/NBO préparée par un collab ava
 ### Si tu reçois un NDA M&A pendant la période de test
 
 ```
-/hacienda-droit-affaires:reviser-nda <chemin/du/NDA.pdf>
+/h-droit-affaires:reviser-nda <chemin/du/NDA.pdf>
 ```
 
 Premier point du parcours M&A (NDA data-room → NBO/LOI → DD → SPA → GAP → Closing). Triage 8 points VERT/ORANGE/ROUGE, clean teams, durée, juridiction. 5 min si tu en reçois un naturellement pendant les 2-3 semaines de test ; zappe sinon.
@@ -102,7 +102,7 @@ Premier point du parcours M&A (NDA data-room → NBO/LOI → DD → SPA → GAP 
 ### Si un collab te fait remonter un rapport DD généré par le plugin
 
 ```
-/hacienda-droit-affaires:due-diligence-dataroom <chemin/de/la/dataroom/> --side=acquereur
+/h-droit-affaires:due-diligence-dataroom <chemin/de/la/dataroom/> --side=acquereur
 ```
 
 Skill impressionnant — 7 thèmes (Corporate / Contrats matériels / Social-RH / PI / Fiscal-Financier / Contentieux-Passifs / RGPD), rapport structuré + grille de matérialité + questions complémentaires + recommandations pour la GAP. Plus l'enrichissement SIREN via BODACC + Pappers pour les company profiles cibles.

@@ -49,9 +49,9 @@ par sévérité, et propose le skill pertinent. Il signale ; l'avocat décide.
   sans authentification. Champs disponibles : `id`, `registre`, `dateparution`,
   `typeavis`, `familleavis`, `publicationavis`, `numerodepartement`, `ville`,
   `raw`. [BODACC]
-- `BodaccClient.searchProcedures(siren)` — filtre direct sur
+- `bodacc_procedures` — filtre direct sur
   `familleavis = "procedures-collectives"` pour escalade urgente.
-- `companyFullProfileTool` — enrichissement Pappers (dirigeants, bilans,
+- `company_full_profileTool` — enrichissement Pappers (dirigeants, bilans,
   bénéficiaires effectifs) si `PAPPERS_API_KEY` configurée ; fallback BODACC
   public sinon. [Pappers] ou [BODACC] selon source effective.
 
@@ -78,7 +78,7 @@ sirens:
 **Si le fichier est absent ou vide** : l'agent stoppe immédiatement et propose :
 
 > Watchlist introuvable. Pour démarrer :
-> - Lancer `/hacienda-droit-affaires:entretien-demarrage` (configure la watchlist
+> - Lancer `/h-droit-affaires:entretien-demarrage` (configure la watchlist
 >   au fil de l'entretien cabinet), ou
 > - Créer manuellement le fichier `watchlist-siren.yaml` avec le format ci-dessus.
 >
@@ -99,7 +99,7 @@ Format : `{ "<siren>": { "last_seen_ids": ["<id>", ...], "updated": "YYYY-MM-DD"
 | Modification adresse | `modifications-generales` + siège | 🟢 Silencieux | Silencieux* |
 
 \* Sauf si `alert_level: haut` → remonter en 🟡 digest. Champ `raw` :
-mandataire/administrateur/plan — parser avec fallback `[a verifier]`.
+mandataire/administrateur/plan — parser avec fallback `[à vérifier]`.
 
 ## Workflow
 
@@ -111,7 +111,7 @@ mandataire/administrateur/plan — parser avec fallback `[a verifier]`.
 
 3. **Pour chaque SIREN de la watchlist** :
    - Appeler `BodaccClient.searchBySiren(siren, 20)` [BODACC].
-   - Si `alert_level: haut` : appeler aussi `BodaccClient.searchProcedures(siren)`.
+   - Si `alert_level: haut` : appeler aussi `bodacc_procedures`.
    - Filtrer les `id` absents de `last_seen_ids` → delta.
 
 4. **Classer les nouveaux événements** par sévérité (tableau ci-dessus),
@@ -120,9 +120,9 @@ mandataire/administrateur/plan — parser avec fallback `[a verifier]`.
 
 5. **Cross-référencer avec les skills du plugin** :
    - Procédure collective détectée sur SIREN `client` ou `fournisseur` →
-     proposer `/hacienda-droit-affaires:declaration-creance`.
+     proposer `/h-droit-affaires:declaration-creance`.
    - Modification substantielle (statuts, dirigeants) sur SIREN `fournisseur`
-     dont contrat actif → proposer `/hacienda-droit-affaires:reviser-contrat`.
+     dont contrat actif → proposer `/h-droit-affaires:reviser-contrat`.
    - Changement contrôle sur SIREN `cible-ma` en cours de LOI → marquer
      🔴 et signaler impact sur la lettre d'intention.
 
@@ -137,13 +137,13 @@ mandataire/administrateur/plan — parser avec fallback `[a verifier]`.
 
 Événement : {typeavis} publié BODACC le {dateparution}
 Famille : {familleavis}
-Détail : {publicationavis}  [si absent : voir champ raw — [a verifier]]
+Détail : {publicationavis}  [si absent : voir champ raw — [à vérifier]]
 Localisation : {ville} ({numerodepartement})
 
 Action recommandée :
 → {commande skill selon type d'événement}
-  Exemple : /hacienda-droit-affaires:declaration-creance (procédure collective)
-            /hacienda-droit-affaires:reviser-contrat (modification fournisseur)
+  Exemple : /h-droit-affaires:declaration-creance (procédure collective)
+            /h-droit-affaires:reviser-contrat (modification fournisseur)
 
 Source : BODACC OpenDataSoft (public, sans authentification) [BODACC]
 Validation humaine obligatoire avant toute action externe.
@@ -164,7 +164,7 @@ Si > 10 lignes : générer aussi un HTML autonome via `renderDashboard()` de
 
 - **BODACC inaccessible** : log erreur + `"last_error"` dans `.bodacc-state.json`,
   retry à +1h. Afficher "BODACC inaccessible — retry à [heure]". Jamais fail silent.
-- **Annonce `raw` illisible** : log `[a verifier]`, continuer.
+- **Annonce `raw` illisible** : log `[à vérifier]`, continuer.
 - **Watchlist absente/vide** : stopper, message clair (voir § Configuration).
 
 ## Ce que l'agent ne fait pas
@@ -173,7 +173,7 @@ Si > 10 lignes : générer aussi un HTML autonome via `renderDashboard()` de
   contractuels) — rôle des skills.
 - **N'agit pas automatiquement** : propose le skill, l'utilisateur le lance.
 - **Ne déclare pas de créance** : renvoie vers
-  `/hacienda-droit-affaires:declaration-creance` qui demande validation avocat.
+  `/h-droit-affaires:declaration-creance` qui demande validation avocat.
 - **Pas d'envoi** au mandataire, contrepartie ou tribunal.
 - **Ne gère pas la watchlist** : modifications via
-  `/hacienda-droit-affaires:entretien-demarrage` ou édition manuelle du YAML.
+  `/h-droit-affaires:entretien-demarrage` ou édition manuelle du YAML.

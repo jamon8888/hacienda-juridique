@@ -19,7 +19,7 @@ Ce document sert de repere pratique pour structurer un dossier de preuve de crea
   - date du depot ;
   - description du contenu depose ;
   - lien entre le contenu depose et la version discutee aujourd'hui ;
-  - piece justificative effectivement consultee ou `[a verifier]`.
+  - piece justificative effectivement consultee ou `[à vérifier]`.
 
 ## Horodatage technique
 

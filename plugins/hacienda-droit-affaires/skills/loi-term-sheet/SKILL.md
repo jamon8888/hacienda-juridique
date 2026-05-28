@@ -6,7 +6,8 @@ description: >
   confidentialité, bonne foi des pourparlers (1104, 1112 C.civ), conditions
   suspensives esquissées et calendrier. Mode --review et --draft. Brouillon
   soumis à validation humaine (avocat).
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[--review ou --draft, NBO/LOI/term sheet, side]"
 authors: ["Hacienda"]
 tags: [loi, term-sheet, lettre-intention, ma, pourparlers, binding]
 ---
@@ -33,14 +34,14 @@ tags: [loi, term-sheet, lettre-intention, ma, pourparlers, binding]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:loi-term-sheet ./LOI-cible-X.pdf --review --side=acquereur</user>
+<user>/h-droit-affaires:loi-term-sheet ./LOI-cible-X.pdf --review --side=acquereur</user>
 <response>
 1. Pré-flight `check-pii` (29 identifiants, 5 montants > 10k€ → sous seuil B → continue)
 2. Lecture profil cabinet (bloc M&A / Corporate : side habituel acquéreur, taille de deals, matrice d'approbateurs)
 3. Identification : LOI intitulée « non contraignante », opération de cession de titres, droit français, side utilisateur = acquéreur
 4. Cartographie binding / non-binding clause par clause — détection de 3 clauses binding malgré le chapeau « sans engagement » : exclusivité (12 mois), confidentialité, prise en charge des frais par le cédant
 5. Finding 🔴 — l'exclusivité et la clause de frais engagent juridiquement le cédant alors que le document se présente comme non contraignant : qualification non intentionnelle probable, à clarifier par une clause de binding/non-binding explicite
-6. Analyse des clauses sensibles : durée d'exclusivité 12 mois jugée excessive 🟠 ; bonne foi des pourparlers (1104 C.civ) et risque de rupture abusive (1112 C.civ `[a verifier]`)
+6. Analyse des clauses sensibles : durée d'exclusivité 12 mois jugée excessive 🟠 ; bonne foi des pourparlers (1104 C.civ) et risque de rupture abusive (1112 C.civ `[à vérifier]`)
 7. Liste de points triée par criticité (🔴 → 🟢) via skill `liste-de-points`
 8. Post-flight `verifier-citations` sur la sortie
 9. Sortie : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + tableau binding / non-binding + liste de points + recommandation + question hors checklist + arbre de décision 5 options
@@ -48,7 +49,7 @@ tags: [loi, term-sheet, lettre-intention, ma, pourparlers, binding]
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:loi-term-sheet ./term-sheet-acquisition.pdf --review</user>
+<user>/h-droit-affaires:loi-term-sheet ./term-sheet-acquisition.pdf --review</user>
 <response>
 Identification : term sheet d'acquisition, clause d'exclusivité de 18 mois.
 Finding 🟠 — clause d'exclusivité :
@@ -60,7 +61,7 @@ Recommandation : ramener la durée à une valeur proportionnée (souvent 6 à 12
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:loi-term-sheet --draft --side=acquereur</user>
+<user>/h-droit-affaires:loi-term-sheet --draft --side=acquereur</user>
 <response>
 Mode `--draft`, side acquéreur. Intake : contexte du deal (taille, calendrier visé), périmètre de l'opération, points déjà arbitrés.
 Le skill produit un projet de LOI structuré avec, pour chaque clause, sa qualification binding / non-binding **explicite** :
@@ -83,7 +84,7 @@ Sortie : brouillon de LOI + note du relecteur + tableau binding / non-binding + 
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/hacienda-droit-affaires:entretien-demarrage` avant toute revue ou
+demander `/h-droit-affaires:entretien-demarrage` avant toute revue ou
 rédaction substantielle. Voir aussi `~/.config/Hacienda/profil-cabinet.md` pour
 les éléments cabinet partagés cross-plugins.
 
@@ -98,105 +99,39 @@ les éléments cabinet partagés cross-plugins.
 
 ---
 
-## Étape 1 — Pré-flight + identification
+## Gate non-juriste
 
-1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.config/Hacienda/profil-cabinet.md`. Identifier la posture contractuelle et le side habituel M&A.
-3. Identifier le document : LOI / lettre d'intention / term sheet / head of terms ; les parties (cédant, acquéreur, qualité, pays d'établissement) ; le périmètre de l'opération ; le droit applicable annoncé ; le side de l'utilisateur.
-4. Repérer la **mention générale d'engagement** du document (« sans engagement », « non contraignant », « subject to contract », « binding / non-binding »). Cette mention oriente la lecture mais **ne tranche pas** la qualification clause par clause : elle est consignée, puis confrontée au contenu réel à l'étape 2.
-
----
-
-## Étape 2 — Cartographie binding / non-binding
-
-C'est l'étape centrale du skill. Passer en revue **chaque clause** du document et la classer :
-
-- **Non-binding (indicative)** — n'engage pas juridiquement les parties ; exprime une intention, une fourchette ou une orientation appelée à être renégociée et figée dans le contrat définitif (SPA, acte de cession).
-- **Binding (engageante)** — engage juridiquement la partie concernée dès la signature de la LOI / du term sheet, indépendamment de la conclusion du contrat définitif.
-
-**Point juridique clé.** Sont **typiquement binding même dans une LOI ou un term sheet présenté comme « non engageant »** :
-
-- la clause d'**exclusivité** (no-shop / no-talk) — elle interdit effectivement de négocier avec des tiers ;
-- la clause de **confidentialité** — elle protège les informations échangées et survit à l'échec des pourparlers ;
-- le **sort des frais** (qui paie les conseils, la due diligence, les frais de rupture / break-up fee) ;
-- la **loi applicable et la juridiction / clause d'arbitrage** ;
-- l'engagement de **bonne foi** dans la conduite des négociations.
-
-À l'inverse, sont **typiquement non-binding** : le prix indicatif et la fourchette de valorisation, la structure envisagée de l'opération, les conditions suspensives seulement esquissées, le calendrier prévisionnel, les déclarations et garanties annoncées pour le futur SPA.
-
-**Règle de qualification.** La qualification d'une clause **ne dépend pas du titre du document** ni d'un chapeau général « sans engagement ». Elle dépend du **contenu de la stipulation** et de l'**intention réelle des parties**. Une clause d'exclusivité rédigée en termes impératifs (« le cédant s'interdit de… ») engage le cédant, quand bien même la LOI s'intitulerait « non contraignante » : la mention générale ne neutralise pas une obligation précise et impérative. À l'inverse, une clause expressément qualifiée de non-binding et rédigée comme une simple orientation n'engage pas.
-
-**Signalement.** Marquer 🔴 toute clause **binding non intentionnelle** — c'est-à-dire toute clause qui engage juridiquement une partie alors que le document, par son titre ou son chapeau, laisse croire qu'aucun engagement n'est pris, sans clause de qualification claire pour lever l'ambiguïté. C'est le piège classique : une LOI « non engageante » qui contient en réalité une exclusivité ferme et une prise en charge des frais.
-
-Le remède recommandé est une **clause de qualification dédiée** (binding / non-binding clause) énumérant sans ambiguïté les stipulations qui engagent et celles qui n'engagent pas. Son absence est elle-même un défaut rédactionnel à signaler.
+- [ ] Document correctement identifié (LOI / term sheet / head of terms) et side de l'utilisateur déterminé
+- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
+- [ ] Profil cabinet lu et posture applicable identifiée
+- [ ] Cartographie binding / non-binding réalisée clause par clause
+- [ ] Qualification fondée sur le contenu des clauses, pas sur le titre du document ni sur le chapeau « sans engagement »
+- [ ] Toute clause binding non intentionnelle signalée 🔴
+- [ ] Liberté de rompre les pourparlers (1112 C.civ) et faute dans la rupture (bonne foi, 1104 C.civ) correctement distinguées
+- [ ] Articles hors index ou en `[a compléter]` (1112, 1123, 1124 C.civ) tagués `[à vérifier]`
+- [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + tableau binding / non-binding + liste de points + recommandation + question hors checklist + arbre de décision 5 options + footer A si applicable
 
 ---
 
-## Étape 3 — Analyse des clauses sensibles
+## Outils MCP à privilégier
 
-Pour chaque clause sensible, produire une analyse de fond. Réutiliser
-`references/clauses-sensibles-fr.md` pour les clauses communes (notamment
-**confidentialité** — bloc 11 ; **droit applicable et juridiction** — bloc 10 ;
-**changement de contrôle** — bloc 15) : s'y référer pour la matrice de risque
-et les formulations alternatives selon la posture, **sans recopier** la
-référence. Pour l'**exclusivité**, ne pas utiliser le bloc 3 de
-`clauses-sensibles-fr.md` : ce bloc traite l'exclusivité en contexte de
-distribution commerciale (droit de la concurrence, art. L.420-1 C.com.),
-contexte distinct de l'exclusivité « no-shop » d'une LOI M&A. La qualification
-de la clause no-shop est traitée directement à l'Étape 2 du présent skill
-(cartographie binding / non-binding) ; les critères de proportionnalité sont
-développés au §Exclusivité ci-dessous.
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
 
-Points de fond propres à la LOI / au term sheet :
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Points fiscaux et sociaux de due diligence : `bofip_rechercher`, `bofip_consulter`, `boss_recherche`, `boss_get_document`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
 
-- **Exclusivité (no-shop).** Vérifier durée, périmètre (titres / actifs visés, parties tenues), point de départ et date de fin certaine, faculté de sortie si la contrepartie n'avance pas de bonne foi. Une durée doit couvrir le temps raisonnablement nécessaire à la due diligence et à la négociation du SPA — quelques semaines à quelques mois selon la taille du deal. Une exclusivité de 12 mois ou plus est, dans la pratique courante, **excessive** et immobilise le cédant au-delà du besoin → `[review]` sur l'appréciation de proportionnalité. **Règle de proportionnalité par rapport au calendrier.** Rapprocher la durée d'exclusivité du calendrier prévisionnel du deal : si l'exclusivité excède significativement le temps réellement nécessaire aux étapes annoncées (due diligence, négociation du SPA), signaler le déséquilibre — l'exclusivité immobilise le cédant et doit rester proportionnée au besoin `[review]`.
-- **Confidentialité.** Définition utile des informations protégées, exceptions standard, durée proportionnée, sort des informations en cas d'échec des pourparlers (restitution / destruction). Renvoi `references/clauses-sensibles-fr.md` bloc 11. Si le dossier est PI-centric ou R&D, renvoyer vers `/hacienda-propriete-intellectuelle:contrats-pi`.
-- **Bonne foi des pourparlers et rupture des négociations.** Deux principes à **ne pas confondre** :
-  1. La **liberté de rompre les pourparlers** est le principe. Une partie peut, en principe, mettre fin aux négociations précontractuelles sans avoir à se justifier (art. 1112 C.civ — absent de l'index avec un identifiant Légifrance réel → `[a verifier]`).
-  2. Mais l'**initiative, le déroulement et la rupture** des pourparlers doivent respecter les exigences de la **bonne foi** (art. 1104 C.civ `[Légifrance]`). La rupture peut donc être **fautive** lorsqu'elle est abusive — par exemple rupture brutale après avoir entretenu artificiellement la croyance en la conclusion du contrat. La faute n'est pas la rupture elle-même mais les **circonstances** qui l'entachent. En cas de rupture fautive, la réparation ne peut pas compenser la perte des avantages attendus du contrat non conclu ni la perte de chance de les obtenir (art. 1112 al. 2 C.civ `[a verifier]`) : elle couvre les frais engagés et l'atteinte à des intérêts distincts.
-- **Devoir précontractuel d'information.** Celui des contractants qui connaît une information dont l'importance est déterminante pour le consentement de l'autre doit l'en informer dès lors que, légitimement, ce dernier ignore cette information ou fait confiance à son cocontractant (art. 1112-1 C.civ `[Légifrance]`). Ce devoir ne porte pas sur l'estimation de la valeur de la prestation. Pertinent dès le stade de la LOI, notamment côté cédant sur la cible.
-- **Conditions suspensives esquissées.** En LOI / term sheet, les conditions suspensives (obtention de financement, autorisations réglementaires / concurrence, résultat satisfaisant de la due diligence, accord des organes sociaux) sont en règle générale seulement **annoncées** et non-binding : elles seront figées dans le SPA. Vérifier qu'aucune n'est rédigée en termes impératifs qui la rendraient prématurément contraignante, et signaler les conditions potestatives (dépendant de la seule volonté d'une partie).
-- **Calendrier.** Le calendrier prévisionnel (étapes de DD, signing, closing) est en principe non-binding. Vérifier qu'il n'est pas rédigé comme une obligation de résultat datée et qu'il est cohérent avec la durée d'exclusivité.
-- **Sort des frais.** Qui supporte les frais de conseils, de due diligence, et le cas échéant une break-up fee. Cette clause est **typiquement binding**. Une prise en charge des frais par une seule partie, insérée dans un document présenté comme non engageant, engage pourtant cette partie → à signaler comme clause binding, et à examiner sous l'angle de l'équilibre.
-
-**Règles d'analyse :**
-
-- Les articles cités doivent exister dans `references/articles-c-civ-c-com-index.md`. Présents avec un identifiant Légifrance réel (citables `[Légifrance]`) : **1104** (bonne foi), **1112-1** (devoir précontractuel d'information). En `[a compléter]` dans l'index → tag `[a verifier]` obligatoire : **1112** (liberté de rompre les pourparlers), **1123** (pacte de préférence), **1124** (promesse unilatérale). Vérifier chaque article dans l'index avant de le taguer.
-- Tag de provenance placé **après** la citation, **sans backticks** dans les cellules de tableau (backticks admis dans le corps narratif).
-- Les arrêts cités sont tagués `[Judilibre]` si consultés en session, sinon `[connaissance modèle — à vérifier]` ou `[a verifier]`. Pas de fausse jurisprudence.
-- Tag inline `[review]` sur les jugements subjectifs : caractère proportionné ou excessif d'une durée d'exclusivité, caractère intentionnel ou non d'une qualification binding, caractère abusif d'une rupture de pourparlers, caractère potestatif d'une condition suspensive.
-- Respecter le plancher de sévérité cross-skill : si `check-pii` ou `verifier-citations` remonte 🔴, ne pas dégrader silencieusement.
-
----
-
-## Étape 4 — Liste de points
-
-Appel interne au skill `liste-de-points` pour produire un tableau consolidé, trié par criticité décroissante (🔴 → 🟠 → 🟡 → 🟢) :
+## Emplacement des sorties
 
 ```
-| # | Clause | Statut | Risque | Position souhaitée | Formulation proposée |
-|---|---|---|---|---|---|
+outputs/loi-term-sheet-<parties-slug>-YYYY-MM-DD.md
 ```
 
-La liste de points est l'artefact central transmis à la contrepartie ou à l'équipe de négociation. Une ligne par clause. Pas de doublon. Tri stable par numéro de clause à criticité égale.
-
-Si le document n'a aucun écart par rapport au playbook : retourner une liste vide explicite — `Aucun point de vigilance identifié contre le playbook configuré. Lecture intégrale sans alerte.` — et ne pas fabriquer de findings de remplissage.
-
-En mode `--draft`, la liste de points recense les arbitrages laissés ouverts dans le projet de LOI (durée d'exclusivité à confirmer, périmètre, montant de la break-up fee, conditions suspensives à figer dans le SPA).
-
----
-
-## Étape 5 — Post-flight
-
-Appel automatique de `verifier-citations` sur la sortie complète, mode défaut (`articles` + `jurisprudence`). Le skill :
-
-- Extrait toutes les citations (art. NNN C.civ, L.NNN-N C.com., arrêts Cass.).
-- Vérifie l'existence et la version en vigueur via Légifrance / Judilibre.
-- Annote la sortie : `[Légifrance ✓]`, `[Judilibre ✓]`, `[abrogé]`, ou `[a verifier]` en mode dégradé.
-
-Si une citation `[abrogé]` est remontée → ligne dédiée dans la note du relecteur en 🔴 avec le remplacement applicable.
-
-Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur (« `verifier-citations` non exécuté — N citations à valider manuellement contre Légifrance »).
+Si la liste de points dépasse 10 lignes ou contient des dates / montants
+sérialisables, générer en parallèle un dashboard HTML autonome via
+`renderDashboard()` de `@hacienda/core` (voir `references/dashboard-template.md`).
 
 ---
 
@@ -270,30 +205,105 @@ Si l'utilisateur précise que la sortie est destinée à une contrepartie ou à 
 
 ---
 
-## Emplacement des sorties
+## Étape 1 — Pré-flight + identification
 
-```
-outputs/loi-term-sheet-<parties-slug>-YYYY-MM-DD.md
-```
-
-Si la liste de points dépasse 10 lignes ou contient des dates / montants
-sérialisables, générer en parallèle un dashboard HTML autonome via
-`renderDashboard()` de `@hacienda/core` (voir `references/dashboard-template.md`).
+1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur.
+2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.config/Hacienda/profil-cabinet.md`. Identifier la posture contractuelle et le side habituel M&A.
+3. Identifier le document : LOI / lettre d'intention / term sheet / head of terms ; les parties (cédant, acquéreur, qualité, pays d'établissement) ; le périmètre de l'opération ; le droit applicable annoncé ; le side de l'utilisateur.
+4. Repérer la **mention générale d'engagement** du document (« sans engagement », « non contraignant », « subject to contract », « binding / non-binding »). Cette mention oriente la lecture mais **ne tranche pas** la qualification clause par clause : elle est consignée, puis confrontée au contenu réel à l'étape 2.
 
 ---
 
-## Gate non-juriste
+## Étape 2 — Cartographie binding / non-binding
 
-- [ ] Document correctement identifié (LOI / term sheet / head of terms) et side de l'utilisateur déterminé
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
-- [ ] Profil cabinet lu et posture applicable identifiée
-- [ ] Cartographie binding / non-binding réalisée clause par clause
-- [ ] Qualification fondée sur le contenu des clauses, pas sur le titre du document ni sur le chapeau « sans engagement »
-- [ ] Toute clause binding non intentionnelle signalée 🔴
-- [ ] Liberté de rompre les pourparlers (1112 C.civ) et faute dans la rupture (bonne foi, 1104 C.civ) correctement distinguées
-- [ ] Articles hors index ou en `[a compléter]` (1112, 1123, 1124 C.civ) tagués `[a verifier]`
-- [ ] Citations vérifiées via `verifier-citations` ou taguées `[a verifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + tableau binding / non-binding + liste de points + recommandation + question hors checklist + arbre de décision 5 options + footer A si applicable
+C'est l'étape centrale du skill. Passer en revue **chaque clause** du document et la classer :
+
+- **Non-binding (indicative)** — n'engage pas juridiquement les parties ; exprime une intention, une fourchette ou une orientation appelée à être renégociée et figée dans le contrat définitif (SPA, acte de cession).
+- **Binding (engageante)** — engage juridiquement la partie concernée dès la signature de la LOI / du term sheet, indépendamment de la conclusion du contrat définitif.
+
+**Point juridique clé.** Sont **typiquement binding même dans une LOI ou un term sheet présenté comme « non engageant »** :
+
+- la clause d'**exclusivité** (no-shop / no-talk) — elle interdit effectivement de négocier avec des tiers ;
+- la clause de **confidentialité** — elle protège les informations échangées et survit à l'échec des pourparlers ;
+- le **sort des frais** (qui paie les conseils, la due diligence, les frais de rupture / break-up fee) ;
+- la **loi applicable et la juridiction / clause d'arbitrage** ;
+- l'engagement de **bonne foi** dans la conduite des négociations.
+
+À l'inverse, sont **typiquement non-binding** : le prix indicatif et la fourchette de valorisation, la structure envisagée de l'opération, les conditions suspensives seulement esquissées, le calendrier prévisionnel, les déclarations et garanties annoncées pour le futur SPA.
+
+**Règle de qualification.** La qualification d'une clause **ne dépend pas du titre du document** ni d'un chapeau général « sans engagement ». Elle dépend du **contenu de la stipulation** et de l'**intention réelle des parties**. Une clause d'exclusivité rédigée en termes impératifs (« le cédant s'interdit de… ») engage le cédant, quand bien même la LOI s'intitulerait « non contraignante » : la mention générale ne neutralise pas une obligation précise et impérative. À l'inverse, une clause expressément qualifiée de non-binding et rédigée comme une simple orientation n'engage pas.
+
+**Signalement.** Marquer 🔴 toute clause **binding non intentionnelle** — c'est-à-dire toute clause qui engage juridiquement une partie alors que le document, par son titre ou son chapeau, laisse croire qu'aucun engagement n'est pris, sans clause de qualification claire pour lever l'ambiguïté. C'est le piège classique : une LOI « non engageante » qui contient en réalité une exclusivité ferme et une prise en charge des frais.
+
+Le remède recommandé est une **clause de qualification dédiée** (binding / non-binding clause) énumérant sans ambiguïté les stipulations qui engagent et celles qui n'engagent pas. Son absence est elle-même un défaut rédactionnel à signaler.
+
+---
+
+## Étape 3 — Analyse des clauses sensibles
+
+Pour chaque clause sensible, produire une analyse de fond. Réutiliser
+`references/clauses-sensibles-fr.md` pour les clauses communes (notamment
+**confidentialité** — bloc 11 ; **droit applicable et juridiction** — bloc 10 ;
+**changement de contrôle** — bloc 15) : s'y référer pour la matrice de risque
+et les formulations alternatives selon la posture, **sans recopier** la
+référence. Pour l'**exclusivité**, ne pas utiliser le bloc 3 de
+`clauses-sensibles-fr.md` : ce bloc traite l'exclusivité en contexte de
+distribution commerciale (droit de la concurrence, art. L.420-1 C.com.),
+contexte distinct de l'exclusivité « no-shop » d'une LOI M&A. La qualification
+de la clause no-shop est traitée directement à l'Étape 2 du présent skill
+(cartographie binding / non-binding) ; les critères de proportionnalité sont
+développés au §Exclusivité ci-dessous.
+
+Points de fond propres à la LOI / au term sheet :
+
+- **Exclusivité (no-shop).** Vérifier durée, périmètre (titres / actifs visés, parties tenues), point de départ et date de fin certaine, faculté de sortie si la contrepartie n'avance pas de bonne foi. Une durée doit couvrir le temps raisonnablement nécessaire à la due diligence et à la négociation du SPA — quelques semaines à quelques mois selon la taille du deal. Une exclusivité de 12 mois ou plus est, dans la pratique courante, **excessive** et immobilise le cédant au-delà du besoin → `[review]` sur l'appréciation de proportionnalité. **Règle de proportionnalité par rapport au calendrier.** Rapprocher la durée d'exclusivité du calendrier prévisionnel du deal : si l'exclusivité excède significativement le temps réellement nécessaire aux étapes annoncées (due diligence, négociation du SPA), signaler le déséquilibre — l'exclusivité immobilise le cédant et doit rester proportionnée au besoin `[review]`.
+- **Confidentialité.** Définition utile des informations protégées, exceptions standard, durée proportionnée, sort des informations en cas d'échec des pourparlers (restitution / destruction). Renvoi `references/clauses-sensibles-fr.md` bloc 11. Si le dossier est PI-centric ou R&D, renvoyer vers `/h-pi:contrats-pi`.
+- **Bonne foi des pourparlers et rupture des négociations.** Deux principes à **ne pas confondre** :
+  1. La **liberté de rompre les pourparlers** est le principe. Une partie peut, en principe, mettre fin aux négociations précontractuelles sans avoir à se justifier (art. 1112 C.civ — absent de l'index avec un identifiant Légifrance réel → `[à vérifier]`).
+  2. Mais l'**initiative, le déroulement et la rupture** des pourparlers doivent respecter les exigences de la **bonne foi** (art. 1104 C.civ `[Légifrance]`). La rupture peut donc être **fautive** lorsqu'elle est abusive — par exemple rupture brutale après avoir entretenu artificiellement la croyance en la conclusion du contrat. La faute n'est pas la rupture elle-même mais les **circonstances** qui l'entachent. En cas de rupture fautive, la réparation ne peut pas compenser la perte des avantages attendus du contrat non conclu ni la perte de chance de les obtenir (art. 1112 al. 2 C.civ `[à vérifier]`) : elle couvre les frais engagés et l'atteinte à des intérêts distincts.
+- **Devoir précontractuel d'information.** Celui des contractants qui connaît une information dont l'importance est déterminante pour le consentement de l'autre doit l'en informer dès lors que, légitimement, ce dernier ignore cette information ou fait confiance à son cocontractant (art. 1112-1 C.civ `[Légifrance]`). Ce devoir ne porte pas sur l'estimation de la valeur de la prestation. Pertinent dès le stade de la LOI, notamment côté cédant sur la cible.
+- **Conditions suspensives esquissées.** En LOI / term sheet, les conditions suspensives (obtention de financement, autorisations réglementaires / concurrence, résultat satisfaisant de la due diligence, accord des organes sociaux) sont en règle générale seulement **annoncées** et non-binding : elles seront figées dans le SPA. Vérifier qu'aucune n'est rédigée en termes impératifs qui la rendraient prématurément contraignante, et signaler les conditions potestatives (dépendant de la seule volonté d'une partie).
+- **Calendrier.** Le calendrier prévisionnel (étapes de DD, signing, closing) est en principe non-binding. Vérifier qu'il n'est pas rédigé comme une obligation de résultat datée et qu'il est cohérent avec la durée d'exclusivité.
+- **Sort des frais.** Qui supporte les frais de conseils, de due diligence, et le cas échéant une break-up fee. Cette clause est **typiquement binding**. Une prise en charge des frais par une seule partie, insérée dans un document présenté comme non engageant, engage pourtant cette partie → à signaler comme clause binding, et à examiner sous l'angle de l'équilibre.
+
+**Règles d'analyse :**
+
+- Les articles cités doivent exister dans `references/articles-c-civ-c-com-index.md`. Présents avec un identifiant Légifrance réel (citables `[Légifrance]`) : **1104** (bonne foi), **1112-1** (devoir précontractuel d'information). En `[a compléter]` dans l'index → tag `[à vérifier]` obligatoire : **1112** (liberté de rompre les pourparlers), **1123** (pacte de préférence), **1124** (promesse unilatérale). Vérifier chaque article dans l'index avant de le taguer.
+- Tag de provenance placé **après** la citation, **sans backticks** dans les cellules de tableau (backticks admis dans le corps narratif).
+- Les arrêts cités sont tagués `[Judilibre]` si consultés en session, sinon `[connaissance modèle — à vérifier]` ou `[à vérifier]`. Pas de fausse jurisprudence.
+- Tag inline `[review]` sur les jugements subjectifs : caractère proportionné ou excessif d'une durée d'exclusivité, caractère intentionnel ou non d'une qualification binding, caractère abusif d'une rupture de pourparlers, caractère potestatif d'une condition suspensive.
+- Respecter le plancher de sévérité cross-skill : si `check-pii` ou `verifier-citations` remonte 🔴, ne pas dégrader silencieusement.
+
+---
+
+## Étape 4 — Liste de points
+
+Appel interne au skill `liste-de-points` pour produire un tableau consolidé, trié par criticité décroissante (🔴 → 🟠 → 🟡 → 🟢) :
+
+```
+| # | Clause | Statut | Risque | Position souhaitée | Formulation proposée |
+|---|---|---|---|---|---|
+```
+
+La liste de points est l'artefact central transmis à la contrepartie ou à l'équipe de négociation. Une ligne par clause. Pas de doublon. Tri stable par numéro de clause à criticité égale.
+
+Si le document n'a aucun écart par rapport au playbook : retourner une liste vide explicite — `Aucun point de vigilance identifié contre le playbook configuré. Lecture intégrale sans alerte.` — et ne pas fabriquer de findings de remplissage.
+
+En mode `--draft`, la liste de points recense les arbitrages laissés ouverts dans le projet de LOI (durée d'exclusivité à confirmer, périmètre, montant de la break-up fee, conditions suspensives à figer dans le SPA).
+
+---
+
+## Étape 5 — Post-flight
+
+Appel automatique de `verifier-citations` sur la sortie complète, mode défaut (`articles` + `jurisprudence`). Le skill :
+
+- Extrait toutes les citations (art. NNN C.civ, L.NNN-N C.com., arrêts Cass.).
+- Vérifie l'existence et la version en vigueur via Légifrance / Judilibre.
+- Annote la sortie : `[Légifrance ✓]`, `[Judilibre ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
+
+Si une citation `[abrogé]` est remontée → ligne dédiée dans la note du relecteur en 🔴 avec le remplacement applicable.
+
+Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur (« `verifier-citations` non exécuté — N citations à valider manuellement contre Légifrance »).
 
 ---
 
@@ -302,7 +312,7 @@ sérialisables, générer en parallèle un dashboard HTML autonome via
 - Signer ou exécuter la LOI / le term sheet (acte des parties).
 - Réviser ou rédiger le contrat définitif (SPA, acte de cession) → `reviser-contrat` (v1) pour le tronc commercial, ou skill SPA dédié.
 - Faire le focus GAP M&A → renvoyer `gap-review` (v1).
-- Revoir le volet PI d'une opération PI-centric → renvoyer `/hacienda-propriete-intellectuelle:contrats-pi`.
+- Revoir le volet PI d'une opération PI-centric → renvoyer `/h-pi:contrats-pi`.
 - Réviser un pacte d'associés → renvoyer `pacte-associes-review`.
 - Donner un avis fiscal détaillé sur la structuration du deal (droits d'enregistrement, régime des plus-values) — signalement uniquement.
 - Donner un avis concurrence complet sur le contrôle des concentrations — signalement uniquement.

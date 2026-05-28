@@ -6,7 +6,8 @@ description: >
   arbitrage est taguée [review]. Détecte le régime à l'intake et applique le
   cadre correspondant. Ne produit jamais un document prêt à publier. Brouillon
   soumis à validation humaine (avocat).
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[B2B/B2C, secteur, canal, clauses à générer ou réviser]"
 authors: ["Hacienda"]
 tags: [cgv, cgu, generation, b2b, b2c, code-consommation, l441-1]
 ---
@@ -44,32 +45,32 @@ tags: [cgv, cgu, generation, b2b, b2c, code-consommation, l441-1]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:cgv-generator --draft --regime=B2B</user>
+<user>/h-droit-affaires:cgv-generator --draft --regime=B2B</user>
 <response>
 1. Pré-flight `check-pii` (dénomination, coordonnées, RCS — souvent sous le seuil B).
 2. Lecture profil cabinet (bloc « contrats commerciaux » : posture par défaut, clauses jamais acceptées, matrice d'approbateurs, politique PII).
 3. Intake : régime **B2B**, société de prestation de services informatiques vendant à des clients professionnels, canal sans objet (B2B).
 4. Étape 1 — confirmation du régime : B2B → cadre Code de commerce.
-5. Étape 2 — brouillon de CGV B2B selon `references/regimes-cgv-cgu-fr.md` partie B2B : mentions obligatoires art. L.441-1 C.com. [a verifier] (conditions de règlement, barème de prix unitaires, réductions de prix). **Chaque arbitrage tagué `[review]`** : conditions de règlement, barème de prix, clause de réserve de propriété, limitation de responsabilité, droit applicable. Vérification du plafond de paiement L.441-10 C.com. [a verifier] (60 j / 45 j fin de mois).
+5. Étape 2 — brouillon de CGV B2B selon `references/regimes-cgv-cgu-fr.md` partie B2B : mentions obligatoires art. L.441-1 C.com. [à vérifier] (conditions de règlement, barème de prix unitaires, réductions de prix). **Chaque arbitrage tagué `[review]`** : conditions de règlement, barème de prix, clause de réserve de propriété, limitation de responsabilité, droit applicable. Vérification du plafond de paiement L.441-10 C.com. [à vérifier] (60 j / 45 j fin de mois).
 6. Étape 4 — post-flight `verifier-citations`.
 7. Sortie : note du relecteur + brouillon de CGV `[review]`-tagué + **liste explicite des points à arbitrer** — le livrable est présenté comme un brouillon de travail, jamais comme « prêt à publier ».
 </response>
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:cgv-generator --draft --regime=B2C — vente à distance de cosmétiques</user>
+<user>/h-droit-affaires:cgv-generator --draft --regime=B2C — vente à distance de cosmétiques</user>
 <response>
 1. Pré-flight `check-pii` + lecture profil cabinet.
 2. Intake : régime **B2C**, vente de cosmétiques, **canal = vente à distance** (site e-commerce).
-3. Étape 1 — confirmation du régime + canal : B2C, vente à distance → la rétractation L.221-18 C.conso [a verifier] s'applique.
-4. Étape 3 — brouillon de CGU/CGV B2C selon la partie B2C : information précontractuelle art. L.111-1 C.conso [a verifier], droit de rétractation **14 jours** art. L.221-18 C.conso [a verifier] + formulaire type, garantie légale de conformité art. L.217-3 et s. C.conso [a verifier], médiation de la consommation. **Contrôle : aucune clause de liste noire R.212-1 [a verifier]** ; les clauses de liste grise R.212-2 [a verifier] taguées `[review]`. Signalement : certains cosmétiques descellés peuvent relever d'une exception de rétractation pour raison d'hygiène (art. L.221-28 C.conso [a verifier]) → `[review]`.
-5. Étape 4 — post-flight `verifier-citations` (articles C.conso hors index → `[a verifier]`).
+3. Étape 1 — confirmation du régime + canal : B2C, vente à distance → la rétractation L.221-18 C.conso [à vérifier] s'applique.
+4. Étape 3 — brouillon de CGU/CGV B2C selon la partie B2C : information précontractuelle art. L.111-1 C.conso [à vérifier], droit de rétractation **14 jours** art. L.221-18 C.conso [à vérifier] + formulaire type, garantie légale de conformité art. L.217-3 et s. C.conso [à vérifier], médiation de la consommation. **Contrôle : aucune clause de liste noire R.212-1 [à vérifier]** ; les clauses de liste grise R.212-2 [à vérifier] taguées `[review]`. Signalement : certains cosmétiques descellés peuvent relever d'une exception de rétractation pour raison d'hygiène (art. L.221-28 C.conso [à vérifier]) → `[review]`.
+5. Étape 4 — post-flight `verifier-citations` (articles C.conso hors index → `[à vérifier]`).
 6. Sortie : note du relecteur + brouillon de CGU/CGV `[review]`-tagué + liste des points à arbitrer — brouillon, jamais « prêt à publier ».
 </response>
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:cgv-generator --draft — un éditeur de logiciel vend en SaaS à des entreprises ET à des particuliers</user>
+<user>/h-droit-affaires:cgv-generator --draft — un éditeur de logiciel vend en SaaS à des entreprises ET à des particuliers</user>
 <response>
 Intake : le régime n'est pas précisé et l'activité s'adresse aux **deux publics**.
 Le skill ne suppose pas : il **demande explicitement** le régime, puis qualifie le besoin comme **mixte (B2B + B2C)**.
@@ -80,12 +81,12 @@ Sortie : deux brouillons `[review]`-tagués, présentés comme projets de travai
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:cgv-generator --draft --regime=B2C — le client veut une clause « toute réclamation interdite passé 24h, le vendeur peut modifier le service à tout moment »</user>
+<user>/h-droit-affaires:cgv-generator --draft --regime=B2C — le client veut une clause « toute réclamation interdite passé 24h, le vendeur peut modifier le service à tout moment »</user>
 <response>
 Régime B2C → contrôle systématique des clauses abusives consuméristes.
-La clause demandée combine deux stipulations relevant de la **liste noire** R.212-1 C.conso [a verifier] :
-- 🔴 **Modification unilatérale du service par le professionnel sans accord du consommateur** — clause irréfragablement présumée abusive (liste noire) : elle ne peut pas figurer dans le brouillon. Réputée non écrite par l'art. L.212-1 C.conso [a verifier].
-- 🔴 **Délai de réclamation de 24 h supprimant en pratique les garanties légales** — une clause réduisant ou supprimant les droits légaux du consommateur (garantie de conformité L.217-3 et s. C.conso [a verifier], d'ordre public) relève également de la liste noire.
+La clause demandée combine deux stipulations relevant de la **liste noire** R.212-1 C.conso [à vérifier] :
+- 🔴 **Modification unilatérale du service par le professionnel sans accord du consommateur** — clause irréfragablement présumée abusive (liste noire) : elle ne peut pas figurer dans le brouillon. Réputée non écrite par l'art. L.212-1 C.conso [à vérifier].
+- 🔴 **Délai de réclamation de 24 h supprimant en pratique les garanties légales** — une clause réduisant ou supprimant les droits légaux du consommateur (garantie de conformité L.217-3 et s. C.conso [à vérifier], d'ordre public) relève également de la liste noire.
 Le skill **refuse d'insérer** ces clauses, l'explique au client, et propose à la place des stipulations conformes : modification encadrée par l'accord du consommateur ou un préavis avec faculté de résiliation ; renvoi aux garanties légales d'ordre public. Le finding 🔴 est porté dans la note du relecteur et dans la liste des points à arbitrer.
 </response>
 </example>
@@ -110,7 +111,7 @@ Le skill **refuse d'insérer** ces clauses, l'explique au client, et propose à 
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc « contrats commerciaux » est encore en `[A CONFIGURER]` : stopper et
-demander `/hacienda-droit-affaires:entretien-demarrage`. Sans posture
+demander `/h-droit-affaires:entretien-demarrage`. Sans posture
 contractuelle renseignée, le calibrage des clauses (pénalités, limitation de
 responsabilité, garanties) ne peut pas être effectué. Voir aussi
 `~/.config/Hacienda/profil-cabinet.md` pour les éléments cabinet partagés.
@@ -143,166 +144,39 @@ est absent, **stopper et demander** — pas de valeur par défaut sur le régime
 
 ---
 
-## Étape 1 — Pré-flight et détermination du régime
+## Gate non-juriste
 
-**Étape juridique active, pas une simple formalité.** Le régime conditionne
-l'intégralité du brouillon.
-
-1. Invoquer `check-pii` sur les éléments fournis (dénomination, coordonnées,
-   RCS, médiateur) avec la politique du profil. Selon le verdict
-   (continue / prompt / abort), respecter la décision utilisateur.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires, bloc « contrats
-   commerciaux ») et `~/.config/Hacienda/profil-cabinet.md`.
-3. **Confirmer le régime** (intake point 2) :
-   - **B2B** — client professionnel → cadre **Code de commerce** → Étape 2.
-   - **B2C** — client consommateur → cadre **Code de la consommation** → Étape 3.
-   - **Mixte** — les deux publics → Étapes 2 **et** 3. Exposer au client que
-     deux corps de règles s'appliquent et recommander **deux jeux de conditions
-     distincts** plutôt qu'un jeu commun, pour éviter qu'une clause valable en
-     B2B ne contamine le jeu B2C.
-   - Si le cocontractant pourrait être un **non-professionnel** (personne morale
-     hors activité, ex. association) → signaler `[review]` : certaines
-     protections consuméristes lui sont étendues.
-4. **Si B2C ou mixte — vérifier le canal de vente** (intake point 4). Le droit
-   de rétractation L.221-18 C.conso [a verifier] ne s'applique **qu'en vente à
-   distance et hors établissement**. Une vente en présentiel dans
-   l'établissement n'ouvre **pas** de rétractation légale : ne pas insérer la
-   clause à tort. À l'inverse, l'omettre dans une vente à distance B2C est une
-   non-conformité.
-
-Le résultat de cette étape (régime + canal) figure en tête de la **liste des
-points à arbitrer** et conditionne les étapes suivantes.
+- [ ] Mode `--draft` retenu (mode unique) ; revue d'une CGV existante renvoyée à `reviser-contrat`
+- [ ] **Régime** détecté ou explicitement demandé (B2B / B2C / mixte) — jamais supposé
+- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
+- [ ] Profil cabinet bloc « contrats commerciaux » lu (posture, clauses jamais acceptées, approbateurs)
+- [ ] Si B2C ou mixte : canal de vente vérifié (présentiel vs à distance — détermine la rétractation)
+- [ ] B2B : mentions obligatoires art. L.441-1 C.com. présentes (conditions de règlement, barème de prix unitaires, réductions de prix)
+- [ ] B2B : plafond des délais de paiement art. L.441-10 C.com. respecté (60 j / 45 j fin de mois) — aucun délai hors plafond reproduit
+- [ ] B2C : information précontractuelle, rétractation L.221-18 (14 jours) si vente à distance, garantie de conformité L.217-3 et s., médiation de la consommation présentes
+- [ ] B2C : AUCUNE clause de liste noire R.212-1 dans le brouillon ; clauses de liste grise R.212-2 taguées `[review]`
+- [ ] Chaque clause d'arbitrage taguée `[review]` ; liste des points à arbitrer explicite ; livrable NON présenté comme « prêt à publier »
+- [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]` ; tous les articles du Code de la consommation en `[à vérifier]`
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + régime déterminé + brouillon(s) + points à arbitrer + question hors checklist + arbre de décision 5 options + footer A si applicable
 
 ---
 
-## Étape 2 — Génération B2B (si régime B2B ou mixte)
+## Outils MCP à privilégier
 
-Produire un **brouillon de CGV B2B** structuré selon
-`references/regimes-cgv-cgu-fr.md` (Partie B2B) et `clauses-sensibles-fr.md`
-(clauses 16 à 30). **Brouillon assisté** : chaque clause d'arbitrage est taguée
-`[review]` en ligne, et le livrable ne se présente **jamais** comme « prêt à
-publier ».
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
 
-**Mentions obligatoires — art. L.441-1 C.com. [a verifier]** — les CGV B2B
-doivent comprendre :
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
 
-- les **conditions de règlement** ;
-- le **barème des prix unitaires** (ou les éléments de détermination du prix) ;
-- les **réductions de prix** éventuelles (rabais, remises, ristournes).
+## Emplacement des sorties
 
-Leur **présence** n'est pas négociable ; leur **contenu** est tagué `[review]`.
+```
+outputs/cgv-<regime>-<activite-slug>-YYYY-MM-DD.md
+```
 
-**Clauses appelant un arbitrage — tag `[review]` systématique :**
-
-- **Conditions de règlement** — délai de paiement, date de départ du délai,
-  moyens de paiement, escompte éventuel `[review]`.
-- **Barème des prix** — prix unitaires, devise, base HT/TTC, modalités des
-  réductions de prix `[review]`.
-- **Clause de réserve de propriété** — suspension du transfert de propriété
-  jusqu'au paiement intégral ; rappeler qu'elle doit être stipulée par écrit
-  **avant ou lors de la livraison** pour être opposable, y compris en procédure
-  collective (cf. clauses-sensibles-fr.md n° 16) `[review]`.
-- **Limitation de responsabilité** — plafond aménagé sans priver l'obligation
-  essentielle de sa substance (art. 1170 C.civ. `[Légifrance]`), carve-outs dol
-  et faute lourde (cf. clauses-sensibles-fr.md n° 9 et 24) `[review]`.
-- **Droit applicable et juridiction** — selon la posture du cabinet
-  (cf. clauses-sensibles-fr.md n° 10) `[review]`.
-
-**Vérification du plafond des délais de paiement — art. L.441-10 C.com.
-[a verifier].** Le délai de paiement convenu ne peut dépasser **60 jours à
-compter de la date d'émission de la facture**, ou **45 jours fin de mois à
-compter de la date d'émission de la facture** si cette dérogation est
-expressément stipulée — la **première échéance à survenir** s'applique. Le skill
-ne reproduit **jamais** un délai supérieur au plafond : si le client demande un
-délai excédant le plafond (ex. 90 jours), le signaler en `[review]` comme
-**non-conforme** et proposer un délai conforme. Inclure systématiquement la
-clause **pénalités de retard + indemnité forfaitaire de recouvrement** (caractère
-automatique, de plein droit — cf. clauses-sensibles-fr.md n° 18).
-
-Le **contrôle des clauses abusives B2B** (déséquilibre significatif L.442-1
-C.com. `[Légifrance]`, contrat d'adhésion 1171 C.civ. `[Légifrance]`) s'applique
-au brouillon : éviter toute asymétrie non justifiée, en particulier sur la
-modification unilatérale, la résiliation et les pénalités.
-
----
-
-## Étape 3 — Génération B2C (si régime B2C ou mixte)
-
-Produire un **brouillon de CGU/CGV B2C** structuré selon
-`references/regimes-cgv-cgu-fr.md` (Partie B2C). **Brouillon assisté** : chaque
-clause d'arbitrage taguée `[review]`, livrable jamais « prêt à publier ».
-
-> **Avertissement.** Les articles du Code de la consommation cités ci-dessous
-> (L.111-1, L.212-1, L.217-x, L.221-18, R.212-1, R.212-2) sont **hors index ou
-> en `[a compléter]`** : ils doivent être tagués `[a verifier]` dans la sortie.
-
-**Inclure obligatoirement :**
-
-- **Information précontractuelle** — caractéristiques essentielles, prix, délai
-  d'exécution, identité du professionnel, garanties légales (art. L.111-1
-  C.conso [a verifier]).
-- **Droit de rétractation** — si le canal est la vente à distance / hors
-  établissement : délai de **14 jours**, sans motivation, **formulaire type**
-  de rétractation (art. L.221-18 et s. C.conso [a verifier]). La clause générée
-  doit fixer le **point de départ** du délai, qui diffère selon l'objet : à la
-  **conclusion du contrat** pour une prestation de services, à la **réception
-  du bien** pour une vente de bien (cf. `references/regimes-cgv-cgu-fr.md`
-  Partie B2C) → `[review]`. Vérifier les éventuelles **exceptions** (art.
-  L.221-28 C.conso [a verifier] — biens sur mesure, biens descellés non
-  retournables pour hygiène, contenu numérique exécuté avec renoncement
-  exprès) → `[review]` si l'activité en relève.
-- **Garantie légale de conformité** — art. L.217-3 et s. C.conso [a verifier],
-  régime refondu par l'ordonnance n° 2021-1247 du 29 septembre 2021, applicable
-  depuis le 1er janvier 2022 ; **2 ans** avec présomption d'antériorité du
-  défaut **24 mois** pour les biens neufs. Mention **explicite et d'ordre
-  public** — ne jamais l'écarter ni la réduire.
-- **Médiation de la consommation** — clause d'information sur le médiateur
-  compétent (art. L.612-1 et L.616-1 C.conso [a verifier]) ; pour les contrats
-  en ligne, mention de la plateforme RLL. Les coordonnées du médiateur
-  effectivement adhéré sont laissées en `[review]` — le skill ne les invente
-  pas.
-
-**Contrôle systématique des clauses abusives consuméristes — art. L.212-1
-C.conso [a verifier] :**
-
-- **AUCUNE clause figurant en liste noire** (art. R.212-1 C.conso [a verifier])
-  ne doit apparaître dans le brouillon. Ces clauses sont **irréfragablement
-  présumées abusives** et **réputées non écrites**. Si une clause demandée par
-  le client relève de la liste noire (ex. modification unilatérale du service,
-  suppression du droit à réparation, charge de preuve inversée, entrave au droit
-  d'agir en justice) → finding **🔴**, refus d'insertion, explication au client,
-  proposition d'une clause conforme.
-- Les clauses relevant de la **liste grise** (art. R.212-2 C.conso [a verifier])
-  sont **présumées abusives sauf preuve contraire** : ne les insérer que si
-  justifiées, et les **taguer `[review]`** systématiquement.
-
-Aucune clause B2C ne doit réduire les droits légaux du consommateur (garanties,
-réparation, accès au juge). Aucune clause de rétractation ne doit être insérée
-si le canal est uniquement le **présentiel en établissement**.
-
----
-
-## Étape 4 — Post-flight
-
-Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
-`articles`). Le skill :
-
-- extrait toutes les citations (art. L.NNN-N C.com., art. L.NNN-N et R.NNN-N
-  C.conso, art. NNN C.civ.) ;
-- vérifie l'existence et la version en vigueur via Légifrance ;
-- annote : `[Légifrance ✓]`, `[abrogé]`, ou `[a verifier]` en mode dégradé.
-
-Articles attendus présents dans `references/articles-c-civ-c-com-index.md` avec
-identifiant Légifrance réel (→ `[Légifrance]`) : 1170, 1171 C.civ. ; L.442-1
-C.com. En `[a compléter]` (→ `[a verifier]` obligatoire) : L.441-1, L.441-10
-C.com., D.441-5 C.com. **Tous les articles du Code de la consommation**
-(L.111-1, L.212-1, L.212-2, L.217-3 et s., L.221-5, L.221-18, L.221-28, L.612-1,
-L.616-1, R.212-1, R.212-2) sont **hors index ou en `[a compléter]`** → tag
-`[a verifier]` obligatoire.
-
-Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
-(« `verifier-citations` non exécuté — N citations à valider manuellement contre
-Légifrance »).
+Format date : `YYYY-MM-DD`. Pour le régime mixte, le skill peut produire deux
+fichiers suffixés `-b2b` et `-b2c`.
 
 ---
 
@@ -317,7 +191,7 @@ Légifrance »).
 > - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée)
 > - **Lecture :** intake fourni par l'utilisateur — {régime retenu (B2B / B2C / mixte), activité, canal de vente}
 > - **Signalé pour ton jugement :** {N} éléments marqués [review] (conditions de règlement, barème de prix, réserve de propriété, limitation de responsabilité, rétractation, clauses liste grise, médiateur) | {N} findings 🔴 (clause liste noire R.212-1 refusée, délai de paiement hors plafond L.441-10) | aucun
-> - **Fraîcheur :** articles du Code de la consommation (L.111-1, L.212-1, L.217-x, L.221-18, R.212-1, R.212-2) NON figés dans l'index — {N} articles [a verifier] à confirmer sur Légifrance ; régime garantie de conformité refondu par l'ord. 2021-1247
+> - **Fraîcheur :** articles du Code de la consommation (L.111-1, L.212-1, L.217-x, L.221-18, R.212-1, R.212-2) NON figés dans l'index — {N} articles [à vérifier] à confirmer sur Légifrance ; régime garantie de conformité refondu par l'ord. 2021-1247
 > - **Avant de t'appuyer dessus :** {action concrète — ex. faire vérifier les articles C.conso sur Légifrance ; confirmer le médiateur de la consommation adhéré} | « prêt pour relecture avocat »
 
 # Régime déterminé
@@ -362,38 +236,173 @@ Si le brouillon de CGV/CGU est destiné à être transmis hors du périmètre ca
 
 ---
 
-## Emplacement des sorties
+## Étape 1 — Pré-flight et détermination du régime
 
-```
-outputs/cgv-<regime>-<activite-slug>-YYYY-MM-DD.md
-```
+**Étape juridique active, pas une simple formalité.** Le régime conditionne
+l'intégralité du brouillon.
 
-Format date : `YYYY-MM-DD`. Pour le régime mixte, le skill peut produire deux
-fichiers suffixés `-b2b` et `-b2c`.
+1. Invoquer `check-pii` sur les éléments fournis (dénomination, coordonnées,
+   RCS, médiateur) avec la politique du profil. Selon le verdict
+   (continue / prompt / abort), respecter la décision utilisateur.
+2. Lire le profil cabinet (CLAUDE.md droit-affaires, bloc « contrats
+   commerciaux ») et `~/.config/Hacienda/profil-cabinet.md`.
+3. **Confirmer le régime** (intake point 2) :
+   - **B2B** — client professionnel → cadre **Code de commerce** → Étape 2.
+   - **B2C** — client consommateur → cadre **Code de la consommation** → Étape 3.
+   - **Mixte** — les deux publics → Étapes 2 **et** 3. Exposer au client que
+     deux corps de règles s'appliquent et recommander **deux jeux de conditions
+     distincts** plutôt qu'un jeu commun, pour éviter qu'une clause valable en
+     B2B ne contamine le jeu B2C.
+   - Si le cocontractant pourrait être un **non-professionnel** (personne morale
+     hors activité, ex. association) → signaler `[review]` : certaines
+     protections consuméristes lui sont étendues.
+4. **Si B2C ou mixte — vérifier le canal de vente** (intake point 4). Le droit
+   de rétractation L.221-18 C.conso [à vérifier] ne s'applique **qu'en vente à
+   distance et hors établissement**. Une vente en présentiel dans
+   l'établissement n'ouvre **pas** de rétractation légale : ne pas insérer la
+   clause à tort. À l'inverse, l'omettre dans une vente à distance B2C est une
+   non-conformité.
+
+Le résultat de cette étape (régime + canal) figure en tête de la **liste des
+points à arbitrer** et conditionne les étapes suivantes.
 
 ---
 
-## Gate non-juriste
+## Étape 2 — Génération B2B (si régime B2B ou mixte)
 
-- [ ] Mode `--draft` retenu (mode unique) ; revue d'une CGV existante renvoyée à `reviser-contrat`
-- [ ] **Régime** détecté ou explicitement demandé (B2B / B2C / mixte) — jamais supposé
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
-- [ ] Profil cabinet bloc « contrats commerciaux » lu (posture, clauses jamais acceptées, approbateurs)
-- [ ] Si B2C ou mixte : canal de vente vérifié (présentiel vs à distance — détermine la rétractation)
-- [ ] B2B : mentions obligatoires art. L.441-1 C.com. présentes (conditions de règlement, barème de prix unitaires, réductions de prix)
-- [ ] B2B : plafond des délais de paiement art. L.441-10 C.com. respecté (60 j / 45 j fin de mois) — aucun délai hors plafond reproduit
-- [ ] B2C : information précontractuelle, rétractation L.221-18 (14 jours) si vente à distance, garantie de conformité L.217-3 et s., médiation de la consommation présentes
-- [ ] B2C : AUCUNE clause de liste noire R.212-1 dans le brouillon ; clauses de liste grise R.212-2 taguées `[review]`
-- [ ] Chaque clause d'arbitrage taguée `[review]` ; liste des points à arbitrer explicite ; livrable NON présenté comme « prêt à publier »
-- [ ] Citations vérifiées via `verifier-citations` ou taguées `[a verifier]` ; tous les articles du Code de la consommation en `[a verifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + régime déterminé + brouillon(s) + points à arbitrer + question hors checklist + arbre de décision 5 options + footer A si applicable
+Produire un **brouillon de CGV B2B** structuré selon
+`references/regimes-cgv-cgu-fr.md` (Partie B2B) et `clauses-sensibles-fr.md`
+(clauses 16 à 30). **Brouillon assisté** : chaque clause d'arbitrage est taguée
+`[review]` en ligne, et le livrable ne se présente **jamais** comme « prêt à
+publier ».
+
+**Mentions obligatoires — art. L.441-1 C.com. [à vérifier]** — les CGV B2B
+doivent comprendre :
+
+- les **conditions de règlement** ;
+- le **barème des prix unitaires** (ou les éléments de détermination du prix) ;
+- les **réductions de prix** éventuelles (rabais, remises, ristournes).
+
+Leur **présence** n'est pas négociable ; leur **contenu** est tagué `[review]`.
+
+**Clauses appelant un arbitrage — tag `[review]` systématique :**
+
+- **Conditions de règlement** — délai de paiement, date de départ du délai,
+  moyens de paiement, escompte éventuel `[review]`.
+- **Barème des prix** — prix unitaires, devise, base HT/TTC, modalités des
+  réductions de prix `[review]`.
+- **Clause de réserve de propriété** — suspension du transfert de propriété
+  jusqu'au paiement intégral ; rappeler qu'elle doit être stipulée par écrit
+  **avant ou lors de la livraison** pour être opposable, y compris en procédure
+  collective (cf. clauses-sensibles-fr.md n° 16) `[review]`.
+- **Limitation de responsabilité** — plafond aménagé sans priver l'obligation
+  essentielle de sa substance (art. 1170 C.civ. `[Légifrance]`), carve-outs dol
+  et faute lourde (cf. clauses-sensibles-fr.md n° 9 et 24) `[review]`.
+- **Droit applicable et juridiction** — selon la posture du cabinet
+  (cf. clauses-sensibles-fr.md n° 10) `[review]`.
+
+**Vérification du plafond des délais de paiement — art. L.441-10 C.com.
+[à vérifier].** Le délai de paiement convenu ne peut dépasser **60 jours à
+compter de la date d'émission de la facture**, ou **45 jours fin de mois à
+compter de la date d'émission de la facture** si cette dérogation est
+expressément stipulée — la **première échéance à survenir** s'applique. Le skill
+ne reproduit **jamais** un délai supérieur au plafond : si le client demande un
+délai excédant le plafond (ex. 90 jours), le signaler en `[review]` comme
+**non-conforme** et proposer un délai conforme. Inclure systématiquement la
+clause **pénalités de retard + indemnité forfaitaire de recouvrement** (caractère
+automatique, de plein droit — cf. clauses-sensibles-fr.md n° 18).
+
+Le **contrôle des clauses abusives B2B** (déséquilibre significatif L.442-1
+C.com. `[Légifrance]`, contrat d'adhésion 1171 C.civ. `[Légifrance]`) s'applique
+au brouillon : éviter toute asymétrie non justifiée, en particulier sur la
+modification unilatérale, la résiliation et les pénalités.
+
+---
+
+## Étape 3 — Génération B2C (si régime B2C ou mixte)
+
+Produire un **brouillon de CGU/CGV B2C** structuré selon
+`references/regimes-cgv-cgu-fr.md` (Partie B2C). **Brouillon assisté** : chaque
+clause d'arbitrage taguée `[review]`, livrable jamais « prêt à publier ».
+
+> **Avertissement.** Les articles du Code de la consommation cités ci-dessous
+> (L.111-1, L.212-1, L.217-x, L.221-18, R.212-1, R.212-2) sont **hors index ou
+> en `[a compléter]`** : ils doivent être tagués `[à vérifier]` dans la sortie.
+
+**Inclure obligatoirement :**
+
+- **Information précontractuelle** — caractéristiques essentielles, prix, délai
+  d'exécution, identité du professionnel, garanties légales (art. L.111-1
+  C.conso [à vérifier]).
+- **Droit de rétractation** — si le canal est la vente à distance / hors
+  établissement : délai de **14 jours**, sans motivation, **formulaire type**
+  de rétractation (art. L.221-18 et s. C.conso [à vérifier]). La clause générée
+  doit fixer le **point de départ** du délai, qui diffère selon l'objet : à la
+  **conclusion du contrat** pour une prestation de services, à la **réception
+  du bien** pour une vente de bien (cf. `references/regimes-cgv-cgu-fr.md`
+  Partie B2C) → `[review]`. Vérifier les éventuelles **exceptions** (art.
+  L.221-28 C.conso [à vérifier] — biens sur mesure, biens descellés non
+  retournables pour hygiène, contenu numérique exécuté avec renoncement
+  exprès) → `[review]` si l'activité en relève.
+- **Garantie légale de conformité** — art. L.217-3 et s. C.conso [à vérifier],
+  régime refondu par l'ordonnance n° 2021-1247 du 29 septembre 2021, applicable
+  depuis le 1er janvier 2022 ; **2 ans** avec présomption d'antériorité du
+  défaut **24 mois** pour les biens neufs. Mention **explicite et d'ordre
+  public** — ne jamais l'écarter ni la réduire.
+- **Médiation de la consommation** — clause d'information sur le médiateur
+  compétent (art. L.612-1 et L.616-1 C.conso [à vérifier]) ; pour les contrats
+  en ligne, mention de la plateforme RLL. Les coordonnées du médiateur
+  effectivement adhéré sont laissées en `[review]` — le skill ne les invente
+  pas.
+
+**Contrôle systématique des clauses abusives consuméristes — art. L.212-1
+C.conso [à vérifier] :**
+
+- **AUCUNE clause figurant en liste noire** (art. R.212-1 C.conso [à vérifier])
+  ne doit apparaître dans le brouillon. Ces clauses sont **irréfragablement
+  présumées abusives** et **réputées non écrites**. Si une clause demandée par
+  le client relève de la liste noire (ex. modification unilatérale du service,
+  suppression du droit à réparation, charge de preuve inversée, entrave au droit
+  d'agir en justice) → finding **🔴**, refus d'insertion, explication au client,
+  proposition d'une clause conforme.
+- Les clauses relevant de la **liste grise** (art. R.212-2 C.conso [à vérifier])
+  sont **présumées abusives sauf preuve contraire** : ne les insérer que si
+  justifiées, et les **taguer `[review]`** systématiquement.
+
+Aucune clause B2C ne doit réduire les droits légaux du consommateur (garanties,
+réparation, accès au juge). Aucune clause de rétractation ne doit être insérée
+si le canal est uniquement le **présentiel en établissement**.
+
+---
+
+## Étape 4 — Post-flight
+
+Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
+`articles`). Le skill :
+
+- extrait toutes les citations (art. L.NNN-N C.com., art. L.NNN-N et R.NNN-N
+  C.conso, art. NNN C.civ.) ;
+- vérifie l'existence et la version en vigueur via Légifrance ;
+- annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
+
+Articles attendus présents dans `references/articles-c-civ-c-com-index.md` avec
+identifiant Légifrance réel (→ `[Légifrance]`) : 1170, 1171 C.civ. ; L.442-1
+C.com. En `[a compléter]` (→ `[à vérifier]` obligatoire) : L.441-1, L.441-10
+C.com., D.441-5 C.com. **Tous les articles du Code de la consommation**
+(L.111-1, L.212-1, L.212-2, L.217-3 et s., L.221-5, L.221-18, L.221-28, L.612-1,
+L.616-1, R.212-1, R.212-2) sont **hors index ou en `[a compléter]`** → tag
+`[à vérifier]` obligatoire.
+
+Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
+(« `verifier-citations` non exécuté — N citations à valider manuellement contre
+Légifrance »).
 
 ---
 
 ## Ce skill ne fait pas
 
 - La **revue d'une CGV / CGU existante** (entrante) → renvoyer vers
-  `/hacienda-droit-affaires:reviser-contrat` (mode `--review`). Ce skill
+  `/h-droit-affaires:reviser-contrat` (mode `--review`). Ce skill
   **génère**, il ne revoit pas.
 - La **publication** des CGV/CGU sur un site, leur intégration technique, leur
   acceptation par les utilisateurs — actes du professionnel et de son

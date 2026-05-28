@@ -36,7 +36,7 @@ ou fenetre d'echeance courte, a la demande pour audit ponctuel.
 1. Charger le profil PI et identifier le seuil de remontee.
 2. Lire les registres internes disponibles sans les modifier.
 3. Normaliser les echeances par titre, territoire, owner, mandataire et source.
-4. Marquer toute source non consultee ou incoherente `[a verifier]`.
+4. Marquer toute source non consultee ou incoherente `[à vérifier]`.
 5. Appliquer le routage V2 puis produire une liste d'actions priorisee.
 6. Poster ou retourner la synthese avec validation humaine visible.
 

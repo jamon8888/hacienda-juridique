@@ -1,6 +1,6 @@
 # Dataset de test V2a — Analyse de rupture brutale (L.442-1, II)
 
-> **Entry point attendu :** `/hacienda-droit-affaires:analyser-rupture-brutale`
+> **Entry point attendu :** `/h-droit-affaires:analyser-rupture-brutale`
 > **Mode visé :** `--review` (mode unique v2a)
 > **Objet :** scénario synthétique d'une rupture de relation de distribution
 > exclusive de 8 ans avec préavis effectivement accordé de 3 mois. Le scénario
@@ -16,7 +16,7 @@
 
 ## Scénario — Rupture de distribution exclusive 8 ans, préavis 3 mois
 
-> **Commande type :** `/hacienda-droit-affaires:analyser-rupture-brutale ./contrat-A-B.pdf ./notification-rupture.pdf --review --side=victime`
+> **Commande type :** `/h-droit-affaires:analyser-rupture-brutale ./contrat-A-B.pdf ./notification-rupture.pdf --review --side=victime`
 
 ### Faits fictifs
 

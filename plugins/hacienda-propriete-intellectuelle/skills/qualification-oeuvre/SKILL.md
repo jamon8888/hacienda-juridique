@@ -39,6 +39,48 @@ tags: [droit-auteur, qualification, originalite, titularite, preuve, CPI]
 > `references/qualification-oeuvre-routing-and-output.md` résume le routage et
 > les blocs de sortie. En cas d'écart, seul ce `SKILL.md` fait foi.
 
+## Examples
+
+<example>
+<user>/h-pi:qualification-oeuvre [description œuvre | nature | contexte création | objectif préventif/défensif/contentieux]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
+
+## Chargement du profil
+
+Avant tout travail substantiel, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Dessins et modèles, droit d'auteur, logiciels, bases de données et droits voisins : utiliser le socle officiel ci-dessus ; les registres spécialisés non exposés par le serveur restent `[à vérifier]` ou traités via preuve/document client autorisé.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
 ## Exemples
 
 ```
@@ -89,8 +131,8 @@ Rester sur la porte à 2 sens.
 ## Charger le profil pratique avant de commencer
 
 Avant tout, lire :
-1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
 Récupérer :
 - **Rôle** depuis `## 1. Profil cabinet et profil de pratique PI` (avocat
@@ -1007,7 +1049,7 @@ préparatoire interne**.
 Le livrable est écrit dans :
 
 ```
-~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/qualification-oeuvre-<slug-oeuvre>-YYYY-MM-DD.md
+~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/qualification-oeuvre-<slug-oeuvre>-YYYY-MM-DD.md
 ```
 
 Le slug est construit à partir de la description courte de l'œuvre, normalisé
@@ -1018,7 +1060,7 @@ Si workspaces de dossier activés (V1.1+, cf. `CLAUDE.md` extension §11),
 l'emplacement bascule sur :
 
 ```
-~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/qualification-oeuvre-<slug-oeuvre>-YYYY-MM-DD.md
+~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/qualification-oeuvre-<slug-oeuvre>-YYYY-MM-DD.md
 ```
 
 Si le répertoire `outputs/` ou `matters/<slug-dossier>/` n'existe pas, le

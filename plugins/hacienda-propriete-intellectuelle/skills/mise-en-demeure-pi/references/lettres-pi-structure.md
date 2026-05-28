@@ -47,7 +47,7 @@ Ordre recommande:
 
 1. identification des parties et du cadre de la lettre
 2. expose factuel plus detaille avec renvoi aux pieces
-3. rappel des droits invoques, du territoire et du fondement utile, avec `[a verifier]` si besoin
+3. rappel des droits invoques, du territoire et du fondement utile, avec `[à vérifier]` si besoin
 4. description precise des actes contestes ou de la position defendue
 5. demandes fermees et intelligibles
 6. delai explicite

@@ -1,6 +1,6 @@
 # Cas 2 — Accord de coexistence de marques avec engagement non-concurrence territorial
 
-> **Entry point attendu :** `/hacienda-droit-affaires:reviser-contrat`
+> **Entry point attendu :** `/h-droit-affaires:reviser-contrat`
 > **Décision de routing attendue :** Route principal → `contrats-pi` pour le coeur marques + revue commerciale partielle pour la non-concurrence (option (c) « les deux en séquence » plus pertinente que (a) ou (b) seule).
 
 ---

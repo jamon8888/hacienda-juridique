@@ -112,4 +112,4 @@ Et toujours finir par :
 - une justification de la route retenue ;
 - 2 a 4 actions concretes ;
 - une validation humaine mandataire ou avocat ;
-- les points encore `[a verifier]`.
+- les points encore `[à vérifier]`.

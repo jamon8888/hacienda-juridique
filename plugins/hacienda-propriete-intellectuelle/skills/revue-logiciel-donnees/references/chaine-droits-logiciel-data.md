@@ -18,7 +18,7 @@ de `revue-open-source`.
   chronologie ;
 - ne pas supposer que tout ce qu'un salarie a touche appartient a la societe ;
 - pour les autres actifs que le logiciel au sens strict, ne pas extrapoler sans
-  piece ni analyse complementaire `[a verifier]`.
+  piece ni analyse complementaire `[à vérifier]`.
 
 ### Prestataire, freelance, agence
 
@@ -44,7 +44,7 @@ de `revue-open-source`.
 - lire les termes applicables a l'acces, a la copie, a l'entrainement, a la
   redistribution, a la revente et a la creation de datasets derives ;
 - verifier la tracabilite des imports, nettoyages, annotations et melanges ;
-- noter `[a verifier]` toute origine de donnees seulement decrite oralement ;
+- noter `[à vérifier]` toute origine de donnees seulement decrite oralement ;
 - demander la preuve de consentement ou d'autorisation quand la source n'est
   pas autoportante.
 
@@ -64,7 +64,7 @@ de `revue-open-source`.
   verification ou presentation du contenu ;
 - demander des indices concrets : budget, temps, equipe, process de collecte,
   nettoyage, maintenance, infrastructure ;
-- ne pas affirmer la protection sui generis sans elements serieux `[a verifier]`.
+- ne pas affirmer la protection sui generis sans elements serieux `[à vérifier]`.
 
 ## 5. Elements a exiger en due diligence
 
@@ -92,4 +92,4 @@ Le livrable final doit distinguer :
 - decisions soumises a validation humaine.
 
 Toute source non consultee ou piece annoncee mais non lue reste marquee
-`[a verifier]`.
+`[à vérifier]`.

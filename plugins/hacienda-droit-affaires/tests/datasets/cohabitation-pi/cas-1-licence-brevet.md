@@ -1,7 +1,7 @@
 # Cas 1 — Licence d'exploitation de brevet pure
 
-> **Entry point attendu :** `/hacienda-droit-affaires:reviser-contrat`
-> **Décision de routing attendue :** Route 100 % → `/hacienda-propriete-intellectuelle:contrats-pi`. Pas de revue commerciale par `reviser-contrat`.
+> **Entry point attendu :** `/h-droit-affaires:reviser-contrat`
+> **Décision de routing attendue :** Route 100 % → `/h-pi:contrats-pi`. Pas de revue commerciale par `reviser-contrat`.
 
 ---
 
@@ -62,7 +62,7 @@ Tribunal judiciaire de Paris, compétent exclusif (L.615-17 CPI).
 - **Termes dominants** : « brevet », « revendications », « RNB », « licence exclusive » (et son contraire), « L.615-17 CPI »
 - → Test PI-centric POSITIF (≥ 3 termes dominants PI)
 - → **Renvoi vers `contrats-pi`** avec les 3 options canoniques :
-  1. (a) lancer `/hacienda-propriete-intellectuelle:contrats-pi` à la place
+  1. (a) lancer `/h-pi:contrats-pi` à la place
   2. (b) limiter `reviser-contrat` aux clauses commerciales (paiement, audit, juridiction)
   3. (c) faire les deux en séquence
 
@@ -76,7 +76,7 @@ Le bon comportement de `reviser-contrat` est donc de **proposer** le renvoi mais
 
 - [ ] `reviser-contrat` détecte le caractère PI-centric et le **dit explicitement** dans sa réponse
 - [ ] Les 3 options sont proposées textuellement (a/b/c)
-- [ ] Le renvoi cite le bon skill : `/hacienda-propriete-intellectuelle:contrats-pi`
+- [ ] Le renvoi cite le bon skill : `/h-pi:contrats-pi`
 - [ ] **Aucune analyse clause par clause** n'est produite avant que l'utilisateur ait choisi
 - [ ] La justification du renvoi mentionne au minimum 2 termes dominants PI détectés
 

@@ -6,10 +6,10 @@ formes sociales les plus courantes — SARL, SA, SAS — et les règles de calen
 et de formalisme qui conditionnent la validité des délibérations.
 
 > **Sources primaires :** Légifrance (Code de commerce).
-> Toute citation non relue en session doit être taguée `[a verifier]`.
+> Toute citation non relue en session doit être taguée `[à vérifier]`.
 > Les **délais réglementaires** de convocation (articles `R.xxx` du Code de
 > commerce, hors index `articles-c-civ-c-com-index.md`) sont **réglementaires**
-> et susceptibles d'évolution : ils sont systématiquement tagués `[a verifier]`
+> et susceptibles d'évolution : ils sont systématiquement tagués `[à vérifier]`
 > dans la sortie et renvoyés à vérification sur Légifrance / décret en vigueur.
 
 > **Point d'ordre public — à garder présent à l'esprit dans toute cette
@@ -31,7 +31,7 @@ d'examiner l'ordre du jour et les documents joints.
 | Forme | Délai minimal de convocation | Fondement |
 |---|---|---|
 | SARL | 15 jours avant l'assemblée | art. L.223-27 C.com. [Légifrance] |
-| SA | 15 jours avant l'assemblée sur première convocation | renvoi aux art. R.225-67 et R.225-69 C.com. [a verifier] (réglementaires) |
+| SA | 15 jours avant l'assemblée sur première convocation | renvoi aux art. R.225-67 et R.225-69 C.com. [à vérifier] (réglementaires) |
 | SAS | Liberté statutaire — délai fixé par les statuts | art. L.227-9 C.com. [Légifrance] ; renvoi aux statuts |
 
 **Lecture du tableau — points d'attention.**
@@ -43,9 +43,9 @@ d'examiner l'ordre du jour et les documents joints.
 
 2. **SA.** Le délai sur **première convocation** est de 15 jours. Sur **seconde
    convocation** (assemblée à nouveau convoquée faute de quorum sur la première),
-   le délai est réduit `[a verifier]`. Les **délais précis** de la SA sont fixés
+   le délai est réduit `[à vérifier]`. Les **délais précis** de la SA sont fixés
    par voie **réglementaire** (articles `R.225-67`, `R.225-69` C.com. et suivants,
-   hors index → `[a verifier]`) : ne jamais les énoncer de mémoire, renvoyer au
+   hors index → `[à vérifier]`) : ne jamais les énoncer de mémoire, renvoyer au
    décret en vigueur.
 
 3. **SAS.** Aucune règle légale de délai. L'art. L.227-9 C.com. `[Légifrance]`
@@ -86,7 +86,7 @@ mentions sans lesquelles la délibération est exposée à la nullité (ordre pu
   résolution figurant à l'ordre du jour.
 
 > Le détail des documents et des délais de mise à disposition est en partie
-> **réglementaire** (notamment pour la SA) → `[a verifier]` sur les modalités
+> **réglementaire** (notamment pour la SA) → `[à vérifier]` sur les modalités
 > précises. En SAS, la liste relève des **statuts** → `[review]`.
 
 ---
@@ -148,7 +148,7 @@ mentions sans lesquelles la délibération est exposée à la nullité (ordre pu
 | Décision | Quorum | Majorité |
 |---|---|---|
 | **AGO** | 1re convocation : **1/5 des actions** ayant le droit de vote, présentes ou représentées. 2e convocation : **aucun quorum** — art. L.225-98 C.com. [Légifrance] | **Majorité des voix exprimées** par les actionnaires présents ou représentés — art. L.225-98 C.com. [Légifrance] |
-| **AGE** | 1re convocation : **1/4 des actions** ayant le droit de vote. 2e convocation : **1/5 des actions** — art. L.225-96 C.com. [a verifier] | **2/3 des voix exprimées** par les actionnaires présents ou représentés — art. L.225-96 C.com. [a verifier] |
+| **AGE** | 1re convocation : **1/4 des actions** ayant le droit de vote. 2e convocation : **1/5 des actions** — art. L.225-96 C.com. [à vérifier] | **2/3 des voix exprimées** par les actionnaires présents ou représentés — art. L.225-96 C.com. [à vérifier] |
 
 **Lecture — SA.**
 
@@ -163,7 +163,7 @@ mentions sans lesquelles la délibération est exposée à la nullité (ordre pu
    d'**un quart** des actions à droit de vote ; sur **seconde convocation**,
    quorum d'**un cinquième**. La majorité est des **deux tiers des voix
    exprimées**. L'art. L.225-96 C.com. est en `[a compléter]` dans l'index
-   `articles-c-civ-c-com-index.md` : il doit être tagué `[a verifier]` en sortie
+   `articles-c-civ-c-com-index.md` : il doit être tagué `[à vérifier]` en sortie
    tant que son identifiant Légifrance n'a pas été relu.
 
 3. **Voix exprimées.** En SA, la majorité se calcule sur les **voix exprimées**,
@@ -229,12 +229,12 @@ opposabilité (formalités de dépôt, publicité, modifications statutaires).
 
 1. Tout article cité doit être recoupé avec `articles-c-civ-c-com-index.md`.
    Un article absent de l'index, ou présent en `[a compléter]`, est tagué
-   `[a verifier]` en sortie. À ce jour, citables `[Légifrance]` : L.223-27,
-   L.223-29, L.223-30, L.225-98, L.227-9. Tagués `[a verifier]` : L.225-96 (en
+   `[à vérifier]` en sortie. À ce jour, citables `[Légifrance]` : L.223-27,
+   L.223-29, L.223-30, L.225-98, L.227-9. Tagués `[à vérifier]` : L.225-96 (en
    `[a compléter]` dans l'index) et tout article réglementaire `R.xxx`
    (R.225-67, R.225-69 et suivants — délais de convocation de la SA).
 2. **Aucun délai réglementaire** de la SA n'est énoncé comme un fait : tag
-   `[a verifier]` systématique et renvoi au texte en vigueur.
+   `[à vérifier]` systématique et renvoi au texte en vigueur.
 3. **Ne jamais confondre quorum et majorité** : le quorum porte sur le capital
    présent ou représenté, la majorité sur les voix (parts en SARL, voix exprimées
    en SA).

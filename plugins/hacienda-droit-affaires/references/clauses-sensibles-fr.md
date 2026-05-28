@@ -5,14 +5,14 @@ Chaque bloc ci-dessous sert de matrice de détection, de qualification du risque
 et de proposition de reformulation selon la posture du cabinet.
 
 > **Sources primaires :** Légifrance, Judilibre, Eurlex.
-> Toute citation non relue en session doit être traitée comme `[a verifier]`.
+> Toute citation non relue en session doit être traitée comme `[à vérifier]`.
 
 ---
 
 ## 1. Clause pénale
 
 **Article fondateur :** art. 1231-5 C.civ [Légifrance]
-**Jurisprudence clé :** pouvoir modérateur du juge sur la peine manifestement excessive ou dérisoire [a verifier]
+**Jurisprudence clé :** pouvoir modérateur du juge sur la peine manifestement excessive ou dérisoire [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -53,14 +53,14 @@ Limiter strictement l'objet, le périmètre géographique et la durée. Vérifie
 - **Équilibré :** "La clause vise uniquement les clients, secteurs et fonctions sensibles effectivement exposés pendant l'exécution du contrat de travail."
 - **Facilitateur :** "Substituer, lorsque c'est possible, une clause de non-sollicitation ou de confidentialité renforcée, moins risquée qu'une non-concurrence large."
 
-**Articles à vérifier dans la sortie :** Cass. soc. 10 juil. 2002, n° 00-45.135 ; art. L.1121-1 C.trav [a verifier]
+**Articles à vérifier dans la sortie :** Cass. soc. 10 juil. 2002, n° 00-45.135 ; art. L.1121-1 C.trav [à vérifier]
 
 ---
 
 ## 3. Exclusivité
 
 **Article fondateur :** art. L.420-1 C.com. [Légifrance]
-**Jurisprudence clé :** contrôle au regard du droit de la concurrence et des exemptions verticales UE [a verifier]
+**Jurisprudence clé :** contrôle au regard du droit de la concurrence et des exemptions verticales UE [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -77,7 +77,7 @@ Qualifier l'exclusivité : approvisionnement, territoire, clientèle, produit. V
 - **Équilibré :** "L'exclusivité est circonscrite à un territoire et à une gamme définis, pour une durée initiale courte avec réexamen."
 - **Facilitateur :** "Prévoir une exclusivité souple ou une préférence commerciale, avec faculté de recours à des fournisseurs alternatifs en cas de besoin opérationnel."
 
-**Articles à vérifier dans la sortie :** art. L.420-1 C.com ; art. L.420-2 C.com ; règlement UE 2022/720 [a verifier]
+**Articles à vérifier dans la sortie :** art. L.420-1 C.com ; art. L.420-2 C.com ; règlement UE 2022/720 [à vérifier]
 
 ---
 
@@ -101,14 +101,14 @@ Vérifier la nature déterminée ou indéterminée du contrat, la logique écono
 - **Équilibré :** "Prévoir un préavis raisonnable, identique pour les deux parties, et un rappel de l'échéance avant reconduction."
 - **Facilitateur :** "Limiter la durée initiale et introduire une faculté de sortie à date anniversaire sans pénalité."
 
-**Articles à vérifier dans la sortie :** art. 1212 C.civ ; art. L.215-1 C.conso [a verifier]
+**Articles à vérifier dans la sortie :** art. 1212 C.civ ; art. L.215-1 C.conso [à vérifier]
 
 ---
 
 ## 5. Résolution / résiliation post-réforme 2016
 
 **Article fondateur :** art. 1224 et s. C.civ [Légifrance]
-**Jurisprudence clé :** articulation entre clause résolutoire, notification unilatérale et résolution judiciaire [a verifier]
+**Jurisprudence clé :** articulation entre clause résolutoire, notification unilatérale et résolution judiciaire [à vérifier]
 **Posture playbook par défaut :** protecteur
 
 **Libellé typique à détecter :**
@@ -132,7 +132,7 @@ Exiger une hiérarchisation des manquements, une mise en demeure sauf urgence ca
 ## 6. Force majeure post-réforme
 
 **Article fondateur :** art. 1218 C.civ [Légifrance]
-**Jurisprudence clé :** appréciation stricte de l'extériorité / imprévisibilité / irrésistibilité avant et après codification [a verifier]
+**Jurisprudence clé :** appréciation stricte de l'extériorité / imprévisibilité / irrésistibilité avant et après codification [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -149,14 +149,14 @@ Aligner la clause sur l'article 1218 tout en ajoutant une mécanique de notifica
 - **Équilibré :** "La clause reprend les critères légaux et détaille notification, mitigation et durée maximale de suspension."
 - **Facilitateur :** "Ajouter une clause hardship séparée pour traiter les bouleversements économiques sans détourner la force majeure."
 
-**Articles à vérifier dans la sortie :** art. 1218 C.civ ; art. 1195 C.civ [a verifier]
+**Articles à vérifier dans la sortie :** art. 1218 C.civ ; art. 1195 C.civ [à vérifier]
 
 ---
 
 ## 7. Déséquilibre significatif B2B
 
 **Article fondateur :** art. L.442-1, I, 2° C.com. [Légifrance]
-**Jurisprudence clé :** jurisprudence pratiques restrictives de concurrence sur l'absence de réciprocité et l'avantage disproportionné [a verifier]
+**Jurisprudence clé :** jurisprudence pratiques restrictives de concurrence sur l'absence de réciprocité et l'avantage disproportionné [à vérifier]
 **Posture playbook par défaut :** protecteur
 
 **Libellé typique à détecter :**
@@ -180,7 +180,7 @@ Examiner l'économie générale du contrat et identifier les clauses sans contre
 ## 8. Clauses abusives dans les contrats d'adhésion
 
 **Article fondateur :** art. 1171 C.civ [Légifrance]
-**Jurisprudence clé :** contrôle des clauses non négociables créant un déséquilibre significatif dans un contrat d'adhésion [a verifier]
+**Jurisprudence clé :** contrôle des clauses non négociables créant un déséquilibre significatif dans un contrat d'adhésion [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -197,14 +197,14 @@ Vérifier d'abord la qualification du contrat. Documenter les clauses imposées 
 - **Équilibré :** "Encadrer toute modification par des critères objectifs, une notification écrite et un droit de résiliation."
 - **Facilitateur :** "Conserver une faculté d'adaptation limitée à des ajustements techniques ou réglementaires, sans impact économique majeur."
 
-**Articles à vérifier dans la sortie :** art. 1171 C.civ ; art. 1110 C.civ [a verifier]
+**Articles à vérifier dans la sortie :** art. 1171 C.civ ; art. 1110 C.civ [à vérifier]
 
 ---
 
 ## 9. Limitation de responsabilité
 
 **Article fondateur :** art. 1170 C.civ [Légifrance]
-**Jurisprudence clé :** Chronopost, Faurecia et lignée sur l'obligation essentielle [a verifier]
+**Jurisprudence clé :** Chronopost, Faurecia et lignée sur l'obligation essentielle [à vérifier]
 **Posture playbook par défaut :** protecteur
 
 **Libellé typique à détecter :**
@@ -221,14 +221,14 @@ Faire le lien entre plafond, panier de risques et valeur du contrat. Tester la c
 - **Équilibré :** "Plafond raisonnable aligné sur la valeur économique du contrat et distinction dommages directs / indirects."
 - **Facilitateur :** "Plafond simple, lisible, mais jamais inférieur à un niveau compatible avec l'obligation essentielle."
 
-**Articles à vérifier dans la sortie :** art. 1170 C.civ ; art. 1231-3 C.civ [a verifier] ; Chronopost Cass. com. 22 oct. 1996, n° 93-18.632 [Judilibre — a verifier]
+**Articles à vérifier dans la sortie :** art. 1170 C.civ ; art. 1231-3 C.civ [à vérifier] ; Chronopost Cass. com. 22 oct. 1996, n° 93-18.632 [Judilibre — a verifier]
 
 ---
 
 ## 10. Droit applicable et juridiction
 
 **Article fondateur :** règlement (CE) n° 593/2008 Rome I [Eurlex] ; règlement (UE) n° 1215/2012 Bruxelles I bis [Eurlex]
-**Jurisprudence clé :** efficacité et limites des clauses attributives de juridiction en présence de parties européennes [a verifier]
+**Jurisprudence clé :** efficacité et limites des clauses attributives de juridiction en présence de parties européennes [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -252,7 +252,7 @@ Vérifier le rattachement réel du contrat, le pouvoir de négociation des parti
 ## 11. Confidentialité
 
 **Article fondateur :** art. L.151-1 C.com. [Légifrance]
-**Jurisprudence clé :** protection du secret des affaires et articulation avec les obligations contractuelles [a verifier]
+**Jurisprudence clé :** protection du secret des affaires et articulation avec les obligations contractuelles [à vérifier]
 **Posture playbook par défaut :** protecteur
 
 **Libellé typique à détecter :**
@@ -269,14 +269,14 @@ Exiger une définition utile, des exceptions classiques, un usage limité, et un
 - **Équilibré :** "Confidentialité limitée à l'objet du contrat, avec accès interne sur besoin d'en connaître et obligations miroir pour les sous-traitants."
 - **Facilitateur :** "Préserver un cadre simple pour des échanges commerciaux standard, en évitant les obligations impossibles à auditer."
 
-**Articles à vérifier dans la sortie :** art. L.151-1 C.com ; loi n° 2018-670 [a verifier]
+**Articles à vérifier dans la sortie :** art. L.151-1 C.com ; loi n° 2018-670 [à vérifier]
 
 ---
 
 ## 12. Propriété des résultats
 
-**Article fondateur :** liberté contractuelle ; qualification à préciser selon la nature des livrables [a verifier]
-**Jurisprudence clé :** transfert des droits et distinction livrables / outils préexistants [a verifier]
+**Article fondateur :** liberté contractuelle ; qualification à préciser selon la nature des livrables [à vérifier]
+**Jurisprudence clé :** transfert des droits et distinction livrables / outils préexistants [à vérifier]
 **Posture playbook par défaut :** protecteur
 
 **Libellé typique à détecter :**
@@ -299,8 +299,8 @@ Distinguer background, résultats spécifiques, améliorations génériques et d
 
 ## 13. Audit
 
-**Article fondateur :** liberté contractuelle ; proportionnalité et loyauté dans l'exécution [a verifier]
-**Jurisprudence clé :** contrôle de proportionnalité des droits d'audit et de leur fréquence [a verifier]
+**Article fondateur :** liberté contractuelle ; proportionnalité et loyauté dans l'exécution [à vérifier]
+**Jurisprudence clé :** contrôle de proportionnalité des droits d'audit et de leur fréquence [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -317,14 +317,14 @@ Encadrer objet, fréquence, préavis, confidentialité, intervenants et réparti
 - **Équilibré :** "Audit par tiers indépendant agréé, avec rapport synthétique et remédiation convenue."
 - **Facilitateur :** "Substituer des attestations, certifications ou reportings périodiques à un droit d'audit large."
 
-**Articles à vérifier dans la sortie :** art. 1104 C.civ [a verifier] ; art. 1194 C.civ [a verifier]
+**Articles à vérifier dans la sortie :** art. 1104 C.civ [à vérifier] ; art. 1194 C.civ [à vérifier]
 
 ---
 
 ## 14. Sous-traitance
 
 **Article fondateur :** loi n° 75-1334 du 31 déc. 1975 [Légifrance — a verifier]
-**Jurisprudence clé :** agrément du sous-traitant et garantie de paiement [a verifier]
+**Jurisprudence clé :** agrément du sous-traitant et garantie de paiement [à vérifier]
 **Posture playbook par défaut :** protecteur
 
 **Libellé typique à détecter :**
@@ -341,14 +341,14 @@ Exiger information préalable, responsabilité pleine du contractant principal, 
 - **Équilibré :** "Sous-traitance autorisée avec information préalable et responsabilité inchangée du prestataire principal."
 - **Facilitateur :** "Autoriser les sous-traitants habituels listés en annexe, avec mise à jour encadrée."
 
-**Articles à vérifier dans la sortie :** loi n° 75-1334 du 31 déc. 1975 [a verifier] ; art. 3 et s. [a verifier]
+**Articles à vérifier dans la sortie :** loi n° 75-1334 du 31 déc. 1975 [à vérifier] ; art. 3 et s. [à vérifier]
 
 ---
 
 ## 15. Changement de contrôle
 
-**Article fondateur :** liberté contractuelle ; pratique M&A / corporate [a verifier]
-**Jurisprudence clé :** mise en oeuvre stricte selon définition contractuelle du changement de contrôle [a verifier]
+**Article fondateur :** liberté contractuelle ; pratique M&A / corporate [à vérifier]
+**Jurisprudence clé :** mise en oeuvre stricte selon définition contractuelle du changement de contrôle [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -365,14 +365,14 @@ Définir précisément le contrôle visé, les opérations exclues, les effets d
 - **Équilibré :** "Prévoir un droit de revue ou de consentement motivé, plutôt qu'une résiliation instantanée."
 - **Facilitateur :** "Exclure les restructurations intragroupe sans impact sur la solvabilité, la conformité ou l'exécution."
 
-**Articles à vérifier dans la sortie :** art. L.233-3 C.com [a verifier] ; art. L.233-7 C.com [a verifier pour sociétés cotées, anticipation v2]
+**Articles à vérifier dans la sortie :** art. L.233-3 C.com [à vérifier] ; art. L.233-7 C.com [a verifier pour sociétés cotées, anticipation v2]
 
 ---
 
 ## 16. Réserve de propriété
 
 **Article fondateur :** art. 2367 et s. C.civ. [Légifrance] (réserve de propriété, droit commun des sûretés, ord. 2006-346 du 23 mars 2006)
-**Jurisprudence clé :** opposabilité en procédure collective, exigence d'une clause écrite avant ou lors de la livraison [a verifier]
+**Jurisprudence clé :** opposabilité en procédure collective, exigence d'une clause écrite avant ou lors de la livraison [à vérifier]
 **Posture playbook par défaut :** protecteur
 
 **Libellé typique à détecter :**
@@ -396,7 +396,7 @@ Intégrer la clause dans les CGV communiquées avant la livraison, vérifier qu'
 ## 17. Conditions de règlement et délais de paiement
 
 **Article fondateur :** art. L.441-10 C.com. [Légifrance]
-**Jurisprudence clé :** contrôle DGCCRF sur les délais contractuels dépassant les plafonds légaux, nullité des clauses excédant les maxima [a verifier]
+**Jurisprudence clé :** contrôle DGCCRF sur les délais contractuels dépassant les plafonds légaux, nullité des clauses excédant les maxima [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -413,14 +413,14 @@ Fixer un délai conforme au plafond légal, préciser la date de départ (date d
 - **Équilibré :** "Délai de paiement de 45 jours fin de mois ou 60 jours calendaires à compter de la date d'émission de la facture, selon la première des deux échéances."
 - **Facilitateur :** "Pour les clients récurrents disposant d'un encours autorisé, délai de 45 jours fin de mois avec révision trimestrielle des conditions."
 
-**Articles à vérifier dans la sortie :** art. L.441-10 C.com. ; art. L.441-1 C.com. ; art. L.441-16 C.com. [a verifier]
+**Articles à vérifier dans la sortie :** art. L.441-10 C.com. ; art. L.441-1 C.com. ; art. L.441-16 C.com. [à vérifier]
 
 ---
 
 ## 18. Pénalités de retard et indemnité forfaitaire de recouvrement
 
 **Article fondateur :** art. L.441-10 C.com. [Légifrance]
-**Jurisprudence clé :** caractère automatique des pénalités (de plein droit, sans mise en demeure) et indemnité forfaitaire de 40 € obligatoire [a verifier]
+**Jurisprudence clé :** caractère automatique des pénalités (de plein droit, sans mise en demeure) et indemnité forfaitaire de 40 € obligatoire [à vérifier]
 **Posture playbook par défaut :** protecteur
 
 **Libellé typique à détecter :**
@@ -437,14 +437,14 @@ Stipuler expressément le taux des pénalités dans les CGV. À défaut de taux 
 - **Équilibré :** "Les pénalités de retard sont calculées au taux légal majoré et l'indemnité forfaitaire s'applique automatiquement, avec possibilité pour le vendeur de réclamer des frais complémentaires documentés."
 - **Facilitateur :** "Prévoir, par convention, un préavis de 48 heures entre les parties avant réclamation formelle, sans réduire le droit légal aux pénalités."
 
-**Articles à vérifier dans la sortie :** art. L.441-10 C.com. ; art. D.441-5 C.com. [a verifier]
+**Articles à vérifier dans la sortie :** art. L.441-10 C.com. ; art. D.441-5 C.com. [à vérifier]
 
 ---
 
 ## 19. Escompte pour paiement anticipé
 
 **Article fondateur :** art. L.441-1 C.com. [Légifrance]
-**Jurisprudence clé :** articulation avec l'interdiction des pratiques commerciales restrictives en cas d'escompte imposé [a verifier]
+**Jurisprudence clé :** articulation avec l'interdiction des pratiques commerciales restrictives en cas d'escompte imposé [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -467,8 +467,8 @@ Fixer un taux d'escompte raisonnable et transparent, en cohérence avec le taux 
 
 ## 20. Garantie légale de conformité et garantie des vices cachés
 
-**Article fondateur :** art. 1641 C.civ [Légifrance] (vices cachés, B2B et B2C) ; bloc B2C refondu par ord. n° 2021-1247 du 29 septembre 2021, applicable aux contrats conclus depuis le 1er janvier 2022 : art. L.217-3 C.conso [a verifier] (champ), art. L.217-4 C.conso [a verifier] (définition de conformité), art. L.217-5 C.conso [a verifier] et art. L.217-7 C.conso [a verifier] (durée — 2 ans biens neufs avec présomption d'antériorité du défaut)
-**Jurisprudence clé :** distinction garantie légale de conformité (B2C) et garantie des vices cachés (B2B/B2C) ; inopposabilité des clauses limitatives aux consommateurs [a verifier]
+**Article fondateur :** art. 1641 C.civ [Légifrance] (vices cachés, B2B et B2C) ; bloc B2C refondu par ord. n° 2021-1247 du 29 septembre 2021, applicable aux contrats conclus depuis le 1er janvier 2022 : art. L.217-3 C.conso [à vérifier] (champ), art. L.217-4 C.conso [à vérifier] (définition de conformité), art. L.217-5 C.conso [à vérifier] et art. L.217-7 C.conso [à vérifier] (durée — 2 ans biens neufs avec présomption d'antériorité du défaut)
+**Jurisprudence clé :** distinction garantie légale de conformité (B2C) et garantie des vices cachés (B2B/B2C) ; inopposabilité des clauses limitatives aux consommateurs [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -485,14 +485,14 @@ En B2C : ne jamais exclure les garanties légales, les mentionner explicitement 
 - **Équilibré :** "En B2B, la garantie des vices cachés est aménagée : délai d'action de [X mois] à compter de la découverte, remède prioritaire par remplacement ou réduction du prix, exclusion du préjudice indirect."
 - **Facilitateur :** "En B2C, renvoyer aux dispositions légales obligatoires sans tenter de les contractualiser à la baisse."
 
-**Articles à vérifier dans la sortie :** art. 1641 C.civ. ; art. 1644 C.civ. [a verifier] ; art. L.217-3 C.conso [a verifier] ; art. L.217-4 C.conso [a verifier] ; art. L.217-5 C.conso [a verifier] ; art. L.217-7 C.conso [a verifier]
+**Articles à vérifier dans la sortie :** art. 1641 C.civ. ; art. 1644 C.civ. [à vérifier] ; art. L.217-3 C.conso [à vérifier] ; art. L.217-4 C.conso [à vérifier] ; art. L.217-5 C.conso [à vérifier] ; art. L.217-7 C.conso [à vérifier]
 
 ---
 
 ## 21. Garantie commerciale (distincte des garanties légales)
 
-**Article fondateur :** art. L.217-15 C.conso [a verifier] ; liberté contractuelle en B2B
-**Jurisprudence clé :** distinction entre garantie légale (d'ordre public) et garantie commerciale (volontaire) ; contenu minimal obligatoire en B2C [a verifier]
+**Article fondateur :** art. L.217-15 C.conso [à vérifier] ; liberté contractuelle en B2B
+**Jurisprudence clé :** distinction entre garantie légale (d'ordre public) et garantie commerciale (volontaire) ; contenu minimal obligatoire en B2C [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -509,14 +509,14 @@ Rédiger la garantie commerciale comme un engagement autonome, en précisant ce 
 - **Équilibré :** "La garantie commerciale précise le remède (réparation, remplacement, avoir) et les délais d'intervention, sans préjudice des garanties légales obligatoires."
 - **Facilitateur :** "Limiter la garantie commerciale aux seuls équipements critiques et la distinguer par un document contractuel séparé."
 
-**Articles à vérifier dans la sortie :** art. L.217-15 C.conso [a verifier] ; art. L.217-21 C.conso [a verifier] ; art. 1641 C.civ.
+**Articles à vérifier dans la sortie :** art. L.217-15 C.conso [à vérifier] ; art. L.217-21 C.conso [à vérifier] ; art. 1641 C.civ.
 
 ---
 
 ## 22. Clause de révision de prix
 
-**Article fondateur :** art. 1195 C.civ [Légifrance] ; art. L.441-8 C.com. [a verifier] pour les contrats d'approvisionnement de durée supérieure à 3 mois sur matières premières agricoles et alimentaires
-**Jurisprudence clé :** distinction entre clause d'indexation légale et clause de hardship ; contrôle de la référence d'indexation [a verifier]
+**Article fondateur :** art. 1195 C.civ [Légifrance] ; art. L.441-8 C.com. [à vérifier] pour les contrats d'approvisionnement de durée supérieure à 3 mois sur matières premières agricoles et alimentaires
+**Jurisprudence clé :** distinction entre clause d'indexation légale et clause de hardship ; contrôle de la référence d'indexation [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -533,14 +533,14 @@ Fonder la révision sur des indices objectifs publiés (INSEE, indices sectoriel
 - **Équilibré :** "La révision s'applique aux seuls postes variables (matières premières, énergie) et est encadrée par un indice de référence convenu, sans affecter la marge fixe."
 - **Facilitateur :** "Prévoir une révision par accord mutuel, avec déclenchement automatique si un indice dépasse un seuil convenu."
 
-**Articles à vérifier dans la sortie :** art. 1195 C.civ. ; art. L.441-8 C.com. [a verifier] ; art. L.442-1 C.com.
+**Articles à vérifier dans la sortie :** art. 1195 C.civ. ; art. L.441-8 C.com. [à vérifier] ; art. L.442-1 C.com.
 
 ---
 
 ## 23. Clause de réserve (sur disponibilité, sur conditions)
 
-**Article fondateur :** art. 1304 C.civ [a verifier] ; liberté contractuelle
-**Jurisprudence clé :** distinction entre condition suspensive licite et condition purement potestative nulle (art. 1304-2 C.civ [a verifier]) [a verifier]
+**Article fondateur :** art. 1304 C.civ [à vérifier] ; liberté contractuelle
+**Jurisprudence clé :** distinction entre condition suspensive licite et condition purement potestative nulle (art. 1304-2 C.civ [à vérifier]) [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -557,14 +557,14 @@ Circonscrire la réserve à des événements objectifs, préciser le délai dans
 - **Équilibré :** "La réserve est limitée à la disponibilité objective des stocks et à l'obtention d'éventuelles autorisations réglementaires identifiées, avec délai de réalisation déterminé."
 - **Facilitateur :** "Supprimer les réserves discrétionnaires et leur substituer un délai de confirmation ferme, au-delà duquel la commande est réputée acceptée ou rejetée."
 
-**Articles à vérifier dans la sortie :** art. 1304 C.civ [a verifier] ; art. 1304-2 C.civ [a verifier]
+**Articles à vérifier dans la sortie :** art. 1304 C.civ [à vérifier] ; art. 1304-2 C.civ [à vérifier]
 
 ---
 
 ## 24. Limitation de responsabilité spécifique aux CGV
 
 **Article fondateur :** art. 1170 C.civ [Légifrance]
-**Jurisprudence clé :** Chronopost et lignée — plafond qui vide l'obligation essentielle de sa substance réputé non écrit ; articulation avec clause pénale en CGV [a verifier]
+**Jurisprudence clé :** Chronopost et lignée — plafond qui vide l'obligation essentielle de sa substance réputé non écrit ; articulation avec clause pénale en CGV [à vérifier]
 **Posture playbook par défaut :** protecteur
 
 **Libellé typique à détecter :**
@@ -587,8 +587,8 @@ Calibrer le plafond sur la valeur des commandes, exclure explicitement le dol, l
 
 ## 25. Propriété intellectuelle dans les CGV
 
-**Article fondateur :** art. L.111-1 CPI [a verifier] ; art. L.512-1 CPI [a verifier pour dessins et modèles]
-**Jurisprudence clé :** protection des droits d'auteur sur les visuels, packagings et contenus numériques commercialisés ; droits des bases de données [a verifier]
+**Article fondateur :** art. L.111-1 CPI [à vérifier] ; art. L.512-1 CPI [a verifier pour dessins et modèles]
+**Jurisprudence clé :** protection des droits d'auteur sur les visuels, packagings et contenus numériques commercialisés ; droits des bases de données [à vérifier]
 **Posture playbook par défaut :** protecteur
 
 **Libellé typique à détecter :**
@@ -605,14 +605,14 @@ Préciser l'étendue exacte des droits concédés : usage personnel ou professio
 - **Équilibré :** "L'acheteur dispose d'une licence d'usage du contenu ou logiciel livré pour les besoins de son activité propre, sans transfert de propriété intellectuelle."
 - **Facilitateur :** "Pour les biens physiques standard sans composante numérique, une clause de rappel minimaliste suffit ; réserver la clause complète aux CGV digitales et SaaS."
 
-**Articles à vérifier dans la sortie :** art. L.111-1 CPI [a verifier] ; art. L.131-3 CPI [a verifier si cession explicite] ; art. L.342-1 CPI [a verifier pour bases de données]
+**Articles à vérifier dans la sortie :** art. L.111-1 CPI [à vérifier] ; art. L.131-3 CPI [a verifier si cession explicite] ; art. L.342-1 CPI [a verifier pour bases de données]
 
 ---
 
 ## 26. Données personnelles (renvoi hacienda-ghost)
 
 **Article fondateur :** règlement (UE) 2016/679 RGPD [Eurlex] ; loi n° 78-17 du 6 janvier 1978 modifiée [Légifrance — a verifier]
-**Jurisprudence clé :** sanctions CNIL sur les clauses insuffisantes d'information et de sous-traitance RGPD [a verifier]
+**Jurisprudence clé :** sanctions CNIL sur les clauses insuffisantes d'information et de sous-traitance RGPD [à vérifier]
 **Posture playbook par défaut :** protecteur
 
 **Libellé typique à détecter :**
@@ -629,14 +629,14 @@ Intégrer une notice d'information RGPD complète dans les CGV ou en annexe. Pou
 - **Équilibré :** "Une clause RGPD synthétique figure aux CGV avec renvoi vers la politique de confidentialité complète et mention des droits d'accès, rectification, effacement, portabilité et opposition."
 - **Facilitateur :** "Pour les traitements dépassant la relation commerciale directe (marketing, analyses), obtenir le consentement explicite et séparer la clause CGV de la politique cookies/marketing."
 
-**Articles à vérifier dans la sortie :** règlement (UE) 2016/679 RGPD art. 13 [Eurlex] ; art. 6 RGPD [Eurlex] ; loi n° 78-17 du 6 janv. 1978 [a verifier]
+**Articles à vérifier dans la sortie :** règlement (UE) 2016/679 RGPD art. 13 [Eurlex] ; art. 6 RGPD [Eurlex] ; loi n° 78-17 du 6 janv. 1978 [à vérifier]
 
 ---
 
 ## 27. Réclamation et délai de contestation
 
-**Article fondateur :** liberté contractuelle ; art. 1353 C.civ [a verifier] sur la charge de la preuve
-**Jurisprudence clé :** délais conventionnels de réclamation licites en B2B si raisonnables ; inopposabilité des délais trop courts en B2C [a verifier]
+**Article fondateur :** liberté contractuelle ; art. 1353 C.civ [à vérifier] sur la charge de la preuve
+**Jurisprudence clé :** délais conventionnels de réclamation licites en B2B si raisonnables ; inopposabilité des délais trop courts en B2C [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -653,14 +653,14 @@ Fixer un délai de réclamation raisonnable (3 à 10 jours ouvrés pour les vice
 - **Équilibré :** "Les vices non apparents à la livraison peuvent être signalés dans le délai de garantie légale ; les défauts apparents doivent être signalés dans les [7] jours calendaires."
 - **Facilitateur :** "Prévoir un formulaire de réclamation standardisé et un accusé de réception automatique, pour réduire les litiges sur la preuve de notification."
 
-**Articles à vérifier dans la sortie :** art. 1353 C.civ [a verifier] ; art. 1641 C.civ. ; art. L.217-3 C.conso [a verifier pour B2C]
+**Articles à vérifier dans la sortie :** art. 1353 C.civ [à vérifier] ; art. 1641 C.civ. ; art. L.217-3 C.conso [a verifier pour B2C]
 
 ---
 
 ## 28. Transfert des risques
 
-**Article fondateur :** art. 1196 C.civ [a verifier] ; art. 1344-2 C.civ [a verifier] ; pratique des Incoterms en B2B international
-**Jurisprudence clé :** coïncidence (ou non) du transfert de propriété et du transfert des risques ; résolution du contrat en cas de perte fortuite [a verifier]
+**Article fondateur :** art. 1196 C.civ [à vérifier] ; art. 1344-2 C.civ [à vérifier] ; pratique des Incoterms en B2B international
+**Jurisprudence clé :** coïncidence (ou non) du transfert de propriété et du transfert des risques ; résolution du contrat en cas de perte fortuite [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -677,14 +677,14 @@ Préciser explicitement le moment du transfert des risques (remise au transporte
 - **Équilibré :** "Les risques sont transférés dès remise au transporteur désigné par les parties, l'acheteur devant souscrire une assurance transport couvrant le trajet."
 - **Facilitateur :** "Référencer l'Incoterm CIP ou DDP pour les livraisons internationales, et préciser pour les livraisons nationales le point de transfert de risque et les modalités d'assurance."
 
-**Articles à vérifier dans la sortie :** art. 1196 C.civ [a verifier] ; art. 1344-2 C.civ [a verifier] ; art. L.216-6 C.conso [Légifrance] (transfert des risques B2C — renuméroté par l'ord. 2021-1247, anciennement L.216-4)
+**Articles à vérifier dans la sortie :** art. 1196 C.civ [à vérifier] ; art. 1344-2 C.civ [à vérifier] ; art. L.216-6 C.conso [Légifrance] (transfert des risques B2C — renuméroté par l'ord. 2021-1247, anciennement L.216-4)
 
 ---
 
 ## 29. Clause de hardship / imprévision
 
 **Article fondateur :** art. 1195 C.civ [Légifrance]
-**Jurisprudence clé :** application post-réforme 2016, articulation avec la force majeure (1218 C.civ.) et les clauses de révision conventionnelles [a verifier]
+**Jurisprudence clé :** application post-réforme 2016, articulation avec la force majeure (1218 C.civ.) et les clauses de révision conventionnelles [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -708,7 +708,7 @@ Stipuler les critères de déclenchement (seuil de variation de coût, événeme
 ## 30. Clause de non-sollicitation
 
 **Article fondateur :** art. 1102 C.civ [Légifrance] (liberté contractuelle) ; la validité d'une clause de non-sollicitation B2B résulte du contrôle de proportionnalité jurisprudentiel (périmètre, durée, personnes visées), faute d'article fondateur unique en droit positif ; droit social pour la non-concurrence salariée (hors scope de cette clause)
-**Jurisprudence clé :** validité conditionnée à la proportionnalité de l'objet, du périmètre et de la durée ; articulation avec la liberté du travail [a verifier]
+**Jurisprudence clé :** validité conditionnée à la proportionnalité de l'objet, du périmètre et de la durée ; articulation avec la liberté du travail [à vérifier]
 **Posture playbook par défaut :** protecteur
 
 **Libellé typique à détecter :**

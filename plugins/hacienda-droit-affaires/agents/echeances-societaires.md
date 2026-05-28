@@ -40,7 +40,7 @@ l'avocat ou le dirigeant décide.
 
 ## Sources
 
-- `companyFullProfileTool` (`mcp__*__company_full_profile`) — Pappers (date
+- `company_full_profileTool` (`mcp__*__company_full_profile`) — Pappers (date
   clôture, dirigeants, mandats) si `PAPPERS_API_KEY` configurée ; cache 7 j.
   [Pappers]
 - `BodaccClient.searchBySiren(siren, limit)` (`mcp__*__bodacc_by_siren`) —
@@ -71,7 +71,7 @@ clients:
 ```
 
 **Si le fichier est absent ou vide** : stopper et proposer
-`/hacienda-droit-affaires:entretien-demarrage` ou création manuelle.
+`/h-droit-affaires:entretien-demarrage` ou création manuelle.
 L'agent ne crée pas de fichier vide par défaut.
 
 État persisté : `.echeances-state.json` (même répertoire).
@@ -96,7 +96,7 @@ Le champ `notified` évite de répéter les alertes d'un cycle mensuel déjà no
    premier run posera la baseline sans émettre d'alerte.
 
 3. **Pour chaque client** :
-   - Appeler `companyFullProfileTool(siren)` [Pappers] ; si cache < 7 j,
+   - Appeler `company_full_profileTool(siren)` [Pappers] ; si cache < 7 j,
      réutiliser.
    - Si Pappers indisponible : fallback `BodaccClient.searchBySiren(siren)` [BODACC]
      pour récupérer date de dépôt comptes et modifications.
@@ -178,4 +178,4 @@ Si > 10 clients ou > 15 lignes : générer aussi un HTML autonome via
 - **Pas de revue du procès-verbal d'AGO** — skill v1.1+.
 - **Pas de calcul des indemnités fin de mandat** — droit social, hors scope.
 - **Ne gère pas la liste clients** — modifications via
-  `/hacienda-droit-affaires:entretien-demarrage` ou édition manuelle du YAML.
+  `/h-droit-affaires:entretien-demarrage` ou édition manuelle du YAML.

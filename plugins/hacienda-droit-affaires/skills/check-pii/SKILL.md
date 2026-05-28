@@ -6,7 +6,8 @@ description: >
   sensibles (IBAN, NIR, ID, sante, montants > 10kEUR). Propose l'installation de
   hacienda-ghost si non installe. Politique configurable au cold-start :
   passive / active (defaut, = B+A) / strict.
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[texte, dossier ou chemin à contrôler]"
 authors: ["Hacienda"]
 tags: [pii, confidentialite, pre-flight, conversion-ghost]
 ---
@@ -67,7 +68,7 @@ Confirmer la poursuite sans anonymisation ou installer `hacienda-ghost`.
 > - `categories_sensibles_actives` : liste des categories B activees
 
 Si le profil n'est pas encore configure, stopper et demander de lancer
-`/hacienda-droit-affaires:entretien-demarrage`, sauf si le skill appelant
+`/h-droit-affaires:entretien-demarrage`, sauf si le skill appelant
 fournit explicitement une politique override.
 
 ---
@@ -80,6 +81,26 @@ fournit explicitement une politique override.
 4. **ghost_installe** (optionnel) — true / false / inconnu
 
 ---
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- `check-pii` reste un pré-flight local : ne pas appeler de registre externe pour identifier des données personnelles ; lancer les outils juridiques seulement après minimisation ou accord explicite.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
 
 ## Etape 1 — Detection Categorie A (compteur global)
 

@@ -7,7 +7,7 @@ laissé en `[a compléter]`.
 
 > **Source primaire :** Légifrance.
 > Toute citation issue de cet index doit être taguée `[Légifrance]` si vérifiée
-> en session, sinon `[a verifier]`.
+> en session, sinon `[à vérifier]`.
 
 ---
 
@@ -139,9 +139,9 @@ laissé en `[a compléter]`.
 | Décision | Apport | Skill concerné |
 |---|---|---|
 | Cass. soc. 10 juil. 2002, n° 00-45.135 | Contrepartie financière obligatoire pour la non-concurrence salariée | `reviser-contrat`, `reviser-nda` |
-| Cass. com. 22 oct. 1996, n° 93-18.632 (Chronopost) [a verifier] | Limitation de responsabilité et obligation essentielle | `reviser-contrat` |
-| Jurisprudence récente sur L.442-1 C.com. [a verifier] | Déséquilibre significatif B2B, absence de contrepartie | `reviser-contrat` |
-| Arrêts récents sur L.622-24 / L.622-26 C.com. [a verifier] | Délais, relevé de forclusion, stratégie créancier | `declaration-creance` |
+| Cass. com. 22 oct. 1996, n° 93-18.632 (Chronopost) [à vérifier] | Limitation de responsabilité et obligation essentielle | `reviser-contrat` |
+| Jurisprudence récente sur L.442-1 C.com. [à vérifier] | Déséquilibre significatif B2B, absence de contrepartie | `reviser-contrat` |
+| Arrêts récents sur L.622-24 / L.622-26 C.com. [à vérifier] | Délais, relevé de forclusion, stratégie créancier | `declaration-creance` |
 
 ---
 
@@ -198,5 +198,5 @@ laissé en `[a compléter]`.
 
 1. Ne compléter un `LEGIARTI...` qu'après vérification sur Légifrance.
 2. Ne pas "déduire" un identifiant depuis un ancien numéro d'article.
-3. En cas de doute sur une jurisprudence, garder le numéro d'arrêt et marquer `[a verifier]`.
+3. En cas de doute sur une jurisprudence, garder le numéro d'arrêt et marquer `[à vérifier]`.
 4. Quand `verifier-citations` sera enrichi, cet index doit servir de table de seed et non de vérité autoportée.

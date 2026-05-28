@@ -6,14 +6,14 @@ de qualification du risque, et de proposition de reformulation selon la posture
 du cabinet.
 
 > **Sources primaires :** Légifrance, Judilibre, Eurlex.
-> Toute citation non relue en session doit être traitée comme `[a verifier]`.
+> Toute citation non relue en session doit être traitée comme `[à vérifier]`.
 > Les postures de pacte se déclinent en trois axes : **protecteur fondateurs**,
 > **équilibré**, **protecteur investisseurs** (à distinguer des postures
 > contrat commercial protecteur / équilibré / facilitateur).
 
 **Note de cadrage — pacte vs statuts.** Le pacte d'associés est un contrat
 extra-statutaire : il n'engage que ses signataires (effet relatif, art. 1199
-C.civ `[a verifier]`) et sa violation se résout en principe par
+C.civ `[à vérifier]`) et sa violation se résout en principe par
 dommages-intérêts, non par la nullité de l'acte passé en fraude. Les statuts,
 eux, sont opposables aux tiers et leur violation peut entraîner la nullité de la
 cession (en SAS, art. L.227-15 C.com.). Pour chaque clause, vérifier si elle est
@@ -24,8 +24,8 @@ renforcée). C'est un arbitrage de sécurisation récurrent.
 
 ## 1. Préemption
 
-**Article fondateur :** liberté contractuelle ; pacte de préférence art. 1123 C.civ [a verifier]
-**Jurisprudence clé :** sanction de la violation du pacte de préférence — substitution du bénéficiaire possible si le tiers connaissait le pacte et l'intention du bénéficiaire de s'en prévaloir [a verifier]
+**Article fondateur :** liberté contractuelle ; pacte de préférence art. 1123 C.civ [à vérifier]
+**Jurisprudence clé :** sanction de la violation du pacte de préférence — substitution du bénéficiaire possible si le tiers connaissait le pacte et l'intention du bénéficiaire de s'en prévaloir [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -44,13 +44,13 @@ Une clause de préemption mal rédigée crée un contentieux sur le périmètre 
 - **Équilibré :** « Le droit de préemption porte sur les cessions à titre onéreux à des tiers non-associés ; il s'exerce au prorata, à défaut au prix notifié, dans un délai de [30] jours. »
 - **Protecteur investisseurs :** « Le droit de préemption ne s'applique pas aux transferts au profit d'un Affilié du cédant, sous réserve de l'adhésion du cessionnaire au présent pacte. »
 
-**Articles à vérifier dans la sortie :** art. 1123 C.civ `[a verifier]` ; art. 1199 C.civ `[a verifier]` ; art. L.228-23 C.com. `[a verifier]` (si reprise statutaire en société non cotée)
+**Articles à vérifier dans la sortie :** art. 1123 C.civ `[à vérifier]` ; art. 1199 C.civ `[à vérifier]` ; art. L.228-23 C.com. `[à vérifier]` (si reprise statutaire en société non cotée)
 
 ---
 
 ## 2. Agrément
 
-**Article fondateur :** SAS — art. L.227-14 C.com. [Légifrance] ; SARL — art. L.223-14 C.com. [Légifrance] ; clause statutaire en société par actions non cotée — art. L.228-23 C.com. [a verifier]
+**Article fondateur :** SAS — art. L.227-14 C.com. [Légifrance] ; SARL — art. L.223-14 C.com. [Légifrance] ; clause statutaire en société par actions non cotée — art. L.228-23 C.com. [à vérifier]
 **Jurisprudence clé :** procédure d'agrément en société par actions — silence de la société pendant 3 mois vaut agrément (art. L.228-24 C.com.) [Légifrance]
 **Posture playbook par défaut :** équilibré
 
@@ -59,7 +59,7 @@ Une clause de préemption mal rédigée crée un contentieux sur le périmètre 
 
 **Risque juridique :**
 La distinction agrément statutaire / agrément du pacte est centrale et souvent confondue.
-- **Agrément statutaire :** en SAS, la clause d'agrément figure dans les statuts (art. L.227-14 C.com.) ; son adoption ou sa modification requiert l'unanimité des associés (art. L.227-19 C.com. `[a verifier]`) ; la cession faite en violation est nulle de plein droit (art. L.227-15 C.com.). En SARL, l'agrément des cessions à des tiers est légalement obligatoire et statutaire (art. L.223-14 C.com.), à la majorité des associés représentant au moins la moitié des parts (sauf majorité statutaire plus forte). En société par actions non cotée, une clause d'agrément peut figurer dans les statuts (art. L.228-23 C.com.), la procédure obéissant à l'art. L.228-24 C.com. (notification, délai de 3 mois, obligation de rachat en cas de refus).
+- **Agrément statutaire :** en SAS, la clause d'agrément figure dans les statuts (art. L.227-14 C.com.) ; son adoption ou sa modification requiert l'unanimité des associés (art. L.227-19 C.com. `[à vérifier]`) ; la cession faite en violation est nulle de plein droit (art. L.227-15 C.com.). En SARL, l'agrément des cessions à des tiers est légalement obligatoire et statutaire (art. L.223-14 C.com.), à la majorité des associés représentant au moins la moitié des parts (sauf majorité statutaire plus forte). En société par actions non cotée, une clause d'agrément peut figurer dans les statuts (art. L.228-23 C.com.), la procédure obéissant à l'art. L.228-24 C.com. (notification, délai de 3 mois, obligation de rachat en cas de refus).
 - **Agrément du pacte :** une obligation purement contractuelle de recueillir l'accord d'un associé avant cession ne lie que les signataires (effet relatif) ; sa violation ne rend pas la cession nulle mais ouvre droit à dommages-intérêts ou à l'exécution forcée des promesses adossées. Une clause d'agrément du pacte ne peut pas, à elle seule, faire échec à une cession régulière au regard des statuts.
 Risque additionnel : un agrément du pacte trop large peut être analysé comme une atteinte excessive à la libre cessibilité ; en SARL, les parts sont par nature peu cessibles, mais une clause prohibant toute cession serait nulle.
 
@@ -73,14 +73,14 @@ Risque additionnel : un agrément du pacte trop large peut être analysé comme 
 - **Équilibré :** « La cession à un tiers est soumise à agrément ; à défaut de décision dans les trois mois de la notification, l'agrément est réputé acquis ; en cas de refus, la société ou les associés sont tenus de faire racheter les titres dans les conditions de l'article L.228-24 du Code de commerce. »
 - **Protecteur investisseurs :** « La procédure d'agrément n'est pas applicable aux transferts réalisés par l'Investisseur, lesquels demeurent libres sous réserve de l'adhésion du cessionnaire au pacte. »
 
-**Articles à vérifier dans la sortie :** art. L.227-14 C.com. `[Légifrance]` ; art. L.227-15 C.com. `[Légifrance]` ; art. L.223-14 C.com. `[Légifrance]` ; art. L.228-23 C.com. `[a verifier]` ; art. L.228-24 C.com. `[Légifrance]` ; art. L.227-19 C.com. `[a verifier]`
+**Articles à vérifier dans la sortie :** art. L.227-14 C.com. `[Légifrance]` ; art. L.227-15 C.com. `[Légifrance]` ; art. L.223-14 C.com. `[Légifrance]` ; art. L.228-23 C.com. `[à vérifier]` ; art. L.228-24 C.com. `[Légifrance]` ; art. L.227-19 C.com. `[à vérifier]`
 
 ---
 
 ## 3. Inaliénabilité
 
 **Article fondateur :** SAS — art. L.227-13 C.com. [Légifrance] (clause statutaire d'inaliénabilité, durée maximale 10 ans)
-**Jurisprudence clé :** validité de l'inaliénabilité conventionnelle subordonnée à une durée limitée et à un intérêt sérieux et légitime — transposition de l'art. 900-1 C.civ et de la jurisprudence sur les clauses d'inaliénabilité [a verifier]
+**Jurisprudence clé :** validité de l'inaliénabilité conventionnelle subordonnée à une durée limitée et à un intérêt sérieux et légitime — transposition de l'art. 900-1 C.civ et de la jurisprudence sur les clauses d'inaliénabilité [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -99,14 +99,14 @@ En SAS, l'inaliénabilité **statutaire** est expressément encadrée par l'art.
 - **Équilibré :** « L'inaliénabilité est stipulée pour [3] ans, sans préjudice des cas de transfert autorisés (bad leaver, décès, invalidité) ; son intérêt sérieux et légitime est exposé au préambule. »
 - **Protecteur investisseurs :** « L'inaliénabilité s'applique aux Fondateurs et aux Managers ; l'Investisseur n'y est pas soumis. »
 
-**Articles à vérifier dans la sortie :** art. L.227-13 C.com. `[Légifrance]` ; art. 900-1 C.civ `[a verifier]`
+**Articles à vérifier dans la sortie :** art. L.227-13 C.com. `[Légifrance]` ; art. 900-1 C.civ `[à vérifier]`
 
 ---
 
 ## 4. Drag-along (obligation de cession conjointe / sortie forcée)
 
-**Article fondateur :** liberté contractuelle ; promesse de cession art. 1124 C.civ [a verifier]
-**Jurisprudence clé :** validité de l'obligation de sortie conjointe sous réserve d'un prix déterminé ou déterminable et d'un engagement librement consenti [a verifier]
+**Article fondateur :** liberté contractuelle ; promesse de cession art. 1124 C.civ [à vérifier]
+**Jurisprudence clé :** validité de l'obligation de sortie conjointe sous réserve d'un prix déterminé ou déterminable et d'un engagement librement consenti [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -129,14 +129,14 @@ La clause de drag-along (« obligation de sortie conjointe ») permet à un grou
 - **Équilibré :** « Le drag-along ne peut être mis en œuvre qu'au-delà d'un seuil de [50] % et à des conditions identiques pour tous les associés ; la responsabilité de l'associé entraîné au titre de la garantie est limitée, au prorata et en montant, au prix perçu. »
 - **Protecteur investisseurs :** « L'Investisseur peut, en cas d'offre sérieuse, mettre en œuvre l'obligation de sortie conjointe ; le produit de cession est réparti conformément à la clause de répartition préférentielle. »
 
-**Articles à vérifier dans la sortie :** art. 1124 C.civ `[a verifier]` ; art. 1592 C.civ `[Légifrance]` (détermination du prix par tiers) ; art. 1843-4 C.civ `[a verifier]`
+**Articles à vérifier dans la sortie :** art. 1124 C.civ `[à vérifier]` ; art. 1592 C.civ `[Légifrance]` (détermination du prix par tiers) ; art. 1843-4 C.civ `[à vérifier]`
 
 ---
 
 ## 5. Tag-along (droit de cession conjointe / sortie conjointe)
 
-**Article fondateur :** liberté contractuelle ; promesse de cession art. 1124 C.civ [a verifier]
-**Jurisprudence clé :** opposabilité limitée du tag-along stipulé dans le pacte seul — sanction en dommages-intérêts à défaut de reprise statutaire [a verifier]
+**Article fondateur :** liberté contractuelle ; promesse de cession art. 1124 C.civ [à vérifier]
+**Jurisprudence clé :** opposabilité limitée du tag-along stipulé dans le pacte seul — sanction en dommages-intérêts à défaut de reprise statutaire [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -159,14 +159,14 @@ Le tag-along (« droit de sortie conjointe ») protège le minoritaire : il lui 
 - **Équilibré :** « Lorsqu'une cession entraîne un changement de contrôle, chaque autre associé peut exiger la cession de l'intégralité de ses titres au cessionnaire, aux mêmes conditions ; le cédant fait son affaire de l'engagement du cessionnaire d'acquérir les titres tagués. »
 - **Protecteur investisseurs :** « Si le cessionnaire n'acquiert pas l'ensemble des titres pour lesquels le droit de sortie conjointe est exercé, les titres de l'Investisseur sont acquis par priorité. »
 
-**Articles à vérifier dans la sortie :** art. 1124 C.civ `[a verifier]` ; art. 1199 C.civ `[a verifier]` (effet relatif du pacte)
+**Articles à vérifier dans la sortie :** art. 1124 C.civ `[à vérifier]` ; art. 1199 C.civ `[à vérifier]` (effet relatif du pacte)
 
 ---
 
 ## 6. Anti-dilution
 
-**Article fondateur :** liberté contractuelle ; droit préférentiel de souscription art. L.225-132 C.com. [a verifier] ; suppression du DPS art. L.228-91 et s. C.com. [a verifier]
-**Jurisprudence clé :** validité des mécanismes de relution sous réserve du respect de la compétence de l'assemblée en matière d'augmentation de capital [a verifier]
+**Article fondateur :** liberté contractuelle ; droit préférentiel de souscription art. L.225-132 C.com. [à vérifier] ; suppression du DPS art. L.228-91 et s. C.com. [à vérifier]
+**Jurisprudence clé :** validité des mécanismes de relution sous réserve du respect de la compétence de l'assemblée en matière d'augmentation de capital [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -188,14 +188,14 @@ Risques juridiques : l'ajustement se réalise techniquement par émission de tit
 - **Équilibré :** « La protection anti-dilution est mise en œuvre par la méthode de la moyenne pondérée ; les associés s'engagent à voter les résolutions d'augmentation de capital strictement nécessaires à sa réalisation. »
 - **Protecteur investisseurs :** « En cas de tour à un prix inférieur, l'Investisseur bénéficie d'un ajustement de type full ratchet, mis en œuvre par exercice de bons de souscription émis à cet effet. »
 
-**Articles à vérifier dans la sortie :** art. L.225-132 C.com. `[a verifier]` ; art. L.228-91 C.com. `[a verifier]`
+**Articles à vérifier dans la sortie :** art. L.225-132 C.com. `[à vérifier]` ; art. L.228-91 C.com. `[à vérifier]`
 
 ---
 
 ## 7. Good leaver / bad leaver
 
-**Article fondateur :** liberté contractuelle ; promesses de cession art. 1124 C.civ [a verifier] ; prohibition des clauses léonines art. 1844-1 C.civ [a verifier]
-**Jurisprudence clé :** validité des promesses de cession à prix décoté en cas de départ, sous réserve qu'elles ne réalisent pas une clause léonine ni une sanction disproportionnée [a verifier]
+**Article fondateur :** liberté contractuelle ; promesses de cession art. 1124 C.civ [à vérifier] ; prohibition des clauses léonines art. 1844-1 C.civ [à vérifier]
+**Jurisprudence clé :** validité des promesses de cession à prix décoté en cas de départ, sous réserve qu'elles ne réalisent pas une clause léonine ni une sanction disproportionnée [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -221,14 +221,14 @@ Risques :
 - **Équilibré :** « Les motifs de départ sont limitativement définis ; en bad leaver, le prix de rachat est égal au plus faible du prix de souscription et de la valeur de marché ; à défaut d'accord, le prix est fixé conformément à l'article 1843-4 du Code civil. »
 - **Protecteur investisseurs :** « Constitue un bad leaver tout départ résultant d'une faute grave, d'une violation du pacte ou d'une démission intervenant avant le [3e] anniversaire ; le prix de rachat est alors égal à [80] % du prix de souscription. »
 
-**Articles à vérifier dans la sortie :** art. 1124 C.civ `[a verifier]` ; art. 1844-1 C.civ `[a verifier]` (clause léonine) ; art. 1843-4 C.civ `[a verifier]` (fixation du prix par expert)
+**Articles à vérifier dans la sortie :** art. 1124 C.civ `[à vérifier]` ; art. 1844-1 C.civ `[à vérifier]` (clause léonine) ; art. 1843-4 C.civ `[à vérifier]` (fixation du prix par expert)
 
 ---
 
 ## 8. Promesses croisées de cession (call / put)
 
-**Article fondateur :** promesse unilatérale de vente art. 1124 C.civ [a verifier] ; détermination du prix par expert art. 1843-4 C.civ [a verifier]
-**Jurisprudence clé :** depuis la réforme de 2016, la rétractation du promettant avant la levée de l'option n'empêche pas la formation du contrat (art. 1124 al. 2 C.civ) [a verifier]
+**Article fondateur :** promesse unilatérale de vente art. 1124 C.civ [à vérifier] ; détermination du prix par expert art. 1843-4 C.civ [à vérifier]
+**Jurisprudence clé :** depuis la réforme de 2016, la rétractation du promettant avant la levée de l'option n'empêche pas la formation du contrat (art. 1124 al. 2 C.civ) [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -236,7 +236,7 @@ Risques :
 
 **Risque juridique :**
 Les promesses croisées (call = promesse de vente au profit du bénéficiaire de l'option d'achat ; put = promesse d'achat au profit du titulaire de l'option de vente) organisent les transferts conditionnels. Risques :
-- **Conditions d'exercice.** L'événement déclencheur (échéance, défaut, départ, échec de liquidité) doit être objectivement défini ; une condition potestative pour le débiteur de l'obligation serait nulle (art. 1304-2 C.civ `[a verifier]`).
+- **Conditions d'exercice.** L'événement déclencheur (échéance, défaut, départ, échec de liquidité) doit être objectivement défini ; une condition potestative pour le débiteur de l'obligation serait nulle (art. 1304-2 C.civ `[à vérifier]`).
 - **Prix.** Le prix doit être déterminé ou déterminable. Le renvoi à un expert de l'art. 1843-4 C.civ est fréquent ; attention, l'art. 1843-4 C.civ ne s'applique de plein droit que dans les cas légaux de cession ou rachat — pour une cession purement conventionnelle, les parties peuvent désigner un expert, mais l'expert est alors tenu par les modalités de calcul fixées au pacte. Une formule de prix manifestement déconnectée de la valeur peut soulever un grief de clause léonine si elle neutralise le risque d'associé `[review]`.
 - **Délai et option.** Encadrer la fenêtre d'exercice ; depuis 2016, la révocation par le promettant avant la levée d'option n'empêche pas la vente de se former (art. 1124 al. 2 C.civ) — sécurité accrue pour le bénéficiaire.
 - **Articulation leaver.** Les promesses servent souvent de véhicule technique aux clauses good/bad leaver et de liquidité ; vérifier la cohérence des prix.
@@ -251,14 +251,14 @@ Les promesses croisées (call = promesse de vente au profit du bénéficiaire de
 - **Équilibré :** « Les promesses croisées s'exercent dans une fenêtre de [60] jours suivant la survenance d'un événement déclencheur limitativement défini ; le prix d'exercice est déterminé à dire d'expert, lequel applique les modalités de valorisation convenues au pacte. »
 - **Protecteur investisseurs :** « En l'absence d'événement de liquidité au terme de [5] ans, l'Investisseur peut exercer sa promesse d'achat ; le prix ne peut être inférieur à [son prix de souscription majoré de [x] % par an]. »
 
-**Articles à vérifier dans la sortie :** art. 1124 C.civ `[a verifier]` ; art. 1843-4 C.civ `[a verifier]` ; art. 1304-2 C.civ `[a verifier]` (condition potestative) ; art. 1844-1 C.civ `[a verifier]` (clause léonine)
+**Articles à vérifier dans la sortie :** art. 1124 C.civ `[à vérifier]` ; art. 1843-4 C.civ `[à vérifier]` ; art. 1304-2 C.civ `[à vérifier]` (condition potestative) ; art. 1844-1 C.civ `[à vérifier]` (clause léonine)
 
 ---
 
 ## 9. Non-concurrence des associés
 
-**Article fondateur :** liberté contractuelle ; liberté du commerce et de l'industrie ; contrôle de proportionnalité [a verifier]
-**Jurisprudence clé :** la non-concurrence pesant sur un associé NON salarié n'est PAS soumise à l'exigence de contrepartie financière dégagée pour le salarié (Cass. soc. 10 juil. 2002, n° 00-45.135) ; sa validité est appréciée au regard de la seule proportionnalité — durée, périmètre géographique, activités visées — et de la protection d'un intérêt légitime [a verifier]
+**Article fondateur :** liberté contractuelle ; liberté du commerce et de l'industrie ; contrôle de proportionnalité [à vérifier]
+**Jurisprudence clé :** la non-concurrence pesant sur un associé NON salarié n'est PAS soumise à l'exigence de contrepartie financière dégagée pour le salarié (Cass. soc. 10 juil. 2002, n° 00-45.135) ; sa validité est appréciée au regard de la seule proportionnalité — durée, périmètre géographique, activités visées — et de la protection d'un intérêt légitime [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -284,14 +284,14 @@ L'appréciation du caractère proportionné d'une non-concurrence d'associé est
 - **Équilibré :** « L'engagement de non-concurrence est limité à la durée de détention des titres et à [18] mois après leur cession ; il vise les seules activités concurrentes définies par référence à l'objet social, sur le périmètre géographique d'exploitation effective ; il n'est pas assorti de contrepartie financière, l'associé s'obligeant en sa seule qualité d'associé. »
 - **Protecteur investisseurs :** « Les Fondateurs s'interdisent toute activité concurrente pendant la détention de leurs titres et pendant [24] mois après leur cession, sur [périmètre], cette restriction étant justifiée par la protection de la valeur de la société. »
 
-**Articles à vérifier dans la sortie :** Cass. soc. 10 juil. 2002, n° 00-45.135 `[a verifier]` (cité pour la distinction, ne s'applique PAS à l'associé non salarié) ; art. 1102 C.civ `[a verifier]` (liberté contractuelle et ses limites)
+**Articles à vérifier dans la sortie :** Cass. soc. 10 juil. 2002, n° 00-45.135 `[à vérifier]` (cité pour la distinction, ne s'applique PAS à l'associé non salarié) ; art. 1102 C.civ `[à vérifier]` (liberté contractuelle et ses limites)
 
 ---
 
 ## 10. Droits de véto / décisions réservées
 
-**Article fondateur :** liberté statutaire en SAS art. L.227-9 C.com. [Légifrance] ; décisions collectives SARL art. L.223-29 C.com. [a verifier] et L.223-30 C.com. [Légifrance]
-**Jurisprudence clé :** validité des majorités renforcées et des droits de véto sous réserve qu'ils ne confèrent pas un pouvoir abusif et ne paralysent pas le fonctionnement social [a verifier]
+**Article fondateur :** liberté statutaire en SAS art. L.227-9 C.com. [Légifrance] ; décisions collectives SARL art. L.223-29 C.com. [à vérifier] et L.223-30 C.com. [Légifrance]
+**Jurisprudence clé :** validité des majorités renforcées et des droits de véto sous réserve qu'ils ne confèrent pas un pouvoir abusif et ne paralysent pas le fonctionnement social [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -314,14 +314,14 @@ Les droits de véto et décisions réservées attribuent à un associé (souvent
 - **Équilibré :** « Les décisions limitativement énumérées à l'annexe [x] requièrent une majorité renforcée incluant l'Investisseur ; en cas de blocage persistant supérieur à [60] jours, les parties soumettent le différend à une procédure de médiation préalable. »
 - **Protecteur investisseurs :** « Les actions de préférence souscrites par l'Investisseur emportent un droit de véto sur les décisions énumérées à l'annexe [x], lesquelles ne peuvent être valablement adoptées sans son accord. »
 
-**Articles à vérifier dans la sortie :** art. L.227-9 C.com. `[Légifrance]` ; art. L.223-29 C.com. `[a verifier]` ; art. L.223-30 C.com. `[Légifrance]`
+**Articles à vérifier dans la sortie :** art. L.227-9 C.com. `[Légifrance]` ; art. L.223-29 C.com. `[à vérifier]` ; art. L.223-30 C.com. `[Légifrance]`
 
 ---
 
 ## 11. Clauses d'information et clauses de liquidité / sortie
 
-**Article fondateur :** droit d'information des associés — SARL art. L.223-26 C.com. [a verifier], SA/SAS art. L.225-100 et s. C.com. [Légifrance pour L.225-100] ; liberté contractuelle pour l'information renforcée et l'organisation de la liquidité
-**Jurisprudence clé :** validité des engagements organisant la liquidité (clause de rendez-vous, sortie organisée) sous réserve qu'ils ne réalisent pas une promesse de rachat léonine ni une exclusion déguisée [a verifier]
+**Article fondateur :** droit d'information des associés — SARL art. L.223-26 C.com. [à vérifier], SA/SAS art. L.225-100 et s. C.com. [Légifrance pour L.225-100] ; liberté contractuelle pour l'information renforcée et l'organisation de la liquidité
+**Jurisprudence clé :** validité des engagements organisant la liquidité (clause de rendez-vous, sortie organisée) sous réserve qu'ils ne réalisent pas une promesse de rachat léonine ni une exclusion déguisée [à vérifier]
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
@@ -334,7 +334,7 @@ Deux familles de clauses, souvent traitées ensemble dans le pacte :
   - Une **obligation de rachat** des titres de l'investisseur par les fondateurs ou la société, à prix garanti, peut être requalifiée en clause léonine ou en prêt déguisé si elle neutralise totalement le risque d'associé de l'investisseur (art. 1844-1 C.civ `[review]`). La jurisprudence admet toutefois les promesses d'achat à prix plancher lorsqu'elles répondent à une logique de sortie et non d'affranchissement du risque social.
   - Une clause permettant à l'investisseur d'**imposer la cession de 100 % de la société** (forced sale, liée au drag) doit être articulée avec le drag-along et ménager l'intérêt social.
   - La **clause de rendez-vous** (simple obligation de se réunir et négocier de bonne foi) est faiblement contraignante : à muscler par un mécanisme automatique (mandat de cession, promesse d'achat) si une liquidité ferme est recherchée.
-  - Rachat par la société de ses propres titres : encadré par le droit des sociétés (réduction de capital, conditions de l'art. L.225-207 et s. C.com. `[a verifier]` / L.227-9 C.com. `[Légifrance]`).
+  - Rachat par la société de ses propres titres : encadré par le droit des sociétés (réduction de capital, conditions de l'art. L.225-207 et s. C.com. `[à vérifier]` / L.227-9 C.com. `[Légifrance]`).
 
 **Position playbook recommandée :**
 - **Protecteur fondateurs :** information proportionnée et strictement confidentielle ; clause de liquidité limitée à une obligation de moyens (rendez-vous, recherche d'acquéreur) sans rachat garanti par les fondateurs ; refus d'une promesse d'achat à prix plancher transformant l'investissement en quasi-dette.
@@ -346,7 +346,7 @@ Deux familles de clauses, souvent traitées ensemble dans le pacte :
 - **Équilibré :** « L'Investisseur bénéficie d'un reporting trimestriel et d'un accès aux comptes ; en l'absence de liquidité au terme de [5] ans, un processus de cession organisée est mis en œuvre sous mandat d'un conseil indépendant, sans garantie de prix. »
 - **Protecteur investisseurs :** « À défaut d'introduction en bourse ou de cession totale dans un délai de [5] ans, l'Investisseur peut mettre en œuvre l'obligation de liquidité et imposer la mise en vente de la société ; les autres associés s'engagent à voter et à céder en conséquence. »
 
-**Articles à vérifier dans la sortie :** art. L.225-100 C.com. `[Légifrance]` ; art. L.223-26 C.com. `[a verifier]` ; art. 1844-1 C.civ `[a verifier]` (clause léonine) ; art. L.227-9 C.com. `[Légifrance]`
+**Articles à vérifier dans la sortie :** art. L.225-100 C.com. `[Légifrance]` ; art. L.223-26 C.com. `[à vérifier]` ; art. 1844-1 C.civ `[à vérifier]` (clause léonine) ; art. L.227-9 C.com. `[Légifrance]`
 
 ---
 
@@ -354,23 +354,23 @@ Deux familles de clauses, souvent traitées ensemble dans le pacte :
 
 | # | Clause | Posture défaut | Article(s) pivot | Point de vigilance majeur |
 |---|---|---|---|---|
-| 1 | Préemption | équilibré | 1123 C.civ [a verifier] | Périmètre, prix de référence, opposabilité (pacte vs statuts) |
+| 1 | Préemption | équilibré | 1123 C.civ [à vérifier] | Périmètre, prix de référence, opposabilité (pacte vs statuts) |
 | 2 | Agrément | équilibré | L.227-14 / L.223-14 C.com. | Distinguer agrément statutaire (nullité) et agrément du pacte (dommages-intérêts) |
 | 3 | Inaliénabilité | équilibré | L.227-13 C.com. | Plafond 10 ans en SAS ; intérêt sérieux et légitime exigé |
-| 4 | Drag-along | équilibré | 1124 C.civ [a verifier] | Seuil de déclenchement, égalité des conditions, garanties du minoritaire |
-| 5 | Tag-along | équilibré | 1124 C.civ [a verifier] | Proportion entraînée, égalité des conditions, opposabilité |
-| 6 | Anti-dilution | équilibré | L.225-132 C.com. [a verifier] | Full ratchet vs weighted average ; compétence de l'assemblée |
-| 7 | Good / bad leaver | équilibré | 1844-1 C.civ [a verifier] | Qualification des motifs ; décote non confiscatoire (clause léonine) |
-| 8 | Promesses croisées | équilibré | 1124 + 1843-4 C.civ [a verifier] | Condition non potestative ; prix déterminable |
-| 9 | Non-concurrence associés | équilibré | Cass. soc. 10 juil. 2002 [a verifier] | PAS de contrepartie exigée (≠ salarié) MAIS contrôle de proportionnalité |
+| 4 | Drag-along | équilibré | 1124 C.civ [à vérifier] | Seuil de déclenchement, égalité des conditions, garanties du minoritaire |
+| 5 | Tag-along | équilibré | 1124 C.civ [à vérifier] | Proportion entraînée, égalité des conditions, opposabilité |
+| 6 | Anti-dilution | équilibré | L.225-132 C.com. [à vérifier] | Full ratchet vs weighted average ; compétence de l'assemblée |
+| 7 | Good / bad leaver | équilibré | 1844-1 C.civ [à vérifier] | Qualification des motifs ; décote non confiscatoire (clause léonine) |
+| 8 | Promesses croisées | équilibré | 1124 + 1843-4 C.civ [à vérifier] | Condition non potestative ; prix déterminable |
+| 9 | Non-concurrence associés | équilibré | Cass. soc. 10 juil. 2002 [à vérifier] | PAS de contrepartie exigée (≠ salarié) MAIS contrôle de proportionnalité |
 | 10 | Droits de véto | équilibré | L.227-9 C.com. | Étendue des matières réservées ; abus de minorité / gestion de fait |
-| 11 | Information + liquidité | équilibré | 1844-1 C.civ [a verifier] | Rachat garanti = risque de clause léonine / prêt déguisé |
+| 11 | Information + liquidité | équilibré | 1844-1 C.civ [à vérifier] | Rachat garanti = risque de clause léonine / prêt déguisé |
 
 ---
 
 ## Règles d'usage de cette référence
 
 1. La posture applicable est celle du profil cabinet (`Posture pacte d'associés` du bloc « vie sociale ») — protecteur fondateurs / équilibré / protecteur investisseurs.
-2. Tout article cité doit être recoupé avec `articles-c-civ-c-com-index.md`. Un article absent de l'index, ou présent en `[a compléter]`, est tagué `[a verifier]` dans la sortie.
+2. Tout article cité doit être recoupé avec `articles-c-civ-c-com-index.md`. Un article absent de l'index, ou présent en `[a compléter]`, est tagué `[à vérifier]` dans la sortie.
 3. Les jugements de proportionnalité (non-concurrence d'associé, durée d'inaliénabilité borderline, décote leaver, prix de promesse) sont tagués `[review]` — appel au jugement de l'avocat.
 4. Si le pacte porte sur des apports ou licences de propriété intellectuelle substantiels, renvoyer vers `hacienda-propriete-intellectuelle:contrats-pi`.

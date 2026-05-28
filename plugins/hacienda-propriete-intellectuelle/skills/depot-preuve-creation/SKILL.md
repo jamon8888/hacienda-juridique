@@ -7,21 +7,31 @@ argument-hint: "[open | add-evidence | timeline | bundle | review]"
 
 # Dépôt Preuve Création
 
-## Rôle
+## Examples
 
-Structurer, pour revue interne, un dossier de preuve de création, d'antériorité d'usage ou de titularité sur une œuvre, un logiciel, un usage de marque ou un dossier précontentieux. Le skill inventorie les faits allégués, les pièces disponibles, les incertitudes et les manques, puis produit des livrables normalisés inter-skills en attente de validation humaine.
+<example>
+<user>/h-pi:depot-preuve-creation [open | add-evidence | timeline | bundle | review]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
 
-Utiliser en priorité avec les références locales :
-- `references/preuve-creation-fr.md`
-- `references/grille-pieces-par-type.md`
+## Chargement du profil
 
-## Ne fait pas
+Avant tout travail substantiel, lire :
 
-- Ne rend pas un avis juridique définitif sur la titularité, la validité d'un droit ou l'issue d'un contentieux.
-- Ne présente pas une preuve préparée comme une force probante définitivement acquise.
-- Ne remplace pas un dépôt officiel, un constat, une vérification de source primaire ou une validation humaine.
-- Ne transforme pas des allégations client en faits établis sans pièce associée.
-- Ne masque pas les incertitudes : tout élément non documenté reste indiqué `[à vérifier]`.
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
 
 ## Mode Anno Desktop Optionnel
 
@@ -44,6 +54,126 @@ Règles spécifiques :
 Les résultats Anno sont une source interne Anno, jamais comme source primaire.
 Anno ne remplace jamais un dépôt officiel, un constat, un horodatage ou un
 registre officiel.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Dessins et modèles, droit d'auteur, logiciels, bases de données et droits voisins : utiliser le socle officiel ci-dessus ; les registres spécialisés non exposés par le serveur restent `[à vérifier]` ou traités via preuve/document client autorisé.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
+Les noms `Evidence Register`, `Timeline`, `Proof Gaps`, `Liste de contrôle du bundle`, `Reviewer Note` sont des labels techniques normalisés inter-skills. Ils ne doivent pas être traduits ni renommés.
+
+Selon le mode, produire les sorties nommées suivantes :
+
+### Evidence Register
+
+Structure minimale fixe :
+
+- `dossier_id`
+- `objet`
+- `mode`
+- `date_mise_a_jour`
+- `pieces`
+
+Chaque entrée de `pieces` doit contenir au minimum :
+
+- `piece_id`
+- `categorie`
+- `description`
+- `date_alleguee`
+- `source_detenteur`
+- `fait_vise`
+- `statut_piece` : `consultee` | `mentionnee_non_consultee` | `manquante`
+- `fiabilite_apparente` : `faible` | `moyenne` | `elevee`
+- `reserve`
+
+### Timeline
+
+Structure minimale fixe :
+
+- `dossier_id`
+- `objet`
+- `periode_couverte`
+- `evenements`
+
+Chaque entrée de `evenements` doit contenir au minimum :
+
+- `event_id`
+- `date_ou_plage`
+- `type_evenement`
+- `description`
+- `piece_ids`
+- `acteur_ou_entite`
+- `niveau_certitude`
+- `contradictions_ou_reserves`
+
+### Proof Gaps
+
+Structure minimale fixe :
+
+- `dossier_id`
+- `objet`
+- `gaps`
+
+Chaque entrée de `gaps` doit contenir au minimum :
+
+- `gap_id`
+- `niveau` : `critique` | `important` | `coherence` | `forme`
+- `constat`
+- `fait_impacte`
+- `piece_cible`
+- `detenteur_probable`
+- `action_attendue`
+- `urgence`
+- `validation_humaine_requise`
+
+### Liste de contrôle du bundle
+
+Structure minimale fixe :
+
+- `dossier_id`
+- `objectif`
+- `destinataire`
+- `pieces_indexees`
+- `pieces_manquantes`
+- `contraintes_confidentialite`
+- `validations_humaines_requises`
+
+Liste de contrôle du dossier à transmettre ou relire : index des pièces, nommage, pagination, source, confidentialité, doublons, pièces manquantes, validations humaines requises.
+
+### Reviewer Note
+
+Note de revue courte indiquant :
+- ce que le dossier permet de soutenir à ce stade ;
+- ce qui demeure incertain ;
+- quelles vérifications humaines ou sources primaires doivent encore être faites ;
+- quel usage prudent est envisageable en interne.
+
+## Rôle
+
+Structurer, pour revue interne, un dossier de preuve de création, d'antériorité d'usage ou de titularité sur une œuvre, un logiciel, un usage de marque ou un dossier précontentieux. Le skill inventorie les faits allégués, les pièces disponibles, les incertitudes et les manques, puis produit des livrables normalisés inter-skills en attente de validation humaine.
+
+Utiliser en priorité avec les références locales :
+- `references/preuve-creation-fr.md`
+- `references/grille-pieces-par-type.md`
+
+## Ne fait pas
+
+- Ne rend pas un avis juridique définitif sur la titularité, la validité d'un droit ou l'issue d'un contentieux.
+- Ne présente pas une preuve préparée comme une force probante définitivement acquise.
+- Ne remplace pas un dépôt officiel, un constat, une vérification de source primaire ou une validation humaine.
+- Ne transforme pas des allégations client en faits établis sans pièce associée.
+- Ne masque pas les incertitudes : tout élément non documenté reste indiqué `[à vérifier]`.
 
 ## Cadrage initial
 
@@ -150,96 +280,6 @@ Pour chaque trou, proposer :
 - le canal de récupération ;
 - l'urgence ;
 - la mention explicite qu'une validation humaine reste requise avant usage externe.
-
-## Sortie
-
-Les noms `Evidence Register`, `Timeline`, `Proof Gaps`, `Liste de contrôle du bundle`, `Reviewer Note` sont des labels techniques normalisés inter-skills. Ils ne doivent pas être traduits ni renommés.
-
-Selon le mode, produire les sorties nommées suivantes :
-
-### Evidence Register
-
-Structure minimale fixe :
-
-- `dossier_id`
-- `objet`
-- `mode`
-- `date_mise_a_jour`
-- `pieces`
-
-Chaque entrée de `pieces` doit contenir au minimum :
-
-- `piece_id`
-- `categorie`
-- `description`
-- `date_alleguee`
-- `source_detenteur`
-- `fait_vise`
-- `statut_piece` : `consultee` | `mentionnee_non_consultee` | `manquante`
-- `fiabilite_apparente` : `faible` | `moyenne` | `elevee`
-- `reserve`
-
-### Timeline
-
-Structure minimale fixe :
-
-- `dossier_id`
-- `objet`
-- `periode_couverte`
-- `evenements`
-
-Chaque entrée de `evenements` doit contenir au minimum :
-
-- `event_id`
-- `date_ou_plage`
-- `type_evenement`
-- `description`
-- `piece_ids`
-- `acteur_ou_entite`
-- `niveau_certitude`
-- `contradictions_ou_reserves`
-
-### Proof Gaps
-
-Structure minimale fixe :
-
-- `dossier_id`
-- `objet`
-- `gaps`
-
-Chaque entrée de `gaps` doit contenir au minimum :
-
-- `gap_id`
-- `niveau` : `critique` | `important` | `coherence` | `forme`
-- `constat`
-- `fait_impacte`
-- `piece_cible`
-- `detenteur_probable`
-- `action_attendue`
-- `urgence`
-- `validation_humaine_requise`
-
-### Liste de contrôle du bundle
-
-Structure minimale fixe :
-
-- `dossier_id`
-- `objectif`
-- `destinataire`
-- `pieces_indexees`
-- `pieces_manquantes`
-- `contraintes_confidentialite`
-- `validations_humaines_requises`
-
-Liste de contrôle du dossier à transmettre ou relire : index des pièces, nommage, pagination, source, confidentialité, doublons, pièces manquantes, validations humaines requises.
-
-### Reviewer Note
-
-Note de revue courte indiquant :
-- ce que le dossier permet de soutenir à ce stade ;
-- ce qui demeure incertain ;
-- quelles vérifications humaines ou sources primaires doivent encore être faites ;
-- quel usage prudent est envisageable en interne.
 
 ## Validation humaine
 

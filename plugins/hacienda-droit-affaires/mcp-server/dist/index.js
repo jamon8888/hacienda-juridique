@@ -1,7 +1,8 @@
 import { createHaciendaServer, log } from "@hacienda/core";
+import { DROIT_AFFAIRES_PLUGIN_VERSION } from "./version.js";
 const { start } = createHaciendaServer({
     name: "hacienda-droit-affaires",
-    version: "0.1.0",
+    version: DROIT_AFFAIRES_PLUGIN_VERSION,
     toolGroups: ["legal_research", "company_registries", "fiscal_sources", "social_sources"]
 });
 start().catch((error) => {

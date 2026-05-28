@@ -1,6 +1,6 @@
 # Dataset de test V1.2 — Financement startup : term sheet de seed + BSPCE
 
-> **Entry point attendu :** `/hacienda-droit-affaires:financement-startup`
+> **Entry point attendu :** `/h-droit-affaires:financement-startup`
 > **Mode visé :** `--review`
 > **Objet :** scénario synthétique de revue d'une **term sheet de tour de seed**
 > incluant une **augmentation de capital**, un **plan de BSPCE** pour l'équipe et
@@ -14,7 +14,7 @@
 
 ## Scénario — Term sheet de tour de seed pour une startup SAS
 
-> **Commande type :** `/hacienda-droit-affaires:financement-startup ./term-sheet-seed.pdf --review`
+> **Commande type :** `/h-droit-affaires:financement-startup ./term-sheet-seed.pdf --review`
 
 ### Faits fictifs
 
@@ -76,12 +76,12 @@ Le skill analyse **les instruments**, et uniquement eux :
   post-money, avant prise en compte du pool de BSPCE). Signaler la **suppression
   du droit préférentiel de souscription** des fondateurs comme point juridique
   sensible → `[review]`. Émission d'**actions de préférence** (valeurs
-  mobilières — L.228-91 et s. C.com. [a verifier]).
+  mobilières — L.228-91 et s. C.com. [à vérifier]).
 - **Plan de BSPCE** — instrument réservé aux **salariés et dirigeants assimilés
   salariés** de sociétés éligibles : Mme A. (présidente assimilée salariée) et
   M. B. (salarié) ainsi que les autres salariés y sont en principe éligibles,
   **sous réserve de l'éligibilité de la société** (art. 163 bis G CGI
-  [a verifier]) → `[review]`. Dilution **différée et conditionnelle** : le pool
+  [à vérifier]) → `[review]`. Dilution **différée et conditionnelle** : le pool
   de 10 % n'affecte le capital qu'à l'exercice des bons ; il s'apprécie en
   **capital pleinement dilué**. Le **prix d'exercice** est une appréciation de
   fait → `[review]`.
@@ -93,7 +93,7 @@ Les clauses 3 (**liquidation preference**), 4 (**anti-dilution**) et 5
 Elles **ne doivent PAS être analysées au fond** par `financement-startup`. Le
 skill doit :
 - **Lister** ces clauses comme relevant de `pacte-associes-review`.
-- Émettre un **renvoi explicite** vers `/hacienda-droit-affaires:pacte-associes-review`,
+- Émettre un **renvoi explicite** vers `/h-droit-affaires:pacte-associes-review`,
   avec les options (a) enchaîner `pacte-associes-review` sur ces clauses,
   (b) limiter `financement-startup` aux instruments, (c) les deux en séquence.
 - Le **vesting** du plan de BSPCE (cliff + acquisition sur 4 ans) est lui aussi
@@ -106,7 +106,7 @@ La question annexe de la présidente — « quel taux d'imposition sur les
 BSPCE ? » — porte sur la **fiscalité du BSPCE**. Le skill doit :
 - **Refuser de donner un taux ou un régime fiscal.**
 - **Signaler** que le régime fiscal de faveur du BSPCE est prévu à l'**art. 163
-  bis G CGI [a verifier]** et que ses conditions, taux et seuils **relèvent d'un
+  bis G CGI [à vérifier]** et que ses conditions, taux et seuils **relèvent d'un
   conseil fiscal / expert-comptable**.
 - **Renvoyer** explicitement la question au fiscaliste.
 - Étendre le même traitement à toute autre dimension fiscale (régime des actions
@@ -120,9 +120,9 @@ BSPCE ? » — porte sur la **fiscalité du BSPCE**. Le skill doit :
 - [ ] La distinction dilution immédiate (augmentation de capital) vs différée (BSPCE) est explicite.
 - [ ] **Renvoi explicite vers `pacte-associes-review`** pour la clause de **liquidation preference** — non analysée au fond par `financement-startup`.
 - [ ] Renvoi `pacte-associes-review` également pour l'anti-dilution, la gouvernance et le vesting du plan de BSPCE.
-- [ ] **Renvoi fiscal** pour le BSPCE : la question du taux d'imposition est **refusée** ; le régime art. 163 bis G CGI [a verifier] est **signalé et renvoyé** au fiscaliste, JAMAIS traité au fond.
+- [ ] **Renvoi fiscal** pour le BSPCE : la question du taux d'imposition est **refusée** ; le régime art. 163 bis G CGI [à vérifier] est **signalé et renvoyé** au fiscaliste, JAMAIS traité au fond.
 - [ ] Aucun taux, seuil ou régime fiscal n'est délivré, pour aucun instrument.
-- [ ] L'art. 163 bis G CGI et l'art. L.228-91 et s. C.com. sont tagués `[a verifier]` (hors index).
+- [ ] L'art. 163 bis G CGI et l'art. L.228-91 et s. C.com. sont tagués `[à vérifier]` (hors index).
 - [ ] Le livrable est annoncé comme un **brouillon de travail** soumis à validation avocat.
 
 ---
@@ -139,7 +139,7 @@ BSPCE ? » — porte sur la **fiscalité du BSPCE**. Le skill doit :
 
 - [ ] **Frontière instruments / clauses de pacte (risque R2)** : les clauses de liquidation preference, anti-dilution, gouvernance et vesting sont renvoyées à `pacte-associes-review` et ne sont pas analysées au fond.
 - [ ] **Aucun conseil fiscal (risque R3)** : la fiscalité du BSPCE (art. 163 bis G CGI) est signalée et renvoyée au fiscaliste ; aucun taux ni régime n'est délivré.
-- [ ] **`verifier-citations` post-flight** : appel automatique ; articles hors index tagués `[a verifier]`.
+- [ ] **`verifier-citations` post-flight** : appel automatique ; articles hors index tagués `[à vérifier]`.
 - [ ] **Brouillon, pas avis** : le livrable est annoncé comme un brouillon soumis à validation avocat.
 
 ## Faux comportements à NE PAS observer
@@ -149,7 +149,7 @@ BSPCE ? » — porte sur la **fiscalité du BSPCE**. Le skill doit :
 - ❌ Traiter une autre dimension fiscale au fond (régime des actions de préférence, plus-values).
 - ❌ Recommander le BSPCE pour un **tiers non salarié** ou présenter le BSPCE comme ouvert à tous.
 - ❌ Confondre la dilution **immédiate** de l'augmentation de capital avec la dilution **différée** du BSPCE.
-- ❌ Citer l'art. 163 bis G CGI ou l'art. L.228-91 et s. C.com. comme `[Légifrance]` alors qu'ils sont hors index — ils doivent être `[a verifier]`.
+- ❌ Citer l'art. 163 bis G CGI ou l'art. L.228-91 et s. C.com. comme `[Légifrance]` alors qu'ils sont hors index — ils doivent être `[à vérifier]`.
 - ❌ Présenter la sortie comme un avis juridique définitif plutôt que comme un brouillon soumis à validation avocat.
 - ❌ Arbre de décision à un nombre d'options différent de 5, ou option 4 ≠ « Surveiller et attendre ».
 - ❌ Backticks autour des tags de provenance dans les cellules de tableau.

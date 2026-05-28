@@ -23,6 +23,71 @@ tags: [dessins-modeles, contrefacon, impression-globale, utilisateur-averti, nul
 Référence de travail utile :
 `references/contrefacon-dessin-modele-routing-and-output.md`
 
+## Examples
+
+<example>
+<user>/h-pi:contrefacon-dessin-modele [--attack|--défense]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
+
+## Chargement du profil
+
+Avant tout travail substantiel, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+Avant tout, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Rattacher ensuite :
+
+- le rôle utilisateur ;
+- la posture contentieuse ;
+- l'avocat ou juriste validateur ;
+- les approbateurs procéduraux ;
+- les contraintes budget / urgence / exécution ;
+- les préférences de preuve et de communication.
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, la sortie
+reste utilisable, mais les hypothèses non documentées doivent être marquées
+`[PROVISOIRE]`.
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Brevets et Espacenet : `inpi_search_brevets`, `inpi_brevet_details`, `espacenet_search`, `espacenet_brevet_details`.
+- Dessins et modèles, droit d'auteur, logiciels, bases de données et droits voisins : utiliser le socle officiel ci-dessus ; les registres spécialisés non exposés par le serveur restent `[à vérifier]` ou traités via preuve/document client autorisé.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+```text
+outputs/contrefacon-dm-<affaire-slug>-YYYY-MM-DD.md
+```
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
 ## Positionnement
 
 `contrefacon-dessin-modele` V2 est le skill de :
@@ -53,26 +118,6 @@ issue secondaire et bornée. Le coeur du skill reste l'analyse D&M.
 - Ne pilote pas seul le contentieux judiciaire ; route vers `contentieux-pi`.
 - Ne devient pas un mémo autonome et généraliste de concurrence déloyale.
 - Ne remplace pas l'avis final d'un avocat ou d'un juriste habilité.
-
-## Chargement du profil
-
-Avant tout, lire :
-
-1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
-
-Rattacher ensuite :
-
-- le rôle utilisateur ;
-- la posture contentieuse ;
-- l'avocat ou juriste validateur ;
-- les approbateurs procéduraux ;
-- les contraintes budget / urgence / exécution ;
-- les préférences de preuve et de communication.
-
-Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, la sortie
-reste utilisable, mais les hypothèses non documentées doivent être marquées
-`[PROVISOIRE]`.
 
 ## Contrat d'entrée V2
 
@@ -336,12 +381,6 @@ Avant transmission :
 - [ ] exposition nullité ou défense explicitee
 - [ ] route finale explicite vers la bonne brique
 - [ ] sortie marquée comme brouillon soumis à validation humaine
-
-## Emplacement des sorties
-
-```text
-outputs/contrefacon-dm-<affaire-slug>-YYYY-MM-DD.md
-```
 
 ## Ton
 

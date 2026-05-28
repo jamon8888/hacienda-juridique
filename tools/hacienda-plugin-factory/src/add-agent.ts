@@ -55,7 +55,6 @@ Pas d'envoi, pas de depot, pas de paiement, pas de conseil juridique final.
 
 ## Routage
 
-Router tout travail substantiel vers les skills du plugin et marquer les sources non consultees \`[a verifier]\`.
 Router tout travail substantiel vers les skills du plugin et marquer les sources non consultées \`[à vérifier]\`.
 
 ## Validation Humaine

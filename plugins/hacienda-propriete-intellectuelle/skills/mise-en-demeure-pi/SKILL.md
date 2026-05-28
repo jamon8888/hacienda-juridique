@@ -7,21 +7,31 @@ argument-hint: "`draft|escalate`: [droits | faits | pièces | cible | points-fai
 
 # Mise En Demeure PI
 
-## Rôle
+## Examples
 
-Préparer, relire ou structurer une lettre de propriété intellectuelle à partir d'un dossier d'action déjà cadré, sans jamais présenter la lettre comme prête à partir tant que les faits, les droits et les pièces n'ont pas été vérifiés humainement.
+<example>
+<user>/h-pi:mise-en-demeure-pi `draft|escalate`: [droits | faits | pièces | cible | points-faibles | demande | délai | ton | escalade] ; `review`: [brouillon | droits | faits | pièces | ton] ; `respond`: [lettre reçue | assertions-demandes adverses | droits | faits | pièces | ton]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
 
-Le skill est cohérent avec `tri-contrefacon` mais ne dépend plus d'une logique implicite "lire tri-contrefaçon". Il attend un contrat d'entrée explicite. Si ce contrat n'est pas réuni, il doit l'indiquer et recommander un retour au cadrage initial, à la collecte de pièces ou à une autre suite que la lettre.
+## Chargement du profil
 
-Référence de travail: `references/lettres-pi-structure.md`.
+Avant tout travail substantiel, lire :
 
-## Ne fait pas
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
-- N'envoie jamais une lettre, un email ou un message à un tiers.
-- Ne conclut jamais de manière définitive à une contrefaçon, une atteinte, un parasitisme ou une violation contractuelle sans pièces suffisantes et validation humaine.
-- Ne remplace pas une consultation juridique finale, une stratégie contentieuse complète, ni une décision business d'escalade.
-- Ne transforme pas des allégations internes, captures partielles ou résumés non sourçables en assertions certaines.
-- Ne force pas une mise en demeure si `tri-contrefacon` ou l'analyse amont concluent que `watch`, `soft outreach`, `no action` ou une défense structurée sont plus adaptés.
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
 
 ## Mode Anno Desktop Optionnel
 
@@ -44,6 +54,55 @@ Règles spécifiques :
 Tout résultat Anno est une source interne Anno, jamais comme source primaire.
 Les droits invoqués et registres restent vérifiés via
 `hacienda-sources-officielles` et les outils PI Hacienda.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Marques, BOPI et EUIPO : `inpi_search_marques`, `inpi_marque_details`, `inpi_marques_publications_recentes`, `euipo_tmview_search`, `bopi_dernieres_publications`.
+- Brevets et Espacenet : `inpi_search_brevets`, `inpi_brevet_details`, `espacenet_search`, `espacenet_brevet_details`.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
+Chaque mode doit produire exactement les blocs suivants, dans cet ordre:
+
+1. `Synthèse du sujet`
+2. `Droits invoqués`
+3. `Synthèse probatoire`
+4. `Position de brouillon`
+5. `Note de relecture`
+
+Contraintes de contenu par bloc:
+
+- `Synthèse du sujet` : résumer le dossier, le mode, la cible et le contexte utile ; indiquer si la lettre est appropriée ou prématurée, et mentionner tout blocage de prérequis
+- `Droits invoqués` : énumérer uniquement les droits invoqués avec statut réel ou `[à vérifier]`
+- `Synthèse probatoire` : lister les pièces clefs, leurs limites et les trous probatoires visibles
+- `Position de brouillon` : proposer la position ou la structure de lettre adaptée au mode, sans jamais formuler un envoi effectif; pour `draft` et `escalate`, si la règle bloquante s'applique, remplacer toute position fermée par `lettre prématurée / pièces à obtenir`
+- `Note de relecture` : expliciter les risques, validations attendues, points à corriger et ce qui impose une revue humaine avant toute suite
+
+## Rôle
+
+Préparer, relire ou structurer une lettre de propriété intellectuelle à partir d'un dossier d'action déjà cadré, sans jamais présenter la lettre comme prête à partir tant que les faits, les droits et les pièces n'ont pas été vérifiés humainement.
+
+Le skill est cohérent avec `tri-contrefacon` mais ne dépend plus d'une logique implicite "lire tri-contrefaçon". Il attend un contrat d'entrée explicite. Si ce contrat n'est pas réuni, il doit l'indiquer et recommander un retour au cadrage initial, à la collecte de pièces ou à une autre suite que la lettre.
+
+Référence de travail: `references/lettres-pi-structure.md`.
+
+## Ne fait pas
+
+- N'envoie jamais une lettre, un email ou un message à un tiers.
+- Ne conclut jamais de manière définitive à une contrefaçon, une atteinte, un parasitisme ou une violation contractuelle sans pièces suffisantes et validation humaine.
+- Ne remplace pas une consultation juridique finale, une stratégie contentieuse complète, ni une décision business d'escalade.
+- Ne transforme pas des allégations internes, captures partielles ou résumés non sourçables en assertions certaines.
+- Ne force pas une mise en demeure si `tri-contrefacon` ou l'analyse amont concluent que `watch`, `soft outreach`, `no action` ou une défense structurée sont plus adaptés.
 
 ## Cadrage initial
 
@@ -206,24 +265,6 @@ Attentes:
 - vérifier que le niveau de preuve et l'identification de la cible justifient l'escalade
 - distinguer ce qui peut être demandé fermement de ce qui doit rester conditionnel
 - signaler si une mise en demeure n'est toujours pas la bonne suite
-
-## Sortie
-
-Chaque mode doit produire exactement les blocs suivants, dans cet ordre:
-
-1. `Synthèse du sujet`
-2. `Droits invoqués`
-3. `Synthèse probatoire`
-4. `Position de brouillon`
-5. `Note de relecture`
-
-Contraintes de contenu par bloc:
-
-- `Synthèse du sujet` : résumer le dossier, le mode, la cible et le contexte utile ; indiquer si la lettre est appropriée ou prématurée, et mentionner tout blocage de prérequis
-- `Droits invoqués` : énumérer uniquement les droits invoqués avec statut réel ou `[à vérifier]`
-- `Synthèse probatoire` : lister les pièces clefs, leurs limites et les trous probatoires visibles
-- `Position de brouillon` : proposer la position ou la structure de lettre adaptée au mode, sans jamais formuler un envoi effectif; pour `draft` et `escalate`, si la règle bloquante s'applique, remplacer toute position fermée par `lettre prématurée / pièces à obtenir`
-- `Note de relecture` : expliciter les risques, validations attendues, points à corriger et ce qui impose une revue humaine avant toute suite
 
 ## Gardes-fous Hacienda
 

@@ -48,7 +48,7 @@ La posture contractuelle reste secondaire.
 ### `partial`
 
 - analyse exploitable ;
-- mais avec hypotheses ou incertitudes `[a verifier]`.
+- mais avec hypotheses ou incertitudes `[à vérifier]`.
 
 ### `blocked`
 

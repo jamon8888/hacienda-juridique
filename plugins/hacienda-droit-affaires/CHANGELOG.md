@@ -67,7 +67,7 @@
 - IN v2 : connecteurs Drive/SharePoint/OneDrive, droit boursier limité (cibles cotées)
 
 ### Dette technique connue
-- 15 articles cités `[a verifier]` à intégrer dans `articles-c-civ-c-com-index.md` en passe maintenance (récupération IDs Légifrance) :
+- 15 articles cités `[à vérifier]` à intégrer dans `articles-c-civ-c-com-index.md` en passe maintenance (récupération IDs Légifrance) :
   - C.civ : 1602, 1626, 1641, 1592, 1137, 1144
   - CPC : 48
   - C.com : L.622-17, L.624-16, L.642-1, R.622-24, L.232-23, L.225-100, L.227-9, L.823-3

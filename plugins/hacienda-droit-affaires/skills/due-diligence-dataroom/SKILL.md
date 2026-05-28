@@ -6,7 +6,8 @@ description: >
   multi-documents. Produit un rapport structuré par thème, une grille de
   matérialité, une Q&A list et des recommandations pour la GAP. Brouillon
   soumis à validation humaine (avocat).
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[dataroom, side, thèmes, seuil de matérialité]"
 authors: ["Hacienda"]
 tags: [due-diligence, dataroom, ma, materialite, gap]
 ---
@@ -36,7 +37,7 @@ tags: [due-diligence, dataroom, ma, materialite, gap]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:due-diligence-dataroom ./data-room-cible-X/ --side=acquereur</user>
+<user>/h-droit-affaires:due-diligence-dataroom ./data-room-cible-X/ --side=acquereur</user>
 <response>
 1. Pré-flight `check-pii` sur l'ensemble du dossier data-room (volume élevé : contrats salariés, IBAN, SIREN, montants > 10k€ → seuil B franchi → prompt utilisateur, décision respectée)
 2. Lecture profil cabinet (bloc M&A / Corporate : side acquéreur, posture DD — thèmes prioritaires et seuil de matérialité)
@@ -52,7 +53,7 @@ tags: [due-diligence, dataroom, ma, materialite, gap]
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:due-diligence-dataroom ./data-room/ --side=acquereur --themes=corporate,contrats,contentieux</user>
+<user>/h-droit-affaires:due-diligence-dataroom ./data-room/ --side=acquereur --themes=corporate,contrats,contentieux</user>
 <response>
 DD ciblée sur 3 thèmes (corporate / gouvernance, contrats matériels, contentieux / passifs). Les 4 autres thèmes (social, PI, fiscal, RGPD) ne sont pas couverts.
 
@@ -61,7 +62,7 @@ Le rapport ne traite que les 3 thèmes demandés. La note du relecteur, champ «
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:due-diligence-dataroom ./data-room-volumineuse/ --side=acquereur</user>
+<user>/h-droit-affaires:due-diligence-dataroom ./data-room-volumineuse/ --side=acquereur</user>
 <response>
 Data-room volumineuse (plusieurs centaines de documents : contrats de travail, liasses fiscales, contrats clients nominatifs). Le pré-flight `check-pii` agrège les identifiants sur tout le dossier : le seuil B (50 identifiants OU 1+ catégorie sensible) est très largement franchi dès les premiers documents (IBAN, NIR sur contrats de travail, montants).
 
@@ -70,7 +71,7 @@ Data-room volumineuse (plusieurs centaines de documents : contrats de travail, l
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:due-diligence-dataroom ./data-room/ --side=acquereur --themes=corporate,contrats</user>
+<user>/h-droit-affaires:due-diligence-dataroom ./data-room/ --side=acquereur --themes=corporate,contrats</user>
 <response>
 DD ciblée corporate + contrats. Findings matériels remontés : (a) un contrat client clé comporte une clause de changement de contrôle permettant la résiliation en cas de cession → 🔴 ; (b) une clause d'agrément statutaire non purgée → 🟠.
 
@@ -96,7 +97,7 @@ La sortie renvoie au skill `gap-review` pour la revue de la GAP elle-même, une 
 > - **Rôle de l'utilisateur courant** — pour l'en-tête de confidentialité
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/hacienda-droit-affaires:entretien-demarrage`. Le bloc M&A est requis —
+demander `/h-droit-affaires:entretien-demarrage`. Le bloc M&A est requis —
 sans side habituel ni seuil de matérialité, la qualification des findings et la
 grille de matérialité ne peuvent pas être calibrées. Voir aussi
 `~/.config/Hacienda/profil-cabinet.md` pour les éléments cabinet partagés.
@@ -119,6 +120,69 @@ grille de matérialité ne peuvent pas être calibrées. Voir aussi
    de matériel (reste signalé mais ne déclenche pas de recommandation GAP).
 
 ---
+
+## Gate non-juriste
+
+- [ ] Pré-flight `check-pii` exécuté sur l'ensemble de la data-room, décision utilisateur respectée (seuil B très probablement franchi)
+- [ ] `--side` fourni et confirmé (acquéreur ou cédant)
+- [ ] Profil cabinet bloc M&A lu : side, posture DD, seuil de matérialité
+- [ ] Data-room inventoriée : N documents comptés et classés par thème, fichiers illisibles signalés
+- [ ] `revue-tabulaire` invoqué pour l'extraction multi-documents, consommé sans modification
+- [ ] Les 7 thèmes couverts (ou ceux de `--themes`, le caractère partiel consigné en note du relecteur)
+- [ ] Renvois en pointeurs effectués pour PI / fiscal / RGPD — analyse de premier niveau réalisée ici, expertise approfondie renvoyée
+- [ ] Articles hors index ou en `[a compléter]` tagués `[à vérifier]` ; RGPD tagué `[Eurlex]` ou `[à vérifier]`
+- [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + rapport par thème + grille de matérialité + Q&A list + recommandations GAP + question hors checklist + arbre de décision 5 options + footer A si applicable
+
+---
+
+## Mode Anno Desktop Optionnel
+
+Pour une data-room autorisée, appeler `anno_health`, puis `detect`. N'utiliser `legal_ingest` que sur demande explicite d'indexation. Ensuite, `legal_search`, `legal_graph_query`, `legal_extract_contract` et `tabular_review_create` peuvent aider à relier pièces, contrats, risques et findings. Anno est une source interne de dossier, jamais une source primaire.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Points fiscaux et sociaux de due diligence : `bofip_rechercher`, `bofip_consulter`, `boss_recherche`, `boss_get_document`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+```
+outputs/due-diligence-dataroom-<cible-slug>-YYYY-MM-DD.md
+```
+
+Si la grille de matérialité dépasse 10 lignes, générer en parallèle un dashboard
+HTML autonome via `renderDashboard()` de `@hacienda/core` (sortable, filtrable,
+ouvrable hors-ligne, zéro CDN, XSS-safe — voir `references/dashboard-template.md`).
+
+---
+
+## Sortie
+
+### Format livrable
+
+```
+[En-tête de confidentialité selon le rôle utilisateur — voir CLAUDE.md §2]
+
+> **⚠️ Note du relecteur**
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
+> - **Lecture :** {N} documents de la data-room sur {N} ; thèmes couverts : {liste} {si --themes : « DD ciblée — {thèmes} non audités ; rapport partiel »} ; {fichiers illisibles le cas échéant}
+> - **Signalé pour ton jugement :** {N} findings [review] | {N} documents manquants identifiés | aucun
+> - **Fraîcheur :** recherche des évolutions depuis {date} — {N} mises à jour intégrées | rien trouvé
+> - **Avant de t'appuyer dessus :** {1-2 actions concrètes — typiquement « obtenir les pièces de la Q&A list avant de figer la grille » OU « prêt pour relecture »}
+
+# Résumé exécutif
+
+{Trois phrases pour comité d'investissement / DG / sponsor business. Pas de
+jargon. Une ligne bottom-line : poursuivre / poursuivre sous conditions /
+suspendre. Une ligne de risque dominant (red flag le plus grave). Une ligne de
+prochaine action — typiquement l'envoi de la Q&A list.}
+
+# Rapport structuré par thème
 
 ## Étape 1 — Pré-flight
 
@@ -232,13 +296,13 @@ substituer** :
 - Articles cités : vérifier dans `references/articles-c-civ-c-com-index.md`.
   Citables `[Légifrance]` (LEGIARTI réel) : **1104**, **1112-1**, **1602**,
   **1626**, **1641**, **1170**, **1231-5** C.civ, **L.442-1** C.com.
-- En `[a compléter]` dans l'index → tag `[a verifier]` obligatoire : **1112**,
+- En `[a compléter]` dans l'index → tag `[à vérifier]` obligatoire : **1112**,
   **1123**, **1124** C.civ, **L.420-1**, **L.420-2** C.com.
 - Articles du Code du travail (L.1224-1 transfert des contrats, L.2312-8
-  information-consultation CSE) — hors index → `[a verifier]`.
+  information-consultation CSE) — hors index → `[à vérifier]`.
 - **RGPD (règlement UE 2016/679)** : les art. 28 (sous-traitance) et 30
   (registre) sont des références UE → tag `[Eurlex]` si consulté en session,
-  sinon `[a verifier]`.
+  sinon `[à vérifier]`.
 - Tag de provenance placé **après** la citation, **sans backticks dans les
   cellules de tableau** (backticks admis dans le corps narratif).
 
@@ -325,37 +389,14 @@ identifié), **conditions suspensives** (régularisation exigée avant closing),
 
 Appel automatique de `verifier-citations` sur la sortie complète. Les articles
 C.civ / C.com. cités doivent exister dans
-`references/articles-c-civ-c-com-index.md` ; à défaut, tag `[a verifier]` et
+`references/articles-c-civ-c-com-index.md` ; à défaut, tag `[à vérifier]` et
 ligne dédiée dans la note du relecteur. Les références RGPD (art. 28, 30) sont
-vérifiées comme références UE, taguées `[Eurlex]` si confirmées, `[a verifier]`
+vérifiées comme références UE, taguées `[Eurlex]` si confirmées, `[à vérifier]`
 sinon. Si PISTE n'est pas configuré : mode dégradé documenté dans la note du
 relecteur (« `verifier-citations` non exécuté — N citations à valider
 manuellement »).
 
 ---
-
-## Sortie
-
-### Format livrable
-
-```
-[En-tête de confidentialité selon le rôle utilisateur — voir CLAUDE.md §2]
-
-> **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
-> - **Lecture :** {N} documents de la data-room sur {N} ; thèmes couverts : {liste} {si --themes : « DD ciblée — {thèmes} non audités ; rapport partiel »} ; {fichiers illisibles le cas échéant}
-> - **Signalé pour ton jugement :** {N} findings [review] | {N} documents manquants identifiés | aucun
-> - **Fraîcheur :** recherche des évolutions depuis {date} — {N} mises à jour intégrées | rien trouvé
-> - **Avant de t'appuyer dessus :** {1-2 actions concrètes — typiquement « obtenir les pièces de la Q&A list avant de figer la grille » OU « prêt pour relecture »}
-
-# Résumé exécutif
-
-{Trois phrases pour comité d'investissement / DG / sponsor business. Pas de
-jargon. Une ligne bottom-line : poursuivre / poursuivre sous conditions /
-suspendre. Une ligne de risque dominant (red flag le plus grave). Une ligne de
-prochaine action — typiquement l'envoi de la Q&A list.}
-
-# Rapport structuré par thème
 
 ## Thème 1 — Corporate / Gouvernance
 {Points de contrôle vérifiés, red flags constatés, documents manquants, findings + statuts}
@@ -429,33 +470,6 @@ non-juriste, la contrepartie ou un conseil tiers :
   « Finding lié » (interne) et l'en-tête de confidentialité (destinataire hors
   périmètre du secret).
 - Le livrable doit se lire comme s'il avait été rédigé par un associé M&A.
-
----
-
-## Emplacement des sorties
-
-```
-outputs/due-diligence-dataroom-<cible-slug>-YYYY-MM-DD.md
-```
-
-Si la grille de matérialité dépasse 10 lignes, générer en parallèle un dashboard
-HTML autonome via `renderDashboard()` de `@hacienda/core` (sortable, filtrable,
-ouvrable hors-ligne, zéro CDN, XSS-safe — voir `references/dashboard-template.md`).
-
----
-
-## Gate non-juriste
-
-- [ ] Pré-flight `check-pii` exécuté sur l'ensemble de la data-room, décision utilisateur respectée (seuil B très probablement franchi)
-- [ ] `--side` fourni et confirmé (acquéreur ou cédant)
-- [ ] Profil cabinet bloc M&A lu : side, posture DD, seuil de matérialité
-- [ ] Data-room inventoriée : N documents comptés et classés par thème, fichiers illisibles signalés
-- [ ] `revue-tabulaire` invoqué pour l'extraction multi-documents, consommé sans modification
-- [ ] Les 7 thèmes couverts (ou ceux de `--themes`, le caractère partiel consigné en note du relecteur)
-- [ ] Renvois en pointeurs effectués pour PI / fiscal / RGPD — analyse de premier niveau réalisée ici, expertise approfondie renvoyée
-- [ ] Articles hors index ou en `[a compléter]` tagués `[a verifier]` ; RGPD tagué `[Eurlex]` ou `[a verifier]`
-- [ ] Citations vérifiées via `verifier-citations` ou taguées `[a verifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + rapport par thème + grille de matérialité + Q&A list + recommandations GAP + question hors checklist + arbre de décision 5 options + footer A si applicable
 
 ---
 

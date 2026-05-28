@@ -6,7 +6,8 @@ description: >
   covenants d'interim, MAC, disclosure, garanties, indemnisation, renvois GAP,
   cohérence DD et readiness signing/closing. Side acquéreur ou cédant
   obligatoire. Brouillon soumis à validation avocat M&A.
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[SPA/protocole, side, data-room, points de négociation]"
 authors: ["Hacienda"]
 tags: [spa, ma, cession-titres, protocole-cession, signing, closing, gap]
 ---
@@ -23,16 +24,16 @@ tags: [spa, ma, cession-titres, protocole-cession, signing, closing, gap]
 >
 > **Frontière avec les autres skills.** `spa-review` traite l'architecture du
 > SPA et les points de cohérence. La GAP technique reste traitée par
-> `/hacienda-droit-affaires:gap-review`. Le pilotage signing / closing /
-> post-closing reste traité par `/hacienda-droit-affaires:closing-checklist-fr`.
-> L'audit data-room reste traité par `/hacienda-droit-affaires:due-diligence-dataroom`.
+> `/h-droit-affaires:gap-review`. Le pilotage signing / closing /
+> post-closing reste traité par `/h-droit-affaires:closing-checklist-fr`.
+> L'audit data-room reste traité par `/h-droit-affaires:due-diligence-dataroom`.
 
 ---
 
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:spa-review ./SPA-cible-X.pdf --side=acquereur --type=cession-titres --prix=12000000 --dd-findings=./rapport-dd.md</user>
+<user>/h-droit-affaires:spa-review ./SPA-cible-X.pdf --side=acquereur --type=cession-titres --prix=12000000 --dd-findings=./rapport-dd.md</user>
 <response>
 1. Pré-flight `check-pii` sur le SPA et les findings DD.
 2. Lecture profil cabinet, bloc M&A / Corporate.
@@ -45,23 +46,23 @@ tags: [spa, ma, cession-titres, protocole-cession, signing, closing, gap]
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:spa-review ./SPA-sell-side.pdf --side=cedant --type=cession-titres --red-flags</user>
+<user>/h-droit-affaires:spa-review ./SPA-sell-side.pdf --side=cedant --type=cession-titres --red-flags</user>
 <response>
 Mode `--red-flags`, côté cédant. La sortie se concentre sur les blocages : MAC trop large, garantie de la garantie non plafonnée, covenant d'interim empêchant l'exploitation normale, earn-out discrétionnaire. Les points mineurs sont reportés en annexe courte.
 </response>
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:spa-review ./SPA.pdf --side=acquereur --signing-ready</user>
+<user>/h-droit-affaires:spa-review ./SPA.pdf --side=acquereur --signing-ready</user>
 <response>
 Gate signing-ready : le SPA n'est pas prêt à signer. Trois prérequis manquent : disclosure letter annexée, décisions sociales d'agrément, confirmation de levée d'une CP réglementaire. Le skill recommande de lancer `closing-checklist-fr` après correction.
 </response>
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:spa-review ./SPA-portefeuille-PI.pdf --side=acquereur --type=cession-titres</user>
+<user>/h-droit-affaires:spa-review ./SPA-portefeuille-PI.pdf --side=acquereur --type=cession-titres</user>
 <response>
-Détection d'un portefeuille PI structurant dans les actifs de la cible : marques, logiciel, open source, noms de domaine. `spa-review` traite l'architecture M&A et signale les protections SPA nécessaires, puis renvoie vers `/hacienda-propriete-intellectuelle:audit-pi-ma` ou `/hacienda-propriete-intellectuelle:contrats-pi` pour l'analyse PI approfondie.
+Détection d'un portefeuille PI structurant dans les actifs de la cible : marques, logiciel, open source, noms de domaine. `spa-review` traite l'architecture M&A et signale les protections SPA nécessaires, puis renvoie vers `/h-pi:audit-pi-ma` ou `/h-pi:contrats-pi` pour l'analyse PI approfondie.
 </response>
 </example>
 
@@ -78,7 +79,7 @@ Détection d'un portefeuille PI structurant dans les actifs de la cible : marque
 > - **Politique PII** — `passive` / `active` / `strict` + seuil B.
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent), stopper et
-demander `/hacienda-droit-affaires:entretien-demarrage` avant toute revue SPA
+demander `/h-droit-affaires:entretien-demarrage` avant toute revue SPA
 substantielle.
 
 ---
@@ -95,6 +96,50 @@ substantielle.
 
 ---
 
+## Gate non-juriste
+
+- [ ] Side fourni ou confirmé.
+- [ ] Type d'opération fourni ou confirmé.
+- [ ] `check-pii` exécuté.
+- [ ] Profil M&A lu.
+- [ ] Renvois GAP / closing / DD / PI / fiscal / social / réglementaire faits quand nécessaires.
+- [ ] Liste de points triée par criticité, sans doublon.
+- [ ] Citations vérifiées ou taguées `[à vérifier]`.
+- [ ] Sortie contient note 5 champs + arbre 5 options + footer PII.
+
+## Mode Anno Desktop Optionnel
+
+Sur un SPA volumineux, appeler `anno_health`, puis `detect`. Utiliser `legal_extract_contract` pour extraire structure, déclarations, conditions et annexes ; `legal_risk_review` pour préparer la matrice de risques ; `tabular_review_create` pour relier findings DD, garanties, indemnisations et conditions de closing.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Points fiscaux et sociaux de due diligence : `bofip_rechercher`, `bofip_consulter`, `boss_recherche`, `boss_get_document`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+### Format livrable
+
+```
+[En-tête de confidentialité selon le rôle utilisateur]
+
+> **⚠️ Note du relecteur**
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
+> - **Lecture :** intégrale ({N} pages SPA + {M} annexes) | partielle (pages X à Y)
+> - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
+> - **Fraîcheur :** recherche juridique post-{date} — {N} mises à jour intégrées | rien trouvé
+> - **Avant de t'appuyer dessus :** {action concrète : négocier / compléter / escalader / prêt pour relecture}
+
+# SPA review — {cible} — {side}
+
 ## Étape 1 — Pré-flight + identification
 
 1. Invoquer `check-pii` sur le SPA et, le cas échéant, sur les findings DD.
@@ -102,7 +147,7 @@ substantielle.
 3. Identifier le document : SPA / protocole de cession / acte de cession / asset purchase agreement.
 4. Confirmer le type d'opération : cession de titres, cession de fonds, asset deal ou fusion.
 5. Identifier parties, cible, prix, signing, closing, droit applicable, juridiction, annexes mentionnées.
-6. Détecter SIREN cible si présent et tenter l'enrichissement `companyFullProfile` via les outils core disponibles.
+6. Détecter SIREN cible si présent et tenter l'enrichissement `company_full_profile` via les outils core disponibles.
 
 ---
 
@@ -192,7 +237,7 @@ Analyser l'architecture générale :
 - articulation avec GAP.
 
 Ne pas refaire `gap-review`. Si les clauses de garantie sont substantielles,
-renvoyer vers `/hacienda-droit-affaires:gap-review` avec les paramètres déjà
+renvoyer vers `/h-droit-affaires:gap-review` avec les paramètres déjà
 extraits : side, prix, fichiers et findings DD.
 
 ---
@@ -241,26 +286,10 @@ décroissante, sans doublon, avec position souhaitée et formulation proposée.
 ## Étape 11 — Post-flight `verifier-citations`
 
 Vérifier les citations d'articles et de jurisprudence. Les points non vérifiés
-restent `[a verifier]`. Les sujets fiscaux, sociaux, PI, AMF ou réglementaires
-non traités par une source primaire consultée restent `[a verifier]`.
+restent `[à vérifier]`. Les sujets fiscaux, sociaux, PI, AMF ou réglementaires
+non traités par une source primaire consultée restent `[à vérifier]`.
 
 ---
-
-## Sortie
-
-### Format livrable
-
-```
-[En-tête de confidentialité selon le rôle utilisateur]
-
-> **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
-> - **Lecture :** intégrale ({N} pages SPA + {M} annexes) | partielle (pages X à Y)
-> - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
-> - **Fraîcheur :** recherche juridique post-{date} — {N} mises à jour intégrées | rien trouvé
-> - **Avant de t'appuyer dessus :** {action concrète : négocier / compléter / escalader / prêt pour relecture}
-
-# SPA review — {cible} — {side}
 
 ## Résumé exécutif
 
@@ -326,17 +355,6 @@ non traités par une source primaire consultée restent `[a verifier]`.
 - `--red-flags` : ne produire que Note du relecteur, Résumé exécutif, Red flags, Recommandation, Arbre 5 options.
 - `--issues-list` : ne produire que Note du relecteur, Deal facts, Liste de points, Renvois, Arbre 5 options.
 - `--signing-ready` : produire un verdict `Prêt à signer` / `Pas prêt à signer` / `Prêt sous conditions`, avec conditions manquantes.
-
-## Gate non-juriste
-
-- [ ] Side fourni ou confirmé.
-- [ ] Type d'opération fourni ou confirmé.
-- [ ] `check-pii` exécuté.
-- [ ] Profil M&A lu.
-- [ ] Renvois GAP / closing / DD / PI / fiscal / social / réglementaire faits quand nécessaires.
-- [ ] Liste de points triée par criticité, sans doublon.
-- [ ] Citations vérifiées ou taguées `[a verifier]`.
-- [ ] Sortie contient note 5 champs + arbre 5 options + footer PII.
 
 ## Ce skill ne fait pas
 

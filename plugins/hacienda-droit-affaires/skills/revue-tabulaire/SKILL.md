@@ -6,7 +6,8 @@ description: >
   passer en revue". Réutilisée comme building block par
   due-diligence-dataroom (v1.1). Exemple : extraire durée + non-conc + loi
   + juridiction sur 12 NDA d'un coup.
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[documents, colonnes à extraire, format de sortie]"
 authors: ["Hacienda"]
 tags: [extraction, multi-docs, tableau, brique-atomique]
 ---
@@ -31,7 +32,7 @@ tags: [extraction, multi-docs, tableau, brique-atomique]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:revue-tabulaire ./ndas/*.pdf --colonnes="durée,non-concurrence,loi-applicable,juridiction"</user>
+<user>/h-droit-affaires:revue-tabulaire ./ndas/*.pdf --colonnes="durée,non-concurrence,loi-applicable,juridiction"</user>
 <response>
 1. Pré-flight `check-pii` sur l'ensemble du lot (12 fichiers, 347 mentions identifiantes → seuil B → prompt utilisateur)
 2. Lecture profil cabinet (politique PII active)
@@ -44,7 +45,7 @@ tags: [extraction, multi-docs, tableau, brique-atomique]
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:revue-tabulaire ./contrats-distribution/*.pdf --colonnes="parties,date-signature,date-expiration,exclusivite,territoire,droit-applicable"</user>
+<user>/h-droit-affaires:revue-tabulaire ./contrats-distribution/*.pdf --colonnes="parties,date-signature,date-expiration,exclusivite,territoire,droit-applicable"</user>
 <response>
 Lot de 8 contrats de distribution → extraction 6 colonnes :
 - Lecture rapide de chaque document, extraction des valeurs textuelles
@@ -63,7 +64,7 @@ Lot de 8 contrats de distribution → extraction 6 colonnes :
 > - **Rôle de l'utilisateur courant** — pour l'en-tête de confidentialité
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/hacienda-droit-affaires:entretien-demarrage` avant toute extraction
+demander `/h-droit-affaires:entretien-demarrage` avant toute extraction
 substantielle.
 
 ---
@@ -107,6 +108,69 @@ substantielle.
 
 ---
 
+## Gate non-juriste
+
+- [ ] Pré-flight `check-pii` exécuté sur l'ensemble du lot, décision utilisateur respectée
+- [ ] Profil cabinet lu, rôle utilisateur identifié pour l'en-tête de confidentialité
+- [ ] Lot inventorié : N documents comptés, fichiers illisibles signalés
+- [ ] Colonnes demandées reconnues (alias ou libellé libre interprété et noté)
+- [ ] Extraction sans criticité (🔴/🟠/🟡/🟢) dans les cellules du tableau
+- [ ] Cellules vides = `—`, incertaines = `⚠️ à vérifier` (jamais vide sans raison)
+- [ ] Tags de provenance sans backticks dans les cellules
+- [ ] Sortie comprend : en-tête confidentialité (4 variantes) + note du relecteur
+  (5 champs canoniques) + tableau + question hors checklist + arbre de décision 5 options
+- [ ] Dashboard HTML généré si > 10 lignes
+
+---
+
+## Mode Anno Desktop Optionnel
+
+Quand Anno Tabular est disponible, utiliser `anno_health`, puis `detect` avant toute pièce client. Pour les lots déjà autorisés, construire la grille avec `tabular_review_create` et affiner les cellules avec `tabular_review_refine_cell`. Les lignes à confiance faible, contradiction, citation absente ou source officielle non consultée restent `[à vérifier]`.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+```
+outputs/revue-tabulaire-{slug}-YYYY-MM-DD.md
+```
+
+Si le lot dépasse 10 lignes, générer en parallèle :
+```
+outputs/revue-tabulaire-{slug}-YYYY-MM-DD.html
+```
+via `renderDashboard()` de `@hacienda/core` (format autonome, ouvrable hors-ligne).
+
+---
+
+## Sortie
+
+```
+[En-tête de confidentialité selon le rôle utilisateur — 4 variantes]
+
+> ⚠️ Note du relecteur
+> - **Sources :** [bases consultées : Légifrance ✓ / Pappers ✓ / BODACC ✓ — ou ✗ si non connectée | sans objet si extraction pure]
+> - **Lecture :** [{N} documents traités sur {N} dans le lot | {N} fichiers sautés : [liste]]
+> - **Signalé pour ton jugement :** [{N} cellules marquées [review] | aucune]
+> - **Fraîcheur :** [sans objet (extraction, pas d'analyse normative) | vérifier [règles] si colonnes normatives]
+> - **Avant de t'appuyer dessus :** [{N} lignes incomplètes (⚠️ à vérifier) à contrôler manuellement | prêt pour relecture]
+
+# Revue tabulaire — {slug-lot} — {date}
+
+**Lot :** {N} documents · **Colonnes :** {liste} · **Format :** Markdown
+
+| # | Fichier | {Colonne 1} | {Colonne 2} | ... |
+|---|---|---|---|---|
+| ... | ... | ... | ... | ... |
+
+{Si > 10 lignes : "Dashboard HTML généré → outputs/revue-tabulaire-{slug}-YYYY-MM-DD.html"}
+
 ## Étape 1 — Pré-flight
 
 1. Invoquer `check-pii` sur l'ensemble du lot avec la politique du profil.
@@ -141,9 +205,9 @@ des colonnes demandées.
   sans contrepartie visible), ajouter une note `[review]` dans la cellule sans
   changer la valeur.
 - Tags de provenance dans les cellules : **sans backticks**. Ex : [Pappers],
-  [utilisateur fourni], [a verifier].
+  [utilisateur fourni], [à vérifier].
 - Si une colonne `parties` est demandée et qu'un SIREN de 9 chiffres est détecté,
-  tenter l'enrichissement via `companyFullProfile` de `@hacienda/core`. Annoter
+  tenter l'enrichissement via `company_full_profile` de `@hacienda/core`. Annoter
   la cellule avec [Pappers] si l'API a répondu, [BODACC] si fallback public.
 
 ---
@@ -180,28 +244,6 @@ relecteur champ Fraîcheur.
 
 ---
 
-## Sortie
-
-```
-[En-tête de confidentialité selon le rôle utilisateur — 4 variantes]
-
-> ⚠️ Note du relecteur
-> - **Sources :** [bases consultées : Légifrance ✓ / Pappers ✓ / BODACC ✓ — ou ✗ si non connectée | sans objet si extraction pure]
-> - **Lecture :** [{N} documents traités sur {N} dans le lot | {N} fichiers sautés : [liste]]
-> - **Signalé pour ton jugement :** [{N} cellules marquées [review] | aucune]
-> - **Fraîcheur :** [sans objet (extraction, pas d'analyse normative) | vérifier [règles] si colonnes normatives]
-> - **Avant de t'appuyer dessus :** [{N} lignes incomplètes (⚠️ à vérifier) à contrôler manuellement | prêt pour relecture]
-
-# Revue tabulaire — {slug-lot} — {date}
-
-**Lot :** {N} documents · **Colonnes :** {liste} · **Format :** Markdown
-
-| # | Fichier | {Colonne 1} | {Colonne 2} | ... |
-|---|---|---|---|---|
-| ... | ... | ... | ... | ... |
-
-{Si > 10 lignes : "Dashboard HTML généré → outputs/revue-tabulaire-{slug}-YYYY-MM-DD.html"}
-
 ## Une question hors de ma checklist habituelle
 
 {Observation transversale qu'un relecteur attentif ferait (ex : documents de
@@ -235,35 +277,6 @@ Sinon, rien.}
 | Notaire (officier public) | `CONFIDENTIEL — TRAVAIL NOTARIAL — Devoir de discrétion art. 23 loi 25 ventôse an XI` |
 | Juriste in-house (non avocat) | `NOTES DE TRAVAIL INTERNES — NE CONSTITUE PAS UN AVIS JURIDIQUE — Faire valider par un avocat avant tout acte` |
 | Non-juriste avec accès avocat | `NOTES DE TRAVAIL — Faire valider par [avocat référent configuré] avant tout usage externe` |
-
----
-
-## Emplacement des sorties
-
-```
-outputs/revue-tabulaire-{slug}-YYYY-MM-DD.md
-```
-
-Si le lot dépasse 10 lignes, générer en parallèle :
-```
-outputs/revue-tabulaire-{slug}-YYYY-MM-DD.html
-```
-via `renderDashboard()` de `@hacienda/core` (format autonome, ouvrable hors-ligne).
-
----
-
-## Gate non-juriste
-
-- [ ] Pré-flight `check-pii` exécuté sur l'ensemble du lot, décision utilisateur respectée
-- [ ] Profil cabinet lu, rôle utilisateur identifié pour l'en-tête de confidentialité
-- [ ] Lot inventorié : N documents comptés, fichiers illisibles signalés
-- [ ] Colonnes demandées reconnues (alias ou libellé libre interprété et noté)
-- [ ] Extraction sans criticité (🔴/🟠/🟡/🟢) dans les cellules du tableau
-- [ ] Cellules vides = `—`, incertaines = `⚠️ à vérifier` (jamais vide sans raison)
-- [ ] Tags de provenance sans backticks dans les cellules
-- [ ] Sortie comprend : en-tête confidentialité (4 variantes) + note du relecteur
-  (5 champs canoniques) + tableau + question hors checklist + arbre de décision 5 options
-- [ ] Dashboard HTML généré si > 10 lignes
 
 ---
 

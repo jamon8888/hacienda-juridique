@@ -183,6 +183,7 @@ Desktop, utiliser les bundles :
 
 ```text
 plugins/hacienda-sources-officielles.mcpb
+plugins/hacienda-droit-affaires.mcpb
 plugins/hacienda-propriete-intellectuelle.mcpb
 ```
 
@@ -197,7 +198,7 @@ serveur MCP local dans Claude Desktop.
 
 ## Phrase Produit
 
-Hacienda fonctionne meme si tous les connecteurs ne sont pas connectes. Les features degrade gracefully : si une source n'est pas joignable, la sortie indique `[a verifier]` et propose le chemin de connexion.
+Hacienda fonctionne meme si tous les connecteurs ne sont pas connectes. Les features degrade gracefully : si une source n'est pas joignable, la sortie indique `[à vérifier]` et propose le chemin de connexion.
 
 ## Distribution locale Hacienda + Anno
 

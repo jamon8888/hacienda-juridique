@@ -4,7 +4,7 @@
       "type": "stdio",
       "command": "node",
       "args": [
-        "${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/index.js"
+        "${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/mcpb-index.cjs"
       ],
       "title": "Hacienda Droit des Affaires",
       "description": "Serveur MCP Hacienda droit des affaires : Légifrance, Pappers (fallback BODACC), Judilibre, outils composites entreprise pour revue contrats, M&A (GAP, DD), procédures collectives."

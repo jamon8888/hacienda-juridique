@@ -1,6 +1,6 @@
 # Cas 3 — NDA partenariat R&D avec IP carve-out
 
-> **Entry point attendu :** `/hacienda-droit-affaires:reviser-nda` (le doc est annoncé comme NDA — règle de proportionnalité : le skill le plus spécifique d'abord)
+> **Entry point attendu :** `/h-droit-affaires:reviser-nda` (le doc est annoncé comme NDA — règle de proportionnalité : le skill le plus spécifique d'abord)
 > **Décision de routing attendue :** `reviser-nda` traite le NDA (triage VERT/ORANGE/ROUGE 8 points), PUIS renvoie vers `contrats-pi` pour la clause IP carve-out spécifique (art. 6). Séquence en deux temps.
 
 ---
@@ -78,7 +78,7 @@ L'entry point est `reviser-nda` (le doc s'annonce comme NDA, c'est le skill le p
 1. **Détecter la nature mixte NDA + IP carve-out** dès la lecture initiale (présence d'une section IP > 5 lignes substantielles → flag)
 2. **Traiter d'abord le triage NDA 8 points** : type (bilatéral OK), durée (5+10 ans — borderline ORANGE), périmètre (OK), restitution (OK), non-débauchage (ORANGE — durée et périmètre acceptables mais à valider RH), exclusivité (ARTICLE 7 — potentiellement ROUGE selon posture acquéreur car restreint la liberté), juridiction (mixte TC/TJ — OK)
 3. **Renvoyer EXPLICITEMENT** vers `contrats-pi` POUR L'ARTICLE 6 ET LUI SEUL :
-   - « L'article 6 (IP carve-out) sort du périmètre standard d'un NDA. Le triage `reviser-nda` ne couvre pas Background/Foreground/Sideground IP — bonne pratique en R&D : lancer `/hacienda-propriete-intellectuelle:contrats-pi` sur ce seul article 6 pour analyse contrats R&D + dépôt copropriété + jurisprudence INPI médiation. »
+   - « L'article 6 (IP carve-out) sort du périmètre standard d'un NDA. Le triage `reviser-nda` ne couvre pas Background/Foreground/Sideground IP — bonne pratique en R&D : lancer `/h-pi:contrats-pi` sur ce seul article 6 pour analyse contrats R&D + dépôt copropriété + jurisprudence INPI médiation. »
 
 ### Justification doctrinale
 

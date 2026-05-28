@@ -7,15 +7,15 @@ Partie B2C relève du **Code de la consommation**. Les deux régimes ne se
 confondent jamais — appliquer le mauvais cadre à un public donné est une faute.
 
 > **Sources primaires :** Légifrance, Judilibre, Eurlex.
-> Toute citation non relue en session doit être traitée comme `[a verifier]`.
+> Toute citation non relue en session doit être traitée comme `[à vérifier]`.
 >
 > **État de l'index.** Les articles du **Code de la consommation** (L.111-1,
 > L.212-1, L.217-x, L.221-18, L.221-21 et s., R.212-1, R.212-2) sont en grande
 > partie **hors** de `articles-c-civ-c-com-index.md` ou y figurent en
-> `[a compléter]` — ils doivent donc être tagués `[a verifier]` dans toute
+> `[a compléter]` — ils doivent donc être tagués `[à vérifier]` dans toute
 > sortie tant qu'ils ne sont pas vérifiés en session. Les articles du Code de
 > commerce L.441-1 et L.441-10 figurent à l'index mais en `[a compléter]`
-> (LEGIARTI non relu) : ils restent `[a verifier]` jusqu'à vérification.
+> (LEGIARTI non relu) : ils restent `[à vérifier]` jusqu'à vérification.
 
 ---
 
@@ -27,7 +27,7 @@ deviné. Le critère est la **qualité du cocontractant** :
 - **B2B** — le client est un **professionnel** agissant pour les besoins de son
   activité. Cadre : **Code de commerce**, droit commun des contrats du Code
   civil. Les CGV sont le « socle unique de la négociation commerciale »
-  (art. L.441-1 C.com. [a verifier]).
+  (art. L.441-1 C.com. [à vérifier]).
 - **B2C** — le client est un **consommateur** : personne physique agissant à
   des fins n'entrant pas dans le cadre de son activité commerciale,
   industrielle, artisanale, libérale ou agricole. Cadre : **Code de la
@@ -41,7 +41,7 @@ deviné. Le critère est la **qualité du cocontractant** :
 
 La figure du **non-professionnel** (personne morale n'agissant pas dans le
 cadre de son activité, ex. une association) bénéficie de certaines protections
-consuméristes (notamment clauses abusives art. L.212-2 C.conso [a verifier]) :
+consuméristes (notamment clauses abusives art. L.212-2 C.conso [à vérifier]) :
 en cas de doute sur la qualité du cocontractant, signaler `[review]`.
 
 ---
@@ -52,7 +52,7 @@ en cas de doute sur la qualité du cocontractant, signaler `[review]`.
 
 Les CGV B2B constituent, lorsqu'elles existent, le **socle unique de la
 négociation commerciale** entre le vendeur/prestataire et son client
-professionnel (art. L.441-1 C.com. [a verifier]). Elles encadrent la relation
+professionnel (art. L.441-1 C.com. [à vérifier]). Elles encadrent la relation
 de manière standardisée ; des conditions particulières peuvent y déroger par
 négociation.
 
@@ -91,7 +91,7 @@ par le skill :
 ## B2B.3 — Mentions obligatoires de l'art. L.441-1 C.com.
 
 Les CGV communiquées entre professionnels comprennent obligatoirement
-(art. L.441-1 C.com. [a verifier]) :
+(art. L.441-1 C.com. [à vérifier]) :
 
 - les **conditions de règlement** ;
 - les **éléments de détermination du prix** tels que le **barème des prix
@@ -101,7 +101,7 @@ Les CGV communiquées entre professionnels comprennent obligatoirement
 Règle de **communication** : toute personne exerçant des activités de
 production, de distribution ou de services est tenue de **communiquer ses CGV**
 à tout acheteur professionnel qui en fait la demande pour une activité
-professionnelle (art. L.441-1 C.com. [a verifier]). Les CGV peuvent être
+professionnelle (art. L.441-1 C.com. [à vérifier]). Les CGV peuvent être
 **différenciées selon les catégories** d'acheteurs ; la catégorisation doit
 reposer sur des critères objectifs.
 
@@ -113,7 +113,7 @@ reposer sur des critères objectifs.
 ## B2B.4 — Plafond des délais de paiement (art. L.441-10 C.com.)
 
 Le délai convenu entre les parties pour régler les sommes dues ne peut
-**dépasser** (art. L.441-10, I C.com. [a verifier]) :
+**dépasser** (art. L.441-10, I C.com. [à vérifier]) :
 
 - **60 jours à compter de la date d'émission de la facture** ; ou
 - par dérogation, si elle est expressément stipulée au contrat et ne constitue
@@ -126,7 +126,7 @@ partir de la date d'émission de la facture ; en pratique, c'est la **première
 échéance à survenir** entre les deux modes de calcul autorisés qui doit être
 respectée. Le délai doit être **explicitement fixé** dans les CGV ; à défaut de
 stipulation, le délai légal supplétif est de **30 jours** suivant la réception
-des marchandises ou l'exécution de la prestation [a verifier].
+des marchandises ou l'exécution de la prestation [à vérifier].
 
 Le **dépassement** des plafonds expose à une **amende administrative** et la
 clause dérogatoire non justifiée est nulle. Des **délais spécifiques** existent
@@ -145,13 +145,13 @@ Lien : clauses-sensibles-fr.md n° 18. Rappels structurants pour la rédaction :
 
 - Les **pénalités de retard** sont dues **de plein droit**, dès le jour suivant
   la date d'échéance, **sans rappel ni mise en demeure** (art. L.441-10, II
-  C.com. [a verifier]). Une clause les soumettant à une demande préalable est
+  C.com. [à vérifier]). Une clause les soumettant à une demande préalable est
   contraire à ce caractère automatique.
 - Le **taux** des pénalités ne peut être inférieur à un plancher : trois fois
   le taux d'intérêt légal, ou le taux BCE de refinancement le plus récent
-  majoré de 10 points [a verifier] — retenir au moins ce plancher.
+  majoré de 10 points [à vérifier] — retenir au moins ce plancher.
 - L'**indemnité forfaitaire pour frais de recouvrement** (montant fixé par
-  voie réglementaire — 40 € [a verifier], art. D.441-5 C.com. [a verifier]) est
+  voie réglementaire — 40 € [à vérifier], art. D.441-5 C.com. [à vérifier]) est
   **obligatoire** ; une clause la supprimant est nulle.
 
 ## B2B.6 — Contrôle des clauses abusives en B2B
@@ -184,7 +184,7 @@ fondements **distincts** du régime consumériste :
 
 > **Avertissement de régime.** Tous les articles du Code de la consommation
 > cités ci-dessous sont **hors index ou en `[a compléter]`** dans
-> `articles-c-civ-c-com-index.md`. Ils doivent être tagués **`[a verifier]`**
+> `articles-c-civ-c-com-index.md`. Ils doivent être tagués **`[à vérifier]`**
 > dans toute sortie tant qu'ils ne sont pas relus en session via Légifrance.
 > Le régime B2C est **d'ordre public** : les clauses qui réduisent les droits
 > du consommateur sont réputées non écrites.
@@ -197,15 +197,15 @@ consommateurs :
 1. **Identification du professionnel** — dénomination, coordonnées, RCS, contact.
 2. **Objet et champ d'application** — biens / services / contenus numériques.
 3. **Information précontractuelle** — caractéristiques essentielles, prix,
-   modalités d'exécution (art. L.111-1 C.conso [a verifier]).
+   modalités d'exécution (art. L.111-1 C.conso [à vérifier]).
 4. **Commande** — étapes, confirmation, formation du contrat.
 5. **Prix et paiement** — prix TTC, modalités, sécurisation du paiement.
 6. **Livraison et exécution** — délais, transfert des risques (à la livraison
    effective au consommateur).
 7. **Droit de rétractation** — modalités et délai, formulaire type
-   (art. L.221-18 et s. C.conso [a verifier]) — en **vente à distance / hors
+   (art. L.221-18 et s. C.conso [à vérifier]) — en **vente à distance / hors
    établissement**.
-8. **Garantie légale de conformité** — art. L.217-3 et s. C.conso [a verifier].
+8. **Garantie légale de conformité** — art. L.217-3 et s. C.conso [à vérifier].
 9. **Garantie légale des vices cachés** — art. 1641 C.civ.
 10. **Garantie commerciale éventuelle** — distincte des garanties légales.
 11. **Responsabilité** — sans réduction des droits légaux du consommateur.
@@ -216,7 +216,7 @@ consommateurs :
 ## B2C.2 — Information précontractuelle (art. L.111-1 C.conso)
 
 Avant la conclusion du contrat, le professionnel communique au consommateur, de
-manière lisible et compréhensible (art. L.111-1 C.conso [a verifier]) :
+manière lisible et compréhensible (art. L.111-1 C.conso [à vérifier]) :
 
 - les **caractéristiques essentielles** du bien ou du service ;
 - le **prix** du bien ou du service ;
@@ -228,7 +228,7 @@ manière lisible et compréhensible (art. L.111-1 C.conso [a verifier]) :
   mise en œuvre, ainsi qu'aux **autres conditions contractuelles**.
 
 En vente à distance et hors établissement, l'information précontractuelle est
-renforcée (art. L.221-5 C.conso [a verifier]) et inclut notamment les
+renforcée (art. L.221-5 C.conso [à vérifier]) et inclut notamment les
 **conditions, délai et modalités d'exercice du droit de rétractation** ainsi que
 le **formulaire type de rétractation**.
 
@@ -238,19 +238,19 @@ Dans les contrats conclus **à distance** et **hors établissement**, le
 consommateur dispose d'un délai de **quatorze (14) jours** pour exercer son
 droit de rétractation, **sans avoir à motiver sa décision ni à supporter
 d'autres coûts** que ceux prévus par la loi (art. L.221-18 C.conso
-[a verifier]).
+[à vérifier]).
 
 Points de rédaction :
 
 - **Point de départ du délai** — pour un contrat de **prestation de services**,
   à compter de la conclusion du contrat ; pour un contrat de **vente de bien**,
-  à compter de la **réception du bien** par le consommateur [a verifier].
+  à compter de la **réception du bien** par le consommateur [à vérifier].
 - **Champ** — la rétractation ne s'applique **qu'en vente à distance et hors
   établissement**. Une vente conclue **en présentiel dans l'établissement** du
   professionnel **n'ouvre pas** de droit de rétractation légal. Le canal de
   vente doit donc être vérifié avant d'insérer la clause.
 - **Exceptions** — certaines catégories de biens et services sont **exclues**
-  du droit de rétractation (art. L.221-28 C.conso [a verifier]) : biens
+  du droit de rétractation (art. L.221-28 C.conso [à vérifier]) : biens
   confectionnés sur demande, biens descellés non retournables pour des raisons
   d'hygiène, contenu numérique fourni sur support immatériel dont l'exécution a
   commencé avec l'accord du consommateur et renoncement exprès, etc. Si
@@ -268,13 +268,13 @@ Points de rédaction :
 Dans les contrats conclus entre professionnels et consommateurs, sont abusives
 les clauses qui ont pour objet ou pour effet de créer, **au détriment du
 consommateur, un déséquilibre significatif** entre les droits et obligations des
-parties au contrat (art. L.212-1 C.conso [a verifier]). Une clause abusive est
+parties au contrat (art. L.212-1 C.conso [à vérifier]). Une clause abusive est
 **réputée non écrite**.
 
 Le pouvoir réglementaire fixe deux listes :
 
 - **Liste noire — clauses irréfragablement présumées abusives** (art. R.212-1
-  C.conso [a verifier]). Ces clauses sont **interdites par principe** : elles
+  C.conso [à vérifier]). Ces clauses sont **interdites par principe** : elles
   sont abusives **de manière irréfragable**, sans que le professionnel puisse en
   rapporter la preuve contraire. Exemples typiques de clauses visées : celles
   qui suppriment ou réduisent le droit à réparation du consommateur en cas de
@@ -285,7 +285,7 @@ Le pouvoir réglementaire fixe deux listes :
   d'agir en justice du consommateur. **Aucune clause de la liste noire ne peut
   figurer dans des CGV/CGU B2C.**
 - **Liste grise — clauses présumées abusives sauf preuve contraire**
-  (art. R.212-2 C.conso [a verifier]). Ces clauses sont **présumées abusives** ;
+  (art. R.212-2 C.conso [à vérifier]). Ces clauses sont **présumées abusives** ;
   le professionnel peut tenter de rapporter la preuve de leur caractère non
   abusif. Exemples typiques : clauses réservant au professionnel un délai
   excessif pour exécuter, ou un droit de résiliation discrétionnaire. Toute
@@ -302,21 +302,21 @@ Le pouvoir réglementaire fixe deux listes :
 
 Le régime de la garantie légale de conformité a été **refondu par l'ordonnance
 n° 2021-1247 du 29 septembre 2021**, applicable aux contrats conclus **depuis le
-1er janvier 2022** [a verifier]. Repères pour la rédaction :
+1er janvier 2022** [à vérifier]. Repères pour la rédaction :
 
 - **Champ** — le professionnel délivre un bien conforme au contrat et répond des
   défauts de conformité existant au moment de la délivrance (art. L.217-3 C.conso
-  [a verifier]). Le régime couvre les biens, y compris les biens comportant des
+  [à vérifier]). Le régime couvre les biens, y compris les biens comportant des
   éléments numériques, et les contenus et services numériques.
 - **Critères de conformité** — le bien doit correspondre à la description, être
   propre à l'usage habituellement attendu, être délivré avec les accessoires et
-  les mises à jour prévus (art. L.217-4 et L.217-5 C.conso [a verifier]).
+  les mises à jour prévus (art. L.217-4 et L.217-5 C.conso [à vérifier]).
 - **Durée et présomption** — l'action en garantie de conformité s'exerce dans un
   délai de **deux (2) ans** à compter de la délivrance du bien ; pour les
   **biens neufs**, les défauts apparaissant dans un délai de **24 mois** sont
   **présumés exister** au moment de la délivrance (art. L.217-7 C.conso
-  [a verifier]). Pour les biens d'occasion, la durée de présomption est réduite
-  [a verifier].
+  [à vérifier]). Pour les biens d'occasion, la durée de présomption est réduite
+  [à vérifier].
 - **Caractère d'ordre public** — la garantie légale de conformité est **d'ordre
   public** : toute clause qui l'écarte, la limite ou la réduit est **réputée non
   écrite**. Les CGV B2C doivent la **mentionner explicitement**, sans tenter de
@@ -337,10 +337,10 @@ Tout professionnel doit permettre au consommateur de recourir gratuitement à un
 **médiateur de la consommation** en vue de la résolution amiable d'un litige.
 Le professionnel **communique au consommateur** les coordonnées du ou des
 médiateurs compétents dont il relève (art. L.612-1 et L.616-1 C.conso
-[a verifier]) ; cette information figure de manière visible et lisible dans les
+[à vérifier]) ; cette information figure de manière visible et lisible dans les
 CGV/CGU et sur le site internet. Pour les litiges issus d'un contrat conclu en
 ligne, mentionner également l'existence de la **plateforme européenne de
-règlement en ligne des litiges (RLL)** [a verifier].
+règlement en ligne des litiges (RLL)** [à vérifier].
 
 > **Point de rédaction.** Le skill insère une clause « médiation de la
 > consommation » avec un emplacement `[review]` pour les coordonnées du
@@ -353,13 +353,13 @@ règlement en ligne des litiges (RLL)** [a verifier].
 
 | Sujet | B2B (Code de commerce) | B2C (Code de la consommation) |
 |---|---|---|
-| Texte cadre | art. L.441-1 C.com. [a verifier] | art. L.111-1 C.conso [a verifier] |
+| Texte cadre | art. L.441-1 C.com. [à vérifier] | art. L.111-1 C.conso [à vérifier] |
 | Mentions obligatoires | conditions de règlement, barème prix unitaires, réductions de prix | information précontractuelle : caractéristiques essentielles, prix, délai, identité, garanties |
-| Délais de paiement | plafond 60 j / 45 j fin de mois — art. L.441-10 C.com. [a verifier] | sans plafond légal spécifique B2C |
-| Rétractation | aucune | 14 jours en vente à distance / hors établissement — art. L.221-18 C.conso [a verifier] |
-| Clauses déséquilibrées | déséquilibre significatif L.442-1 C.com. [Légifrance] ; adhésion 1171 C.civ. [Légifrance] | clauses abusives L.212-1 C.conso [a verifier] — liste noire R.212-1, liste grise R.212-2 [a verifier] |
-| Garanties | vices cachés 1641 C.civ. — aménageable | conformité L.217-3 et s. C.conso [a verifier] — d'ordre public ; vices cachés 1641 C.civ. |
-| Médiation | non imposée | obligatoire — art. L.612-1 C.conso [a verifier] |
+| Délais de paiement | plafond 60 j / 45 j fin de mois — art. L.441-10 C.com. [à vérifier] | sans plafond légal spécifique B2C |
+| Rétractation | aucune | 14 jours en vente à distance / hors établissement — art. L.221-18 C.conso [à vérifier] |
+| Clauses déséquilibrées | déséquilibre significatif L.442-1 C.com. [Légifrance] ; adhésion 1171 C.civ. [Légifrance] | clauses abusives L.212-1 C.conso [à vérifier] — liste noire R.212-1, liste grise R.212-2 [à vérifier] |
+| Garanties | vices cachés 1641 C.civ. — aménageable | conformité L.217-3 et s. C.conso [à vérifier] — d'ordre public ; vices cachés 1641 C.civ. |
+| Médiation | non imposée | obligatoire — art. L.612-1 C.conso [à vérifier] |
 
 ---
 

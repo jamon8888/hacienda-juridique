@@ -14,6 +14,66 @@ argument-hint: "[signe | classes Nice | territoires FR/EU/intl]"
 > rediriger explicitement les anciens usages. Il ne doit pas être présenté
 > comme un flux de travail autonome équivalent.
 
+## Examples
+
+<example>
+<user>/h-pi:clearance-marque [signe | classes Nice | territoires FR/EU/intl]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
+
+## Chargement du profil
+
+Avant tout travail substantiel, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Marques, BOPI et EUIPO : `inpi_search_marques`, `inpi_marque_details`, `inpi_marques_publications_recentes`, `euipo_tmview_search`, `bopi_dernieres_publications`.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
+La sortie doit rester courte et produire exactement ces quatre blocs :
+
+1. `Avis de compatibilite`
+2. `Entrees transmises`
+3. `Limites`
+4. `Prochaine étape`
+
+Contraintes :
+
+- `Avis de compatibilite` : dire que `clearance-marque` est obsolete et
+  maintenu pour compatibilité historique uniquement.
+- `Entrees transmises` : recopier les informations d'entrée utiles vers
+  `recherche-anteriorite-marque`.
+- `Limites` : rappeler explicitement qu'il ne s'agit ni d'une revue autonome,
+  ni d'une opinion de disponibilité, ni d'une conclusion "marque libre".
+- `Prochaine étape` : pointer vers `recherche-anteriorite-marque` et, si
+  nécessaire, vers validation humaine par avocat ou mandataire.
+
 ## Rôle
 
 Ce skill ne fait plus de revue autonome. Il sert uniquement à :
@@ -50,26 +110,6 @@ Transmettre telles quelles, sans réinterprétation silencieuse :
 - usage constate sur le marché ou éléments de presentation du signe si fournis
 
 Tout élément manquant doit être liste, pas invente.
-
-## Sortie
-
-La sortie doit rester courte et produire exactement ces quatre blocs :
-
-1. `Avis de compatibilite`
-2. `Entrees transmises`
-3. `Limites`
-4. `Prochaine étape`
-
-Contraintes :
-
-- `Avis de compatibilite` : dire que `clearance-marque` est obsolete et
-  maintenu pour compatibilité historique uniquement.
-- `Entrees transmises` : recopier les informations d'entrée utiles vers
-  `recherche-anteriorite-marque`.
-- `Limites` : rappeler explicitement qu'il ne s'agit ni d'une revue autonome,
-  ni d'une opinion de disponibilité, ni d'une conclusion "marque libre".
-- `Prochaine étape` : pointer vers `recherche-anteriorite-marque` et, si
-  nécessaire, vers validation humaine par avocat ou mandataire.
 
 ## Gardes-fous Hacienda
 

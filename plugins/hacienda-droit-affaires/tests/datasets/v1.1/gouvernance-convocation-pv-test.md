@@ -1,6 +1,6 @@
 # Dataset de test V1.1 — Gouvernance d'assemblée (2 scénarios)
 
-> **Entry point attendu :** `/hacienda-droit-affaires:gouvernance-ag`
+> **Entry point attendu :** `/h-droit-affaires:gouvernance-ag`
 > **Objet :** deux scénarios de gouvernance d'assemblée synthétiques. Le premier
 > teste le mode `--convocation` et le **calcul du délai** (détection d'un délai
 > légal intenable). Le second teste le mode `--pv` et les **règles de quorum et
@@ -12,7 +12,7 @@
 ## Scénario 1 — Convocation d'une AGE de SA avec un délai intenable
 
 > **Mode visé :** `--convocation`
-> **Commande type :** `/hacienda-droit-affaires:gouvernance-ag --convocation --forme=SA`
+> **Commande type :** `/h-droit-affaires:gouvernance-ag --convocation --forme=SA`
 
 ### Faits fictifs
 
@@ -35,7 +35,7 @@ modifier son objet social. Éléments du dossier :
 Le skill doit, à l'Étape 1 (`--convocation`) :
 - Identifier le **délai applicable** : pour une SA, **15 jours** sur première
   convocation. Les délais précis de la SA sont **réglementaires** (art. R.225-67
-  / R.225-69 C.com.) et doivent être tagués `[a verifier]` — hors index.
+  / R.225-69 C.com.) et doivent être tagués `[à vérifier]` — hors index.
 - Calculer la **date limite d'envoi** : date d'assemblée − 15 jours. Avec une
   assemblée fixée dans **10 jours**, la date limite d'envoi est **déjà dépassée**
   (il faudrait avoir convoqué il y a 5 jours).
@@ -44,12 +44,12 @@ Le skill doit, à l'Étape 1 (`--convocation`) :
   est d'ordre public).
 - Proposer des suites réalistes : **reporter** la date de l'assemblée pour
   respecter le délai de 15 jours, ou, le cas échéant, anticiper le mécanisme de
-  **seconde convocation** (délai réduit `[a verifier]`).
+  **seconde convocation** (délai réduit `[à vérifier]`).
 
 **Comportement attendu — il ne faut PAS** :
 - présenter la convocation comme expédiable en l'état ;
 - minimiser le dépassement de délai ;
-- énoncer un délai réglementaire de SA comme un fait sans `[a verifier]`.
+- énoncer un délai réglementaire de SA comme un fait sans `[à vérifier]`.
 
 ### Critères de succès — Scénario 1
 
@@ -57,7 +57,7 @@ Le skill doit, à l'Étape 1 (`--convocation`) :
 - [ ] Date limite d'envoi calculée (date d'assemblée − 15 jours).
 - [ ] **🔴 délai intenable** signalé : 10 jours < 15 jours requis.
 - [ ] Le caractère d'**ordre public** du délai et le risque de **nullité des délibérations** sont explicités.
-- [ ] Les délais réglementaires de la SA (R.225-67 / R.225-69 C.com.) sont tagués `[a verifier]`.
+- [ ] Les délais réglementaires de la SA (R.225-67 / R.225-69 C.com.) sont tagués `[à vérifier]`.
 - [ ] Une suite réaliste est proposée (report de l'assemblée, ou seconde convocation).
 - [ ] La convocation n'est PAS présentée comme prête à expédier en l'état.
 
@@ -66,7 +66,7 @@ Le skill doit, à l'Étape 1 (`--convocation`) :
 ## Scénario 2 — Procès-verbal d'une AGE de SARL (modification statutaire)
 
 > **Mode visé :** `--pv`
-> **Commande type :** `/hacienda-droit-affaires:gouvernance-ag --pv --forme=SARL`
+> **Commande type :** `/h-droit-affaires:gouvernance-ag --pv --forme=SARL`
 
 ### Faits fictifs
 
@@ -142,17 +142,17 @@ abstentions, adoptée ou rejetée), signatures.
 
 - [ ] **Mode `--convocation` — calcul du délai** : la détection du délai intenable est une étape active du skill (Étape 1 `--convocation`), pas une simple mention — elle est exécutée sur le scénario 1 et conclut à 🔴.
 - [ ] **Mode `--pv` — vérification quorum/majorité** : le rappel des règles selon forme et type d'assemblée est une étape active (Étape 1 `--pv`) ; quorum et majorité ne sont jamais confondus.
-- [ ] **`verifier-citations` post-flight** : appel automatique sur la sortie complète (Étape 3) ; articles hors index / en `[a compléter]` (L.225-96) / `R.xxx` tagués `[a verifier]`.
+- [ ] **`verifier-citations` post-flight** : appel automatique sur la sortie complète (Étape 3) ; articles hors index / en `[a compléter]` (L.225-96) / `R.xxx` tagués `[à vérifier]`.
 
 ## Faux comportements à NE PAS observer
 
 - ❌ Présenter une convocation comme expédiable alors que le délai légal est intenable (scénario 1).
 - ❌ Minimiser le dépassement du délai de convocation ou en faire un simple point de style.
-- ❌ Énoncer un délai réglementaire de SA (R.225-67, R.225-69 C.com.) comme un fait, sans `[a verifier]`.
+- ❌ Énoncer un délai réglementaire de SA (R.225-67, R.225-69 C.com.) comme un fait, sans `[à vérifier]`.
 - ❌ Confondre **quorum** (proportion du capital présent ou représenté) et **majorité** (proportion des voix / parts requise pour adopter).
 - ❌ Appliquer la règle de la SA (majorité des voix exprimées) à une SARL, ou inversement.
 - ❌ Retenir 3/4 des parts pour une SARL constituée après le 4 août 2005 (le bon seuil est 2/3 des parts).
 - ❌ Imposer une règle légale de quorum/majorité à une SAS au lieu de renvoyer aux statuts.
-- ❌ Citer un article en `[a compléter]` ou absent de l'index (L.225-96, R.xxx) sans le tag `[a verifier]`.
+- ❌ Citer un article en `[a compléter]` ou absent de l'index (L.225-96, R.xxx) sans le tag `[à vérifier]`.
 - ❌ Arbre de décision à un nombre d'options différent de 5, ou option 4 ≠ « Surveiller et attendre ».
 - ❌ Backticks autour des tags de provenance dans les cellules de tableau.

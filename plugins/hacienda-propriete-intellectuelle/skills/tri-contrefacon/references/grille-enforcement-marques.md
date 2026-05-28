@@ -55,7 +55,7 @@ Minimum utile selon le stade:
 - cible / operateur / vendeur / compte identifies autant que possible
 - identification du signe reproche et du support
 - produits ou services concernes
-- element sur le droit invoque: extrait registre, numero, depot, usage, licence ou mandat `[a verifier]` si non produit
+- element sur le droit invoque: extrait registre, numero, depot, usage, licence ou mandat `[à vérifier]` si non produit
 - element de chronologie
 
 Pieces qui renforcent le dossier:

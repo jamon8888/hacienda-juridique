@@ -43,10 +43,10 @@ signale ; l'avocat décide.
 
 ## Sources
 
-`BodaccClient.searchProcedures(siren)` via `@hacienda/core` — filtre
+`bodacc_procedures` via `@hacienda/core` — filtre
 `familleavis = "procedures-collectives"`, tri `dateparution DESC`. Mandataire
-et RG dans `raw`, fallback `[a verifier]`. Tool MCP : `mcp__*__bodacc_procedures`
-(`bodaccProceduresTool`, `packages/core/src/index.ts`). [BODACC]
+et RG dans `raw`, fallback `[à vérifier]`. Tool MCP : `mcp__*__bodacc_procedures`
+(`bodacc_procedures`, `packages/core/src/index.ts`). [BODACC]
 
 ## Configuration
 
@@ -67,7 +67,7 @@ debiteurs:
     creancier_etranger: false
 ```
 
-**Si fichier absent** : stopper, proposer `/hacienda-droit-affaires:entretien-demarrage`
+**Si fichier absent** : stopper, proposer `/h-droit-affaires:entretien-demarrage`
 ou création manuelle. Ne pas créer de fichier vide par défaut.
 
 État persisté : `.bodacc-procedures-state.json` (même répertoire).
@@ -80,7 +80,7 @@ Règle déterministe — aucune fuzzy logic :
 ```
 date_forclusion = date_publication_bodacc + 60 jours
 si creancier_etranger = true :
-    date_forclusion += 60 jours  # total 120 j — art. R.622-24 C.com. [a verifier]
+    date_forclusion += 60 jours  # total 120 j — art. R.622-24 C.com. [à vérifier]
 jours_restants = date_forclusion - today
 ```
 
@@ -96,16 +96,16 @@ jours_restants = date_forclusion - today
 
 ## Surveillance nouvelles procédures
 
-Quotidien : `BodaccClient.searchProcedures(siren)` [BODACC] sur tous les SIREN
+Quotidien : `bodacc_procedures` [BODACC] sur tous les SIREN
 du portefeuille (actifs + historiques). Delta vs `last_seen_ids` = nouvelles
-procédures → alerte + proposition `/hacienda-droit-affaires:declaration-creance`.
+procédures → alerte + proposition `/h-droit-affaires:declaration-creance`.
 
 ## Workflow
 
 1. Lire profil cabinet (`CLAUDE.md`) + `debiteurs.yaml`. Stopper si absent.
 2. Pour chaque débiteur `statut_declaration: "à_faire"` : calculer
    `jours_restants`, classer par sévérité.
-3. Pour chaque SIREN du portefeuille : appeler `BodaccClient.searchProcedures(siren)`,
+3. Pour chaque SIREN du portefeuille : appeler `bodacc_procedures`,
    comparer avec `last_seen_ids`, détecter nouvelles procédures.
 4. **Mettre à jour `.bodacc-procedures-state.json` AVANT émission** (évite doublons).
 5. Émettre alertes 🔴 / 🔴🔴 immédiatement, agréger 🟠 dans digest hebdo.
@@ -121,11 +121,11 @@ Procédure       : {typeavis} ouverte le {date_jugement_ouverture}
 Publication BODACC : {date_publication_bodacc}                   [BODACC]
 Date forclusion : {date_forclusion}
   (pub. BODACC + 60 j — art. L.622-24 C.com.)                   [Légifrance]
-  {si creancier_etranger : "+ 60 j étranger — art. R.622-24 [a verifier]"}
-Mandataire      : {extrait raw} ou [a verifier]                  [BODACC]
+  {si creancier_etranger : "+ 60 j étranger — art. R.622-24 [à vérifier]"}
+Mandataire      : {extrait raw} ou [à vérifier]                  [BODACC]
 
 Action OBLIGATOIRE avant le {date_forclusion} :
-→ /hacienda-droit-affaires:declaration-creance --siren={siren} --montant={montant_creance}
+→ /h-droit-affaires:declaration-creance --siren={siren} --montant={montant_creance}
 
 Si déclaration déjà envoyée, corriger dans debiteurs.yaml :
   statut_declaration: "envoyee"
@@ -150,7 +150,7 @@ Dépassement      : {abs(jours_restants)} jour(s)
 OPTIONS (décision avocat référent obligatoire) :
 1. Relevé forclusion art. L.622-26 `[Légifrance]` — recevabilité exceptionnelle,
    charge élevée (absence de fait du créancier / créance inconnue). [review]
-   → /hacienda-droit-affaires:declaration-creance --siren={siren} --montant={montant_creance}
+   → /h-droit-affaires:declaration-creance --siren={siren} --montant={montant_creance}
 2. Abandon créance (perte définitive)
    → debiteurs.yaml : statut_declaration: "abandonnee"
 
@@ -169,7 +169,7 @@ ESCALADE immédiate : {approbateur déclaration > 100k€ du profil cabinet}.
 
 | Date pub. | SIREN | Type | Ville | Action recommandée |
 |---|---|---|---|---|
-| YYYY-MM-DD | … | … | … | `/hacienda-droit-affaires:declaration-creance --siren=…` |
+| YYYY-MM-DD | … | … | … | `/h-droit-affaires:declaration-creance --siren=…` |
 
 Si > 10 dossiers actifs : générer un HTML autonome via `renderDashboard()`
 de `@hacienda/core` (zéro CDN, sortable/filtrable — `references/dashboard-template.md`).
@@ -182,7 +182,7 @@ majeure si une alerte est ratée silencieusement.**
 - **BODACC inaccessible** : retry 3× sur 1h, puis alerte technique distincte —
   "⚠️ Agent forclusion ne peut plus surveiller — intervention requise." Logger
   `"last_error"` dans l'état persisté. Jamais silencieux.
-- **Annonce `raw` illisible** : logger `[a verifier]`, continuer sur le reste.
+- **Annonce `raw` illisible** : logger `[à vérifier]`, continuer sur le reste.
 - **`debiteurs.yaml` absent** : stopper, message explicite. Pas de fichier vide.
 - **État persisté absent** : initialiser à vide (premier run = baseline,
   comportement documenté, pas silencieux).
@@ -190,7 +190,7 @@ majeure si une alerte est ratée silencieusement.**
 ## Ce que l'agent ne fait pas
 
 - Pas d'envoi automatique de déclaration au mandataire — l'agent alerte,
-  `/hacienda-droit-affaires:declaration-creance` rédige avec validation avocat.
+  `/h-droit-affaires:declaration-creance` rédige avec validation avocat.
 - Pas de rédaction de requête en relevé L.622-26 `[Légifrance]` — l'agent
   flague, le skill `declaration-creance` prépare la trame.
 - Pas de qualification fine du privilège — rôle du skill `declaration-creance`.

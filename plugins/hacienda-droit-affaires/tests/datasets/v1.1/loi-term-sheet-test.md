@@ -1,6 +1,6 @@
 # Dataset de test V1.1 — LOI / Term sheet (2 pièges binding cachés)
 
-> **Entry point attendu :** `/hacienda-droit-affaires:loi-term-sheet`
+> **Entry point attendu :** `/h-droit-affaires:loi-term-sheet`
 > **Objet :** lettre d'intention (LOI) synthétique anonymisée présentée comme
 > « non engageante », contenant en réalité 2 pièges binding cachés. Aucune
 > donnée réelle. Les sociétés, personnes, montants et dates sont fictifs.
@@ -101,7 +101,7 @@ La présente LOI est régie par le droit français.
 ### Point de fond à ne pas manquer — bonne foi des pourparlers
 
 - Le skill doit, dans l'analyse, distinguer correctement :
-  - la **liberté de rompre les pourparlers** (principe — art. 1112 C.civ, absent de l'index avec LEGIARTI → `[a verifier]`) ;
+  - la **liberté de rompre les pourparlers** (principe — art. 1112 C.civ, absent de l'index avec LEGIARTI → `[à vérifier]`) ;
   - et la **bonne foi** qui doit présider à l'initiative, au déroulement et à la rupture des négociations (art. 1104 C.civ — présent dans l'index avec LEGIARTI → `[Légifrance]`), dont la méconnaissance rend la rupture **fautive**.
 - Ne PAS écrire que rompre les pourparlers est en soi fautif. La faute tient aux **circonstances** de la rupture.
 - Mentionner le devoir précontractuel d'information (art. 1112-1 C.civ — présent dans l'index avec LEGIARTI → `[Légifrance]`), pertinent côté Cédants sur la Cible.
@@ -116,7 +116,7 @@ La présente LOI est régie par le droit français.
 - [ ] La prise en charge des frais par les seuls Cédants (article 4) est signalée comme **déséquilibrée** sur le fond, en plus d'être binding.
 - [ ] La confidentialité (article 5) et le droit applicable (article 8) sont qualifiés **binding** mais **intentionnels** — pas traités comme des pièges.
 - [ ] Distinction correcte liberté de rompre / faute dans la rupture (1112 vs 1104 C.civ).
-- [ ] Articles hors index ou en `[a compléter]` (1112 C.civ) tagués `[a verifier]` ; 1104 et 1112-1 C.civ citables `[Légifrance]`.
+- [ ] Articles hors index ou en `[a compléter]` (1112 C.civ) tagués `[à vérifier]` ; 1104 et 1112-1 C.civ citables `[Légifrance]`.
 - [ ] Le skill recommande l'ajout d'une **clause de qualification (binding / non-binding) explicite**.
 
 ### Vérification de structure de la sortie
@@ -137,7 +137,7 @@ La présente LOI est régie par le droit français.
 - ❌ Traiter l'exclusivité de 12 mois comme un simple point de négociation 🟡 sans signaler le caractère excessif.
 - ❌ Traiter la confidentialité (article 5) comme un piège : c'est une clause binding attendue et intentionnelle.
 - ❌ Écrire que rompre les pourparlers est en soi une faute (confusion liberté de rupture / faute dans la rupture).
-- ❌ Citer 1112 C.civ sans le tag `[a verifier]`.
+- ❌ Citer 1112 C.civ sans le tag `[à vérifier]`.
 - ❌ Arbre de décision à un nombre d'options différent de 5, ou option 4 ≠ « Surveiller et attendre ».
 - ❌ Backticks autour des tags de provenance dans les cellules du tableau.
 ```

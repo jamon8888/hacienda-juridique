@@ -22,16 +22,31 @@ argument-hint: "[overview | deadlines | risk-report | export]"
 
 # Portefeuille PI
 
-## Objectif
+## Examples
 
-Fournir une lecture consolidée du portefeuille PI existant sur le périmètre
-actuel **marques + brevets uniquement**, faire ressortir les échéances et les
-trous de couverture, et renvoyer vers les skills sources qui tiennent les registres
-internes. `portefeuille-pi` est un point d'entrée de lecture, pas un outil
-CRUD et pas un registre canonique unifié.
+<example>
+<user>/h-pi:portefeuille-pi [overview | deadlines | risk-report | export]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
 
-Ce hub ne crée, ne modifie et ne supprime aucune entrée; toute maintenance
-bascule vers `revue-portefeuille-marques` ou `revue-portefeuille-brevets`.
+## Chargement du profil
+
+Avant tout travail substantiel, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
 
 ## Mode Anno Desktop Optionnel
 
@@ -55,6 +70,50 @@ Tout résultat Anno est une source interne Anno, jamais comme source primaire et
 jamais comme registre officiel. Les registres INPI, EUIPO, OMPI, OEB et BOPI
 restent vérifiés via `hacienda-sources-officielles` et les outils PI Hacienda.
 
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Marques, BOPI et EUIPO : `inpi_search_marques`, `inpi_marque_details`, `inpi_marques_publications_recentes`, `euipo_tmview_search`, `bopi_dernieres_publications`.
+- Brevets et Espacenet : `inpi_search_brevets`, `inpi_brevet_details`, `espacenet_search`, `espacenet_brevet_details`.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
+La sortie du hub contient au minimum les blocs suivants :
+
+- `Vue des actifs` : vue consolidée des actifs, classes, familles,
+  territoires et responsables déjà consignés dans les skills sources.
+- `Échéances` : échéances, annuités, renouvellements et dates à surveiller,
+  avec tag `[à vérifier]` si la date n'est pas recoupée.
+- `Trous de couverture` : trous de couverture, actifs orphelins, données
+  manquantes et zones où une revue source reste nécessaire.
+- `Limites du registre` : rappel explicite que le hub reflète des registres
+  internes consolidés, sans valeur de registre officiel ni de synchronisation
+  officielle.
+- `Validation humaine requise / Prochaine action` : bloc final obligatoire
+  indiquant la vérification humaine attendue et le renvoi vers
+  `revue-portefeuille-marques` ou `revue-portefeuille-brevets` selon l'actif
+  et l'action de maintenance, d'audit ou de recoupement nécessaire.
+
+## Objectif
+
+Fournir une lecture consolidée du portefeuille PI existant sur le périmètre
+actuel **marques + brevets uniquement**, faire ressortir les échéances et les
+trous de couverture, et renvoyer vers les skills sources qui tiennent les registres
+internes. `portefeuille-pi` est un point d'entrée de lecture, pas un outil
+CRUD et pas un registre canonique unifié.
+
+Ce hub ne crée, ne modifie et ne supprime aucune entrée; toute maintenance
+bascule vers `revue-portefeuille-marques` ou `revue-portefeuille-brevets`.
+
 ## Modes
 
 - `overview` : consolider une vue multi-actifs en lecture seule sur le
@@ -77,24 +136,6 @@ restent vérifiés via `hacienda-sources-officielles` et les outils PI Hacienda.
    si une action de maintenance est nécessaire.
 6. Ne jamais présenter la sortie comme registre officiel, dépôt officiel ou
    synchronisation officielle.
-
-## Sortie
-
-La sortie du hub contient au minimum les blocs suivants :
-
-- `Vue des actifs` : vue consolidée des actifs, classes, familles,
-  territoires et responsables déjà consignés dans les skills sources.
-- `Échéances` : échéances, annuités, renouvellements et dates à surveiller,
-  avec tag `[à vérifier]` si la date n'est pas recoupée.
-- `Trous de couverture` : trous de couverture, actifs orphelins, données
-  manquantes et zones où une revue source reste nécessaire.
-- `Limites du registre` : rappel explicite que le hub reflète des registres
-  internes consolidés, sans valeur de registre officiel ni de synchronisation
-  officielle.
-- `Validation humaine requise / Prochaine action` : bloc final obligatoire
-  indiquant la vérification humaine attendue et le renvoi vers
-  `revue-portefeuille-marques` ou `revue-portefeuille-brevets` selon l'actif
-  et l'action de maintenance, d'audit ou de recoupement nécessaire.
 
 ## Mode Anno Tabular optionnel
 

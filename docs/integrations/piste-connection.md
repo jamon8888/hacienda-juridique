@@ -286,7 +286,7 @@ Action :
 
 - relancer la meme demande apres 30 a 60 secondes ;
 - verifier le statut PISTE public ;
-- conserver le dossier de preuve avec statut `[a verifier]` si la source n'a pas pu etre consultee.
+- conserver le dossier de preuve avec statut `[à vérifier]` si la source n'a pas pu etre consultee.
 
 ## Sources Couvertes
 
@@ -303,7 +303,7 @@ Via PISTE et Hacienda Sources Officielles :
 
 Une source n'est consideree verifiee que si le tool Hacienda correspondant a effectivement consulte la source officielle.
 
-Si PISTE est absent, en erreur, sans souscription ou indisponible, la sortie doit marquer la source `[a verifier]`.
+Si PISTE est absent, en erreur, sans souscription ou indisponible, la sortie doit marquer la source `[à vérifier]`.
 
 ## Difference Avec Pappers
 

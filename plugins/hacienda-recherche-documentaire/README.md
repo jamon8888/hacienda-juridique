@@ -80,6 +80,25 @@ sources primaires suffisantes pour une conclusion juridique finale.
 | `extraction-references` | Extrait les métadonnées utiles sans copie longue de contenu protégé. |
 | `verification-sources-primaires` | Transfère les sources citées vers Hacienda Sources Officielles. |
 
+## Commandes
+
+Chaque skill Recherche documentaire est invocable avec le préfixe court du
+plugin :
+
+| Commande | Usage |
+| --- | --- |
+| `/h-recherche-documentaire:entretien-demarrage` | Configure les bases disponibles et les règles éditeur. |
+| `/h-recherche-documentaire:preparation-requete` | Prépare une requête multi-bases. |
+| `/h-recherche-documentaire:recherche-doctrine` | Guide une recherche Doctrine supervisée. |
+| `/h-recherche-documentaire:recherche-lefebvre-dalloz` | Guide une recherche Lefebvre Dalloz / GenIA-L supervisée. |
+| `/h-recherche-documentaire:recherche-lexis` | Guide une recherche Lexis supervisée. |
+| `/h-recherche-documentaire:recherche-lextenso` | Guide une recherche Lextenso supervisée. |
+| `/h-recherche-documentaire:comparaison-bases` | Compare plusieurs bases documentaires. |
+| `/h-recherche-documentaire:controle-copyright` | Vérifie les limites d'extraction et de réutilisation. |
+| `/h-recherche-documentaire:dossier-documentaire` | Produit le dossier documentaire. |
+| `/h-recherche-documentaire:extraction-references` | Extrait les références utiles. |
+| `/h-recherche-documentaire:verification-sources-primaires` | Route les sources vers le socle officiel. |
+
 ## Agents
 
 | Agent | Rôle |

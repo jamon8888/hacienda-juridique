@@ -65,7 +65,6 @@ Produire une aide de travail structuree, jamais un conseil juridique final.
 
 ## Sources
 
-Toute source non consultee reste marquee \`[a verifier]\`.
 Toute source non consultée reste marquée \`[à vérifier]\`.
 
 ## Validation Humaine

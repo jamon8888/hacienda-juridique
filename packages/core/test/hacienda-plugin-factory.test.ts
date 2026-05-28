@@ -85,7 +85,7 @@ describe("hacienda plugin factory create CLI", () => {
     expect(readme).not.toContain("/hacienda-test-skeleton:entretien-demarrage");
     expect(read(resolve(pluginDir, "CLAUDE.md"))).toContain("validation humaine");
     const generatedSkill = read(resolve(pluginDir, "skills/entretien-demarrage/SKILL.md"));
-    expect(generatedSkill).toContain("[a verifier]");
+    expect(generatedSkill).toContain("[à vérifier]");
     expect(generatedSkill).toMatch(/^---\n/);
     expect(generatedSkill).not.toContain("\r\n");
   }, 30000);
@@ -160,13 +160,11 @@ describe("hacienda plugin factory create CLI", () => {
     );
 
     expect(skill).toContain("validation humaine");
-    expect(skill).toContain("[a verifier]");
     expect(skill).toContain("[à vérifier]");
     expect(skill).toContain("conseil juridique final");
     expect(skill).toMatch(/^---\n/);
     expect(skill).not.toContain("\r\n");
     expect(agent).toContain("validation humaine");
-    expect(agent).toContain("[a verifier]");
     expect(agent).toContain("[à vérifier]");
     expect(agent).toContain("pas de conseil juridique final");
   }, 30000);
@@ -240,6 +238,7 @@ describe("hacienda plugin factory create CLI", () => {
     ).toBe(true);
 
     const piDir = resolve(outputDir, "plugins/hacienda-propriete-intellectuelle");
+    const droitAffairesDir = resolve(outputDir, "plugins/hacienda-droit-affaires");
     expect(existsSync(resolve(piDir, ".claude-plugin/plugin.json"))).toBe(true);
     expect(existsSync(resolve(piDir, ".mcp.json"))).toBe(true);
     expect(existsSync(resolve(piDir, "skills/entretien-demarrage/SKILL.md"))).toBe(true);
@@ -248,6 +247,9 @@ describe("hacienda plugin factory create CLI", () => {
     expect(existsSync(resolve(piDir, "logs/README.md"))).toBe(false);
     expect(existsSync(resolve(piDir, "mcp-server/src/index.ts"))).toBe(false);
     expect(existsSync(resolve(piDir, "mcp-server/dist/index.js"))).toBe(false);
+    expect(existsSync(resolve(droitAffairesDir, "mcp-server/dist/mcpb-index.cjs"))).toBe(true);
+    expect(existsSync(resolve(droitAffairesDir, "mcp-server/src/index.ts"))).toBe(false);
+    expect(existsSync(resolve(droitAffairesDir, "mcp-server/dist/index.js"))).toBe(false);
 
     const sourcesDir = resolve(outputDir, "plugins/hacienda-sources-officielles");
     expect(existsSync(resolve(sourcesDir, ".claude-plugin/plugin.json"))).toBe(true);
@@ -272,5 +274,14 @@ describe("hacienda plugin factory create CLI", () => {
     expect(piEntries.some((entry) => entry.startsWith("logs/"))).toBe(false);
     expect(piEntries.some((entry) => entry.startsWith("mcp-server/src/"))).toBe(false);
     expect(piEntries.some((entry) => entry.endsWith(".bak"))).toBe(false);
+
+    const droitAffairesZip = resolve(outputDir, "zips/hacienda-droit-affaires.zip");
+    const droitAffairesEntries = readZipEntryNames(droitAffairesZip);
+
+    expect(droitAffairesEntries).toContain("mcp-server/dist/mcpb-index.cjs");
+    expect(droitAffairesEntries.some((entry) => entry === "manifest.json")).toBe(false);
+    expect(droitAffairesEntries.some((entry) => entry.startsWith("logs/"))).toBe(false);
+    expect(droitAffairesEntries.some((entry) => entry.startsWith("mcp-server/src/"))).toBe(false);
+    expect(droitAffairesEntries.some((entry) => entry.endsWith(".bak"))).toBe(false);
   }, 30000);
 });

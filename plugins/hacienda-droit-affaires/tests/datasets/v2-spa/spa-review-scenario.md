@@ -1,6 +1,6 @@
 # Dataset de test — SPA review (cession de titres SAS)
 
-> **Entry point attendu :** `/hacienda-droit-affaires:spa-review`
+> **Entry point attendu :** `/h-droit-affaires:spa-review`
 > **Objet :** SPA synthétique anonymisé de cession de 100 % des titres d'une SAS
 > française, side acquéreur. Aucune donnée réelle.
 
@@ -114,4 +114,4 @@ Les Parties accompliront les formalités post-closing usuelles.
 - [ ] `closing-checklist-fr` est recommandé pour les formalités.
 - [ ] `hacienda-reglementaire` est recommandé pour l'autorisation sectorielle.
 - [ ] La sortie contient note du relecteur 5 champs, red flags, liste de points, recommandation et arbre 5 options.
-- [ ] Les sujets non vérifiés sont tagués `[a verifier]`.
+- [ ] Les sujets non vérifiés sont tagués `[à vérifier]`.

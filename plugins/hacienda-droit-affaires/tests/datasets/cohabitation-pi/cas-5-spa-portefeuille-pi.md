@@ -1,6 +1,6 @@
 # Cas 5 — SPA M&A avec portefeuille PI dans les actifs cédés
 
-> **Entry point attendu :** `/hacienda-droit-affaires:gap-review` (le doc est un SPA avec GAP — `gap-review` est l'orchestrateur naturel pour M&A léger)
+> **Entry point attendu :** `/h-droit-affaires:gap-review` (le doc est un SPA avec GAP — `gap-review` est l'orchestrateur naturel pour M&A léger)
 > **Décision de routing attendue :** `gap-review` traite la GAP standard sur les 5 axes + renvoi `contrats-pi` UNIQUEMENT pour la due diligence PI de l'annexe portefeuille (axe 5 confrontation findings DD). PAS de passage par `reviser-contrat`.
 
 ---
@@ -101,7 +101,7 @@ Annexé un rapport de DD du 12 mai 2026 (cabinet AUDIT-CO) identifiant :
    - Axe 5 — Confrontation findings DD : **3 findings à confronter aux garanties**
 
 2. **Pour l'axe 5 ET POUR LUI SEUL** : renvoyer vers `contrats-pi` avec mention :
-   - « 3 findings DD ont une dimension PI matérielle (DD-04 exposition GPL, DD-07 opposition INPI, DD-11 déchéance marques). La couverture par les déclarations art. 18 et le plafond PI 1,8 M€ doit être confrontée à fond — recommandation : lancer `/hacienda-propriete-intellectuelle:contrats-pi --mode=dd-audit` sur l'annexe A + l'article 18 pour évaluation détaillée (recherche d'antériorités, vérification statut brevet en opposition, audit licences open source). `gap-review` couvre l'arbitrage économique de la couverture (plafonds, durées) — `contrats-pi` couvre la qualification technique de la matérialité. »
+   - « 3 findings DD ont une dimension PI matérielle (DD-04 exposition GPL, DD-07 opposition INPI, DD-11 déchéance marques). La couverture par les déclarations art. 18 et le plafond PI 1,8 M€ doit être confrontée à fond — recommandation : lancer `/h-pi:contrats-pi --mode=dd-audit` sur l'annexe A + l'article 18 pour évaluation détaillée (recherche d'antériorités, vérification statut brevet en opposition, audit licences open source). `gap-review` couvre l'arbitrage économique de la couverture (plafonds, durées) — `contrats-pi` couvre la qualification technique de la matérialité. »
 
 3. **NE PAS** passer par `reviser-contrat` — un SPA n'est pas un contrat commercial standard, l'entry point M&A est `gap-review`.
 

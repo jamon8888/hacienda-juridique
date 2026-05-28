@@ -6,7 +6,8 @@ description: >
   reviser-contrat / gap-review. Format tableau standardisé criticité
   décroissante 🔴 → 🟢, avec position souhaitée et formulation alternative
   pour chaque point.
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[contrat ou analyse source, position client]"
 authors: ["Hacienda"]
 tags: [issues-list, negotiation, composable]
 ---
@@ -35,7 +36,7 @@ tags: [issues-list, negotiation, composable]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:liste-de-points --from-analysis ./analyse-contrat-SPA.md --posture=protecteur</user>
+<user>/h-droit-affaires:liste-de-points --from-analysis ./analyse-contrat-SPA.md --posture=protecteur</user>
 <response>
 Mode standalone détecté (fichier d'analyse fourni).
 1. Lecture profil cabinet (posture protecteur override, clauses "jamais acceptées")
@@ -70,7 +71,7 @@ Retour : tableau seul (6 colonnes). En-tête et note du relecteur fournis par re
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/hacienda-droit-affaires:entretien-demarrage`. Seule exception : en
+demander `/h-droit-affaires:entretien-demarrage`. Seule exception : en
 mode composant invoqué par un skill caller qui a déjà vérifié le profil.
 
 ---
@@ -86,6 +87,100 @@ mode composant invoqué par un skill caller qui a déjà vérifié le profil.
    Force la posture pour cette exécution sans modifier le profil.
 3. **Filter** (optionnel) — `--min-criticite=orange` pour ne montrer que 🟠 et 🔴
    (exclut 🟡 et 🟢 du tableau)
+
+---
+
+## Gate non-juriste
+
+- [ ] Profil cabinet lu et posture applicable identifiée (ou override actif)
+- [ ] Findings correctement lus ou reçus du skill caller
+- [ ] Positions souhaitées et formulations calibrées selon posture (clauses-sensibles-fr.md)
+- [ ] Tableau trié 🔴 → 🟠 → 🟡 → 🟢, aucun doublon, aucun remplissage
+- [ ] Plancher de sévérité respecté (pas de rétrogradation silencieuse)
+- [ ] Mode standalone : en-tête + note du relecteur 5 champs + tableau + question hors checklist + arbre 5 options
+- [ ] Mode composant : tableau seul (pas d'en-tête, pas de note du relecteur)
+
+---
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+### Mode composant (invoqué par reviser-contrat ou gap-review)
+
+Retourner **uniquement le tableau** en Markdown pur.
+Pas d'en-tête de confidentialité. Pas de note du relecteur. Pas d'arbre de
+décision. Le skill caller fournit ces éléments dans sa propre sortie structurée.
+
+### Mode standalone (appelé directement par l'utilisateur)
+
+Sortie complète dans l'ordre suivant :
+
+```
+[En-tête de confidentialité selon le rôle utilisateur — 4 variantes]
+
+> ⚠️ Note du relecteur
+> - **Sources :** [bases consultées : Légifrance ✓ / Judilibre ✓ — ou ✗ si non connectée]
+> - **Lecture :** [fichier d'analyse lu intégralement | N findings extraits | sans objet]
+> - **Signalé pour ton jugement :** [N éléments marqués [review] en ligne | aucun]
+> - **Fraîcheur :** [recherche des évolutions depuis [date] — rien trouvé | N mises à jour intégrées | recherche impossible, vérifier [règles précises]]
+> - **Avant de t'appuyer dessus :** [action concrète OU « prêt pour relecture »]
+
+# Liste de points — {type de contrat} — {parties ou slug} — {date}
+
+| # | Clause | Statut | Risque | Position souhaitée | Formulation proposée |
+|---|---|---|---|---|---|
+| ... | ... | 🔴/🟠/🟡/🟢 | ... | ... | ... |
+
+# Une question hors de ma checklist habituelle
+
+{Observation transversale qu'un relecteur attentif ferait. Omettre la ligne
+si rien d'honnête à dire — ne pas fabriquer.}
+
+# Que veux-tu faire ? Choisis une option :
+
+1. **Rédiger** — je produis un projet de courrier de négociation à la contrepartie
+   reprenant la liste de points priorisée.
+2. **Escalader** — note d'escalade vers {approbateur configuré} avec faits-clés,
+   risque dominant et décision attendue.
+3. **Compléter les faits** — questions ouvertes à poser à {PM / client / contrepartie
+   / conseil} avant d'avancer.
+4. **Surveiller et attendre** — ajouter le sujet au tracker du dossier avec note
+   motivée et date de revisite.
+5. **Autre** — précise.
+
+{Footer A si check-pii est passé en mode passif sous le seuil B :
+"Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement
+avant envoi à Claude, installer [hacienda-ghost](marketplace://hacienda-ghost)."
+Sinon, rien.}
+```
+
+### En-tête de confidentialité — 4 variantes selon rôle
+
+| Rôle | En-tête à apposer |
+|------|-------------------|
+| Avocat inscrit à un barreau français | `CONFIDENTIEL — DOCUMENT DE TRAVAIL — Secret professionnel art. 66-5 loi n°71-1130 du 31 décembre 1971` |
+| Notaire (officier public) | `CONFIDENTIEL — TRAVAIL NOTARIAL — Devoir de discrétion art. 23 loi 25 ventôse an XI` |
+| Juriste in-house (non avocat) | `NOTES DE TRAVAIL INTERNES — NE CONSTITUE PAS UN AVIS JURIDIQUE — Faire valider par un avocat avant tout acte` |
+| Non-juriste avec accès avocat | `NOTES DE TRAVAIL — Faire valider par [avocat référent configuré] avant tout usage externe` |
+
+### Mode silencieux (livrable externe)
+
+Si l'utilisateur précise que la sortie est destinée à une contrepartie ou
+à un destinataire non-juriste :
+- Conserver l'en-tête de confidentialité et la note du relecteur.
+- Retirer la narration de skill et les renvois inter-commandes (les placer dans
+  un message séparé).
+- Le tableau doit se lire comme s'il avait été rédigé par un associé.
 
 ---
 
@@ -190,77 +285,6 @@ Ne pas fabriquer de lignes de remplissage.
 
 ---
 
-## Sortie
-
-### Mode composant (invoqué par reviser-contrat ou gap-review)
-
-Retourner **uniquement le tableau** en Markdown pur.
-Pas d'en-tête de confidentialité. Pas de note du relecteur. Pas d'arbre de
-décision. Le skill caller fournit ces éléments dans sa propre sortie structurée.
-
-### Mode standalone (appelé directement par l'utilisateur)
-
-Sortie complète dans l'ordre suivant :
-
-```
-[En-tête de confidentialité selon le rôle utilisateur — 4 variantes]
-
-> ⚠️ Note du relecteur
-> - **Sources :** [bases consultées : Légifrance ✓ / Judilibre ✓ — ou ✗ si non connectée]
-> - **Lecture :** [fichier d'analyse lu intégralement | N findings extraits | sans objet]
-> - **Signalé pour ton jugement :** [N éléments marqués [review] en ligne | aucun]
-> - **Fraîcheur :** [recherche des évolutions depuis [date] — rien trouvé | N mises à jour intégrées | recherche impossible, vérifier [règles précises]]
-> - **Avant de t'appuyer dessus :** [action concrète OU « prêt pour relecture »]
-
-# Liste de points — {type de contrat} — {parties ou slug} — {date}
-
-| # | Clause | Statut | Risque | Position souhaitée | Formulation proposée |
-|---|---|---|---|---|---|
-| ... | ... | 🔴/🟠/🟡/🟢 | ... | ... | ... |
-
-# Une question hors de ma checklist habituelle
-
-{Observation transversale qu'un relecteur attentif ferait. Omettre la ligne
-si rien d'honnête à dire — ne pas fabriquer.}
-
-# Que veux-tu faire ? Choisis une option :
-
-1. **Rédiger** — je produis un projet de courrier de négociation à la contrepartie
-   reprenant la liste de points priorisée.
-2. **Escalader** — note d'escalade vers {approbateur configuré} avec faits-clés,
-   risque dominant et décision attendue.
-3. **Compléter les faits** — questions ouvertes à poser à {PM / client / contrepartie
-   / conseil} avant d'avancer.
-4. **Surveiller et attendre** — ajouter le sujet au tracker du dossier avec note
-   motivée et date de revisite.
-5. **Autre** — précise.
-
-{Footer A si check-pii est passé en mode passif sous le seuil B :
-"Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement
-avant envoi à Claude, installer [hacienda-ghost](marketplace://hacienda-ghost)."
-Sinon, rien.}
-```
-
-### En-tête de confidentialité — 4 variantes selon rôle
-
-| Rôle | En-tête à apposer |
-|------|-------------------|
-| Avocat inscrit à un barreau français | `CONFIDENTIEL — DOCUMENT DE TRAVAIL — Secret professionnel art. 66-5 loi n°71-1130 du 31 décembre 1971` |
-| Notaire (officier public) | `CONFIDENTIEL — TRAVAIL NOTARIAL — Devoir de discrétion art. 23 loi 25 ventôse an XI` |
-| Juriste in-house (non avocat) | `NOTES DE TRAVAIL INTERNES — NE CONSTITUE PAS UN AVIS JURIDIQUE — Faire valider par un avocat avant tout acte` |
-| Non-juriste avec accès avocat | `NOTES DE TRAVAIL — Faire valider par [avocat référent configuré] avant tout usage externe` |
-
-### Mode silencieux (livrable externe)
-
-Si l'utilisateur précise que la sortie est destinée à une contrepartie ou
-à un destinataire non-juriste :
-- Conserver l'en-tête de confidentialité et la note du relecteur.
-- Retirer la narration de skill et les renvois inter-commandes (les placer dans
-  un message séparé).
-- Le tableau doit se lire comme s'il avait été rédigé par un associé.
-
----
-
 ## Emplacement des sorties (mode standalone)
 
 ```
@@ -270,18 +294,6 @@ outputs/liste-de-points-<type>-<parties-slug>-YYYY-MM-DD.md
 Si la liste dépasse 10 lignes ou contient des montants sérialisables,
 générer en parallèle un dashboard HTML autonome via `renderDashboard()`
 de `@hacienda/core` (voir `references/dashboard-template.md`).
-
----
-
-## Gate non-juriste
-
-- [ ] Profil cabinet lu et posture applicable identifiée (ou override actif)
-- [ ] Findings correctement lus ou reçus du skill caller
-- [ ] Positions souhaitées et formulations calibrées selon posture (clauses-sensibles-fr.md)
-- [ ] Tableau trié 🔴 → 🟠 → 🟡 → 🟢, aucun doublon, aucun remplissage
-- [ ] Plancher de sévérité respecté (pas de rétrogradation silencieuse)
-- [ ] Mode standalone : en-tête + note du relecteur 5 champs + tableau + question hors checklist + arbre 5 options
-- [ ] Mode composant : tableau seul (pas d'en-tête, pas de note du relecteur)
 
 ---
 

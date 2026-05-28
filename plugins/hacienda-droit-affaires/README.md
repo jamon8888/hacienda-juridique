@@ -5,10 +5,10 @@ direction juridique, notaires corporate et indépendants en procédures
 collectives.
 
 Chaque sortie reste un brouillon pour avocat ou juriste : source officielle
-ou `[a verifier]`, Note du relecteur, arbre de décision 5 options, validation
+ou `[à vérifier]`, Note du relecteur, arbre de décision 5 options, validation
 humaine obligatoire avant tout usage externe.
 
-## Périmètre v1
+## Périmètre V2
 
 | Bloc | Skills |
 |---|---|
@@ -18,7 +18,7 @@ humaine obligatoire avant tout usage externe.
 | Transversal | `entretien-demarrage`, `verifier-citations`, `check-pii` |
 | Agents (surveillance) | `bodacc-watcher`, `bodacc-procedures-watcher`, `echeances-societaires` |
 
-## Hors périmètre v1
+## Hors périmètre V2
 
 Volontairement non couverts (couverts par d'autres plugins Hacienda ou décisions produit) :
 - RGPD et délégué à la protection des données — voir `hacienda-donnees-personnelles`
@@ -61,17 +61,60 @@ BODACC OpenDataSoft (procédures collectives, annonces) est public sans clé.
 ## Premier lancement
 
 ```
-/hacienda-droit-affaires:entretien-demarrage
+/h-droit-affaires:entretien-demarrage
 ```
 
 Configure votre profil cabinet (réutilisé par les autres plugins Hacienda via
 `~/.config/Hacienda/profil-cabinet.md`) et vérifie l'état des connexions.
+
+## Commandes
+
+Chaque skill Droit des affaires est invocable directement comme commande du plugin :
+
+| Commande | Usage |
+| --- | --- |
+| `/h-droit-affaires:analyser-rupture-brutale` | Analyse du risque de rupture brutale. |
+| `/h-droit-affaires:cgv-generator` | Génération assistée de CGV/CGU. |
+| `/h-droit-affaires:check-pii` | Détection PII pré-vol. |
+| `/h-droit-affaires:closing-checklist-fr` | Checklist signing, closing et post-closing. |
+| `/h-droit-affaires:constitution-societe` | Constitution de société et choix de forme. |
+| `/h-droit-affaires:consulter-digest` | Lecture du digest de veille. |
+| `/h-droit-affaires:declaration-creance` | Déclaration de créance et forclusion. |
+| `/h-droit-affaires:due-diligence-dataroom` | Due diligence data-room M&A. |
+| `/h-droit-affaires:entretien-demarrage` | Configuration initiale du profil Droit des affaires. |
+| `/h-droit-affaires:financement-startup` | Instruments de financement startup. |
+| `/h-droit-affaires:gap-review` | Revue de garantie d'actif et de passif. |
+| `/h-droit-affaires:gouvernance-ag` | Convocations et PV d'assemblées. |
+| `/h-droit-affaires:liste-de-points` | Issues list de négociation. |
+| `/h-droit-affaires:loi-term-sheet` | LOI, NBO et term sheet M&A. |
+| `/h-droit-affaires:pacte-associes-review` | Revue de pacte d'associés. |
+| `/h-droit-affaires:reviser-contrat` | Revue de contrat commercial. |
+| `/h-droit-affaires:reviser-nda` | Triage NDA et confidentialité. |
+| `/h-droit-affaires:revue-tabulaire` | Revue tabulaire multi-documents. |
+| `/h-droit-affaires:spa-review` | Revue de SPA / protocole de cession. |
+| `/h-droit-affaires:verifier-citations` | Vérification post-flight des citations. |
 
 ## Plugin compagnon recommandé
 
 `hacienda-ghost` — anonymise les données PII avant envoi à Claude. Sans ghost,
 ce plugin fonctionne mais avertit lorsque des données sensibles sont traitées
 en clair (`check-pii`).
+
+## Option Anno Desktop
+
+Le plugin peut travailler avec Anno Desktop quand il est installé, mais il ne
+le requiert pas. Anno sert uniquement de mémoire/RAG local de dossier client :
+`anno_health`, `detect`, `legal_ingest` sur demande explicite, puis
+`legal_search`, `legal_graph_query`, `legal_extract_contract`,
+`legal_risk_review`, `legal_mandatory_clause_audit`, `legal_timeline`,
+`legal_prescription_check`, `legal_validate_field` et `tabular_review_create`
+selon le workflow.
+
+Les workflows les plus utiles sont `reviser-contrat`, `reviser-nda`,
+`revue-tabulaire`, `due-diligence-dataroom`, `spa-review`, `gap-review`,
+`declaration-creance` et `gouvernance-ag`. Anno reste une source interne de
+dossier : les sources officielles restent vérifiées par les outils MCP
+Hacienda et tout élément non consulté directement reste `[à vérifier]`.
 
 ## Parcours cabinet M&A
 
@@ -110,9 +153,22 @@ findings DD et `closing-checklist-fr` pour le pilotage du closing.
 | Droit UE (Rome I, Bruxelles I bis) | Eurlex | ✓ |
 | AMF (cibles cotées — anticipation v2) | AMF Décisions | ✗ (hors core v1) |
 
+## Installation Et Packaging
+
+Le plugin Droit des affaires existe sous deux formes complémentaires :
+
+| Surface | Format | Usage |
+| --- | --- | --- |
+| Plugin Cowork / Claude Code | Dossier plugin dans la marketplace Hacienda | Skills, agents, hooks, profil de pratique, déclarations MCP |
+| Connector Claude Desktop | `plugins/hacienda-droit-affaires.mcpb` | Serveur MCP local bundled, installable depuis Connectors / Extensions |
+
+Le plugin Cowork est le format principal. Le bundle `.mcpb` est uniquement la
+version Connector du serveur MCP local et ne remplace pas la marketplace
+Hacienda.
+
 ## Statut
 
-v1 — release initiale.
+V2 — aligné sur la structure factory Hacienda et la distribution PI.
 
 Brouillons soumis à validation humaine systématique. Les skills juridiques
 lourds (`gap-review`, `declaration-creance`) signalent explicitement leur statut

@@ -7,6 +7,75 @@ argument-hint: "[screen | respond | prépare-escalade | défense-brief]: [allég
 
 # Stratégie Défense PI
 
+## Examples
+
+<example>
+<user>/h-pi:strategie-defense-pi [screen | respond | prépare-escalade | défense-brief]: [allégation | lettre reçue | dossier | pièces]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
+
+## Chargement du profil
+
+Avant tout travail substantiel, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Marques, BOPI et EUIPO : `inpi_search_marques`, `inpi_marque_details`, `inpi_marques_publications_recentes`, `euipo_tmview_search`, `bopi_dernieres_publications`.
+- Brevets et Espacenet : `inpi_search_brevets`, `inpi_brevet_details`, `espacenet_search`, `espacenet_brevet_details`.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
+Le skill doit toujours produire exactement les six blocs suivants, dans cet ordre :
+
+1. `Synthese défensive`
+2. `Statut des droits`
+3. `Pieces et trous`
+4. `Trajectoire de reponse`
+5. `Carte d'escalade`
+6. `Note de relecture`
+
+Contraintes par bloc :
+
+- `Synthese défensive` : resumee courte du dossier, du mode, du support recu,
+  de l'urgence et de l'objectif défensif.
+- `Statut des droits` : lister les droits invoqués, leur statut connu, le
+  territoire et tout point `[à vérifier]`.
+- `Pieces et trous` : séparer pièces consultées, pièces mentionnées non
+  consultées, trous critiques et contradictions.
+- `Trajectoire de reponse` : indiquer la posture recommandée maintenant :
+  `suspendre la reponse et completer les faits`, `reponse encadree`,
+  `negociation sous reserve`, `preparer une contestation`,
+  `escalade contentieuse`.
+- `Carte d'escalade` : dire vers quel skill ou quelle validation humaine
+  router ensuite, avec motif.
+- `Note de relecture` : signaler risques d'aveu, assertions à ne pas
+  reprendre, validations humaines requises, incertitudes non levees.
+
 ## Rôle
 
 Ce skill sert de couche legere d'orchestration quand Hacienda recoit une allégation PI, une mise en demeure, une menace de procédure, ou un dossier incomplet à cadrer en défense.
@@ -159,34 +228,6 @@ Appliquer cette logique simple et visible :
 5. Si aucune de ces branches n'est encore exploitable, recommander de
    suspendre la réponse et compléter les faits plutôt qu'une réponse trop
    assertive.
-
-## Sortie
-
-Le skill doit toujours produire exactement les six blocs suivants, dans cet ordre :
-
-1. `Synthese défensive`
-2. `Statut des droits`
-3. `Pieces et trous`
-4. `Trajectoire de reponse`
-5. `Carte d'escalade`
-6. `Note de relecture`
-
-Contraintes par bloc :
-
-- `Synthese défensive` : resumee courte du dossier, du mode, du support recu,
-  de l'urgence et de l'objectif défensif.
-- `Statut des droits` : lister les droits invoqués, leur statut connu, le
-  territoire et tout point `[à vérifier]`.
-- `Pieces et trous` : séparer pièces consultées, pièces mentionnées non
-  consultées, trous critiques et contradictions.
-- `Trajectoire de reponse` : indiquer la posture recommandée maintenant :
-  `suspendre la reponse et completer les faits`, `reponse encadree`,
-  `negociation sous reserve`, `preparer une contestation`,
-  `escalade contentieuse`.
-- `Carte d'escalade` : dire vers quel skill ou quelle validation humaine
-  router ensuite, avec motif.
-- `Note de relecture` : signaler risques d'aveu, assertions à ne pas
-  reprendre, validations humaines requises, incertitudes non levees.
 
 ## Gardes-fous Hacienda
 

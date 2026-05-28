@@ -66,6 +66,7 @@ Les serveurs MCP locaux packagés en Connectors sont :
 
 ```text
 plugins/hacienda-sources-officielles.mcpb
+plugins/hacienda-droit-affaires.mcpb
 plugins/hacienda-propriete-intellectuelle.mcpb
 ```
 

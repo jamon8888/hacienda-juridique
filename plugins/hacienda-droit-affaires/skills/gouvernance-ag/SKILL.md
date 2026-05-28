@@ -5,7 +5,8 @@ description: >
   ou d'AGE conforme aux délais et mentions obligatoires) et mode --pv (génère
   ou révise un procès-verbal d'assemblée). Adapte quorum, majorité et
   formalisme à la forme sociale. Brouillon soumis à validation humaine (avocat).
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[--convocation ou --pv, forme sociale, décisions]"
 authors: ["Hacienda"]
 tags: [gouvernance, assemblee, ago, age, convocation, proces-verbal, societes]
 ---
@@ -35,7 +36,7 @@ tags: [gouvernance, assemblee, ago, age, convocation, proces-verbal, societes]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:gouvernance-ag --convocation --forme=SARL — AGO annuelle d'approbation des comptes</user>
+<user>/h-droit-affaires:gouvernance-ag --convocation --forme=SARL — AGO annuelle d'approbation des comptes</user>
 <response>
 1. Pré-flight `check-pii` (associés nominatifs + dénomination → seuil B selon le nombre d'associés).
 2. Lecture profil cabinet (sous-bloc « vie sociale » : cadence assemblées suivies, formes pratiquées).
@@ -48,19 +49,19 @@ tags: [gouvernance, assemblee, ago, age, convocation, proces-verbal, societes]
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:gouvernance-ag --convocation --forme=SA — AGE de modification de l'objet social</user>
+<user>/h-droit-affaires:gouvernance-ag --convocation --forme=SA — AGE de modification de l'objet social</user>
 <response>
 1. Pré-flight `check-pii` + lecture profil cabinet.
 2. Intake : SA, AGE, ordre du jour = modification de l'objet social (modification statutaire), date d'assemblée visée.
-3. Étape 1 (--convocation) — calcul du délai : SA, 15 jours sur première convocation ; les délais précis sont réglementaires (art. R.225-67 / R.225-69 C.com. `[a verifier]`). Date limite d'envoi calculée, alerte 🔴 si intenable.
-4. Étape 2 (--convocation) — rédaction : convocation AGE avec ordre du jour, texte des projets de résolutions emportant modification des statuts, rapport du conseil exposant les motifs. Rappel en note : quorum AGE renforcé (1/4 des actions sur 1re convocation, 1/5 sur 2e) et majorité 2/3 des voix exprimées — art. L.225-96 C.com. `[a verifier]` (article en `[a compléter]` dans l'index).
+3. Étape 1 (--convocation) — calcul du délai : SA, 15 jours sur première convocation ; les délais précis sont réglementaires (art. R.225-67 / R.225-69 C.com. `[à vérifier]`). Date limite d'envoi calculée, alerte 🔴 si intenable.
+4. Étape 2 (--convocation) — rédaction : convocation AGE avec ordre du jour, texte des projets de résolutions emportant modification des statuts, rapport du conseil exposant les motifs. Rappel en note : quorum AGE renforcé (1/4 des actions sur 1re convocation, 1/5 sur 2e) et majorité 2/3 des voix exprimées — art. L.225-96 C.com. `[à vérifier]` (article en `[a compléter]` dans l'index).
 5. Étape 3 — post-flight `verifier-citations`.
 6. Sortie : note du relecteur + convocation projet + arbre 5 options.
 </response>
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:gouvernance-ag --pv --forme=SARL — rédige le PV de l'AGO qui s'est tenue hier</user>
+<user>/h-droit-affaires:gouvernance-ag --pv --forme=SARL — rédige le PV de l'AGO qui s'est tenue hier</user>
 <response>
 1. Pré-flight `check-pii` (participants nominatifs).
 2. Intake : SARL, AGO, résolutions soumises au vote et résultats fournis par l'utilisateur.
@@ -86,7 +87,7 @@ tags: [gouvernance, assemblee, ago, age, convocation, proces-verbal, societes]
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le sous-bloc « vie sociale » est encore en `[A CONFIGURER]` : stopper et
-demander `/hacienda-droit-affaires:entretien-demarrage`. Sans les formes
+demander `/h-droit-affaires:entretien-demarrage`. Sans les formes
 pratiquées renseignées, le calibrage des règles de quorum et de majorité ne peut
 pas être confirmé.
 
@@ -118,6 +119,103 @@ Si le mode ou la forme sont absents : stopper et demander explicitement.
 
 ---
 
+## Gate non-juriste
+
+- [ ] Mode (`--convocation` | `--pv`) et `--forme` fournis (refus du défaut)
+- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
+- [ ] Profil cabinet sous-bloc « vie sociale » lu (cadence assemblées, formes pratiquées, rôle utilisateur)
+- [ ] Type d'assemblée identifié (AGO / AGE / mixte)
+- [ ] `--convocation` : délai applicable identifié selon la forme ; date limite d'envoi calculée ; 🔴 signalé si le délai légal est intenable
+- [ ] `--convocation` : convocation comprend ordre du jour, date/heure/lieu, modalités de participation `[review]`, documents à joindre selon le type d'assemblée
+- [ ] `--pv` : règles de quorum et de majorité rappelées selon forme et type ; quorum (capital) et majorité (voix) non confondus
+- [ ] `--pv` : pour une AGE de SARL, date de constitution recueillie (commande 2/3 ou 3/4 des parts) ; pour une SAS, renvoi aux statuts et non à une règle légale
+- [ ] `--pv` : cohérence des chiffres saisis contrôlée ; résolution `[review]`-taguée si incohérence
+- [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]` ; articles hors index / en `[a compléter]` (L.225-96) / `R.xxx` en `[à vérifier]`
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + {calcul délai + convocation, ou quorum/majorité + PV} + question hors checklist + arbre de décision 5 options + footer A si applicable
+
+---
+
+## Mode Anno Desktop Optionnel
+
+Pour un historique social déjà autorisé, appeler `anno_health`, puis `detect`. Utiliser `legal_timeline`, `legal_validate_field` et `tabular_review_create` pour rapprocher convocations, feuilles de présence, PV, décisions et échéances.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+```
+outputs/gouvernance-<convocation|pv>-<forme>-<denomination-slug>-YYYY-MM-DD.md
+```
+
+Format date : `YYYY-MM-DD` (date de l'assemblée visée).
+
+---
+
+## Sortie
+
+### Format livrable
+
+```
+[En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin §2]
+
+> **⚠️ Note du relecteur**
+> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Lecture :** intake fourni par l'utilisateur — {forme, type d'assemblée, ordre du jour ou résolutions}
+> - **Signalé pour ton jugement :** {N} éléments marqués [review] (modalités statutaires, délai SAS, cohérence quorum/majorité) | aucun
+> - **Fraîcheur :** délais de convocation de la SA NON figés (réglementaires) — {N} renvois [à vérifier] à confirmer sur décret en vigueur ; jurisprudence nullité des délibérations à vérifier
+> - **Avant de t'appuyer dessus :** {action concrète — ex. confirmer le délai statutaire si SAS ; vérifier la date de constitution pour la majorité d'AGE de SARL} | « prêt pour relecture avocat »
+
+# {Pour --convocation} Calcul du délai
+[délai applicable selon la forme + date limite d'envoi calculée + statut 🟢/🟠/🔴 ; signaler 🔴 si le délai légal est intenable]
+
+# {Pour --convocation} Convocation — projet
+[convocation structurée : ordre du jour, date/heure/lieu, modalités de participation [review], documents à joindre selon le type d'assemblée — NE PAS présenter comme prête à expédier]
+
+# {Pour --pv} Quorum et majorité applicables
+[rappel des règles de quorum et de majorité selon forme et type d'assemblée ; résultat du contrôle de cohérence des chiffres saisis]
+
+# {Pour --pv} Procès-verbal — projet
+[PV structuré : participants et qualité, quorum constaté, texte de chaque résolution + résultat du vote, signatures — résolution [review]-taguée si incohérence détectée]
+
+# Une question hors de ma checklist habituelle
+{Observation transversale qu'un relecteur attentif ferait — ex. une résolution d'AGE glissée à l'ordre du jour d'une AGO, une décision relevant en réalité de la collectivité des associés en SAS, une convocation par voie inadaptée aux statuts. Omettre la ligne si rien d'honnête.}
+
+# Que veux-tu faire ? Choisis une option et je la déroule :
+
+1. **Rédiger** — je produis le brouillon complet ({convocation prête pour relecture / procès-verbal prêt pour relecture}) avec ordre du jour ou résolutions et mentions obligatoires.
+2. **Escalader** — note d'escalade vers l'approbateur configuré avec faits-clés, statut du délai et décision attendue (notamment si le délai légal est intenable).
+3. **Compléter les faits** — questions ouvertes à poser avant d'avancer (date de constitution pour une AGE de SARL, statuts pour une SAS, résultats de vote détaillés pour un PV).
+4. **Surveiller et attendre** — j'ajoute l'assemblée au tracker vie sociale avec date d'envoi de la convocation, date d'assemblée et échéances de dépôt / publicité éventuelles.
+5. **Autre** — précise ce que tu veux en faire.
+
+{Footer A — si check-pii est passé en mode passif sous le seuil B :
+[Ce skill a traité {N} mentions identifiantes (associés, dénomination, mandataires). Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
+Sinon, rien.}
+```
+
+### Mode silencieux (livrable externe)
+
+Convocation et procès-verbal sont des **documents sociaux** susceptibles d'être
+diffusés hors du périmètre cabinet (associés non-juristes, greffe) :
+
+- **En-tête de confidentialité** : la convocation et le PV étant des documents
+  sociaux destinés aux associés, **retirer l'en-tête « secret professionnel »**
+  de la version diffusée — le conserver uniquement sur la note interne au cabinet.
+- **Note du relecteur** : CONSERVER dans le message d'accompagnement, **pas dans
+  la convocation ni dans le PV** transmis.
+- **Narration de skill** et renvois inter-commandes : COUPER (placer dans un
+  message d'accompagnement séparé).
+- **Statut brouillon** : la convocation et le PV restent des **projets** tant
+  qu'ils n'ont pas été validés ; l'envoi ne les rend pas définitifs.
+
+---
+
 ## Étape 1 (--convocation) — Calcul du délai
 
 **Étape juridique active.** Le délai de convocation est d'ordre public : son
@@ -127,8 +225,8 @@ non-respect expose les délibérations à la nullité. Logique tirée de
 1. Identifier le **délai applicable** selon la forme :
    - **SARL** — 15 jours avant l'assemblée (art. L.223-27 C.com. `[Légifrance]`).
    - **SA** — 15 jours sur première convocation ; les délais précis sont
-     **réglementaires** (art. R.225-67 / R.225-69 C.com. `[a verifier]`, hors
-     index). Le délai de seconde convocation est réduit `[a verifier]`.
+     **réglementaires** (art. R.225-67 / R.225-69 C.com. `[à vérifier]`, hors
+     index). Le délai de seconde convocation est réduit `[à vérifier]`.
    - **SAS** — **liberté statutaire** : pas de délai légal. Lire le délai dans
      les **statuts** ; si les statuts ne sont pas fournis, le signaler comme une
      lacune et taguer `[review]` — ne pas appliquer par défaut le délai SARL/SA.
@@ -217,7 +315,7 @@ Selon la forme et le type d'assemblée :
   exprimées** — art. L.225-98 C.com. `[Légifrance]`.
 - **SA — AGE** : quorum **1/4 des actions** à droit de vote sur **1re
   convocation**, **1/5** sur **2e convocation** ; majorité des **2/3 des voix
-  exprimées** — art. L.225-96 C.com. `[a verifier]` (article en `[a compléter]`
+  exprimées** — art. L.225-96 C.com. `[à vérifier]` (article en `[a compléter]`
   dans l'index `articles-c-civ-c-com-index.md`).
 - **SAS** : **liberté statutaire** — quorum et majorité se lisent dans les
   **statuts** (art. L.227-9 C.com. `[Légifrance]`). Ne pas appliquer une règle
@@ -269,102 +367,17 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 
 - extrait toutes les citations (art. L.NNN-N C.com.) ;
 - vérifie l'existence et la version en vigueur via Légifrance ;
-- annote : `[Légifrance ✓]`, `[abrogé]`, ou `[a verifier]` en mode dégradé.
+- annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
 Articles attendus présents dans `references/articles-c-civ-c-com-index.md` avec
 identifiant Légifrance réel (→ `[Légifrance]`) : L.223-27, L.223-29, L.223-30,
-L.225-98, L.227-9. En `[a compléter]` ou absents (→ `[a verifier]` obligatoire) : L.225-96
+L.225-98, L.227-9. En `[a compléter]` ou absents (→ `[à vérifier]` obligatoire) : L.225-96
 (en `[a compléter]` dans l'index), et **tout article réglementaire `R.xxx`**
 (R.225-67, R.225-69 et suivants — délais de convocation de la SA).
 
 Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
 (« `verifier-citations` non exécuté — N citations à valider manuellement contre
 Légifrance »).
-
----
-
-## Sortie
-
-### Format livrable
-
-```
-[En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin §2]
-
-> **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée)
-> - **Lecture :** intake fourni par l'utilisateur — {forme, type d'assemblée, ordre du jour ou résolutions}
-> - **Signalé pour ton jugement :** {N} éléments marqués [review] (modalités statutaires, délai SAS, cohérence quorum/majorité) | aucun
-> - **Fraîcheur :** délais de convocation de la SA NON figés (réglementaires) — {N} renvois [a verifier] à confirmer sur décret en vigueur ; jurisprudence nullité des délibérations à vérifier
-> - **Avant de t'appuyer dessus :** {action concrète — ex. confirmer le délai statutaire si SAS ; vérifier la date de constitution pour la majorité d'AGE de SARL} | « prêt pour relecture avocat »
-
-# {Pour --convocation} Calcul du délai
-[délai applicable selon la forme + date limite d'envoi calculée + statut 🟢/🟠/🔴 ; signaler 🔴 si le délai légal est intenable]
-
-# {Pour --convocation} Convocation — projet
-[convocation structurée : ordre du jour, date/heure/lieu, modalités de participation [review], documents à joindre selon le type d'assemblée — NE PAS présenter comme prête à expédier]
-
-# {Pour --pv} Quorum et majorité applicables
-[rappel des règles de quorum et de majorité selon forme et type d'assemblée ; résultat du contrôle de cohérence des chiffres saisis]
-
-# {Pour --pv} Procès-verbal — projet
-[PV structuré : participants et qualité, quorum constaté, texte de chaque résolution + résultat du vote, signatures — résolution [review]-taguée si incohérence détectée]
-
-# Une question hors de ma checklist habituelle
-{Observation transversale qu'un relecteur attentif ferait — ex. une résolution d'AGE glissée à l'ordre du jour d'une AGO, une décision relevant en réalité de la collectivité des associés en SAS, une convocation par voie inadaptée aux statuts. Omettre la ligne si rien d'honnête.}
-
-# Que veux-tu faire ? Choisis une option et je la déroule :
-
-1. **Rédiger** — je produis le brouillon complet ({convocation prête pour relecture / procès-verbal prêt pour relecture}) avec ordre du jour ou résolutions et mentions obligatoires.
-2. **Escalader** — note d'escalade vers l'approbateur configuré avec faits-clés, statut du délai et décision attendue (notamment si le délai légal est intenable).
-3. **Compléter les faits** — questions ouvertes à poser avant d'avancer (date de constitution pour une AGE de SARL, statuts pour une SAS, résultats de vote détaillés pour un PV).
-4. **Surveiller et attendre** — j'ajoute l'assemblée au tracker vie sociale avec date d'envoi de la convocation, date d'assemblée et échéances de dépôt / publicité éventuelles.
-5. **Autre** — précise ce que tu veux en faire.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B :
-[Ce skill a traité {N} mentions identifiantes (associés, dénomination, mandataires). Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
-Sinon, rien.}
-```
-
-### Mode silencieux (livrable externe)
-
-Convocation et procès-verbal sont des **documents sociaux** susceptibles d'être
-diffusés hors du périmètre cabinet (associés non-juristes, greffe) :
-
-- **En-tête de confidentialité** : la convocation et le PV étant des documents
-  sociaux destinés aux associés, **retirer l'en-tête « secret professionnel »**
-  de la version diffusée — le conserver uniquement sur la note interne au cabinet.
-- **Note du relecteur** : CONSERVER dans le message d'accompagnement, **pas dans
-  la convocation ni dans le PV** transmis.
-- **Narration de skill** et renvois inter-commandes : COUPER (placer dans un
-  message d'accompagnement séparé).
-- **Statut brouillon** : la convocation et le PV restent des **projets** tant
-  qu'ils n'ont pas été validés ; l'envoi ne les rend pas définitifs.
-
----
-
-## Emplacement des sorties
-
-```
-outputs/gouvernance-<convocation|pv>-<forme>-<denomination-slug>-YYYY-MM-DD.md
-```
-
-Format date : `YYYY-MM-DD` (date de l'assemblée visée).
-
----
-
-## Gate non-juriste
-
-- [ ] Mode (`--convocation` | `--pv`) et `--forme` fournis (refus du défaut)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
-- [ ] Profil cabinet sous-bloc « vie sociale » lu (cadence assemblées, formes pratiquées, rôle utilisateur)
-- [ ] Type d'assemblée identifié (AGO / AGE / mixte)
-- [ ] `--convocation` : délai applicable identifié selon la forme ; date limite d'envoi calculée ; 🔴 signalé si le délai légal est intenable
-- [ ] `--convocation` : convocation comprend ordre du jour, date/heure/lieu, modalités de participation `[review]`, documents à joindre selon le type d'assemblée
-- [ ] `--pv` : règles de quorum et de majorité rappelées selon forme et type ; quorum (capital) et majorité (voix) non confondus
-- [ ] `--pv` : pour une AGE de SARL, date de constitution recueillie (commande 2/3 ou 3/4 des parts) ; pour une SAS, renvoi aux statuts et non à une règle légale
-- [ ] `--pv` : cohérence des chiffres saisis contrôlée ; résolution `[review]`-taguée si incohérence
-- [ ] Citations vérifiées via `verifier-citations` ou taguées `[a verifier]` ; articles hors index / en `[a compléter]` (L.225-96) / `R.xxx` en `[a verifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + {calcul délai + convocation, ou quorum/majorité + PV} + question hors checklist + arbre de décision 5 options + footer A si applicable
 
 ---
 

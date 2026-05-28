@@ -33,7 +33,7 @@ audit pre-deal ou demande ponctuelle d'une equipe produit.
 1. Charger le profil PI, la politique OSS et le perimetre logiciel/data.
 2. Lire les manifests ou inventaires sans modifier le code.
 3. Classer les signaux licence, copyleft, attribution, titularite et data.
-4. Marquer les sources non consultees `[a verifier]`.
+4. Marquer les sources non consultees `[à vérifier]`.
 5. Appliquer le routage V2 entre OSS, logiciel, data et clauses PI.
 6. Restituer une synthese avec actions engineering et validation humaine.
 
@@ -67,7 +67,7 @@ Arbre de decision
 - [inventaire / revue clause / contrat PI / hold source manquante]
 
 Gaps
-- [source non consultee / notice manquante] [a verifier]
+- [source non consultee / notice manquante] [à vérifier]
 
 Validation humaine
 - [decision attendue]

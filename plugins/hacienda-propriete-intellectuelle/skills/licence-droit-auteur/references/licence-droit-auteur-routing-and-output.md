@@ -83,5 +83,5 @@ Bloquer si :
 If the gate is not fully `ready`, keep visible:
 
 - `[PROVISOIRE]`
-- `[a verifier]`
+- `[à vérifier]`
 - `[A COMPLETER]`

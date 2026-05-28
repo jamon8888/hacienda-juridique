@@ -25,7 +25,7 @@ J'ai sélectionné 4 skills sur les 19 du plugin — ceux où ton flux quotidien
 ### Test 1 — Déclaration de créance (procédures collectives)
 
 ```
-/hacienda-droit-affaires:declaration-creance <chemin/du/dossier>
+/h-droit-affaires:declaration-creance <chemin/du/dossier>
 ```
 
 Sur un dossier en cours où tu as une créance à déclarer (sauvegarde / RJ / LJ). Le skill calcule la date de forclusion L.622-24 depuis la publication BODACC, génère la déclaration au format mandataire, signale `[review]` les points d'arbitrage (qualification de créance, privilèges revendiqués, intérêts arrêtés au jugement).
@@ -37,7 +37,7 @@ Sur un dossier en cours où tu as une créance à déclarer (sauvegarde / RJ / L
 ### Test 2 — Revue de pacte d'associés
 
 ```
-/hacienda-droit-affaires:pacte-associes-review <chemin/du/pacte.pdf> --review
+/h-droit-affaires:pacte-associes-review <chemin/du/pacte.pdf> --review
 ```
 
 Sur un pacte que tu as à analyser (création ou révision). 11 clauses sensibles couvertes : préemption, agrément, inaliénabilité (avec contrôle durée raisonnable + intérêt sérieux), drag-along / tag-along, anti-dilution, good leaver / bad leaver, promesses croisées, non-concurrence des associés, droits de véto, clauses d'information, clauses de liquidité.
@@ -49,11 +49,11 @@ Sur un pacte que tu as à analyser (création ou révision). 11 clauses sensible
 Le skill a deux modes — teste celui qui correspond à ton dossier du moment (idéalement les deux si tu peux).
 
 ```
-/hacienda-droit-affaires:gouvernance-ag --convocation --forme=SAS --type=AGE
+/h-droit-affaires:gouvernance-ag --convocation --forme=SAS --type=AGE
 ```
 ou
 ```
-/hacienda-droit-affaires:gouvernance-ag --pv --forme=SARL --type=AGO
+/h-droit-affaires:gouvernance-ag --pv --forme=SARL --type=AGO
 ```
 
 Mode `--convocation` : génère convocation avec délais, ordre du jour, mentions obligatoires adaptés à la forme. Mode `--pv` : génère ou révise un PV avec quorum, majorité, résolutions.
@@ -65,7 +65,7 @@ Mode `--convocation` : génère convocation avec délais, ordre du jour, mention
 ### Test 4 — Analyse de rupture brutale (L.442-1, II)
 
 ```
-/hacienda-droit-affaires:analyser-rupture-brutale <chemin/du/dossier> --review
+/h-droit-affaires:analyser-rupture-brutale <chemin/du/dossier> --review
 ```
 
 Sur un dossier de contentieux affaires impliquant une rupture de relation commerciale. Le skill qualifie la relation établie (critères jurisprudentiels), évalue le préavis raisonnable (règle de pouce + critères), traite le safe harbor 18 mois comme **protection défensive** (et pas comme un plafond — c'est un point juridique sur lequel je veux ton avis explicite), estime le préjudice (marge brute durant la période manquante), examine les cas de dispense.

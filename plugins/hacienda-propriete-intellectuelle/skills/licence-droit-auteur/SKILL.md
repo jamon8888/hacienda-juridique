@@ -25,6 +25,70 @@ tags: [droit-auteur, licence, creative-commons, eula, saas, L131-3, L131-4, CPI]
 Référence de travail utile :
 `references/licence-droit-auteur-routing-and-output.md`
 
+## Examples
+
+<example>
+<user>/h-pi:licence-droit-auteur [exclusive|non-exclusive|creative-commons|software-eula|saas-user-content]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
+
+## Chargement du profil
+
+Avant tout travail substantiel, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+Avant tout, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Rattacher ensuite :
+
+- le rôle utilisateur ;
+- la préférence licence / cession si elle existe ;
+- la posture par défaut sur la rémunération ;
+- l'approbateur contrat auteur ;
+- les contraintes business de diffusion, de sous-licence et de territoire ;
+- la politique logiciel / base de données / RGPD si le dossier les touche.
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, la sortie
+reste utilisable, mais les hypothèses non documentées doivent être marquées
+`[PROVISOIRE]`.
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Dessins et modèles, droit d'auteur, logiciels, bases de données et droits voisins : utiliser le socle officiel ci-dessus ; les registres spécialisés non exposés par le serveur restent `[à vérifier]` ou traités via preuve/document client autorisé.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+```text
+outputs/licence-auteur-<oeuvre-slug>-YYYY-MM-DD.md
+```
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
 ## Positionnement
 
 `licence-droit-auteur` V2 est le skill de :
@@ -57,26 +121,6 @@ et ne doit pas être traitée comme un faux contrat négocié sur mesure.
 - Ne remplace pas le extension données personnelles pour une gouvernance RGPD
   complète.
 - Ne remplace pas l'avis final d'un avocat ou d'un juriste habilité.
-
-## Chargement du profil
-
-Avant tout, lire :
-
-1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
-
-Rattacher ensuite :
-
-- le rôle utilisateur ;
-- la préférence licence / cession si elle existe ;
-- la posture par défaut sur la rémunération ;
-- l'approbateur contrat auteur ;
-- les contraintes business de diffusion, de sous-licence et de territoire ;
-- la politique logiciel / base de données / RGPD si le dossier les touche.
-
-Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, la sortie
-reste utilisable, mais les hypothèses non documentées doivent être marquées
-`[PROVISOIRE]`.
 
 ## Contrat d'entrée V2
 
@@ -451,12 +495,6 @@ Avant transmission au validateur humain, vérifier :
 - [ ] le risque logiciel / base de données / RGPD n'est pas sous-évalué ;
 - [ ] la sortie contient les marqueurs `[PROVISOIRE]`, `[à vérifier]` ou
       `[À COMPLÉTER]` quand nécessaire.
-
-## Emplacement des sorties
-
-```text
-outputs/licence-auteur-<oeuvre-slug>-YYYY-MM-DD.md
-```
 
 ## Ton
 

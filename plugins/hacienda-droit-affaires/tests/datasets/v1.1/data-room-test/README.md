@@ -87,9 +87,9 @@ non audités faute de pièces.
 - 🟠 **Registre des traitements incomplet** (doc 06) — registre à l'état de
   brouillon (septembre 2022), champs « base légale » et « durée de
   conservation » non renseignés, traitements (prospection, site web,
-  recrutement) manquants. Non-conformité art. 30 RGPD `[a verifier]`.
+  recrutement) manquants. Non-conformité art. 30 RGPD `[à vérifier]`.
 - 🟠 **Contrats de sous-traitance absents** — aucun acte art. 28 RGPD
-  `[a verifier]` versé alors que la société recourt à un hébergeur et à un
+  `[à vérifier]` versé alors que la société recourt à un hébergeur et à un
   prestataire de paie.
 - Pointeur `hacienda-ghost` pour l'audit RGPD approfondi.
 
@@ -127,4 +127,4 @@ non audités faute de pièces.
 Le contrat client ALPHA (doc 03) cite l'art. L.233-3 C.com. (définition du
 contrôle). Cet article figure en `[a compléter]` dans l'index
 `references/articles-c-civ-c-com-index.md` : si le skill le cite dans son
-analyse, le tag attendu est `[a verifier]`.
+analyse, le tag attendu est `[à vérifier]`.

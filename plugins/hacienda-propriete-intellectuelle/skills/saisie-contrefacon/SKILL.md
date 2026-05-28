@@ -23,6 +23,73 @@ tags: [saisie-contrefacon, requete, commissaire-justice, preuve, brevets, marque
 Référence de travail utile :
 `references/saisie-contrefacon-routing-and-output.md`
 
+## Examples
+
+<example>
+<user>/h-pi:saisie-contrefacon [brevet|marque|D&M|auteur|logiciel|mixte]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
+
+## Chargement du profil
+
+Avant tout travail substantiel, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+Avant tout, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Rattacher ensuite :
+
+- l'avocat PI referent ;
+- le commissaire de justice habituel ;
+- l'expert technique habituel ;
+- le budget indicatif de saisie ;
+- le rôle utilisateur courant ;
+- les approbateurs procéduraux.
+
+Si le profil contient `[A CONFIGURER]`, le skill peut fonctionner en mode
+générique, mais chaque sortie doit être marquée `[PROVISOIRE]`.
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Brevets et Espacenet : `inpi_search_brevets`, `inpi_brevet_details`, `espacenet_search`, `espacenet_brevet_details`.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+Ecrire les livrables dans :
+
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/`
+
+Format attendu :
+
+- `saisie-contrefacon-<affaire-slug>-YYYY-MM-DD.md`
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
 ## Positionnement
 
 `saisie-contrefacon` V2 est un skill de **préparation stricte de mesure
@@ -54,25 +121,6 @@ Il ne sert pas a :
 - Ne remplace pas `contrefacon-droit-auteur`.
 - Ne remplace pas `contrefacon-dessin-modele`.
 - Ne remplace pas l'avocat ou le commissaire de justice.
-
-## Chargement du profil
-
-Avant tout, lire :
-
-1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
-
-Rattacher ensuite :
-
-- l'avocat PI referent ;
-- le commissaire de justice habituel ;
-- l'expert technique habituel ;
-- le budget indicatif de saisie ;
-- le rôle utilisateur courant ;
-- les approbateurs procéduraux.
-
-Si le profil contient `[A CONFIGURER]`, le skill peut fonctionner en mode
-générique, mais chaque sortie doit être marquée `[PROVISOIRE]`.
 
 ## Contrat d'entrée V2
 
@@ -302,16 +350,6 @@ Le skill doit rappeler :
 - `tableau-contrefacon-brevet` : tableau de contrefaçon offensif brevet
 - `contrefacon-droit-auteur` : analyse de fond auteur
 - `contrefacon-dessin-modele` : analyse de fond D&M
-
-## Emplacement des sorties
-
-Ecrire les livrables dans :
-
-`~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/`
-
-Format attendu :
-
-- `saisie-contrefacon-<affaire-slug>-YYYY-MM-DD.md`
 
 ## Style de sortie
 

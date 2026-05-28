@@ -6,7 +6,8 @@ description: >
   sources externes (Légifrance, Pappers, BODACC, Judilibre), réutilise un
   profil cabinet partagé s'il existe à ~/.config/Hacienda/profil-cabinet.md.
   Mode --check-integrations pour relancer uniquement le diagnostic.
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[--redo ou --check-integrations]"
 authors: ["Hacienda"]
 tags: [onboarding, profil-cabinet, integrations, credentials]
 ---
@@ -23,7 +24,7 @@ tags: [onboarding, profil-cabinet, integrations, credentials]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:entretien-demarrage</user>
+<user>/h-droit-affaires:entretien-demarrage</user>
 <response>
 1. Détecte si ~/.config/Hacienda/profil-cabinet.md existe → propose
    réutiliser/enrichir/recommencer
@@ -36,7 +37,7 @@ tags: [onboarding, profil-cabinet, integrations, credentials]
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:entretien-demarrage --check-integrations</user>
+<user>/h-droit-affaires:entretien-demarrage --check-integrations</user>
 <response>
 Diagnostic uniquement, pas de relance des questions profil. Affiche le
 tableau des sources avec ✓ / ? / ✗ et instructions de configuration.
@@ -44,7 +45,7 @@ tableau des sources avec ✓ / ? / ✗ et instructions de configuration.
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:entretien-demarrage --redo</user>
+<user>/h-droit-affaires:entretien-demarrage --redo</user>
 <response>
 Recommence depuis zéro. Demande confirmation avant d'écraser le profil
 existant.
@@ -64,6 +65,30 @@ existant.
 2. **Détection profil partagé** — recherche `~/.config/Hacienda/profil-cabinet.md`
 3. **Si présent** — afficher résumé (cabinet, side principal, juridiction) et proposer [r]éutiliser / [e]nrichir / [n]ouveau
 4. **Si absent** — démarrer le questionnaire complet
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+
+## Mode Anno Desktop Optionnel
+
+Si Anno Desktop est disponible, proposer son activation comme option de dossier, sans la rendre obligatoire. Appeler `anno_health` uniquement pour vérifier la disponibilité ; si Anno est indisponible, poursuivre en mode Hacienda. Ne jamais indexer un document sans accord explicite de l'utilisateur.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
 
 ## Étape 1 — Profil cabinet partagé
 
@@ -153,9 +178,9 @@ Instructions pour obtenir les clés :
 ✓ Diagnostic connexions : [état] mode [opérationnel/dégradé]
 
 Prochaines étapes recommandées :
-- /hacienda-droit-affaires:reviser-contrat <fichier>  (pour tester)
-- /hacienda-droit-affaires:declaration-creance <fichier>
-- /hacienda-droit-affaires:entretien-demarrage --check-integrations
+- /h-droit-affaires:reviser-contrat <fichier>  (pour tester)
+- /h-droit-affaires:declaration-creance <fichier>
+- /h-droit-affaires:entretien-demarrage --check-integrations
   (à relancer si vous configurez des clés API plus tard)
 ```
 

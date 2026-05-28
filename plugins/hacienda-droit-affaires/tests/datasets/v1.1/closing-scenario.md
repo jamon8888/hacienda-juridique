@@ -1,6 +1,6 @@
 # Dataset de test V1.1 — Checklist de closing (cession de titres de SAS)
 
-> **Entry point attendu :** `/hacienda-droit-affaires:closing-checklist-fr`
+> **Entry point attendu :** `/h-droit-affaires:closing-checklist-fr`
 > **Objet :** scénario synthétique anonymisé d'une cession de 100 % des titres
 > d'une SAS, comportant deux conditions suspensives et un volet post-closing.
 > Aucune donnée réelle — sociétés, personnes, montants et dates sont fictifs.
@@ -116,7 +116,7 @@ closing, formalités post-closing.
       propre**, dont le dépassement expose à une **pénalité fiscale**. Un
       formulaire CERFA est déposé.
 - [ ] **Le taux des droits d'enregistrement n'est PAS chiffré.** Il est tagué
-      `[a verifier]` et renvoyé à l'expert-comptable ou au plugin
+      `[à vérifier]` et renvoyé à l'expert-comptable ou au plugin
       `hacienda-fiscal`. Le skill rappelle la formalité et le délai, jamais le
       taux comme une certitude.
 - [ ] **Information des tiers** présente : cocontractants liés par une clause
@@ -147,12 +147,12 @@ closing, formalités post-closing.
 - ❌ Présenter le seul acte de cession comme suffisant à rendre le transfert
   des actions opposable, sans mentionner l'inscription au registre.
 - ❌ Chiffrer un taux de droits d'enregistrement comme une certitude au lieu de
-  le taguer `[a verifier]` et de renvoyer à l'expert-comptable / `hacienda-fiscal`.
+  le taguer `[à vérifier]` et de renvoyer à l'expert-comptable / `hacienda-fiscal`.
 - ❌ Omettre la formalité d'enregistrement ou son délai propre dans le
   post-closing.
 - ❌ Confondre signing et closing, ou ne pas identifier les actes à signer le
   jour du closing.
-- ❌ Citer l'art. L.227-14 C.com. sans le tag `[a verifier]` (en `[a compléter]`
+- ❌ Citer l'art. L.227-14 C.com. sans le tag `[à vérifier]` (en `[a compléter]`
   dans l'index).
 - ❌ Donner un conseil fiscal détaillé sur le régime des plus-values ou
   l'assiette des droits.

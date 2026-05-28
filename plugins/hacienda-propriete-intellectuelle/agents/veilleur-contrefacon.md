@@ -64,7 +64,7 @@ Signaux
 
 Gates / gaps
 - [Seizure Readiness Gate / Chart Readiness Gate / Decision Routing]
-- [preuve manquante] [a verifier]
+- [preuve manquante] [à vérifier]
 
 Routage
 - [skill] — [raison]

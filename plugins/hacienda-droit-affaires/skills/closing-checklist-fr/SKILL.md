@@ -5,7 +5,8 @@ description: >
   suspensives à lever, séquençage signing/closing, documentation à réunir,
   formalités post-closing (dépôt au greffe, registre de mouvements de titres,
   droits d'enregistrement). Brouillon soumis à validation humaine (avocat).
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[deal, side, conditions suspensives, calendrier]"
 authors: ["Hacienda"]
 tags: [closing, checklist, ma, conditions-suspensives, formalites]
 ---
@@ -30,7 +31,7 @@ tags: [closing, checklist, ma, conditions-suspensives, formalites]
 >
 > **Les taux de droits d'enregistrement relèvent de la fiscalité.** Ce skill
 > rappelle l'existence de la formalité et de son délai, mais ne chiffre jamais
-> un taux : tout taux ou seuil fiscal est tagué `[a verifier]` et renvoyé à
+> un taux : tout taux ou seuil fiscal est tagué `[à vérifier]` et renvoyé à
 > l'expert-comptable ou au plugin `hacienda-fiscal`.
 
 ---
@@ -38,7 +39,7 @@ tags: [closing, checklist, ma, conditions-suspensives, formalites]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:closing-checklist-fr --type=cession-titres --forme=SAS</user>
+<user>/h-droit-affaires:closing-checklist-fr --type=cession-titres --forme=SAS</user>
 <response>
 1. Pré-flight `check-pii` (parties, dirigeants, prix de cession → probable seuil B → prompt utilisateur, décision respectée)
 2. Lecture profil cabinet (bloc M&A / Corporate : side habituel, matrice d'approbateurs — ligne « Signature SPA »)
@@ -46,14 +47,14 @@ tags: [closing, checklist, ma, conditions-suspensives, formalites]
 4. Étape 1 — recensement des conditions suspensives : agrément, financement, autorisations — statut / responsable / échéance par CP
 5. Étape 2 — séquençage signing / closing : ordre des étapes, actes à signer le jour du closing
 6. Étape 3 — documentation de closing : ordres de mouvement de titres, déclarations, attestations, mainlevées de sûretés
-7. Étape 4 — formalités post-closing : inscription au registre de mouvements de titres + mise à jour des comptes d'associés (opposabilité de la cession d'actions), enregistrement de la cession (formalité + délai ; taux `[a verifier]` → renvoi expert-comptable / `hacienda-fiscal`), information des tiers
+7. Étape 4 — formalités post-closing : inscription au registre de mouvements de titres + mise à jour des comptes d'associés (opposabilité de la cession d'actions), enregistrement de la cession (formalité + délai ; taux `[à vérifier]` → renvoi expert-comptable / `hacienda-fiscal`), information des tiers
 8. Étape 5 — post-flight `verifier-citations`
 9. Sortie : en-tête confidentialité + note du relecteur (5 champs) + checklist en 4 volets (CP / séquençage / documentation / post-closing) sous forme de tableaux + question hors checklist + arbre de décision 5 options
 </response>
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:closing-checklist-fr --type=cession-titres --forme=SAS --cp="agrément du conseil, autorisation administrative sectorielle"</user>
+<user>/h-droit-affaires:closing-checklist-fr --type=cession-titres --forme=SAS --cp="agrément du conseil, autorisation administrative sectorielle"</user>
 <response>
 Conditions suspensives multiples. L'étape 1 tabule chaque CP séparément :
 - CP « agrément du conseil » → organe compétent à identifier dans les statuts (clause d'agrément SAS — art. L.227-14 C.com. `[Légifrance]`), responsable = cédant, échéance = avant le closing.
@@ -63,11 +64,11 @@ Chaque CP porte un statut (levée / en cours / à lever), un responsable et une 
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:closing-checklist-fr --type=cession-titres --forme=SAS --volet=post-closing</user>
+<user>/h-droit-affaires:closing-checklist-fr --type=cession-titres --forme=SAS --volet=post-closing</user>
 <response>
 Focus sur le volet 4 — formalités post-closing d'une cession d'actions de SAS :
 - **Inscription au registre de mouvements de titres** et mise à jour des comptes d'associés individuels : l'ordre de mouvement de titres signé au closing est inscrit au registre ; cette inscription, et non le seul acte de cession, emporte le transfert opposable des actions. Responsable : la société (ou son mandataire). Échéance : sans délai après le closing. Omission → la cession peut être inopposable à la société et aux tiers `[review]`.
-- **Enregistrement de la cession (CERFA / formalité fiscale)** : la cession de droits sociaux est soumise à une formalité d'enregistrement assortie d'un délai propre. Les droits d'enregistrement sont dus ; **leur taux et leur assiette relèvent de la fiscalité — `[a verifier]`, renvoi expert-comptable / `hacienda-fiscal`**. Ce skill rappelle la formalité et le délai, il ne chiffre pas le taux.
+- **Enregistrement de la cession (CERFA / formalité fiscale)** : la cession de droits sociaux est soumise à une formalité d'enregistrement assortie d'un délai propre. Les droits d'enregistrement sont dus ; **leur taux et leur assiette relèvent de la fiscalité — `[à vérifier]`, renvoi expert-comptable / `hacienda-fiscal`**. Ce skill rappelle la formalité et le délai, il ne chiffre pas le taux.
 - **Information des tiers** : cocontractants liés par une clause de changement de contrôle, organes sociaux, le cas échéant salariés selon le cas.
 La checklist post-closing est rendue en tableau avec statut et responsable par formalité.
 </response>
@@ -85,7 +86,7 @@ La checklist post-closing est rendue en tableau avec statut et responsable par f
 > - **Rôle de l'utilisateur courant** — pour l'en-tête de confidentialité
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/hacienda-droit-affaires:entretien-demarrage`. Le bloc M&A est requis
+demander `/h-droit-affaires:entretien-demarrage`. Le bloc M&A est requis
 — sans side habituel ni matrice d'approbateurs, le séquençage et l'escalade ne
 peuvent pas être calibrés. Voir aussi `~/.config/Hacienda/profil-cabinet.md`
 pour les éléments cabinet partagés cross-plugins.
@@ -105,6 +106,61 @@ les analyser au fond — la revue de fond relève des skills dédiés (voir
 « Ce skill ne fait pas »).
 
 ---
+
+## Gate non-juriste
+
+- [ ] Type d'opération fourni et confirmé (cession de titres / cession de fonds de commerce / fusion — formalités distinctes)
+- [ ] Forme(s) sociale(s) identifiée(s) — mode de transfert et organe d'agrément calibrés sur la forme
+- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
+- [ ] Profil cabinet bloc M&A lu : side habituel, matrice d'approbateurs (ligne « Signature SPA »)
+- [ ] Volet 1 — conditions suspensives recensées avec statut / responsable / échéance par CP
+- [ ] Volet 2 — séquençage signing / closing : distinction signing / closing explicite, actes à signer le jour du closing identifiés
+- [ ] Volet 3 — documentation de closing listée, pièces manquantes signalées
+- [ ] Volet 4 — formalités post-closing : inscription au registre de mouvements de titres + mise à jour des comptes d'associés présentes ; enregistrement / droits d'enregistrement présents avec taux tagués `[à vérifier]` et renvoi expert ; information des tiers présente
+- [ ] Aucun taux ou seuil fiscal chiffré comme une certitude — tout taux renvoyé à l'expert-comptable / `hacienda-fiscal`
+- [ ] Articles hors index ou en `[a compléter]` tagués `[à vérifier]`
+- [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + checklist en 4 volets sous forme de tableaux + question hors checklist + arbre de décision 5 options + footer A si applicable
+
+---
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Points fiscaux et sociaux de due diligence : `bofip_rechercher`, `bofip_consulter`, `boss_recherche`, `boss_get_document`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+```
+outputs/closing-checklist-<parties-slug>-YYYY-MM-DD.md
+```
+
+La checklist agrège quatre tableaux ; dès que l'ensemble dépasse 10 lignes ou
+contient des dates / échéances sérialisables, générer en parallèle un dashboard
+HTML autonome via `renderDashboard()` de `@hacienda/core` (sortable, filtrable,
+ouvrable hors-ligne, zéro CDN, XSS-safe — voir `references/dashboard-template.md`).
+
+---
+
+## Sortie
+
+### Format livrable
+
+```
+[En-tête de confidentialité selon le rôle utilisateur — voir CLAUDE.md §2]
+
+> **⚠️ Note du relecteur**
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
+> - **Lecture :** {documents fournis lus : SPA / GAP / statuts / projet de CP — ou « aucun document fourni, checklist générée sur la base de l'intake »}
+> - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
+> - **Fraîcheur :** recherche des évolutions depuis {date} sur les formalités de cession et d'enregistrement — {N} mises à jour intégrées | rien trouvé
+> - **Avant de t'appuyer dessus :** {1-2 actions concrètes — typiquement « faire confirmer par l'expert-comptable la formalité et le délai d'enregistrement, et les taux applicables » OU « prêt pour relecture »}
+
+# Checklist de closing — {type d'opération}, {forme sociale}
 
 ## Étape 1 — Conditions suspensives
 
@@ -219,17 +275,17 @@ l'opération et la régularité fiscale. **Distinguer selon le type d'opération
   `[review]`. Responsable : la société (ou son mandataire / l'avocat).
   Échéance : sans délai après le closing.
   - Pour les **parts de SARL**, la cession est rendue opposable à la société
-    soit par signification (formes de l'art. 1690 C.civ `[a verifier]`), soit —
+    soit par signification (formes de l'art. 1690 C.civ `[à vérifier]`), soit —
     voie usuelle — par le dépôt d'un original de l'acte de cession au siège
     social contre attestation de dépôt délivrée par le gérant (art. L.221-14
-    C.com. `[a verifier]`) ; elle n'est opposable aux tiers qu'après ces
+    C.com. `[à vérifier]`) ; elle n'est opposable aux tiers qu'après ces
     formalités et la publicité au RCS. Adapter à la forme sociale.
 - **Enregistrement de la cession — droits d'enregistrement.** La cession de
   droits sociaux est soumise à une **formalité d'enregistrement** auprès du
   service des impôts, assortie d'un **délai propre** dont le dépassement
   expose à une **pénalité fiscale**. Un formulaire CERFA est déposé. **Les
   taux et l'assiette des droits d'enregistrement relèvent de la fiscalité :
-  `[a verifier]` — renvoi à l'expert-comptable ou au plugin `hacienda-fiscal`.**
+  `[à vérifier]` — renvoi à l'expert-comptable ou au plugin `hacienda-fiscal`.**
   Ce skill rappelle l'existence de la formalité et de son délai ; il ne chiffre
   jamais un taux et ne donne pas de conseil fiscal détaillé.
 - **Mise à jour des registres légaux et publicité** — registre des décisions,
@@ -241,7 +297,7 @@ l'opération et la régularité fiscale. **Distinguer selon le type d'opération
 
 - **Enregistrement de l'acte de cession** auprès du service des impôts —
   formalité et délai propres ; droits d'enregistrement dus, **taux fiscal
-  `[a verifier]` → renvoi expert-comptable / `hacienda-fiscal`**.
+  `[à vérifier]` → renvoi expert-comptable / `hacienda-fiscal`**.
 - **Publicité de la cession** — publication dans un support d'annonces légales
   et au BODACC, qui fait courir le délai d'opposition des créanciers du
   vendeur.
@@ -255,7 +311,7 @@ l'opération et la régularité fiscale. **Distinguer selon le type d'opération
 - **Dépôt et publicité** — dépôt des actes de fusion au greffe, publicité au
   BODACC, le cas échéant radiation de la société absorbée.
 - **Formalités d'enregistrement** propres à l'opération — **taux et régime
-  fiscal `[a verifier]` → renvoi expert-comptable / `hacienda-fiscal`** (le
+  fiscal `[à vérifier]` → renvoi expert-comptable / `hacienda-fiscal`** (le
   régime de faveur des fusions est un sujet fiscal, hors périmètre de ce skill).
 - **Transfert universel de patrimoine** — la fusion emporte transmission du
   patrimoine de l'absorbée ; vérifier les formalités d'opposabilité propres
@@ -286,7 +342,7 @@ closing.
   administrations sectorielles selon la nature de l'activité.
 
 Chaque volet est rendu en tableau (formalité / délai / statut / responsable).
-Tout taux ou seuil fiscal porte `[a verifier]` et un renvoi explicite à
+Tout taux ou seuil fiscal porte `[à vérifier]` et un renvoi explicite à
 l'expert ; aucun taux n'est chiffré comme une certitude.
 
 ---
@@ -296,27 +352,11 @@ l'expert ; aucun taux n'est chiffré comme une certitude.
 Appel automatique de `verifier-citations` sur la sortie complète. Les articles
 C.civ / C.com. cités doivent exister dans
 `references/articles-c-civ-c-com-index.md` ; à défaut, ou s'ils sont en
-`[a compléter]`, tag `[a verifier]` et ligne dédiée dans la note du relecteur.
+`[a compléter]`, tag `[à vérifier]` et ligne dédiée dans la note du relecteur.
 Si PISTE n'est pas configuré : mode dégradé documenté dans la note du relecteur
 (« `verifier-citations` non exécuté — N citations à valider manuellement »).
 
 ---
-
-## Sortie
-
-### Format livrable
-
-```
-[En-tête de confidentialité selon le rôle utilisateur — voir CLAUDE.md §2]
-
-> **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
-> - **Lecture :** {documents fournis lus : SPA / GAP / statuts / projet de CP — ou « aucun document fourni, checklist générée sur la base de l'intake »}
-> - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
-> - **Fraîcheur :** recherche des évolutions depuis {date} sur les formalités de cession et d'enregistrement — {N} mises à jour intégrées | rien trouvé
-> - **Avant de t'appuyer dessus :** {1-2 actions concrètes — typiquement « faire confirmer par l'expert-comptable la formalité et le délai d'enregistrement, et les taux applicables » OU « prêt pour relecture »}
-
-# Checklist de closing — {type d'opération}, {forme sociale}
 
 ## Volet 1 — Conditions suspensives
 
@@ -376,36 +416,6 @@ non-juriste, la contrepartie ou un conseil tiers :
 
 ---
 
-## Emplacement des sorties
-
-```
-outputs/closing-checklist-<parties-slug>-YYYY-MM-DD.md
-```
-
-La checklist agrège quatre tableaux ; dès que l'ensemble dépasse 10 lignes ou
-contient des dates / échéances sérialisables, générer en parallèle un dashboard
-HTML autonome via `renderDashboard()` de `@hacienda/core` (sortable, filtrable,
-ouvrable hors-ligne, zéro CDN, XSS-safe — voir `references/dashboard-template.md`).
-
----
-
-## Gate non-juriste
-
-- [ ] Type d'opération fourni et confirmé (cession de titres / cession de fonds de commerce / fusion — formalités distinctes)
-- [ ] Forme(s) sociale(s) identifiée(s) — mode de transfert et organe d'agrément calibrés sur la forme
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
-- [ ] Profil cabinet bloc M&A lu : side habituel, matrice d'approbateurs (ligne « Signature SPA »)
-- [ ] Volet 1 — conditions suspensives recensées avec statut / responsable / échéance par CP
-- [ ] Volet 2 — séquençage signing / closing : distinction signing / closing explicite, actes à signer le jour du closing identifiés
-- [ ] Volet 3 — documentation de closing listée, pièces manquantes signalées
-- [ ] Volet 4 — formalités post-closing : inscription au registre de mouvements de titres + mise à jour des comptes d'associés présentes ; enregistrement / droits d'enregistrement présents avec taux tagués `[a verifier]` et renvoi expert ; information des tiers présente
-- [ ] Aucun taux ou seuil fiscal chiffré comme une certitude — tout taux renvoyé à l'expert-comptable / `hacienda-fiscal`
-- [ ] Articles hors index ou en `[a compléter]` tagués `[a verifier]`
-- [ ] Citations vérifiées via `verifier-citations` ou taguées `[a verifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + checklist en 4 volets sous forme de tableaux + question hors checklist + arbre de décision 5 options + footer A si applicable
-
----
-
 ## Ce skill ne fait pas
 
 - Réviser ou rédiger le SPA / l'acte de cession → `reviser-contrat` (tronc commercial) ou skill SPA dédié.
@@ -430,5 +440,5 @@ de la cession d'actions, et la formalité d'enregistrement a un délai propre
 dont le dépassement coûte une pénalité. Distinguer nettement cession de titres,
 cession de fonds de commerce et fusion — les formalités diffèrent. Ne jamais
 chiffrer un taux de droits d'enregistrement : c'est un sujet fiscal, tagué
-`[a verifier]` et renvoyé à l'expert. La sortie est un brouillon soumis à
+`[à vérifier]` et renvoyé à l'expert. La sortie est un brouillon soumis à
 validation humaine (avocat) M&A avant d'être utilisée pour piloter une opération réelle.

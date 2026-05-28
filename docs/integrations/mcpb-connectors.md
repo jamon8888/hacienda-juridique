@@ -15,6 +15,7 @@ contient un serveur MCP local autonome et son `manifest.json`.
 | Bundle | Serveur MCP | Statut |
 | --- | --- | --- |
 | `plugins/hacienda-sources-officielles.mcpb` | Sources officielles françaises et européennes | Disponible |
+| `plugins/hacienda-droit-affaires.mcpb` | Droit des affaires, registres entreprises et sources officielles utiles au M&A | Disponible |
 | `plugins/hacienda-propriete-intellectuelle.mcpb` | Registres et outils PI Hacienda | Disponible |
 
 `hacienda-recherche-documentaire` n'a pas de serveur MCP local propre et ne
@@ -26,6 +27,7 @@ Construire les entrypoints bundled :
 
 ```bash
 npm --workspace @hacienda/plugin-sources-officielles-server run build:mcpb
+npm --workspace @hacienda/plugin-droit-affaires-server run build:mcpb
 npm --workspace @hacienda/plugin-propriete-intellectuelle-server run build:mcpb
 ```
 
@@ -35,6 +37,10 @@ Valider et packager :
 npx @anthropic-ai/mcpb validate plugins/hacienda-sources-officielles/manifest.json
 npx @anthropic-ai/mcpb pack plugins/hacienda-sources-officielles plugins/hacienda-sources-officielles.mcpb
 npx @anthropic-ai/mcpb clean plugins/hacienda-sources-officielles.mcpb
+
+npx @anthropic-ai/mcpb validate plugins/hacienda-droit-affaires/manifest.json
+npx @anthropic-ai/mcpb pack plugins/hacienda-droit-affaires plugins/hacienda-droit-affaires.mcpb
+npx @anthropic-ai/mcpb clean plugins/hacienda-droit-affaires.mcpb
 
 npx @anthropic-ai/mcpb validate plugins/hacienda-propriete-intellectuelle/manifest.json
 npx @anthropic-ai/mcpb pack plugins/hacienda-propriete-intellectuelle plugins/hacienda-propriete-intellectuelle.mcpb
@@ -49,6 +55,8 @@ bundle et vérifier que le serveur démarre hors du workspace repo.
 Critères minimaux :
 
 - `hacienda-sources-officielles.mcpb` expose les tools Sources Officielles ;
+- `hacienda-droit-affaires.mcpb` expose les tools Droit des affaires
+  (sources officielles, BODACC/Pappers, BOFiP/BOSS utiles au M&A) ;
 - `hacienda-propriete-intellectuelle.mcpb` expose le périmètre PI ;
 - aucun serveur ne dépend d'un package workspace comme `@hacienda/core` au
   runtime isolé ;

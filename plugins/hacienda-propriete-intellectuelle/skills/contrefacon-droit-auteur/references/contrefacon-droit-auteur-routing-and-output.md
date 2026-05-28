@@ -53,7 +53,7 @@ La branche `platform-notice` reste secondaire.
 ### `partial`
 
 - dossier exploitable ;
-- mais avec hypotheses ou faiblesses `[a verifier]`.
+- mais avec hypotheses ou faiblesses `[à vérifier]`.
 
 ### `blocked`
 

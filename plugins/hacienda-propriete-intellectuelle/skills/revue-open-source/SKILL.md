@@ -12,28 +12,31 @@ argument-hint: "[SBOM | liste de dépendances | repository ou manifest | policy 
 > prétend pas découvrir seul toutes les dépendances du dépôt, ni certifier
 > l'exhaustivité d'un repository sans SBOM, manifest ou liste de composants.
 
-## Rôle
+## Examples
 
-Produire un audit open source opérationnel centré sur :
+<example>
+<user>/h-pi:revue-open-source [SBOM | liste de dépendances | repository ou manifest | policy interne]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
 
-- l'inventaire des licences déclarées ou identifiées à partir des données
-  fournies ;
-- les conflits entre licences, mode d'intégration et policy interne ;
-- les obligations de notice, attribution, fourniture de source ou de
-  modifications ;
-- les priorités de remédiation pour les composants incompatibles, inconnus ou
-  mal qualifiés.
+## Chargement du profil
 
-## Ne fait pas
+Avant tout travail substantiel, lire :
 
-- Ne scanne pas automatiquement le code, l'historique Git ou les registres de
-  packages.
-- Ne remplace pas un outil SCA ou SBOM externe.
-- Ne tranche pas à lui seul une question finale de conseil juridique ou de
-  stratégie contentieuse.
-- Ne couvre pas la chaîne complète de titularité du code, des contributions ou
-  des datasets ; ce sujet relève de `revue-logiciel-donnees` et de
-  `logiciels-pi` selon le cas.
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
 
 ## Mode Anno Desktop Optionnel
 
@@ -58,6 +61,45 @@ Tout résultat Anno est une source interne Anno, jamais comme source primaire.
 Les licences, notices et sources officielles doivent rester vérifiées via
 `hacienda-sources-officielles`, les registres de packages ou les pièces
 fournies.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Dessins et modèles, droit d'auteur, logiciels, bases de données et droits voisins : utiliser le socle officiel ci-dessus ; les registres spécialisés non exposés par le serveur restent `[à vérifier]` ou traités via preuve/document client autorisé.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
+## Rôle
+
+Produire un audit open source opérationnel centré sur :
+
+- l'inventaire des licences déclarées ou identifiées à partir des données
+  fournies ;
+- les conflits entre licences, mode d'intégration et policy interne ;
+- les obligations de notice, attribution, fourniture de source ou de
+  modifications ;
+- les priorités de remédiation pour les composants incompatibles, inconnus ou
+  mal qualifiés.
+
+## Ne fait pas
+
+- Ne scanne pas automatiquement le code, l'historique Git ou les registres de
+  packages.
+- Ne remplace pas un outil SCA ou SBOM externe.
+- Ne tranche pas à lui seul une question finale de conseil juridique ou de
+  stratégie contentieuse.
+- Ne couvre pas la chaîne complète de titularité du code, des contributions ou
+  des datasets ; ce sujet relève de `revue-logiciel-donnees` et de
+  `logiciels-pi` selon le cas.
 
 ## Cadrage initial
 

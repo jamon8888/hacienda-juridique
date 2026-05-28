@@ -7,6 +7,103 @@ argument-hint: "[produit | repo | dataset | due diligence | contrats contributeu
 
 # Revue Logiciel Données
 
+## Examples
+
+<example>
+<user>/h-pi:revue-logiciel-donnees [produit | repo | dataset | due diligence | contrats contributeurs]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
+
+## Chargement du profil
+
+Avant tout travail substantiel, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+
+## Mode Anno Desktop Optionnel
+
+Si Anno Desktop est disponible, l'utiliser pour relier localement contrats,
+commits, tickets, datasets, factures et historiques de contribution déjà
+fournis. Avant tout outil Anno, appeler `anno_health`; en cas d'échec,
+poursuivre en mode Hacienda.
+
+Règles spécifiques :
+
+- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
+  pièce client ;
+- utiliser `legal_extract_contract` pour extraire les clauses de cession,
+  licence, contribution, confidentialité ou data des contrats fournis ;
+- utiliser `legal_risk_review` pour prioriser les trous de chaîne de droits ;
+- utiliser `legal_search` et `legal_graph_query` uniquement sur un corpus déjà
+  ingéré et autorisé ;
+- traiter chaque passage Anno comme source interne Anno, jamais comme source
+  primaire.
+
+Les registres, textes et pièces officielles restent vérifiés via
+`hacienda-sources-officielles` ou les outils PI Hacienda. Toute titularité ou
+pièce non lue reste `[à vérifier]`.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
+Produire un livrable en sections distinctes :
+
+### Faits
+
+- faits reçus et périmètre de revue.
+
+### Revue des pièces
+
+- pièces lues ;
+- pièces absentes ;
+- pièces annoncées mais non consultées `[à vérifier]`.
+
+### Carte de chaîne de titres
+
+- actif ;
+- créateur initial ;
+- régime apparent ;
+- titulaire apparent ;
+- pièce de support ;
+- trou de chaîne ou réserve.
+
+### Lacunes de droits
+
+- manques critiques de cession, apport, autorisation ou preuve ;
+- restrictions dataset ou base de données ;
+- hypothèses à confirmer.
+
+### Demandes de due diligence
+
+- liste des documents à exiger immédiatement ;
+- priorités rouge / orange / vert ;
+- décisions bloquées tant que la validation humaine n'est pas faite.
+
 ## Rôle
 
 Ce skill sert à vérifier qui détient quoi sur un actif logiciel ou data, sous
@@ -35,29 +132,6 @@ Ce skill ne fait pas :
 
 Toute question d'inventaire, d'obligations ou de conflits par composant,
 dépendance, paquet, image ou SBOM relève de `revue-open-source`.
-
-## Mode Anno Desktop Optionnel
-
-Si Anno Desktop est disponible, l'utiliser pour relier localement contrats,
-commits, tickets, datasets, factures et historiques de contribution déjà
-fournis. Avant tout outil Anno, appeler `anno_health`; en cas d'échec,
-poursuivre en mode Hacienda.
-
-Règles spécifiques :
-
-- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
-  pièce client ;
-- utiliser `legal_extract_contract` pour extraire les clauses de cession,
-  licence, contribution, confidentialité ou data des contrats fournis ;
-- utiliser `legal_risk_review` pour prioriser les trous de chaîne de droits ;
-- utiliser `legal_search` et `legal_graph_query` uniquement sur un corpus déjà
-  ingéré et autorisé ;
-- traiter chaque passage Anno comme source interne Anno, jamais comme source
-  primaire.
-
-Les registres, textes et pièces officielles restent vérifiés via
-`hacienda-sources-officielles` ou les outils PI Hacienda. Toute titularité ou
-pièce non lue reste `[à vérifier]`.
 
 ## Cadrage initial
 
@@ -146,41 +220,6 @@ Demander et séparer dès le départ :
 - ne pas dériver vers un inventaire composant par composant ;
 - point de bascule vers `revue-open-source` dès qu'il faut inventorier des
   dépendances, mesurer des obligations OSS par composant ou analyser une SBOM.
-
-## Sortie
-
-Produire un livrable en sections distinctes :
-
-### Faits
-
-- faits reçus et périmètre de revue.
-
-### Revue des pièces
-
-- pièces lues ;
-- pièces absentes ;
-- pièces annoncées mais non consultées `[à vérifier]`.
-
-### Carte de chaîne de titres
-
-- actif ;
-- créateur initial ;
-- régime apparent ;
-- titulaire apparent ;
-- pièce de support ;
-- trou de chaîne ou réserve.
-
-### Lacunes de droits
-
-- manques critiques de cession, apport, autorisation ou preuve ;
-- restrictions dataset ou base de données ;
-- hypothèses à confirmer.
-
-### Demandes de due diligence
-
-- liste des documents à exiger immédiatement ;
-- priorités rouge / orange / vert ;
-- décisions bloquées tant que la validation humaine n'est pas faite.
 
 ## Validation humaine
 

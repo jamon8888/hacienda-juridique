@@ -63,7 +63,7 @@ Bloquer si :
 En `partial`, conserver :
 
 - `[PROVISOIRE]`
-- `[a verifier]`
+- `[à vérifier]`
 - `[A COMPLETER]`
 
 ## Core logic summary

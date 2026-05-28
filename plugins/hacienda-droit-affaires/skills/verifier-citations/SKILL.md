@@ -5,7 +5,8 @@ description: >
   sortie skill (art. NNN C.civ, L.NNN-N C.com., etc.), interroge Legifrance
   via packages/core pour verifier existence + version en vigueur +
   non-abrogation. Annote la sortie. Mode degrade si PISTE non configure.
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[sortie ou liste de citations à vérifier]"
 authors: ["Hacienda"]
 tags: [validation, legifrance, post-flight, citations]
 ---
@@ -37,7 +38,7 @@ Remonte en note du relecteur : "1 citation abrogee detectee — voir l'article
 <example>
 <user>(appele sur une sortie contenant 8 citations, PISTE non configure)</user>
 <response>
-Sans PISTE : toutes citations taguees [a verifier] (mode degrade).
+Sans PISTE : toutes citations taguees [à vérifier] (mode degrade).
 Note du relecteur : "verifier-citations non execute — cles PISTE absentes,
 8 citations a valider manuellement contre Legifrance".
 </response>
@@ -48,7 +49,7 @@ Note du relecteur : "verifier-citations non execute — cles PISTE absentes,
 <response>
 Extraction jurisprudence :
 - Cass. com. 29 juin 2010 n° 09-11.841 -> [Judilibre ✓] decision trouvee
-- CJUE 14 juillet 2016 aff. C-196/15 -> [a verifier] hors couverture Judilibre
+- CJUE 14 juillet 2016 aff. C-196/15 -> [à vérifier] hors couverture Judilibre
 
 La note du relecteur signale la citation CJUE a verifier sur Eurlex/CURIA.
 </response>
@@ -76,6 +77,25 @@ Le skill doit aussi respecter les tags de provenance canoniques du
 4. **date_analyse** — date du jour pour tracer la verification
 
 ---
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
 
 ## Etape 1 — Extraction des citations
 
@@ -144,12 +164,9 @@ citation `[à vérifier]` et le signaler dans la note relecteur.
 
 Pour chaque arret Cour de cassation :
 
-```typescript
-import { judilibreSearch } from "@hacienda/core";
-
-const result = await judilibreSearch({ query: refRaw });
-// -> { trouve: bool, decision?: {...} }
-```
+Appeler `judilibre_recherche` avec la référence brute (`refRaw`), puis
+`judilibre_get_decision` si un identifiant fiable est retourné. Si la décision
+n'est pas retrouvée, marquer la citation `[à vérifier]`.
 
 Pour CJUE, TUE ou autres juridictions UE, signaler `[à vérifier]` sauf si une
 integration Eurlex/CURIA est explicitement disponible dans le contexte core du
@@ -218,7 +235,7 @@ Si `loadConfig().credentialsSource === "none"` :
 - **Action :** vérifier manuellement les {N} citations contre Légifrance
 - **Pour activer :** configurer `PISTE_CLIENT_ID` et `PISTE_CLIENT_SECRET`
   dans `~/.config/Hacienda/credentials.json`, puis lancer
-  `/hacienda-droit-affaires:entretien-demarrage --check-integrations`
+  `/h-droit-affaires:entretien-demarrage --check-integrations`
 ```
 
 Judilibre public peut rester operationnel si le wrapper core le permet sans

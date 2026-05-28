@@ -2,9 +2,18 @@
 name: controle-copyright
 description: Vérifie qu'une recherche documentaire respecte les droits éditeurs, accès autorisés et limites d'extraction.
 argument-hint: "<plan ou résultat de recherche>"
+version: "2.0.0"
 ---
 
 # Contrôle Copyright Et Accès
+
+## Outils MCP à privilégier
+
+Ce plugin ne contient pas de serveur MCP propre. Pour vérifier une source primaire, appeler les outils du socle `Hacienda Sources Officielles` par leur nom exact ; une référence éditoriale non recoupée reste `[à vérifier]`.
+
+- Socle officiel : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Sources spécialisées utiles selon le dossier : `bofip_rechercher`, `bofip_consulter`, `boss_recherche`, `boss_get_document`, `inpi_search_marques`, `inpi_search_brevets`, `bodacc_by_siren`, `company_full_profile`.
+- Les bases Doctrine, Lefebvre Dalloz, Lexis, Lextenso et assimilées restent consultées sous accès utilisateur autorisé ; ne pas automatiser d'extraction massive ni contourner leurs limites.
 
 ## Interdictions Exactes
 

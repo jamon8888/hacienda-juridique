@@ -7,10 +7,10 @@ actes constitutifs (acte sous seing privé vs acte notarié, commissaire aux
 apports).
 
 > **Sources primaires :** Légifrance (Code de commerce, Code civil).
-> Toute citation non relue en session doit être taguée `[a verifier]`.
+> Toute citation non relue en session doit être taguée `[à vérifier]`.
 > Les **seuils chiffrés** relatifs au commissaire aux comptes et au commissaire
 > aux apports sont **réglementaires** (articles `R.xxx`, hors index `articles-c-civ-c-com-index.md`)
-> et **évoluent** : ils sont systématiquement tagués `[a verifier]` dans la
+> et **évoluent** : ils sont systématiquement tagués `[à vérifier]` dans la
 > sortie et renvoyés à vérification sur Légifrance / décret en vigueur.
 > Le régime **fiscal** n'est traité ici qu'en mention de principe : tout
 > arbitrage fiscal est renvoyé à l'expert-comptable du dossier.
@@ -25,24 +25,24 @@ mentionnée quand la règle diffère.
 
 | Axe | SAS | SARL | SA |
 |---|---|---|---|
-| Texte de régime | art. L.227-1 et s. C.com. [a verifier] | art. L.223-1 et s. C.com. [a verifier] | art. L.225-1 et s. C.com. [a verifier] |
-| Capital social minimum | Libre, fixé par les statuts (1 € possible) [a verifier] | Libre, fixé par les statuts (1 € possible) — art. L.223-2 C.com. [Légifrance] | 37 000 € minimum [a verifier] |
-| Nombre d'associés | 1 (SASU) à illimité | 1 (EURL) à 100 maximum [a verifier] | 2 minimum (7 si actions admises aux négociations sur un marché réglementé) [a verifier] ; pas de maximum |
-| Organe de direction | Président (obligatoire) ; organes complémentaires librement définis par les statuts — art. L.227-1 / L.227-5 C.com. [a verifier] | Un ou plusieurs gérants, personnes physiques associées ou non | Choix entre conseil d'administration + directeur général, ou directoire + conseil de surveillance |
-| Cession des titres à un tiers | Liberté de principe ; agrément seulement si clause statutaire — art. L.227-14 C.com. [Légifrance] | Agrément légal obligatoire des cessions à des tiers non associés — art. L.223-14 C.com. [Légifrance] | Liberté de principe ; agrément possible par clause statutaire (société non cotée) — art. L.228-23 C.com. [a verifier], procédure L.228-24 C.com. [Légifrance] |
-| Cession entre associés / conjoint / ascendants-descendants | Libre sauf clause statutaire contraire | Libre en principe ; les statuts peuvent soumettre à agrément — art. L.223-14 / L.223-16 C.com. [a verifier] | Libre sauf clause statutaire contraire |
-| Régime social du dirigeant | Président : assimilé salarié (régime général de la sécurité sociale, hors assurance chômage) [a verifier] | Gérant majoritaire : travailleur non salarié (TNS) ; gérant minoritaire ou égalitaire : assimilé salarié [a verifier] | DG / président du directoire : assimilé salarié [a verifier] |
+| Texte de régime | art. L.227-1 et s. C.com. [à vérifier] | art. L.223-1 et s. C.com. [à vérifier] | art. L.225-1 et s. C.com. [à vérifier] |
+| Capital social minimum | Libre, fixé par les statuts (1 € possible) [à vérifier] | Libre, fixé par les statuts (1 € possible) — art. L.223-2 C.com. [Légifrance] | 37 000 € minimum [à vérifier] |
+| Nombre d'associés | 1 (SASU) à illimité | 1 (EURL) à 100 maximum [à vérifier] | 2 minimum (7 si actions admises aux négociations sur un marché réglementé) [à vérifier] ; pas de maximum |
+| Organe de direction | Président (obligatoire) ; organes complémentaires librement définis par les statuts — art. L.227-1 / L.227-5 C.com. [à vérifier] | Un ou plusieurs gérants, personnes physiques associées ou non | Choix entre conseil d'administration + directeur général, ou directoire + conseil de surveillance |
+| Cession des titres à un tiers | Liberté de principe ; agrément seulement si clause statutaire — art. L.227-14 C.com. [Légifrance] | Agrément légal obligatoire des cessions à des tiers non associés — art. L.223-14 C.com. [Légifrance] | Liberté de principe ; agrément possible par clause statutaire (société non cotée) — art. L.228-23 C.com. [à vérifier], procédure L.228-24 C.com. [Légifrance] |
+| Cession entre associés / conjoint / ascendants-descendants | Libre sauf clause statutaire contraire | Libre en principe ; les statuts peuvent soumettre à agrément — art. L.223-14 / L.223-16 C.com. [à vérifier] | Libre sauf clause statutaire contraire |
+| Régime social du dirigeant | Président : assimilé salarié (régime général de la sécurité sociale, hors assurance chômage) [à vérifier] | Gérant majoritaire : travailleur non salarié (TNS) ; gérant minoritaire ou égalitaire : assimilé salarié [à vérifier] | DG / président du directoire : assimilé salarié [à vérifier] |
 | Responsabilité des associés | Limitée aux apports | Limitée aux apports | Limitée aux apports |
 | Fiscalité par défaut | Impôt sur les sociétés (IS) ; option IR possible sous conditions et durée limitée — **renvoi expert-comptable** | IS ; option IR de droit pour l'EURL (associé personne physique), option IR temporaire pour la SARL de famille — **renvoi expert-comptable** | IS ; option IR possible sous conditions — **renvoi expert-comptable** |
-| Commissaire aux comptes — nomination obligatoire | Au-delà de seuils chiffrés (total bilan / chiffre d'affaires / effectif), seuils harmonisés par la loi PACTE — seuils [a verifier] ; obligatoire en outre en cas de contrôle de/par une autre société sous conditions [a verifier] | Mêmes seuils harmonisés — seuils [a verifier] | Mêmes seuils harmonisés — seuils [a verifier] ; historiquement la SA y était soumise sans condition, aligné depuis la loi PACTE [a verifier] |
-| Apport en industrie | Possible (titres non représentatifs du capital) [a verifier] | Possible — art. L.223-7 al. 2 C.com. [Légifrance] (parts en industrie, ne concourent pas à la formation du capital) | Interdit — art. L.225-3 C.com. [Légifrance] (apports en industrie prohibés en SA) |
-| Libération des apports en numéraire | Partielle possible à la constitution, solde dans un délai légal [a verifier] | Au moins 1/5 à la souscription — art. L.223-7 C.com. [Légifrance] ; solde dans les 5 ans [a verifier] (délai réglementaire, art. R.223-3 C.com.) | Au moins la moitié à la souscription, solde dans les 5 ans [a verifier] |
-| Apports en nature — libération | Libérés intégralement à l'émission [a verifier] | Libérés intégralement à la souscription [a verifier] | Actions d'apport libérées intégralement dès leur émission — art. L.225-3 C.com. [Légifrance] |
+| Commissaire aux comptes — nomination obligatoire | Au-delà de seuils chiffrés (total bilan / chiffre d'affaires / effectif), seuils harmonisés par la loi PACTE — seuils [à vérifier] ; obligatoire en outre en cas de contrôle de/par une autre société sous conditions [à vérifier] | Mêmes seuils harmonisés — seuils [à vérifier] | Mêmes seuils harmonisés — seuils [à vérifier] ; historiquement la SA y était soumise sans condition, aligné depuis la loi PACTE [à vérifier] |
+| Apport en industrie | Possible (titres non représentatifs du capital) [à vérifier] | Possible — art. L.223-7 al. 2 C.com. [Légifrance] (parts en industrie, ne concourent pas à la formation du capital) | Interdit — art. L.225-3 C.com. [Légifrance] (apports en industrie prohibés en SA) |
+| Libération des apports en numéraire | Partielle possible à la constitution, solde dans un délai légal [à vérifier] | Au moins 1/5 à la souscription — art. L.223-7 C.com. [Légifrance] ; solde dans les 5 ans [à vérifier] (délai réglementaire, art. R.223-3 C.com.) | Au moins la moitié à la souscription, solde dans les 5 ans [à vérifier] |
+| Apports en nature — libération | Libérés intégralement à l'émission [à vérifier] | Libérés intégralement à la souscription [à vérifier] | Actions d'apport libérées intégralement dès leur émission — art. L.225-3 C.com. [Légifrance] |
 
 **Lecture du tableau — points d'attention.**
 
 1. **Capital minimum.** SAS et SARL n'ont pas de plancher légal (capital librement
-   fixé par les statuts) ; la SA conserve un plancher de 37 000 € `[a verifier]`.
+   fixé par les statuts) ; la SA conserve un plancher de 37 000 € `[à vérifier]`.
    Un capital symbolique reste juridiquement valable mais peut être un signal
    défavorable vis-à-vis des tiers (banques, bailleurs) — observation pratique,
    pas une règle de droit.
@@ -64,7 +64,7 @@ mentionnée quand la règle diffère.
    **harmonisés et relevés par la loi PACTE de 2019**, puis fixés par décret.
    Les montants exacts (total de bilan, chiffre d'affaires HT, nombre de salariés)
    sont **réglementaires et susceptibles d'évolution** : ne jamais les énoncer de
-   mémoire — toujours `[a verifier]` et renvoi Légifrance / décret en vigueur.
+   mémoire — toujours `[à vérifier]` et renvoi Légifrance / décret en vigueur.
 
 ---
 
@@ -147,14 +147,14 @@ un rapport annexé aux statuts.
 - **SARL** — art. L.223-9 C.com. `[Légifrance]` : désignation à l'unanimité des
   associés ou, à défaut, par décision de justice.
 - **SAS** — le régime de la SARL est **étendu à la SAS** par renvoi légal
-  `[a verifier]` (l'article de renvoi propre à la SAS n'est pas confirmé dans
+  `[à vérifier]` (l'article de renvoi propre à la SAS n'est pas confirmé dans
   l'index → vérifier le texte applicable).
 - **SA** — désignation par décision de justice (régime distinct, plus rigide)
-  `[a verifier]`.
+  `[à vérifier]`.
 
 **Seuils de dispense.** La loi prévoit une possibilité de **dispense** de
 commissaire aux apports, à **deux conditions cumulatives** (régime SARL de
-l'art. L.223-9 C.com. `[Légifrance]`, étendu à la SAS `[a verifier]`) :
+l'art. L.223-9 C.com. `[Légifrance]`, étendu à la SAS `[à vérifier]`) :
 
 1. **décision unanime des associés** de ne pas recourir au commissaire aux
    apports ; et
@@ -165,14 +165,14 @@ l'art. L.223-9 C.com. `[Légifrance]`, étendu à la SAS `[a verifier]`) :
 
 Les **montants exacts** de ces seuils sont **réglementaires** (article `R.xxx`
 du Code de commerce, hors index `articles-c-civ-c-com-index.md`) et **évoluent** :
-ils doivent être tagués `[a verifier]` en sortie et vérifiés sur le décret en
+ils doivent être tagués `[à vérifier]` en sortie et vérifiés sur le décret en
 vigueur. Ne jamais énoncer un seuil chiffré de mémoire.
 
 **La dispense ne supprime PAS la responsabilité — point capital.** Lorsque les
 associés écartent le commissaire aux apports (ou lorsque la valeur retenue diffère
 de celle proposée par le commissaire), **les associés restent solidairement
 responsables, pendant cinq ans, à l'égard des tiers, de la valeur attribuée aux
-apports en nature** `[a verifier]`. La dispense est un allègement de **procédure**,
+apports en nature** `[à vérifier]`. La dispense est un allègement de **procédure**,
 pas une exonération de **responsabilité** : l'associé qui a accepté une
 surévaluation en répond. Ce point doit toujours être explicité au client — la
 dispense « pour aller plus vite » a un prix juridique.
@@ -195,13 +195,13 @@ Apports déclarés ?
 │   ├─ Acte SSP suffit (forme).
 │   └─ Commissaire aux apports : en principe désigné ;
 │      dispense possible si (unanimité) ET (double seuil réglementaire respecté).
-│      → seuils [a verifier]. Responsabilité 5 ans des associés maintenue.
+│      → seuils [à vérifier]. Responsabilité 5 ans des associés maintenue.
 │
 └─ Nature, IMMEUBLE (terrain, local, bâtiment, fonds de commerce AVEC immeuble,
    droit réel immobilier)
     ├─ 🔴 Acte NOTARIÉ obligatoire (publicité foncière). Renvoi notaire partenaire.
     └─ Commissaire aux apports : même règle que ci-dessus (évaluation).
-       → seuils [a verifier]. Responsabilité 5 ans des associés maintenue.
+       → seuils [à vérifier]. Responsabilité 5 ans des associés maintenue.
 ```
 
 ---
@@ -210,14 +210,14 @@ Apports déclarés ?
 
 1. Tout article cité doit être recoupé avec `articles-c-civ-c-com-index.md`.
    Un article absent de l'index, ou présent en `[a compléter]`, est tagué
-   `[a verifier]` en sortie. À ce jour, citables `[Légifrance]` : L.210-2,
+   `[à vérifier]` en sortie. À ce jour, citables `[Légifrance]` : L.210-2,
    L.210-6, L.223-2, L.223-7, L.223-9, L.223-14, L.223-30, L.225-3, L.225-98,
-   L.227-9, L.227-13, L.227-14, L.227-15, L.228-24. Tagués `[a verifier]` :
+   L.227-9, L.227-13, L.227-14, L.227-15, L.228-24. Tagués `[à vérifier]` :
    L.223-1, L.225-1, L.227-1 (et la série L.227-x non listée), L.228-23, et
    tout article réglementaire `R.xxx`.
 2. **Aucun seuil chiffré réglementaire** (capital minimum SA, seuils commissaire
    aux comptes, seuils de dispense de commissaire aux apports, montants de
-   libération) n'est énoncé comme un fait : tag `[a verifier]` systématique et
+   libération) n'est énoncé comme un fait : tag `[à vérifier]` systématique et
    renvoi au texte en vigueur.
 3. Le **choix fiscal** (IS / IR, régime du dirigeant) est renvoyé à
    l'expert-comptable : ce skill ne donne pas de conseil fiscal détaillé.

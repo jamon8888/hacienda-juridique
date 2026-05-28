@@ -35,7 +35,7 @@ tests/
 2. **Coller** le bloc « Texte porteur » (uniquement, pas l'inventaire annoté) dans une nouvelle conversation.
 3. **Invoquer** :
    ```
-   /hacienda-droit-affaires:verifier-citations
+   /h-droit-affaires:verifier-citations
    ```
    sur le texte collé.
 4. **Récupérer** la sortie annotée : chaque citation doit porter un tag `[Légifrance ✓]`, `[Judilibre ✓]`, `[abrogé]`, `[non trouvé]` ou `[à vérifier]`.
@@ -85,7 +85,7 @@ Créer `docs/superpowers/specs/2026-05-18-hacienda-droit-affaires-acceptance-res
 1. **Lancer Claude Code** sur la racine du repo.
 2. Pour chaque fichier `doc-N-*.md` :
    ```
-   /hacienda-droit-affaires:check-pii plugins/hacienda-droit-affaires/tests/datasets/pii-test/doc-N-X.md
+   /h-droit-affaires:check-pii plugins/hacienda-droit-affaires/tests/datasets/pii-test/doc-N-X.md
    ```
 3. **Vérifier** que le verdict du skill est :
    - Catégorie B atteinte (puisque chaque doc contient au moins 1 catégorie B)

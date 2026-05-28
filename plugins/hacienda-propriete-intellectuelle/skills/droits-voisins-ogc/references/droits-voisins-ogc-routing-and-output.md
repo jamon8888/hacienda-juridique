@@ -37,7 +37,7 @@ Faits minimums :
 
 - `ready` : base suffisante pour un brouillon voisins/OGC exploitable ;
 - `partial` : brouillon possible mais incomplet, avec `[PROVISOIRE]`,
-  `[a verifier]`, `[A COMPLETER]` obligatoires ;
+  `[à vérifier]`, `[A COMPLETER]` obligatoires ;
 - `blocked` : pas de titulaire identifiable, pas d'acte formulable,
   `rights_chain_status = blocked`, sujet dominant hors voisins/OGC, ou absence
   totale de sources consultees et datees.

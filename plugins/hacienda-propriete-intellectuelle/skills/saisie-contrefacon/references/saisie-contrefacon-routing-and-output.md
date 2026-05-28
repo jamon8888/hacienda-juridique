@@ -49,7 +49,7 @@ mesure probatoire :
 ### `partial`
 
 - mesure envisageable ;
-- mais certains points doivent rester `[a verifier]`.
+- mais certains points doivent rester `[à vérifier]`.
 
 ### `blocked`
 

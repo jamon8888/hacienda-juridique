@@ -3,7 +3,7 @@
 `hacienda-propriete-intellectuelle` est le plugin PI de la marketplace Hacienda : marques, portefeuille, clauses PI, open source, logiciel, preuves de creation, contrefacon, mises en demeure et strategie de defense.
 
 Les sorties du plugin restent des brouillons de travail pour avocat ou juriste.
-Selon le workflow, elles peuvent inclure sources officielles ou `[a verifier]`,
+Selon le workflow, elles peuvent inclure sources officielles ou `[à vérifier]`,
 note de revue, arbre de decision, validation humaine et, si necessaire,
 dossier de preuve.
 
@@ -539,7 +539,7 @@ Ils ne deposent pas, ne paient pas, n'envoient pas de notification et ne
 remplacent pas la validation humaine avant action formelle.
 
 Leurs sorties gardent les marqueurs Hacienda : source officielle quand
-consultee, points `[a verifier]`, Note de revue, Arbre de decision et dossier
+consultee, points `[à vérifier]`, Note de revue, Arbre de decision et dossier
 de preuve lorsque le signal le justifie.
 
 ## Tools MCP

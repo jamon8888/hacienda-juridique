@@ -7,7 +7,8 @@ description: >
   juridiction, et clause de non-concurrence salariée (si présente : vérifie
   contrepartie financière obligatoire selon jurisp soc. 10 juil. 2002). Renvoie
   vers PI:contrats-pi si NDA partenariat R&D PI-centric.
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[NDA, side, contexte, niveau de triage]"
 authors: ["Hacienda"]
 tags: [nda, confidentialite, triage, non-concurrence]
 ---
@@ -22,11 +23,11 @@ tags: [nda, confidentialite, triage, non-concurrence]
 >
 > **Pour une revue complète** (NDA bilatéral M&A complexe, NDA inséré dans un
 > contrat cadre, asymétries fortes à analyser dans le détail) : utiliser
-> `/hacienda-droit-affaires:reviser-contrat` à la place.
+> `/h-droit-affaires:reviser-contrat` à la place.
 >
 > **Pour un NDA PI-centric** (partenariat R&D, transfert de technologie,
 > savoir-faire substantiel, co-développement, secret d'affaires structurant) :
-> renvoyer vers `/hacienda-propriete-intellectuelle:contrats-pi`. Ce skill
+> renvoyer vers `/h-pi:contrats-pi`. Ce skill
 > couvre le tronc commercial standard, pas le coeur PI.
 
 ---
@@ -34,7 +35,7 @@ tags: [nda, confidentialite, triage, non-concurrence]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:reviser-nda ./NDA-prestataire-marketing.pdf</user>
+<user>/h-droit-affaires:reviser-nda ./NDA-prestataire-marketing.pdf</user>
 <response>
 NDA unilatéral standard, prestataire marketing → droit français → triage 8 points :
 1. Définition info confidentielles : précise, catégories listées → 🟢
@@ -51,7 +52,7 @@ NDA unilatéral standard, prestataire marketing → droit français → triage 8
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:reviser-nda ./NDA-fournisseur-industriel.pdf</user>
+<user>/h-droit-affaires:reviser-nda ./NDA-fournisseur-industriel.pdf</user>
 <response>
 NDA bilatéral, fournisseur industriel, durée 10 ans + clause non-concurrence 2 ans sans contrepartie chiffrée → triage 8 points :
 1. Définition info : large mais bornée par usage → 🟡
@@ -68,11 +69,11 @@ NDA bilatéral, fournisseur industriel, durée 10 ans + clause non-concurrence 2
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:reviser-nda ./NDA-partenariat-R&D-biotech.pdf</user>
+<user>/h-droit-affaires:reviser-nda ./NDA-partenariat-R&D-biotech.pdf</user>
 <response>
 Détection NDA partenariat R&D substantiel (mention "savoir-faire", "résultats de recherche", "co-développement", "brevet potentiel") → renvoi PI :
 
-"Ce NDA porte sur un partenariat R&D avec composante PI substantielle (savoir-faire, résultats de recherche, co-développement, anticipation de brevet). Le skill le mieux adapté est `/hacienda-propriete-intellectuelle:contrats-pi`, qui couvre les spécificités PI (background / foreground IP, residuals, grant-back, articulation L.151-1 C.com. secret des affaires `[Légifrance]`). Souhaites-tu (a) lancer `contrats-pi` à la place, (b) continuer avec `reviser-nda` sur les seules clauses commerciales (durée, juridiction, clause pénale), ou (c) faire les deux en séquence ?"
+"Ce NDA porte sur un partenariat R&D avec composante PI substantielle (savoir-faire, résultats de recherche, co-développement, anticipation de brevet). Le skill le mieux adapté est `/h-pi:contrats-pi`, qui couvre les spécificités PI (background / foreground IP, residuals, grant-back, articulation L.151-1 C.com. secret des affaires `[Légifrance]`). Souhaites-tu (a) lancer `contrats-pi` à la place, (b) continuer avec `reviser-nda` sur les seules clauses commerciales (durée, juridiction, clause pénale), ou (c) faire les deux en séquence ?"
 </response>
 </example>
 
@@ -89,7 +90,7 @@ Détection NDA partenariat R&D substantiel (mention "savoir-faire", "résultats 
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/hacienda-droit-affaires:entretien-demarrage` avant tout triage
+demander `/h-droit-affaires:entretien-demarrage` avant tout triage
 substantiel.
 
 ---
@@ -101,10 +102,50 @@ substantiel.
 
 ---
 
+## Gate non-juriste
+
+- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
+- [ ] Routing PI testé — renvoi `PI:contrats-pi` si NDA partenariat R&D / PI substantiel
+- [ ] Structure du NDA qualifiée (unilatéral / bilatéral)
+- [ ] Droit applicable et juridiction identifiés ; cadre FR / UE confirmé ou alerte juridiction étrangère
+- [ ] Tableau 8 points renseigné, aucune ligne vide
+- [ ] Non-concurrence salariée : vérification contrepartie financière obligatoire si présente
+- [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
+- [ ] Verdict 🟢 / 🟠 / 🔴 cohérent avec la règle de synthèse
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + tableau 8 points + recommandations + question hors checklist + arbre de décision 5 options
+
+---
+
+## Mode Anno Desktop Optionnel
+
+Pour un lot de NDA ou une data-room confidentielle, appeler `anno_health`, puis `detect`. Utiliser `legal_extract_contract`, `legal_risk_review` et, si une grille est demandée, `tabular_review_create`. Ne pas indexer sans demande explicite.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+```
+outputs/triage-nda-<parties-slug>-YYYY-MM-DD.md
+```
+
+Pour un triage NDA standard (8 lignes max), pas de dashboard HTML — le format Markdown suffit.
+
+---
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
 ## Étape 1 — Pré-flight, routing PI et qualification
 
 1. Invoquer `check-pii` sur le document avec la politique du profil. Respecter la décision utilisateur (continue / prompt / abort).
-2. **Test PI-centric.** Rechercher dans le document les termes : "savoir-faire", "brevet", "résultat de recherche", "co-développement", "secret d'affaires", "transfert de technologie", "background IP", "foreground IP", "residuals". Si présence substantielle (pas une simple mention en exception) → renvoyer immédiatement vers `/hacienda-propriete-intellectuelle:contrats-pi` avec les options (a) lancer ce skill, (b) limiter `reviser-nda` aux clauses commerciales, (c) les deux en séquence. Citer art. L.151-1 C.com. (secret des affaires) `[Légifrance]` pour cadrer le renvoi.
+2. **Test PI-centric.** Rechercher dans le document les termes : "savoir-faire", "brevet", "résultat de recherche", "co-développement", "secret d'affaires", "transfert de technologie", "background IP", "foreground IP", "residuals". Si présence substantielle (pas une simple mention en exception) → renvoyer immédiatement vers `/h-pi:contrats-pi` avec les options (a) lancer ce skill, (b) limiter `reviser-nda` aux clauses commerciales, (c) les deux en séquence. Citer art. L.151-1 C.com. (secret des affaires) `[Légifrance]` pour cadrer le renvoi.
 3. **Qualifier la structure du NDA** :
    - **Unilatéral** (un émetteur, un récepteur) ou **bilatéral** (réciprocité complète) — impacte la lecture asymétrie.
    - **Contexte** : précontractuel (LOI / data room M&A), opérationnel (prestation), partenariat industriel.
@@ -132,12 +173,12 @@ Triage rapide selon le tableau de référence ci-dessous. Pour chaque point, att
 **Les 5 exceptions classiques (point 2)** — informations (a) déjà publiques au moment de la divulgation, (b) tombées dans le domaine public sans faute du récepteur, (c) déjà détenues par le récepteur avant la divulgation, (d) développées indépendamment sans usage de l'information confidentielle, (e) divulguées sur ordonnance judiciaire ou obligation légale impérative.
 
 **Articles et jurisprudence applicables :**
-- Point 1 (définition / secret d'affaires) — art. L.151-1 C.com. `[Légifrance]`, loi n° 2018-670 du 30 juil. 2018 `[a verifier]`
+- Point 1 (définition / secret d'affaires) — art. L.151-1 C.com. `[Légifrance]`, loi n° 2018-670 du 30 juil. 2018 `[à vérifier]`
 - Point 7 (clause pénale) — art. 1231-5 C.civ `[Légifrance]` (pouvoir modérateur du juge sur peine manifestement excessive ou dérisoire)
-- Point 8 (non-concurrence salariée) — **Cass. soc. 10 juil. 2002, n° 00-45.135** `[Judilibre]` : contrepartie financière obligatoire, à défaut nullité de la clause. Articulation avec art. L.1121-1 C.trav `[a verifier]` (restriction proportionnée).
+- Point 8 (non-concurrence salariée) — **Cass. soc. 10 juil. 2002, n° 00-45.135** `[Judilibre]` : contrepartie financière obligatoire, à défaut nullité de la clause. Articulation avec art. L.1121-1 C.trav `[à vérifier]` (restriction proportionnée).
 
 **Règles d'analyse :**
-- Les articles cités doivent exister dans `references/articles-c-civ-c-com-index.md`. À défaut, tag `[a verifier]` et signaler en note du relecteur.
+- Les articles cités doivent exister dans `references/articles-c-civ-c-com-index.md`. À défaut, tag `[à vérifier]` et signaler en note du relecteur.
 - Pour des exemples emblématiques de libellés (clause pénale, non-concurrence salariée, confidentialité, droit applicable et juridiction), se reporter à `references/clauses-sensibles-fr.md` (source de vérité unique : entrées 1, 2, 10 et 11).
 - Tag inline `[review]` sur les jugements subjectifs : portée d'une définition "large mais bornée", proportionnalité d'une clause pénale au préjudice prévisible, exigibilité d'une non-concurrence dont la contrepartie est chiffrée mais faible.
 - Plancher de sévérité cross-skill : si `check-pii` remonte 🔴, ne pas dégrader silencieusement.
@@ -164,7 +205,7 @@ Appel automatique de `verifier-citations` sur la sortie complète, mode défaut 
 
 - Extrait les citations (art. 1231-5 C.civ, art. L.151-1 C.com., Cass. soc. 10 juil. 2002 n° 00-45.135, etc.).
 - Vérifie l'existence et la version en vigueur via Légifrance / Judilibre.
-- Annote la sortie : `[Légifrance ✓]`, `[Judilibre ✓]`, `[abrogé]`, ou `[a verifier]` en mode dégradé.
+- Annote la sortie : `[Légifrance ✓]`, `[Judilibre ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
 Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur. Si une citation `[abrogé]` est remontée → ligne dédiée dans la note du relecteur en 🔴 avec remplacement applicable.
 
@@ -198,8 +239,8 @@ Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
 | 2 | Exceptions standard | ... | ... | — |
 | 3 | Durée | ... | ... | — |
 | 4 | Sort de l'info en fin de contrat | ... | ... | — |
-| 5 | Juridiction | ... | ... | règlement Bruxelles I bis n° 1215/2012 `[a verifier]` |
-| 6 | Loi applicable | ... | ... | règlement Rome I n° 593/2008 `[a verifier]` |
+| 5 | Juridiction | ... | ... | règlement Bruxelles I bis n° 1215/2012 `[à vérifier]` |
+| 6 | Loi applicable | ... | ... | règlement Rome I n° 593/2008 `[à vérifier]` |
 | 7 | Clause pénale | ... | ... | art. 1231-5 C.civ `[Légifrance]` |
 | 8 | Non-concurrence salariée | présente / absente / N/A | ... | Cass. soc. 10 juil. 2002 n° 00-45.135 `[Judilibre]` |
 
@@ -239,30 +280,6 @@ Si l'utilisateur précise que la sortie est destinée à une contrepartie ou à 
 - Conserver l'en-tête de confidentialité (s'il protège le document) et la note du relecteur.
 - Retirer la narration de skill et les renvois inter-commandes (les placer dans un message séparé).
 - Le livrable doit se lire comme s'il avait été rédigé par un associé.
-
----
-
-## Emplacement des sorties
-
-```
-outputs/triage-nda-<parties-slug>-YYYY-MM-DD.md
-```
-
-Pour un triage NDA standard (8 lignes max), pas de dashboard HTML — le format Markdown suffit.
-
----
-
-## Gate non-juriste
-
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
-- [ ] Routing PI testé — renvoi `PI:contrats-pi` si NDA partenariat R&D / PI substantiel
-- [ ] Structure du NDA qualifiée (unilatéral / bilatéral)
-- [ ] Droit applicable et juridiction identifiés ; cadre FR / UE confirmé ou alerte juridiction étrangère
-- [ ] Tableau 8 points renseigné, aucune ligne vide
-- [ ] Non-concurrence salariée : vérification contrepartie financière obligatoire si présente
-- [ ] Citations vérifiées via `verifier-citations` ou taguées `[a verifier]`
-- [ ] Verdict 🟢 / 🟠 / 🔴 cohérent avec la règle de synthèse
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + tableau 8 points + recommandations + question hors checklist + arbre de décision 5 options
 
 ---
 

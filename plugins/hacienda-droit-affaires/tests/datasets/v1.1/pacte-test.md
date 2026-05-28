@@ -1,6 +1,6 @@
 # Dataset de test V1.1 — Pacte d'associés (3 pièges)
 
-> **Entry point attendu :** `/hacienda-droit-affaires:pacte-associes-review`
+> **Entry point attendu :** `/h-droit-affaires:pacte-associes-review`
 > **Objet :** pacte d'associés synthétique anonymisé contenant 3 pièges connus.
 > Aucune donnée réelle. Les sociétés, personnes, montants et dates sont fictifs.
 
@@ -102,7 +102,7 @@ Le présent pacte est régi par le droit français.
 
 **Piège 1 — Article 4, Inaliénabilité de 15 ans → criticité 🔴**
 - En SAS, l'inaliénabilité statutaire est plafonnée à 10 ans (art. L.227-13 C.com. — dans l'index avec LEGIARTI, citer `[Légifrance]`). La clause de l'article 4 stipule 15 ans ET est reprise dans les statuts → elle excède le plafond légal : nulle, à tout le moins réductible à 10 ans.
-- Même en tant que clause de pacte, une inaliénabilité de 15 ans, sans intérêt sérieux et légitime documenté, est disproportionnée (transposition art. 900-1 C.civ — absent de l'index → `[a verifier]`).
+- Même en tant que clause de pacte, une inaliénabilité de 15 ans, sans intérêt sérieux et légitime documenté, est disproportionnée (transposition art. 900-1 C.civ — absent de l'index → `[à vérifier]`).
 - Le caractère raisonnable de la durée est un jugement de fait → tag `[review]`.
 - Statut attendu : **🔴 Bloquant**.
 
@@ -124,7 +124,7 @@ Le présent pacte est régi par le droit français.
 - **Article 3 — Agrément :** clause d'agrément en SAS, reprise dans les statuts (art. L.227-14 C.com. `[Légifrance]`) → opposable, violation sanctionnée par la nullité (art. L.227-15 C.com. `[Légifrance]`). 🟢. Bon point : la reprise statutaire renforce l'opposabilité.
 - **Article 6 — Tag-along :** tag-along total au profit de l'Investisseur, conditions identiques. 🟢 / 🟡. Point d'attention : ne bénéficie qu'à l'Investisseur, pas aux Fondateurs minoritaires entre eux ; opposabilité (pacte vs statuts) à vérifier.
 - **Article 7 — Anti-dilution :** weighted average broad-based, avec engagement de vote. 🟢 — standard de marché, posture équilibrée.
-- **Article 8 — Good/bad leaver :** motifs définis ; bad leaver à 80 % du prix de souscription → décote mesurée, non confiscatoire, a priori hors clause léonine (art. 1844-1 C.civ `[a verifier]`). 🟡 — vérifier que la décote n'opère pas comme une peine privée `[review]` ; renvoi expertise art. 1843-4 C.civ `[a verifier]`.
+- **Article 8 — Good/bad leaver :** motifs définis ; bad leaver à 80 % du prix de souscription → décote mesurée, non confiscatoire, a priori hors clause léonine (art. 1844-1 C.civ `[à vérifier]`). 🟡 — vérifier que la décote n'opère pas comme une peine privée `[review]` ; renvoi expertise art. 1843-4 C.civ `[à vérifier]`.
 - **Article 10 — Décisions réservées :** liste resserrée et raisonnable (capital, statuts, distribution, endettement majeur). 🟢 / 🟡. Pas de paralysie de la gestion courante.
 - **Article 11 — Information :** reporting semestriel sous confidentialité. 🟢 — proportionné.
 - **Article 12 — Durée « durée de vie de la Société » :** point de vigilance 🟡 — un pacte à durée indéterminée / alignée sur la société peut être dénoncé unilatéralement avec préavis (prohibition des engagements perpétuels). À signaler.
@@ -135,7 +135,7 @@ Le présent pacte est régi par le droit français.
 - [ ] Sur l'article 9, le skill NE reproche PAS l'absence de contrepartie financière et explique correctement la distinction associé / salarié.
 - [ ] Sur l'article 4, le skill cite le plafond de 10 ans de l'art. L.227-13 C.com. avec le tag `[Légifrance]` (article présent dans l'index avec LEGIARTI).
 - [ ] Sur l'article 5, le skill identifie explicitement l'absence de seuil de déclenchement.
-- [ ] Les articles hors index ou en `[a compléter]` (900-1 C.civ, 1843-4 C.civ, 1844-1 C.civ, L.228-23 C.com.) sont tagués `[a verifier]`.
+- [ ] Les articles hors index ou en `[a compléter]` (900-1 C.civ, 1843-4 C.civ, 1844-1 C.civ, L.228-23 C.com.) sont tagués `[à vérifier]`.
 - [ ] Forme sociale identifiée : SAS → fondements L.227-13 / L.227-14 / L.227-15 / L.227-9 mobilisés.
 
 ### Vérification de structure de la sortie
@@ -152,7 +152,7 @@ Le présent pacte est régi par le droit français.
 - ❌ Reprocher l'absence de contrepartie financière à la non-concurrence de l'article 9 (confusion associé / salarié).
 - ❌ Traiter l'inaliénabilité de 15 ans (article 4) comme un simple point de négociation 🟡.
 - ❌ Valider le drag-along de l'article 5 sans signaler l'absence de seuil de déclenchement.
-- ❌ Citer 900-1 C.civ, 1843-4 C.civ, 1844-1 C.civ ou L.228-23 C.com. sans le tag `[a verifier]`.
+- ❌ Citer 900-1 C.civ, 1843-4 C.civ, 1844-1 C.civ ou L.228-23 C.com. sans le tag `[à vérifier]`.
 - ❌ Arbre de décision à un nombre d'options différent de 5, ou option 4 ≠ « Surveiller et attendre ».
 - ❌ Backticks autour des tags de provenance dans les cellules du tableau de liste de points.
 ```

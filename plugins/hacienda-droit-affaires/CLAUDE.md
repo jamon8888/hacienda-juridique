@@ -12,7 +12,7 @@ Règles applicables à tout skill, commande et agent du plugin :
 2. Si ce fichier n'existe pas ou contient encore des marqueurs `[A CONFIGURER]`,
    STOPPER avant tout travail substantiel. Dire :
    « Ce plugin doit être configuré avant de produire des sorties utiles.
-   Lance `/hacienda-droit-affaires:entretien-demarrage` — environ
+   Lance `/h-droit-affaires:entretien-demarrage` — environ
    10 à 15 minutes. Tous les skills en dépendent. Sans configuration, les
    sorties resteront génériques et risquent de ne pas correspondre à ta pratique. »
    Ne pas continuer avec des valeurs par défaut. Seules exceptions : le skill
@@ -324,7 +324,53 @@ Exemples de calibrage :
 
 ---
 
-## 10. Sources prioritaires
+## 10. Mode Anno Desktop Optionnel
+
+Si la distribution Hacienda + Anno Desktop est active, utiliser Anno comme
+mémoire/RAG local de dossier client, jamais comme source primaire et jamais
+comme registre officiel. Le plugin Droit des affaires doit rester pleinement
+utilisable sans Anno.
+
+Avant tout outil Anno :
+
+1. appeler `anno_health` ;
+2. si Anno est indisponible, annoncer le fallback et poursuivre en mode
+   Hacienda ;
+3. avant tout traitement de pièce client, appeler `detect` ou appliquer une
+   gestion PII Anno équivalente ;
+4. n'appeler `legal_ingest` que si l'utilisateur demande explicitement
+   l'indexation d'un dossier ou document local ;
+5. utiliser `legal_search` et `legal_graph_query` seulement sur un corpus déjà
+   ingéré et autorisé ;
+6. utiliser `legal_rehydrate_citation` uniquement pour une sortie locale
+   destinée à l'utilisateur autorisé.
+
+Workflows Anno Droit des affaires autorisés quand Anno est disponible :
+
+| Workflow | Outils Anno utiles |
+|---|---|
+| Revue de contrat / NDA | `legal_extract_contract`, `legal_risk_review`, `legal_search`, revue tabulaire |
+| Due diligence data-room | `legal_ingest`, `legal_search`, `legal_graph_query`, `legal_extract_contract`, `tabular_review_create` |
+| SPA / protocole de cession | `legal_extract_contract`, `legal_risk_review`, `tabular_review_create`, `legal_validate_field` |
+| GAP | `legal_extract_contract`, `legal_mandatory_clause_audit`, `legal_risk_review`, `tabular_review_create` |
+| Déclaration de créance | `legal_timeline`, `legal_prescription_check`, `legal_validate_field`, `legal_search` |
+| Gouvernance / assemblées | `legal_timeline`, `legal_validate_field`, `tabular_review_create` |
+
+Quand Anno Tabular est disponible, traiter les workflows riches comme une
+revue de dossier structurée : documents, clauses, faits, risques ou échéances
+en lignes ; questions métier en colonnes ; citation par cellule ; statut de
+revue ; responsable ; décision ; échéance ; validation humaine. Une cellule
+avec confiance faible, citation absente, contradiction ou source officielle
+non consultée reste `[à vérifier]`.
+
+Les passages Anno sont une source interne Anno de dossier. Les textes,
+jurisprudences, registres d'entreprises, annonces BODACC, BOFiP, BOSS et droit
+UE restent vérifiés via `hacienda-sources-officielles` ou les outils MCP
+Hacienda Droit des affaires.
+
+---
+
+## 11. Sources prioritaires
 
 | Sujet | Source primaire | Intégré core |
 |---|---|---|
@@ -341,7 +387,7 @@ Exemples de calibrage :
 
 ---
 
-## 11. Workspaces de dossier (désactivé v1 — disponible v1.1)
+## 12. Workspaces de dossier (désactivé v1 — disponible v1.1)
 
 **Activé : ✗** — Fonctionnalité désactivée en v1. Sera activée en v1.1.
 
@@ -354,5 +400,5 @@ Chaque dossier pourra contenir : parties, timeline, documents indexés, instruct
 
 ---
 
-*Pour relancer l'entretien : `/hacienda-droit-affaires:entretien-demarrage --redo`*
-*Pour vérifier les intégrations seulement : `/hacienda-droit-affaires:entretien-demarrage --check-integrations`*
+*Pour relancer l'entretien : `/h-droit-affaires:entretien-demarrage --redo`*
+*Pour vérifier les intégrations seulement : `/h-droit-affaires:entretien-demarrage --check-integrations`*

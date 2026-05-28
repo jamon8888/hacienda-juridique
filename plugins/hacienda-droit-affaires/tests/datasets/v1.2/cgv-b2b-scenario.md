@@ -1,6 +1,6 @@
 # Dataset de test V1.2 — Génération de CGV B2B (Code de commerce)
 
-> **Entry point attendu :** `/hacienda-droit-affaires:cgv-generator`
+> **Entry point attendu :** `/h-droit-affaires:cgv-generator`
 > **Mode visé :** `--draft`
 > **Objet :** scénario synthétique de génération de CGV pour une société de
 > services s'adressant à une clientèle **professionnelle**. Le scénario teste la
@@ -13,7 +13,7 @@
 
 ## Scénario — CGV pour une société de prestation de services B2B
 
-> **Commande type :** `/hacienda-droit-affaires:cgv-generator --draft --regime=B2B`
+> **Commande type :** `/h-droit-affaires:cgv-generator --draft --regime=B2B`
 
 ### Faits fictifs
 
@@ -44,7 +44,7 @@ Le skill doit, à l'Étape 1 :
 **Mentions obligatoires de l'art. L.441-1 C.com. — présence attendue.**
 
 Le brouillon de CGV B2B doit comprendre les trois mentions obligatoires de
-l'art. L.441-1 C.com. [a verifier] :
+l'art. L.441-1 C.com. [à vérifier] :
 - les **conditions de règlement** ;
 - le **barème des prix unitaires** ;
 - les **réductions de prix** éventuelles.
@@ -54,7 +54,7 @@ Leur présence n'est pas négociable ; leur contenu est tagué `[review]`.
 **Plafond des délais de paiement L.441-10 C.com. — non-conformité attendue.**
 
 Le délai « 90 jours net date de facture » demandé par le dirigeant **dépasse le
-plafond légal** de l'art. L.441-10 C.com. [a verifier] : 60 jours à compter de
+plafond légal** de l'art. L.441-10 C.com. [à vérifier] : 60 jours à compter de
 la date d'émission de la facture, ou 45 jours fin de mois à compter de la date
 d'émission, la première échéance à survenir. Le skill doit :
 - **Ne pas reproduire** le délai de 90 jours dans le brouillon.
@@ -83,7 +83,7 @@ Le skill produit un projet de CGV B2B avec, taguées `[review]` :
 - [ ] Régime déterminé = **B2B (Code de commerce)** ; aucune règle consumériste insérée à tort.
 - [ ] Les **trois mentions obligatoires de l'art. L.441-1 C.com.** figurent dans le brouillon (conditions de règlement, barème de prix unitaires, réductions de prix).
 - [ ] Le délai de paiement de **90 jours** demandé est signalé comme **hors plafond L.441-10 C.com.** et n'est PAS reproduit dans le brouillon ; un délai conforme (≤ 60 j / 45 j fin de mois) est proposé.
-- [ ] L'art. L.441-1 et l'art. L.441-10 C.com. sont tagués `[a verifier]` (présents à l'index mais en `[a compléter]`).
+- [ ] L'art. L.441-1 et l'art. L.441-10 C.com. sont tagués `[à vérifier]` (présents à l'index mais en `[a compléter]`).
 - [ ] La clause **pénalités de retard + indemnité forfaitaire de recouvrement** est incluse, avec mention de son caractère automatique.
 - [ ] La clause de **réserve de propriété** rappelle l'exigence d'une stipulation écrite avant ou lors de la livraison.
 - [ ] **Tous** les points de décision du brouillon sont tagués `[review]`.
@@ -105,7 +105,7 @@ Le skill produit un projet de CGV B2B avec, taguées `[review]` :
 - [ ] **Détermination du régime** : étape active du skill (Étape 1), B2B confirmé avant toute rédaction.
 - [ ] **Mode `--draft` — tags `[review]`** : chaque point de décision du brouillon est tagué `[review]` ; le livrable est annoncé comme un brouillon, jamais comme « prêt à publier ».
 - [ ] **Plafond L.441-10** : la vérification du délai de paiement est exécutée ; le délai hors plafond est détecté et corrigé.
-- [ ] **`verifier-citations` post-flight** : appel automatique ; articles hors index / en `[a compléter]` tagués `[a verifier]`.
+- [ ] **`verifier-citations` post-flight** : appel automatique ; articles hors index / en `[a compléter]` tagués `[à vérifier]`.
 
 ## Faux comportements à NE PAS observer
 
@@ -113,6 +113,6 @@ Le skill produit un projet de CGV B2B avec, taguées `[review]` :
 - ❌ Reproduire le délai de paiement de 90 jours dans le brouillon, ou le présenter comme un simple arbitrage de confort plutôt que comme une non-conformité.
 - ❌ Omettre l'une des trois mentions obligatoires de l'art. L.441-1 C.com.
 - ❌ Insérer des règles consuméristes (rétractation, garantie de conformité C.conso, médiation) dans des CGV B2B.
-- ❌ Citer l'art. L.441-1 ou L.441-10 C.com. comme `[Légifrance]` alors qu'ils sont en `[a compléter]` à l'index — ils doivent être `[a verifier]`.
+- ❌ Citer l'art. L.441-1 ou L.441-10 C.com. comme `[Légifrance]` alors qu'ils sont en `[a compléter]` à l'index — ils doivent être `[à vérifier]`.
 - ❌ Arbre de décision à un nombre d'options différent de 5, ou option 4 ≠ « Surveiller et attendre ».
 - ❌ Backticks autour des tags de provenance dans les cellules de tableau.

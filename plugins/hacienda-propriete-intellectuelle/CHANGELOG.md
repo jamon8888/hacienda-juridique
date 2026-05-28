@@ -66,7 +66,7 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 - logique centrale reconstruite autour du titulaire voisins, de la carte
   exploitation / consentement, de la duree apparente, de la remuneration
   equitable et de la gestion collective, avec maintien obligatoire de
-  `[PROVISOIRE]`, `[a verifier]` et `[A COMPLETER]` en sortie partielle
+  `[PROVISOIRE]`, `[à vérifier]` et `[A COMPLETER]` en sortie partielle
 - `gen-ai-signal` et `nft-signal` maintenus comme branches secondaires
   strictement bornees, avec reroutage si le sujet principal devient IA,
   contractuel ou contentieux
@@ -101,7 +101,7 @@ versions intermediaires ont pu etre consolidees dans des jalons plus larges.
   `pediatric_extension_status` et `waiver_posture`
 - logique centrale reconstruite autour de l'article 3, du calcul de duree, de
   la fenetre de depot article 7 et de l'extension pediatrique, avec
-  marqueurs `[PROVISOIRE]`, `[a verifier]`, `[A COMPLETER]` obligatoires en
+  marqueurs `[PROVISOIRE]`, `[à vérifier]`, `[A COMPLETER]` obligatoires en
   sortie partielle
 - signal `manufacturing-waiver-signal` borne mais complete par les
   notifications / formalites a verifier et la pression apparente d'entree

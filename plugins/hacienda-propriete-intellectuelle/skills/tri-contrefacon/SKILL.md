@@ -7,21 +7,31 @@ argument-hint: "[mode] [faits | pièces | signe | produits | canal | territoire]
 
 # Tri Contrefaçon
 
-## Rôle
+## Examples
 
-Recevoir un signal d'atteinte potentielle à une marque, qualifier rapidement le dossier en phase de cadrage initial, distinguer faits / signaux / risques, et orienter vers une action proportionnée d'enforcement ou de veille.
+<example>
+<user>/h-pi:tri-contrefacon [mode] [faits | pièces | signe | produits | canal | territoire]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
 
-Le skill travaille en positionnement strict marques et enforcement général. Il prépare un dossier exploitable par `mise-en-demeure-pi`, sans présenter l'atteinte comme prouvée tant que les pièces minimales ne permettent pas une validation humaine sérieuse.
+## Chargement du profil
 
-Référence de travail: `references/grille-enforcement-marques.md`.
+Avant tout travail substantiel, lire :
 
-## Ne fait pas
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
-- Ne conclut pas qu'une contrefaçon, une concurrence déloyale ou un parasitisme sont établis de manière définitive.
-- Ne remplace pas une analyse contentieuse exhaustive, une consultation juridique finale, ni une stratégie procédurale complète.
-- Ne contacte jamais un tiers, une plateforme, un distributeur ou un adversaire sans validation humaine prealable.
-- Ne suppose pas la validité, la titularité, l'usage sérieux ou l'opposabilité territoriale d'une marque sans pièces ou vérification de source.
-- Ne transforme pas des allegations internes, captures isolees ou rumeurs commerciales en faits acquis.
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
 
 ## Mode Anno Desktop Optionnel
 
@@ -45,6 +55,63 @@ Règles spécifiques :
 Tout résultat Anno est une source interne Anno, jamais comme source primaire.
 Les droits invoqués, registres et sources officielles restent vérifiés via
 `hacienda-sources-officielles` et les outils PI Hacienda.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Marques, BOPI et EUIPO : `inpi_search_marques`, `inpi_marque_details`, `inpi_marques_publications_recentes`, `euipo_tmview_search`, `bopi_dernieres_publications`.
+- Brevets et Espacenet : `inpi_search_brevets`, `inpi_brevet_details`, `espacenet_search`, `espacenet_brevet_details`.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
+La sortie doit suivre cet ordre:
+
+1. `Mode`
+2. `Faits`
+3. `Signaux`
+4. `Risques`
+5. `Pieces disponibles`
+6. `Pieces manquantes`
+7. `Qualification`
+8. `Score de gravite`
+9. `Suite utile pour mise-en-demeure-pi`
+10. `Action recommandee`
+
+Contraintes de sortie:
+
+- ne jamais présenter l'atteinte comme établie si les pièces restent partielles
+- signaler explicitement toute source primaire non consultée comme `[à vérifier]`
+- formuler la `Suite utile pour mise-en-demeure-pi` comme un paquet de transition uniquement si une escalade vers lettre est plausible : droits invoqués, faits résumés, cible / opérateur / vendeur / compte / URL / coordonnées disponibles, pièces clefs, points faibles, niveau d'escalade envisagé
+- indiquer explicitement `Suite utile pour mise-en-demeure-pi: non applicable` pour les cas `watch`, `defense` ou `no action`, et plus largement chaque fois qu'une transition vers lettre serait prématurée ou incohérente
+- appliquer la règle bloquante: pas de `mise en demeure` ni `saisie / contentieux` si les pièces minimales sont trop faibles, si la cible n'est pas identifiée, ou s'il manque une preuve datée minimale
+- toujours terminer par une ligne finale stricte:
+
+`Action recommandee: watch | soft outreach | mise en demeure | saisie / contentieux | no action`
+
+## Rôle
+
+Recevoir un signal d'atteinte potentielle à une marque, qualifier rapidement le dossier en phase de cadrage initial, distinguer faits / signaux / risques, et orienter vers une action proportionnée d'enforcement ou de veille.
+
+Le skill travaille en positionnement strict marques et enforcement général. Il prépare un dossier exploitable par `mise-en-demeure-pi`, sans présenter l'atteinte comme prouvée tant que les pièces minimales ne permettent pas une validation humaine sérieuse.
+
+Référence de travail: `references/grille-enforcement-marques.md`.
+
+## Ne fait pas
+
+- Ne conclut pas qu'une contrefaçon, une concurrence déloyale ou un parasitisme sont établis de manière définitive.
+- Ne remplace pas une analyse contentieuse exhaustive, une consultation juridique finale, ni une stratégie procédurale complète.
+- Ne contacte jamais un tiers, une plateforme, un distributeur ou un adversaire sans validation humaine prealable.
+- Ne suppose pas la validité, la titularité, l'usage sérieux ou l'opposabilité territoriale d'une marque sans pièces ou vérification de source.
+- Ne transforme pas des allegations internes, captures isolees ou rumeurs commerciales en faits acquis.
 
 ## Cadrage initial
 
@@ -129,32 +196,6 @@ Principes d'orientation:
 - `mise en demeure` : dossier suffisamment structuré pour une prise de position formelle, sans encore basculer en contentieux
 - `saisie / contentieux` : urgence ou gravite elevee, risque de disparition de preuve, volume ou repetition importante, ou enjeu commercial majeur
 - `no action` : usage trop faible, legitime, mal cible, ou dossier trop fragile pour justifier une initiative
-
-## Sortie
-
-La sortie doit suivre cet ordre:
-
-1. `Mode`
-2. `Faits`
-3. `Signaux`
-4. `Risques`
-5. `Pieces disponibles`
-6. `Pieces manquantes`
-7. `Qualification`
-8. `Score de gravite`
-9. `Suite utile pour mise-en-demeure-pi`
-10. `Action recommandee`
-
-Contraintes de sortie:
-
-- ne jamais présenter l'atteinte comme établie si les pièces restent partielles
-- signaler explicitement toute source primaire non consultée comme `[à vérifier]`
-- formuler la `Suite utile pour mise-en-demeure-pi` comme un paquet de transition uniquement si une escalade vers lettre est plausible : droits invoqués, faits résumés, cible / opérateur / vendeur / compte / URL / coordonnées disponibles, pièces clefs, points faibles, niveau d'escalade envisagé
-- indiquer explicitement `Suite utile pour mise-en-demeure-pi: non applicable` pour les cas `watch`, `defense` ou `no action`, et plus largement chaque fois qu'une transition vers lettre serait prématurée ou incohérente
-- appliquer la règle bloquante: pas de `mise en demeure` ni `saisie / contentieux` si les pièces minimales sont trop faibles, si la cible n'est pas identifiée, ou s'il manque une preuve datée minimale
-- toujours terminer par une ligne finale stricte:
-
-`Action recommandee: watch | soft outreach | mise en demeure | saisie / contentieux | no action`
 
 ## Validation humaine
 

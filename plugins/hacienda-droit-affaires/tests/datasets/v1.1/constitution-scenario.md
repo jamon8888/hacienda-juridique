@@ -1,6 +1,6 @@
 # Dataset de test V1.1 — Constitution de société (2 scénarios)
 
-> **Entry point attendu :** `/hacienda-droit-affaires:constitution-societe`
+> **Entry point attendu :** `/h-droit-affaires:constitution-societe`
 > **Objet :** deux scénarios de constitution synthétiques. Le premier teste le
 > mode `--comparer` (aide au choix de forme), le second teste le mode `--draft`
 > et la **bifurcation des actes** (détection de l'acte notarié obligatoire).
@@ -11,7 +11,7 @@
 ## Scénario 1 — Startup à 3 fondateurs, ambition de levée de fonds
 
 > **Mode visé :** `--comparer`
-> **Commande type :** `/hacienda-droit-affaires:constitution-societe --comparer`
+> **Commande type :** `/h-droit-affaires:constitution-societe --comparer`
 
 ### Faits fictifs
 
@@ -42,7 +42,7 @@ Motifs que le skill doit faire ressortir :
   préférence et les BSA, et n'impose pas d'agrément légal des cessions
   (agrément seulement si clause statutaire, art. L.227-14 C.com. `[Légifrance]`).
 - **Régime social du dirigeant** — le président de SAS est **assimilé salarié**,
-  ce qui correspond au souhait exprimé `[a verifier]` (régime social — critère
+  ce qui correspond au souhait exprimé `[à vérifier]` (régime social — critère
   social, renvoi expert-comptable).
 - **Capital** — la SAS n'a pas de capital minimum légal, compatible avec un
   capital de départ modeste.
@@ -51,8 +51,8 @@ Formes à écarter, avec motivation :
 - **SARL** — agrément **légal et obligatoire** des cessions à des tiers (art.
   L.223-14 C.com. `[Légifrance]`), rigidité peu compatible avec une levée ;
   un gérant majoritaire serait travailleur non salarié, pas assimilé salarié ;
-  plafond de 100 associés `[a verifier]`.
-- **SA** — capital minimum 37 000 € `[a verifier]` excessif pour un démarrage
+  plafond de 100 associés `[à vérifier]`.
+- **SA** — capital minimum 37 000 € `[à vérifier]` excessif pour un démarrage
   modeste ; formalisme de gouvernance lourd (conseil d'administration ou
   directoire) ; apport en industrie interdit (art. L.225-3 C.com. `[Légifrance]`).
   Forme surdimensionnée à ce stade.
@@ -66,7 +66,7 @@ fiscal détaillé dans la sortie.
 - [ ] Recommandation = **SAS**, motivée par souplesse + accueil investisseurs + régime assimilé salarié + absence de capital minimum.
 - [ ] SARL et SA explicitement écartées avec un motif juridique correct chacune.
 - [ ] L'agrément légal des cessions en SARL (art. L.223-14 C.com.) est cité avec le tag `[Légifrance]` (article présent dans l'index avec LEGIARTI).
-- [ ] Le capital minimum de la SA (37 000 €) est tagué `[a verifier]` (seuil non figé dans l'index).
+- [ ] Le capital minimum de la SA (37 000 €) est tagué `[à vérifier]` (seuil non figé dans l'index).
 - [ ] Les arbitrages fiscaux / sociaux sont tagués `[review]` et renvoyés à l'expert-comptable — pas de conseil fiscal détaillé.
 - [ ] Aucune affirmation présentée comme un choix définitif : la recommandation de forme est un point de départ, la rédaction des statuts reste à faire.
 
@@ -75,7 +75,7 @@ fiscal détaillé dans la sortie.
 ## Scénario 2 — Constitution avec apport en nature d'un local commercial
 
 > **Mode visé :** `--draft`
-> **Commande type :** `/hacienda-droit-affaires:constitution-societe --draft --forme=SARL`
+> **Commande type :** `/h-droit-affaires:constitution-societe --draft --forme=SARL`
 
 ### Faits fictifs
 
@@ -115,10 +115,10 @@ apports** :
 - dispense possible **à l'unanimité des associés** **et** sous **double seuil
   réglementaire** (montant unitaire de l'apport / fraction du capital) — les
   **seuils chiffrés sont réglementaires** (`R.xxx`, hors index) et doivent être
-  tagués `[a verifier]` ;
+  tagués `[à vérifier]` ;
 - la dispense **ne supprime pas** la responsabilité : les associés restent
   **solidairement responsables, 5 ans, de la valeur attribuée** au local
-  `[a verifier]`. Le skill doit expliciter ce point.
+  `[à vérifier]`. Le skill doit expliciter ce point.
 
 **Brouillon assisté de statuts.**
 
@@ -137,7 +137,7 @@ Le skill produit un projet de statuts SARL avec :
 - [ ] **🔴 acte notarié obligatoire** est signalé, AVEC le motif (publicité foncière / opposabilité / acte authentique exigé) — pas seulement la règle nue.
 - [ ] Renvoi vers le **notaire partenaire** du profil cabinet.
 - [ ] La règle du **commissaire aux apports** est signalée (apport en nature), art. L.223-9 C.com. cité avec `[Légifrance]`.
-- [ ] Les **seuils chiffrés** de dispense du commissaire aux apports sont tagués `[a verifier]` (réglementaires, hors index).
+- [ ] Les **seuils chiffrés** de dispense du commissaire aux apports sont tagués `[à vérifier]` (réglementaires, hors index).
 - [ ] La **responsabilité solidaire 5 ans** des associés sur la valeur de l'apport est explicitée — la dispense n'est pas présentée comme une exonération.
 - [ ] Les **mentions obligatoires de l'art. L.210-2 C.com.** figurent dans le brouillon.
 - [ ] **Tous** les points de décision du brouillon sont tagués `[review]`.
@@ -158,16 +158,16 @@ Le skill produit un projet de statuts SARL avec :
 
 - [ ] **Mode `--draft` — tags `[review]`** : chaque point de décision du brouillon est tagué `[review]` ; le livrable est annoncé comme un brouillon, jamais comme final / « prêt à déposer ».
 - [ ] **Bifurcation des actes** : la détection SSP vs notarié est une étape active du skill (Étape 1 `--draft`), pas une simple mention — elle est exécutée sur le scénario 2 et conclut à l'acte notarié obligatoire.
-- [ ] **`verifier-citations` post-flight** : appel automatique sur la sortie complète (Étape 3 `--draft`) ; articles hors index / `R.xxx` tagués `[a verifier]`.
+- [ ] **`verifier-citations` post-flight** : appel automatique sur la sortie complète (Étape 3 `--draft`) ; articles hors index / `R.xxx` tagués `[à vérifier]`.
 
 ## Faux comportements à NE PAS observer
 
 - ❌ Présenter le brouillon de statuts comme « prêt à déposer », « prêt à signer » ou « définitif ».
 - ❌ Sur le scénario 2, omettre la détection de l'acte notarié obligatoire ou la présenter comme une simple option de confort.
 - ❌ Exposer la règle de l'acte notarié sans le motif (publicité foncière).
-- ❌ Énoncer un seuil chiffré réglementaire (capital SA, dispense commissaire aux apports) comme un fait, sans `[a verifier]`.
+- ❌ Énoncer un seuil chiffré réglementaire (capital SA, dispense commissaire aux apports) comme un fait, sans `[à vérifier]`.
 - ❌ Présenter la dispense de commissaire aux apports comme une exonération de responsabilité des associés.
 - ❌ Donner un conseil fiscal détaillé au lieu de renvoyer à l'expert-comptable.
-- ❌ Citer un article en `[a compléter]` ou absent de l'index (L.223-1, L.225-1, L.227-1, L.225-96, R.xxx) sans le tag `[a verifier]`.
+- ❌ Citer un article en `[a compléter]` ou absent de l'index (L.223-1, L.225-1, L.227-1, L.225-96, R.xxx) sans le tag `[à vérifier]`.
 - ❌ Arbre de décision à un nombre d'options différent de 5, ou option 4 ≠ « Surveiller et attendre ».
 - ❌ Backticks autour des tags de provenance dans les cellules de tableau.

@@ -55,6 +55,22 @@ connectées. Une source officielle non consultée reste `[à vérifier]`.
 /h-sources-officielles:entretien-demarrage
 ```
 
+## Outils MCP Exposés
+
+Le serveur MCP bundled expose les outils officiels par noms explicites :
+
+- `piste_status`, `piste_cache_clear` ;
+- `legifrance_recherche`, `legifrance_get_article`, `legifrance_get_code`,
+  `legifrance_get_loda`, `legifrance_get_jurisprudence`,
+  `legifrance_get_jorf`, `legifrance_get_circulaire`, `legifrance_api_call` ;
+- `judilibre_recherche`, `judilibre_get_decision` ;
+- `eurlex_recherche`, `eurlex_consulter` ;
+- `bofip_rechercher`, `bofip_consulter` ;
+- `boss_recherche`, `boss_get_document` ;
+- `inpi_search_marques`, `inpi_marque_details`, `inpi_search_brevets`,
+  `inpi_brevet_details`, `espacenet_search`, `espacenet_brevet_details` ;
+- `bodacc_by_siren`, `bodacc_procedures`, `company_full_profile`.
+
 ## Skills Prévus
 
 - `entretien-demarrage`

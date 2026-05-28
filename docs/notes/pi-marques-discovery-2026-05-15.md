@@ -6,7 +6,7 @@ Document préparatoire à la Phase 1 du plan `docs/superpowers/plans/2026-05-15-
 
 Spéculatif — pas de credentials INPI/EUIPO disponibles, pas de curl réel exécuté. Les schémas et endpoints documentés ci-dessous sont des hypothèses raisonnables tirées de la documentation publique INPI Data et EUIPO TMview. À valider lors du premier run réel avec credentials.
 
-Tant que les credentials ne sont pas disponibles, toute sortie de tool marques doit être marquée `[a verifier]` conformément à la règle 2 de `CLAUDE.md`.
+Tant que les credentials ne sont pas disponibles, toute sortie de tool marques doit être marquée `[à vérifier]` conformément à la règle 2 de `CLAUDE.md`.
 
 ## Hypothèses INPI Data
 

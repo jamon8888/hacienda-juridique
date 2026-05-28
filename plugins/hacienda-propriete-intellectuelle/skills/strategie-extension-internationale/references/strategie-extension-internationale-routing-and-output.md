@@ -63,7 +63,7 @@ Obtention minimum :
 - si la date de depot FR, la date de priorite ou le statut manquent, demander
   le fallback utilisateur, y compris marches cibles, posture budget et
   posture maintenance, puis marquer `[utilisateur fourni]` ;
-- si une date critique reste seulement inferee, la marquer `[a verifier]`.
+- si une date critique reste seulement inferee, la marquer `[à vérifier]`.
 - si le rôle est `non-juriste`, garder la sortie preparatoire et prevoir une
   escalation visible vers mandataire EQE / avocat PI.
 
@@ -82,7 +82,7 @@ Checks minimum :
 - route territoriale exploitable
 - `priority_window_status = open-tight` doit pousser vers `hold-priority-risk`
 - `priority_window_status = expired` doit pousser vers `hold-priority-risk`
-- tout element non verifie reste `[a verifier]`
+- tout element non verifie reste `[à vérifier]`
 - tout manque de profil pratique reste `[PROVISOIRE]`
 
 ## 3. Territorial / sequencing routes

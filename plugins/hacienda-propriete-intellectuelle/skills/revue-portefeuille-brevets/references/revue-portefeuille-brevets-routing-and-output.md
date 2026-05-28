@@ -46,7 +46,7 @@ du registre `portfolio-brevets.yaml`.
 ### `partial`
 
 - registre present mais incomplet ;
-- findings ou buckets possibles avec `[a verifier]`.
+- findings ou buckets possibles avec `[à vérifier]`.
 
 ### `blocked`
 
@@ -80,7 +80,7 @@ du registre `portfolio-brevets.yaml`.
 - reutiliser strictement `renderDashboard` de `@hacienda/core`
 - ne pas maintenir un template HTML parallele
 - dashboard coherent avec le Markdown
-- valeurs incertaines marquees `[a verifier]`
+- valeurs incertaines marquees `[à vérifier]`
 - valeurs provisoires marquees `[PROVISOIRE]`
 
 ## Closed Routing

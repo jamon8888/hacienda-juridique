@@ -236,6 +236,61 @@ describe("hacienda PI cowork packaging", () => {
     }
   });
 
+  it("keeps every PI skill on the homogeneous Hacienda skill structure", () => {
+    const requiredHeadings = [
+      "## Examples",
+      "## Chargement du profil",
+      "## Intake",
+      "## Gate non-juriste",
+      "## Outils MCP à privilégier",
+      "## Emplacement des sorties",
+      "## Sortie"
+    ];
+
+    for (const file of collectSkillFiles(pluginRoot)) {
+      const content = readFileSync(file, "utf8");
+
+      for (const heading of requiredHeadings) {
+        expect(content, `${file} is missing ${heading}`).toContain(heading);
+      }
+
+      expect(content, file).toContain("piste_status");
+      expect(content, file).toContain("legifrance_recherche");
+      expect(content, file).toContain("judilibre_recherche");
+      expect(content, file).toContain("eurlex_recherche");
+      expect(content, file).toContain("validation humaine");
+      expect(content, file).toContain("[à vérifier]");
+      expect(content, file).toContain("~/.claude/plugins/config/hacienda-juridique");
+      expect(content, file).not.toContain("~/.claude/extensions/config/hacienda-juridique");
+    }
+  });
+
+  it("orders every PI skill with the canonical Hacienda V2 skill skeleton", () => {
+    const orderedHeadings = [
+      "## Examples",
+      "## Chargement du profil",
+      "## Intake",
+      "## Gate non-juriste",
+      "## Mode Anno Desktop Optionnel",
+      "## Outils MCP à privilégier",
+      "## Emplacement des sorties",
+      "## Sortie"
+    ];
+
+    for (const file of collectSkillFiles(pluginRoot)) {
+      const content = readFileSync(file, "utf8");
+      const presentHeadings = orderedHeadings.filter((heading) => content.includes(heading));
+      const headingIndexes = presentHeadings.map((heading) => content.indexOf(heading));
+
+      for (let index = 1; index < headingIndexes.length; index += 1) {
+        expect(
+          headingIndexes[index],
+          `${file}: ${presentHeadings[index]} should appear after ${presentHeadings[index - 1]}`
+        ).toBeGreaterThan(headingIndexes[index - 1]);
+      }
+    }
+  });
+
   it("documents every PI skill as an invokable README command", () => {
     const readme = readFileSync(resolve(pluginRoot, "README.md"), "utf8");
     const skillFiles = collectSkillFiles(pluginRoot);

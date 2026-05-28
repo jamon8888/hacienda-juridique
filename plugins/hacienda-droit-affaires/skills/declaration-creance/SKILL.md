@@ -5,12 +5,13 @@ description: >
   procédure collective (sauvegarde, redressement, liquidation). Calcule
   automatiquement la date de forclusion (2 mois post-publication BODACC,
   4 mois si créancier hors UE/EEE). Lookup BODACC via
-  `BodaccClient.searchProcedures(siren)` de `@hacienda/core` pour récupérer
+  `bodacc_procedures` de `@hacienda/core` pour récupérer
   type de procédure, date jugement, date publication et mandataire désigné
-  (extraction depuis `raw`, fallback `[a verifier]` si parsing échoue).
+  (extraction depuis `raw`, fallback `[à vérifier]` si parsing échoue).
   Format conforme aux usages mandataire judiciaire. Brouillon, validation
   avocat/mandataire obligatoire.
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[SIREN débiteur, créance, jugement, publication BODACC]"
 authors: ["Hacienda"]
 tags: [procedures-collectives, declaration-creance, forclusion, bodacc, l622-24]
 ---
@@ -28,12 +29,12 @@ tags: [procedures-collectives, declaration-creance, forclusion, bodacc, l622-24]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:declaration-creance --siren=123456789 --montant=85000 --nature=facture</user>
+<user>/h-droit-affaires:declaration-creance --siren=123456789 --montant=85000 --nature=facture</user>
 <response>
 1. Pré-flight `check-pii` (montants nominatifs + SIREN → seuil B fréquent).
-2. Lookup BODACC via `BodaccClient.searchProcedures(siren)`.
+2. Lookup BODACC via `bodacc_procedures`.
    → RJ ouvert 15 mars 2026, publication BODACC 22 mars 2026 `[BODACC]`.
-   → Mandataire extrait de `raw` : Maître X (cabinet Y) `[BODACC]` — ou `[a verifier]` si parsing échoue.
+   → Mandataire extrait de `raw` : Maître X (cabinet Y) `[BODACC]` — ou `[à vérifier]` si parsing échoue.
 3. Calcul forclusion : 22 mars + 2 mois = 22 mai 2026 → 4 jours restants → 🔴 URGENT.
 4. Rédaction déclaration projet (template mandataire) + récapitulatif + pièces à joindre.
 5. Note du relecteur : forclusion serrée, envoi LRAR sous 24-48h recommandé.
@@ -41,7 +42,7 @@ tags: [procedures-collectives, declaration-creance, forclusion, bodacc, l622-24]
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:declaration-creance --siren=987654321 --montant=12000 --nature=loyer-impayes</user>
+<user>/h-droit-affaires:declaration-creance --siren=987654321 --montant=12000 --nature=loyer-impayes</user>
 <response>
 Lookup BODACC : LJ publiée 1er février 2026 `[BODACC]`.
 Forclusion : 1er février + 2 mois = 1er avril 2026.
@@ -56,12 +57,12 @@ Veux-tu que je prépare la trame de la requête en relevé ? (validation humaine
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:declaration-creance --siren=456789123 --montant=240000 --nature=prestation --etranger=true</user>
+<user>/h-droit-affaires:declaration-creance --siren=456789123 --montant=240000 --nature=prestation --etranger=true</user>
 <response>
 Créancier hors UE/EEE → délai 4 mois.
 BODACC : sauvegarde publiée 10 avril 2026 `[BODACC]`.
 Forclusion : 10 avril + 4 mois = 10 août 2026 → 84 jours restants → 🟢.
-Mandataire extrait : `[a verifier]` (champ non parsable dans `raw` — vérifier sur jugement d'ouverture publié BODACC).
+Mandataire extrait : `[à vérifier]` (champ non parsable dans `raw` — vérifier sur jugement d'ouverture publié BODACC).
 Montant > seuil approbateur 100 k€ → escalade recommandée.
 </response>
 </example>
@@ -77,7 +78,7 @@ Montant > seuil approbateur 100 k€ → escalade recommandée.
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 > - **Qualité signataire** — service contentieux, DAF, dirigeant habilité
 
-Si le bloc est `[A CONFIGURER]` : stopper et demander `/hacienda-droit-affaires:entretien-demarrage`. Sans seuil approbateur ni qualité signataire, la chaîne de validation interne n'est pas opposable.
+Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-droit-affaires:entretien-demarrage`. Sans seuil approbateur ni qualité signataire, la chaîne de validation interne n'est pas opposable.
 
 ---
 
@@ -95,20 +96,59 @@ Si `--siren` ou `--montant` absent : stopper et demander explicitement. Pas de v
 
 ---
 
+## Gate non-juriste
+
+- [ ] `--siren` et `--montant` fournis (refus du défaut)
+- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
+- [ ] Profil cabinet bloc procédures collectives lu, seuil approbateur et qualité signataire identifiés
+- [ ] Lookup `bodacc_procedures` exécuté ; type procédure, date publication, mandataire renseignés ou flagués `[à vérifier]`
+- [ ] Calcul forclusion vérifié (jours restants cohérents avec date du jour, délai 2 ou 4 mois selon `--etranger`)
+- [ ] Mandataire extrait depuis `raw` ou flagué `[à vérifier]` — pas de valeur fabriquée
+- [ ] Montant total cohérent avec composantes (principal + intérêts et frais L.622-28 + TVA)
+- [ ] Sortie comprend : statut forclusion + récap procédure + projet déclaration + pièces + note du relecteur + question hors checklist + arbre 5 options
+
+---
+
+## Mode Anno Desktop Optionnel
+
+Pour reconstruire une chronologie de factures, mises en demeure, jugements ou échanges, appeler `anno_health`, puis `detect`. Utiliser `legal_timeline`, `legal_prescription_check`, `legal_validate_field` et `legal_search` sur corpus déjà ingéré. Les annonces BODACC restent vérifiées via `bodacc_procedures` ou `bodacc_by_siren`.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+```
+outputs/declaration-creance-<siren>-<date-publication-bodacc>.md
+```
+
+Format date : `YYYY-MM-DD`. Si la déclaration porte sur plusieurs créances pour le même SIREN, suffixer `-<nature>` (ex. `-loyers`, `-prestations`).
+
+---
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
 ## Étape 1 — Pré-flight et lookup BODACC
 
 1. Invoquer `check-pii`. Probabilité élevée seuil B (SIREN + montants + dénominations). Respecter la décision utilisateur.
 2. Lire profil cabinet (bloc procédures collectives) et `~/.config/Hacienda/profil-cabinet.md`.
-3. Lookup procédure : `BodaccClient.searchProcedures(siren)` (wrapper MCP : `bodaccProceduresTool`). Filtre côté API : `familleavis = "procedures-collectives"`, tri `dateparution DESC`.
+3. Lookup procédure : `bodacc_procedures` (wrapper MCP : `bodacc_procedures`). Filtre côté API : `familleavis = "procedures-collectives"`, tri `dateparution DESC`.
 4. Identifier sur l'annonce la plus récente d'ouverture :
    - **Type de procédure** — déduit de `typeavis` (sauvegarde / redressement judiciaire / liquidation judiciaire)
    - **Date publication BODACC** — `dateparution` (point de départ du délai L.622-24)
-   - **Date jugement d'ouverture** — extraite de `raw` (souvent dans le texte de l'annonce) ; fallback `[a verifier]` si parsing échoue
-   - **Mandataire désigné (nom + adresse)** — n'est **pas** un champ direct de `BodaccAnnonce`. Tenter extraction depuis `raw` (réponse BODACC OpenDataSoft non parsée par `parseAnnonce`). Si parsing échoue : marquer `[a verifier]` en sortie et recommander vérification manuelle sur l'annonce BODACC publiée.
-   - **Tribunal et numéro RG** — `ville` + extraction depuis `raw` ; fallback `[a verifier]`.
+   - **Date jugement d'ouverture** — extraite de `raw` (souvent dans le texte de l'annonce) ; fallback `[à vérifier]` si parsing échoue
+   - **Mandataire désigné (nom + adresse)** — n'est **pas** un champ direct de `BodaccAnnonce`. Tenter extraction depuis `raw` (réponse BODACC OpenDataSoft non parsée par `parseAnnonce`). Si parsing échoue : marquer `[à vérifier]` en sortie et recommander vérification manuelle sur l'annonce BODACC publiée.
+   - **Tribunal et numéro RG** — `ville` + extraction depuis `raw` ; fallback `[à vérifier]`.
 5. Si aucune procédure trouvée pour ce SIREN : stopper et demander confirmation (le débiteur est-il bien en procédure ? Le SIREN est-il exact ?).
 
-Tags de provenance : `[BODACC]` pour tout champ extrait, `[a verifier]` pour tout champ non parsable.
+Tags de provenance : `[BODACC]` pour tout champ extrait, `[à vérifier]` pour tout champ non parsable.
 
 ---
 
@@ -149,7 +189,7 @@ Cas particuliers à signaler (sans calculer automatiquement) :
 | TVA | Si applicable selon nature créance et régime | calcul |
 | **Total déclaré** | Somme des composantes | — |
 
-Présenter un tableau détaillé : Nature / Base / Taux ou règle / Montant arrêté au [date jugement] / Total. Si la date du jugement est `[a verifier]`, présenter le calcul à la date publication BODACC et flaguer l'écart possible en note du relecteur.
+Présenter un tableau détaillé : Nature / Base / Taux ou règle / Montant arrêté au [date jugement] / Total. Si la date du jugement est `[à vérifier]`, présenter le calcul à la date publication BODACC et flaguer l'écart possible en note du relecteur.
 
 ---
 
@@ -173,7 +213,7 @@ Template :
 ```
 [En-tête créancier : dénomination, forme sociale, SIREN, siège, représentant légal, coordonnées]
 
-À : [Mandataire judiciaire — nom, cabinet, adresse — extrait BODACC ou [a verifier]]
+À : [Mandataire judiciaire — nom, cabinet, adresse — extrait BODACC ou [à vérifier]]
 
 Référence procédure :
 - Tribunal de commerce de [ville]
@@ -222,7 +262,7 @@ Appel automatique sur la sortie complète. Articles à vérifier : L.622-21, L.6
 > - **Lecture :** annonce BODACC d'ouverture + {N} justificatifs fournis
 > - **Signalé pour ton jugement :** {N} éléments marqués [review] (privilège, qualification créance non échue, conversion devise) | aucun
 > - **Fraîcheur :** vérification jurisprudence post-{date} sur L.622-24 / L.622-26 — {N} arrêts intégrés [Judilibre] | recherche impossible, vérifier manuellement Cass. com. récente
-> - **Avant de t'appuyer dessus :** {action concrète — ex. confirmer l'extraction mandataire sur le PDF BODACC source si flagué [a verifier]} | « prêt pour envoi LRAR »
+> - **Avant de t'appuyer dessus :** {action concrète — ex. confirmer l'extraction mandataire sur le PDF BODACC source si flagué [à vérifier]} | « prêt pour envoi LRAR »
 
 # 🟢/🟠/🔴/🔴🔴 Statut forclusion
 - Date publication BODACC : [date]
@@ -233,10 +273,10 @@ Appel automatique sur la sortie complète. Articles à vérifier : L.622-21, L.6
 
 # Récapitulatif procédure
 - Tribunal : [TC X]
-- N° RG : [...] [BODACC] ou [a verifier]
+- N° RG : [...] [BODACC] ou [à vérifier]
 - Type : [sauvegarde / RJ / LJ]
 - Date jugement d'ouverture : [date]
-- Mandataire désigné : [nom + adresse] [BODACC] ou [a verifier] (extraction `raw` BODACC échouée — vérifier sur PDF publication)
+- Mandataire désigné : [nom + adresse] [BODACC] ou [à vérifier] (extraction `raw` BODACC échouée — vérifier sur PDF publication)
 
 # Déclaration de créance — projet
 [texte complet du template Étape 5]
@@ -269,29 +309,6 @@ La déclaration de créance est un livrable externe au sens de CLAUDE.md plugin 
 - Conserver la note du relecteur dans le message accompagnement, **pas dans le courrier au mandataire**.
 - Couper toute narration de skill, renvois inter-commandes, mentions « j'ai lu les fichiers… ». Le courrier au mandataire doit se lire comme s'il avait été rédigé par le service contentieux.
 - Tags `[BODACC]` / `[Légifrance]` : conserver en ligne dans la version interne, **retirer** dans la version envoyée au mandataire (consolidés en pied de courrier si nécessaire).
-
----
-
-## Emplacement des sorties
-
-```
-outputs/declaration-creance-<siren>-<date-publication-bodacc>.md
-```
-
-Format date : `YYYY-MM-DD`. Si la déclaration porte sur plusieurs créances pour le même SIREN, suffixer `-<nature>` (ex. `-loyers`, `-prestations`).
-
----
-
-## Gate non-juriste
-
-- [ ] `--siren` et `--montant` fournis (refus du défaut)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
-- [ ] Profil cabinet bloc procédures collectives lu, seuil approbateur et qualité signataire identifiés
-- [ ] Lookup `BodaccClient.searchProcedures(siren)` exécuté ; type procédure, date publication, mandataire renseignés ou flagués `[a verifier]`
-- [ ] Calcul forclusion vérifié (jours restants cohérents avec date du jour, délai 2 ou 4 mois selon `--etranger`)
-- [ ] Mandataire extrait depuis `raw` ou flagué `[a verifier]` — pas de valeur fabriquée
-- [ ] Montant total cohérent avec composantes (principal + intérêts et frais L.622-28 + TVA)
-- [ ] Sortie comprend : statut forclusion + récap procédure + projet déclaration + pièces + note du relecteur + question hors checklist + arbre 5 options
 
 ---
 

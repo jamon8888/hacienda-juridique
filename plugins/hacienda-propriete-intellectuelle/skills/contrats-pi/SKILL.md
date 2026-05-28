@@ -29,6 +29,96 @@ tags: [contrats, licence-brevet, coexistence, NDA, R&D, franchise, transfert-tec
 Référence de travail utile :
 `references/contrats-pi-families-and-routing.md`
 
+## Examples
+
+<example>
+<user>/h-pi:contrats-pi [draft|review|negotiate] [famille contrat | texte | objectifs | parties]</user>
+<response>
+Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+</response>
+</example>
+
+## Chargement du profil
+
+Avant tout travail substantiel, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+
+Avant tout, lire :
+
+1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
+2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+
+Rattacher ensuite :
+
+- posture contractuelle par défaut ;
+- juridiction par défaut ;
+- modèles internes si disponibles ;
+- approbateur contrats PI ;
+- préférences de négo et seuils d'escalade si documentés.
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, garder les
+marqueurs de brouillon visibles :
+
+- `[PROVISOIRE]`
+- `[à vérifier]`
+- `[À COMPLÉTER]`
+
+## Intake
+
+Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+
+## Gate non-juriste
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+
+## Mode Anno Desktop Optionnel
+
+Si Anno Desktop est actif, l'utiliser comme aide locale de lecture et de
+mémoire de dossier, jamais comme autorité juridique. Appeler `anno_health`
+avant tout outil Anno ; si le moteur est indisponible, poursuivre en mode
+Hacienda.
+
+Règles spécifiques :
+
+- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
+  pièce contractuelle client ;
+- utiliser `legal_extract_contract` pour extraire structure, clauses,
+  définitions et annexes d'un contrat fourni ou déjà ingéré ;
+- utiliser `legal_risk_review` pour préparer une matrice de risques
+  contractuels, sans la présenter comme avis final ;
+- utiliser `legal_search` seulement sur le corpus déjà ingéré et autorisé ;
+- utiliser `legal_rehydrate_citation` uniquement pour une citation locale
+  destinée à l'utilisateur autorisé.
+
+Tout passage Anno est une source interne Anno, jamais comme source primaire.
+Les textes, registres et références opposables restent contrôlés via
+`hacienda-sources-officielles` et les outils PI Hacienda.
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Marques, BOPI et EUIPO : `inpi_search_marques`, `inpi_marque_details`, `inpi_marques_publications_recentes`, `euipo_tmview_search`, `bopi_dernieres_publications`.
+- Brevets et Espacenet : `inpi_search_brevets`, `inpi_brevet_details`, `espacenet_search`, `espacenet_brevet_details`.
+- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+## Emplacement des sorties
+
+Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+
+```text
+outputs/contrat-pi-<contract-family>-<parties-slug>-YYYY-MM-DD.md
+```
+
+## Sortie
+
+Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
+
 ## Rôle
 
 Ce skill sert quand il faut traiter un **contrat PI centré sur la PI elle-même** :
@@ -67,51 +157,6 @@ SOW, d'un contrat commercial, d'un procurement ou d'un contrat de travail.
 - la PI est l'objet principal du deal ;
 - la sortie attendue est une architecture contractuelle complète ou une revue
   complète du document.
-
-## Chargement du profil
-
-Avant tout, lire :
-
-1. `~/.claude/extensions/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/extensions/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
-
-Rattacher ensuite :
-
-- posture contractuelle par défaut ;
-- juridiction par défaut ;
-- modèles internes si disponibles ;
-- approbateur contrats PI ;
-- préférences de négo et seuils d'escalade si documentés.
-
-Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, garder les
-marqueurs de brouillon visibles :
-
-- `[PROVISOIRE]`
-- `[à vérifier]`
-- `[À COMPLÉTER]`
-
-## Mode Anno Desktop Optionnel
-
-Si Anno Desktop est actif, l'utiliser comme aide locale de lecture et de
-mémoire de dossier, jamais comme autorité juridique. Appeler `anno_health`
-avant tout outil Anno ; si le moteur est indisponible, poursuivre en mode
-Hacienda.
-
-Règles spécifiques :
-
-- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
-  pièce contractuelle client ;
-- utiliser `legal_extract_contract` pour extraire structure, clauses,
-  définitions et annexes d'un contrat fourni ou déjà ingéré ;
-- utiliser `legal_risk_review` pour préparer une matrice de risques
-  contractuels, sans la présenter comme avis final ;
-- utiliser `legal_search` seulement sur le corpus déjà ingéré et autorisé ;
-- utiliser `legal_rehydrate_citation` uniquement pour une citation locale
-  destinée à l'utilisateur autorisé.
-
-Tout passage Anno est une source interne Anno, jamais comme source primaire.
-Les textes, registres et références opposables restent contrôlés via
-`hacienda-sources-officielles` et les outils PI Hacienda.
 
 ## Inputs minimaux
 
@@ -431,12 +476,6 @@ Dans ces cas :
 - [ ] Formalités d'opposabilité identifiées
 - [ ] Sort des droits post-contrat traite
 - [ ] Validation humaine requise visible
-
-## Emplacement des sorties
-
-```text
-outputs/contrat-pi-<contract-family>-<parties-slug>-YYYY-MM-DD.md
-```
 
 ## Ce skill ne fait pas
 

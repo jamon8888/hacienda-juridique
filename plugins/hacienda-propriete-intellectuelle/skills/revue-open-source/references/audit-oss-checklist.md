@@ -10,7 +10,7 @@ validation humaine finale.
   repository documente.
 - Distinguer composants de build, developpement, runtime, distribution,
   conteneurs, assets et forks.
-- Taguer tout element absent, ambigu ou non recoupe comme `[a verifier]`, puis
+- Taguer tout element absent, ambigu ou non recoupe comme `[à vérifier]`, puis
   lui attribuer le statut `non identifie` si le composant, sa version ou sa
   licence ne peuvent pas etre relies de facon fiable.
 

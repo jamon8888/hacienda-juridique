@@ -59,7 +59,7 @@ Bloquer si :
 En `partial`, conserver :
 
 - `[PROVISOIRE]`
-- `[a verifier]`
+- `[à vérifier]`
 - `[A COMPLETER]`
 
 ## Source coverage stack

@@ -27,7 +27,7 @@ Cette grille aide a construire un dossier probatoire adapte au type de droit ou 
 - auteur reel different du signataire commercial ;
 - version diffusee differente de la version archivee ;
 - cession absente ou incomplete ;
-- date de premiere diffusion `[a verifier]`.
+- date de premiere diffusion `[à vérifier]`.
 
 ## Logiciel
 
@@ -80,7 +80,7 @@ Cette grille aide a construire un dossier probatoire adapte au type de droit ou 
 - usage localise mais perimetre commercial incertain ;
 - signe variable selon supports ;
 - dates de mise en ligne seulement supposees ;
-- lien entre usage et titulaire `[a verifier]`.
+- lien entre usage et titulaire `[à vérifier]`.
 
 ## Opposition / nullite
 

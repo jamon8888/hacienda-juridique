@@ -7,8 +7,8 @@ skill `financement-startup` (modes `--comparer` et `--review`).
 
 > **Source primaire :** Légifrance (Code de commerce, Code général des impôts).
 > Toute citation issue de cette référence doit être taguée `[Légifrance]` si
-> vérifiée en session, sinon `[a verifier]`. Les articles **absents de
-> `articles-c-civ-c-com-index.md`** sont tagués `[a verifier]` dans la sortie.
+> vérifiée en session, sinon `[à vérifier]`. Les articles **absents de
+> `articles-c-civ-c-com-index.md`** sont tagués `[à vérifier]` dans la sortie.
 
 > **Frontière de périmètre — INSTRUMENTS vs CLAUSES DE PACTE.** Cette référence
 > et le skill `financement-startup` traitent les **instruments** : leur nature,
@@ -24,7 +24,7 @@ skill `financement-startup` (modes `--comparer` et `--review`).
 > régime des intérêts d'OC, droits d'enregistrement). Cette référence
 > **signale** la dimension fiscale et **renvoie** à un conseil fiscal /
 > expert-comptable. Elle ne la traite **jamais** au fond. En particulier, le
-> **régime fiscal de faveur du BSPCE (art. 163 bis G CGI [a verifier])** est
+> **régime fiscal de faveur du BSPCE (art. 163 bis G CGI [à vérifier])** est
 > mentionné comme un point à faire trancher par un fiscaliste, non analysé ici.
 
 ---
@@ -38,12 +38,12 @@ skill `financement-startup` (modes `--comparer` et `--review`).
 | Moment de la dilution | Différée — à l'exercice du bon | Différée — à l'exercice du bon | Différée — à la conversion (ou jamais, si remboursement) | Immédiate — à la souscription |
 | Apport de trésorerie immédiat | Non (prix d'exercice payé plus tard) | Faible (prix du bon, souvent symbolique) puis prix d'exercice différé | Oui — la société reçoit les fonds dès l'émission | Oui — fonds reçus à la libération |
 | Finalité dominante | Intéressement et rétention des équipes | Intéressement de tiers / rémunération d'un apport non capitalistique | Financement-relais, report de la valorisation | Financement d'un tour structurant (seed, série A…) |
-| Dimension fiscale | Régime de faveur art. 163 bis G CGI [a verifier] — **renvoi fiscaliste** | Régime du gain selon la qualité du souscripteur — **renvoi fiscaliste** | Régime des intérêts et de la conversion — **renvoi fiscaliste** | Plus-values, droits d'enregistrement — **renvoi fiscaliste** |
+| Dimension fiscale | Régime de faveur art. 163 bis G CGI [à vérifier] — **renvoi fiscaliste** | Régime du gain selon la qualité du souscripteur — **renvoi fiscaliste** | Régime des intérêts et de la conversion — **renvoi fiscaliste** | Plus-values, droits d'enregistrement — **renvoi fiscaliste** |
 | Skill compétent pour les clauses de pacte associées | `pacte-associes-review` | `pacte-associes-review` | `pacte-associes-review` | `pacte-associes-review` |
 
 Les tags de provenance figurent **sans backticks** dans les cellules. Tout
 article cité doit être confronté à `articles-c-civ-c-com-index.md` : un article
-absent ou en `[a compléter]` est tagué `[a verifier]` dans la sortie.
+absent ou en `[a compléter]` est tagué `[à vérifier]` dans la sortie.
 
 ---
 
@@ -56,7 +56,7 @@ titres de la société** (actions) à un **prix d'exercice fixé lors de
 l'attribution**. Le gain de l'attributaire tient à l'écart entre la valeur du
 titre au jour de l'exercice (ou de la revente) et ce prix d'exercice figé. Le
 BSPCE est un dispositif **propre au droit français**, défini par le Code général
-des impôts (art. 163 bis G CGI [a verifier]).
+des impôts (art. 163 bis G CGI [à vérifier]).
 
 ### Bénéficiaires
 
@@ -66,7 +66,7 @@ Le BSPCE est, par la loi, **réservé** : il ne peut être attribué qu'aux
 minoritaire de SARL) de **sociétés éligibles**. Les conditions d'éligibilité de
 la société (ancienneté, régime d'imposition, détention du capital, caractère non
 coté ou capitalisation plafonnée) sont posées par l'art. 163 bis G CGI
-[a verifier] et **évoluent** — elles doivent être vérifiées sur le texte en
+[à vérifier] et **évoluent** — elles doivent être vérifiées sur le texte en
 vigueur. Un **tiers non salarié et non dirigeant** (investisseur, advisor
 externe) **ne peut pas** recevoir de BSPCE : pour intéresser un tiers, l'outil
 est le **BSA** (voir §2).
@@ -100,7 +100,7 @@ nombre de titres potentiellement créés s'apprécie en **capital pleinement dil
 ### Points d'attention juridiques
 
 - **Éligibilité de la société et du bénéficiaire** : conditions légales strictes
-  (art. 163 bis G CGI [a verifier]) ; une attribution à un bénéficiaire non
+  (art. 163 bis G CGI [à vérifier]) ; une attribution à un bénéficiaire non
   éligible est inopérante. Vérifier l'éligibilité **avant** d'émettre.
 - **Compétence et formalisme** : décision collective d'émission, rapport(s) le
   cas échéant, fixation du prix d'exercice, délégation éventuelle.
@@ -111,7 +111,7 @@ nombre de titres potentiellement créés s'apprécie en **capital pleinement dil
 ### Dimension fiscale — SIGNALEMENT, NON TRAITÉE
 
 > Le BSPCE bénéficie, sous conditions, d'un **régime fiscal de faveur** prévu à
-> l'**art. 163 bis G CGI [a verifier]** pour le gain réalisé par l'attributaire.
+> l'**art. 163 bis G CGI [à vérifier]** pour le gain réalisé par l'attributaire.
 > Ce régime, ses conditions et ses évolutions **relèvent d'un conseil fiscal /
 > expert-comptable** et **ne sont pas traités** par cette référence ni par le
 > skill `financement-startup`. Toute question sur la fiscalité du BSPCE (taux,
@@ -127,7 +127,7 @@ nombre de titres potentiellement créés s'apprécie en **capital pleinement dil
 Le BSA est une **valeur mobilière** donnant à son titulaire le droit de
 **souscrire une ou plusieurs actions** à un **prix fixé d'avance**, pendant une
 période déterminée. C'est une **valeur mobilière donnant accès au capital** au
-sens des art. L.228-91 et s. C.com. [a verifier]. À la différence du BSPCE, le
+sens des art. L.228-91 et s. C.com. [à vérifier]. À la différence du BSPCE, le
 BSA n'est **pas réservé** à une catégorie de bénéficiaires.
 
 ### Souscripteurs typiques
@@ -190,7 +190,7 @@ le souscripteur devient **créancier obligataire**, en principe rémunéré par 
 capital (actions) selon une **parité** et dans des conditions définies à
 l'émission. Les **OCA** (obligations convertibles en actions) sont la variété la
 plus courante. Régime des valeurs mobilières donnant accès au capital, art.
-L.228-91 et s. C.com. [a verifier].
+L.228-91 et s. C.com. [à vérifier].
 
 ### Souscripteurs typiques
 
@@ -332,11 +332,11 @@ renvoi `pacte-associes-review` pour les clauses du pacte associé à l'opératio
 
 | Article | Statut dans `articles-c-civ-c-com-index.md` | Tag à appliquer dans la sortie |
 |---|---|---|
-| L.210-2 C.com. (mentions statutaires, dont capital) | présent, LEGIARTI réel | [Légifrance] si vérifié, sinon [a verifier] |
-| L.227-9 C.com. (décisions collectives SAS) | présent, LEGIARTI réel | [Légifrance] si vérifié, sinon [a verifier] |
-| L.228-91 et s. C.com. (valeurs mobilières donnant accès au capital) | absent de l'index | [a verifier] |
-| Art. 163 bis G CGI (régime fiscal BSPCE) | hors index (Code général des impôts) | [a verifier] — et **dimension fiscale renvoyée** |
+| L.210-2 C.com. (mentions statutaires, dont capital) | présent, LEGIARTI réel | [Légifrance] si vérifié, sinon [à vérifier] |
+| L.227-9 C.com. (décisions collectives SAS) | présent, LEGIARTI réel | [Légifrance] si vérifié, sinon [à vérifier] |
+| L.228-91 et s. C.com. (valeurs mobilières donnant accès au capital) | absent de l'index | [à vérifier] |
+| Art. 163 bis G CGI (régime fiscal BSPCE) | hors index (Code général des impôts) | [à vérifier] — et **dimension fiscale renvoyée** |
 
-Tout article hors index est tagué `[a verifier]` **sans backticks** en cellule
+Tout article hors index est tagué `[à vérifier]` **sans backticks** en cellule
 de tableau. Aucune information fiscale n'est délivrée au fond, quel que soit le
 statut de l'article à l'index.

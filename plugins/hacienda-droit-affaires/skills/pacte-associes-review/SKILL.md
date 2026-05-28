@@ -7,7 +7,8 @@ description: >
   d'information et de liquidité. Triage par criticité, liste de points de
   négociation. Renvoie vers PI:contrats-pi si apports/licences PI substantiels.
   Brouillon soumis à validation humaine (avocat).
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[pacte, side, playbook ou points sensibles]"
 authors: ["Hacienda"]
 tags: [pacte-associes, societes, revue, drag-along, preemption, agrement]
 ---
@@ -25,7 +26,7 @@ tags: [pacte-associes, societes, revue, drag-along, preemption, agrement]
 > **Si le pacte porte sur des apports ou licences de propriété intellectuelle
 > substantiels** (apport d'un portefeuille de brevets, licence de marque
 > structurante, transfert de savoir-faire R&D au capital) : renvoyer vers
-> `/hacienda-propriete-intellectuelle:contrats-pi` pour le volet PI. Ce skill
+> `/h-pi:contrats-pi` pour le volet PI. Ce skill
 > couvre la vie sociale et les rapports entre associés, pas le cœur PI.
 
 ---
@@ -33,7 +34,7 @@ tags: [pacte-associes, societes, revue, drag-along, preemption, agrement]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:pacte-associes-review ./pacte-associes-startup.pdf --review --side=fondateur</user>
+<user>/h-droit-affaires:pacte-associes-review ./pacte-associes-startup.pdf --review --side=fondateur</user>
 <response>
 1. Pré-flight `check-pii` (31 identifiants, aucune catégorie sensible → sous seuil B → continue)
 2. Lecture profil cabinet (posture pacte = protecteur fondateurs, matrice d'approbateurs, politique PII)
@@ -47,21 +48,21 @@ tags: [pacte-associes, societes, revue, drag-along, preemption, agrement]
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:pacte-associes-review ./pacte-v2.pdf</user>
+<user>/h-droit-affaires:pacte-associes-review ./pacte-v2.pdf</user>
 <response>
 Identification : pacte d'associés, SAS. Détection d'une clause d'inaliénabilité de 15 ans.
 Finding 🔴 — clause d'inaliénabilité :
 - En SAS, l'inaliénabilité statutaire est plafonnée à 10 ans par l'art. L.227-13 C.com. [Légifrance]. Une durée de 15 ans excède le plafond légal : la clause statutaire est nulle, à tout le moins réductible à 10 ans [review].
-- Même stipulée dans le pacte seul, une inaliénabilité de 15 ans est très exposée : sa validité suppose une durée raisonnable et un intérêt sérieux et légitime (transposition art. 900-1 C.civ [a verifier]). 15 ans sans justification explicite est disproportionné [review].
+- Même stipulée dans le pacte seul, une inaliénabilité de 15 ans est très exposée : sa validité suppose une durée raisonnable et un intérêt sérieux et légitime (transposition art. 900-1 C.civ [à vérifier]). 15 ans sans justification explicite est disproportionné [review].
 Recommandation : ramener la durée à une valeur conforme (≤ 10 ans en SAS, idéalement 3 à 5 ans) et documenter l'intérêt légitime au préambule. Sortie complète avec liste de points et formulations alternatives selon posture.
 </response>
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:pacte-associes-review ./pacte-jv-techno.pdf</user>
+<user>/h-droit-affaires:pacte-associes-review ./pacte-jv-techno.pdf</user>
 <response>
 Détection d'une composante PI substantielle : le pacte organise l'apport au capital d'un portefeuille de brevets et une licence croisée de savoir-faire entre les associés. Renvoi taxonomie :
-"Ce pacte comporte un volet propriété intellectuelle substantiel — apport de brevets au capital et licence de savoir-faire entre associés. Le skill le mieux adapté pour ce volet est `/hacienda-propriete-intellectuelle:contrats-pi`, qui couvre les spécificités PI (évaluation des apports, périmètre de licence, inscription au RNB pour opposabilité). Souhaites-tu (a) lancer `contrats-pi` à la place pour le volet PI, (b) continuer avec `pacte-associes-review` sur les seules clauses de vie sociale (préemption, agrément, drag/tag, leaver, véto), ou (c) faire les deux en séquence ?"
+"Ce pacte comporte un volet propriété intellectuelle substantiel — apport de brevets au capital et licence de savoir-faire entre associés. Le skill le mieux adapté pour ce volet est `/h-pi:contrats-pi`, qui couvre les spécificités PI (évaluation des apports, périmètre de licence, inscription au RNB pour opposabilité). Souhaites-tu (a) lancer `contrats-pi` à la place pour le volet PI, (b) continuer avec `pacte-associes-review` sur les seules clauses de vie sociale (préemption, agrément, drag/tag, leaver, véto), ou (c) faire les deux en séquence ?"
 </response>
 </example>
 
@@ -77,7 +78,7 @@ Détection d'une composante PI substantielle : le pacte organise l'apport au cap
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/hacienda-droit-affaires:entretien-demarrage` avant toute revue
+demander `/h-droit-affaires:entretien-demarrage` avant toute revue
 substantielle. Voir aussi `~/.config/Hacienda/profil-cabinet.md` pour les
 éléments cabinet partagés cross-plugins.
 
@@ -92,75 +93,37 @@ substantielle. Voir aussi `~/.config/Hacienda/profil-cabinet.md` pour les
 
 ---
 
-## Étape 1 — Pré-flight + identification
+## Gate non-juriste
 
-1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.config/Hacienda/profil-cabinet.md`. Identifier la posture pacte (protecteur fondateurs / équilibré / protecteur investisseurs) et les formes sociales pratiquées.
-3. Identifier la **forme sociale** de la société dont les titres sont visés (SAS, SARL, SA…) et les **parties** (fondateurs, managers, investisseurs, société elle-même si signataire), leur qualité et le side de l'utilisateur. La forme sociale conditionne les fondements applicables :
-   - SAS → agrément art. L.227-14 C.com. ; inaliénabilité statutaire art. L.227-13 C.com. (plafond 10 ans) ; décisions collectives art. L.227-9 C.com.
-   - SARL → agrément légal des cessions à tiers art. L.223-14 C.com. ; décisions art. L.223-29 `[a verifier]` / L.223-30 C.com.
-   - SA / société par actions non cotée → clause d'agrément statutaire art. L.228-23 C.com., procédure art. L.228-24 C.com.
-4. **Test composante PI.** Si le pacte organise un apport au capital de droits de PI substantiels (brevets, marques, logiciels, savoir-faire R&D) ou une licence de PI structurante entre associés → renvoyer vers `/hacienda-propriete-intellectuelle:contrats-pi` pour ce volet, avec les options (a) lancer ce skill pour le volet PI, (b) limiter `pacte-associes-review` aux clauses de vie sociale, (c) les deux en séquence. Ne pas analyser le volet PI à fond ici.
-
----
-
-## Étape 2 — Analyse clause par clause
-
-Pour chaque clause de pacte identifiée (voir `references/clauses-pacte-associes-fr.md`, 11 clauses), produire une ligne de tableau :
-
-| Champ | Contenu |
-|---|---|
-| Citation | Numéro d'article du pacte + libellé court (5-15 mots) |
-| Comparaison playbook | Conforme / écart léger / écart majeur, par rapport à la posture pacte configurée |
-| Statut | 🟢 OK / 🟡 À discuter / 🟠 À négocier / 🔴 Bloquant |
-| Article applicable | art. xxx + `[tag provenance]` (voir `articles-c-civ-c-com-index.md`) |
-| Risque | 1-2 phrases concrètes pour le client |
-| Position souhaitée | Selon posture pacte (protecteur fondateurs / équilibré / protecteur investisseurs) |
-| Formulation proposée | Texte de remplacement prêt à coller |
-
-**Règles d'analyse :**
-
-- Les articles cités doivent exister dans `articles-c-civ-c-com-index.md`. Un article absent de l'index, ou présent en `[a compléter]`, est tagué `[a verifier]`. À ce jour : L.227-13, L.227-14, L.227-15, L.223-14, L.228-24, L.227-9, L.223-30, L.225-100, 1231-5, 1170, 1592 sont dans l'index avec un identifiant Légifrance réel ; L.227-1, L.228-23, 1123, 1124, 1102, 1843-4, 1844-1, 900-1, L.225-132 ne le sont pas (→ `[a verifier]`).
-- Tag de provenance placé **après** la citation, sans backticks dans les cellules de tableau.
-- Les arrêts cités sont tagués `[Judilibre]` si consultés en session ou `[connaissance modèle — à vérifier]` / `[a verifier]` sinon. Pas de fausse jurisprudence.
-- Tag inline `[review]` sur les jugements subjectifs : proportionnalité d'une non-concurrence d'associé (durée / périmètre / activités), caractère raisonnable d'une durée d'inaliénabilité borderline, caractère confiscatoire d'une décote bad leaver, qualification d'une promesse de rachat en clause léonine, risque de gestion de fait sur un véto large.
-- Respecter le plancher de sévérité cross-skill : si `check-pii` ou `verifier-citations` remonte 🔴, ne pas dégrader silencieusement.
-
-**Points de fond à ne pas manquer :**
-
-- **Inaliénabilité (clause 3).** En SAS, l'inaliénabilité statutaire est plafonnée à 10 ans (art. L.227-13 C.com.). Une durée supérieure → 🔴 (nullité ou réduction). Toute inaliénabilité, même de pacte, suppose une durée limitée et un intérêt sérieux et légitime.
-- **Non-concurrence des associés (clause 9).** L'exigence de contrepartie financière de la jurisprudence Cass. soc. 10 juil. 2002 ne s'applique **pas** à l'associé qui s'oblige en sa seule qualité d'associé : l'absence de contrepartie n'entraîne pas la nullité. La clause reste soumise au **contrôle de proportionnalité** (durée / périmètre géographique / activités). Ne pas reprocher l'absence de contrepartie ; reprocher, le cas échéant, la disproportion. Si le débiteur cumule la qualité de salarié, vérifier le risque de requalification.
-- **Agrément (clause 2).** Distinguer agrément statutaire (opposable, violation → nullité, art. L.227-15 C.com. en SAS) et agrément du pacte (effet relatif, violation → dommages-intérêts). Fondement par forme sociale : L.227-14 (SAS), L.223-14 (SARL), L.228-23 (clause statutaire en société par actions non cotée).
-- **Drag-along (clause 4).** Une clause de drag-along sans seuil de déclenchement chiffré est un défaut rédactionnel majeur → 🟠/🔴. Vérifier aussi l'égalité des conditions et le périmètre des garanties imposées au minoritaire.
+- [ ] Forme sociale correctement identifiée (conditionne les fondements d'agrément et d'inaliénabilité)
+- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
+- [ ] Profil cabinet lu et posture pacte applicable identifiée
+- [ ] Renvoi PI effectué si le pacte comporte un volet PI substantiel (pas de revue PI forcée)
+- [ ] 11 clauses passées en revue contre `clauses-pacte-associes-fr.md`
+- [ ] Distinction non-concurrence d'associé / non-concurrence salariée correctement appliquée (pas de reproche sur l'absence de contrepartie)
+- [ ] Liste de points triée par criticité décroissante, sans doublon, sans remplissage
+- [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + liste de points + recommandation + question hors checklist + arbre de décision 5 options + footer A si applicable
 
 ---
 
-## Étape 3 — Liste de points
+## Outils MCP à privilégier
 
-Appel interne au skill `liste-de-points` pour produire un tableau consolidé, trié par criticité décroissante (🔴 → 🟠 → 🟡 → 🟢) :
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
 
 ```
-| # | Clause | Statut | Risque | Position souhaitée | Formulation proposée |
-|---|---|---|---|---|---|
+outputs/revue-pacte-associes-<parties-slug>-YYYY-MM-DD.md
 ```
 
-La liste de points est l'artefact central transmis à la contrepartie ou à l'équipe de négociation. Une ligne par clause. Pas de doublon. Tri stable par numéro de clause à criticité égale.
-
-Si le pacte n'a aucun écart par rapport au playbook : retourner une liste vide explicite — `Aucun point de vigilance identifié contre le playbook configuré. Lecture intégrale sans alerte.` — et ne pas fabriquer de findings de remplissage.
-
----
-
-## Étape 4 — Post-flight
-
-Appel automatique de `verifier-citations` sur la sortie complète, mode défaut (`articles` + `jurisprudence`). Le skill :
-
-- Extrait toutes les citations (art. NNN C.civ, L.NNN-N C.com., arrêts Cass.).
-- Vérifie l'existence et la version en vigueur via Légifrance / Judilibre.
-- Annote la sortie : `[Légifrance ✓]`, `[Judilibre ✓]`, `[abrogé]`, ou `[a verifier]` en mode dégradé.
-
-Si une citation `[abrogé]` est remontée → ligne dédiée dans la note du relecteur en 🔴 avec le remplacement applicable.
-
-Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur (« `verifier-citations` non exécuté — N citations à valider manuellement contre Légifrance »).
+Si la liste de points dépasse 10 lignes ou contient des dates / montants
+sérialisables, générer en parallèle un dashboard HTML autonome via
+`renderDashboard()` de `@hacienda/core` (voir `references/dashboard-template.md`).
 
 ---
 
@@ -222,29 +185,75 @@ Si l'utilisateur précise que la sortie est destinée à une contrepartie (co-as
 
 ---
 
-## Emplacement des sorties
+## Étape 1 — Pré-flight + identification
 
-```
-outputs/revue-pacte-associes-<parties-slug>-YYYY-MM-DD.md
-```
-
-Si la liste de points dépasse 10 lignes ou contient des dates / montants
-sérialisables, générer en parallèle un dashboard HTML autonome via
-`renderDashboard()` de `@hacienda/core` (voir `references/dashboard-template.md`).
+1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur.
+2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.config/Hacienda/profil-cabinet.md`. Identifier la posture pacte (protecteur fondateurs / équilibré / protecteur investisseurs) et les formes sociales pratiquées.
+3. Identifier la **forme sociale** de la société dont les titres sont visés (SAS, SARL, SA…) et les **parties** (fondateurs, managers, investisseurs, société elle-même si signataire), leur qualité et le side de l'utilisateur. La forme sociale conditionne les fondements applicables :
+   - SAS → agrément art. L.227-14 C.com. ; inaliénabilité statutaire art. L.227-13 C.com. (plafond 10 ans) ; décisions collectives art. L.227-9 C.com.
+   - SARL → agrément légal des cessions à tiers art. L.223-14 C.com. ; décisions art. L.223-29 `[à vérifier]` / L.223-30 C.com.
+   - SA / société par actions non cotée → clause d'agrément statutaire art. L.228-23 C.com., procédure art. L.228-24 C.com.
+4. **Test composante PI.** Si le pacte organise un apport au capital de droits de PI substantiels (brevets, marques, logiciels, savoir-faire R&D) ou une licence de PI structurante entre associés → renvoyer vers `/h-pi:contrats-pi` pour ce volet, avec les options (a) lancer ce skill pour le volet PI, (b) limiter `pacte-associes-review` aux clauses de vie sociale, (c) les deux en séquence. Ne pas analyser le volet PI à fond ici.
 
 ---
 
-## Gate non-juriste
+## Étape 2 — Analyse clause par clause
 
-- [ ] Forme sociale correctement identifiée (conditionne les fondements d'agrément et d'inaliénabilité)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
-- [ ] Profil cabinet lu et posture pacte applicable identifiée
-- [ ] Renvoi PI effectué si le pacte comporte un volet PI substantiel (pas de revue PI forcée)
-- [ ] 11 clauses passées en revue contre `clauses-pacte-associes-fr.md`
-- [ ] Distinction non-concurrence d'associé / non-concurrence salariée correctement appliquée (pas de reproche sur l'absence de contrepartie)
-- [ ] Liste de points triée par criticité décroissante, sans doublon, sans remplissage
-- [ ] Citations vérifiées via `verifier-citations` ou taguées `[a verifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + liste de points + recommandation + question hors checklist + arbre de décision 5 options + footer A si applicable
+Pour chaque clause de pacte identifiée (voir `references/clauses-pacte-associes-fr.md`, 11 clauses), produire une ligne de tableau :
+
+| Champ | Contenu |
+|---|---|
+| Citation | Numéro d'article du pacte + libellé court (5-15 mots) |
+| Comparaison playbook | Conforme / écart léger / écart majeur, par rapport à la posture pacte configurée |
+| Statut | 🟢 OK / 🟡 À discuter / 🟠 À négocier / 🔴 Bloquant |
+| Article applicable | art. xxx + `[tag provenance]` (voir `articles-c-civ-c-com-index.md`) |
+| Risque | 1-2 phrases concrètes pour le client |
+| Position souhaitée | Selon posture pacte (protecteur fondateurs / équilibré / protecteur investisseurs) |
+| Formulation proposée | Texte de remplacement prêt à coller |
+
+**Règles d'analyse :**
+
+- Les articles cités doivent exister dans `articles-c-civ-c-com-index.md`. Un article absent de l'index, ou présent en `[a compléter]`, est tagué `[à vérifier]`. À ce jour : L.227-13, L.227-14, L.227-15, L.223-14, L.228-24, L.227-9, L.223-30, L.225-100, 1231-5, 1170, 1592 sont dans l'index avec un identifiant Légifrance réel ; L.227-1, L.228-23, 1123, 1124, 1102, 1843-4, 1844-1, 900-1, L.225-132 ne le sont pas (→ `[à vérifier]`).
+- Tag de provenance placé **après** la citation, sans backticks dans les cellules de tableau.
+- Les arrêts cités sont tagués `[Judilibre]` si consultés en session ou `[connaissance modèle — à vérifier]` / `[à vérifier]` sinon. Pas de fausse jurisprudence.
+- Tag inline `[review]` sur les jugements subjectifs : proportionnalité d'une non-concurrence d'associé (durée / périmètre / activités), caractère raisonnable d'une durée d'inaliénabilité borderline, caractère confiscatoire d'une décote bad leaver, qualification d'une promesse de rachat en clause léonine, risque de gestion de fait sur un véto large.
+- Respecter le plancher de sévérité cross-skill : si `check-pii` ou `verifier-citations` remonte 🔴, ne pas dégrader silencieusement.
+
+**Points de fond à ne pas manquer :**
+
+- **Inaliénabilité (clause 3).** En SAS, l'inaliénabilité statutaire est plafonnée à 10 ans (art. L.227-13 C.com.). Une durée supérieure → 🔴 (nullité ou réduction). Toute inaliénabilité, même de pacte, suppose une durée limitée et un intérêt sérieux et légitime.
+- **Non-concurrence des associés (clause 9).** L'exigence de contrepartie financière de la jurisprudence Cass. soc. 10 juil. 2002 ne s'applique **pas** à l'associé qui s'oblige en sa seule qualité d'associé : l'absence de contrepartie n'entraîne pas la nullité. La clause reste soumise au **contrôle de proportionnalité** (durée / périmètre géographique / activités). Ne pas reprocher l'absence de contrepartie ; reprocher, le cas échéant, la disproportion. Si le débiteur cumule la qualité de salarié, vérifier le risque de requalification.
+- **Agrément (clause 2).** Distinguer agrément statutaire (opposable, violation → nullité, art. L.227-15 C.com. en SAS) et agrément du pacte (effet relatif, violation → dommages-intérêts). Fondement par forme sociale : L.227-14 (SAS), L.223-14 (SARL), L.228-23 (clause statutaire en société par actions non cotée).
+- **Drag-along (clause 4).** Une clause de drag-along sans seuil de déclenchement chiffré est un défaut rédactionnel majeur → 🟠/🔴. Vérifier aussi l'égalité des conditions et le périmètre des garanties imposées au minoritaire.
+
+---
+
+## Étape 3 — Liste de points
+
+Appel interne au skill `liste-de-points` pour produire un tableau consolidé, trié par criticité décroissante (🔴 → 🟠 → 🟡 → 🟢) :
+
+```
+| # | Clause | Statut | Risque | Position souhaitée | Formulation proposée |
+|---|---|---|---|---|---|
+```
+
+La liste de points est l'artefact central transmis à la contrepartie ou à l'équipe de négociation. Une ligne par clause. Pas de doublon. Tri stable par numéro de clause à criticité égale.
+
+Si le pacte n'a aucun écart par rapport au playbook : retourner une liste vide explicite — `Aucun point de vigilance identifié contre le playbook configuré. Lecture intégrale sans alerte.` — et ne pas fabriquer de findings de remplissage.
+
+---
+
+## Étape 4 — Post-flight
+
+Appel automatique de `verifier-citations` sur la sortie complète, mode défaut (`articles` + `jurisprudence`). Le skill :
+
+- Extrait toutes les citations (art. NNN C.civ, L.NNN-N C.com., arrêts Cass.).
+- Vérifie l'existence et la version en vigueur via Légifrance / Judilibre.
+- Annote la sortie : `[Légifrance ✓]`, `[Judilibre ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
+
+Si une citation `[abrogé]` est remontée → ligne dédiée dans la note du relecteur en 🔴 avec le remplacement applicable.
+
+Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur (« `verifier-citations` non exécuté — N citations à valider manuellement contre Légifrance »).
 
 ---
 

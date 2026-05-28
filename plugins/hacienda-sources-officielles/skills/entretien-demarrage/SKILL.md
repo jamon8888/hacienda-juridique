@@ -2,9 +2,19 @@
 name: entretien-demarrage
 description: Configure le profil de pratique Hacienda pour ce plugin.
 argument-hint: "[optionnel: --reconfigurer]"
+version: "2.0.0"
 ---
 
 # Entretien De Démarrage
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Sources Officielles` est disponible. Une source officielle non consultée directement reste `[à vérifier]`.
+
+- Statut et administration PISTE : `piste_status`, `piste_cache_clear`.
+- Légifrance / JORF / KALI : `legifrance_recherche`, `legifrance_rechercher`, `legifrance_get_article`, `legifrance_get_code`, `legifrance_get_loda`, `legifrance_get_jurisprudence`, `legifrance_get_jorf`, `legifrance_get_circulaire`, `legifrance_suggest`, `legifrance_api_call`.
+- Jurisprudence, UE, fiscal et social : `judilibre_status`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`, `bofip_rechercher`, `bofip_consulter`, `boss_recherche`, `boss_get_document`.
+- Registres spécialisés exposés par le socle : `inpi_search_marques`, `inpi_marque_details`, `inpi_search_brevets`, `inpi_brevet_details`, `espacenet_search`, `espacenet_brevet_details`, `bodacc_by_siren`, `bodacc_procedures`, `company_full_profile`.
 
 ## But
 
@@ -29,7 +39,7 @@ Appliquer la logique simple de `docs/integrations/mcp-configuration-simple.md` :
 - `.mcp.json` signifie disponible, pas connecte.
 - `piste_status` doit reussir avant de marquer `Hacienda Sources Officielles` connecte.
 - Si un connecteur ne peut pas etre teste, marquer `configure but not verified`.
-- Si PISTE ou une source officielle manque, les citations restent `[a verifier]`.
+- Si PISTE ou une source officielle manque, les citations restent `[à vérifier]`.
 
 ## Mode Anno Desktop Optionnel
 

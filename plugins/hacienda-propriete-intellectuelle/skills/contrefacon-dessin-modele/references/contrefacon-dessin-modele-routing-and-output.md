@@ -48,7 +48,7 @@ Le fallback concurrence deloyale / parasitisme reste secondaire.
 ### `partial`
 
 - dossier exploitable ;
-- mais avec hypotheses ou fragilites `[a verifier]`.
+- mais avec hypotheses ou fragilites `[à vérifier]`.
 
 ### `blocked`
 

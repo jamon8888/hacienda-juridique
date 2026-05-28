@@ -103,7 +103,7 @@ suffisance d'une couverture) porte le tag inline `[review]`.
   central d'une DD M&A** : la cession peut déclencher la perte d'un contrat clé.
 - **Clauses d'exclusivité** : engagements d'exclusivité donnés ou reçus, périmètre,
   durée, articulation avec le droit de la concurrence (art. L.420-1 C.com.
-  `[a verifier]` si effet d'éviction).
+  `[à vérifier]` si effet d'éviction).
 - **Durée et résiliation** : durée ferme, tacite reconduction, préavis, conditions
   et indemnités de résiliation, contrats à durée indéterminée résiliables à court
   préavis (risque de perte rapide).
@@ -128,7 +128,7 @@ suffisance d'une couverture) porte le tag inline `[review]`.
   risque direct sur la valeur de la cible.
 - 🔴 Concentration excessive du chiffre d'affaires sur un client résiliable à court préavis.
 - 🟠 Clause d'exclusivité longue ou large susceptible de tomber sous L.420-1 C.com.
-  `[a verifier]` ; engagement de non-concurrence donné par la cible.
+  `[à vérifier]` ; engagement de non-concurrence donné par la cible.
 - 🟠 Contrat clé arrivé à échéance ou en tacite reconduction sans contrat écrit à jour.
 - 🟠 Cautionnement ou garantie donné à un tiers, hors bilan, non provisionné.
 - 🟡 Contrats clés non signés, non datés, ou en version projet.
@@ -156,9 +156,9 @@ suffisance d'une couverture) porte le tag inline `[review]`.
   déterminée, intérim, temps partiel.
 - **Contentieux prud'homal** : litiges en cours et menaçants, provisions.
 - **Représentation du personnel** : CSE, obligation d'information-consultation
-  préalable à l'opération (art. L.2312-8 C. trav. `[a verifier]`), transfert des
+  préalable à l'opération (art. L.2312-8 C. trav. `[à vérifier]`), transfert des
   contrats de travail en cas de cession d'actifs (art. L.1224-1 C. trav.
-  `[a verifier]`).
+  `[à vérifier]`).
 
 ### Documents attendus en data-room
 
@@ -174,7 +174,7 @@ suffisance d'une couverture) porte le tag inline `[review]`.
 
 - 🔴 Contentieux prud'homal significatif en cours, non ou insuffisamment provisionné `[review]`.
 - 🔴 Absence d'information-consultation du CSE alors qu'elle est requise pour
-  l'opération `[a verifier]` — irrégularité de procédure.
+  l'opération `[à vérifier]` — irrégularité de procédure.
 - 🟠 Indemnité de départ de dirigeant déclenchée par le changement de contrôle
   (*golden parachute*) — passif latent.
 - 🟠 Clause de non-concurrence de salarié clé sans contrepartie financière —
@@ -273,7 +273,7 @@ suffisance d'une couverture) porte le tag inline `[review]`.
   provisionnée — passif fiscal probable `[review]` ; renvoi `hacienda-fiscal`.
 - 🟠 Déficits reportables substantiels exposés à la perte en cas de changement de
   contrôle ou d'activité — la valeur attendue de l'actif d'impôt différé peut
-  disparaître `[a verifier]`.
+  disparaître `[à vérifier]`.
 - 🟠 Sortie de l'intégration fiscale entraînant des réintégrations ou une charge
   de sortie non anticipée.
 - 🟠 Covenants bancaires comportant une clause d'exigibilité anticipée en cas de
@@ -337,10 +337,10 @@ suffisance d'une couverture) porte le tag inline `[review]`.
 
 ### Points de contrôle
 
-- **Registre des traitements** (art. 30 RGPD `[a verifier]`) : existence,
+- **Registre des traitements** (art. 30 RGPD `[à vérifier]`) : existence,
   exhaustivité, mise à jour ; finalités, bases légales, durées de conservation,
   catégories de données et de personnes concernées.
-- **Contrats de sous-traitance** (art. 28 RGPD `[a verifier]`) : la cible
+- **Contrats de sous-traitance** (art. 28 RGPD `[à vérifier]`) : la cible
   encadre-t-elle ses sous-traitants par un acte conforme à l'art. 28 ? Inversement,
   est-elle elle-même sous-traitant et liée à ses clients ?
 - **Information et droits des personnes** : mentions d'information, modalités
@@ -372,7 +372,7 @@ suffisance d'une couverture) porte le tag inline `[review]`.
   non-conformité structurelle ; renvoi `hacienda-ghost` pour l'audit approfondi `[review]`.
 - 🔴 Autorisation ou agrément sectoriel indispensable à l'activité non transférable,
   ou caduc en cas de changement de contrôle.
-- 🟠 Sous-traitants non encadrés par un acte conforme à l'art. 28 RGPD `[a verifier]`.
+- 🟠 Sous-traitants non encadrés par un acte conforme à l'art. 28 RGPD `[à vérifier]`.
 - 🟠 Violation de données passée non notifiée, ou traitement à risque sans AIPD.
 - 🟠 Transferts hors UE sans garanties documentées.
 - 🟡 Mentions d'information incomplètes, procédures d'exercice des droits non formalisées.

@@ -12,7 +12,7 @@ const qualityMarkers = [
   "Arbre de decision",
   "Note de revue",
   "validation humaine",
-  "[a verifier]",
+  "[à vérifier]",
   "source officielle",
   "dossier de preuve"
 ];

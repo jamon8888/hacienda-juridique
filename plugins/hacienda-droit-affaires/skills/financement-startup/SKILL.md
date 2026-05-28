@@ -6,7 +6,8 @@ description: >
   d'instrument) et --review (revue d'une term sheet de levée). Renvoie vers
   pacte-associes-review pour les clauses de pacte. Ne donne aucun conseil
   fiscal. Brouillon soumis à validation humaine (avocat).
-version: "1.0.0"
+version: "2.0.0"
+argument-hint: "[--comparer ou --review, instrument, term sheet]"
 authors: ["Hacienda"]
 tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 ---
@@ -24,7 +25,7 @@ tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 >
 > **Ce skill ne donne AUCUN conseil fiscal.** La dimension fiscale de chaque
 > instrument — et notamment le **régime fiscal de faveur du BSPCE (art. 163 bis G
-> CGI [a verifier])** — est **signalée** et **renvoyée à un conseil fiscal /
+> CGI [à vérifier])** — est **signalée** et **renvoyée à un conseil fiscal /
 > expert-comptable**. Elle n'est **jamais traitée au fond** : ni taux, ni
 > seuils, ni montage d'optimisation.
 >
@@ -45,19 +46,19 @@ tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 ## Examples
 
 <example>
-<user>/hacienda-droit-affaires:financement-startup --comparer — intéresser un premier salarié-clé : BSPCE ou BSA ?</user>
+<user>/h-droit-affaires:financement-startup --comparer — intéresser un premier salarié-clé : BSPCE ou BSA ?</user>
 <response>
 1. Pré-flight `check-pii` (peu d'identifiants au stade du choix d'instrument — sous seuil B le plus souvent).
 2. Lecture profil cabinet (bloc M&A / Corporate : side financement ; bloc « vie sociale » : posture pacte d'associés).
 3. Étape 1 — cadrage : startup en amorçage, SAS éligible, objectif = intéresser et retenir un **premier salarié-clé** (donc un salarié), contrainte de dilution modérée.
-4. Étape 2 — recommandation depuis `references/instruments-financement-fr.md` : **BSPCE** — instrument dédié à l'intéressement des **salariés et dirigeants assimilés salariés** de sociétés éligibles, dilution différée à l'exercice. Le **BSA** est écarté ici : il vise les tiers non salariés (advisors, investisseurs) ; pour un salarié, le BSPCE est l'outil adéquat sous réserve de l'éligibilité de la société et du bénéficiaire (art. 163 bis G CGI [a verifier]).
-5. Signalement fiscal : le régime fiscal de faveur du BSPCE (art. 163 bis G CGI [a verifier]) **relève d'un fiscaliste** — signalé, non traité. Tags [review] sur la valorisation du prix d'exercice et l'éligibilité.
+4. Étape 2 — recommandation depuis `references/instruments-financement-fr.md` : **BSPCE** — instrument dédié à l'intéressement des **salariés et dirigeants assimilés salariés** de sociétés éligibles, dilution différée à l'exercice. Le **BSA** est écarté ici : il vise les tiers non salariés (advisors, investisseurs) ; pour un salarié, le BSPCE est l'outil adéquat sous réserve de l'éligibilité de la société et du bénéficiaire (art. 163 bis G CGI [à vérifier]).
+5. Signalement fiscal : le régime fiscal de faveur du BSPCE (art. 163 bis G CGI [à vérifier]) **relève d'un fiscaliste** — signalé, non traité. Tags [review] sur la valorisation du prix d'exercice et l'éligibilité.
 6. Sortie : note du relecteur (5 champs) + table comparative + recommandation motivée + question hors checklist + arbre de décision 5 options.
 </response>
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:financement-startup --comparer — tour de seed : obligations convertibles ou augmentation de capital ?</user>
+<user>/h-droit-affaires:financement-startup --comparer — tour de seed : obligations convertibles ou augmentation de capital ?</user>
 <response>
 1. Pré-flight `check-pii` + lecture profil cabinet (side financement, posture pacte).
 2. Étape 1 — cadrage : stade **seed**, objectif = **levée externe** auprès de business angels, hésitation sur la valorisation, souhait de limiter la dilution immédiate des fondateurs.
@@ -72,7 +73,7 @@ tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:financement-startup ./term-sheet-seed.pdf --review</user>
+<user>/h-droit-affaires:financement-startup ./term-sheet-seed.pdf --review</user>
 <response>
 1. Pré-flight `check-pii` (identifiants des parties, montants → vérifier le seuil B → décision utilisateur).
 2. Lecture profil cabinet (side financement, posture pacte).
@@ -85,10 +86,10 @@ tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 </example>
 
 <example>
-<user>/hacienda-droit-affaires:financement-startup — quel est le taux d'imposition du gain sur les BSPCE de mon équipe ?</user>
+<user>/h-droit-affaires:financement-startup — quel est le taux d'imposition du gain sur les BSPCE de mon équipe ?</user>
 <response>
 Question de **fiscalité du BSPCE** → hors périmètre de ce skill.
-Réponse : « Ce skill ne donne aucun conseil fiscal. Le **régime fiscal de faveur du BSPCE** est prévu à l'**art. 163 bis G CGI [a verifier]** : son taux, ses seuils, ses conditions (notamment l'ancienneté du bénéficiaire dans la société) et leurs évolutions **relèvent d'un conseil fiscal / expert-comptable** et doivent être vérifiés sur le texte en vigueur. Je ne peux ni indiquer un taux, ni confirmer un régime. »
+Réponse : « Ce skill ne donne aucun conseil fiscal. Le **régime fiscal de faveur du BSPCE** est prévu à l'**art. 163 bis G CGI [à vérifier]** : son taux, ses seuils, ses conditions (notamment l'ancienneté du bénéficiaire dans la société) et leurs évolutions **relèvent d'un conseil fiscal / expert-comptable** et doivent être vérifiés sur le texte en vigueur. Je ne peux ni indiquer un taux, ni confirmer un régime. »
 Le skill **signale** la dimension fiscale, **renvoie** au fiscaliste, et propose, s'il est utile, de cadrer en `--comparer` le **volet juridique** du choix d'instrument (nature, mécanique, dilution) — sans jamais traiter le volet fiscal.
 </response>
 </example>
@@ -110,7 +111,7 @@ Le skill **signale** la dimension fiscale, **renvoie** au fiscaliste, et propose
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc M&A / Corporate ou le bloc « vie sociale » est encore en
-`[A CONFIGURER]` : stopper et demander `/hacienda-droit-affaires:entretien-demarrage`.
+`[A CONFIGURER]` : stopper et demander `/h-droit-affaires:entretien-demarrage`.
 Voir aussi `~/.config/Hacienda/profil-cabinet.md` pour les éléments cabinet
 partagés cross-plugins.
 
@@ -134,6 +135,96 @@ stopper et demander explicitement. Pas de valeur par défaut sur le mode.
 
 ---
 
+## Gate non-juriste
+
+- [ ] Mode (`--comparer` | `--review`) fourni ; en `--review`, fichier de term sheet fourni (refus du défaut)
+- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
+- [ ] Profil cabinet lu (bloc M&A / Corporate + bloc « vie sociale », posture pacte)
+- [ ] Profil des souscripteurs identifié — le BSPCE n'est recommandé que pour des salariés / dirigeants assimilés salariés ; un tiers non salarié renvoyé au BSA
+- [ ] `--comparer` : table comparative depuis `instruments-financement-fr.md` + recommandation motivée + instruments écartés et pourquoi
+- [ ] `--review` : analyse des seuls **instruments** (valorisation, dilution, mécanique) ; aucune clause de pacte traitée au fond
+- [ ] **Renvoi explicite vers `pacte-associes-review`** pour toute clause de pacte (liquidation preference, anti-dilution, gouvernance, vesting, drag/tag, leaver)
+- [ ] **Dimension fiscale signalée et renvoyée** à un conseil fiscal — JAMAIS traitée au fond ; régime BSPCE art. 163 bis G CGI [à vérifier] signalé sans être analysé
+- [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]` ; articles hors index (L.228-91 et s. C.com., art. 163 bis G CGI) en `[à vérifier]`
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + {table comparative ou analyse des instruments} + renvoi pacte-associes-review + dimension fiscale signalée + question hors checklist + arbre de décision 5 options + footer A si applicable
+
+---
+
+## Outils MCP à privilégier
+
+Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
+
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
+- Points fiscaux et sociaux de due diligence : `bofip_rechercher`, `bofip_consulter`, `boss_recherche`, `boss_get_document`.
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
+
+## Emplacement des sorties
+
+```
+outputs/financement-<stade>-<objet-slug>-YYYY-MM-DD.md
+```
+
+Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
+
+---
+
+## Sortie
+
+### Format livrable
+
+```
+[En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin §2]
+
+> **⚠️ Note du relecteur**
+> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Lecture :** {pour --comparer : intake fourni par l'utilisateur — stade, objectif, profil des souscripteurs} | {pour --review : intégrale (N pages) | partielle (pages X à Y)}
+> - **Signalé pour ton jugement :** {N} éléments marqués [review] (valorisation, éligibilité BSPCE, ampleur de dilution acceptable) | aucun
+> - **Fraîcheur :** régime fiscal BSPCE (art. 163 bis G CGI) NON traité — renvoyé au fiscaliste ; conditions d'éligibilité susceptibles d'évoluer
+> - **Avant de t'appuyer dessus :** {action concrète — ex. faire valider l'éligibilité BSPCE et le volet fiscal par un fiscaliste ; enchaîner pacte-associes-review sur les clauses de pacte} | « prêt pour relecture avocat »
+
+# {Pour --comparer} Table comparative et recommandation
+[table comparative des instruments pertinents depuis references/instruments-financement-fr.md + recommandation motivée + instruments écartés et pourquoi]
+
+# {Pour --review} Analyse des instruments
+[revue des instruments mentionnés dans la term sheet : valorisation, dilution, mécanique propre — UNIQUEMENT les instruments]
+
+# {Pour --review} Renvoi pacte-associes-review
+[liste des clauses de pacte identifiées dans la term sheet — liquidation preference, anti-dilution, gouvernance, vesting, drag/tag, leaver — et renvoi explicite vers /h-droit-affaires:pacte-associes-review avec les options (a)/(b)/(c). Ces clauses ne sont PAS analysées au fond ici.]
+
+# Dimension fiscale — signalée, non traitée
+[rappel que le volet fiscal de chaque instrument — notamment le régime BSPCE art. 163 bis G CGI [à vérifier] — relève d'un conseil fiscal / expert-comptable et n'est pas traité par ce skill]
+
+# Une question hors de ma checklist habituelle
+{Observation transversale qu'un relecteur attentif ferait — ex. cohérence du capital pleinement dilué avec un tour ultérieur, articulation des BSPCE avec le pacte, éligibilité de la société au régime BSPCE à confirmer. Omettre la ligne si rien d'honnête.}
+
+# Que veux-tu faire ? Choisis une option et je la déroule :
+
+1. **Rédiger** — je produis un premier brouillon (note de choix d'instrument motivée, ou note de revue des instruments de la term sheet) pour ta relecture avocat.
+2. **Escalader** — note d'escalade vers l'approbateur configuré avec faits-clés, instrument(s) retenu(s) et décision attendue.
+3. **Compléter les faits** — questions ouvertes à poser aux fondateurs / à l'investisseur / au fiscaliste avant d'avancer (éligibilité BSPCE, valorisation, profil exact des souscripteurs).
+4. **Surveiller et attendre** — j'ajoute le dossier de financement au tracker avec note motivée et date de revisite (ex. en attente de l'avis du fiscaliste sur le régime BSPCE).
+5. **Autre** — précise ce que tu veux en faire.
+
+{Footer A — si check-pii est passé en mode passif sous le seuil B :
+[Ce skill a traité {N} mentions identifiantes (parties, montants, dénomination). Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
+Sinon, rien.}
+```
+
+### Mode silencieux (livrable externe)
+
+Si la sortie est destinée à être transmise hors du périmètre cabinet
+(co-fondateurs non-juristes, investisseur) :
+- En-tête de confidentialité : CONSERVER s'il protège le document ; l'adapter au
+  destinataire (cf. CLAUDE.md §2).
+- Note du relecteur : CONSERVER (point de contrôle unique).
+- Narration de skill et renvois inter-commandes : COUPER (placer dans un message
+  d'accompagnement séparé).
+- Le statut **brouillon de travail** reste affiché : une note transmise ne
+  devient jamais un document définitif du seul fait de l'envoi.
+
+---
+
 ## Étape 1 (--comparer) — Pré-flight et cadrage
 
 **Pré-flight.** Invoquer `check-pii` sur les éléments fournis avec la politique
@@ -153,7 +244,7 @@ cadrage :
 - **Profil des souscripteurs** — salariés / dirigeants assimilés salariés /
   advisors non salariés / investisseurs / associés existants. **Le BSPCE est
   juridiquement réservé** aux salariés et dirigeants assimilés salariés de
-  sociétés éligibles (art. 163 bis G CGI [a verifier]) ; pour un tiers non
+  sociétés éligibles (art. 163 bis G CGI [à vérifier]) ; pour un tiers non
   salarié, l'outil est le **BSA**. Ce point se vérifie avant toute
   recommandation.
 - **Contraintes de dilution** — tolérance des fondateurs à une dilution
@@ -182,7 +273,7 @@ appréciation de fait → `[review]`.
    être **combinés** (ex. augmentation de capital de l'investisseur principal +
    plan de BSPCE pour l'équipe).
 3. **Signaler la dimension fiscale et la renvoyer.** Chaque instrument comporte
-   un volet fiscal — régime de faveur du BSPCE (art. 163 bis G CGI [a verifier]),
+   un volet fiscal — régime de faveur du BSPCE (art. 163 bis G CGI [à vérifier]),
    régime des intérêts d'OC, plus-values. Ce skill **signale** ce volet et le
    **renvoie à un conseil fiscal / expert-comptable**. Il ne le traite jamais au
    fond : pas de taux, pas de seuil, pas de montage.
@@ -228,7 +319,7 @@ instruments. Pour chacun, à partir de `references/instruments-financement-fr.md
   réservé aux salariés / dirigeants assimilés salariés). Pour l'augmentation de
   capital : droit préférentiel de souscription, sa suppression éventuelle.
 - **Signalement fiscal** — tout volet fiscal (régime BSPCE art. 163 bis G CGI
-  [a verifier], intérêts d'OC, plus-values) est **signalé et renvoyé** à un
+  [à vérifier], intérêts d'OC, plus-values) est **signalé et renvoyé** à un
   fiscaliste — jamais traité au fond.
 
 > **RENVOI EXPLICITE ET AUTOMATIQUE — `pacte-associes-review`.** Les **clauses de
@@ -236,7 +327,7 @@ instruments. Pour chacun, à partir de `references/instruments-financement-fr.md
 > **liquidation preference, anti-dilution / ratchet, gouvernance et droits de
 > véto, vesting, drag / tag-along, good / bad leaver** — **ne sont pas analysées
 > au fond ici**. Dès qu'une telle clause est identifiée dans la term sheet, le
-> skill la **liste** et **renvoie** vers `/hacienda-droit-affaires:pacte-associes-review`,
+> skill la **liste** et **renvoie** vers `/h-droit-affaires:pacte-associes-review`,
 > avec les options : (a) enchaîner `pacte-associes-review` sur ces clauses,
 > (b) limiter `financement-startup` à l'analyse des instruments, (c) les deux en
 > séquence. Ne jamais traiter une clause de pacte au fond dans ce skill.
@@ -256,11 +347,11 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 - extrait toutes les citations (art. L.NNN-N C.com., art. NNN C.civ., art. NNN
   CGI) ;
 - vérifie l'existence et la version en vigueur via Légifrance ;
-- annote : `[Légifrance ✓]`, `[abrogé]`, ou `[a verifier]` en mode dégradé.
+- annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
 Articles attendus présents dans `references/articles-c-civ-c-com-index.md` avec
 identifiant Légifrance réel (→ `[Légifrance]`) : L.210-2, L.227-9 C.com. Hors
-index (→ `[a verifier]` obligatoire) : **L.228-91 et s. C.com.** (valeurs
+index (→ `[à vérifier]` obligatoire) : **L.228-91 et s. C.com.** (valeurs
 mobilières donnant accès au capital) et **l'art. 163 bis G CGI** (régime fiscal
 BSPCE — relève du Code général des impôts, non couvert par l'index, et dont la
 dimension fiscale est de toute façon renvoyée au fiscaliste).
@@ -268,87 +359,6 @@ dimension fiscale est de toute façon renvoyée au fiscaliste).
 Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
 (« `verifier-citations` non exécuté — N citations à valider manuellement contre
 Légifrance »).
-
----
-
-## Sortie
-
-### Format livrable
-
-```
-[En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin §2]
-
-> **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée)
-> - **Lecture :** {pour --comparer : intake fourni par l'utilisateur — stade, objectif, profil des souscripteurs} | {pour --review : intégrale (N pages) | partielle (pages X à Y)}
-> - **Signalé pour ton jugement :** {N} éléments marqués [review] (valorisation, éligibilité BSPCE, ampleur de dilution acceptable) | aucun
-> - **Fraîcheur :** régime fiscal BSPCE (art. 163 bis G CGI) NON traité — renvoyé au fiscaliste ; conditions d'éligibilité susceptibles d'évoluer
-> - **Avant de t'appuyer dessus :** {action concrète — ex. faire valider l'éligibilité BSPCE et le volet fiscal par un fiscaliste ; enchaîner pacte-associes-review sur les clauses de pacte} | « prêt pour relecture avocat »
-
-# {Pour --comparer} Table comparative et recommandation
-[table comparative des instruments pertinents depuis references/instruments-financement-fr.md + recommandation motivée + instruments écartés et pourquoi]
-
-# {Pour --review} Analyse des instruments
-[revue des instruments mentionnés dans la term sheet : valorisation, dilution, mécanique propre — UNIQUEMENT les instruments]
-
-# {Pour --review} Renvoi pacte-associes-review
-[liste des clauses de pacte identifiées dans la term sheet — liquidation preference, anti-dilution, gouvernance, vesting, drag/tag, leaver — et renvoi explicite vers /hacienda-droit-affaires:pacte-associes-review avec les options (a)/(b)/(c). Ces clauses ne sont PAS analysées au fond ici.]
-
-# Dimension fiscale — signalée, non traitée
-[rappel que le volet fiscal de chaque instrument — notamment le régime BSPCE art. 163 bis G CGI [a verifier] — relève d'un conseil fiscal / expert-comptable et n'est pas traité par ce skill]
-
-# Une question hors de ma checklist habituelle
-{Observation transversale qu'un relecteur attentif ferait — ex. cohérence du capital pleinement dilué avec un tour ultérieur, articulation des BSPCE avec le pacte, éligibilité de la société au régime BSPCE à confirmer. Omettre la ligne si rien d'honnête.}
-
-# Que veux-tu faire ? Choisis une option et je la déroule :
-
-1. **Rédiger** — je produis un premier brouillon (note de choix d'instrument motivée, ou note de revue des instruments de la term sheet) pour ta relecture avocat.
-2. **Escalader** — note d'escalade vers l'approbateur configuré avec faits-clés, instrument(s) retenu(s) et décision attendue.
-3. **Compléter les faits** — questions ouvertes à poser aux fondateurs / à l'investisseur / au fiscaliste avant d'avancer (éligibilité BSPCE, valorisation, profil exact des souscripteurs).
-4. **Surveiller et attendre** — j'ajoute le dossier de financement au tracker avec note motivée et date de revisite (ex. en attente de l'avis du fiscaliste sur le régime BSPCE).
-5. **Autre** — précise ce que tu veux en faire.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B :
-[Ce skill a traité {N} mentions identifiantes (parties, montants, dénomination). Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
-Sinon, rien.}
-```
-
-### Mode silencieux (livrable externe)
-
-Si la sortie est destinée à être transmise hors du périmètre cabinet
-(co-fondateurs non-juristes, investisseur) :
-- En-tête de confidentialité : CONSERVER s'il protège le document ; l'adapter au
-  destinataire (cf. CLAUDE.md §2).
-- Note du relecteur : CONSERVER (point de contrôle unique).
-- Narration de skill et renvois inter-commandes : COUPER (placer dans un message
-  d'accompagnement séparé).
-- Le statut **brouillon de travail** reste affiché : une note transmise ne
-  devient jamais un document définitif du seul fait de l'envoi.
-
----
-
-## Emplacement des sorties
-
-```
-outputs/financement-<stade>-<objet-slug>-YYYY-MM-DD.md
-```
-
-Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
-
----
-
-## Gate non-juriste
-
-- [ ] Mode (`--comparer` | `--review`) fourni ; en `--review`, fichier de term sheet fourni (refus du défaut)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
-- [ ] Profil cabinet lu (bloc M&A / Corporate + bloc « vie sociale », posture pacte)
-- [ ] Profil des souscripteurs identifié — le BSPCE n'est recommandé que pour des salariés / dirigeants assimilés salariés ; un tiers non salarié renvoyé au BSA
-- [ ] `--comparer` : table comparative depuis `instruments-financement-fr.md` + recommandation motivée + instruments écartés et pourquoi
-- [ ] `--review` : analyse des seuls **instruments** (valorisation, dilution, mécanique) ; aucune clause de pacte traitée au fond
-- [ ] **Renvoi explicite vers `pacte-associes-review`** pour toute clause de pacte (liquidation preference, anti-dilution, gouvernance, vesting, drag/tag, leaver)
-- [ ] **Dimension fiscale signalée et renvoyée** à un conseil fiscal — JAMAIS traitée au fond ; régime BSPCE art. 163 bis G CGI [a verifier] signalé sans être analysé
-- [ ] Citations vérifiées via `verifier-citations` ou taguées `[a verifier]` ; articles hors index (L.228-91 et s. C.com., art. 163 bis G CGI) en `[a verifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + {table comparative ou analyse des instruments} + renvoi pacte-associes-review + dimension fiscale signalée + question hors checklist + arbre de décision 5 options + footer A si applicable
 
 ---
 
@@ -360,7 +370,7 @@ Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
   traitée au fond.
 - L'analyse des **clauses de pacte d'associés** — liquidation preference,
   anti-dilution / ratchet, gouvernance et droits de véto, vesting, drag /
-  tag-along, leaver → renvoyer vers `/hacienda-droit-affaires:pacte-associes-review`.
+  tag-along, leaver → renvoyer vers `/h-droit-affaires:pacte-associes-review`.
 - La **valorisation** de la société — appréciation économique ; le skill la
   signale en `[review]`, il ne la chiffre pas.
 - La **rédaction de la documentation** de l'opération (statuts modifiés, contrat
