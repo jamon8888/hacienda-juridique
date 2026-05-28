@@ -1,62 +1,51 @@
-# Handoff — hacienda-droit-affaires V2a
+# Handoff — hacienda-droit-affaires M&A UX + SPA review
 
 ## Session courante
 
-- **Date :** 2026-05-26
-- **Agent / outil :** Claude Code — contrôleur Opus 4, subagent Sonnet 4.6 (Tâche 0 + Tâche finale), Opus (Wave 1 skill)
-- **Mode d'exécution :** superpowers:subagent-driven-development
+- **Date :** 2026-05-27
+- **Objet :** amélioration UX cabinet M&A + nouveau skill `spa-review`
+- **Branche :** `droit-affaires/spa-review` (créée depuis `droit-affaires/v1-to-v2a-consolidated` — branche parente porte la PR #16 sur main)
+- **Commits :**
+  - `742d4a9` `feat(droit-affaires): skill spa-review`
+  - `a484e40` `docs(droit-affaires): routage M&A SPA et NBO`
+  - HEAD : `fix(droit-affaires): spa-review respecte guardrails "validation humaine" + handoff`
 
 ## État livraison
 
-**V2a livrée — 1 skill ajouté (`analyser-rupture-brutale`) + squelette `hacienda-contrats` retiré. Vague strictement additive côté plugin `hacienda-droit-affaires` : aucun skill/agent/`packages/core` de V1/V1.1/V1.2 modifié.**
+Vague M&A UX livrée en mode strictement additif :
 
-Le plugin `hacienda-droit-affaires` compte désormais **19 skills et 4 agents**.
+- **Nouveau skill** `plugins/hacienda-droit-affaires/skills/spa-review/SKILL.md` (354 lignes) — revue d'un SPA / protocole de cession M&A : architecture du deal, prix, CP, interim covenants, MAC, disclosure, DD → protections SPA, renvois `gap-review` / `closing-checklist-fr` / `due-diligence-dataroom`. Modes `--review` (défaut) / `--red-flags` / `--issues-list` / `--signing-ready`. Side `acquereur` ou `cedant` obligatoire. Type d'opération obligatoire ou auto-détecté.
+- **Dataset** `plugins/hacienda-droit-affaires/tests/datasets/v2-spa/spa-review-scenario.md` (117 lignes) — SPA synthétique anonymisé de cession 100 % titres SAS, 10 red flags attendus.
+- **Routage taxonomie** (`references/taxonomie-contrats-fr.md`) — `SPA / protocole de cession` → `spa-review` ; `NBO / Non-Binding Offer` → `loi-term-sheet` ; `Closing checklist` → `closing-checklist-fr` ; APA double routage. Légende enrichie.
+- **README** — nouvelle section "Parcours cabinet M&A" : NDA → NBO/LOI → DD → SPA → GAP → Closing.
+- **CHANGELOG** — section non publiée "M&A UX + SPA review (2026-05-26)".
 
-- Suite de tests core : **302 passed / 3 skipped / 0 failure** (70 fichiers passants + 1 skipped ; −2 vs V1.2 = suppression `hacienda-contrats.test.ts`).
-- `npm run typecheck`, `npm run build`, `npm run branding:check`, `git diff --check` : tous verts.
-- Smoke install CLI : **OK** — `claude plugin details hacienda-droit-affaires` confirme 19 skills, 4 agents, 1 MCP server.
-- Périmètre vérifié `git diff --stat v2a-base HEAD -- plugins/hacienda-droit-affaires/` : 2 fichiers neufs (703 insertions, 0 suppression) — 100 % additif. Aucun skill/agent V1/V1.1/V1.2 dans le diff.
-- Tâche 0 isolée dans le commit dédié `e4c606b` : suppression `hacienda-contrats` (27 fichiers, 792 suppressions), hors plugin `droit-affaires` — sans impact personas.
+## Vérifications
 
-## Progression dans le plan V2a
-
-Plan : `docs/superpowers/plans/2026-05-26-hacienda-droit-affaires-v2a.md` — toutes les tasks complétées.
-
-| Task | Commit | Objet |
+| Vérification | Résultat | Note |
 |---|---|---|
-| Tâche 0 | `e4c606b` | chore — suppression squelette `hacienda-contrats`, tag `v2a-base` |
-| Wave 1 | `260d4ec` | feat — skill `analyser-rupture-brutale` (L.442-1, II) + dataset `rupture-brutale-scenario.md` |
-| Tâche finale | (ce commit) | docs — CHANGELOG V2a + handoff |
+| `npm test` | **68/70 passants, 1 skipped, 1 échec pré-existant** | `hacienda-pi-cowork-structure` (PISTE OAuth 401, credentials absents) — hors scope, confirmé pré-existant (commit `828b180` étape 1). |
+| `npm run typecheck` | **Échec pré-existant** | `hacienda-propriete-intellectuelle/mcp-server` → `'toolGroups' does not exist in type 'CreateServerOptions'`. Confirmé présent au commit parent `7cc5779` (avant nos changements). Non causé par spa-review. |
+| `npm run build` | **Échec pré-existant** | `hacienda-droit-affaires/mcp-server` → imports manquants `bodaccBySirenTool`, `bodaccProceduresTool`, `companyFullProfileTool`. Fichier `mcp-server/src/index.ts` non modifié par nos commits (dernière modif au commit `828b180` de l'étape 1). |
+| `npm run branding:check` | ✅ **Branding Hacienda OK** | — |
+| `git diff --check` | ✅ exit 0 | — |
 
-## Décisions prises hors spec depuis dernier handoff
+**Récap dette technique pré-existante à signaler à l'associé (hors scope spa-review)** : 1 régression typecheck PI + 1 régression build droit-affaires MCP server introduites par le commit d'intégration v2a `828b180` (PR #16). À traiter en commit séparé sur la branche `droit-affaires/v1-to-v2a-consolidated` avant merge de #16. Cela n'invalide pas le travail spa-review qui est markdown-only et indépendant.
 
-- **Fourchette préavis raisonnable dataset V2a :** la spec indique `8 mois minimum` pour la règle de pouce (1 mois/an × 8 ans). Le dataset `rupture-brutale-scenario.md` documente une fourchette `10-12 mois` dans les attendus commentés.
-  - **Raison :** dépendance économique à 70 % du CA + intuitu personae fort + investissement spécifique caractérisé. La jurisprudence ch. com. majore systématiquement la règle de pouce en présence de ces facteurs ; 8 mois = plancher absolu, 10-12 mois = estimation défendable en phase de contentieux.
-  - **Impact spec :** aucun — la spec indique elle-même « à majorer compte tenu de la dépendance économique (~70 % du CA) → possiblement 10-12 mois » (plan V2a, Step 6 dataset). La fourchette est conforme à la spec.
-  - **Validation utilisateur :** signalé au handoff, non bloquant.
+## Régression bloquée par spa-review (résolue dans ce run)
 
-## Prochaine task à attaquer
+- Test `hacienda-skill-guardrails.test.ts` initialement cassé : guardrails Plugin Factory exigent `/validation humaine/iu` dans chaque skill. Fix appliqué : disclaimer du SKILL.md modifié de "ne remplace pas une validation avocat" → "ne remplace pas une validation humaine par un avocat M&A inscrit au barreau". Test re-vert ✅.
 
-- **Aucune dans le périmètre V2a** — vague terminée.
-- Hors plan V2a, dans l'ordre :
-  1. **Validation personas** — V1 + V1.1 + V1.2 + V2a. Gate les bumps de version.
-  2. **V2b — Distribution Cowork-ready** — BLOQUÉE sur la finalisation du pattern packaging/install par `hacienda-ghost`. Dès que ghost a validé, brainstorm + spec + plan dédiés à V2b.
-  3. **Chantier workspaces de dossier (matters)** — post-personas (modifie les skills V1).
-  4. **v3+** — 7 skills résiduels du squelette `hacienda-contrats` (`reviser-saas`, `reviser-bail-commercial`, `analyser-distribution`, `proposer-redlines`, `verification-pouvoir-signataire`, `recherche-contractuelle`, `resume-operationnel`), inserts droit boursier cibles cotées, connecteurs Drive/SharePoint/OneDrive.
+## Périmètre — garanties tenues
 
-## Blockers actifs
+- Aucun outil `packages/core` ajouté ni modifié.
+- Aucun skill V1/V1.1/V1.2/V2a existant modifié (vérifié via `git diff --name-only HEAD~2..HEAD -- plugins/hacienda-droit-affaires/skills` → seul `skills/spa-review/SKILL.md` listé).
+- Aucun agent, aucun MCP server modifié.
+- `spa-review` orchestre `gap-review`, `due-diligence-dataroom` et `closing-checklist-fr` sans les remplacer.
 
-- **V2b bloquée sur `hacienda-ghost`** : le pattern de packaging et d'install Cowork-ready n'est pas encore finalisé par ghost. V2b ne peut pas être spécifiée ni livrée avant.
+## Prochaine étape
 
-## État GitNexus
-
-- Index **périmé** depuis les commits Markdown V2a (`e4c606b`, `260d4ec`) — V2a est 100 % Markdown (skill, dataset, CHANGELOG, handoff), sans impact fonctionnel sur le graph de symboles. `npx gitnexus analyze` à lancer si une analyse d'impact graph est souhaitée.
-- Aucun symbole ajouté à `packages/core` (V2a ne crée aucun outil core).
-
-## Notes pour le suivant
-
-- **Safe harbor 18 mois — 3 niveaux de verrouillage dans le skill :** (1) disclaimer explicite en citation après le titre (protection défensive, pas plafond légal), (2) Étape 3 mention systématique avec tag `[review]`, (3) gate dataset : safe harbor non invocable par l'auteur de la rupture si préavis effectif < 18 mois — commenté `[review]`. Le risk de mésusage (confondre protection défensive et plafond) est mitigé à 3 couches.
-- **Jurisprudence ch. com. rupture brutale : non figée (R1 spec).** La règle de pouce et ses modulations évoluent régulièrement. `verifier-citations` (post-flight Étape 7) + `veille-jurisprudence` (V1.2) obligatoires en usage réel. Ne jamais s'appuyer sur le dataset de test comme source jurisprudentielle : c'est un scénario synthétique à usage d'évaluation structurelle uniquement.
-- **Distinction L.442-1, I / II systématique :** le skill impose la mention explicite de l'ex-numérotation L.442-6, I, 5° pour les sources antérieures à l'ordonnance 2019-359. Vigilance en relecture persona : les deux fondements (déséquilibre significatif B2B et rupture brutale) sont dans le même article depuis 2019 — confusion fréquente.
-- **Smoke install V1.2 → V2a :** le compteur de skills passe de 18 à 19 — `claude plugin details` est le check de régression recommandé avant chaque smoke.
-- **Smoke install CLI note :** source marketplace en chemin absolu uniquement — un `.` nu est rejeté (`Invalid marketplace source format`).
+1. **Bloqué sur** : merge de la PR #16 (`droit-affaires/v1-to-v2a-consolidated` → `main`) par l'associé.
+2. **Quand #16 merge** : rebase `droit-affaires/spa-review` sur `main` puis ouvrir PR `spa-review` ciblant `main`. Petite PR, additif, parallel-safe.
+3. **Recommandation au passage** : régression typecheck/build PI + droit-affaires MCP server à corriger soit dans la PR #16 par l'associé, soit en commit séparé avant merge. Pas notre PR à corriger.
+4. **Validation personas** ensuite : frère (managing partner M&A) doit éprouver le flux NDA → NBO/LOI → DD → SPA → GAP → Closing avec le dataset interne.

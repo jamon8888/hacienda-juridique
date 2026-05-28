@@ -11,6 +11,9 @@ Référence de tri pour orienter rapidement un document vers le bon skill
 - `🟢 droit-affaires:reviser-contrat` — workflow contrat commercial standard
 - `🟠 PI:contrats-pi` — workflow contrat PI ou à dominante PI
 - `🔵 droit-affaires:gap-review` — workflow garantie d'actif et de passif / sujet M&A
+- `🟢 droit-affaires:spa-review` — workflow SPA / protocole de cession M&A
+- `🟢 droit-affaires:loi-term-sheet` — workflow NBO / LOI / term sheet
+- `🟢 droit-affaires:closing-checklist-fr` — workflow signing / closing / post-closing
 - `🟣 droit-affaires:declaration-creance` — workflow procédure collective côté créancier
 - `⚪ v1.1+` — hors périmètre v1, ne pas improviser
 
@@ -39,13 +42,14 @@ Référence de tri pour orienter rapidement un document vers le bon skill
 
 | Type | Caractéristiques principales | Skill recommandé |
 |---|---|---|
-| SPA / protocole de cession | Cession de titres, déclarations et garanties, conditions suspensives | 🟢 `reviser-contrat` pour la revue générale ; 🔵 `gap-review` si le focus porte sur la GAP |
-| APA / cession de fonds ou d'actifs | Transfert d'actifs, contrats, salariés, passifs repris / exclus | 🟢 `reviser-contrat` |
+| SPA / protocole de cession | Cession de titres, déclarations et garanties, conditions suspensives, signing / closing | 🟢 `spa-review` pour la revue M&A ; 🔵 `gap-review` si le focus porte uniquement sur la GAP |
+| APA / cession de fonds ou d'actifs | Transfert d'actifs, contrats, salariés, passifs repris / exclus | 🟢 `spa-review` si l'acte est transactionnel M&A ; 🟢 `reviser-contrat` pour une revue commerciale simple |
+| NBO / Non-Binding Offer | Offre indicative non engageante, prix indicatif, périmètre, conditions, calendrier, exclusivité éventuelle | 🟢 `loi-term-sheet` |
 | GAP / garantie d'actif et de passif | Plafond, franchise, seuils, durée, panier, exclusions, notification | 🔵 `gap-review` |
 | Convention de séquestre | Sécurisation prix / garantie, libération conditionnelle | 🟢 `reviser-contrat` |
 | Pacte d'associés | Gouvernance, agrément, préemption, tag / drag, sortie | ⚪ `v1.1+` |
-| LOI / term sheet | Précontractuel, exclusivité, confidentialité, répartition des coûts | ⚪ `v1.1+` |
-| Closing checklist | Pilotage closing, pièces, conditions suspensives | ⚪ `v1.1+` |
+| LOI / term sheet | Précontractuel, exclusivité, confidentialité, répartition des coûts, binding / non-binding | 🟢 `loi-term-sheet` |
+| Closing checklist | Pilotage closing, pièces, conditions suspensives, formalités post-closing | 🟢 `closing-checklist-fr` |
 | Convention de management package | Instruments, leaver clauses, liquidité, fiscalité | ⚪ `v1.1+` |
 
 ---

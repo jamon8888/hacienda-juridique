@@ -1,5 +1,20 @@
 # Changelog — hacienda-droit-affaires
 
+## [Non publié] — M&A UX + SPA review (2026-05-26)
+
+### Ajouts
+- `spa-review` (`--review`, `--red-flags`, `--issues-list`, `--signing-ready`) — revue d'un SPA / protocole de cession M&A : architecture du deal, prix, CP, interim covenants, MAC, disclosure, DD -> protections SPA, renvois GAP et closing.
+- Dataset interne `tests/datasets/v2-spa/spa-review-scenario.md` : SPA synthétique de cession de titres SAS avec red flags attendus.
+
+### UX de routage
+- `NBO / Non-Binding Offer` route explicitement vers `loi-term-sheet`.
+- `SPA / protocole de cession` route explicitement vers `spa-review`.
+- Le README documente le parcours cabinet M&A : NDA -> NBO/LOI/Term Sheet -> DD -> SPA -> GAP -> Closing.
+
+### Notes
+- Aucun nouvel outil `packages/core`, aucun agent, aucune modification des skills V1/V1.1/V1.2/V2a existants.
+- `spa-review` orchestre les skills existants sans remplacer `gap-review`, `due-diligence-dataroom` ni `closing-checklist-fr`.
+
 ## [Non publié] — V2a (en cours) — 2026-05-26
 
 ### Ajouts
