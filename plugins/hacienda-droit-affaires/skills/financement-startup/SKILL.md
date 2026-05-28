@@ -111,7 +111,7 @@ Le skill **signale** la dimension fiscale, **renvoie** au fiscaliste, et propose
 
 Si le bloc M&A / Corporate ou le bloc « vie sociale » est encore en
 `[A CONFIGURER]` : stopper et demander `/hacienda-droit-affaires:entretien-demarrage`.
-Voir aussi `~/.config/Hacienda/profil-cabinet.md` pour les éléments cabinet
+Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour les éléments cabinet
 partagés cross-plugins.
 
 ---
@@ -139,7 +139,7 @@ stopper et demander explicitement. Pas de valeur par défaut sur le mode.
 **Pré-flight.** Invoquer `check-pii` sur les éléments fournis avec la politique
 du profil ; respecter la décision utilisateur (continue / prompt / abort). Lire
 le profil cabinet (CLAUDE.md droit-affaires, blocs M&A / Corporate et « vie
-sociale ») et `~/.config/Hacienda/profil-cabinet.md`. Au stade du choix
+sociale ») et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`. Au stade du choix
 d'instrument, les identifiants sont en général peu nombreux (souvent sous le
 seuil B) — le pré-flight reste néanmoins exécuté.
 
@@ -202,7 +202,7 @@ appréciation de fait → `[review]`.
 1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le
    verdict (continue / prompt / abort), respecter la décision utilisateur.
 2. Lire le profil cabinet (CLAUDE.md droit-affaires, blocs M&A / Corporate et
-   « vie sociale ») et `~/.config/Hacienda/profil-cabinet.md`. Identifier le
+   « vie sociale ») et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`. Identifier le
    **side** de l'utilisateur (fondateur / investisseur / société) et la posture
    pacte configurée — elle conditionne le ton du renvoi `pacte-associes-review`.
 3. Identifier la **term sheet** : type d'opération (tour de seed, série A…),

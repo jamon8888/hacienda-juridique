@@ -113,7 +113,7 @@ Si le bloc « contrats commerciaux » est encore en `[A CONFIGURER]` : stopper e
 demander `/hacienda-droit-affaires:entretien-demarrage`. Sans posture
 contractuelle renseignée, le calibrage des clauses (pénalités, limitation de
 responsabilité, garanties) ne peut pas être effectué. Voir aussi
-`~/.config/Hacienda/profil-cabinet.md` pour les éléments cabinet partagés.
+`~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour les éléments cabinet partagés.
 
 ---
 
@@ -152,7 +152,7 @@ l'intégralité du brouillon.
    RCS, médiateur) avec la politique du profil. Selon le verdict
    (continue / prompt / abort), respecter la décision utilisateur.
 2. Lire le profil cabinet (CLAUDE.md droit-affaires, bloc « contrats
-   commerciaux ») et `~/.config/Hacienda/profil-cabinet.md`.
+   commerciaux ») et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
 3. **Confirmer le régime** (intake point 2) :
    - **B2B** — client professionnel → cadre **Code de commerce** → Étape 2.
    - **B2C** — client consommateur → cadre **Code de la consommation** → Étape 3.
