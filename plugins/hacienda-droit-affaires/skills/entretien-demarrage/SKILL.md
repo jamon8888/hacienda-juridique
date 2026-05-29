@@ -4,12 +4,12 @@ description: >
   Onboarding du plugin droit des affaires : configure le profil cabinet (side
   principal M&A / procédures collectives / mixte), vérifie les connexions aux
   sources externes (Légifrance, Pappers, BODACC, Judilibre), réutilise un
-  profil cabinet partagé s'il existe à ~/.config/Hacienda/profil-cabinet.md.
+  profil cabinet partagé s'il existe à ~/.claude/plugins/config/hacienda-juridique/company-profile.md.
   Mode --check-integrations pour relancer uniquement le diagnostic.
 version: "2.0.0"
 argument-hint: "[--redo ou --check-integrations]"
 authors: ["Hacienda"]
-tags: [onboarding, profil-cabinet, integrations, credentials]
+tags: [onboarding, company-profile, integrations, credentials]
 ---
 
 # Skill — Entretien de démarrage
@@ -26,7 +26,7 @@ tags: [onboarding, profil-cabinet, integrations, credentials]
 <example>
 <user>/h-droit-affaires:entretien-demarrage</user>
 <response>
-1. Détecte si ~/.config/Hacienda/profil-cabinet.md existe → propose
+1. Détecte si ~/.claude/plugins/config/hacienda-juridique/company-profile.md existe → propose
    réutiliser/enrichir/recommencer
 2. Pose les questions du profil cabinet (15 min) → écrit profil partagé
 3. Pose les questions spécifiques droit-affaires (5 min) → écrit dans
@@ -55,14 +55,14 @@ existant.
 ## Chargement du profil
 
 > Au démarrage : vérifier l'existence du profil partagé
-> `~/.config/Hacienda/profil-cabinet.md`. Si présent et non vide, lire
+> `~/.claude/plugins/config/hacienda-juridique/company-profile.md`. Si présent et non vide, lire
 > les sections existantes et proposer 3 options : réutiliser /
 > enrichir / recommencer.
 
 ## Intake
 
 1. **Mode** — `--redo` (recommencer) | `--check-integrations` (diagnostic seul) | par défaut: complet
-2. **Détection profil partagé** — recherche `~/.config/Hacienda/profil-cabinet.md`
+2. **Détection profil partagé** — recherche `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
 3. **Si présent** — afficher résumé (cabinet, side principal, juridiction) et proposer [r]éutiliser / [e]nrichir / [n]ouveau
 4. **Si absent** — démarrer le questionnaire complet
 
@@ -102,7 +102,7 @@ Questions à poser séquentiellement (une par message, attendre réponse) :
 6. Rôle de l'utilisateur (avocat inscrit / notaire / juriste in-house / non-juriste avec accès avocat)
 7. Si non-juriste : avocat référent
 
-**Écriture** : à la fin, écrire/mettre à jour `~/.config/Hacienda/profil-cabinet.md` avec ces réponses.
+**Écriture** : à la fin, écrire/mettre à jour `~/.claude/plugins/config/hacienda-juridique/company-profile.md` avec ces réponses.
 
 ## Étape 2 — Profil spécifique droit-affaires
 
@@ -173,7 +173,7 @@ Instructions pour obtenir les clés :
 ## Sortie — Format livrable
 
 ```
-✓ Profil cabinet enregistré : ~/.config/Hacienda/profil-cabinet.md
+✓ Profil cabinet enregistré : ~/.claude/plugins/config/hacienda-juridique/company-profile.md
 ✓ Configuration droit-affaires : [chemin config utilisateur]
 ✓ Diagnostic connexions : [état] mode [opérationnel/dégradé]
 

@@ -96,7 +96,7 @@ Sortie adaptée bail commercial, formulations alternatives selon posture cabinet
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
 demander `/h-droit-affaires:entretien-demarrage` avant toute revue
-substantielle. Voir aussi `~/.config/Hacienda/profil-cabinet.md` pour les
+substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour les
 éléments cabinet partagés cross-plugins.
 
 ---
@@ -154,7 +154,7 @@ Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitud
 ## Étape 1 — Pré-flight et identification
 
 1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.config/Hacienda/profil-cabinet.md`.
+2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
 3. Détecter le type de contrat à partir des termes dominants (voir `references/taxonomie-contrats-fr.md`).
 4. **Test PI-centric.** Si les termes dominants sont brevet, marque, licence, coexistence, invention, savoir-faire, R&D ou transfert de technologie → renvoyer immédiatement vers `/h-pi:contrats-pi` avec les options (a) lancer ce skill, (b) limiter `reviser-contrat` aux clauses commerciales, (c) les deux en séquence.
 5. Identifier les parties (raison sociale, qualité, pays d'établissement), le droit applicable, la juridiction et la date d'effet.

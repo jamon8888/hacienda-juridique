@@ -88,7 +88,7 @@ La checklist post-closing est rendue en tableau avec statut et responsable par f
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
 demander `/h-droit-affaires:entretien-demarrage`. Le bloc M&A est requis
 — sans side habituel ni matrice d'approbateurs, le séquençage et l'escalade ne
-peuvent pas être calibrés. Voir aussi `~/.config/Hacienda/profil-cabinet.md`
+peuvent pas être calibrés. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
 pour les éléments cabinet partagés cross-plugins.
 
 ---

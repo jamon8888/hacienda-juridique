@@ -486,6 +486,64 @@ Anno is not a primary legal source. It only helps relate client-corpus facts to 
 `;
   }
 
+  if (pluginName === "hacienda-droit-affaires") {
+    return `# Anno Workflows — Hacienda Droit des Affaires
+
+## Gate
+
+Call \`anno_health\` before any Anno tool. If it fails, continue in \`fallback_hacienda\`.
+Before \`legal_ingest\`, \`legal_search\` or rehydration, call \`detect\` or the
+plugin's own \`check-pii\` skill to apply Anno-equivalent PII handling. The
+plugin's \`check-pii\` skill remains the lead PII gate for droit-affaires
+workflows even when Anno is available; Anno tools layer on top.
+
+## Workflows
+
+| Droit des affaires workflow | Anno tools |
+|---|---|
+| Revue contrat commercial | \`legal_extract_contract\`, \`legal_risk_review\`, \`legal_mandatory_clause_audit\` |
+| Revue NDA / LOI / term sheet | \`legal_extract_contract\`, \`legal_risk_review\`, \`legal_search\` |
+| Due diligence data-room M&A | \`legal_ingest\`, \`legal_search\`, \`legal_graph_query\`, \`legal_extract_case_file\` |
+| GAP / SPA / closing | \`legal_extract_contract\`, \`legal_risk_review\`, \`legal_validate_field\` |
+| Procédures collectives — déclaration de créance | \`legal_timeline\`, \`legal_prescription_check\`, \`legal_rehydrate_citation\` |
+| Rupture brutale L.442-1 II | \`legal_timeline\`, \`legal_search\`, \`legal_rehydrate_citation\`, \`legal_prescription_check\` |
+| Pacte d'associés / gouvernance | \`legal_extract_contract\`, \`legal_risk_review\`, \`legal_graph_query\` |
+| Veille jurisprudence ch. commerciale | \`memory_recall\`, \`memory_save\`, \`legal_search\` |
+
+## Tabular Review
+
+When available, use revue tabulaire before drafting for contract clauses,
+DD findings, GAP architecture, closing checklists, claims registries and
+case timelines. Track \`matter_vault\`, \`review_status\`, \`decision_status\`,
+assignee, locked cells and source citations. Use \`grid_to_work_product\`
+to convert validated cells into mise en demeure, déclaration de créance,
+notes M&A, liste de points or memos.
+
+## Sources Officielles Hacienda Restent Authoritatives
+
+- Légifrance (Code civil, Code de commerce, JORF)
+- Judilibre (ch. commerciale Cour de cassation, CA Paris)
+- BOFiP (volet fiscal M&A)
+- BOSS (clauses non-concurrence salariées)
+- BODACC (procédures collectives, annonces SIREN)
+- Pappers (profil entreprise enrichi, si configuré)
+
+Anno never replaces these primary sources. Unconsulted official sources stay
+tagged \`[à vérifier]\`.
+
+## Output
+
+- Faits du dossier client (parties, SIREN, contrats clés, dates)
+- Qualification juridique proposée (contrat, M&A, procédure collective, rupture)
+- Clauses / risques / preuves / délais
+- Sources internes Anno (vault dossier client)
+- Sources officielles Hacienda
+- Incertitudes et points [à vérifier]
+- Décisions et arbre de décision 5 options
+- Validation humaine requise (avocat M&A / corporate / procédures collectives selon profil cabinet)
+`;
+  }
+
   return `# Anno Workflows — ${pluginName}
 
 Call \`anno_health\` before any Anno tool. If it fails, continue in \`fallback_hacienda\`.
