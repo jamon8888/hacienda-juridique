@@ -79,7 +79,7 @@ Détection d'une composante PI substantielle : le pacte organise l'apport au cap
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
 demander `/h-droit-affaires:entretien-demarrage` avant toute revue
-substantielle. Voir aussi `~/.config/Hacienda/profil-cabinet.md` pour les
+substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour les
 éléments cabinet partagés cross-plugins.
 
 ---
@@ -188,7 +188,7 @@ Si l'utilisateur précise que la sortie est destinée à une contrepartie (co-as
 ## Étape 1 — Pré-flight + identification
 
 1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.config/Hacienda/profil-cabinet.md`. Identifier la posture pacte (protecteur fondateurs / équilibré / protecteur investisseurs) et les formes sociales pratiquées.
+2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`. Identifier la posture pacte (protecteur fondateurs / équilibré / protecteur investisseurs) et les formes sociales pratiquées.
 3. Identifier la **forme sociale** de la société dont les titres sont visés (SAS, SARL, SA…) et les **parties** (fondateurs, managers, investisseurs, société elle-même si signataire), leur qualité et le side de l'utilisateur. La forme sociale conditionne les fondements applicables :
    - SAS → agrément art. L.227-14 C.com. ; inaliénabilité statutaire art. L.227-13 C.com. (plafond 10 ans) ; décisions collectives art. L.227-9 C.com.
    - SARL → agrément légal des cessions à tiers art. L.223-14 C.com. ; décisions art. L.223-29 `[à vérifier]` / L.223-30 C.com.

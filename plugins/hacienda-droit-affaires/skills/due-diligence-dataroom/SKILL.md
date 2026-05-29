@@ -100,7 +100,7 @@ Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
 demander `/h-droit-affaires:entretien-demarrage`. Le bloc M&A est requis —
 sans side habituel ni seuil de matérialité, la qualification des findings et la
 grille de matérialité ne peuvent pas être calibrées. Voir aussi
-`~/.config/Hacienda/profil-cabinet.md` pour les éléments cabinet partagés.
+`~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour les éléments cabinet partagés.
 
 ---
 
@@ -196,7 +196,7 @@ prochaine action — typiquement l'envoi de la Q&A list.}
    et **respecter strictement la décision** (continue / prompt / abort) avant
    toute lecture analytique. Ne jamais analyser une data-room sans ce pré-flight.
 2. Lire le profil cabinet (CLAUDE.md droit-affaires, bloc M&A) et
-   `~/.config/Hacienda/profil-cabinet.md` : side habituel, posture DD, seuil de
+   `~/.claude/plugins/config/hacienda-juridique/company-profile.md` : side habituel, posture DD, seuil de
    matérialité, rôle utilisateur pour l'en-tête de confidentialité.
 3. Si un fichier de la data-room est illisible ou tronqué : le signaler
    explicitement dans la note du relecteur — ne pas l'omettre silencieusement.

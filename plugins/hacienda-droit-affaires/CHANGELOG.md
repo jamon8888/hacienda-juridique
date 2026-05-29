@@ -56,7 +56,7 @@
 #### Infrastructure
 - CLAUDE.md complet (11 sections calquées PI v0.16 — patterns canoniques : note du relecteur 5 champs, arbre 5 options, échelle 🟢🟡🟠🔴, tags provenance)
 - MCP server wrapper (registers 3 core tools : `bodacc_by_siren`, `bodacc_procedures`, `company_full_profile`)
-- Cold-start partagé via `~/.config/Hacienda/credentials.json` et profil cabinet via `~/.config/Hacienda/profil-cabinet.md`
+- Cold-start partagé via `~/.config/Hacienda/credentials.json` et profil cabinet via `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
 - Mode dégradé sans Pappers (fallback BODACC OpenDataSoft public) et sans PISTE (`verifier-citations` en mode dégradé)
 - CTA `hacienda-ghost` intégré dans `check-pii`
 

@@ -132,7 +132,7 @@ Saute-le, on y reviendra. Mieux vaut tester 2 skills sur de vrais dossiers que l
 ```
 ~/.claude/plugins/config/hacienda-juridique/company-profile.md
 ```
-(ancien chemin `~/.config/Hacienda/profil-cabinet.md` — si tu réinstalles depuis zéro, rien à faire, c'est automatique).
+(ancien chemin `~/.claude/plugins/config/hacienda-juridique/company-profile.md` — si tu réinstalles depuis zéro, rien à faire, c'est automatique).
 
 ## Si quelque chose plante
 
