@@ -61,7 +61,14 @@ MÉTHODOLOGIE ATTENDUE
 
 CALIBRAGE MODÈLE
 
-**Sonnet 4.6 effort normal en main session suffit pour cette mission.** C'est de l'analyse comparative structurée, pas de la création juridique de zéro. Si tu rencontres un point qui exige du jugement juridique nuancé (par ex. apprécier la qualité d'un workflow brevet ou d'une clause de cession L.131-3), tu peux spawner un subagent Opus ponctuel — mais l'écrasante majorité du travail est de la mise en correspondance de patterns. Évite Opus en main session, c'est coûteux pour ce type de tâche.
+**Opus 4.7 effort normal en main session.** Justification :
+
+- **Axe 1 (structure plugin)** seul aurait suffi en Sonnet — c'est de la comparaison de patterns visibles (.mcp.json, manifest, sections CLAUDE.md, anno-overlay, etc.), mécanique.
+- **Axe 2 (contenu juridique des workflows PI)** demande du jugement nuancé que Sonnet a tendance à survoler. Exemples concrets : apprécier si un workflow marque INPI capte correctement les motifs absolus L.711-2 et l'opposition L.712-4 / sa restauration L.712-4-1 ; si un workflow brevet calibre correctement les délais OEB (Règle 132 EPC) / PCT (30 mois) / INPI (R.612-66) ; si la cession L.131-3 traite la durée + territoire + médias avec la nuance jurisprudentielle ; si les workflows open source distinguent permissives (MIT/BSD/Apache) vs copyleft contamination (GPL/AGPL) ; si les workflows contentieux PI captent la compétence exclusive TJ Paris L.615-17 / MUE art. 123 RMUE / DMC art. 80 RDMC.
+- **Calibrage empirique du test K7M2PX** sur DA : en aveugle, Opus a capté des nuances que Sonnet aurait probablement loupées (CP IEF Bercy + MDR Notified Body sur cible classe II, double knowledge defense disclosure + constructive knowledge, plafond fiscal absorbé par plafond global). Pour PI avec son spectre plus large (marques + brevets + D&M + droit d'auteur + logiciel + contentieux), la même profondeur est requise.
+- **Cohérence avec la session DA précédente** : Opus en main session pour spa-review et gap-review scoring.
+
+**Pas de superpowers obligatoires** pour cette session. Le PROMPT est suffisamment cadré. Optionnel : si tu veux paralléliser les 4-6 skills PI échantillonnés (un Opus subagent par domaine : marque / brevet / D&M / droit d'auteur / logiciel / contentieux), utiliser `superpowers:dispatching-parallel-agents`. Mais le travail séquentiel en main session est tout aussi propre.
 
 DÉCISIONS FIGÉES (NE PAS REDISCUTER)
 
@@ -148,7 +155,7 @@ Format Markdown structuré :
 
 Ouvre une PR `docs(backlog): gap analysis PI vs DA` qui ajoute ce fichier, pas plus. Tu peux merger toi-même (docs-only, autonome).
 
-BONNE SESSION — Sonnet effort normal, vérification GitHub avant chaque action, focus sur le rapport pas l'implémentation.
+BONNE SESSION — Opus effort normal, vérification GitHub avant chaque action, focus sur le rapport pas l'implémentation.
 ```
 
 ---
@@ -157,7 +164,7 @@ BONNE SESSION — Sonnet effort normal, vérification GitHub avant chaque action
 
 1. Ouvrir une nouvelle session Claude Code (interface Cowork ou `claude code` en CLI).
 2. Coller le bloc ```text``` ci-dessus comme premier message.
-3. Forcer le modèle Sonnet 4.6 si l'interface le permet (sinon, par défaut Opus 4.7 — accepter la dépense).
+3. **Garder Opus 4.7 effort normal** (modèle par défaut typiquement). La review du contenu juridique PI exige le calibrage Opus, cf. section CALIBRAGE MODÈLE du prompt. Sonnet 4.6 risque un rapport de surface.
 4. Laisser la session produire le rapport et la PR.
 
 ## Archives
