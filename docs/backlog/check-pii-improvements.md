@@ -6,7 +6,7 @@
 
 ## Contexte
 
-Test mené avec un dataset PII synthétique généré par un LLM tiers (rapport de solvabilité en procédure collective + mise en demeure pour impayés). L'analyse `check-pii` en aveugle a été comparée à une vérité terrain plantée puis scorée par un LLM neutre. Le verdict global est très bon (déclenchement correct dans les 2 cas, 0 faux négatif catégorie B, 7/7 pièges résistés au total) mais **un trou systémique a été identifié** sur la définition de "montant nominatif catégorie B".
+Test mené avec un dataset PII synthétique généré par un LLM tiers (rapport de solvabilité en procédure collective + mise en demeure pour impayés). L'analyse `check-pii` en aveugle a été comparée à une vérité terrain plantée puis scorée par un LLM neutre. Le verdict global est très bon (déclenchement correct dans les 2 cas, 0 faux négatif catégorie B, 7/7 pièges correctement traités au total) mais **un trou systémique a été identifié** sur la définition de "montant nominatif catégorie B".
 
 ## Amélioration à intégrer
 
@@ -61,4 +61,4 @@ Aucune autre amélioration n'est identifiée à ce stade. Les retours personas p
 - Document 1A et Document 1B du dataset R7M2KX archivés hors repo (échange utilisateur ↔ LLM scoreur).
 - Verdict scoring : Doc 1A 85 % (point d'amélioration), Doc 1B 100 % avec caveat biais d'apprentissage inter-test → ~85-90 % réel sans biais.
 - 0 faux négatif catégorie B sur les deux documents (critique).
-- 7/7 pièges résistés au total (50 k€ sectoriel, Société Martin & Fils, Pascal et Florence prénoms ambigus, 13 100 € sociétaire, RGPD non-confidentiel, Jean-Jaurès toponyme).
+- 7/7 pièges correctement traités au total (50 k€ sectoriel, Société Martin & Fils, Pascal et Florence prénoms ambigus, 13 100 € sociétaire, RGPD non-confidentiel, Jean-Jaurès toponyme).
