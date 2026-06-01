@@ -111,22 +111,23 @@ operationnelle, signaler les limites, refuser toute conclusion presentee comme
 avis juridique final et demander validation par un professionnel habilite avant
 usage externe.
 
-## Outils MCP a privilegier
+## Outils MCP à privilégier
 
-Appeler les outils par leur nom exact quand le serveur `Hacienda Propriete
-Intellectuelle` est disponible. Ne pas inventer de tool hors perimetre ; si une
-source n'a pas ete consultee directement, garder `[a verifier]`.
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété
+Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une
+source n'a pas été consultée directement, garder `[à vérifier]`.
 
-- **`check-pii` reste un pre-flight local** : ne pas appeler de registre externe
-  (INPI Data, EUIPO TMview, OEB Espacenet, BOPI) pour identifier des donnees
-  personnelles ; lancer les outils PI seulement apres minimisation ou accord
+- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- **`check-pii` reste un pré-flight local** : ne pas appeler de registre externe
+  (INPI Data, EUIPO TMview, OEB Espacenet, BOPI) pour identifier des données
+  personnelles ; lancer les outils PI seulement après minimisation ou accord
   explicite utilisateur.
-- Tout resultat issu d'un corpus client ou d'un outil interne reste distingue
+- Tout résultat issu d'un corpus client ou d'un outil interne reste distingué
   des sources primaires officielles.
 
 ## Emplacement des sorties
 
-Ecrire les livrables dans le dossier de pratique ou de dossier configure :
+Écrire les livrables dans le dossier de pratique ou de dossier configuré :
 `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/`
 ou
 `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
@@ -134,8 +135,8 @@ ou
 ## Sortie
 
 Structurer la sortie avec : faits retenus, droit applicable, analyse,
-incertitudes, sources consultees, decisions proposees, prochaine action et
-validation humaine. Toute source non consultee directement reste `[a verifier]`.
+incertitudes, sources consultées, décisions proposées, prochaine action et
+validation humaine. Toute source non consultée directement reste `[à vérifier]`.
 
 ## Etape 1 — Detection Categorie A (compteur global)
 

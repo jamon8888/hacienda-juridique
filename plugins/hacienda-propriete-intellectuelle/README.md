@@ -45,6 +45,7 @@ Chaque skill PI est invocable directement comme commande du plugin :
 | `/h-pi:bases-de-donnees` | Protection base de donnees et droit sui generis. |
 | `/h-pi:certificat-complementaire-protection` | Readiness CCP et depot. |
 | `/h-pi:cession-droit-auteur` | Cession de droits d'auteur. |
+| `/h-pi:check-pii` | Detection PII pre-flight + lead magnet hacienda-ghost. |
 | `/h-pi:clearance-marque` | Clearance marque approfondie. |
 | `/h-pi:contentieux-pi` | Strategie judiciaire PI. |
 | `/h-pi:contrats-pi` | Contrats PI autonomes. |

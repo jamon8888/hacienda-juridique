@@ -425,6 +425,19 @@ Avant transmission :
 - [ ] route finale explicite vers la bonne brique
 - [ ] sortie marquée comme brouillon soumis à validation humaine
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Inspiration libre, reprise d'idées non protégées ou d'éléments du fonds commun ; pas d'empreinte de la personnalité de l'auteur reprise. |
+| Moyen | 🟡 | Ressemblances partielles sur éléments potentiellement protégeables ; risque incertain ; originalité et qualité pour agir à confirmer. |
+| Élevé | 🟠 | Inspiration substantielle, défendable mais contestation possible sur l'originalité ou sur la portée de la reprise ; exposition réelle si l'autre partie engage l'action. |
+| Bloquant | 🔴 | Reproduction servile ou quasi-servile + commercialisation + auteur identifié et droits non transmis : caractérisation civile (`L.331-1`) et pénale (`L.335-2`, `L.335-3`) plausibles. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Ton
 
 Factuel, rigoureux, contradictoire. Distinguer clairement faits, droit,

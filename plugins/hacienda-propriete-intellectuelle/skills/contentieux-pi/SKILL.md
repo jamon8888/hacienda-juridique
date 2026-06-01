@@ -105,6 +105,19 @@ Ne pas utiliser ce skill comme voie normale pour :
 - une médiation ou négociation précontentieuse qui ne demande pas encore de
   choix procéduraux.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Action solide : titres valides, preuves convergentes, forum compétent, calendrier maîtrisé. |
+| Moyen | 🟡 | Stratégie à arbitrer (référé vs fond, urgence vs profondeur, attaque vs transaction). |
+| Élevé | 🟠 | Recevabilité défendable mais titre attaquable en nullité reconventionnelle ou preuve fragile. |
+| Bloquant | 🔴 | Action engagée avec moyen prescrit, forum incompétent (TJ Paris compétence exclusive brevets L.615-17, MUE art. 123 RMUE, DMC art. 80 RDMC) ou pièces inopposables. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Ne fait pas
 
 - Ne rédige pas les actes de procédure, conclusions, requêtes, déclarations

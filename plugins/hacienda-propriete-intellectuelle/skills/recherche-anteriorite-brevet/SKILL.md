@@ -382,6 +382,19 @@ Associer la valeur choisie à 2-4 actions concrètes et à sa justification.
 - Les numéros, dates, classifications et statuts doivent rester reliés à une
   source ouvrable avant d'être cités comme appui.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Champ libre pour le périmètre envisagé : aucun document proche identifié sur les CIB/CPC couvertes, NPL raisonnablement balayée, caractéristiques distinctives apparentes solides. Route `prepare-drafting-brief` plausible. |
+| Moyen | 🟡 | Art antérieur périphérique exigeant adaptation des revendications : effet technique défendable mais à recadrer, signaux d'activité inventive contrastés, couverture NPL ou classifications voisines incomplètes (trous de lecture visibles). |
+| Élevé | 🟠 | Antériorité proche affectant la portée des revendications principales : signal X ou Y plausible sur le closest prior art, caractéristiques distinctives fragiles, problème technique objectif à reformuler. Route `expand-search-coverage` ou `seek-patentability-review`. |
+| Bloquant | 🔴 | Antériorité directe couvrant l'invention envisagée (perte de nouveauté manifeste) ou exclusion d'éligibilité bloquante (art. 52 CBE / L.611-10). Le premier passage ne permet pas de soutenir un dépôt en l'état. Route `hold-or-do-not-file` ou `pivot-to-invalidity-analysis`. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill amorce souvent la chaîne brevets et émet des cotes qui pèsent sur les skills aval (`preparation-depot-brevet`, `strategie-extension-internationale`, CCP). Une cote 🔴 sortie d'ici ne peut pas être tacitement reclassée 🟡 par un skill aval sans déclaration explicite.
+
 ## Rappel final à conserver
 
 - premier passage strict uniquement ;

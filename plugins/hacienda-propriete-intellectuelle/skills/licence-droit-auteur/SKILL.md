@@ -507,6 +507,19 @@ Avant transmission au validateur humain, vérifier :
 - [ ] la sortie contient les marqueurs `[PROVISOIRE]`, `[à vérifier]` ou
       `[À COMPLÉTER]` quand nécessaire.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Licence conforme aux mentions `L.131-3` (durée, territoire, médias, étendue, exclusivité), rémunération calibrée `L.131-4`, distinction licence / cession claire (titularité conservée). |
+| Moyen | 🟡 | Portée d'exploitation à préciser (médias, supports, sous-licence) ; périmètre des droits concédés à resserrer sans non-conformité manifeste. |
+| Élevé | 🟠 | Clauses de redevance ambiguës (forfaitaire vs proportionnelle au regard de `L.131-4`), exclusivité ou exclusivité de territoire à clarifier, posture `L.131-4` floue. |
+| Bloquant | 🔴 | Licence sans mention claire de durée, territoire ou exclusivité, ou portée sur œuvre future indéterminée (`L.131-1`), ou risque sérieux de requalification en cession déguisée sans les garanties associées. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Ton
 
 Juridique, précis, borné. Toujours distinguer :

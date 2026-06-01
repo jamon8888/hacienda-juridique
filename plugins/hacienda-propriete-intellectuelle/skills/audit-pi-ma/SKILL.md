@@ -525,6 +525,20 @@ Technique, transactionnel, concis, oriente décision. Toujours montrer quelle
 branche a été ouverte, ce qui reste hors champ et ce qui exige validation
 humaine avant décision ou closing.
 
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Actif PI propre : titularité claire, registres à jour, formalités opposabilité réalisées, pas d'antériorité bloquante détectée. |
+| Moyen | 🟡 | Documentation à compléter (un maillon de chaîne de titularité tracable mais non versé en data room, formalité d'inscription RNB/RNM à jour mais pièce manquante). |
+| Élevé | 🟠 | Risque structurant non bloquant : chaîne L.131-3 / L.113-9 partiellement reconstituée, conflit potentiel sur classes/territoires, dépendance OSS LGPL/MPL avec obligations non démontrées. Reps & warranties + escrow recommandés. |
+| Bloquant | 🔴 | Risque rédhibitoire : titularité rompue sur actif structurant exploité, contamination GPL/AGPL avérée sur produit distribué, antériorité bloquante sur marque ou brevet cible, titre déjà en nullité ou prescrit. Condition suspensive ou abandon du périmètre. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (par ex. issue de `recherche-anteriorite-*`, `revue-open-source`, `contrats-pi`) vers 🟡 sans déclaration explicite. Une dégradation requiert une justification écrite dans la note du relecteur.
+
 ## Mode Anno Tabular optionnel
 
 Si la distribution Hacienda + Anno Desktop est active, `audit-pi-ma` utilise

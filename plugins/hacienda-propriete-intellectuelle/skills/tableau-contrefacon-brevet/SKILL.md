@@ -90,6 +90,19 @@ Le skill est strictement offensif. Il ne doit pas absorber :
 - la nullité / invalidité du brevet oppose ;
 - la stratégie judiciaire generale.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Pas de reproduction des caractéristiques essentielles des revendications indépendantes — pas de contrefaçon littérale ni par équivalents. |
+| Moyen | 🟡 | Reproduction partielle limitée à des revendications dépendantes — atteinte plaidable mais portée réduite. |
+| Élevé | 🟠 | Reproduction par équivalents (doctrine des équivalents) défendable mais nécessitant démonstration fonction/moyen/résultat. |
+| Bloquant | 🔴 | Caractéristiques essentielles d'une revendication indépendante reproduites à l'identique sur un produit commercialisé — contrefaçon littérale prima facie. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Ce skill ne fait pas
 
 - ne conclut pas à la contrefaçon ;

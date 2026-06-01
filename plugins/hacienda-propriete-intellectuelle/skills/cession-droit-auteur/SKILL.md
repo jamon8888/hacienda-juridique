@@ -351,6 +351,19 @@ Le skill doit terminer par une seule route principale parmi :
 
 Ne pas inventer de semantique de routage supplementaire.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Cession conforme `L.131-3` (durée, territoire, médias, étendue mentionnés), rémunération proportionnelle calibrée `L.131-4`, chaîne de titularité propre et documentée. |
+| Moyen | 🟡 | Chaîne de titularité comporte un maillon à documenter mais traçable ; mentions `L.131-3` présentes mais à préciser ponctuellement. |
+| Élevé | 🟠 | Clauses ambiguës sur territoire ou modes d'exploitation à compléter ; structure économique discutable sans non-conformité manifeste ; titularité fragile mais défendable. |
+| Bloquant | 🔴 | Cession sans mention obligatoire `L.131-3` (nullité encourue), ou portant sur œuvre future indéterminée (`L.131-1`), ou rémunération forfaitaire injustifiée au regard de `L.131-4` al.2. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Ton et validation humaine
 
 Le ton doit rester juridique, précis et fermé. Le skill doit :

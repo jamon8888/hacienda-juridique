@@ -140,6 +140,19 @@ Les trois modes `review`, `fallback-redline` et `issue-list` restent publics,
 mais ils sont subordonnés à la même logique de revue ciblée. Ce skill ne
 rédige pas un contrat PI autonome complet.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Clause standard sans risque significatif : périmètre borné, formulation usuelle, équilibre raisonnable. |
+| Moyen | 🟡 | Formulations à préciser (définitions floues, renvoi imprécis, zone grise sur droits dérivés) — pas de nullité mais ambiguïté à corriger. |
+| Élevé | 🟠 | Clause à portée excessive à négocier (cession trop large, durée disproportionnée, restrictions concurrence à requalifier). |
+| Bloquant | 🔴 | Clause de cession globale d'œuvres futures sans délimitation suffisante (atteinte à la prohibition de la cession globale d'œuvres futures, art. L.131-1 CPI) OU clause de non-contestation portant atteinte à l'ordre public économique. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Ce skill ne fait pas
 
 - Ne remplace pas `contrats-pi` quand l'objet principal du document est une

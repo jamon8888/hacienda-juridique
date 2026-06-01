@@ -446,6 +446,19 @@ La sortie doit toujours utiliser exactement ces 9 blocs :
 - si le sujet principal devient la préparation d'un dépôt de brevet initial,
   router vers `preparation-depot-brevet`.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Dossier CCP `ready` : brevet de base clair, première AMM UE documentée, article 3(a)-(d) franchissable, fenêtre de dépôt (art. 7, 6 mois post-AMM) confortable, calcul de durée stable. |
+| Moyen | 🟡 | Dossier `partial` exploitable avec réservations : durée CCP affectée par un calcul complexe, extension pédiatrique seulement `possible`, dates `[À COMPLÉTER]`, posture première AMM UE plausible mais non sécurisée sur source primaire. |
+| Élevé | 🟠 | Ambiguïté structurelle sur le couplage produit revendiqué / brevet de base (article 3(a) `claim_match_posture` `mixed`), risque de duplication CCP (article 3(c)) non levé, waiver export/stockpiling exposant le titre, brevet de base fragile. |
+| Bloquant | 🔴 | Fenêtre de dépôt 6 mois post-AMM manifestement dépassée, brevet de base expirant avant l'AMM ou non identifiable, première AMM UE introuvable alors qu'elle est déterminante, `authorization_posture = blocked`. Route fermée `hold-*` ou `route-to-patent-invalidity-review` obligatoire. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (ex. `recherche-anteriorite-brevet` ou `preparation-depot-brevet` signalant un risque sur le brevet de base) sans déclaration explicite.
+
 ## Rappel final
 
 Toujours conclure que :

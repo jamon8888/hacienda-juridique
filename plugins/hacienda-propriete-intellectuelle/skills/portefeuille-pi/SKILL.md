@@ -137,6 +137,19 @@ bascule vers `revue-portefeuille-marques` ou `revue-portefeuille-brevets`.
 6. Ne jamais présenter la sortie comme registre officiel, dépôt officiel ou
    synchronisation officielle.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Portefeuille à jour : annuités payées, renouvellements planifiés, formalités d'opposabilité en règle, couverture cohérente avec l'exploitation. |
+| Moyen | 🟡 | Couverture territoriale ou classes (Nice/Locarno/CIB) à élargir au regard de l'exploitation actuelle ou des marchés cibles. |
+| Élevé | 🟠 | Échéance de renouvellement marque ou annuité brevet à moins de 3 mois sans plan d'action confirmé — risque de bascule en délai de grâce avec surtaxe. |
+| Bloquant | 🔴 | Titre non renouvelé délai expiré OU annuité brevet non payée délai de grâce dépassé OU formalité d'opposabilité critique manquante (inscription cession/licence aux registres nationaux) — perte de droit ou inopposabilité aux tiers. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Mode Anno Tabular optionnel
 
 Si la distribution Hacienda + Anno Desktop est active, `portefeuille-pi` utilise

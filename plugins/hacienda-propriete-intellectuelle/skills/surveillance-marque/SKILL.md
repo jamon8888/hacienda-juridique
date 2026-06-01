@@ -387,6 +387,19 @@ Associer la valeur choisie à 2-4 actions concrètes et à sa justification.
 - Si le seuil est `blocked`, la sortie ne doit pas maquiller le rapport en
   surveillance fiable.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à l'appréciation de la criticité d'un hit BOPI/EUIPO/Madrid Monitor vs la watchlist (similarité signe, recouvrement classes, territoire, délai d'opposition L.712-4 restant — fenêtre ferme 2 mois post-publication BOPI) :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Hit de similarité éloignée : signe vaguement proche en classes non couvertes par la watchlist, déposant sans historique conflictuel, ou publication hors territoire surveillé. Consigner sans action. |
+| Moyen | 🟡 | Hit notable : similarité phonétique ou visuelle modérée en classes voisines de la watchlist, ou identité signe en classes éloignées. Surveillance rapprochée, alerter le titulaire, préparer un dossier de réserves sans urgence opposition. |
+| Élevé | 🟠 | Hit sérieux : similarité forte du signe en classes recouvrant celles de la marque surveillée, délai d'opposition à mi-parcours (30-45 j restants). Préparer le dossier d'opposition, alerter le mandataire et le décisionnaire interne pour go/no-go. |
+| Bloquant | 🔴 | Hit critique : identité (ou quasi-identité) du signe en classes identiques, ou similarité forte sur une marque notoire surveillée ; délai d'opposition court (< 30 j) ou très court (< 10 j). Escalade immédiate, opposition à former en urgence ou décision argumentée de ne pas opposer (avec trace). |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (par ex. d'un audit de portefeuille ayant flagué une marque comme stratégique-critique) vers 🟡 ou inférieur sans déclaration explicite. À l'inverse, sa cote 🔴 doit être portée comme plancher par `analyse-opposition-marque` si une opposition est ouverte derrière.
+
 ## Rappel final à conserver
 
 - monitoring strict uniquement ;

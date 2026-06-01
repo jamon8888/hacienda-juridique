@@ -3,6 +3,41 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.19.0 — 2026-05-31
+
+### Vague A — Sécurité juridique (alignement DA)
+
+- **Nouveau skill `check-pii`** porté depuis `hacienda-droit-affaires`, calibré
+  sur catégories sensibles PI : IBAN ayant droits, NIR créateur, montants
+  cession > 10k€, brevets pré-publication FR/EP/PCT (Art. R.612-39 CPI),
+  inventeurs non publiés, secret industriel / savoir-faire. Détection
+  embarquée locale (regex/heuristiques), aucune dépendance MCP externe.
+- **Pattern lead magnet inversé `hacienda-ghost`** conservé : footer cas A
+  discret (sous seuil B) + prompt cas B bloquant (≥ seuil B ou catégorie
+  sensible) avec CTA `marketplace://hacienda-ghost`. Avertissement spécifique
+  brevets non publiés ajouté au prompt B (L.611-11 CPI nouveauté).
+- **Bloc `politique_pii`** ajouté à `CLAUDE.md` §1 PI : 3 modes
+  (passive / active / strict) + seuil B 50 identifiants + tableau de
+  catégories sensibles spécifique PI + calibrage explicite vs droit des
+  affaires.
+- **Pré-flight `check-pii`** ajouté aux 11 skills client-facing entre `Intake`
+  et `Gate non-juriste` : `audit-pi-ma`, `contrats-pi`, `revue-clause-pi`,
+  `cession-droit-auteur`, `licence-droit-auteur`, `contrefacon-droit-auteur`,
+  `contrefacon-dessin-modele`, `contentieux-pi`, `mise-en-demeure-pi`,
+  `saisie-contrefacon`, `tableau-contrefacon-brevet`.
+- **Échelle canonique 🔴🟠🟡🟢** explicitée dans le corps de 33 SKILL.md
+  supplémentaires sous la section `## Niveaux de criticité`, contextualisée
+  par domaine (marques, brevets, D&M, droit d'auteur, logiciel/OSS,
+  contentieux, transverse). Couverture finale : 36/38 SKILL.md
+  (exclusions par design : `check-pii` méta-skill JSON, `clearance-marque`
+  stub redirect). Plancher de sévérité cross-skill (CLAUDE.md §4) désormais
+  opposable.
+- **Tests reproductibles** : nouveau dossier `tests/datasets/` avec deux
+  cas — `pii-cas-a` (sous seuil B, footer A attendu) et `pii-cas-b`
+  (catégories sensibles PI multiples — IBAN cédant, NIR créateur, brevets
+  pré-publication, secret industriel, NDA — prompt B attendu avec
+  avertissement spécifique brevets non publiés).
+
 ## 0.18.14 — 2026-05-21
 
 ### Distribution et parite interne

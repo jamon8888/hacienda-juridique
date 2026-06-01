@@ -298,6 +298,21 @@ Utiliser aussi la note compacte :
 
 `references/droits-voisins-ogc-routing-and-output.md`
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | OGC compétent identifié (SACEM/SACD/SCPP/SPPF/ADAMI/SPEDIDAM/CFC selon le cas), barème applicable connu, autorisations en règle ou licence légale couvrant l'usage. |
+| Moyen | 🟡 | Répertoire de l'œuvre, de l'interprétation, du phonogramme/vidéogramme ou de la publication de presse à clarifier ; rattachement OGC à confirmer avant exploitation. |
+| Élevé | 🟠 | OGC compétent ambigu (cumul de droits voisins, contrats croisés artistes-interprètes / producteur, presse `L.218-1+`) ; périmètre de l'autorisation à reconstituer. |
+| Bloquant | 🔴 | Exploitation sans autorisation de l'OGC compétent ni couverture par licence légale, ou hors barème applicable : engagement de responsabilité civile et risque pénal `L.335-4`. |
+
+Bases types : artistes-interprètes `L.212-1+`, producteurs de phonogrammes `L.213-1`, producteurs de vidéogrammes `L.215-1`, entreprises de communication audiovisuelle `L.216-1`, éditeurs de presse `L.218-1+` (post-2019).
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Non-goals
 
 Le skill ne fait pas :

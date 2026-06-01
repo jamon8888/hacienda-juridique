@@ -118,6 +118,19 @@ Le skill reste **bi-mode** :
 Une branche `fallback-unfair-competition` peut exister, mais seulement comme
 issue secondaire et bornée. Le coeur du skill reste l'analyse D&M.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Impression globale clairement distincte sur l'utilisateur averti : pas de contrefaçon caractérisable, dossier à clôturer sans action. |
+| Moyen | 🟡 | Ressemblance partielle, impression globale incertaine : risque non tranché, mise en demeure exploratoire ou demande de précisions factuelles envisageable avant d'engager. |
+| Élevé | 🟠 | Impression globale proche sur l'utilisateur averti, contrefaçon défendable mais nécessitant expertise complémentaire (validité du titre, portée des vues, pièces d'usage) avant engagement procédural. |
+| Bloquant | 🔴 | Identité visuelle ou impression globale identique sur dessin ou modèle enregistré valide, avec commercialisation contrefaisante actuelle : escalade immédiate (saisie-contrefaçon, référé, mise en demeure ferme). |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (par exemple un finding 🔴 de `recherche-anteriorite-dm` sur validité du titre attaqué) sans déclaration explicite.
+
 ## Ce skill ne fait pas
 
 - Ne remplace pas `recherche-anteriorite-dm` pour l'analyse amont du paysage

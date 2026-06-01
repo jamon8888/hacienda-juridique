@@ -370,6 +370,19 @@ Associer la valeur choisie à 2-4 actions concrètes et à sa justification.
 - `clearance-marque` ne doit jamais revenir comme voie normale.
 - Les libellés restent des propositions à valider, pas une rédaction finale.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à l'appréciation de la qualité d'un dossier pré-dépôt FR/EU/Madrid (motifs absolus L.711-2 self-checked, classes Nice cohérentes, libellé précis, titularité claire) :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Dossier prêt : signe arbitraire ou fantaisiste, classes resserrées et précises selon Nice, libellé conforme aux directives INPI/EUIPO, titulaire qualifié, recherche d'antériorités amont sans hit bloquant. Dépôt à fort taux d'enregistrement direct. |
+| Moyen | 🟡 | Dossier exploitable mais perfectible : un ou deux libellés trop larges à resserrer, classe additionnelle d'opportunité à arbitrer, distinctivité moyenne (signe évocateur acceptable mais examinateur-dépendant). Dépôt possible avec ajustements. |
+| Élevé | 🟠 | Dossier fragile : signe à risque (suggestif fort, partiellement descriptif), libellés probablement objectés par l'examinateur, classes mal alignées sur l'usage réel, ou base FR/EU manquante pour Madrid. Refus partiel probable. Re-travailler avant dépôt. |
+| Bloquant | 🔴 | Dépôt à proscrire en l'état : signe descriptif, déceptif ou non distinctif manifeste (motif absolu L.711-2 patent), signe contenant un emblème protégé (art. 6ter CUP), ou conflit d'antériorité identique signalé en amont. Refus quasi certain et coût taxes perdu. Reprendre le signe ou abandonner. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (par ex. d'une `recherche-anteriorite-marque` ou d'un audit de motifs absolus antérieur) vers 🟡 ou inférieur sans déclaration explicite.
+
 ## Rappel final à conserver
 
 - préparation stricte de dépôt uniquement ;

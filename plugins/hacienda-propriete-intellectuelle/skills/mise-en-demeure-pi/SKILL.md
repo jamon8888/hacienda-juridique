@@ -107,6 +107,19 @@ Le skill est cohérent avec `tri-contrefacon` mais ne dépend plus d'une logique
 
 Référence de travail: `references/lettres-pi-structure.md`.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Lettre calibrée : ton aligné posture cabinet, destinataire validé, escalation proportionnée. |
+| Moyen | 🟡 | Formulations à durcir ou assouplir selon escalation (ton trop souple si répétition, trop ferme si partenaire). |
+| Élevé | 🟠 | Ton inadapté au destinataire (trop agressif vs partenaire, trop souple vs contrefacteur récidiviste) ou inadéquation avec posture cabinet. |
+| Bloquant | 🔴 | Lettre escalatoire envoyée à contrepartie partenaire critique sans approbation hiérarchique adaptée OU contenant menace disproportionnée exposant à un risque de procédure abusive. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Ne fait pas
 
 - N'envoie jamais une lettre, un email ou un message à un tiers.
