@@ -1,5 +1,14 @@
 # Backlog consolidé — Vague C validation reproductible PI
 
+> ⚠️ **`[scoring auto-référent — méthodologie pré-D.0]`** — ce scoring a été produit
+> avant formalisation du protocole blind ([`docs/methodology/sparring-scoring-protocol.md`](../methodology/sparring-scoring-protocol.md)).
+> L'auteur des datasets, de la vérité terrain et de l'orchestration du scoring est le même
+> acteur (Claude Code en session unique). Les scores sont à traiter comme
+> **borne supérieure indicative**, pas comme mesure release-grade. Re-validation
+> blind prévue en D.3 (cf. `docs/superpowers/plans/2026-06-01-hacienda-pi-vague-d-release-readiness.md`).
+
+---
+
 **Date** : 2026-05-31
 **Méthode** : sparring scoring K7M2PX adapté, 6 dossiers de test fictifs (un par domaine PI), 6 subagents Opus évaluateurs en parallèle.
 **Référence** : `docs/superpowers/plans/2026-05-31-hacienda-pi-alignement-da-vagues-abc.md` § Vague C.

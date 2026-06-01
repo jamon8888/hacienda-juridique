@@ -1,0 +1,390 @@
+# Templates Codex — Blind sparring scoring (Phases 1, 2, 4)
+
+**Référence protocole** : `docs/methodology/sparring-scoring-protocol.md`
+**Script helper** : `scripts/codex-blind-scoring.py`
+**Modèle Codex recommandé** :
+- Phase 1 (datasets) : **GPT-5.5 effort medium**
+- Phase 2 (vérité terrain) : **GPT-5.5 effort HIGH** (phase la plus consequence)
+- Phase 4 (scoring) : **GPT-5.5 effort medium**
+
+GPT-4.5 (orion) **déconseillé** : risque de citations CPI / CJUE inventées sur domaine niche droit français PI.
+
+---
+
+## Phase 1 — Génération du dataset fictif
+
+### Variables à substituer
+
+| Placeholder | Description | Exemple |
+|---|---|---|
+| `{skill}` | Nom du skill cible | `analyse-opposition-marque` |
+| `{domain}` | Domaine PI | `marques` |
+| `{mode}` | Mode d'invocation du skill | `analyse offensive opposition INPI L.712-4` |
+| `{specificites}` | Liste des nuances métier à inclure subtilement | `motifs absolus L.711-2 ; restauration L.712-4-1` |
+| `{code}` | Code scoring 6 chars | `K7M2PX` |
+
+### Prompt canonique
+
+```
+ROLE: Tu génères un dataset de test fictif pour évaluer la qualité d'un skill
+juridique français en propriété intellectuelle. Tu fais partie d'un protocole
+blind de sparring scoring (4 phases).
+
+CONTEXTE PROTOCOLE BLIND :
+Ton output (le dataset) servira ensuite à un autre acteur (modèle différent)
+qui définira la vérité terrain. Un troisième acteur exécutera le skill sur
+ton dataset. Un quatrième scorrera. Les 4 phases sont volontairement
+isolées pour éviter le biais auto-référent.
+
+CONSIGNE STRICTE : tu ne dois PAS produire la vérité terrain dans ce fichier.
+Juste le scénario fictif et les pièces. Aucune cotation 🔴🟠🟡🟢, aucune
+recommandation, aucune section "Vérité terrain attendue".
+
+PARAMÈTRES :
+- Skill cible : {skill}
+- Domaine PI : {domain}
+- Mode d'invocation : {mode}
+- Code scoring : {code}
+- Spécificités métier à inclure subtilement : {specificites}
+
+INSTRUCTIONS :
+
+Génère un dossier fictif structuré comme suit :
+
+# Dataset test — `{skill}` — Code {code}
+
+**Domaine** : {domain}
+**Skill cible** : `/h-pi:{skill}`
+**Mode** : {mode}
+
+*Dossier strictement fictif — toute ressemblance avec dossiers, parties ou titres
+réels serait fortuite.*
+
+---
+
+## Scénario fictif
+
+[Entité fictive : raison sociale, SIREN inventé 9 chiffres, secteur, taille, CA.
+Situation métier précise : deal en cours, contentieux en gestation, dépôt préparé,
+audit DD M&A, etc. Parties impliquées avec rôles. Dates clés cohérentes.]
+
+---
+
+## Pièces fournies
+
+### [Section adaptée au scénario — ex. constat huissier, contrat projeté, recherche INPI/EUIPO simulée, SBOM, etc.]
+
+[Détails techniques crédibles. Si numéros de marques/brevets : inventer (FR
+7-8 chiffres, EP 7-8 chiffres, EUTM 8-9 chiffres). Si montants : réalistes pour
+le secteur évoqué.]
+
+### [Autres sections de pièces selon le dossier]
+
+---
+
+## Posture cabinet (configurée)
+
+[Selon le domaine : posture enforcement, matrice approbateurs, tribunaux
+habituels, budget contentieux, posture par défaut.]
+
+---
+
+## Question / demande explicite
+
+[Ce que le déposant / avocat / client veut obtenir du skill — formulé comme
+un message court ou une note de cadrage.]
+
+CONTRAINTES :
+- TOUT est fictif. Aucune partie réelle. SIREN inventés (9 chiffres aléatoires
+  cohérents avec validation Luhn si possible). Montants réalistes. Brevets /
+  marques / DM avec numéros inventés.
+- Inclure subtilement les spécificités à tester sans annoncer "voici le piège
+  à détecter" — un avocat expérimenté les verrait par lecture, mais elles ne
+  sont pas étiquetées.
+- Format Markdown autonome.
+- Disclaimer fictif en tête (déjà dans le template).
+- AUCUNE section "Vérité terrain", AUCUNE cotation 🔴🟠🟡🟢, AUCUNE recommandation.
+- Tu génères les faits, pas leur interprétation.
+- Longueur cible : 200-400 lignes.
+
+OUTPUT : un fichier Markdown autonome correspondant à la structure ci-dessus,
+prêt à être sauvegardé dans `tests/datasets/<batch>-{skill}/scenario.md`.
+```
+
+---
+
+## Phase 2 — Génération de la vérité terrain
+
+### Variables à substituer
+
+| Placeholder | Description | Exemple |
+|---|---|---|
+| `{skill}` | Nom du skill cible | `analyse-opposition-marque` |
+| `{skill_description}` | Description **neutre minimale** du skill (2-3 lignes max) | `Skill d'analyse d'opposition à un dépôt de marque devant l'INPI, mode offensif ou défensif. Produit un livrable partner-ready avec findings cotés et recommandation.` |
+| `{domain}` | Domaine PI | `marques` |
+| `{mode}` | Mode d'invocation | `offensif L.712-4` |
+| `{scenario_content}` | Contenu intégral du `scenario.md` de Phase 1 | (chargé depuis fichier) |
+
+### Prompt canonique
+
+```
+ROLE : Tu définis la vérité terrain juridique pour un dataset fictif déjà existant.
+Tu agis comme un AVOCAT EXPERT PI SENIOR FRANÇAIS qui lit le dossier "à froid"
+et identifie ce qu'un livrable de qualité partner-ready DEVRAIT capter.
+
+CONTEXTE PROTOCOLE BLIND :
+Tu n'as pas écrit le dataset (autre acteur). Tu ne sais pas exactement ce que
+le skill évalué fait (autre acteur). Tu définis la vérité métier indépendante.
+
+CONTRAINTE CLÉ — ANTI-LEAKAGE :
+Tu reçois le scénario fictif + une description NEUTRE et MINIMALE du skill
+cible. Tu ne reçois PAS le SKILL.md complet (qui prescrirait ce que le skill
+fait). Cela garantit que ta vérité terrain reflète ce qu'un expert pur
+attendrait, pas ce que le skill est conçu pour produire.
+
+DESCRIPTION NEUTRE DU SKILL CIBLE :
+{skill_description}
+
+PARAMÈTRES :
+- Skill cible : {skill}
+- Domaine PI : {domain}
+- Mode d'invocation : {mode}
+
+SCÉNARIO FOURNI (Phase 1) :
+
+{scenario_content}
+
+GÉNÈRE :
+
+# Vérité terrain — `{skill}`
+
+**Méthode** : sparring scoring blind protocole D.0 phase 2 (Codex GPT-5.5 high)
+**Scénario** : voir `scenario.md` du même dossier
+
+## Findings critiques attendus
+
+### 🔴 Bloquant
+
+[Findings qui rendent une décision en l'état dangereuse / nulle / non opposable.
+Chacun cite l'article du Code (CPI, C.civ, RMUE, RDMC, CBE) et/ou jurisprudence
+(arrêt CJUE, Cour de cassation, CA Paris pôle 5, etc.) pertinente.]
+
+### 🟠 Élevé
+
+[Findings qui nécessitent une correction substantielle avant action.]
+
+### 🟡 Moyen
+
+[Findings qui méritent vigilance ou clarification.]
+
+### 🟢 Faible
+
+[Ce qui est correct et n'appelle pas d'action.]
+
+## Nuances métier subtiles à valoriser
+
+[Ce qu'un avocat expérimenté noterait en marge sans que ce soit un finding
+bloquant — mais qui distingue une sortie partner-ready d'une sortie générique.
+Chaque nuance citée avec source primaire.]
+
+## Pièges à ne pas tomber dedans
+
+[Au moins 5 raisonnements faux mais tentants qu'un junior pourrait suivre.
+Formulés en "Ne pas X" avec explication courte du pourquoi.]
+
+## Recommandation attendue
+
+[Verdict final : no-go / go avec conditions / stratégie à reprendre / etc.
+Plan d'action chronologique 2-4 sprints avec livrables par sprint.]
+
+## Grille de scoring adaptée
+
+| Dimension | Poids | Indicateurs spécifiques au dossier |
+|---|---|---|
+| Couverture du périmètre | 30 % | [Liste des findings 🔴/🟠/🟡 qu'un scoreur doit pouvoir vérifier comme présents/absents dans la sortie live.] |
+| Détection nuances métier critiques | 30 % | [Liste des nuances articulées que la sortie live doit avoir mentionnées avec citation.] |
+| Qualité arbitrage subjectif | 20 % | [Cotation 🔴/🟠/🟡/🟢 calibrée, plancher cross-skill respecté, recommandation actionnable.] |
+| Lisibilité partner-ready | 10 % | [Format, structure, en-tête confidentialité, note du relecteur, arbre 5 options.] |
+| Résistance aux pièges | 10 % | [La sortie live évite-t-elle chacun des pièges listés ?] |
+
+CONTRAINTES :
+- Cite explicitement les articles et arrêts CJUE / Cour de cassation canoniques.
+  Pas d'inférence vague.
+- Pas de référence à ce que le skill prescrit. Tu raisonnes en avocat pur.
+- Format Markdown autonome.
+- Longueur cible : 250-450 lignes.
+- En tête : indique "Phase 2 — Codex GPT-5.5 effort high — protocole D.0".
+
+OUTPUT : un fichier Markdown autonome, prêt à être sauvegardé dans
+`tests/datasets/<batch>-{skill}/ground-truth.md`.
+```
+
+---
+
+## Phase 4 — Scoring comparatif
+
+### Variables à substituer
+
+| Placeholder | Description | Exemple |
+|---|---|---|
+| `{skill}` | Nom du skill évalué | `analyse-opposition-marque` |
+| `{skill_version}` | Version du skill au moment du test | `2.0.0` (vague C) ou `2.1.0` (post-vague-D.1) |
+| `{code}` | Code scoring 6 chars | `K7M2PX` |
+| `{date}` | Date du scoring | `2026-06-15` |
+| `{scenario_content}` | Contenu intégral du `scenario.md` | (chargé) |
+| `{ground_truth_content}` | Contenu intégral du `ground-truth.md` | (chargé) |
+| `{live_output_content}` | Contenu intégral du `live-output.md` | (chargé) |
+
+### Prompt canonique
+
+```
+ROLE : Tu scores une sortie live de skill juridique par comparaison à une vérité
+terrain pré-définie. Tu agis comme un ÉVALUATEUR INDÉPENDANT.
+
+CONTEXTE PROTOCOLE BLIND :
+Phase 4 du protocole sparring scoring. Tu reçois trois inputs. Tu n'as PAS
+accès au SKILL.md du skill évalué (sinon tu scorerais structurellement au
+lieu d'évaluer substantiellement).
+
+INPUTS :
+
+=== SCENARIO (Phase 1) ===
+
+{scenario_content}
+
+=== GROUND-TRUTH (Phase 2) ===
+
+{ground_truth_content}
+
+=== LIVE-OUTPUT (Phase 3) ===
+
+{live_output_content}
+
+PARAMÈTRES :
+- Skill évalué : {skill} v{skill_version}
+- Code scoring : {code}
+- Date : {date}
+
+ÉVALUE :
+
+Pour chaque dimension de la grille de scoring (présente dans ground-truth.md),
+note de 0 à 100 % :
+
+1. COUVERTURE DU PÉRIMÈTRE (poids 30 %)
+   — Combien de findings 🔴/🟠/🟡 de la vérité terrain sont effectivement
+     présents (explicitement ou par inférence claire) dans la sortie live ?
+
+2. DÉTECTION NUANCES MÉTIER (poids 30 %)
+   — Les nuances subtiles de la vérité terrain sont-elles articulées dans
+     la sortie live ? Avec citation des articles / jurisprudence attendus ?
+
+3. QUALITÉ ARBITRAGE SUBJECTIF (poids 20 %)
+   — Les cotations 🔴/🟠/🟡/🟢 dans la sortie live sont-elles calibrées vs
+     la vérité terrain ? Les recommandations actionnables et alignées sur
+     le verdict attendu ?
+
+4. LISIBILITÉ PARTNER-READY (poids 10 %)
+   — Format, structure, en-tête confidentialité, note du relecteur, arbre
+     5 options, tableau coté, dashboard HTML si data-heavy.
+
+5. RÉSISTANCE AUX PIÈGES (poids 10 %)
+   — La sortie live évite-t-elle les raisonnements faux listés dans les
+     pièges de la vérité terrain ?
+
+CALCULE :
+- Score pondéré global = somme pondérée (note dimension × poids).
+- Verdict :
+  - 🟢 ≥ 80 %
+  - 🟡 60-79 %
+  - 🟠 40-59 %
+  - 🔴 < 40 %
+
+IDENTIFIE :
+- GAPS DESIGN INFÉRÉS : pour chaque finding 🔴/🟠 manqué dans la sortie live,
+  qu'est-ce qui MANQUE dans le skill (sans le voir) pour qu'il l'attrape
+  systématiquement ? Formule en termes d'étape de workflow, citation
+  d'article, garde-fou, anti-pattern à inscrire dans "Ce skill ne fait pas".
+- HITS POSITIFS : ce que la sortie live fait BIEN, au-delà de la vérité
+  terrain attendue (bonus skill plus mature que la vérité terrain).
+
+OUTPUT — fichier Markdown structuré :
+
+# Sparring scoring — `{skill}` — Code {code}
+
+**Date** : {date}
+**Skill évalué** : `{skill}` v{skill_version}
+**Méthode** : sparring scoring blind protocole D.0 phase 4 (Codex GPT-5.5 medium)
+**Scénario** : voir `tests/datasets/<batch>-{skill}/scenario.md`
+**Vérité terrain** : voir `tests/datasets/<batch>-{skill}/ground-truth.md`
+**Sortie live** : voir `tests/datasets/<batch>-{skill}/live-output.md`
+
+## Score pondéré
+
+| Dimension | Poids | Score | Pondéré | Justification |
+|---|---|---|---|---|
+| Couverture du périmètre | 30 % | XX % | XX % | [Justification 1-3 phrases avec indicateurs spécifiques] |
+| Détection nuances métier | 30 % | XX % | XX % | ... |
+| Qualité arbitrage subjectif | 20 % | XX % | XX % | ... |
+| Lisibilité partner-ready | 10 % | XX % | XX % | ... |
+| Résistance aux pièges | 10 % | XX % | XX % | ... |
+| **Total pondéré** | **100 %** | — | **XX %** | **Verdict 🟢/🟡/🟠/🔴** |
+
+## Justification détaillée par dimension
+
+### Couverture du périmètre (XX %)
+
+[Détail : findings captés / findings manqués, par sévérité.]
+
+### Détection nuances métier critiques (XX %)
+
+[Détail : nuances articulées avec citation correcte / nuances manquées ou mal citées.]
+
+### Qualité arbitrage subjectif (XX %)
+
+[Détail : calibrage cotations 🔴/🟠/🟡, alignement recommandation finale.]
+
+### Lisibilité partner-ready (XX %)
+
+[Détail : format, structure, tags provenance, note relecteur, arbre 5 options.]
+
+### Résistance aux pièges (XX %)
+
+[Détail : pièges évités / pièges où le skill est tombé.]
+
+## Gaps DESIGN inférés (mini-backlog)
+
+🔴 [Gaps structurants — ex. "Le skill ne contient pas d'étape explicite vérifiant L.615-5-1 CPI"]
+
+🟠 [Gaps notables]
+
+🟡 [Gaps mineurs]
+
+## Hits positifs (bonus skill)
+
+[Ce que le skill fait mieux que la vérité terrain attendrait.]
+
+## Recommandations pour vague ultérieure
+
+[1-3 actions concrètes : modifier l'étape X du SKILL.md, ajouter référence à
+l'article Y, durcir le garde-fou Z, etc.]
+
+CONTRAINTES :
+- Sois critique. Pas d'évaluation flatteuse.
+- Si le live-output rate un finding 🔴 listé dans ground-truth → gap 🔴 inféré.
+- Si le live-output l'attrape implicitement mais ne le nomme pas → cotation 70-80 %.
+- Si le live-output le nomme explicitement avec citation article → cotation 90-100 %.
+- Format Markdown autonome.
+- Longueur cible : 300-500 lignes.
+
+OUTPUT : un fichier Markdown autonome, prêt à être sauvegardé dans
+`docs/backlog/<plugin-prefix>-scoring-<batch>-{skill}-{code}.md`.
+```
+
+---
+
+## Évolutions des templates
+
+Toute modification structurante (ajout/suppression de dimensions de scoring,
+modification de la pondération, changement de format de livrable) = nouveau
+template versionné `codex-prompt-templates-v2.md`. Les anciens templates
+restent disponibles pour comparaison historique.
