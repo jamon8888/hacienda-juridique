@@ -3,26 +3,111 @@ name: cession-droit-auteur
 version: "2.0.0"
 description: >
   Skill V2 strict de préparation d'une cession de droits patrimoniaux
-  d'auteur. Il fixe un contrat d'entrée fermé, un seuil de préparation de cession,
-  une branche bornée de title-chain cleanup, une sortie stabilisée en 9
-  blocs, et un routage fermé vers la bonne voie PI. Il ne remplace pas la
-  qualification de l'œuvre, la licence, le regime logiciel, ni un contrat PI
-  plus large.
-argument-hint: "[full-assignment|partial-assignment|exclusive-assignment|non-exclusive-assignment]"
+  d'auteur. Il fixe un contrat d'entrée fermé, un seuil de préparation de
+  cession, une branche bornée de title-chain cleanup, une sortie stabilisée en
+  9 blocs, un routage fermé vers la bonne voie PI, et des modes courts métier
+  `--chain-of-title`, `--clause-only`, `--remuneration-only`. Brouillon de
+  travail soumis à validation avocat PI.
+argument-hint: "[full-assignment|partial-assignment|exclusive-assignment|non-exclusive-assignment] [--chain-of-title|--clause-only|--remuneration-only]"
 authors: ["Hacienda"]
-tags: [droit-auteur, cession, L131-3, L131-4, patrimonial]
+tags: [droit-auteur, cession, L131-3, L131-4, L131-1, L121-1, L113-9, patrimonial]
 ---
 
-# /cession-droit-auteur
+# Skill — cession-droit-auteur
+
+> **BROUILLON DE PRÉPARATION PATRIMONIALE, VALIDATION AVOCAT PI OBLIGATOIRE.**
+>
+> Ce skill prépare un brouillon de cession de droits patrimoniaux d'auteur de
+> droit français. Il ne produit pas un contrat final signable, ne signe pas la
+> cession, et ne remplace pas une validation humaine par un avocat PI inscrit.
+>
+> **Frontière avec les autres skills.**
+> - `qualification-oeuvre` : en amont si le statut d'auteur, l'originalité ou
+>   la titularité initiale restent litigieux.
+> - `licence-droit-auteur` : alternative si un transfert de titularité n'est
+>   pas nécessaire (autorisation d'exploitation).
+> - `revue-logiciel-donnees` : si l'œuvre est un logiciel, régime spécial
+>   `L.113-9` (présomption employeur).
+> - `contrats-pi` : si la cession est imbriquée dans un contrat plus large
+>   (édition, production audiovisuelle, contrat de commande complexe).
+> - `contentieux-pi` : si un conflit de chaîne de titularité est en cours
+>   (action en revendication, opposition de coauteur, contestation d'ayant
+>   droit).
+
+---
 
 ## Examples
 
 <example>
-<user>/h-pi:cession-droit-auteur [full-assignment|partial-assignment|exclusive-assignment|non-exclusive-assignment]</user>
+<user>/h-pi:cession-droit-auteur ./scenario-audiovisuel.pdf --mode=full-assignment --duree=70-ans-pma --territoire=monde --auteur=commande</user>
 <response>
-Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+1. Pré-flight `check-pii` sur le scénario, le contrat de commande et la fiche
+   auteur (IBAN ayant droits, montants > 10k€ activent le seuil B).
+2. Lecture profil cabinet, bloc Droit d'auteur (position défaut cession auteur
+   de commande, posture conseil, approbateur cession droits).
+3. Qualification : œuvre audiovisuelle, auteur unique de commande, cession
+   totale envisagée, durée 70 ans post mortem auctoris, monde entier, tous
+   médias connus et inconnus.
+4. Audit titre auteur initial (`L.111-1`, originalité, date) et chaîne
+   (contrat de commande signé, pas de coauteur revendiqué).
+5. Rédaction clause `L.131-3` conforme : énumération distincte de chaque
+   droit cédé (reproduction, représentation, adaptation, traduction,
+   merchandising), durée, territoire, supports.
+6. Rémunération `L.131-4` proportionnelle (% recettes nettes producteur) ;
+   forfait écarté car cas exceptionnels non remplis.
+7. Findings cotés 🔴🟠🟡🟢 ; mention `L.121-1` droit moral inaliénable
+   articulé avec la cession.
+8. Post-flight `verifier-citations` sur `L.131-3`, `L.131-4`, `L.111-1`,
+   `L.121-1`.
+9. Sortie 9 blocs + note du relecteur + arbre 5 options.
 </response>
 </example>
+
+<example>
+<user>/h-pi:cession-droit-auteur ./photo-campagne.pdf --mode=partial-assignment --chain-of-title</user>
+<response>
+Mode `--chain-of-title`, cession partielle de droits sur une photographie de
+campagne publicitaire. Focus exclusif sur la reconstitution de la chaîne :
+photographe freelance (auteur initial `L.111-1`) → agence (cessionnaire
+intermédiaire, contrat de prestation à produire) → annonceur (cessionnaire
+actuel). Maillon manquant identifié : contrat freelance photographe / agence
+introuvable. Sortie : carte de la chaîne, point de rupture 🔴, régularisation
+requise avant cession utile, route `route-to-title-chain-cleanup`. Pas de
+rédaction de clause tant que la chaîne n'est pas propre.
+</response>
+</example>
+
+<example>
+<user>/h-pi:cession-droit-auteur --mode=exclusive-assignment --clause-only --droits="reproduction,representation" --territoire=UE --duree=10-ans</user>
+<response>
+Mode `--clause-only`, cession exclusive. Focus sur la rédaction d'une clause
+`L.131-3` conforme : énumération distincte des deux droits cédés
+(reproduction et représentation), territoire UE délimité, durée 10 ans à
+compter de la signature, modes d'exploitation énumérés (édition papier,
+édition numérique, streaming, podcast). Clause `L.131-4` de rémunération
+proportionnelle accolée. Pas de revue du reste du contrat. Marqueurs
+`[à vérifier]` sur les supports émergents non visés (métavers, IA
+générative). Routage `prepare-exclusive-assignment-draft`.
+</response>
+</example>
+
+<example>
+<user>/h-pi:cession-droit-auteur ./contrat-illustrateur.pdf --mode=non-exclusive-assignment --remuneration-only</user>
+<response>
+Mode `--remuneration-only`, cession non exclusive à un illustrateur.
+Arbitrage `L.131-4` : proportionnelle par défaut vs forfaitaire au titre des
+cas exceptionnels (al. 2 — base de calcul impraticable, utilisation
+accessoire, nature ou conditions d'exploitation rendant impossible
+l'application de la règle proportionnelle). Analyse des conditions de fait :
+diffusion B2B confidentielle, pas de mesure d'audience, illustration
+accessoire à un produit logiciel. Le forfait est défendable mais doit être
+motivé dans le contrat. Périodicité de reddition de comptes proposée si
+proportionnelle maintenue. Findings cotés. Routage
+`prepare-non-exclusive-assignment-draft`.
+</response>
+</example>
+
+---
 
 ## Chargement du profil
 
@@ -31,259 +116,355 @@ Avant tout travail substantiel, lire :
 1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
 2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
 
-Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+> Lire en particulier le bloc **Droit d'auteur** :
+> - **Pratique droit d'auteur** — édition / audiovisuel / logiciel SaaS /
+>   design / mode / publicité / multimedia / transversal.
+> - **Posture conseil** — préventif / réactif / contentieux.
+> - **Position défaut cession auteur de commande** — totale étendue 70 ans /
+>   limitée durée+territoire+médias / case par case.
+> - **Position défaut rémunération cession** — proportionnelle `L.131-4` /
+>   forfaitaire cas exceptionnels.
+> - **Approbateur cession droits** — avocat seul / + Direction marketing /
+>   + GC.
+> - **Politique PII** — `passive` / `active` / `strict` + seuil B.
+
+Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander
+`/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]`,
+`[PROVISOIRE]` et `[À COMPLÉTER]` visibles.
+
+---
 
 ## Intake
 
-Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+Identifier au minimum :
+
+1. **Mode principal** — `full-assignment` | `partial-assignment` |
+   `exclusive-assignment` | `non-exclusive-assignment`.
+2. **Mode court métier** (optionnel) — `--chain-of-title` | `--clause-only` |
+   `--remuneration-only`.
+3. **Œuvre ou corpus visé** — type, date de création, support, titre si
+   pertinent.
+4. **Qualité auteur** — personne physique seule / collaboration / collective /
+   audiovisuelle / logiciel `L.113-9`.
+5. **Identité cédant et cessionnaire** — personne physique ou morale, base de
+   titularité revendiquée.
+6. **Droits visés** — reproduction, représentation, adaptation, traduction,
+   merchandising, autres.
+7. **Territoire, durée, supports, usages exclus**.
+8. **Modèle économique** — proportionnel, forfaitaire, avance + royalty,
+   mixte.
+9. **Documents disponibles** — contrats antérieurs, contrats de commande,
+   bulletins de salaire si salarié, fiches contributeurs.
+10. **Urgence et sortie attendue** — préparation, négociation, brouillon
+    partiel, blocage.
+
+---
 
 ## Pré-flight `check-pii`
 
 Avant toute analyse substantielle sur des pièces client : invoquer
-`/h-pi:check-pii` sur le corpus fourni. Si le résultat déclenche le
-prompt cas B (seuil B atteint ou catégorie sensible PI détectée),
-attendre la décision utilisateur (anonymiser via `hacienda-ghost`,
-ignorer, ou stopper) avant de poursuivre.
+`/h-pi:check-pii` sur le corpus fourni. Corpus typique d'une cession de
+droits d'auteur :
+
+- contrats de commande, contrats de prestation ;
+- bulletins de salaire / contrats de travail (si question `L.113-9`) ;
+- factures, échanges sur la rémunération (montants > 10k€ activent une
+  catégorie sensible) ;
+- IBAN ayant droits, NIR créateur (catégorie sensible PI) ;
+- annexes œuvres (scénarios, maquettes, code source).
+
+Si le résultat déclenche le prompt cas B (seuil B atteint ou catégorie
+sensible PI détectée), attendre la décision utilisateur (anonymiser via
+`hacienda-ghost`, ignorer, ou stopper) avant de poursuivre.
 
 Si l'utilisateur choisit « ignorer », apposer un caveat
 `[PII non traitée — décision utilisateur]` dans la note du relecteur.
 
+---
+
 ## Gate non-juriste
 
-Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+- [ ] Mode principal confirmé.
+- [ ] Mode court métier identifié si fourni.
+- [ ] `check-pii` exécuté.
+- [ ] Profil Droit d'auteur lu.
+- [ ] Qualification œuvre stabilisée ou renvoi `qualification-oeuvre` posé.
+- [ ] Chaîne de titularité auditée ou renvoi `route-to-title-chain-cleanup`
+      posé.
+- [ ] Clause `L.131-3` examinée pour chaque droit cédé.
+- [ ] Rémunération `L.131-4` proportionnelle vs forfait tranchée et motivée.
+- [ ] Droit moral `L.121-1` mentionné comme inaliénable.
+- [ ] Findings cotés 🔴🟠🟡🟢 sans dégradation silencieuse.
+- [ ] Citations vérifiées ou taguées `[à vérifier]`.
+- [ ] Sortie 9 blocs + note du relecteur + arbre 5 options.
+
+Si l'utilisateur n'est pas juriste ou avocat, produire une explication
+opérationnelle, signaler les limites, refuser toute conclusion présentée
+comme avis juridique final et demander validation par un professionnel
+habilité avant usage externe.
+
+---
 
 ## Outils MCP à privilégier
 
-Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété
+Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si
+une source ou un registre n'a pas été consulté directement, garder
+`[à vérifier]`.
 
-- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
-- Dessins et modèles, droit d'auteur, logiciels, bases de données et droits voisins : utiliser le socle officiel ci-dessus ; les registres spécialisés non exposés par le serveur restent `[à vérifier]` ou traités via preuve/document client autorisé.
-- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+- Socle textes, jurisprudence et droit UE : `piste_status`,
+  `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`,
+  `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Articles à privilégier : `L.111-1`, `L.121-1` (droit moral), `L.131-1`
+  (interdiction cession globale œuvres futures), `L.131-3` (mentions
+  obligatoires), `L.131-4` (rémunération proportionnelle et forfait),
+  `L.113-2` à `L.113-9` (collaboration, collective, audiovisuelle, logiciel).
+- Droit UE applicable : directives 2001/29 (InfoSoc) et 2019/790 (DSM), à
+  vérifier via `eurlex_recherche` quand l'exploitation est UE.
+- Anno, quand disponible, reste une source interne de dossier : jamais un
+  registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
 
-Ce skill prépare un **brouillon de cession patrimoniale stricte**. Il ne
-produit pas un contrat final signable, ne remplace pas l'avocat, ne remplace
-pas la qualification de l'œuvre, ne remplace pas une licence quand un
-transfert de titularité est inutile, ne remplace pas le regime logiciel, et ne
-se transforme pas en orchestrateur de portefeuille.
+Ce skill prépare un brouillon de cession patrimoniale stricte. Il ne produit
+pas un contrat final signable, ne remplace pas l'avocat, ne remplace pas la
+qualification de l'œuvre, ne remplace pas une licence quand un transfert de
+titularité est inutile, ne remplace pas le régime logiciel, et ne se
+transforme pas en orchestrateur de portefeuille.
+
+---
+
+## Modes courts
+
+### `--chain-of-title`
+
+Focus exclusif sur la reconstitution de la chaîne de titularité (auteur
+initial → cédants successifs → cédant actuel). Ne rédige pas la clause de
+cession. Sortie : carte de la chaîne, point de rupture identifié, personne
+ou document manquant, régularisation requise, route
+`route-to-title-chain-cleanup` si la chaîne n'est pas propre.
+
+### `--clause-only`
+
+Focus rédaction d'une clause `L.131-3` conforme (énumération distincte de
+chaque droit cédé, durée, territoire, modes et étendue d'exploitation) et
+clause `L.131-4` de rémunération accolée. Pas de revue du reste du contrat,
+pas d'audit DD, pas de chaîne de titularité au-delà du strict minimum
+permettant d'identifier le cédant.
+
+### `--remuneration-only`
+
+Focus arbitrage `L.131-4` : proportionnelle par défaut vs forfaitaire (al. 2
+cas exceptionnels — base de calcul impraticable, utilisation accessoire,
+contribution non individualisable, nature ou conditions d'exploitation
+spécifiques). Montants, modalités de calcul, périodicité de reddition des
+comptes, audit. Ne rédige ni la clause `L.131-3` complète ni le reste du
+contrat.
+
+---
 
 ## Emplacement des sorties
 
-Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+Écrire les livrables dans le dossier de pratique ou de dossier configuré :
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/`
+ou
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
 
-## Sortie
-
-Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
-
-## Profil pratique à charger avant analyse
-
-Avant toute rédaction, charger :
-
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
-
-Le profil pratique calibre la posture de travail, le niveau de prudence, et la
-forme des avertissements. Si le profil est incomplet ou non configuré, garder
-les marqueurs de brouillon et les faire apparaitre explicitement :
-
-- `[PROVISOIRE]`
-- `[à vérifier]`
-- `[À COMPLÉTER]`
-
-Toute source, tout fait de contexte, ou toute base de titularité non vérifiés
-reste marqué `[à vérifier]`.
-
-## Garde-fous juridiques permanents
-
-Le skill doit toujours garder visibles les limites suivantes :
-
-- `L.131-3` : ecrit, enumeration des droits, domaines d'exploitation,
-  territoires, durée, rémunération
-- `L.131-4` : principe de rémunération proportionnelle et cas limits du forfait
-- `L.131-1` : interdiction de la cession globale des œuvres futures hors
-  exception
-- le droit moral est inalienable et ne se cede pas
-- la sortie distingue toujours faits, droit, analyse, risques, décision et
-  validation humaine
+---
 
 ## Contrat d'entrée fermé
 
-Le skill doit dériver ou expliciter un des statuts fermés suivants pour chaque
-dossier :
+Le skill doit dériver ou expliciter un des statuts fermés suivants pour
+chaque dossier :
 
-- `transfer_track`: `full-assignment` | `partial-assignment` |
+- `transfer_track` : `full-assignment` | `partial-assignment` |
   `exclusive-assignment` | `non-exclusive-assignment`
-- `creation_context`: `independent-author` | `commissioned-work` |
+- `creation_context` : `independent-author` | `commissioned-work` |
   `employee-non-software` | `collective-work-claim` | `collaborative-work` |
   `audiovisual` | `publishing`
-- `title_chain_status`: `clear` | `mixed` | `uncertain` | `blocked`
-- `work_status`: `qualified` | `partially-qualified` | `uncertain`
-- `economic_model`: `royalty` | `flat-fee` | `advance-plus-royalty` | `mixed`
-- `scope_posture`: `narrow` | `standard` | `broad` | `all-current-uses`
-- `counterparty_profile`: `publisher` | `producer` | `brand` | `platform` |
+- `title_chain_status` : `clear` | `mixed` | `uncertain` | `blocked`
+- `work_status` : `qualified` | `partially-qualified` | `uncertain`
+- `economic_model` : `royalty` | `flat-fee` | `advance-plus-royalty` | `mixed`
+- `scope_posture` : `narrow` | `standard` | `broad` | `all-current-uses`
+- `counterparty_profile` : `publisher` | `producer` | `brand` | `platform` |
   `customer` | `internal-group` | `mixed`
 
-Les statuts sont fermés. Le skill ne doit pas inventer de semi-vrai centré ou
-de prose libre à la place du contrat d'entrée.
+Les statuts sont fermés. Le skill ne doit pas inventer de semi-vrai centré
+ou de prose libre à la place du contrat d'entrée.
+
+---
 
 ## Faits minimums requis
 
 Ne pas produire une sortie propre si manquent :
 
-- l'œuvre ou le corpus visé
-- l'identité du cédant
-- l'identité du cessionnaire
-- la base de titularité du cédant
-- les droits visés
-- le territoire
-- la durée
-- le modèle economique
-- le contexte de création
-- le statut coauteur / employeur / prestataire si pertinent
+- l'œuvre ou le corpus visé ;
+- l'identité du cédant ;
+- l'identité du cessionnaire ;
+- la base de titularité du cédant ;
+- les droits visés ;
+- le territoire ;
+- la durée ;
+- le modèle économique ;
+- le contexte de création ;
+- le statut coauteur / employeur / prestataire si pertinent.
 
-Si les faits sont incomplets mais que le dossier reste exploitable, produire un
-brouillon `partial` et garder les marqueurs `[PROVISOIRE]`, `[à vérifier]` et
-`[À COMPLÉTER]` visibles dans la sortie.
+Si les faits sont incomplets mais que le dossier reste exploitable, produire
+un brouillon `partial` et garder les marqueurs `[PROVISOIRE]`,
+`[à vérifier]` et `[À COMPLÉTER]` visibles dans la sortie.
+
+---
 
 ## Seuil de préparation de la cession
 
-Le skill applique un seuil fermé avec trois issues :
+Le skill applique un seuil fermé avec trois issues : `ready`, `partial`,
+`blocked`.
 
-- `ready`
-- `partial`
-- `blocked`
+- `ready` — base de titularité suffisante, contexte lisible, branche cohérente
+  avec la demande.
+- `partial` — brouillon exploitable, certains points restent à confirmer,
+  marqueurs `[PROVISOIRE]`, `[à vérifier]`, `[À COMPLÉTER]` conservés.
+- `blocked` — chaîne de titularité trop incertaine, cession globale d'œuvres
+  futures hors exception, licence suffisante, personne morale sans base de
+  titularité claire, coauteurs ou ayants droit non sécurisés.
 
-### `ready`
+Quand le seuil est bloqué, le skill oriente vers la bonne branche ou arrête
+proprement avec les régularisations à faire.
 
-Le dossier permet un brouillon de cession exploitable. La base de titularité
-est suffisante, le contexte est lisible, et le branche retenue est cohérent avec
-la demande.
+---
 
-### `partial`
+## Sortie
 
-Le dossier permet un brouillon, mais certains points restent à confirmer. La
-sortie doit alors conserver les marqueurs :
+### Format livrable
 
-- `[PROVISOIRE]`
-- `[à vérifier]`
-- `[À COMPLÉTER]`
+```
+[En-tête de confidentialité selon le rôle utilisateur]
 
-### `blocked`
+> **⚠️ Note du relecteur**
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Eurlex ✓ (cocher ✗ si non connectée)
+> - **Lecture :** intégrale ({N} pages contrat + {M} annexes) | partielle (pages X à Y)
+> - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
+> - **Fraîcheur :** recherche juridique post-{date} — {N} mises à jour intégrées | rien trouvé
+> - **Avant de t'appuyer dessus :** {action concrète : négocier / compléter / escalader / prêt pour relecture}
 
-Bloquer si au moins un de ces cas domine :
+# Cession droits d'auteur — {œuvre} — {mode}
 
-- chaîne de titularité trop incertaine pour une cession propre
-- cession globale d'œuvres futures hors exception admise
-- une simple licence suffit manifestement
-- personne morale qui prêtend ceder sans base de titularité claire
-- coauteurs ou ayants droit nécessaires non sécurisés
+## Étape 1 — Pré-flight `check-pii` + identification
 
-Quand le seuil est bloqué, le skill doit orienter vers la bonne branche ou
-arrêter proprement avec les régularisations à faire.
+1. Invoquer `check-pii` sur le corpus (contrats, échanges, IBAN, NIR,
+   montants > 10k€, scénarios, maquettes).
+2. Lire le profil cabinet et bloc Droit d'auteur.
+3. Identifier l'œuvre, le cédant, le cessionnaire, la date de création, le
+   contexte de création.
 
-## Axe 1 - Work And Title Preconditions
+## Étape 2 — Lecture profil bloc Droit d'auteur
 
-Cette première bloc doit vérifier et resumer :
+- Position défaut cession auteur de commande.
+- Posture conseil (préventif / réactif / contentieux).
+- Approbateur cession droits.
+- Position rémunération (proportionnelle vs forfait).
 
-- la qualification minimale de l'œuvre
-- la qualité du cédant
-- la presence de coauteurs ou ayants droit
-- le contexte salarié, commande, collaboration, edition ou audiovisuel
-- l'existence d'une cession antérieure ou d'une chaîne de droits
-- la limité absolue du droit moral
+## Étape 3 — Qualification mode + œuvre + qualité auteur
 
-Si l'œuvre elle-même n'est pas encore qualifiable, router hors du skill.
+- Mode : full / partial / exclusive / non-exclusive.
+- Type d'œuvre : littéraire, graphique, audiovisuelle, musicale, logiciel,
+  base de données.
+- Qualité auteur : personne physique seule, collaboration `L.113-2`,
+  collective `L.113-2` al. 3, audiovisuelle `L.113-7`, logiciel `L.113-9`.
 
-## Axe 2 - Branche de transfert choisie
+## Étape 4 — Audit titre auteur initial
 
-Le skill choisit clairement une seule branche principale parmi :
+- Présomption `L.111-1` (qualité d'auteur naît du seul fait de la création).
+- Originalité — empreinte de la personnalité.
+- Date de création — preuves disponibles.
+- Statut salarié : pas de cession automatique en droit français hors
+  `L.113-9` logiciel.
 
-- cession totale
-- cession partielle
-- exclusivité
-- non-exclusivité
+## Étape 5 — Chaîne de titularité historique
 
-La branche retenue doit être justifie par la structure de l'exploitation, la
-position du cessionnaire, la posture de la chaîne de titre, et le niveau de
-risque residuel.
+- Auteur initial → cédants successifs → cédant actuel.
+- Employeur `L.113-9` si logiciel (présomption au profit de l'employeur).
+- Contrats freelance et prestataires : cession écrite expresse requise.
+- Contributeurs externes : coauteurs `L.113-2`, contributions à œuvre
+  audiovisuelle `L.113-7`.
 
-## Axe 3 - Périmètre des droits et structure d’exploitation
+## Étape 6 — Rédaction clause `L.131-3` conforme
 
-Le skill doit toujours rendre lisibles :
+Chaque droit cédé doit être mentionné distinctement, avec :
 
-- les droits cedes
-- les domaines d'exploitation
-- le territoire
-- la durée
-- les supports et usages visés
-- les usages exclus
+- droits cédés (reproduction, représentation, adaptation, traduction,
+  merchandising, etc.) ;
+- modes d'exploitation (édition papier, numérique, streaming, podcast,
+  audiovisuel, merchandising) ;
+- étendue (exclusif / non-exclusif, supports connus / inconnus à la date du
+  contrat) ;
+- territoire (FR / UE / monde / autre, délimitation précise) ;
+  durée (jusqu'à 70 ans post mortem auctoris pour cession totale,
+  délimitée pour cession partielle).
 
-Si le périmètre est trop large sans base solide, le score de préparation baisse
-et le dossier peut basculer en `partial` ou `blocked`.
+L'omission d'une mention obligatoire est sanctionnée par la nullité du
+transfert sur le périmètre concerné.
 
-## Axe 4 - Economic Structure
+## Étape 7 — Rémunération `L.131-4`
 
-Le skill doit rendre visible :
+- Principe : rémunération proportionnelle aux recettes provenant de la
+  vente ou de l'exploitation.
+- Exceptions (al. 2) : base de calcul impraticable, contribution non
+  individualisable, utilisation accessoire, nature ou conditions
+  d'exploitation rendant impossible l'application de la règle
+  proportionnelle, cession par l'auteur d'un logiciel.
+- Modalités : assiette, taux, périodicité de reddition de comptes, droit
+  d'audit.
 
-- la logique proportionnelle de `L.131-4`
-- le cas exceptionnel justifiant un forfait, si forfait il y a
-- l'avance ou l'acompte quand il accompagne une logique proportionnelle
-- le risque de requalification ou de faiblesse de structuration
+## Étape 8 — Droit moral `L.121-1` et suivants
 
-Ne pas masquer un forfait non justifie sous une formule prudente.
+- Inaliénable, imprescriptible, perpétuel, attaché à la personne de
+  l'auteur.
+- À articuler avec la cession patrimoniale : la cession des droits
+  patrimoniaux ne transfère pas le droit moral.
+- Mention obligatoire dans le contrat : le respect du droit au nom, à la
+  qualité et à l'œuvre est préservé.
 
-## Axe 5 - Nettoyage de chaîne de titres ou points bloquants
+## Étape 9 — Findings cotés 🔴🟠🟡🟢
 
-Quand `title_chain_status` n'est pas `clear`, la sortie doit identifier :
+Voir section `Niveaux de criticité`. Plancher cross-skill : pas de
+dégradation silencieuse d'une cote 🔴 amont.
 
-- le point de rupture
-- la personne manquante
-- le document manquant
-- la régularisation requise
-- la consequence sur la route finale
+## Étape 10 — Post-flight `verifier-citations`
 
-La branche de cleanup ne doit jamais simuler un dossier complet alors que la
-chaîne de titre reste instable.
+Vérifier `L.131-3`, `L.131-4`, `L.111-1`, `L.121-1`, `L.131-1` et le cas
+échéant `L.113-9` (logiciel), `L.113-7` (audiovisuelle), `L.113-2`
+(collaboration / collective). Tout article non récupéré reste
+`[à vérifier]`.
 
-### Branche bornée `title-chain-cleanup`
+## Étape 11 — Sortie 9 blocs + note du relecteur + arbre 5 options
 
-Cette branche sert uniquement à régulariser ou bloquer. Elle couvre :
+Voir section `Sortie V2 stabilisée en 9 blocs` ci-dessous.
 
-- coauteurs non sécurisés
-- signatures manquantes
-- prestation commandee sans cession valable
-- salarié hors logiciel mal compris
-- personne morale sans base de titularité
-- œuvre collective revendiquée sans base suffisante
-- cession antérieure non documentée
-- ayants droit non identifiés
+## Résumé exécutif
 
-Elle ne devient pas un audit général du portefeuille. Elle ne remplace pas le
-skill `contrats-pi`, ni `qualification-oeuvre`, ni `licence-droit-auteur`.
+{Trois phrases partner-ready : bottom-line, risque dominant, prochaine
+action.}
 
-## Frontieres obligatoires
+## Une question hors de ma checklist habituelle
 
-### Router vers `qualification-oeuvre`
+{Observation transversale, ou omission si rien d'honnête à dire.}
 
-Si la qualification de l'œuvre, son originalité, ou la titularité initiale
-restent trop incertaines.
+## Que veux-tu faire ? Choisis une option :
 
-### Router vers `licence-droit-auteur`
+1. **Rédiger** — je prépare un projet de clause `L.131-3` + `L.131-4` ou un
+   brouillon complet selon mode.
+2. **Escalader** — je rédige une note vers {approbateur cession droits
+   configuré}.
+3. **Compléter les faits** — je liste les questions à poser au cédant, au
+   cessionnaire ou au coauteur.
+4. **Surveiller et attendre** — j'ajoute le sujet au tracker du dossier avec
+   date de revisite.
+5. **Autre** — précise.
 
-Si la demande releve en realite d'une autorisation d'exploitation et non d'un
-transfert de titularité.
+[Ce skill a traité {N} mentions identifiantes. Pour anonymiser
+automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
+```
 
-### Router vers `logiciels-pi`
-
-Si le coeur du sujet est le regime logiciel, notamment :
-
-- `L.113-9`
-- code source
-- droit d'utilisation logiciel
-- licence logicielle dominante
-
-### Router vers `contrats-pi`
-
-Si la cession n'est qu'un volet d'un contrat PI plus large.
+---
 
 ## Sortie V2 stabilisée en 9 blocs
 
@@ -302,24 +483,44 @@ de bloc de haut niveau :
 
 ### Attendus par bloc
 
-- `Synthèse du dossier` : résumé fermé des faits, du contexte, de la branche pressentie et
-  du niveau de certitude
-- `Seuil de préparation de cession` : statut `ready`, `partial` ou `blocked`,
-  justifie de maniere concise
-- `Work And Title Preconditions` : qualification, titularité, auteurs, chaîne
-  de droits, contexte
-- `Branche de transfert choisie` : branche retenue et raison
+- `Synthèse du dossier` : résumé fermé des faits, du contexte, de la branche
+  pressentie et du niveau de certitude.
+- `Seuil de préparation de cession` : statut `ready`, `partial` ou
+  `blocked`, justifié.
+- `Work And Title Preconditions` : qualification, titularité, auteurs,
+  chaîne de droits, contexte.
+- `Branche de transfert choisie` : branche retenue et raison.
 - `Rights Scope And Exploitation Structure` : droits, domaines, territoire,
-  durée, usages, exclusions
+  durée, usages, exclusions.
 - `Economic Structure` : logique rémunération, proportionnel ou forfait
-  justifie, risques
-- `Title-Chain Cleanup Or Blocking Points` : rupture, manque, régularisation ou
-  blocage
-- `Routage de décision` : une seule issue fermée
-- `Validation humaine` : validation humaine requise avant toute suite
+  justifié, risques.
+- `Title-Chain Cleanup Or Blocking Points` : rupture, manque,
+  régularisation ou blocage.
+- `Routage de décision` : une seule issue fermée.
+- `Validation humaine` : validation humaine requise avant toute suite.
 
-Les brouillons `partial` conservent partout ou nécessaire les marqueurs
+Les brouillons `partial` conservent partout où nécessaire les marqueurs
 `[PROVISOIRE]`, `[à vérifier]` et `[À COMPLÉTER]`.
+
+---
+
+## Branche bornée `title-chain-cleanup`
+
+Cette branche sert uniquement à régulariser ou bloquer. Elle couvre :
+
+- coauteurs non sécurisés ;
+- signatures manquantes ;
+- prestation commandée sans cession valable ;
+- salarié hors logiciel mal compris ;
+- personne morale sans base de titularité ;
+- œuvre collective revendiquée sans base suffisante ;
+- cession antérieure non documentée ;
+- ayants droit non identifiés.
+
+Elle ne devient pas un audit général du portefeuille. Elle ne remplace pas
+le skill `contrats-pi`, ni `qualification-oeuvre`, ni `licence-droit-auteur`.
+
+---
 
 ## Routage de décision fermé
 
@@ -336,22 +537,9 @@ Le skill doit terminer par une seule route principale parmi :
 - `route-to-broader-pi-contract`
 - `hold-insufficient-basis`
 
-### Usage de chaque route
+Ne pas inventer de sémantique de routage supplémentaire.
 
-- `prepare-full-assignment-draft` : cession large, base solide, title chain
-  clair
-- `prepare-partial-assignment-draft` : cession ciblee avec zones reservees ou
-  facts incomplets mais exploitables
-- `prepare-exclusive-assignment-draft` : transfert exclusif sécurisé
-- `prepare-non-exclusive-assignment-draft` : transfert non exclusif sécurisé
-- `route-to-work-qualification` : qualification amont encore insuffisante
-- `route-to-license-instead` : exploitation à autoriser, pas à transférer
-- `route-to-title-chain-cleanup` : régularisation de titre avant cession
-- `route-to-software-regime-review` : regime logiciel dominant
-- `route-to-broader-pi-contract` : cession incluse dans un contrat PI plus large
-- `hold-insufficient-basis` : base insuffisante ou blocage non resolu
-
-Ne pas inventer de semantique de routage supplementaire.
+---
 
 ## Niveaux de criticité
 
@@ -364,15 +552,66 @@ Ne pas inventer de semantique de routage supplementaire.
 | Élevé | 🟠 | Clauses ambiguës sur territoire ou modes d'exploitation à compléter ; structure économique discutable sans non-conformité manifeste ; titularité fragile mais défendable. |
 | Bloquant | 🔴 | Cession sans mention obligatoire `L.131-3` (nullité encourue), ou portant sur œuvre future indéterminée (`L.131-1`), ou rémunération forfaitaire injustifiée au regard de `L.131-4` al.2. |
 
-Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader
+silencieusement une cote 🔴 amont sans déclaration explicite.
 
-## Ton et validation humaine
+---
 
-Le ton doit rester juridique, précis et fermé. Le skill doit :
+## Mode silencieux pour livrables externes
 
-- rappeler que le droit moral ne se cede pas
-- garder les garde-fous `L.131-3`, `L.131-4`, `L.131-1`
-- distinguer faits, droit, analyse, risques, décision et validation humaine
-- assumer un brouillon structuré, jamais un contrat final valide
+Pour la version destinée au cocontractant (non couvert par le secret
+professionnel) :
 
-La validation humaine est obligatoire à la fin de chaque sortie.
+- En-tête de confidentialité : RETIRER (ou remplacer par mention neutre de
+  brouillon contractuel).
+- Note du relecteur : RETIRER (mémo interne uniquement).
+- Tags `[review]`, `[à vérifier]`, `[connaissance modèle — à vérifier]` :
+  RETIRER ou consolider en note finale unique.
+- Narration de skill (« j'utilise le skill X… ») : COUPER.
+- Renvois inter-skills (`/h-pi:...`) : COUPER et placer dans un message
+  séparé au sponsor interne.
+- Clauses `L.131-3` et `L.131-4` : CONSERVER propres, prêtes à signer une
+  fois validées par avocat.
+- Mention `L.121-1` droit moral : CONSERVER.
+
+Le livrable externe doit se lire comme un projet de contrat rédigé par un
+associé. Le méta-commentaire va dans un mémo interne séparé.
+
+---
+
+## Ton
+
+Ton d'avocat PI sénior orienté édition / audiovisuel / mode / SaaS selon le
+profil cabinet. Technique, direct, précis sur les mentions `L.131-3` et
+sur l'arbitrage `L.131-4`. Rappeler systématiquement que le droit moral
+`L.121-1` est inaliénable. Distinguer faits, droit, analyse, risques,
+décision et validation humaine. Assumer un brouillon structuré, jamais un
+contrat final valide. Ne pas fabriquer de findings de remplissage.
+
+---
+
+## Ce skill ne fait pas
+
+- Signer la cession ni la valider définitivement.
+- Remplacer l'avocat PI inscrit au barreau pour la validation finale.
+- Faire la qualification d'œuvre : utiliser `qualification-oeuvre` en amont
+  si statut auteur, originalité ou titularité initiale litigieux.
+- Couvrir le droit moral `L.121-1` en détail (mention obligatoire seulement,
+  pas d'analyse de violation ou de mise en œuvre).
+- Faire la licence : utiliser `licence-droit-auteur` si un transfert de
+  titularité n'est pas nécessaire.
+- Traiter le régime logiciel `L.113-9` : renvoyer vers
+  `revue-logiciel-donnees`.
+- Valoriser financièrement la cession (pas de valorisation d'actif, pas de
+  modèle de revenu prévisionnel).
+- Piloter un portefeuille de droits d'auteur ou un catalogue éditorial.
+- Faire un audit fiscal de la cession (régime BNC, TVA, retenue à la
+  source).
+
+---
+
+## Validation humaine
+
+La validation humaine est obligatoire à la fin de chaque sortie. Tout
+brouillon produit par ce skill est soumis à validation par un avocat PI
+inscrit au barreau avant signature ou usage externe.
