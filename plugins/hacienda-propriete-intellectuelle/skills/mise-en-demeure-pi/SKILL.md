@@ -3,6 +3,8 @@ name: mise-en-demeure-pi
 version: "2.0.0"
 description: Prépare, relit ou structure une lettre PI sans jamais l'envoyer.
 argument-hint: "`draft|escalate`: [droits | faits | pièces | cible | points-faibles | demande | délai | ton | escalade] ; `review`: [brouillon | droits | faits | pièces | ton] ; `respond`: [lettre reçue | assertions-demandes adverses | droits | faits | pièces | ton]"
+authors: ["Hacienda"]
+tags: [contentieux, enforcement, mise-en-demeure, pre-judiciaire]
 ---
 
 # Mise En Demeure PI

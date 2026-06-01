@@ -6,6 +6,8 @@ description: >
   UE ou Madrid avant revue humaine. Ce skill ne dépose pas et ne remplace
   jamais la recherche amont ni la validation par mandataire ou avocat.
 argument-hint: "[signe | produits/services | FR/EU/Madrid]"
+authors: ["Hacienda"]
+tags: [marques, depot, INPI, classes-Nice, L711-2]
 ---
 
 # Skill - Dépôt marque FR V2

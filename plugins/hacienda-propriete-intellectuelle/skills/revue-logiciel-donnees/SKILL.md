@@ -3,6 +3,8 @@ name: revue-logiciel-donnees
 version: "2.0.0"
 description: Revue de chaîne de droits logiciel et données pour produit, repo, dataset ou due diligence.
 argument-hint: "[produit | repo | dataset | due diligence | contrats contributeurs]"
+authors: ["Hacienda"]
+tags: [logiciel, donnees, L113-9, titularite, chaine-cession]
 ---
 
 # Revue Logiciel Données

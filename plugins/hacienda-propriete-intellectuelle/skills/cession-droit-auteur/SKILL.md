@@ -9,6 +9,8 @@ description: >
   qualification de l'œuvre, la licence, le regime logiciel, ni un contrat PI
   plus large.
 argument-hint: "[full-assignment|partial-assignment|exclusive-assignment|non-exclusive-assignment]"
+authors: ["Hacienda"]
+tags: [droit-auteur, cession, L131-3, L131-4, patrimonial]
 ---
 
 # /cession-droit-auteur

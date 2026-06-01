@@ -7,6 +7,8 @@ description: >
   surveillance. Les modes `add`, `update`, `remove` et `list` restent
   disponibles comme maintenance secondaire du registre `portfolio.yaml`.
 argument-hint: "[--report [--dashboard] | --audit | --add | --update | --remove | --list]"
+authors: ["Hacienda"]
+tags: [marques, portefeuille, renouvellement, usage, L714-5]
 ---
 
 # Skill - Revue portefeuille marques V2

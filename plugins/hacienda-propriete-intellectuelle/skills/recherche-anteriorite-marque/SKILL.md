@@ -6,6 +6,8 @@ description: >
   motifs absolus, les conflits proches et les trous de couverture avant revue
   humaine. Ce skill ne conclut jamais qu'une marque est disponible.
 argument-hint: "[signe | classes Nice | territoires FR/EU/intl]"
+authors: ["Hacienda"]
+tags: [marques, anteriorite, INPI-Data, EUIPO-TMview, clearance]
 ---
 
 # Skill - Recherche d'antériorité marque V2

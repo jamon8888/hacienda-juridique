@@ -3,6 +3,8 @@ name: entretien-demarrage
 version: "2.0.0"
 description: Entretien de configuration initiale de l'extension PI Hacienda. Remplit le profil de pratique utilisateur, vérifie les intégrations INPI Data et EUIPO TMview, propose un test de fumée. À lancer une fois à l'installation, puis avec `--redo` pour reconfigurer ou `--check-integrations` pour ne valider que les identifiants.
 argument-hint: "[--redo | --check-integrations]"
+authors: ["Hacienda"]
+tags: [onboarding, configuration, profil-pratique, cold-start]
 ---
 
 # /entretien-demarrage

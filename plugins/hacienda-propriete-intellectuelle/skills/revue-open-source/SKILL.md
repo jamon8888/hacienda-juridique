@@ -3,6 +3,8 @@ name: revue-open-source
 version: "2.0.0"
 description: Audit OSS opérationnel à partir d'un inventaire fourni pour qualifier licences, conflits et obligations de conformité.
 argument-hint: "[SBOM | liste de dépendances | repository ou manifest | policy interne]"
+authors: ["Hacienda"]
+tags: [open-source, OSS, licences, copyleft, SBOM, compliance]
 ---
 
 # Revue Open Source

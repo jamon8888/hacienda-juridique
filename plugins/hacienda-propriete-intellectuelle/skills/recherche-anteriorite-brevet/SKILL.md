@@ -7,6 +7,8 @@ description: >
   amont ou aval avant revue humaine. Ce skill ne conclut jamais qu'une
   invention est brevetable ni exploitable.
 argument-hint: "[description invention | CIB/CPC | FR/EP/PCT]"
+authors: ["Hacienda"]
+tags: [brevets, anteriorite, Espacenet, nouveaute, FTO]
 ---
 
 # Skill - Recherche d'antériorité brevet V2

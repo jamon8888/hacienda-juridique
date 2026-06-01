@@ -7,6 +7,8 @@ description: >
   officielle et ne remplace pas la validation d'un mandataire en marques ou
   d'un avocat.
 argument-hint: "[numero-marque | --form | --respond]"
+authors: ["Hacienda"]
+tags: [marques, opposition, INPI, L712-4, risque-confusion]
 ---
 
 # Skill - Analyse opposition marque V2

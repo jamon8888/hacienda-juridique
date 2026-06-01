@@ -225,7 +225,7 @@ describe("hacienda PI cowork packaging", () => {
   it("declares explicit V2 metadata and command hints on every PI skill", () => {
     const skillFiles = collectSkillFiles(pluginRoot);
 
-    expect(skillFiles.length).toBe(38);
+    expect(skillFiles.length).toBe(39);
 
     for (const file of skillFiles) {
       const content = readFileSync(file, "utf8");

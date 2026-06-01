@@ -7,6 +7,8 @@ description: >
   ne qualifié pas juridiquement la contrefaçon et ne remplace ni la mise en
   demeure, ni la saisie, ni la stratégie contentieuse.
 argument-hint: "[brevet | produit/procédé cible | literal/equivalence/both]"
+authors: ["Hacienda"]
+tags: [brevets, contrefacon, revendications, equivalents, L613-3]
 ---
 
 # Skill - Tableau contrefaçon brevet V2

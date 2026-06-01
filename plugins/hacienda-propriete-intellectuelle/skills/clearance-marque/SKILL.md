@@ -3,6 +3,8 @@ name: clearance-marque
 version: "2.0.0"
 description: Alias de compatibilité historique vers recherche-anteriorite-marque. Ne fournit pas de revue autonome ni d'opinion de disponibilité.
 argument-hint: "[signe | classes Nice | territoires FR/EU/intl]"
+authors: ["Hacienda"]
+tags: [marques, clearance, compatibilite-historique, redirect]
 ---
 
 # Clearance Marque

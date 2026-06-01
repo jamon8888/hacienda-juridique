@@ -7,6 +7,8 @@ description: >
   priorise et route ; il ne tranche pas le risque de confusion ni n'engage une
   action formelle.
 argument-hint: "[--report [--days N] | --add | --update | --remove | --list | --audit]"
+authors: ["Hacienda"]
+tags: [marques, surveillance, BOPI, watchlist, L712-4]
 ---
 
 # Skill - Surveillance marque V2

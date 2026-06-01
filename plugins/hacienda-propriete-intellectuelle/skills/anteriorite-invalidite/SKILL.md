@@ -8,6 +8,8 @@ description: >
   brevets/contentieux. Ne qualifié pas la contrefaçon et ne remplace pas la
   procédure judiciaire.
 argument-hint: "[num brevet cible | attack/défense | novelty/inventive-step/mixed]"
+authors: ["Hacienda"]
+tags: [marques, brevets, nullite, L714-3, invalidite]
 ---
 
 # Skill - Antériorité invalidité V2

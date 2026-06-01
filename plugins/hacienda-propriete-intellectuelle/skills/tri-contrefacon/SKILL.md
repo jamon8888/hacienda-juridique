@@ -3,6 +3,8 @@ name: tri-contrefacon
 version: "2.0.0"
 description: Porte d'entrée de cadrage initial et de qualification enforcement marques.
 argument-hint: "[mode] [faits | pièces | signe | produits | canal | territoire]"
+authors: ["Hacienda"]
+tags: [contentieux, enforcement, triage, pre-qualification, signaux]
 ---
 
 # Tri Contrefaçon
