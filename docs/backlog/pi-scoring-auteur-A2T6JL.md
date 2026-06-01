@@ -1,5 +1,14 @@
 # Sparring scoring — `cession-droit-auteur` — Code A2T6JL
 
+> ⚠️ **`[scoring auto-référent — méthodologie pré-D.0]`** — ce scoring a été produit
+> avant formalisation du protocole blind ([`docs/methodology/sparring-scoring-protocol.md`](../methodology/sparring-scoring-protocol.md)).
+> L'auteur des datasets, de la vérité terrain et de l'orchestration du scoring est le même
+> acteur (Claude Code en session unique). Les scores sont à traiter comme
+> **borne supérieure indicative**, pas comme mesure release-grade. Re-validation
+> blind prévue en D.3 (cf. `docs/superpowers/plans/2026-06-01-hacienda-pi-vague-d-release-readiness.md`).
+
+---
+
 **Date** : 2026-06-01
 **Skill évalué** : `cession-droit-auteur` v2.0.0 (post-vague-B PI v0.20.0)
 **Scénario** : `tests/datasets/v2-auteur/scenario.md` — cession totale scénario série TV « LES OMBRES DE NORD » (ATLAS / Mathieu Lefevre), forfait 100k€, médias inconnus à venir, co-écriture Camille Bernard salariée ATLAS

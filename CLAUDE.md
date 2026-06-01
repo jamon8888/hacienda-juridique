@@ -42,6 +42,29 @@ npm run branding:check
 git diff --check
 ```
 
+## Validation interne (sparring scoring)
+
+Toute validation interne par sparring scoring justifiant une décision release ou
+un budget de modifications skill doit suivre le protocole blind à 4 phases défini
+dans [`docs/methodology/sparring-scoring-protocol.md`](docs/methodology/sparring-scoring-protocol.md) :
+
+1. **Phase 1** (datasets fictifs) — Codex GPT-5.5 effort medium, session dédiée.
+2. **Phase 2** (vérité terrain) — Codex GPT-5.5 effort HIGH, session distincte, **sans accès au SKILL.md**.
+3. **Phase 3** (exécution live) — Claude Code natif, **sans accès au ground-truth.md**.
+4. **Phase 4** (scoring) — Codex GPT-5.5 effort medium, session distincte, **sans accès au SKILL.md**.
+
+Les scorings produits sans séparation des phases (même acteur sur les 4) sont
+marqués `[scoring auto-référent]` et ne peuvent pas servir de justification
+release. Voir le marquage rétroactif des rapports vague C dans
+`docs/backlog/pi-scoring-*.md`.
+
+Helper Codex scripté (substitution placeholders, garde-fous anti-leakage) :
+`scripts/codex-blind-scoring.py`. Mode d'emploi : `scripts/README-codex-blind-scoring.md`.
+
+Templates Codex canoniques : `docs/methodology/codex-prompt-templates.md`.
+
+GPT-4.5 (orion) déconseillé sur PI FR — risque de citations inventées.
+
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
