@@ -7,6 +7,8 @@ description: >
   Il ferme le seuil de préparation, clarifie marché/budget/priorité, et rend
   une route fermée sans devenir un orchestrateur de portefeuille.
 argument-hint: "[FR2700123 | marchés cibles | budget 12m/10y | posture maintenance]"
+authors: ["Hacienda"]
+tags: [brevets, marques, extension, PCT, Madrid, priorite]
 ---
 
 # /stratégie-extension-internationale

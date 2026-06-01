@@ -7,6 +7,8 @@ description: >
   rend pas d'opinion finale de brevetabilité, et ne remplace pas la rédaction
   finale d'un mandataire brevets ou d'un avocat.
 argument-hint: "[description invention | CIB/CPC | FR/EP/PCT]"
+authors: ["Hacienda"]
+tags: [brevets, depot, INPI, OEB, PCT, redaction-revendications]
 ---
 
 # Skill - Préparation de dépôt brevet V2

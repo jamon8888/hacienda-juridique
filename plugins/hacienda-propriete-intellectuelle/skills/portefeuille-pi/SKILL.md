@@ -3,6 +3,8 @@ name: portefeuille-pi
 version: "2.0.0"
 description: Point d'entrée legacy en migration vers un hub fédéré de lecture consolidée du portefeuille PI.
 argument-hint: "[overview | deadlines | risk-report | export]"
+authors: ["Hacienda"]
+tags: [portefeuille, transverse, gestion, echeances]
 ---
 
 > **Legacy temporaire en migration vers un hub fédéré.** `portefeuille-pi`

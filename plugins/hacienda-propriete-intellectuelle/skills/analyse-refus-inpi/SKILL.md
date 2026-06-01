@@ -7,6 +7,8 @@ description: >
   procédurale fermée, sans basculer vers recherche d'antériorités, préparation
   de dépôt, stratégie internationale ou analyse d'invalidité.
 argument-hint: "[notification INPI/OEB | référence dossier | date limite]"
+authors: ["Hacienda"]
+tags: [marques, refus, INPI, motifs-absolus, L711-2]
 ---
 
 # Skill - Analyse refus INPI V2

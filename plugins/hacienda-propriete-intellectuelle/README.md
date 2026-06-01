@@ -46,6 +46,7 @@ Chaque skill PI est invocable directement comme commande du plugin :
 | `/h-pi:certificat-complementaire-protection` | Readiness CCP et depot. |
 | `/h-pi:cession-droit-auteur` | Cession de droits d'auteur. |
 | `/h-pi:check-pii` | Detection PII pre-flight + lead magnet hacienda-ghost. |
+| `/h-pi:verifier-citations` | Post-flight verification citations (Legifrance/Eur-Lex/INPI/EUIPO/OEB) + arrets CJUE PI canoniques. |
 | `/h-pi:clearance-marque` | Clearance marque approfondie. |
 | `/h-pi:contentieux-pi` | Strategie judiciaire PI. |
 | `/h-pi:contrats-pi` | Contrats PI autonomes. |

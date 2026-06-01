@@ -3,6 +3,8 @@ name: depot-preuve-creation
 version: "2.0.0"
 description: Organise un dossier de preuve de création, d'antériorité d'usage ou de titularité avec registre, chronologie et lacunes probatoires.
 argument-hint: "[open | add-evidence | timeline | bundle | review]"
+authors: ["Hacienda"]
+tags: [droit-auteur, preuve, enveloppe-Soleau, horodatage, antériorité]
 ---
 
 # Dépôt Preuve Création

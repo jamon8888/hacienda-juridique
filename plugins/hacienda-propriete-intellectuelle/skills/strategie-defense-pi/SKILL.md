@@ -3,6 +3,8 @@ name: strategie-defense-pi
 version: "2.0.0"
 description: Ordonne une défense ou une réponse face à une allégation PI et route vers le bon skill Hacienda selon le stade et le niveau d'escalade.
 argument-hint: "[screen | respond | prépare-escalade | défense-brief]: [allégation | lettre reçue | dossier | pièces]"
+authors: ["Hacienda"]
+tags: [contentieux, defense, nullite-reconventionnelle, FTO, transaction]
 ---
 
 # Stratégie Défense PI

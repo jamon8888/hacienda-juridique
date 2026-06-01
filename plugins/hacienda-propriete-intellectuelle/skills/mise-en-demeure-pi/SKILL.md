@@ -1,111 +1,233 @@
 ---
 name: mise-en-demeure-pi
 version: "2.0.0"
-description: Prépare, relit ou structure une lettre PI sans jamais l'envoyer.
-argument-hint: "`draft|escalate`: [droits | faits | pièces | cible | points-faibles | demande | délai | ton | escalade] ; `review`: [brouillon | droits | faits | pièces | ton] ; `respond`: [lettre reçue | assertions-demandes adverses | droits | faits | pièces | ton]"
+description: >
+  Prépare, relit ou structure une lettre d'assertion PI (mise en demeure,
+  lettre informelle, ultime avertissement) en droit français. Calibre la
+  fermeté selon la posture cabinet, le destinataire et le titre invoqué.
+  Brouillon soumis à validation matrice d'approbateurs OBLIGATOIRE.
+argument-hint: "[lettre, mode (--informal-first | --escalation-letter | --final-warning), side, destinataire, titre invoqué, pièces]"
+authors: ["Hacienda"]
+tags: [contentieux, enforcement, mise-en-demeure, pre-judiciaire, lettre-assertion]
 ---
 
-# Mise En Demeure PI
+# Skill — Mise en demeure PI
+
+> **BROUILLON, VALIDATION MATRICE D'APPROBATEURS OBLIGATOIRE.**
+>
+> Une mise en demeure PI n'est pas une action judiciaire, mais sa formulation
+> engage : tout ce qui est écrit pourra être opposé en défense, en demande
+> reconventionnelle (procédure abusive 1240 C.civ, concurrence déloyale,
+> dénigrement) ou produit devant la juridiction saisie. Ce skill prépare,
+> relit ou structure la lettre — il ne l'envoie jamais, ne la signe jamais,
+> et n'autorise pas son envoi sans approbation conforme à la matrice du
+> profil cabinet.
+>
+> **Frontière avec les autres skills PI.**
+> - `tri-contrefacon` en amont : pré-qualification du signal et arbitrage
+>   `watch / soft outreach / mise en demeure / no action`.
+> - `contrefacon-droit-auteur`, `contrefacon-dessin-modele`,
+>   `tableau-contrefacon-brevet` : qualification fine de l'atteinte par titre.
+>   La mise en demeure consomme leur sortie, elle ne la refait pas.
+> - `saisie-contrefacon` : si urgence et preuve à constater par voie
+>   judiciaire (L.615-5, L.716-7, L.521-4 CPI).
+> - `contentieux-pi` en aval : si la lettre est ignorée, contestée ou si
+>   l'escalade judiciaire est décidée.
+
+---
 
 ## Examples
 
 <example>
-<user>/h-pi:mise-en-demeure-pi `draft|escalate`: [droits | faits | pièces | cible | points-faibles | demande | délai | ton | escalade] ; `review`: [brouillon | droits | faits | pièces | ton] ; `respond`: [lettre reçue | assertions-demandes adverses | droits | faits | pièces | ton]</user>
+<user>/h-pi:mise-en-demeure-pi ./signal-contrefacon.md --side=titulaire --mode=escalation-letter --titre=marque --destinataire=concurrent-direct</user>
 <response>
-Brouillon de travail structuré, avec faits, droit, analyse, incertitudes, sources consultées, points `[à vérifier]` et validation humaine obligatoire.
+1. Pré-flight `check-pii` sur le signal et les pièces contrepartie.
+2. Lecture profil cabinet : posture enforcement `agressive`, matrice d'approbateurs ligne « Mise en demeure » = avocat PI + GC.
+3. Qualification posture : `aggressive` confirmée (concurrent direct, pas d'escalade automatique déclenchée).
+4. Destinataire : concurrent direct → ton ferme, délai resserré, menace assignation explicite.
+5. Titre : marque française enregistrée, statut vérifié `inpi_search_marques` + `inpi_marque_details` (non déchue L.714-5).
+6. Articles fondateurs : L.713-2, L.713-3, L.716-4 CPI ; demande cessation, retrait stock, indemnisation, engagement écrit.
+7. Délai : 15 jours, mention explicite d'assignation au TJ Paris (L.716-3) à expiration.
+8. Sortie : lettre escalatoire prête à signer (mode silencieux) + note relecteur séparée avec stratégie d'escalade + arbre 5 options.
 </response>
 </example>
 
+<example>
+<user>/h-pi:mise-en-demeure-pi ./atteinte-da-partenaire.md --side=titulaire --mode=informal-first --titre=droit-auteur --destinataire=partenaire-commercial</user>
+<response>
+1. Pré-flight `check-pii` sur le dossier, contrat de partenariat fourni en pièce.
+2. Profil cabinet : posture `mesurée` ; escalade automatique « contrepartie partenaire actuel » → matrice montée à avocat PI + GC + sponsor business.
+3. Qualification posture : passage de `mesurée` à `conservatrice` du fait de l'escalade automatique.
+4. Destinataire : partenaire commercial → ton conciliant, pas de menace explicite, proposition d'entretien.
+5. Titre : droit d'auteur — opposabilité vérifiée (preuve de création, antériorité), L.111-1, L.122-4 CPI.
+6. Demandes : cessation amiable, clarification du périmètre contractuel, ouverture d'un dialogue avant qualification d'atteinte.
+7. Délai : 30 jours, sans menace procédurale (sera escaladé via `--escalation-letter` si pas de réponse).
+8. Sortie : lettre informelle prête à signer + note relecteur soulignant le risque commercial et la nécessité d'un go business avant envoi.
+</response>
+</example>
+
+<example>
+<user>/h-pi:mise-en-demeure-pi ./atteinte-client-actuel.md --side=titulaire --mode=informal-first --titre=marque --destinataire=client-actuel</user>
+<response>
+1. Pré-flight `check-pii` sur les pièces internes (contrats client, échanges commerciaux).
+2. Profil cabinet : posture `conservatrice` par défaut + escalade automatique « contrepartie = client actuel ».
+3. Approbateurs : matrice montée à avocat PI + GC + sponsor business (cf. profil).
+4. Étape 1 : lettre informelle, ton conciliant, sans qualification définitive d'atteinte.
+5. Étape 2 (conditionnelle) : si pas de réponse à 30 jours, escalade documentée vers `--escalation-letter` avec validation matrice augmentée renouvelée.
+6. Sortie : (a) lettre informelle prête à signer ; (b) projet d'escalade conditionnelle archivé en outputs/, non transmis ; (c) note relecteur explicitant la stratégie en deux temps et la sponsorisation business indispensable.
+</response>
+</example>
+
+<example>
+<user>/h-pi:mise-en-demeure-pi ./suite-lettre-informelle.md --side=titulaire --mode=final-warning --titre=brevet --destinataire=concurrent-direct</user>
+<response>
+Mode `--final-warning` : deuxième lettre après absence de réponse à la lettre informelle (30 jours écoulés, accusé de réception versé au dossier).
+1. Pré-flight `check-pii` sur l'historique d'échanges.
+2. Profil cabinet : posture `agressive`, matrice approbateurs « Assignation » déjà sponsor business + GC + avocat brevets engagés.
+3. Titre : brevet français en vigueur, statut vérifié `inpi_search_brevets` + `inpi_brevet_details` + Espacenet.
+4. Articles fondateurs : L.615-1, L.615-3 (référé), L.615-5 (saisie-contrefaçon), L.615-7 (indemnisation) CPI.
+5. Ton ferme, délai bref (10 jours), énumération précise et réaliste des actions envisagées à expiration : (a) assignation au fond TJ Paris (compétence exclusive L.615-17), (b) référé interdiction L.615-3, (c) saisie-contrefaçon L.615-5.
+6. Pas de menace inutile : aucune action que le titulaire ne serait pas prêt à engager.
+7. Sortie : lettre prête à signer + note relecteur avec arbre d'options post-expiration et renvoi `contentieux-pi` / `saisie-contrefacon`.
+</response>
+</example>
+
+---
+
 ## Chargement du profil
 
-Avant tout travail substantiel, lire :
+> Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md` et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`, bloc enforcement :
+> - **Posture enforcement par défaut** — `agressive` / `mesurée` / `conservatrice`.
+> - **Matrice d'approbateurs** — ligne « Mise en demeure » et ligne « Lettre informelle ».
+> - **Escalades automatiques** — contrepartie partenaire / client actuel / contrepartie significativement plus puissante / risque médiatique.
+> - **Politique PII** — `passive` / `active` / `strict` + seuil B, catégories sensibles PI (brevets pré-publication, inventeurs non publiés, montants cession, NDA en cours).
+> - **Rôle utilisateur** — avocat inscrit / mandataire marques (CPI L.422-4) / juriste interne / non-juriste — détermine l'en-tête de confidentialité et la portée du secret professionnel.
 
-1. `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
-2. `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/CLAUDE.md`
+Si le profil n'est pas peuplé (`[A CONFIGURER]` présent), stopper et demander
+`/h-pi:entretien-demarrage` avant toute préparation de lettre substantielle.
+Conserver les marqueurs `[à vérifier]` visibles tant que le profil reste
+incomplet.
 
-Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi:entretien-demarrage` et garder les marqueurs `[à vérifier]` visibles.
+---
 
 ## Intake
 
-Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
+1. **Mode** — `--mode=informal-first` | `--mode=escalation-letter` | `--mode=final-warning` (obligatoire).
+2. **Side** — `--side=titulaire` (offensif) | `--side=destinataire` (réponse à lettre reçue). Une lettre sans side n'a pas de sens.
+3. **Fichier(s)** — chemin du signal de contrefaçon, du dossier amont (`tri-contrefacon`), de la lettre reçue (en `--side=destinataire`) ou du brouillon en relecture.
+4. **Titre invoqué** — `--titre=marque` | `--titre=brevet` | `--titre=dessin-modele` | `--titre=droit-auteur` | `--titre=secrets-affaires` (obligatoire en `--side=titulaire`).
+5. **Destinataire** — `--destinataire=concurrent-direct` | `--destinataire=partenaire-commercial` | `--destinataire=client-actuel` | `--destinataire=hebergeur` | `--destinataire=plateforme` | `--destinataire=distributeur` | `--destinataire=particulier`. Calibre ton et délais.
+6. **Pièces** — liste datée des captures, constats, factures, enregistrements, contrats opposés.
+7. **Calendrier** — urgence commerciale, événement, salon, lancement, prescription approchante (L.615-8 brevets 5 ans, L.716-5 marques 5 ans, L.521-3 DM 3 ans).
+
+---
+
+## Gate non-juriste
+
+- [ ] Mode fourni (`--informal-first` / `--escalation-letter` / `--final-warning`).
+- [ ] Side fourni.
+- [ ] `check-pii` exécuté.
+- [ ] Profil cabinet lu, posture confirmée, escalades automatiques évaluées.
+- [ ] Matrice d'approbateurs identifiée pour ce mode + ce destinataire.
+- [ ] Titre invoqué identifié et statut vérifié (en vigueur, non déchu, opposable).
+- [ ] Articles fondateurs cités contre Légifrance ou tagués `[à vérifier]`.
+- [ ] Délai calibré sur posture + destinataire + urgence.
+- [ ] Menaces procédurales proportionnées et réalisables (pas de bluff exposant à procédure abusive 1240 C.civ).
+- [ ] Sortie contient note 5 champs + arbre 5 options + footer PII.
+
+Si l'utilisateur n'est pas juriste, refuser toute conclusion présentée comme
+avis juridique final et demander validation par un professionnel habilité
+(avocat PI ou mandataire INPI dans son périmètre) avant tout envoi.
+
+---
 
 ## Pré-flight `check-pii`
 
-Avant toute analyse substantielle sur des pièces client : invoquer
-`/h-pi:check-pii` sur le corpus fourni. Si le résultat déclenche le
-prompt cas B (seuil B atteint ou catégorie sensible PI détectée),
-attendre la décision utilisateur (anonymiser via `hacienda-ghost`,
-ignorer, ou stopper) avant de poursuivre.
+Avant toute analyse substantielle sur des pièces client, contrats opposés ou
+correspondances : invoquer `/h-pi:check-pii` sur le corpus fourni. Corpus
+typique en mise en demeure PI :
+
+- pièces contrepartie (captures, factures, extraits site, contrats opposés) ;
+- contrats internes invoqués (cession, licence, NDA, partenariat) ;
+- pièces probatoires datées (constats d'huissier, captures horodatées) ;
+- historique d'échanges en `--mode=final-warning` (accusés de réception, courriers antérieurs).
+
+Si le résultat déclenche le prompt cas B (seuil B atteint ou catégorie
+sensible PI détectée — brevets pré-publication, inventeurs non publiés,
+montants cession > 10k€, NDA en cours), attendre la décision utilisateur
+(anonymiser via `hacienda-ghost`, ignorer, ou stopper) avant de poursuivre.
 
 Si l'utilisateur choisit « ignorer », apposer un caveat
 `[PII non traitée — décision utilisateur]` dans la note du relecteur.
 
-## Gate non-juriste
-
-Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
+---
 
 ## Mode Anno Desktop Optionnel
 
-Si Anno Desktop est disponible, l'utiliser seulement pour retrouver et citer
-localement les pièces déjà autorisées du dossier. Appeler `anno_health` avant
-tout outil Anno ; si le moteur est indisponible, poursuivre en mode Hacienda.
+Si la distribution Hacienda + Anno Desktop est active, `mise-en-demeure-pi`
+utilise Anno pour retrouver et citer localement des faits déjà autorisés du
+dossier (constat huissier, captures contrefaçon, contrats opposés, historique
+correspondance), jamais comme source primaire. Appeler `anno_health` avant tout
+outil Anno ; si Anno est indisponible, poursuivre en `fallback_hacienda`. La
+lettre reste soumise à validation humaine par l'approbateur de la matrice
+configurée.
 
-Règles spécifiques :
+Le brouillon de mise en demeure doit être rattaché au `matter_vault` du
+dossier et à un `workflow_blueprint` `pi-enforcement-letter-v1`. Quand Anno
+Tabular est disponible, créer une revue tabulaire des faits et pièces avec
+`tabular_review_create` : faits/pièces en lignes, qualification juridique +
+opposabilité + chronologie en colonnes, `review_status`, `decision_status`,
+responsable, échéance, citation et `validation_status` par cellule. Toute
+cellule faible ou non citée reste `[à vérifier]`.
 
-- appeler `detect` ou appliquer une gestion PII Anno équivalente avant toute
-  pièce client, capture ou correspondance ;
-- utiliser `legal_search` pour retrouver les pièces et faits déjà ingérés ;
-- utiliser `legal_rehydrate_citation` uniquement pour une citation locale
-  destinée à l'utilisateur autorisé ;
-- utiliser `legal_risk_review` pour tester sur-promesses, points faibles et
-  risques de riposte ;
-- ne jamais envoyer, préparer un envoi automatique ou durcir une qualification
-  sur la seule base d'Anno.
+Outils contentieux Anno spécifiques :
+- `legal_prescription_check` avant tout courrier escalatoire — éviter d'invoquer
+  des faits prescrits (L.716-5 marques, L.615-8 brevets, L.521-3 D&M) ;
+- `legal_validate_field` pour confirmer la cohérence des données d'identité du
+  destinataire (raison sociale, SIREN, adresse signification) ;
+- `legal_risk_review` pour tester sur-promesses, points faibles et risques de
+  riposte (procès abusif 1240 C.civ) ;
+- `legal_rehydrate_citation` uniquement pour citations locales destinées à
+  l'utilisateur autorisé.
 
-Tout résultat Anno est une source interne Anno, jamais comme source primaire.
-Les droits invoqués et registres restent vérifiés via
-`hacienda-sources-officielles` et les outils PI Hacienda.
+Utiliser `grid_to_work_product` seulement après validation pour produire la
+lettre finale. Tout passage Anno reste une source interne Anno, jamais comme
+source primaire ; les titres invoqués (brevets, marques, D&M, droit d'auteur)
+et les arrêts cités restent vérifiés via `hacienda-sources-officielles` et les
+outils PI Hacienda.
 
 ## Outils MCP à privilégier
 
-Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si une source ou un registre n'a pas été consulté directement, garder `[à vérifier]`.
+Appeler les outils par leur nom exact quand le serveur `Hacienda Propriété
+Intellectuelle` est disponible. Ne pas inventer de tool hors périmètre ; si
+une source ou un registre n'a pas été consulté directement, garder
+`[à vérifier]`.
 
-- Socle textes, jurisprudence et droit UE : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
-- Marques, BOPI et EUIPO : `inpi_search_marques`, `inpi_marque_details`, `inpi_marques_publications_recentes`, `euipo_tmview_search`, `bopi_dernieres_publications`.
-- Brevets et Espacenet : `inpi_search_brevets`, `inpi_brevet_details`, `espacenet_search`, `espacenet_brevet_details`.
-- Anno, quand disponible, reste une source interne de dossier : jamais un registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+- Socle textes, jurisprudence et droit UE : `piste_status`,
+  `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`,
+  `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
+- Marques, BOPI et EUIPO : `inpi_search_marques`, `inpi_marque_details`,
+  `inpi_marques_publications_recentes`, `euipo_tmview_search`,
+  `bopi_dernieres_publications`.
+- Brevets et Espacenet : `inpi_search_brevets`, `inpi_brevet_details`,
+  `espacenet_search`, `espacenet_brevet_details`.
+- Anno, quand disponible, reste une source interne de dossier : jamais un
+  registre officiel INPI, EUIPO, OEB, OMPI ou BOPI.
+
+---
 
 ## Emplacement des sorties
 
-Écrire les livrables dans le dossier de pratique ou de dossier configuré : `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/` ou `~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
+Écrire les livrables dans le dossier de pratique ou de dossier configuré :
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/outputs/`
+ou
+`~/.claude/plugins/config/hacienda-juridique/hacienda-propriete-intellectuelle/matters/<slug-dossier>/outputs/`.
 
-## Sortie
+En `--mode=informal-first` avec stratégie d'escalade conditionnelle, archiver
+le projet de lettre escalatoire dans `outputs/` mais ne pas le présenter
+comme livrable transmissible — il reste un brouillon de réserve.
 
-Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
-
-Chaque mode doit produire exactement les blocs suivants, dans cet ordre:
-
-1. `Synthèse du sujet`
-2. `Droits invoqués`
-3. `Synthèse probatoire`
-4. `Position de brouillon`
-5. `Note de relecture`
-
-Contraintes de contenu par bloc:
-
-- `Synthèse du sujet` : résumer le dossier, le mode, la cible et le contexte utile ; indiquer si la lettre est appropriée ou prématurée, et mentionner tout blocage de prérequis
-- `Droits invoqués` : énumérer uniquement les droits invoqués avec statut réel ou `[à vérifier]`
-- `Synthèse probatoire` : lister les pièces clefs, leurs limites et les trous probatoires visibles
-- `Position de brouillon` : proposer la position ou la structure de lettre adaptée au mode, sans jamais formuler un envoi effectif; pour `draft` et `escalate`, si la règle bloquante s'applique, remplacer toute position fermée par `lettre prématurée / pièces à obtenir`
-- `Note de relecture` : expliciter les risques, validations attendues, points à corriger et ce qui impose une revue humaine avant toute suite
-
-## Rôle
-
-Préparer, relire ou structurer une lettre de propriété intellectuelle à partir d'un dossier d'action déjà cadré, sans jamais présenter la lettre comme prête à partir tant que les faits, les droits et les pièces n'ont pas été vérifiés humainement.
-
-Le skill est cohérent avec `tri-contrefacon` mais ne dépend plus d'une logique implicite "lire tri-contrefaçon". Il attend un contrat d'entrée explicite. Si ce contrat n'est pas réuni, il doit l'indiquer et recommander un retour au cadrage initial, à la collecte de pièces ou à une autre suite que la lettre.
-
-Référence de travail: `references/lettres-pi-structure.md`.
+---
 
 ## Niveaux de criticité
 
@@ -116,215 +238,220 @@ Référence de travail: `references/lettres-pi-structure.md`.
 | Faible | 🟢 | Lettre calibrée : ton aligné posture cabinet, destinataire validé, escalation proportionnée. |
 | Moyen | 🟡 | Formulations à durcir ou assouplir selon escalation (ton trop souple si répétition, trop ferme si partenaire). |
 | Élevé | 🟠 | Ton inadapté au destinataire (trop agressif vs partenaire, trop souple vs contrefacteur récidiviste) ou inadéquation avec posture cabinet. |
-| Bloquant | 🔴 | Lettre escalatoire envoyée à contrepartie partenaire critique sans approbation hiérarchique adaptée OU contenant menace disproportionnée exposant à un risque de procédure abusive. |
+| Bloquant | 🔴 | Lettre escalatoire envoyée à contrepartie partenaire critique sans approbation hiérarchique adaptée OU contenant menace disproportionnée exposant à un risque de procédure abusive (1240 C.civ). |
 
-Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader
+silencieusement une cote 🔴 amont (typiquement issue de `tri-contrefacon`,
+`tableau-contrefacon-brevet`, `contrefacon-droit-auteur` ou
+`contrefacon-dessin-modele`) sans déclaration explicite.
 
-## Ne fait pas
+---
 
-- N'envoie jamais une lettre, un email ou un message à un tiers.
-- Ne conclut jamais de manière définitive à une contrefaçon, une atteinte, un parasitisme ou une violation contractuelle sans pièces suffisantes et validation humaine.
-- Ne remplace pas une consultation juridique finale, une stratégie contentieuse complète, ni une décision business d'escalade.
-- Ne transforme pas des allégations internes, captures partielles ou résumés non sourçables en assertions certaines.
-- Ne force pas une mise en demeure si `tri-contrefacon` ou l'analyse amont concluent que `watch`, `soft outreach`, `no action` ou une défense structurée sont plus adaptés.
+## Sortie
 
-## Cadrage initial
+### Format livrable
 
-Toujours identifier d'abord le `mode`:
+```
+[En-tête de confidentialité selon le rôle utilisateur]
 
-- `draft` : préparer un premier brouillon de lettre à partir d'un dossier déjà résumé
-- `review` : relire un brouillon existant et vérifier sa solidité factuelle, son ton et ses sur-promesses
-- `respond` : structurer une réponse à une mise en demeure reçue
-- `escalate` : durcir ou formaliser une position quand un dossier amiable existe déjà mais qu'une escalade est envisagée
+> **⚠️ Note du relecteur**
+> - **Sources :** Légifrance ✓ / INPI Data ✓ / EUIPO TMview ✓ / Espacenet ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Lecture :** intégrale ({N} pièces, {M} contrats opposés) | partielle
+> - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
+> - **Fraîcheur :** vérification statut titre invoqué à {date} — non déchu / en vigueur | {N} mises à jour
+> - **Avant de t'appuyer dessus :** {validation matrice approbateurs / compléter pièces / escalader / prêt pour signature}
 
-Entrées minimales obligatoires à annoncer et vérifier:
+# Mise en demeure PI — {destinataire} — {mode}
 
-- `droits invoqués`
-- `faits résumés`
-- `pièces disponibles`
-- `objectif de ton`
-- `niveau d'escalade`
+## Étape 1 — Pré-flight `check-pii`
 
-Entrées requises en plus pour les modes offensifs `draft` et `escalate`:
+1. Invoquer `check-pii` sur le corpus (pièces contrepartie, contrats opposés, historiques d'échanges).
+2. Traiter le prompt cas B si déclenché (anonymisation `hacienda-ghost` / ignorer / stopper).
 
-- `cible exploitable`
-- `points faibles connus`
-- `demande principale attendue`
-- `délai souhaité / contrainte de calendrier`
+## Étape 2 — Lecture profil cabinet
 
-Compléments utiles quand disponibles:
+1. Lire posture enforcement (`agressive` / `mesurée` / `conservatrice`).
+2. Identifier la ligne pertinente de la matrice d'approbateurs (lettre informelle vs mise en demeure vs assignation).
+3. Détecter les escalades automatiques applicables (partenaire / client actuel / contrepartie puissante / risque médiatique).
 
-- cible, opérateur, vendeur, compte, URL ou coordonnées exploitables
-- territoire, produits ou services concernés
-- chronologie courte
-- brouillon déjà rédigé ou lettre reçue
-- points faibles connus du dossier
-- demande principale attendue et délai souhaité si l'objectif est seulement une relecture
-- demandes adverses et calendrier adverse si le mode est `respond`
+## Étape 3 — Qualification de la posture
 
-Si une entrée minimale manque, la sortie doit l'indiquer explicitement et bloquer toute posture trop assertive.
+1. Posture par défaut tirée du profil.
+2. Override conditionnel si escalade automatique déclenchée — exemple : posture `agressive` rétrogradée à `mesurée` car destinataire = partenaire commercial actuel.
+3. Documenter explicitement l'override dans la note du relecteur.
 
-## Contrat enforcement
+## Étape 4 — Identification du destinataire
 
-Le skill consomme un paquet d'entrée explicite, typiquement prépare par `tri-contrefacon` quand une transition vers lettre est plausible :
+- Concurrent direct : ton ferme, délai resserré, menace procédurale crédible.
+- Partenaire commercial : ton conciliant, proposition d'entretien, escalade business obligatoire avant tout envoi.
+- Client actuel : ton conciliant + sponsor business obligatoire ; lettre informelle uniquement en première intention.
+- Hébergeur / plateforme : notification structurée LCEN art. 6, demande de retrait, pas de menace contre l'hébergeur lui-même tant que la qualification d'éditeur n'est pas posée.
+- Distributeur de bonne foi : ton informatif, demande de cessation et de communication des sources amont.
+- Particulier : proportionnalité renforcée, éviter la disproportion 1240 C.civ.
 
-1. `droits invoqués` : nature du droit, titulaire allégué, territoire, statut connu ou `[à vérifier]`
-2. `faits résumés` : synthèse brève des usages, de la cible et de la chronologie, en séparant faits supportés et points encore incomplets
-3. `pièces disponibles` : liste datée des captures, extraits, factures, constats, enregistrements, preuves d'usage ou autres documents
-4. `objectif de ton` : amiable, ferme, défensif, préservatoire, commercialement prudent
-5. `niveau d'escalade` : faible, moyen, élevé, en expliquant pourquoi
-6. `cible exploitable` pour `draft` et `escalate` : identité ou coordonnées suffisantes pour adresser utilement la lettre
-7. `points faibles connus` pour `draft` et `escalate` : trous probatoires, incertitudes de droit, défense adverse probable, cible mal attribuée ou autre fragilité visible
-8. `demande principale attendue` pour `draft` et `escalate` : ce que la lettre doit demander concrètement
-9. `délai souhaité / contrainte de calendrier` pour `draft` et `escalate` : urgence commerciale, événement, lancement, salon, fin de campagne, ou autre borne temporelle
+## Étape 5 — Identification du titre invoqué + vérification statut
 
-En `review`, `demande principale attendue` et `délai souhaité / contrainte de calendrier` sont facultatifs et peuvent être remplacés par l'objectif de relecture du brouillon.
+| Titre | Vérification | Outils |
+|---|---|---|
+| Marque FR / UE | enregistrement, classes, non déchue (L.714-5 / art. 58 RMUE) | `inpi_marque_details`, `euipo_tmview_search` |
+| Brevet FR / EP | délivré, en vigueur, annuités à jour | `inpi_brevet_details`, `espacenet_brevet_details` |
+| Dessin et modèle | enregistré, valide, non déchu | `inpi_search_brevets` (DM hébergés INPI), EUIPO eSearch |
+| Droit d'auteur | originalité, antériorité de création, opposabilité (L.111-1) | preuve de création, dépôt huissier, registres SACEM/SCAM/APP selon œuvre |
+| Secrets d'affaires | mesures de protection raisonnables (L.151-1) | contrats NDA, politique interne, périmètre |
 
-En `respond`, ces deux éléments ne sont pas requis et sont en pratique remplacés par les `assertions / demandes adverses` et, si utile, par le calendrier imposé ou allégué par la partie adverse.
+Un titre dont le statut n'a pas été vérifié contre la source primaire reste `[à vérifier]` et toute qualification d'atteinte reste conditionnelle.
 
-Ce contrat doit rester cohérent avec la transition `Suite utile pour mise-en-demeure-pi` préparée par `tri-contrefacon`: droits invoqués, faits résumés, cible exploitable, pièces clefs, points faibles, niveau d'escalade, puis ici demande principale attendue et contrainte de calendrier.
+## Étape 6 — Articles fondateurs
 
-Si ce paquet n'est pas exploitable:
+| Atteinte | Articles |
+|---|---|
+| Contrefaçon de brevet | L.613-3, L.613-4, L.615-1, L.615-3 (référé), L.615-5 (saisie), L.615-7 (indemnisation), L.615-17 (TJ Paris exclusif) CPI |
+| Contrefaçon de marque | L.713-2, L.713-3, L.716-4, L.716-4-10 (indemnisation), L.716-7 (saisie) CPI |
+| Contrefaçon de DM | L.521-1, L.521-3 (prescription), L.521-4 (saisie) CPI |
+| Atteinte au droit d'auteur | L.111-1, L.122-4, L.122-5 (exceptions), L.331-1 (juridiction), L.335-2 (pénal) CPI |
+| Atteinte secrets d'affaires | L.151-1 à L.154-1 CPI |
+| Reproduction non autorisée | L.122-4 CPI |
 
-- revenir vers `tri-contrefacon` ou le cadrage initial amont si le cadrage reste incertain
-- demander des pièces ou clarifications si le dossier est simplement incomplet
-- signaler `mise en demeure non appropriée à ce stade` si une autre suite semble plus proportionnée
+Toute citation d'article doit être vérifiée via `legifrance_get_article` ou tagguée `[à vérifier]`.
 
-## Règle bloquante visible
+## Étape 7 — Demandes
 
-Pour les modes offensifs `draft` et `escalate`, sans `cible exploitable` ou sans `preuve datée minimale`, la sortie est limitée à une posture `lettre prématurée / pièces à obtenir`.
+Énumérer précisément :
+- cessation immédiate de l'usage litigieux ;
+- retrait du stock, des canaux de distribution, des supports en ligne ;
+- destruction des produits contrefaisants (le cas échéant — éviter en `--informal-first`) ;
+- indemnisation provisionnelle ou évaluation contradictoire ;
+- engagement écrit de non-récidive ;
+- communication des sources (fournisseurs amont, volumes commercialisés) ;
+- prise en charge des frais.
 
-Dans ce cas:
+Calibrer la liste sur le mode : `--informal-first` se limite à la cessation et au dialogue ; `--escalation-letter` ajoute indemnisation et engagement écrit ; `--final-warning` reprend tout avec délai bref.
 
-- aucune `Position de brouillon` fermée ne doit être produite
-- `Position de brouillon` doit indiquer explicitement que la lettre reste prématurée et lister les pièces ou identifiants à obtenir
-- toute menace procédurale, demande ferme ou escalade est bloquée
-- pour `draft` et `escalate`, l'absence de `cible exploitable` ou de `points faibles connus` doit être traitée comme un dossier incomplet
+## Étape 8 — Délai imparti
 
-Pour `review` et `respond`, cette règle ne bloque pas la relecture ou la structuration de réponse en tant que telles. Le skill peut donc:
+Calibrer sur posture + destinataire + urgence :
 
-- relire un brouillon existant même si la cible reste imparfaitement qualifiée
-- structurer une réponse à partir de la lettre reçue et des assertions adverses même si le dossier probatoire offensif est incomplet
-- mais il doit alors signaler explicitement qu'aucune escalade offensive fiable ne peut être recommandée sur cette base seule
+| Contexte | Délai indicatif |
+|---|---|
+| Urgence (salon, lancement, prescription proche) | 7 jours |
+| Standard concurrent direct | 15 jours |
+| Standard partenaire / client actuel | 30 jours |
+| `--final-warning` post-informelle | 10 jours |
+| Hébergeur / plateforme (notification LCEN) | délai « promptement » de l'art. 6 |
 
-## Modes
+Le délai doit être réaliste : un délai trop court fragilise la mise en demeure ; un délai trop long affaiblit la position en référé.
 
-### `draft`
+## Étape 9 — Vérification destination
 
-Usage:
+- Canal d'envoi : LRAR systématique pour preuve de date ; email avec accusé pour traçabilité parallèle ; voie d'huissier en `--final-warning` si jurisprudence locale l'exige.
+- Copie au mandataire INPI le cas échéant (en marques, articulation avec opposition en cours).
+- Secret professionnel : un en-tête « secret professionnel » sur un document destiné à la contrepartie ne crée AUCUNE protection — il est retiré dans le livrable externe.
+- Vérifier que le destinataire correspond bien à l'entité juridique responsable (recherche company_full_profile / extrait Kbis si nécessaire) : adresser à la mauvaise société rend la lettre inopérante.
 
-- premier brouillon à partir d'un dossier crédible mais non encore formulé
+## Étape 10 — Post-flight `verifier-citations`
 
-Prérequis bloquants:
+1. Vérifier les articles cités contre Légifrance via `legifrance_get_article`.
+2. Vérifier le statut du titre invoqué (en vigueur, non déchu, opposable).
+3. Vérifier les arrêts de référence cités contre Judilibre.
+4. Tout élément non vérifié reste `[à vérifier]` et la lettre n'est pas considérée prête à signer.
 
-- les entrées minimales générales
-- `cible exploitable`
-- `points faibles connus`
-- au moins une `preuve datée minimale`
+## Étape 11 — Sortie
 
-Attentes:
+Deux livrables distincts :
 
-- structurer une lettre proportionnée au ton demandé
-- marquer `[à vérifier]` tout élément non supporté par une pièce
-- indiquer si une lettre amiable est préférable à une mise en demeure fermée
+(a) **Lettre prête à envoyer** — en mode silencieux livrable externe : pas d'en-tête confidentialité interne, pas de narration skill, pas de méta-commentaire ; texte calibré ton avocat senior PI, papier en-tête approprié, visa du signataire conforme à la matrice approbateurs.
 
-### `review`
+(b) **Note relecteur séparée** pour l'avocat / GC / sponsor business : stratégie d'escalade (étapes prévues, conditions de bascule), tableau des points `[review]`, arbre 5 options post-envoi (réponse reçue / silence / contestation / proposition transactionnelle / demande reconventionnelle).
 
-Usage:
+---
 
-- relecture d'un brouillon déjà rédigé
+## Résumé exécutif
 
-Prérequis bloquants:
+{Trois phrases partner-ready : qualification du signal, calibrage du ton retenu, prochaine action.}
 
-- `brouillon existant`
+## Lettre — corps
 
-Si absent:
+{Texte de la lettre, prêt à signer, sans narration.}
 
-- sortie bloquée avec mention explicite `review impossible sans brouillon existant`
+## Note relecteur — stratégie d'escalade
 
-Attentes:
+{Arbre des options post-envoi, conditions de bascule vers mode supérieur, renvois `contentieux-pi` / `saisie-contrefacon`.}
 
-- vérifier cohérence entre droits, faits et pièces
-- retirer ou abaisser les formulations trop affirmatives
-- relever les sur-promesses, angles morts et risques de riposte
+## Une question hors de ma checklist habituelle
 
-### `respond`
+{Observation transversale, ou omission si rien d'honnête à dire.}
 
-Usage:
+## Que veux-tu faire ? Choisis une option :
 
-- organisation d'une réponse à une mise en demeure reçue
+1. **Rédiger** — je prépare une lettre escalatoire (`--escalation-letter`) en cas d'absence de réponse, ou un communiqué pour ton client interne.
+2. **Escalader** — je rédige une note vers {approbateur tiré du profil — typiquement avocat PI + GC, voire sponsor business si escalade automatique}.
+3. **Compléter les faits** — je liste les pièces à compléter (statut titre, captures horodatées, preuve de notoriété) avant tout envoi.
+4. **Surveiller et attendre** — j'ajoute le sujet au tracker du dossier avec date de revisite (typiquement 15 ou 30 jours).
+5. **Autre** — précise.
 
-Prérequis bloquants:
+[Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
+```
 
-- `lettre reçue`
-- `assertions / demandes adverses`
+---
 
-Si absents:
+## Modes courts
 
-- sortie bloquée avec mention explicite `respond impossible sans lettre reçue et sans assertions / demandes adverses`
+- `--informal-first` : lettre informelle préalable, ton conciliant, proposition d'entretien, sans menace explicite ni qualification définitive d'atteinte. Délai 30 jours typiquement. Utilisé en première intention sur partenaire commercial, client actuel, distributeur de bonne foi, ou quand la posture cabinet est `mesurée` / `conservatrice`.
+- `--escalation-letter` : lettre escalatoire avec menace explicite d'action (assignation au fond, référé interdiction, saisie-contrefaçon), délai resserré (7-15 jours), demandes complètes (cessation + indemnisation + engagement écrit). Utilisé en première intention sur concurrent direct quand la posture cabinet est `agressive`, ou après absence de réponse à `--informal-first`.
+- `--final-warning` : ultime avertissement après échec des étapes précédentes (lettre informelle puis escalatoire restées sans réponse satisfaisante). Délai bref (10 jours), énumération précise et réaliste des actions envisagées dès expiration (TJ Paris L.615-17 pour brevets, juridictions spécialisées pour marques et DM, référé L.615-3 / L.716-6, saisie-contrefaçon L.615-5 / L.716-7 / L.521-4). Aucune menace ne doit être formulée si l'utilisateur n'est pas prêt à l'exécuter — toute disproportion expose à procédure abusive 1240 C.civ.
 
-Attentes:
+---
 
-- identifier les assertions adverses, ce qui est admis, contesté ou non documenté
-- proposer une position défensive proportionnée
-- éviter tout aveu involontaire ou qualification définitive non vérifiée
+## Ton
 
-### `escalate`
+Ton d'avocat senior PI : technique, précis, sobre, factuel. Toujours rappeler
+le titre invoqué et la qualité du signataire. Calibrer la fermeté au
+destinataire et à la posture cabinet.
 
-Usage:
+- Pas d'adjectifs inutiles (« manifestement », « notoirement », « grossièrement »).
+- Pas d'allégations non probatoires (« vous avez intentionnellement », « en pleine connaissance »).
+- Ne JAMAIS franchir la ligne procès abusif (1240 C.civ) : menaces proportionnées, réalisables, et que le titulaire est prêt à exécuter.
+- Pas de qualification pénale (L.335-2, L.615-14) sans appui spécifique — la mise en demeure civile suffit dans la quasi-totalité des cas et la mention pénale gratuite expose à dénigrement et chantage (312-10 CP).
+- En `--informal-first`, le ton est conciliant mais reste juridique : pas de naïveté commerciale, pas d'engagement implicite de renonciation.
 
-- passage d'une posture amiable ou exploratoire à une posture plus fermée
+---
 
-Prérequis bloquants:
+## Mode silencieux pour livrables externes
 
-- les entrées minimales générales
-- `cible exploitable`
-- `points faibles connus`
-- `demande principale attendue`
-- `délai souhaité / contrainte de calendrier`
-- au moins une `preuve datée minimale`
+**La mise en demeure EST le livrable externe.** Cas archétype d'usage du
+mode silencieux : tout ce qui distingue le brouillon de travail interne de
+la lettre prête à signer doit être retiré.
 
-Attentes:
+- **En-tête de confidentialité interne** : RETIRER. Le document part à la
+  contrepartie ; l'apposition d'un en-tête « secret professionnel » sur un
+  document destiné à un tiers ne crée pas la protection (CEDH *Michaud c.
+  France*) et peut être lue comme une tentative de couverture artificielle.
+- **Narration skill** (« j'utilise le skill X », « j'ai consulté Légifrance pour... ») : COUPER.
+- **Tags de provenance** (`[Légifrance]`, `[INPI Data]`) : CONSOLIDER en note de bas de page discrète ou supprimer.
+- **Méta-commentaires en ligne** (« à confirmer avec le client », « voir si l'on durcit ») : COUPER, déplacer en note relecteur séparée.
+- **Renvois vers d'autres skills** (« lance ensuite `/h-pi:contentieux-pi`... ») : SORTIR du livrable, placer dans la note relecteur séparée.
 
-- vérifier que le niveau de preuve et l'identification de la cible justifient l'escalade
-- distinguer ce qui peut être demandé fermement de ce qui doit rester conditionnel
-- signaler si une mise en demeure n'est toujours pas la bonne suite
+Le livrable conserve :
+- papier en-tête approprié (cabinet d'avocats / mandataire INPI / direction juridique selon rôle utilisateur) ;
+- visa du signataire conforme à la matrice approbateurs (un seul nom signe, mais la matrice a validé) ;
+- références claires des titres invoqués (numéro d'enregistrement, classes, date de dépôt) ;
+- énumération précise des demandes ;
+- délai chiffré et daté ;
+- mention LRAR ou voie d'huissier selon le canal.
 
-## Gardes-fous Hacienda
+La lettre doit se lire comme un courrier rédigé par un associé. Tout
+méta-commentaire vit dans la note relecteur séparée ou dans un message à
+part, jamais dans le corps de la lettre.
 
-- Les assertions factuelles doivent rester vérifiables, sourçables et rattachées à des pièces identifiées.
-- Toute source primaire non consultée ou tout fait non documenté reste marqué `[à vérifier]`.
-- Aucune qualification définitive d'atteinte ne doit être posée sans pièces suffisantes.
-- Le skill peut préparer, relire ou structurer une lettre, mais jamais l'envoyer ni demander de l'envoyer automatiquement.
-- Validation humaine obligatoire avant tout envoi, toute menace procédurale, tout signalement externe ou toute escalade réelle.
+---
 
-## Validation humaine
+## Ce skill ne fait pas
 
-Avant toute utilisation externe du brouillon, la validation humaine doit confirmer au minimum:
-
-- la titularité, le mandat ou la légitimité à agir
-- la cohérence entre droits invoqués, territoire, cible et objectif
-- la qualité réelle des pièces et des dates
-- la proportionnalité du ton et du niveau d'escalade
-- l'absence de sur-promesse, d'assertion non vérifiée ou de qualification définitive prématurée
-
-## Mode Anno Tabular optionnel
-
-Si la distribution Hacienda + Anno Desktop est active, `mise-en-demeure-pi`
-utilise Anno pour retrouver et citer localement des faits déjà autorisés, jamais
-comme source primaire. Appeler `anno_health` avant tout outil Anno ; si Anno est
-indisponible, poursuivre en `fallback_hacienda`.
-
-Le brouillon doit être rattaché au `matter_vault` et à un `workflow_blueprint`
-de mise en demeure. Utiliser `legal_search`, `legal_rehydrate_citation`,
-`legal_risk_review`, `legal_prescription_check` et `legal_validate_field` pour
-confirmer ou corriger les faits utilisés. Une revue tabulaire avec
-`tabular_review_create` doit suivre fait invoqué, pièce, date, droit invoqué,
-risque de sur-affirmation, `review_status`, `decision_status` et
-`validation_status`.
-
-Utiliser `grid_to_work_product` seulement pour transformer des cellules validées
-en projet de lettre. Tout extrait Anno reste une source interne Anno, jamais
-comme source primaire ; les registres et sources officielles restent vérifiés
-via `hacienda-sources-officielles`. Les faits non validés restent
-`[à vérifier]` et ne doivent pas soutenir une affirmation définitive.
+- **Ne décide pas seul d'envoyer** — la validation par la matrice d'approbateurs du profil cabinet est OBLIGATOIRE ; ce skill prépare et structure, l'avocat / GC / sponsor business arbitre.
+- **Ne signe pas** — la signature appartient à l'avocat inscrit, au mandataire dans son périmètre, ou au directeur juridique selon le canal.
+- **Ne réplique pas à la réponse de la contrepartie** — un skill séparé (à venir) traite la réponse à une mise en demeure reçue ; en attendant, repasser par `tri-contrefacon` puis `mise-en-demeure-pi --side=destinataire`.
+- **Ne fait pas la qualification fine de l'atteinte** — renvoi à `tableau-contrefacon-brevet` (brevets), `contrefacon-droit-auteur` (œuvres), `contrefacon-dessin-modele` (DM), `contrefacon-marque` (marques) selon le titre.
+- **Ne dépose pas plainte pénale** — L.335-2 (contrefaçon droit auteur), L.615-14 (brevet), L.716-9 et suivants (marque) relèvent d'une stratégie distincte avec dépôt de plainte au parquet, hors périmètre.
+- **Ne se substitue pas à l'action judiciaire** — si la lettre est ignorée ou contestée, passage à `contentieux-pi` pour assignation au fond, référé interdiction, ou `saisie-contrefacon` si preuve à constater en urgence.
+- **Ne fait pas de transaction** — la négociation d'un protocole transactionnel (2044 C.civ) relève d'un skill séparé `transaction-pi` (à venir) ; toute proposition transactionnelle reçue en réponse impose une revue dédiée.
+- **N'envoie jamais** la lettre, ne déclenche aucun envoi automatique, ne demande aucun outil d'envoi.

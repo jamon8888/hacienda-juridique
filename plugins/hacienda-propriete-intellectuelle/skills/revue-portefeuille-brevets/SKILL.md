@@ -7,6 +7,8 @@ description: >
   registre. Les modes `add`, `update`, `remove` et `list` restent disponibles
   comme maintenance secondaire du registre `portfolio-brevets.yaml`.
 argument-hint: "[--report [--dashboard] | --audit | --add | --update | --remove | --list]"
+authors: ["Hacienda"]
+tags: [brevets, portefeuille, annuites, validations-EP, gestion]
 ---
 
 # Skill - Revue portefeuille brevets V2

@@ -3,6 +3,61 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.20.0 — 2026-05-31
+
+### Vague B — Qualité contenu (alignement DA spa-review)
+
+- **Nouveau skill `verifier-citations`** porté depuis `hacienda-droit-affaires`
+  avec extensions PI : vocabulaire de provenance étendu (`[INPI Data]`,
+  `[EUIPO TMview]`, `[EUIPO eSearch]`, `[OEB Espacenet]`, `[OMPI Madrid
+  Monitor]`, `[Eur-Lex]`) ; patterns regex articles CPI (L. et R.), RMUE,
+  RDMC, CBE ; arrêts CA Paris pôle 5, Tribunal UE ; numéros de titres PI
+  (marques INPI/EUTM/Madrid, brevets FR/EP/PCT, D&M, DMC) ; reconnaissance
+  des arrêts CJUE PI structurants (Sabel C-251/95, Canon C-39/97, Lloyd
+  C-342/97, Matratzen Concord T-6/01, L'Oréal Bellure C-487/07, Infopaq
+  C-5/08, Painer C-145/10) ; lookups INPI / EUIPO / OEB en plus de
+  Légifrance + Judilibre + Eur-Lex ; garde-fou volume (max 5 lookups
+  numéros par sortie sans accord) ; alerte spécifique 🔴 sur titre PI déchu
+  invoqué dans une mise en demeure / contentieux / cession.
+- **Refonte de 6 skills cœur métier** au format DA `spa-review` enrichi :
+  - `audit-pi-ma` (DD M&A multi-actifs) — 624 lignes, 4 examples worked
+    (acquéreur normal, cédant red-flags, chain-of-title, ready-for-signing),
+    12 étapes numérotées, sections Modes courts / Ton / Mode silencieux /
+    Ce skill ne fait pas.
+  - `contentieux-pi` (playbook judiciaire) — 639 lignes, 4 modes worked
+    (attack / défense / appeal / urgent), modes courts métier
+    (`--recevabilite-only`, `--budget-only`, `--strategie-only`).
+  - `cession-droit-auteur` (cession patrimoniale L.131-3) — 617 lignes,
+    4 sous-modes (full / partial / exclusive / non-exclusive), modes courts
+    (`--chain-of-title`, `--clause-only`, `--rémunération-only`).
+  - `mise-en-demeure-pi` (lettre d'assertion) — 423 lignes, 3 postures
+    cabinet (aggressive / mesurée / conservatrice), modes courts
+    (`--informal-first`, `--escalation-letter`, `--final-warning`).
+  - `revue-open-source` (audit OSS opérationnel) — 586 lignes, 4 postures
+    OSS (whitelist permissives / case-by-case LGPL-MPL / interdiction
+    GPL-AGPL), modes courts (`--copyleft-only`, `--obligations-only`,
+    `--remediation-plan`).
+  - `recherche-anteriorite-marque` (clearance approfondie) — 382 lignes,
+    modes courts (`--knockout`, `--full`, `--watchlist`).
+- **Modes courts métier** introduits sur les 6 skills cœur (B.3) avec
+  `argument-hint` mis à jour dans chaque frontmatter.
+- **Frontmatter complet** (`authors: ["Hacienda"]` + `tags: [...]`
+  contextualisés par domaine) ajouté à 22 SKILL.md PI qui en manquaient.
+  Couverture finale : 39/39 SKILL.md avec frontmatter complet.
+- **README PI** : entrées `/h-pi:verifier-citations` ajoutées dans la table
+  des commandes.
+
+### Invariants restaurés post-refonte
+
+- `## Mode Anno Desktop Optionnel` restauré avec priority kit complet
+  (`matter_vault`, `workflow_blueprint`, `grid_to_work_product`,
+  `fallback_hacienda`, `source interne Anno`, `jamais comme source
+  primaire`) dans `audit-pi-ma`, `mise-en-demeure-pi`, `revue-open-source`.
+- Outils Anno contentieux (`legal_prescription_check`, `legal_validate_field`)
+  ajoutés à `mise-en-demeure-pi`.
+- Section order canonique V2 restauré dans `audit-pi-ma`
+  (Mode Anno avant Outils MCP).
+
 ## 0.19.0 — 2026-05-31
 
 ### Vague A — Sécurité juridique (alignement DA)
