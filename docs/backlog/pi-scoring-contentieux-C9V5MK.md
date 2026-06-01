@@ -1,5 +1,14 @@
 # Sparring scoring — `contentieux-pi` — Code C9V5MK
 
+> ⚠️ **`[scoring auto-référent — méthodologie pré-D.0]`** — ce scoring a été produit
+> avant formalisation du protocole blind ([`docs/methodology/sparring-scoring-protocol.md`](../methodology/sparring-scoring-protocol.md)).
+> L'auteur des datasets, de la vérité terrain et de l'orchestration du scoring est le même
+> acteur (Claude Code en session unique). Les scores sont à traiter comme
+> **borne supérieure indicative**, pas comme mesure release-grade. Re-validation
+> blind prévue en D.3 (cf. `docs/superpowers/plans/2026-06-01-hacienda-pi-vague-d-release-readiness.md`).
+
+---
+
 **Date** : 2026-06-01
 **Évaluateur** : sparring critique style K7M2PX
 **Skill évalué** : `plugins/hacienda-propriete-intellectuelle/skills/contentieux-pi/SKILL.md` (v2.0.0)
