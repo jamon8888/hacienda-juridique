@@ -90,6 +90,19 @@ Il est pertinent quand il faut decider vite entre :
 - escalade contentieuse ;
 - absence de réponse substantielle à ce stade.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Défense documentée : preuves d'usage antérieur en place, nullité ou non-contrefaçon plaidable, moyens en réserve. |
+| Moyen | 🟡 | Arbitrage transaction vs combat, choix entre cession amiable, licence forcée ou défense contentieuse à trancher. |
+| Élevé | 🟠 | Stratégie nullité reconventionnelle solide non activée OU FTO renforcé non commandité alors qu'il sécuriserait la défense. |
+| Bloquant | 🔴 | Preuves d'usage antérieur, de bonne foi ou d'antériorité présentes dans le dossier mais non versées au débat — risque d'estoppel ou de forclusion silencieuse. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Ne fait pas
 
 - Ne rédige pas la lettre finale de réponse : utiliser `mise-en-demeure-pi` en mode `respond` ou `review`.

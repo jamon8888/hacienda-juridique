@@ -121,6 +121,19 @@ Les licences n'y sont examinées qu'au titre de la chaîne de droits et de
 l'exploitabilité de l'actif : qui peut utiliser, intégrer, entraîner, céder,
 sous-licencier ou redistribuer l'actif considéré.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Chaîne de titularité propre : cessions documentées, contrats freelance conformes, mention L.113-9 explicite pour le code salarié, datasets avec licences entrantes lisibles. |
+| Moyen | 🟡 | Clauses ambiguës sur dérivés, fine-tuning, sous-licence ou exploitation des modèles entraînés ; périmètre de cession freelance imprécis sur module non critique ; preuves de transfert partielles. |
+| Élevé | 🟠 | Cession L.113-9 invoquée implicitement sans mention dans le contrat de travail ; freelance ou agence sur module exploité sans cession écrite explicite ; dataset tiers avec restrictions IA non vérifiées. |
+| Bloquant | 🔴 | Chaîne de titularité rompue sur module critique exploité : freelance non cédé, contributeur externe non couvert, fondateur pré-incorporation sans apport documenté, dataset à statut sui generis revendiqué sans investissement prouvé et exploité en aval. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Ne fait pas
 
 Ce skill ne fait pas :

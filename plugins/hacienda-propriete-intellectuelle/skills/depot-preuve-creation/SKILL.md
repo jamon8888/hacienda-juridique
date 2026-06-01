@@ -296,6 +296,21 @@ Toujours rappeler en conclusion :
 - les sources non consultées restent `[à vérifier]` ;
 - la force probante finale dépend du contexte, de la contradiction et de l'appréciation humaine.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Enveloppe Soleau, horodatage électronique qualifié ou constat d'huissier en bonne et due forme ; identification de l'œuvre claire et non équivoque ; antériorité opposable. |
+| Moyen | 🟡 | Preuve datée mais identification de l'œuvre imprécise ou périmètre des éléments protégés à clarifier ; antériorité utilisable sous réserve de précisions. |
+| Élevé | 🟠 | Preuve dégradée (capture d'écran datée mais non certifiée, mail à soi-même, dépôt non qualifié) ; antériorité fragile contestable en contradictoire. |
+| Bloquant | 🔴 | Aucune preuve d'antériorité sur une œuvre clé exploitée commercialement alors qu'un conflit est imminent ou déjà ouvert : risque de ne pas pouvoir établir la date de création face à un tiers. |
+
+Rappel : le dépôt ne crée pas de droit ; l'auteur est protégé dès la création par le seul fait de la création (`L.111-1`). Le dépôt vise uniquement à dater l'antériorité.
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Mode Anno Tabular optionnel
 
 Si la distribution Hacienda + Anno Desktop est active, `depot-preuve-creation`

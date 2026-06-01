@@ -63,6 +63,17 @@ reste utilisable, mais les hypothèses non documentées doivent être marquées
 
 Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
 
+## Pré-flight `check-pii`
+
+Avant toute analyse substantielle sur des pièces client : invoquer
+`/h-pi:check-pii` sur le corpus fourni. Si le résultat déclenche le
+prompt cas B (seuil B atteint ou catégorie sensible PI détectée),
+attendre la décision utilisateur (anonymiser via `hacienda-ghost`,
+ignorer, ou stopper) avant de poursuivre.
+
+Si l'utilisateur choisit « ignorer », apposer un caveat
+`[PII non traitée — décision utilisateur]` dans la note du relecteur.
+
 ## Gate non-juriste
 
 Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
@@ -106,6 +117,19 @@ Le skill reste **bi-mode** :
 
 Une branche `fallback-unfair-competition` peut exister, mais seulement comme
 issue secondaire et bornée. Le coeur du skill reste l'analyse D&M.
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Impression globale clairement distincte sur l'utilisateur averti : pas de contrefaçon caractérisable, dossier à clôturer sans action. |
+| Moyen | 🟡 | Ressemblance partielle, impression globale incertaine : risque non tranché, mise en demeure exploratoire ou demande de précisions factuelles envisageable avant d'engager. |
+| Élevé | 🟠 | Impression globale proche sur l'utilisateur averti, contrefaçon défendable mais nécessitant expertise complémentaire (validité du titre, portée des vues, pièces d'usage) avant engagement procédural. |
+| Bloquant | 🔴 | Identité visuelle ou impression globale identique sur dessin ou modèle enregistré valide, avec commercialisation contrefaisante actuelle : escalade immédiate (saisie-contrefaçon, référé, mise en demeure ferme). |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (par exemple un finding 🔴 de `recherche-anteriorite-dm` sur validité du titre attaqué) sans déclaration explicite.
 
 ## Ce skill ne fait pas
 

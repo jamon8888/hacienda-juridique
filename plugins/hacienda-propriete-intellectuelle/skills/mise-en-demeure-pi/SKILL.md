@@ -29,6 +29,17 @@ Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi
 
 Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
 
+## Pré-flight `check-pii`
+
+Avant toute analyse substantielle sur des pièces client : invoquer
+`/h-pi:check-pii` sur le corpus fourni. Si le résultat déclenche le
+prompt cas B (seuil B atteint ou catégorie sensible PI détectée),
+attendre la décision utilisateur (anonymiser via `hacienda-ghost`,
+ignorer, ou stopper) avant de poursuivre.
+
+Si l'utilisateur choisit « ignorer », apposer un caveat
+`[PII non traitée — décision utilisateur]` dans la note du relecteur.
+
 ## Gate non-juriste
 
 Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
@@ -95,6 +106,19 @@ Préparer, relire ou structurer une lettre de propriété intellectuelle à part
 Le skill est cohérent avec `tri-contrefacon` mais ne dépend plus d'une logique implicite "lire tri-contrefaçon". Il attend un contrat d'entrée explicite. Si ce contrat n'est pas réuni, il doit l'indiquer et recommander un retour au cadrage initial, à la collecte de pièces ou à une autre suite que la lettre.
 
 Référence de travail: `references/lettres-pi-structure.md`.
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Lettre calibrée : ton aligné posture cabinet, destinataire validé, escalation proportionnée. |
+| Moyen | 🟡 | Formulations à durcir ou assouplir selon escalation (ton trop souple si répétition, trop ferme si partenaire). |
+| Élevé | 🟠 | Ton inadapté au destinataire (trop agressif vs partenaire, trop souple vs contrefacteur récidiviste) ou inadéquation avec posture cabinet. |
+| Bloquant | 🔴 | Lettre escalatoire envoyée à contrepartie partenaire critique sans approbation hiérarchique adaptée OU contenant menace disproportionnée exposant à un risque de procédure abusive. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
 
 ## Ne fait pas
 

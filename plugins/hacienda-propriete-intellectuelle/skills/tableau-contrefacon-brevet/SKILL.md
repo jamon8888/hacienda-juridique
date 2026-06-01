@@ -43,6 +43,17 @@ Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi
 
 Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
 
+## Pré-flight `check-pii`
+
+Avant toute analyse substantielle sur des pièces client : invoquer
+`/h-pi:check-pii` sur le corpus fourni. Si le résultat déclenche le
+prompt cas B (seuil B atteint ou catégorie sensible PI détectée),
+attendre la décision utilisateur (anonymiser via `hacienda-ghost`,
+ignorer, ou stopper) avant de poursuivre.
+
+Si l'utilisateur choisit « ignorer », apposer un caveat
+`[PII non traitée — décision utilisateur]` dans la note du relecteur.
+
 ## Gate non-juriste
 
 Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
@@ -78,6 +89,19 @@ Le skill est strictement offensif. Il ne doit pas absorber :
 - la défense contre un tableau de contrefaçon adverse ;
 - la nullité / invalidité du brevet oppose ;
 - la stratégie judiciaire generale.
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Pas de reproduction des caractéristiques essentielles des revendications indépendantes — pas de contrefaçon littérale ni par équivalents. |
+| Moyen | 🟡 | Reproduction partielle limitée à des revendications dépendantes — atteinte plaidable mais portée réduite. |
+| Élevé | 🟠 | Reproduction par équivalents (doctrine des équivalents) défendable mais nécessitant démonstration fonction/moyen/résultat. |
+| Bloquant | 🔴 | Caractéristiques essentielles d'une revendication indépendante reproduites à l'identique sur un produit commercialisé — contrefaçon littérale prima facie. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
 
 ## Ce skill ne fait pas
 

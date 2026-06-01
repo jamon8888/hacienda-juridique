@@ -482,6 +482,20 @@ Format attendu :
 - Audit court :
   `portefeuille-audit-YYYY-MM-DD.md`
 
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Portefeuille à jour : renouvellements à 10 ans tenus, classes Nice alignées sur l'exploitation, surveillance BOPI active, pas d'opposition pendante. |
+| Moyen | 🟡 | Échéance renouvellement dans 6-12 mois sans plan d'action, ou usage non démontré sur certaines classes (risque déchéance L.714-5 après 5 ans), ou classes à compléter. |
+| Élevé | 🟠 | Échéance renouvellement < 3 mois sans décision, opposition en cours nécessitant défense, ou marque sous menace de déchéance pour défaut d'usage sur classes commercialement utilisées. |
+| Bloquant | 🔴 | Marque non renouvelée délai expiré (déchéance), action en déchéance recevable sur classe exploitée, ou marque déclarée déceptive/non distinctive par INPI sans appel formé. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (par ex. issue de `surveillance-marque`, `anteriorite-invalidite`) sans déclaration explicite.
+
 ## Style de sortie
 
 - Distinguer faits, analyse, gaps, décisions et validation humaine.

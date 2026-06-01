@@ -146,7 +146,7 @@ describe("hacienda PI cowork packaging", () => {
     expect(
       packageLock.packages?.["plugins/hacienda-propriete-intellectuelle/mcp-server"]?.version
     ).toBe(versionFile.version);
-    expect(versionFile.version).toBe("0.18.14");
+    expect(versionFile.version).toBe("0.19.0");
     expect(runtimeVersionSource).toContain(`import pluginVersion from "../../version.json"`);
     expect(runtimeVersionSource).toContain(
       "export const PI_PLUGIN_VERSION = pluginVersion.version;"
@@ -225,7 +225,7 @@ describe("hacienda PI cowork packaging", () => {
   it("declares explicit V2 metadata and command hints on every PI skill", () => {
     const skillFiles = collectSkillFiles(pluginRoot);
 
-    expect(skillFiles.length).toBe(37);
+    expect(skillFiles.length).toBe(38);
 
     for (const file of skillFiles) {
       const content = readFileSync(file, "utf8");

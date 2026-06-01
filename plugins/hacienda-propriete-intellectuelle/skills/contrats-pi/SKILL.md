@@ -71,6 +71,17 @@ marqueurs de brouillon visibles :
 
 Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
 
+## Pré-flight `check-pii`
+
+Avant toute analyse substantielle sur des pièces client : invoquer
+`/h-pi:check-pii` sur le corpus fourni. Si le résultat déclenche le
+prompt cas B (seuil B atteint ou catégorie sensible PI détectée),
+attendre la décision utilisateur (anonymiser via `hacienda-ghost`,
+ignorer, ou stopper) avant de poursuivre.
+
+Si l'utilisateur choisit « ignorer », apposer un caveat
+`[PII non traitée — décision utilisateur]` dans la note du relecteur.
+
 ## Gate non-juriste
 
 Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
@@ -476,6 +487,19 @@ Dans ces cas :
 - [ ] Formalités d'opposabilité identifiées
 - [ ] Sort des droits post-contrat traite
 - [ ] Validation humaine requise visible
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Contrat conforme : périmètre cession/licence clair, durée et territoire bornés, formalités d'opposabilité prêtes ou faites. |
+| Moyen | 🟡 | Formalités d'opposabilité non finalisées (inscription au Registre national des brevets ou des marques) — opposabilité aux tiers fragilisée tant que non inscrites. |
+| Élevé | 🟠 | Clause ambiguë sur la portée, le territoire, l'exclusivité, la sous-licence ou les améliorations — risque contentieux d'interprétation. |
+| Bloquant | 🔴 | Clause portant nullité (cession L.131-3 incomplète : mention obligatoire de chaque droit cédé, durée, territoire et destination manquante) OU clause manifestement contraire au règlement TTBER (UE 316/2014) sur les accords de transfert de technologie. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
 
 ## Ce skill ne fait pas
 

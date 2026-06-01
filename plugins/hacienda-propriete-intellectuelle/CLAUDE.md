@@ -173,6 +173,22 @@ les valeurs `[A CONFIGURER]` sont présentes, c'est un template. Une fois peupl�
 **Seuil go/no-go :** [A CONFIGURER — score matrice minimum pour engager une action : 20/40 / 25/40 / 30/40]
 **Mode de résolution préféré :** [A CONFIGURER — judiciaire (TJ Paris) / médiation (CMAP) / arbitrage (CCI) / transaction directe]
 
+### Politique PII / confidentialité
+
+**politique_pii :** [A CONFIGURER — passive / active / strict — défaut: active]
+**Seuil B (alerte ferme) :** 50 identifiants OU 1+ catégorie sensible PI
+**Catégories sensibles PI activées :** [A CONFIGURER — IBAN ayant droits, NIR créateur, montants cession > 10k€, mots-clés "secret affaires" / "savoir-faire" / "secret industriel", numéros brevets non encore publiés (< 18 mois post-dépôt — Art. R.612-39 CPI), inventeurs non publiés, informations sous NDA en cours]
+
+*Calibrage spécifique PI vs droit des affaires : la catégorie « brevets pré-publication » couvre la période de secret obligatoire de 18 mois (Art. R.612-39 CPI) — tout numéro de dépôt non encore publié au BOPI est sensible par défaut. Idem pour les inventeurs non publiés (mention nominative avant publication = compromission de la stratégie de dépôt).*
+
+| Mode | Comportement |
+|---|---|
+| `passive` | Détection silencieuse, footer cas A en fin de sortie si N ≥ 5 identifiants détectés |
+| `active` (défaut) | Footer cas A si N < seuil B et aucune catégorie sensible ; prompt cas B (bloquant) si seuil B atteint OU catégorie sensible PI détectée |
+| `strict` | Prompt cas B (bloquant) systématique dès N ≥ 1 identifiant |
+
+Le skill `/h-pi:check-pii` matérialise cette politique en pré-flight des skills client-facing. Voir aussi pattern lead magnet inversé `marketplace://hacienda-ghost` pour l'anonymisation automatique.
+
 ---
 
 ## 2. Sorties standardisées

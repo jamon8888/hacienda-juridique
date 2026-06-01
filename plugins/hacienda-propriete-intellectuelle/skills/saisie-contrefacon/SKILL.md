@@ -62,6 +62,17 @@ générique, mais chaque sortie doit être marquée `[PROVISOIRE]`.
 
 Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
 
+## Pré-flight `check-pii`
+
+Avant toute analyse substantielle sur des pièces client : invoquer
+`/h-pi:check-pii` sur le corpus fourni. Si le résultat déclenche le
+prompt cas B (seuil B atteint ou catégorie sensible PI détectée),
+attendre la décision utilisateur (anonymiser via `hacienda-ghost`,
+ignorer, ou stopper) avant de poursuivre.
+
+Si l'utilisateur choisit « ignorer », apposer un caveat
+`[PII non traitée — décision utilisateur]` dans la note du relecteur.
+
 ## Gate non-juriste
 
 Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
@@ -111,6 +122,19 @@ Il ne sert pas a :
 - faire une défense de nullité ;
 - rédiger une mise en demeure ;
 - se substituer à l'analyse au fond de la contrefaçon.
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Requête solide : titre valide, atteinte prima facie démontrée, motivation d'urgence et de subsidiarité claire, huissier briefé, contre-expertise anticipée. |
+| Moyen | 🟡 | Arbitrage des opérations à finaliser (étendue des lieux, support de copie, présence de l'expert, périmètre des saisies réelles). |
+| Élevé | 🟠 | Motivation à renforcer sur l'urgence, la subsidiarité ou la proportionnalité avant dépôt — risque de rétractation sur la forme. |
+| Bloquant | 🔴 | Requête mal motivée : titre manifestement invalide, atteinte non démontrée prima facie OU requête disproportionnée — risque de rejet et de dommages-intérêts pour mesure abusive. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
 
 ## Ce skill ne fait pas
 

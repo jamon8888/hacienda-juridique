@@ -487,6 +487,20 @@ Format attendu :
 - Audit court :
   `portefeuille-brevets-audit-YYYY-MM-DD.md`
 
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Portefeuille à jour : annuités payées dans les délais, validations EP en règle, couverture territoriale alignée sur l'exploitation, pas de titre attaqué. |
+| Moyen | 🟡 | Échéance annuité dans 3 à 6 mois sans plan de paiement confirmé, ou couverture à étendre vu l'exploitation actuelle, ou divisionnaire à arbitrer. |
+| Élevé | 🟠 | Annuité dans le délai de grâce (6 mois post-échéance, surtaxe applicable), validation EP non décidée alors que le délai court, ou brevet bloquant identifié sans FTO finalisé. |
+| Bloquant | 🔴 | Annuité non payée délai de grâce dépassé (titre déchu), brevet en nullité reconventionnelle sans défense organisée, ou perte de couverture sur produit phare. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (par ex. issue de `recherche-anteriorite-brevet` ou `contentieux-pi`) sans déclaration explicite.
+
 ## Style de sortie
 
 - Distinguer faits, analyse, gaps, décisions et validation humaine.

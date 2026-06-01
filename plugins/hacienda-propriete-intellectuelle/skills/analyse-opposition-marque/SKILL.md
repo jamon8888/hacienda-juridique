@@ -395,6 +395,19 @@ Associer la valeur choisie à 2-4 actions concrètes et à sa justification.
   réduire la confiance de la recommandation.
 - Toute base INPI ou chronologie BOPI non vérifiée reste une limite explicite.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill (solidité d'une opposition INPI ou d'une défense en opposition, appréciation globale du risque de confusion façon CJUE Sabel/Canon) :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Opposition solide ou défense robuste : antériorité valide, identité ou forte similarité signe + classes, preuves d'usage disponibles, motifs convergents. Aucune faille procédurale (délai L.712-4, qualité à agir, preuves) identifiée. |
+| Moyen | 🟡 | Opposition ou défense plausible mais fragile sur un point : similarité moyenne des signes, classes voisines sans identité, preuve d'usage partielle, ou motif relatif unique. Issue dépend de l'appréciation INPI au cas par cas. |
+| Élevé | 🟠 | Faille sérieuse : antériorité contestable (déchéance possible, usage non démontré), similarité faible des signes ou classes éloignées, délai serré, ou motif d'opposition mal couvert par les droits invoqués. Risque réel d'échec ou de rejet partiel. |
+| Bloquant | 🔴 | Opposition vouée à l'échec ou défense intenable : antériorité invocable inexistante, hors délai d'opposition, qualité à agir absente, preuves d'usage manquantes sur 5 ans alors que demandées, ou produits/services totalement étrangers. Ne pas former l'opposition, ou capituler par coexistence/limitation. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (par ex. de `recherche-anteriorite-marque` ou `anteriorite-invalidite`) vers 🟡 ou inférieur sans déclaration explicite dans la sortie.
+
 ## Rappel final à conserver
 
 - analyse argumentaire seulement ;

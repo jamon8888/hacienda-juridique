@@ -447,3 +447,16 @@ mais structurée :
 8. `Routage de décision`
 9. `Validation humaine`
 ```
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à l'appréciation subjective de la force d'une notification INPI/OEB (motifs absolus marques L.711-2, motifs de refus brevets, recevabilité de la réponse dans le délai R.712-11 marques / R.612-66 CPI brevets / Règle 132 EPC) :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Refus contournable : objection mineure ou de pure forme (libellé à préciser, classification à corriger), motif absolu argumentable par usage acquis ou par limitation ciblée ; amendement clair sans risque d'extension. Réponse à fort taux d'aboutissement. |
+| Moyen | 🟡 | Refus surmontable mais incertain : caractère distinctif borderline, descriptivité partielle, objection d'art antérieur exigeant amendement non trivial. Réponse exige stratégie argumentative solide ; issue dépend de la chambre/examinateur. |
+| Élevé | 🟠 | Refus solide : motif absolu manifeste (signe descriptif, déceptif, contraire à l'ordre public) avec faible marge argumentaire ; ou en brevets, objection de nouveauté/activité inventive sur revendication principale, amendement risquant extension de matière (art. 123(2) EPC) ou perte de priorité. Issue défavorable probable. |
+| Bloquant | 🔴 | Refus inéluctable ou réponse impossible : motif absolu sans contre-argument sérieux (ex. signe générique, drapeau, dénomination officielle protégée art. 6ter CUP) ; délai de réponse forclos sans voie de restauration ; ou refus brevet définitif après recours. Recommander abandon, refonte du signe/revendication ou voie divisionnaire. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (par ex. d'un `depot-marque-fr` qui avait déjà flagué un motif absolu probable) vers 🟡 ou inférieur sans déclaration explicite.

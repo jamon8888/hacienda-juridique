@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "hacienda-propriete-intellectuelle",
   "display_name": "Hacienda Propriété Intellectuelle",
-  "version": "0.18.14",
+  "version": "0.19.0",
   "description": "Connecteur MCP local Hacienda pour les workflows de propriété intellectuelle : marques, brevets, droit d'auteur, logiciel, open source, clauses PI et contrefaçon.",
   "author": {
     "name": "Hacienda",

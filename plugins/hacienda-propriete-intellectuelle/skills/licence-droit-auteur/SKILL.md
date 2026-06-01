@@ -65,6 +65,17 @@ reste utilisable, mais les hypothèses non documentées doivent être marquées
 
 Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
 
+## Pré-flight `check-pii`
+
+Avant toute analyse substantielle sur des pièces client : invoquer
+`/h-pi:check-pii` sur le corpus fourni. Si le résultat déclenche le
+prompt cas B (seuil B atteint ou catégorie sensible PI détectée),
+attendre la décision utilisateur (anonymiser via `hacienda-ghost`,
+ignorer, ou stopper) avant de poursuivre.
+
+Si l'utilisateur choisit « ignorer », apposer un caveat
+`[PII non traitée — décision utilisateur]` dans la note du relecteur.
+
 ## Gate non-juriste
 
 Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
@@ -495,6 +506,19 @@ Avant transmission au validateur humain, vérifier :
 - [ ] le risque logiciel / base de données / RGPD n'est pas sous-évalué ;
 - [ ] la sortie contient les marqueurs `[PROVISOIRE]`, `[à vérifier]` ou
       `[À COMPLÉTER]` quand nécessaire.
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Licence conforme aux mentions `L.131-3` (durée, territoire, médias, étendue, exclusivité), rémunération calibrée `L.131-4`, distinction licence / cession claire (titularité conservée). |
+| Moyen | 🟡 | Portée d'exploitation à préciser (médias, supports, sous-licence) ; périmètre des droits concédés à resserrer sans non-conformité manifeste. |
+| Élevé | 🟠 | Clauses de redevance ambiguës (forfaitaire vs proportionnelle au regard de `L.131-4`), exclusivité ou exclusivité de territoire à clarifier, posture `L.131-4` floue. |
+| Bloquant | 🔴 | Licence sans mention claire de durée, territoire ou exclusivité, ou portée sur œuvre future indéterminée (`L.131-1`), ou risque sérieux de requalification en cession déguisée sans les garanties associées. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
 
 ## Ton
 

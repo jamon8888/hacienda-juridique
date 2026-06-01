@@ -428,6 +428,19 @@ Produire exactement les 9 blocs suivants :
   `signal-unregistered-eu-design-posture`
 - dossier insuffisant ou incohérent : `hold-insufficient-basis`
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Dossier prêt : délais respectés, reproductions normalisées (vues suffisantes, fonds neutres), stratégie d'ajournement tranchée, périmètre Locarno cohérent. |
+| Moyen | 🟡 | Décision d'ajournement de publication non arrêtée alors qu'elle protégerait un lancement commercial, ou périmètre territorial non tranché. |
+| Élevé | 🟠 | Arbitrage portée multi-vues vs coût non tranché, qualité de reproductions à la limite, ou choix office (INPI vs DMC EUIPO vs La Haye) non sécurisé. |
+| Bloquant | 🔴 | Divulgation préalable hors délai de grâce (> 12 mois avant dépôt) entraînant perte de nouveauté, ou reproductions non conformes ne caractérisant pas la portée de protection : dépôt à reporter ou réorienter. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (par exemple un finding 🔴 de `recherche-anteriorite-dm` sur destruction de nouveauté) sans déclaration explicite.
+
 ## Ton
 
 Technique, borné, opératoire. Toujours rappeler qu'il s'agit d'un brouillon

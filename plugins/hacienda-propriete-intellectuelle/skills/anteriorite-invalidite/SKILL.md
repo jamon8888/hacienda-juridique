@@ -321,6 +321,19 @@ Associer à la route :
 - Si la stratégie devient principalement contentieuse, router vers
   `contentieux-pi`.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à l'appréciation de la solidité d'une attaque en nullité (ou inversement d'une défense de validité) sur un titre adverse — brevet, marque (L.714-3 motifs absolus, L.714-4 antériorités) ou DM :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Validité solide / attaque sans base sérieuse : art antérieur invoqué non pertinent, antériorité postérieure à la date de priorité, ou motif absolu non caractérisé. Le titre attaqué tient ; une action en nullité a un risque élevé de rejet et d'article 700. |
+| Moyen | 🟡 | Validité contestable mais incertaine : un prior art partiellement divulgant la revendication principale, ou un motif d'antériorité de marque limité à certains produits/services. Issue dépend de la lecture des revendications/spécification et de l'appréciation du juge. |
+| Élevé | 🟠 | Base de nullité sérieuse : prior art consulté couvrant l'ensemble des caractéristiques d'une revendication indépendante, ou marque antérieure identique avec preuves d'usage solides. Forte probabilité de nullité totale ou partielle. Recommandation d'introduire l'action ou de négocier sous menace. |
+| Bloquant | 🔴 | Nullité quasi certaine : art antérieur destructeur de nouveauté avec date opposable et preuve publique vérifiable ; ou pour les marques, antériorité identique en classes identiques avec usage continu démontré. Le titre attaqué ne survivra pas. Action recommandée comme levier offensif ou défensif majeur. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (par ex. d'une `recherche-anteriorite-marque` ayant identifié une antériorité dirimante) vers 🟡 ou inférieur sans déclaration explicite.
+
 ## Rappel final à conserver
 
 `anteriorite-invalidite` V2 est un skill de validité stricte seulement.

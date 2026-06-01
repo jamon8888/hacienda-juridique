@@ -371,6 +371,19 @@ Associer la valeur choisie à 2-4 actions concrètes et à sa justification.
 - Les numéros, dates, statuts et classes doivent être reliés à une source
   ouvrable avant d'être cités comme appui.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à l'appréciation du degré de confusion avec les antériorités identifiées (identité/similarité du signe, identité/similarité des produits/services en classes Nice, notoriété de l'antériorité, territoire) — appréciation globale CJUE Sabel/Canon/Lloyd :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Aucun hit pertinent : pas d'identité, pas de similarité forte sur les bases consultées (INPI Data, EUIPO TMview, Madrid Monitor selon scope), classes éloignées, ou antériorités présumées éteintes. Voie libre pour clearance professionnel et dépôt. |
+| Moyen | 🟡 | Hits de similarité moyenne : signe phonétiquement ou visuellement proche en classes voisines, antériorité notoire dans un secteur adjacent, ou marque dont l'usage paraît limité. Surveillance recommandée, clearance approfondi requis avant dépôt. |
+| Élevé | 🟠 | Risque de confusion établi : antériorité fortement similaire en classes identiques, ou signe identique en classes voisines avec notoriété démontrée. Opposition probable au dépôt ; envisager limitation du libellé, négociation de coexistence, ou changement de signe. |
+| Bloquant | 🔴 | Identité (ou quasi-identité) du signe ET identité (ou recouvrement direct) des classes Nice, surtout si l'antériorité est exploitée/notoire/dominante du secteur. Risque maximal de refus, d'opposition garantie et de contrefaçon en cas d'usage. Ne pas déposer ; renommer ou abandonner. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill est généralement amont — il pose la cote qui contraindra `depot-marque-fr`, `analyse-opposition-marque` et `anteriorite-invalidite` aval. Sa cote 🔴 doit donc être conservée comme plancher par tout skill consommateur.
+
 ## Rappel final à conserver
 
 - premier passage uniquement ;

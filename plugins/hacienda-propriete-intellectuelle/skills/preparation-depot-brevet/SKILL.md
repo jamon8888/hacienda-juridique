@@ -341,6 +341,19 @@ Associer la valeur choisie à 2-4 actions concrètes et à sa justification.
 - La route FR / EP / PCT / `sequenced` reste bornée et ne remplace pas une
   stratégie complète de prosecution.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | `readiness_status: ready` — invention concrète, problème/solution clairs, inventorship `clear`, `disclosure_status: no-known-disclosure`, prior art connu cohérent, route FR/EP/PCT arbitrable sans réserve. |
+| Moyen | 🟡 | Brief de rédaction exploitable mais zones grises : modes de réalisation préférés incomplets, variantes ou exemples insuffisants, support figures/données partiel, route de dépôt envisageable mais à confirmer (`partial`). |
+| Élevé | 🟠 | Couverture des revendications candidates fragile face au prior art identifié, inventorship `needs-review` (chaîne de cession ou L.611-7 employeur à clarifier), divulgation planifiée bientôt mais non encore intervenue, vocabulaire technique encore mouvant. |
+| Bloquant | 🔴 | Divulgation préalable détectée (`disclosure_status: already-disclosed` → perte de nouveauté présumée), inventorship `contested-or-unclear`, invention trop vague pour soutenir une revendication indépendante, prior art bloquant non levé. Route `hold-due-to-disclosure-risk` ou `fill-readiness-gaps` obligatoire. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (typiquement une antériorité bloquante remontée par `recherche-anteriorite-brevet`) sans déclaration explicite.
+
 ## Rappel final à conserver
 
 - préparation stricte au dépôt uniquement ;

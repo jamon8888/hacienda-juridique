@@ -105,6 +105,19 @@ Le skill travaille en positionnement strict marques et enforcement général. Il
 
 Référence de travail: `references/grille-enforcement-marques.md`.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Faux positif ou usage légitime (descriptif, référence nominative L.713-6, épuisement, usage non-commercial). |
+| Moyen | 🟡 | Signal isolé à surveiller : volume faible, contrefacteur diffus, pas de préjudice commercial avéré — watch list. |
+| Élevé | 🟠 | Contrefaçon probable nécessitant escalade vers `mise-en-demeure-pi` : volume commercial significatif ou récidive. |
+| Bloquant | 🔴 | Contrefaçon manifeste + volume commercial significatif + contrefacteur identifiable — action urgente (saisie, référé, retrait plateforme). |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Ne fait pas
 
 - Ne conclut pas qu'une contrefaçon, une concurrence déloyale ou un parasitisme sont établis de manière définitive.

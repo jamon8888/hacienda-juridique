@@ -418,6 +418,19 @@ Si le dossier n'existe pas, le créer. Si un fichier du même nom existe déjà,
 suffixer `-v2`, `-v3`, etc. Ne jamais écraser silencieusement une analyse
 précédente.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Route documentée, fenêtre de priorité confortable, budget conforme à la posture maintenance, marchés cibles cohérents avec la voie EP / PCT / sequenced recommandée. |
+| Moyen | 🟡 | Arbitrage non tranché : validation EP large vs sélective, opportunité PCT (gel 30 mois) vs EP direct, soutenabilité annuités à confirmer. Route exploitable avec réservations `[à vérifier]`. |
+| Élevé | 🟠 | Couverture territoires clés manquante (marchés business critiques non couverts par la voie envisagée), incohérence entre ambition géographique et budget, base FR fragile pour servir de priorité, marché à clarifier. Route `hold-for-market-clarification` ou `hold-for-budget-clarification`. |
+| Bloquant | 🔴 | Délai de priorité (12 mois) dépassé ou sur le point de l'être sans décision arbitrable, choix de route incompatible avec budget client confirmé, base FR inutilisable comme socle de priorité. Route `hold-priority-risk` obligatoire ; arbitrage humain spécialisé impératif. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill consomme des cotes amont (`recherche-anteriorite-brevet`, `preparation-depot-brevet`, `revue-portefeuille-brevets`). Une cote 🔴 amont sur la robustesse de la base FR ou sur une antériorité bloquante ne peut pas être tacitement neutralisée par une recommandation de route sans déclaration explicite.
+
 ## Ce que ce skill NE fait PAS
 
 - déposer EP ou PCT ;

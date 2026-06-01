@@ -499,6 +499,19 @@ finale requise.*
   `route-to-design-infringement-analysis` -> `contrefacon-dessin-modele`
 - base trop faible pour conclure : `hold-insufficient-basis`
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Champ libre : aucune antériorité destructrice identifiée sur le périmètre Locarno visé, dépôt envisageable sans réserve majeure. |
+| Moyen | 🟡 | État de l'art encombré nécessitant un arbitrage de portée (vues, variantes, classe Locarno) pour sécuriser le caractère individuel. |
+| Élevé | 🟠 | Dessin ou modèle antérieur proche affectant la nouveauté ou le caractère individuel sur l'utilisateur averti : portée à reconfigurer ou stratégie à revoir avant dépôt. |
+| Bloquant | 🔴 | Antériorité identique ou impression globale identique dans la même catégorie Locarno : nouveauté détruite, dépôt à abandonner ou réorienter ; côté défense, base d'attaque en nullité d'un titre adverse. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont (par exemple un signal 🔴 utilisateur sur divulgation propre antérieure non couverte par le délai de grâce) sans déclaration explicite.
+
 ## Ton
 
 Technique, prudent, borné. Toujours rappeler que la recherche est non

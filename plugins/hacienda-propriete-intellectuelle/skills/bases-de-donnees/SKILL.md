@@ -103,6 +103,19 @@ Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitud
 La branche contractuelle reste presente, mais secondaire. Le coeur du skill
 reste la qualification des protections.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Usage d'information publique ou consultation normale autorisée par les CGU / la licence en place ; structure clairement banale et aucun risque sui generis identifié ; pas de données personnelles. |
+| Moyen | 🟡 | Extractions répétées et systématiques de parties non substantielles à surveiller (limite L.342-2 CPI) ; investissement substantiel plausible mais non documenté ; signal RGPD à clarifier sans dominance. |
+| Élevé | 🟠 | Extraction qualitativement ou quantitativement substantielle litigieuse, défense possible mais risque réel ; structure originale revendiquée fragile ; CGU ou licence opposable contestée par l'exploitant. |
+| Bloquant | 🔴 | Exploitation d'une base tierce sans licence avec extraction substantielle au sens de L.342-1 CPI — atteinte directe au droit sui generis du producteur ; ou réutilisation publique de données personnelles sans base légale identifiable. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Ce skill ne fait pas
 
 - Ne remplace pas `qualification-oeuvre` pour une logique dominante

@@ -34,6 +34,17 @@ Si le profil est absent, incomplet ou contient `[A CONFIGURER]`, demander `/h-pi
 
 Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
 
+## Pré-flight `check-pii`
+
+Avant toute analyse substantielle sur des pièces client : invoquer
+`/h-pi:check-pii` sur le corpus fourni. Si le résultat déclenche le
+prompt cas B (seuil B atteint ou catégorie sensible PI détectée),
+attendre la décision utilisateur (anonymiser via `hacienda-ghost`,
+ignorer, ou stopper) avant de poursuivre.
+
+Si l'utilisateur choisit « ignorer », apposer un caveat
+`[PII non traitée — décision utilisateur]` dans la note du relecteur.
+
 ## Gate non-juriste
 
 Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
@@ -93,6 +104,19 @@ Ne pas utiliser ce skill comme voie normale pour :
   stratégie judiciaire immédiate ;
 - une médiation ou négociation précontentieuse qui ne demande pas encore de
   choix procéduraux.
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Action solide : titres valides, preuves convergentes, forum compétent, calendrier maîtrisé. |
+| Moyen | 🟡 | Stratégie à arbitrer (référé vs fond, urgence vs profondeur, attaque vs transaction). |
+| Élevé | 🟠 | Recevabilité défendable mais titre attaquable en nullité reconventionnelle ou preuve fragile. |
+| Bloquant | 🔴 | Action engagée avec moyen prescrit, forum incompétent (TJ Paris compétence exclusive brevets L.615-17, MUE art. 123 RMUE, DMC art. 80 RDMC) ou pièces inopposables. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
 
 ## Ne fait pas
 

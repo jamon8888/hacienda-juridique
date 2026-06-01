@@ -64,6 +64,17 @@ reste utilisable, mais les hypothèses non documentées doivent être marquées
 
 Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
 
+## Pré-flight `check-pii`
+
+Avant toute analyse substantielle sur des pièces client : invoquer
+`/h-pi:check-pii` sur le corpus fourni. Si le résultat déclenche le
+prompt cas B (seuil B atteint ou catégorie sensible PI détectée),
+attendre la décision utilisateur (anonymiser via `hacienda-ghost`,
+ignorer, ou stopper) avant de poursuivre.
+
+Si l'utilisateur choisit « ignorer », apposer un caveat
+`[PII non traitée — décision utilisateur]` dans la note du relecteur.
+
 ## Gate non-juriste
 
 Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
@@ -413,6 +424,19 @@ Avant transmission :
 - [ ] défenses adverses anticipees
 - [ ] route finale explicite vers la bonne brique
 - [ ] sortie marquée comme brouillon soumis à validation humaine
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Inspiration libre, reprise d'idées non protégées ou d'éléments du fonds commun ; pas d'empreinte de la personnalité de l'auteur reprise. |
+| Moyen | 🟡 | Ressemblances partielles sur éléments potentiellement protégeables ; risque incertain ; originalité et qualité pour agir à confirmer. |
+| Élevé | 🟠 | Inspiration substantielle, défendable mais contestation possible sur l'originalité ou sur la portée de la reprise ; exposition réelle si l'autre partie engage l'action. |
+| Bloquant | 🔴 | Reproduction servile ou quasi-servile + commercialisation + auteur identifié et droits non transmis : caractérisation civile (`L.331-1`) et pénale (`L.335-2`, `L.335-3`) plausibles. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
 
 ## Ton
 

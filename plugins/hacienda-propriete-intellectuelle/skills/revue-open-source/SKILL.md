@@ -90,6 +90,19 @@ Produire un audit open source opérationnel centré sur :
 - les priorités de remédiation pour les composants incompatibles, inconnus ou
   mal qualifiés.
 
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Composants sous licences permissives uniquement (MIT, BSD, Apache 2.0) ; notices et attributions conformes ; inventaire complet et versions figées ; usage aligné avec la policy interne. |
+| Moyen | 🟡 | Inventaire partiel ou versions non figées (risque de dérive entre build et distribution) ; composants `non identifié` ponctuels ; ambiguïtés sur la portée d'usage (build vs distribution) ne déclenchant pas d'obligation copyleft. |
+| Élevé | 🟠 | Composant copyleft faible (LGPL, MPL, EPL) ou source-available avec obligations non respectées : absence de notices, défaut de fourniture des sources des modifications, dynamic linking non isolé, attribution manquante en distribution. |
+| Bloquant | 🔴 | Composant copyleft fort (GPL, AGPL) lié à du code propriétaire distribué ou exposé en SaaS sans isolation — contamination avérée du code produit ; ou conflit policy rouge sur composant critique sans plan de remplacement. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
+
 ## Ne fait pas
 
 - Ne scanne pas automatiquement le code, l'historique Git ou les registres de

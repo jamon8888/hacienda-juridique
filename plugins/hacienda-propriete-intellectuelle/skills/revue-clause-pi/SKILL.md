@@ -70,6 +70,17 @@ reste utilisable, mais les hypothèses non documentées doivent être marquées 
 
 Identifier au minimum : demande, actif ou droit concerné, parties, territoire, dates utiles, documents disponibles, source officielle à consulter, urgence, sortie attendue et niveau de validation humaine requis.
 
+## Pré-flight `check-pii`
+
+Avant toute analyse substantielle sur des pièces client : invoquer
+`/h-pi:check-pii` sur le corpus fourni. Si le résultat déclenche le
+prompt cas B (seuil B atteint ou catégorie sensible PI détectée),
+attendre la décision utilisateur (anonymiser via `hacienda-ghost`,
+ignorer, ou stopper) avant de poursuivre.
+
+Si l'utilisateur choisit « ignorer », apposer un caveat
+`[PII non traitée — décision utilisateur]` dans la note du relecteur.
+
 ## Gate non-juriste
 
 Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
@@ -128,6 +139,19 @@ Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitud
 Les trois modes `review`, `fallback-redline` et `issue-list` restent publics,
 mais ils sont subordonnés à la même logique de revue ciblée. Ce skill ne
 rédige pas un contrat PI autonome complet.
+
+## Niveaux de criticité
+
+Échelle canonique appliquée à toute appréciation subjective de ce skill :
+
+| Niveau | Icône | Signification dans le contexte de ce skill |
+|---|---|---|
+| Faible | 🟢 | Clause standard sans risque significatif : périmètre borné, formulation usuelle, équilibre raisonnable. |
+| Moyen | 🟡 | Formulations à préciser (définitions floues, renvoi imprécis, zone grise sur droits dérivés) — pas de nullité mais ambiguïté à corriger. |
+| Élevé | 🟠 | Clause à portée excessive à négocier (cession trop large, durée disproportionnée, restrictions concurrence à requalifier). |
+| Bloquant | 🔴 | Clause de cession globale d'œuvres futures sans délimitation suffisante (atteinte à la prohibition de la cession globale d'œuvres futures, art. L.131-1 CPI) OU clause de non-contestation portant atteinte à l'ordre public économique. |
+
+Plancher cross-skill (CLAUDE.md §4) : ce skill ne peut pas dégrader silencieusement une cote 🔴 amont sans déclaration explicite.
 
 ## Ce skill ne fait pas
 
