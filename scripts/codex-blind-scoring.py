@@ -104,37 +104,29 @@ def validate_code(code: str) -> None:
         )
 
 
-def load_templates() -> dict:
-    """Parse the templates markdown file into 3 sections (phase1, phase2, phase4)."""
+def load_one_template(phase_h2: str) -> str:
+    """Parse one '### Prompt canonique' fenced block under a given H2 header."""
     if not TEMPLATES_PATH.exists():
-        fail(
-            3,
-            f"Template Codex introuvable : {TEMPLATES_PATH}\n"
-            f"Vérifier que D.0.2 (templates) a bien été livré."
-        )
+        fail(3, f"Template Codex introuvable : {TEMPLATES_PATH}\n"
+                f"Vérifier que D.0.2 (templates) a bien été livré.")
     text = TEMPLATES_PATH.read_text(encoding="utf-8")
+    m = re.search(
+        rf"{re.escape(phase_h2)}.*?### Prompt canonique\s*\n+```\n(.*?)\n```",
+        text, re.DOTALL,
+    )
+    if not m:
+        fail(3, f"Section '{phase_h2}' / 'Prompt canonique' introuvable dans "
+                f"{TEMPLATES_PATH}. Vérifier l'intégrité du fichier.")
+    return m.group(1)
 
-    # Extract sections by looking for "### Prompt canonique" headers under each phase H2.
-    # Phase H2 headers are like "## Phase 1 — Génération du dataset fictif", etc.
-    phases = {}
-    for phase_key, phase_h2 in [
-        ("phase1", "## Phase 1 — Génération du dataset fictif"),
-        ("phase2", "## Phase 2 — Génération de la vérité terrain"),
-        ("phase4", "## Phase 4 — Scoring comparatif"),
-    ]:
-        m = re.search(
-            rf"{re.escape(phase_h2)}.*?### Prompt canonique\s*\n+```\n(.*?)\n```",
-            text,
-            re.DOTALL,
-        )
-        if not m:
-            fail(
-                3,
-                f"Section '{phase_h2}' / 'Prompt canonique' introuvable dans "
-                f"{TEMPLATES_PATH}. Vérifier l'intégrité du fichier."
-            )
-        phases[phase_key] = m.group(1)
-    return phases
+
+def load_templates() -> dict:
+    """Parse the templates markdown file into the 3 historical sections."""
+    return {
+        "phase1": load_one_template("## Phase 1 — Génération du dataset fictif"),
+        "phase2": load_one_template("## Phase 2 — Génération de la vérité terrain"),
+        "phase4": load_one_template("## Phase 4 — Scoring comparatif"),
+    }
 
 
 def ensure_output_dir(output_path: Path) -> None:
@@ -328,6 +320,60 @@ def cmd_phase4(args) -> None:
     err("=" * 70)
 
 
+def cmd_phase2_criteria(args) -> None:
+    scenario_path = Path(args.scenario).resolve()
+    output_path = Path(args.output).resolve()
+    check_no_skill_md_path(scenario_path, output_path)
+    check_scenario_no_truth(scenario_path)
+    ensure_output_dir(output_path)
+    template = load_one_template("## Phase 2 criteria — Vérité terrain criteria atomiques")
+    prompt = substitute(template, {
+        "skill": args.skill,
+        "skill_description": args.skill_description,
+        "domain": args.domain,
+        "mode": args.mode,
+        "scenario_content": scenario_path.read_text(encoding="utf-8"),
+    })
+    print(PROMPT_OPEN_MARKER); print(prompt); print(PROMPT_CLOSE_MARKER)
+    err(""); err("=" * 70)
+    err("  PHASE 2 criteria — Vérité terrain criteria atomiques tiered-gated")
+    err(f"  Modèle Codex recommandé : {MODEL_RECO['phase2']}")
+    err(f"  Sortie prévue : {output_path}")
+    err("  ⚠ Session Codex distincte ; PAS le SKILL.md."); err("=" * 70)
+
+
+def cmd_phase4_criteria(args) -> None:
+    validate_code(args.code)
+    scenario_path = Path(args.scenario).resolve()
+    truth_path = Path(args.ground_truth).resolve()
+    live_path = Path(args.live_output).resolve()
+    output_path = Path(args.output).resolve()
+    check_no_skill_md_path(scenario_path, truth_path, live_path, output_path)
+    for p, label in [(scenario_path, "Scenario"), (truth_path, "Ground-truth"),
+                     (live_path, "Live-output")]:
+        if not p.exists():
+            fail(2, f"{label} introuvable : {p}")
+    ensure_output_dir(output_path)
+    template = load_one_template("## Phase 4 criteria — Scoring tiered-gated")
+    prompt = substitute(template, {
+        "skill": args.skill,
+        "skill_version": args.skill_version,
+        "code": args.code,
+        "date": args.date or "YYYY-MM-DD",
+        "scenario_content": scenario_path.read_text(encoding="utf-8"),
+        "ground_truth_content": truth_path.read_text(encoding="utf-8"),
+        "live_output_content": live_path.read_text(encoding="utf-8"),
+    })
+    print(PROMPT_OPEN_MARKER); print(prompt); print(PROMPT_CLOSE_MARKER)
+    err(""); err("=" * 70)
+    err("  PHASE 4 criteria — Scoring tiered-gated")
+    err(f"  Skill : {args.skill} v{args.skill_version} — code {args.code}")
+    err(f"  Sortie prévue : {output_path}")
+    err("  ⚠ Session Codex distincte ; PAS le SKILL.md.")
+    err("  → Sauver le bloc JSON de verdicts, puis :")
+    err("    python3 scripts/tiered_scoring.py <verdicts.json>"); err("=" * 70)
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="codex-blind-scoring",
@@ -369,6 +415,28 @@ def build_parser() -> argparse.ArgumentParser:
     p4.add_argument("--output", required=True, help="Chemin de sortie scoring report")
     p4.add_argument("--date", default=None, help="Date du scoring (YYYY-MM-DD), défaut : YYYY-MM-DD")
     p4.set_defaults(func=cmd_phase4)
+
+    # Phase 2 criteria
+    p2c = sub.add_parser("phase2-criteria", help="Vérité terrain criteria atomiques (Codex HIGH)")
+    p2c.add_argument("--skill", required=True)
+    p2c.add_argument("--skill-description", required=True, help="Description neutre (PAS le SKILL.md)")
+    p2c.add_argument("--domain", required=True)
+    p2c.add_argument("--mode", required=True)
+    p2c.add_argument("--scenario", required=True)
+    p2c.add_argument("--output", required=True)
+    p2c.set_defaults(func=cmd_phase2_criteria)
+
+    # Phase 4 criteria
+    p4c = sub.add_parser("phase4-criteria", help="Scoring tiered-gated criterion-par-criterion")
+    p4c.add_argument("--skill", required=True)
+    p4c.add_argument("--skill-version", required=True)
+    p4c.add_argument("--code", required=True)
+    p4c.add_argument("--scenario", required=True)
+    p4c.add_argument("--ground-truth", required=True, help="Fichier criteria atomiques")
+    p4c.add_argument("--live-output", required=True)
+    p4c.add_argument("--output", required=True)
+    p4c.add_argument("--date", default=None)
+    p4c.set_defaults(func=cmd_phase4_criteria)
 
     return p
 
