@@ -100,6 +100,9 @@ CONTRAINTES :
 - Longueur cible : 200-400 lignes.
 
 OUTPUT : un fichier Markdown autonome correspondant à la structure ci-dessus,
-prêt à être sauvegardé dans `tests/datasets/<batch>-contrefacon-dessin-modele/scenario.md`.
+prêt à être sauvegardé EXACTEMENT à ce chemin (pas un autre — l'outil de
+scoring Phase 4 le cherche à cet endroit précis) :
+
+`/private/tmp/d2-prerender-contrefacon-dessin-modele.md`
 
 --- FIN PROMPT ---

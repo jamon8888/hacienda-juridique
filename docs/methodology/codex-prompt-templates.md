@@ -108,7 +108,10 @@ CONTRAINTES :
 - Longueur cible : 200-400 lignes.
 
 OUTPUT : un fichier Markdown autonome correspondant à la structure ci-dessus,
-prêt à être sauvegardé dans `tests/datasets/<batch>-{skill}/scenario.md`.
+prêt à être sauvegardé EXACTEMENT à ce chemin (pas un autre — l'outil de
+scoring Phase 4 le cherche à cet endroit précis) :
+
+`{save_path}`
 ```
 
 ---
@@ -215,8 +218,11 @@ CONTRAINTES :
 - Longueur cible : 250-450 lignes.
 - En tête : indique "Phase 2 — Codex GPT-5.5 effort high — protocole D.0".
 
-OUTPUT : un fichier Markdown autonome, prêt à être sauvegardé dans
-`tests/datasets/<batch>-{skill}/ground-truth.md`.
+OUTPUT : un fichier Markdown autonome, prêt à être sauvegardé EXACTEMENT à
+ce chemin (pas un autre — l'outil de scoring Phase 4 le cherche à cet endroit
+précis) :
+
+`{save_path}`
 ```
 
 ---
@@ -314,9 +320,9 @@ OUTPUT — fichier Markdown structuré :
 **Date** : {date}
 **Skill évalué** : `{skill}` v{skill_version}
 **Méthode** : sparring scoring blind protocole D.0 phase 4 (Codex GPT-5.5 medium)
-**Scénario** : voir `tests/datasets/<batch>-{skill}/scenario.md`
-**Vérité terrain** : voir `tests/datasets/<batch>-{skill}/ground-truth.md`
-**Sortie live** : voir `tests/datasets/<batch>-{skill}/live-output.md`
+**Scénario** : voir `{scenario_path}`
+**Vérité terrain** : voir `{ground_truth_path}`
+**Sortie live** : voir `{live_output_path}`
 
 ## Score pondéré
 
@@ -376,8 +382,10 @@ CONTRAINTES :
 - Format Markdown autonome.
 - Longueur cible : 300-500 lignes.
 
-OUTPUT : un fichier Markdown autonome, prêt à être sauvegardé dans
-`docs/backlog/<plugin-prefix>-scoring-<batch>-{skill}-{code}.md`.
+OUTPUT : un fichier Markdown autonome, prêt à être sauvegardé EXACTEMENT à
+ce chemin (pas un autre) :
+
+`{save_path}`
 ```
 
 ---

@@ -211,6 +211,7 @@ def cmd_phase1(args) -> None:
         "mode": args.mode,
         "code": args.code,
         "specificites": args.specificites,
+        "save_path": str(output_path),
     })
 
     print(PROMPT_OPEN_MARKER)
@@ -251,6 +252,7 @@ def cmd_phase2(args) -> None:
         "domain": args.domain,
         "mode": args.mode,
         "scenario_content": scenario_content,
+        "save_path": str(output_path),
     })
 
     print(PROMPT_OPEN_MARKER)
@@ -303,6 +305,10 @@ def cmd_phase4(args) -> None:
         "scenario_content": scenario_path.read_text(encoding="utf-8"),
         "ground_truth_content": truth_path.read_text(encoding="utf-8"),
         "live_output_content": live_path.read_text(encoding="utf-8"),
+        "scenario_path": str(scenario_path),
+        "ground_truth_path": str(truth_path),
+        "live_output_path": str(live_path),
+        "save_path": str(output_path),
     })
 
     print(PROMPT_OPEN_MARKER)
