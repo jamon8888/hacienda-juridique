@@ -269,12 +269,45 @@ La sortie doit être structurée ainsi :
 - statut `inventorship_status` ;
 - points de vigilance sur `L.611-7`, cessions ou chaîne de droits.
 
+**Sous-étape — Audit contrats travail inventeurs salariés (Art. L.611-7 CPI) [G10]**
+
+Vérifier que chaque inventeur salarié dispose d'un contrat de travail traitant explicitement la qualification de l'invention. Trois régimes :
+
+- **Inventions de mission** (exécution d'une mission inventive prévue au contrat de travail ou d'études et recherches qui lui sont explicitement confiées) → **appartiennent à l'employeur ipso jure** ; le salarié a droit à une **rémunération supplémentaire** obligatoire (jurisprudence Cour de cassation active sur le calcul).
+- **Inventions hors mission attribuables** (réalisées dans le cours de l'exécution du contrat de travail, dans le domaine d'activité de l'employeur, ou par la connaissance/utilisation de techniques ou moyens spécifiques à l'entreprise) → **droit d'attribution à l'employeur** moyennant **juste prix** (négociation ou fixation judiciaire à défaut).
+- **Inventions hors mission non attribuables** → propriété du salarié.
+
+Risque si non clarifié : litige rémunération supplémentaire (contentieux chronique, prescription propre). Conserver en `inventorship_status: needs-review` tant que la qualification n'est pas tracée.
+
+**Sous-étape — Audit chaîne titularité + conventions de recherche tiers (Art. L.611-8 CPI) [G2]**
+
+Avant rédaction des revendications :
+
+1. Identifier toute convention de recherche avec tiers couvrant la période de gestation de l'invention : INRIA, CNRS, universités, conventions CIFRE, partenariats académiques, consortiums Horizon Europe, contrats de prestation R&D.
+2. Vérifier les clauses propriété intellectuelle de chaque convention : indivision, cession au titulaire, partage co-titularité, règles de licence par défaut.
+3. **Risque L.611-8 CPI** : si un co-titulaire potentiel n'est pas associé au dépôt, l'action en revendication de propriété est ouverte pendant **5 ans à compter de la publication du brevet** (3 ans si bonne foi du déposant prouvée). Risque durable, non couvert par une simple rectification a posteriori.
+4. **Action si co-titularité non résolue** : régulariser **AVANT dépôt** (avenant de cession, signature des co-titulaires, accord exprès de co-titularité avec règles d'exploitation). La régularisation prend 2 à 4 semaines ; le risque contentieux est de 5 ans et frappe directement la valeur du titre.
+
 ### 3. `Contrôle du risque de divulgation`
 
 - divulgations connues ou prévues ;
 - statut `disclosure_status` ;
 - urgence ou blocage ;
 - impact potentiel sur la nouveauté.
+
+**Sous-étape — Vérification divulgation antérieure & délai de grâce (Art. 55 CBE / Art. L.611-13 CPI) [G1]**
+
+À conduire en premier dans cette section : identifier toute divulgation par les inventeurs (publications scientifiques, communications à conférences, posters, prépublications arXiv/HAL, démonstrations commerciales, salons, pitchs investisseurs non NDA) **dans les 12 mois** précédant le dépôt envisagé.
+
+- **Art. 55 CBE** : délai de grâce de **6 mois** avant la date de dépôt UNIQUEMENT pour (a) **abus évident** à l'égard du déposant ou de son prédécesseur en droit, OU (b) **expositions internationales officiellement reconnues** (au sens de la Convention de Paris de 1928 sur les expositions internationales). Champ extrêmement étroit.
+- **Art. L.611-13 CPI** : règle française correspondante, restrictive, jurisprudence stricte.
+- **⚠️ NE PAS confondre avec le délai de grâce US** (1 an générique, 35 U.S.C. §102(b)(1)). La confusion est récurrente chez les inventeurs non-EQE et chez les scientifiques publiants. En Europe, **toute divulgation publique de l'invention par l'inventeur lui-même détruit la nouveauté**, sauf les deux hypothèses étroites ci-dessus.
+
+Action :
+1. Qualifier juridiquement chaque divulgation détectée (date, contenu technique divulgué, public touché, support).
+2. Évaluer si Art. 55 CBE / L.611-13 CPI s'applique. Dans l'immense majorité des cas : non.
+3. Si oui (abus ou exposition reconnue) : tagger `[à vérifier]` la qualification, documenter la preuve, et confirmer le délai de 6 mois.
+4. Sinon : ajuster les revendications pour ne couvrir **que ce qui n'a pas été divulgué**, ou basculer `disclosure_status: already-disclosed` et router `hold-due-to-disclosure-risk`.
 
 ### 4. `Brief de rédaction`
 
@@ -283,6 +316,15 @@ La sortie doit être structurée ainsi :
 - avantages techniques revendicables ;
 - vocabulaire technique clé ;
 - architecture générale du dossier.
+
+**Statut juridictionnel des antériorités vs portée territoriale [G9]**
+
+Lors du traitement des antériorités citées (issues de `recherche-anteriorite-brevet` ou de la connaissance dossier), distinguer **état de la technique** et **droits opposables territorialement** :
+
+- Un brevet US **non validé en Europe** n'est pas opposable comme titre en Europe stricto sensu, mais il **fait partie de l'état de la technique au sens Art. 54 CBE** (publication accessible au public à sa date de publication). À citer comme **antériorité de divulgation**, pas comme titre opposable territorialement.
+- Un brevet EP **validé dans un pays X mais pas dans le pays Y** est opposable comme titre uniquement dans X ; mais son fascicule reste de l'état de la technique partout dans le monde.
+- Une demande publiée (A1, A2) ou un brevet délivré (B1) entre dans l'état de la technique à compter de sa date de publication, quelle que soit la juridiction de dépôt.
+- Distinguer toujours dans le brief : (a) **publication / état de l'art** (pertinent pour nouveauté et inventivité partout), (b) **droits opposables territorialement** (pertinent uniquement pour FTO et contentieux dans la juridiction couverte).
 
 ### 5. `Architecture candidate des revendications`
 
@@ -311,6 +353,18 @@ La sortie doit être structurée ainsi :
 - raison de la route suggérée ;
 - conditions, réserves ou prérequis ;
 - quand rerouter vers `strategie-extension-internationale`.
+
+**Routage extension internationale — arbitrage EP large vs PCT 30 mois [G3]**
+
+Le skill propose une route bornée, calibrée sur le profil cabinet (volume portefeuille, budget, géographie clients lus depuis `company-profile.md` et `hacienda-propriete-intellectuelle/CLAUDE.md` champ `Stratégie extension internationale`). Options canoniques :
+
+- **FR seul** : économie maximale (taxes INPI ~26€ dépôt + ~520€ rapport recherche, annuités modestes). Couverture France uniquement. Adapté si clients exclusivement français ou test de marché.
+- **FR + EP (validations sélectives)** : couverture pays UE clés (typiquement DE, FR, GB, IT, ES). Coût annuités cumulé proportionnel au nombre de validations + traductions par État validateur (Accord de Londres atténue pour DE, GB, FR).
+- **FR + EP (validations larges 12+ pays)** : ~50k€/an d'annuités cumulées une fois validé, dépasse souvent le seuil PME. Réservé à portefeuilles structurés avec ROI démontré pays par pays.
+- **FR + PCT (gel 30 mois)** : **Art. 4 PCT** (gel des décisions territoriales lors du dépôt international) + **Art. 22 PCT** (entrée en phase nationale à **30 mois** à compter de la date de priorité). Idéal pour startup en levée de fonds : décision territoires différée jusqu'à visibilité commerciale et trésorerie. Taxe internationale + recherche internationale ~4k€ à 6k€ à l'entrée.
+- **Hybride** : FR (priorité) + PCT (gel 30 mois), puis arbitrage EP / nationaux à l'entrée phase nationale en fonction des marchés réellement adressés.
+
+Recommandation calibrée sur profil cabinet. Tagger `[à vérifier]` les taxes indicatives et router vers `strategie-extension-internationale` pour le scoring complet par pays.
 
 ### 9. `Validation humaine`
 

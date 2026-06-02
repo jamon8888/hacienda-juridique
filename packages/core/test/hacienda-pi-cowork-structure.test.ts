@@ -146,7 +146,7 @@ describe("hacienda PI cowork packaging", () => {
     expect(
       packageLock.packages?.["plugins/hacienda-propriete-intellectuelle/mcp-server"]?.version
     ).toBe(versionFile.version);
-    expect(versionFile.version).toBe("0.20.0");
+    expect(versionFile.version).toBe("0.21.0");
     expect(runtimeVersionSource).toContain(`import pluginVersion from "../../version.json"`);
     expect(runtimeVersionSource).toContain(
       "export const PI_PLUGIN_VERSION = pluginVersion.version;"
