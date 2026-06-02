@@ -133,3 +133,18 @@ Les critères d'acceptance d'usage (6, 7 — sessions hebdo frère + dossiers am
 ---
 
 *Datasets constitués 2026-05-19 — Hacienda. Constitution à la main, articles vérifiés contre Légifrance pour les positifs, abrogations citent l'ordonnance 2016-131 du 10 février 2016. PII synthétique uniquement, aucune donnée personnelle réelle.*
+
+---
+
+## Méthodologie sparring scoring (applicable à toute future validation)
+
+Tout sparring scoring DA justifiant une décision release doit suivre le
+**protocole blind à 4 phases** défini dans
+[`docs/methodology/sparring-scoring-protocol.md`](../../../docs/methodology/sparring-scoring-protocol.md).
+
+Helper Codex scripté : [`scripts/codex-blind-scoring.py`](../../../scripts/codex-blind-scoring.py).
+
+Les scorings DA historiques **K7M2PX** (`spa-review`) et **R7M2KX** / **R4VN9W** ont
+été produits avant formalisation du protocole. Ils servent de référence
+directionnelle mais ne sont pas release-grade au sens du protocole D.0. Toute
+re-validation blind ultérieure suivra le protocole.

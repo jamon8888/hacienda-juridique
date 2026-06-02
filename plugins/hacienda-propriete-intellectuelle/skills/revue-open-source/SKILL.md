@@ -320,6 +320,30 @@ gravité AGPL et SSPL.
 
 ---
 
+## Étape 2 bis — Qualification du scope d'exploitation (G17)
+
+Cette qualification est **structurante** : elle détermine toute l'appréciation
+downstream (contamination, obligations, AGPL §13, LGPL §6). Sans elle, le
+scoring OSS est aléatoire.
+
+Distinguer composant par composant :
+
+- **SaaS hosted** : le titulaire héberge le logiciel, les utilisateurs y
+  accèdent via réseau. **Pas de distribution au sens GPL classique** → la GPL
+  et la LGPL ne déclenchent pas leurs obligations source disclosure. L'AGPL le
+  fait via §13 sous **conditions cumulatives** (cf. Étape 5 — G15).
+- **Distribution classique on-premises** : le titulaire livre le binaire au
+  client. **Toutes les obligations GPL/LGPL classiques s'appliquent** : notices,
+  fourniture des sources sur demande, copyleft cascade pour GPL.
+- **Hybride** (produit SaaS + composant on-premises : edge agent, mobile
+  client, installer, SDK distribué) : les **deux régimes s'appliquent en
+  parallèle**, à distinguer composant par composant.
+
+Si la qualification n'est pas claire dans l'intake, taguer `[à vérifier]` et
+ne pas inférer.
+
+---
+
 ## Étape 3 — Lecture inventaire fourni
 
 Lire l'entrée structurée fournie :
@@ -362,6 +386,46 @@ Classer chaque composant :
 - **Proprietary** : licences propriétaires explicites.
 - **Inconnu / non identifié** : à investiguer ou `[à vérifier]`.
 
+### AGPL section 13 — conditions cumulatives (G15)
+
+L'AGPL diffère de la GPL parce qu'elle déclenche ses obligations source
+disclosure **même en SaaS hosted** (pas seulement à la distribution classique).
+MAIS la section 13 ne s'active que si **deux conditions cumulatives** :
+
+1. Le composant AGPL a été **modifié** par le titulaire du produit.
+2. Le composant modifié est **accessible aux utilisateurs via une interface
+   réseau**.
+
+Conséquences :
+
+- Un composant AGPL utilisé **purement en interne** (monitoring, logging,
+  infrastructure non exposée aux utilisateurs réseau) ET **non modifié**
+  **ne déclenche pas** l'obligation source disclosure.
+- Un fork interne d'un composant AGPL utilisé en interne déclenche AGPL §13
+  uniquement si l'interface modifiée est accessible aux utilisateurs (cas rare).
+
+**Anti-faux-positif** : ne pas interdire automatiquement AGPL en interne sans
+vérifier les 2 conditions. Tagger `[à vérifier]` si l'usage réel n'est pas
+documenté.
+
+### Classpath exception — vérifier origine et application (G16)
+
+La **Classpath exception** a été créée par Sun/Oracle pour OpenJDK et GNU
+Classpath afin de permettre le linking avec du code propriétaire sans
+contamination GPL. **Son application à d'autres projets** que OpenJDK / GNU
+Classpath est **discutable** et dépend du texte exact de la licence appliquée.
+
+Vérifier dans le NOTICE / LICENSE de chaque composant utilisant Classpath
+exception :
+
+- (a) la clause est-elle **textuellement présente** ?
+- (b) l'origine est-elle **OpenJDK / GNU Classpath** ou un fork ?
+- (c) le détenteur du copyright **autorise-t-il explicitement** cette
+  application ?
+
+En cas de doute, traiter comme **GPL pure** (risque interprétatif élevé pour
+un investisseur DD strict). Tagger `[review]` avocat PI.
+
 ---
 
 ## Étape 6 — Détection conflits inter-licences
@@ -395,6 +459,34 @@ Repérer les chemins de contamination :
 - BSL : restrictions d'usage commercial selon le change date.
 
 Coter 🔴 toute contamination avérée sur code propriétaire distribué ou SaaS.
+
+---
+
+## Étape 7 bis — Analyse linking statique vs dynamique sur composants LGPL (G14)
+
+La **LGPL §6** permet le linking dynamique sans contamination : la licence du
+programme appelant reste intacte. MAIS le **linking statique** bascule
+l'ensemble du binaire distribué sous GPL (la LGPL §6 explicite cette
+condition).
+
+Pour chaque composant LGPL inventorié, **identifier le mode de linking** dans
+le produit distribué (cf. qualification scope Étape 2 bis) :
+
+- **Linking dynamique** (DLL / `.so` / shared library chargée à l'exécution) →
+  LGPL préservée. Obligations : conserver les notices LGPL et fournir les
+  sources des **modifications LGPL uniquement** (pas du code appelant).
+- **Linking statique** (composant compilé directement dans le binaire) →
+  bascule GPL → **contamination de l'ensemble du binaire distribué**.
+
+**Action si linking statique détecté sur produit distribué** :
+
+1. **Refactor vers linking dynamique** (préféré : préserve l'isolation LGPL),
+   OU
+2. **Remplacement du composant** par une alternative permissive (MIT / Apache).
+
+En SaaS hosted pur (cf. Étape 2 bis), la LGPL ne déclenche pas ses obligations
+de distribution mais l'analyse linking reste utile pour les composants
+hybrides (edge agent, SDK distribué).
 
 ---
 

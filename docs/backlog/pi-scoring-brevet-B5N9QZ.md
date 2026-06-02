@@ -1,5 +1,14 @@
 # Sparring scoring — `preparation-depot-brevet` — Code B5N9QZ
 
+> ⚠️ **`[scoring auto-référent — méthodologie pré-D.0]`** — ce scoring a été produit
+> avant formalisation du protocole blind ([`docs/methodology/sparring-scoring-protocol.md`](../methodology/sparring-scoring-protocol.md)).
+> L'auteur des datasets, de la vérité terrain et de l'orchestration du scoring est le même
+> acteur (Claude Code en session unique). Les scores sont à traiter comme
+> **borne supérieure indicative**, pas comme mesure release-grade. Re-validation
+> blind prévue en D.3 (cf. `docs/superpowers/plans/2026-06-01-hacienda-pi-vague-d-release-readiness.md`).
+
+---
+
 **Date** : 2026-05-31
 **Skill évalué** : `preparation-depot-brevet` v2.0.0 (post-vague-B PI v0.20.0)
 **Scénario** : `tests/datasets/v2-brevet/scenario.md` — OCTOPUS LABS chiffrement homomorphe à seuil

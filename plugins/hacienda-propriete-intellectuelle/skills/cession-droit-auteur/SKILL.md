@@ -370,6 +370,27 @@ proprement avec les régularisations à faire.
 - Qualité auteur : personne physique seule, collaboration `L.113-2`,
   collective `L.113-2` al. 3, audiovisuelle `L.113-7`, logiciel `L.113-9`.
 
+### Étape 3 bis — Decision tree amont / aval audiovisuel (`L.131-3` vs `L.132-25`)
+
+**Qualification de l'œuvre en amont ou en aval de la production audiovisuelle**
+— à trancher AVANT toute rédaction de clause :
+
+- **Œuvre déjà audiovisuelle produite** (long-métrage finalisé, série finalisée,
+  master livré) → **Art. L.132-25 CPI** : **présomption de cession** des droits
+  patrimoniaux d'exploitation au profit du producteur en l'absence de
+  stipulation contraire. La clause s'inscrit dans le contrat de production
+  audiovisuelle (`L.132-24` et s.) et non dans un acte de cession `L.131-3`
+  isolé.
+- **Œuvre en amont de la production audiovisuelle** (scénario, bible série,
+  traitement, synopsis, dialogues, adaptation littéraire) → **Art. L.131-3 CPI
+  classique** s'applique. **Pas de présomption** au profit du producteur. La
+  mention obligatoire de chaque droit cédé est requise dans l'acte de cession.
+
+Confondre les deux branches = erreur de qualification grave (cote 🔴). Si
+l'œuvre est mixte (scénario + tournage simultané) ou si la branche n'est pas
+claire, taguer `[review]` et router vers `qualification-oeuvre` avant
+rédaction.
+
 ## Étape 4 — Audit titre auteur initial
 
 - Présomption `L.111-1` (qualité d'auteur naît du seul fait de la création).
@@ -377,6 +398,61 @@ proprement avec les régularisations à faire.
 - Date de création — preuves disponibles.
 - Statut salarié : pas de cession automatique en droit français hors
   `L.113-9` logiciel.
+
+### Vérification antériorité titre (`L.112-4` al. 2 CPI)
+
+Le titre d'une œuvre est protégé par lui-même au sens du droit d'auteur s'il
+présente un **caractère original**. Checkpoint systématique :
+
+- Si le titre projeté est **déjà utilisé par le cessionnaire** (slogan
+  publicitaire interne, marque non déposée, usage notoire antérieur),
+  clarifier dans le contrat que la cession porte **sur le scénario / l'œuvre,
+  NON sur le titre** — le titre est déjà détenu de fait par le cessionnaire
+  via usage antérieur.
+- Si le titre est **rare ou fortement identifiant**, vérifier qu'il n'est pas
+  déjà déposé en marque par un tiers (renvoi vers
+  `recherche-anteriorite-marque` recommandé) ou utilisé par une œuvre
+  antérieure originale.
+- Tagué `[à vérifier]` si la recherche d'antériorité titre n'a pas été
+  effectuée.
+
+### Identification co-auteurs salariés (limite `L.113-9` logiciel)
+
+**Garde-fou contre le sur-périmètre `L.113-9`** :
+
+- **Art. L.113-9 CPI : applicable UNIQUEMENT au logiciel** (cession
+  automatique des droits patrimoniaux au profit de l'employeur sur les
+  logiciels créés dans l'exercice des fonctions ou d'après les instructions).
+- **Pour TOUTES les autres œuvres** (scénarios, articles, design, photo,
+  audiovisuel, musique, illustration, base de données hors logiciel) :
+  **PAS de cession automatique** au profit de l'employeur. Le contrat de
+  travail doit prévoir **explicitement** la cession des droits d'auteur sur
+  les œuvres créées dans l'exercice des fonctions, ou la cession se fait au
+  cas par cas par acte écrit conforme `L.131-3`.
+- Si co-écriture détectée avec un salarié de l'une des parties : vérifier le
+  contrat de travail du salarié OU obtenir cession ad hoc explicite. Sinon =
+  co-titularité salarié non résolue = chaîne de titularité incomplète (cote
+  🔴 ou 🟠 selon documentabilité).
+
+### Personnages inspirés de personnes réelles (droit à l'image, vie privée, diffamation)
+
+Si l'œuvre comporte des personnages inspirés de personnes réelles (personnes
+consultées nominativement, auto-fiction, personnages composites
+reconnaissables), risques cumulés au-delà du droit d'auteur :
+
+- **Droit à l'image** (Cass. 1re civ., jurisprudence constante).
+- **Vie privée** (Art. 9 C. civ.).
+- **Diffamation** (loi du 29 juillet 1881) si traitement défavorable du
+  personnage reconnaissable.
+
+Action :
+1. Obtenir des **autorisations écrites** des personnes nommément consultées
+   ou reconnaissables.
+2. Insérer dans l'acte de cession une clause de **garantie d'éviction
+   étendue** (au-delà du seul droit d'auteur) couvrant le cédant contre ces
+   risques voisins.
+3. Si possible, **anonymiser** les personnages composites reconnaissables.
+4. Tagué `[review]` si autorisations manquantes.
 
 ## Étape 5 — Chaîne de titularité historique
 
@@ -402,6 +478,27 @@ Chaque droit cédé doit être mentionné distinctement, avec :
 
 L'omission d'une mention obligatoire est sanctionnée par la nullité du
 transfert sur le périmètre concerné.
+
+**Garde-fou bloquant 🔴 — Refuser toute clause portant « cession des médias
+inconnus à venir » sans mécanisme de cession complémentaire.**
+
+- Jurisprudence : **Cass. 1re civ., 9 octobre 1991** (jurisprudence constante
+  depuis) — la cession porte uniquement sur les modes d'exploitation
+  **prévisibles à la date du contrat**. Une clause générale couvrant les
+  « médias inconnus à venir » ou « tous supports actuels et futurs » de
+  manière indéterminée est **nulle de plein droit** sur le périmètre des
+  médias inconnus.
+- Reformulations acceptables :
+  - (a) **Énumération exhaustive** des modes d'exploitation **connus à la
+    date du contrat** : TV linéaire, streaming, VOD, téléchargement, DVD /
+    Blu-ray, salle de cinéma, théâtre, jeu vidéo, NFT, métavers, etc. — au
+    cas par cas, datée.
+  - (b) **Clause de rendez-vous** avec mécanisme de **cession complémentaire**
+    pour les médias futurs : engagement de signer un avenant à chaque
+    apparition d'un nouveau mode d'exploitation, assorti d'une **rémunération
+    additionnelle** négociée.
+- Toute clause non conforme = finding coté **🔴 Bloquant** dans la grille
+  Niveaux de criticité (nullité encourue).
 
 ## Étape 7 — Rémunération `L.131-4`
 

@@ -3,6 +3,98 @@
 Note : ce changelog resume les versions documentees du plugin. Certaines
 versions intermediaires ont pu etre consolidees dans des jalons plus larges.
 
+## 0.21.0 — 2026-06-01
+
+### Vague D.1 — Ancrage doctrinal des 6 skills coeur metier
+
+Ancrage des references articles + jurisprudence canonique + distinctions
+metier critiques + anti-patterns explicites dans les SKILL.md des 6 skills
+coeur testes en vague C. Reponse aux 22 gaps DESIGN identifies dans
+`docs/backlog/pi-content-improvements-vague-c.md`.
+
+**`contentieux-pi` (G6.a-h)** :
+- Etape Qualification type brevet (procede / produit / dispositif) ajoutee ;
+- Art. L.615-5-1 CPI (renversement charge preuve produit nouveau) cite en
+  Recevabilite ;
+- Section Competence forum brevets : TJ Paris (L.615-17) vs UPC (depuis
+  1er juin 2023 ; verification statut unitaire + opt-out) ;
+- Sequence corrigee : saisie-contrefacon AVANT toute action au fond ou en
+  refere sur brevet de procede ;
+- Etape Audit defense nullite reconventionnelle AVANT assignation
+  (80%+ des actions brevet pharma) ;
+- Refere brevet : conditions strictes L.615-3 + risque dommages art. 1240
+  C.civ + proces abusif L.123-2 C.com. ;
+- Anti-pattern explicite : AMM ne signifie pas FTO pour biosimilaires ;
+- Section Ton : pression interne client a moderer (qualite avant vitesse).
+
+**`preparation-depot-brevet` (G1, G2, G3, G9, G10)** :
+- Etape Verification divulgation anterieure et delai de grace (Art. 55 CBE
+  + L.611-13 CPI vs delai US 1 an) ;
+- Etape Audit chaine titularite + conventions de recherche tiers (INRIA,
+  CNRS, CIFRE) avec risque L.611-8 CPI 5 ans ;
+- Section Routage extension internationale : FR seul / FR+EP / FR+PCT
+  (gel 30 mois Art. 4 + 22 PCT) / hybride ;
+- Note Statut juridictionnel des anterioritees vs portee territoriale ;
+- Sous-etape Audit contrats travail inventeurs salaries (L.611-7
+  inventions de mission / hors mission attribuables).
+
+**`cession-droit-auteur` (G4, G5, G11, G12, G13)** :
+- Garde-fou bloquant : refus clauses 'medias inconnus a venir' (Cass. 1re
+  civ. 9 oct. 1991, nullite de plein droit) ;
+- Decision tree amont/aval : L.131-3 (cession scenario classique) vs
+  L.132-25 (presomption oeuvre AV producteur) ;
+- Checkpoint Verification anteriorite titre (L.112-4 al.2) ;
+- Sous-etape Identification co-auteurs salaries (L.113-9 logiciel
+  UNIQUEMENT) ;
+- Checkpoint Personnages inspires de personnes reelles (droit a l'image,
+  vie privee Art. 9 C.civ, garantie eviction etendue).
+
+**`revue-open-source` (G14, G15, G16, G17)** :
+- Etape Qualification scope d'exploitation (SaaS hosted vs distribution
+  classique vs hybride) en debut sequence Sortie ;
+- Sous-section AGPL section 13 conditionnelle (modification + interface
+  reseau utilisateur cumulatives) ;
+- Sous-section Classpath exception (verifier origine OpenJDK et application
+  au composant concerne ; defaut GPL pure si doute) ;
+- Etape Analyse linking statique vs dynamique sur composants LGPL
+  (LGPL §6 : statique bascule GPL).
+
+**`recherche-anteriorite-marque` (G7, G8)** :
+- Arret TPI 23 oct. 2002 aff. T-6/01 Matratzen Concord ajoute aux arrets
+  CJUE canoniques (equivalents etrangers de marques) ;
+- Sous-etape Cartographie designations Madrid IR vs territoires vises
+  (une IR ne couvre que les designations explicites).
+
+**`depot-dessin-modele` (G32-G38)** :
+- Gate blocked sur divulgation programmee dans etape Calendrier ;
+- Delai de grace 12 mois Art. 7 §2 RDMC + L.511-6 al.6 CPI explicite
+  comme defensif uniquement, pas strategique ;
+- Regle EUIPO '1 classe Locarno = 1 DMC' explicite (3 depots distincts
+  pour collection mode multi-classes 02-01 / 02-04 / 03-01) ;
+- Qualite deposant clarifiee : L.422-4 / R.512-2 CPI / Art. 78 RDMC ;
+- Checkpoint RGPD mannequins humains dans reproductions + droit a l'image ;
+- Ajournement asymetrique par modele (Art. 50 RDMC) ;
+- Recommandation finale en sprints chronologiques pour collections
+  complexes.
+
+### Restauration post-refonte
+
+- Section Mode Anno Desktop Optionnel avec priority kit (matter_vault,
+  workflow_blueprint, grid_to_work_product, fallback_hacienda, source
+  interne Anno, jamais comme source primaire, hacienda-sources-officielles)
+  restauree dans contentieux-pi apres modifications doctrinales ;
+- Outils contentieux Anno (legal_prescription_check, legal_validate_field)
+  preserves.
+
+### Verifications
+
+- npm test : 308 passed / 0 failed / 3 skipped ;
+- npm run typecheck + build + branding:check : OK ;
+- git diff --check : clean.
+
+Ref: docs/superpowers/plans/2026-06-01-hacienda-pi-vague-d-release-readiness.md (D.1)
+Ref: docs/backlog/pi-content-improvements-vague-c.md (gaps consolides)
+
 ## 0.20.0 — 2026-05-31
 
 ### Vague B — Qualité contenu (alignement DA spa-review)

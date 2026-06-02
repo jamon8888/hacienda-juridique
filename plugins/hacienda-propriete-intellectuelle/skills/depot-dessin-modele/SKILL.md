@@ -108,6 +108,76 @@ Le skill ne fait pas :
   `[à vérifier]`, `[À COMPLÉTER]`.
 - Mettre les reproductions au centre du risque de qualité.
 
+## Garde-fous doctrinaux
+
+### G32 — Gate `blocked` sur divulgation future programmée
+
+Avant tout calendrier de dépôt, vérifier si une divulgation publique est **programmée** dans les semaines à venir : showroom presse, lookbook, salon professionnel, Fashion Week, conférence produit, publication marketing, mise en vente, démonstration investisseur, etc.
+
+Si une divulgation est programmée :
+
+- le dépôt **DOIT être effectué AVANT la date de divulgation programmée** ;
+- bloquer le workflow (`Seuil de préparation du dépôt` = `blocked` avec motif « divulgation programmée non précédée d'un dépôt ») tant que le dépôt n'est pas planifié antérieurement à la divulgation ;
+- **ne PAS utiliser le délai de grâce 12 mois comme stratégie de couverture** (cf. G33).
+
+### G33 — Délai de grâce 12 mois (Art. 7 §2 RDMC, Art. L.511-6 al.6 CPI) — caractère défensif
+
+- **Art. 7 §2 RDMC** (Règlement 6/2002 sur les D&M communautaires) : un délai de grâce de **12 mois précédant la date de dépôt** neutralise, au regard de la nouveauté et du caractère individuel, les divulgations faites par le créateur ou son ayant cause (ou par un tiers sur la base d'informations fournies par eux).
+- **Art. L.511-6 al.6 CPI** : régime français équivalent pour les dépôts INPI.
+
+**Le délai de grâce est défensif, pas stratégique** : il protège contre l'invalidation par antériorité lorsque la divulgation a déjà eu lieu, mais il **n'autorise pas à divulguer avant de déposer**. Une divulgation faite par le créateur entre toujours dans l'état de l'art au regard des oppositions tierces sur la nouveauté hors UE, et fragilise la priorité internationale (notamment La Haye, désignations hors UE).
+
+**Action attendue** : déposer AVANT la divulgation programmée. Si dépôt tardif sur un design déjà divulgué, invoquer le délai de grâce **uniquement en posture défensive**, et signaler `[review]` pour validation humaine.
+
+### G34 — Règle EUIPO « 1 classe Locarno = 1 DMC »
+
+Dans un dépôt multi-modèles DMC (Design Communautaire EUIPO) : **une seule classe Locarno par dépôt**, sauf accessoires inhérents au produit principal.
+
+Conséquence pratique :
+
+- une collection couvrant plusieurs classes Locarno (par exemple 02-01 vêtements + 02-04 chaussures + 03-01 sacs) nécessite **plusieurs dépôts DMC distincts**, un par classe Locarno ;
+- les taxes EUIPO sont multipliées par le nombre de dépôts ; anticiper dans `Fees And Filing Mechanics` ;
+- **non applicable** au dépôt INPI national multi-modèles français, qui n'impose pas cette contrainte.
+
+Signaler dans `Decision Routing` si la voie `eu` est retenue sur une collection multi-classes : prévoir un dépôt par classe Locarno.
+
+### G35 — Qualité déposant et représentation (L.422-4 / R.512-2 CPI / Art. 78 RDMC)
+
+- **INPI national** : un titulaire (personne physique ou morale) domicilié en France ou dans l'EEE peut déposer **directement sans mandataire** (CPI R.512-2). Mandataire requis si le titulaire n'est pas domicilié dans l'EEE.
+- **DMC EUIPO** : si le titulaire est domicilié dans l'Union européenne, dépôt direct possible (Art. 78 RDMC). Sinon, mandataire EUIPO inscrit obligatoire.
+- **CPI L.422-4** : qualité de mandataire en marques (par extension D&M devant l'INPI) — inscription obligatoire au registre INPI pour les actes accomplis pour un tiers à titre habituel.
+- **Recommandation pratique** : mandataire spécialisé recommandé pour la rédaction des reproductions, la stratégie multi-territoire et multi-modèles, indépendamment de toute obligation formelle.
+
+### G36 — RGPD et droit à l'image des mannequins dans les reproductions
+
+Si les reproductions D&M comportent des **mannequins humains identifiables**, deux régimes parallèles s'appliquent :
+
+- **Droit à l'image** des mannequins : autorisations écrites obligatoires (loi 1881 ; jurisprudence Cass. 1re civ. constante) ;
+- **RGPD** si traitement des images sur des bases telles que partage avec EUIPO, archivage long terme, exploitation marketing : information, finalité, base légale.
+
+**Recommandation pratique** : préférer des reproductions techniques (mannequin / buste sans visage identifiable, prise de vue produit isolé sur fond neutre) pour le dépôt + jeu séparé avec mannequins pour la communication marketing. Signaler dans `Reproductions And Visual Scope` si les visuels fournis contiennent des mannequins identifiables.
+
+### G37 — Ajournement asymétrique par modèle
+
+L'**ajournement de publication** (jusqu'à 30 mois — Art. 50 RDMC pour DMC ; règle équivalente INPI) peut être appliqué **modèle par modèle** dans un même dépôt multi-modèles.
+
+Cas d'usage : une collection peut être déposée intégralement, avec ajournement **asymétrique** :
+
+- publication immédiate des modèles déjà annoncés publiquement (par exemple modèles du lookbook public) ;
+- ajournement des modèles encore confidentiels (par exemple modèles présentés à Fashion Week 3 mois plus tard).
+
+Flexibilité stratégique utile, peu connue dans la pratique. Signaler dans `Priority And Publication Strategy` quand le dépôt est `multiple` et que l'état de divulgation diffère entre modèles.
+
+### G38 — Plan chronologique multi-sprints (collections complexes)
+
+Pour les collections complexes (10+ modèles, plusieurs classes Locarno, divulgations programmées), structurer la recommandation finale dans `Validation humaine` en **sprints chronologiques** :
+
+- **Sprint 1** : audit antériorités + ajustement modèles + arbitrage Locarno ;
+- **Sprint 2** : dépôts FR INPI + dépôts DMC EUIPO (un par classe Locarno cf. G34) ;
+- **Sprint 3** : confirmation pré-divulgation, vérification dates de dépôt vs calendrier de divulgation.
+
+Recommandation activée uniquement si la complexité le justifie ; pour un dépôt simple ou unitaire, conserver le format `Validation humaine` standard.
+
 ## Contrat d'entrée V2
 
 ### Closed cadrage initial contract

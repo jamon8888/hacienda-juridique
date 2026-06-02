@@ -215,6 +215,14 @@ Identité parfaite signe + classes identiques sur :
 
 Le knockout est binaire par antériorité : identité oui / identité non. Ne pas mélanger avec la similitude.
 
+**Cartographie désignations Madrid IR vs territoires visés.** Avant de conclure sur la disponibilité territoriale, vérifier les désignations effectives des marques internationales (IR) antérieures détectées :
+
+- Une marque internationale Madrid (IR) ne couvre **que les désignations explicitement choisies** par le titulaire à l'enregistrement initial, ou ajoutées ultérieurement (désignations postérieures, Art. 3ter Protocole Madrid).
+- Une IR ne couvre **PAS automatiquement tous les pays du système Madrid** — vérifier les désignations effectives via OMPI Madrid Monitor pour chaque IR antérieure pertinente.
+- Cartographier explicitement le recouvrement : désignations de l'IR antérieure ∩ territoires visés par le client = périmètre réellement exposé.
+- Exemple : client envisage 5 désignations Madrid (US, UK, CA, AU, CH). Une IR antérieure couvre US/UK/AU mais pas CA/CH. Le périmètre exposé se réduit aux 3 désignations en collision (US, UK, AU) ; CA et CH restent ouverts. La stratégie Madrid à 5 désignations se réduit à 2 désignations libres (CA, CH) avant arbitrage.
+- Cette cartographie est **nécessaire AVANT toute conclusion sur la disponibilité territoriale**. Tagger `[OMPI Madrid Monitor]` chaque désignation vérifiée, `[à vérifier]` les autres.
+
 ## Étape 5 — Similitude phonétique, visuelle et conceptuelle
 
 - **Phonétique** — Soundex, métaphone, transcription IPA approximative ; variantes orthographiques courantes ; troncatures.
@@ -233,6 +241,13 @@ Facteurs :
 - pouvoir distinctif de la marque antérieure ;
 - public concerné et niveau d'attention (Lloyd Schuhfabrik C-342/97 — consommateur moyennement attentif, varie selon le secteur) ;
 - interdépendance des facteurs (une forte similitude des produits peut compenser une similitude moindre des signes, et inversement).
+
+**Équivalents étrangers et traductions — TPI 23 oct. 2002 aff. T-6/01 Matratzen Concord.** Quand le signe envisagé (ou l'antériorité comparée) est en langue étrangère, apprécier sa portée en fonction de la perception par le public pertinent du territoire visé :
+
+- Doctrine Matratzen Concord (T-6/01) : un terme en langue étrangère peut être traité comme équivalent au signe en langue locale s'il est largement compris par le consommateur moyen du territoire de référence. À l'inverse, un terme étranger non compris du public pertinent conserve son altérité et peut échapper à certains motifs absolus (descriptif, usuel) ou au contraire échapper à certaines proximités conceptuelles.
+- Application typique : signe en espagnol, italien, anglais ou allemand déposé en France ou dans l'UE. Vérifier si le terme est largement compris par le consommateur français ou européen moyen du segment ciblé.
+- À mobiliser systématiquement pour les signes en langues étrangères, en complément de Sabel C-251/95, Canon C-39/97 et Lloyd C-342/97 (l'appréciation conceptuelle Sabel intègre la compréhension linguistique du public pertinent — Matratzen en précise l'opérationnalisation).
+- Conséquence cotation : si le terme étranger antérieur n'est pas compris du public FR/UE ciblé, la similitude conceptuelle peut être affaiblie (cote à la baisse). Si au contraire le terme est compris (anglais courant, espagnol courant en zones limitrophes), la similitude conceptuelle joue à plein.
 
 Présenter ces facteurs comme **signaux**, pas comme verdict. Ne jamais conclure « absence de risque de confusion » — c'est une conclusion réservée à l'autorité ou au juge.
 
@@ -282,7 +297,7 @@ Une seule des valeurs suivantes, justifiée en 2-4 lignes :
 Vérifier les citations primaires utilisées :
 
 - articles CPI cités (L.711-2, L.713-3, L.713-5, L.712-4 si l'opposition est évoquée) contre Légifrance ;
-- arrêts CJUE canoniques (Sabel C-251/95, Canon C-39/97, Lloyd C-342/97, L'Oréal Bellure C-487/07, Intel C-252/07) contre Eurlex ;
+- arrêts CJUE et TPI canoniques (Sabel C-251/95, Canon C-39/97, Lloyd C-342/97, Matratzen Concord T-6/01, L'Oréal Bellure C-487/07, Intel C-252/07) contre Eurlex ;
 - numéros INPI / EUIPO / Madrid des antériorités cotées contre la source consultée.
 
 Tout élément non vérifié reste `[à vérifier]`.
