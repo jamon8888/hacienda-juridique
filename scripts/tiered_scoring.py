@@ -27,7 +27,7 @@ class Criterion:
     verdict: str
 
 
-def _validate(criteria) -> None:
+def _validate(criteria: list[Criterion]) -> None:
     for c in criteria:
         if c.niveau not in NIVEAUX:
             raise ValueError(f"niveau invalide pour {c.id}: {c.niveau}")
@@ -35,7 +35,7 @@ def _validate(criteria) -> None:
             raise ValueError(f"verdict invalide pour {c.id}: {c.verdict}")
 
 
-def _rate(criteria, niveau: str) -> float:
+def _rate(criteria: list[Criterion], niveau: str) -> float:
     items = [c for c in criteria if c.niveau == niveau]
     if not items:
         return 1.0
@@ -43,22 +43,23 @@ def _rate(criteria, niveau: str) -> float:
     return passed / len(items)
 
 
-def aggregate(criteria) -> dict:
+def aggregate(criteria: list[Criterion]) -> dict:
     """Retourne le résultat tiered-gated pour une liste de Criterion."""
     _validate(criteria)
     gate_failures = [c.id for c in criteria
                      if c.niveau == "CRITIQUE" and c.verdict == "FAIL"]
     majeur_rate = _rate(criteria, "MAJEUR")
     mineur_rate = _rate(criteria, "MINEUR")
-    score = round(0.8 * majeur_rate + 0.2 * mineur_rate, 4)
     if gate_failures:
         status, score = "REJETÉ", 0.0
-    elif majeur_rate >= SEUIL_ADMIS:
-        status = "ADMIS"
-    elif majeur_rate >= SEUIL_RESERVES:
-        status = "RÉSERVES"
     else:
-        status = "INSUFFISANT"
+        score = round(0.8 * majeur_rate + 0.2 * mineur_rate, 4)
+        if majeur_rate >= SEUIL_ADMIS:
+            status = "ADMIS"
+        elif majeur_rate >= SEUIL_RESERVES:
+            status = "RÉSERVES"
+        else:
+            status = "INSUFFISANT"
     return {
         "status": status,
         "score": score,
@@ -68,7 +69,7 @@ def aggregate(criteria) -> dict:
     }
 
 
-def load_verdicts(path: str):
+def load_verdicts(path: str) -> list[Criterion]:
     """Charge un fichier JSON de verdicts Codex (Phase 4 criteria) en liste de Criterion."""
     data = json.loads(Path(path).read_text(encoding="utf-8"))
     return [Criterion(id=v["id"], niveau=v["niveau"], verdict=v["verdict"])

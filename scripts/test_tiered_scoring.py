@@ -53,3 +53,15 @@ def test_load_verdicts_lit_le_json_codex(tmp_path):
     ]}), encoding="utf-8")
     crit = load_verdicts(str(p))
     assert crit == [Criterion("C-020", "CRITIQUE", "FAIL")]
+
+
+def test_verdict_invalide_leve_valueerror():
+    with pytest.raises(ValueError):
+        aggregate([Criterion("X", "MAJEUR", "MAYBE")])
+
+
+def test_borne_exactement_80pct_majeurs_est_reserves():
+    crit = [Criterion(f"M{i}", "MAJEUR", "PASS") for i in range(4)]
+    crit += [Criterion("N0", "MAJEUR", "FAIL")]  # 4/5 = exactement 0.8
+    r = aggregate(crit)
+    assert r["status"] == "RÉSERVES"
