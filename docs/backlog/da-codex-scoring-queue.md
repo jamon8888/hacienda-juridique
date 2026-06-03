@@ -31,7 +31,8 @@ Mode d'emploi complet : [`scripts/README-codex-blind-scoring.md`](../../scripts/
 | 1 | **declaration-creance** | ✅ `da-declaration-creance/scenario.md` | ✅ `ground-truth.md` (25 criteria, recalibrée B) | scoré 1× **REJETÉ** (ZG7Q5O, *pré-correctifs A/B*) | **RE-SCORE** (P2 déjà faite) : Phase 3 sur skill corrigé + Phase 4 contre grille recalibrée → confirmer passage du gate C-001 et chiffrer le gain |
 | 2 | **mise-en-demeure-commerciale** | ✅ `da-mise-en-demeure-commerciale/scenario.md` | ❌ à générer | jamais scoré | **CYCLE COMPLET** (P2 + P3 + P4) |
 | 3 | **declaration-creance `--releve-forclusion`** (#2) | ✅ `da-releve-forclusion/scenario.md` | ❌ à générer | jamais scoré | **CYCLE COMPLET** (P2 + P3 + P4) — mode distinct ; gate sur le délai d'action 6 mois + cause du relevé |
-| 4 | **analyser-rupture-brutale** | ✅ `da-rupture-brutale/scenario.md` | 🟡 `v2a/rupture-brutale-criteria.md` (format-pilote, **non blind**) | jamais scoré blind | **CYCLE** : régénérer une grille **blind** (P2) puis P3 + P4 |
+| 4 | **prevention-difficultes** (#3) | ✅ `da-prevention-difficultes/scenario.md` | ❌ à générer | jamais scoré | **CYCLE COMPLET** — gate cessation des paiements ; orientation mandat ad hoc / conciliation / sauvegarde accélérée |
+| 5 | **analyser-rupture-brutale** | ✅ `da-rupture-brutale/scenario.md` | 🟡 `v2a/rupture-brutale-criteria.md` (format-pilote, **non blind**) | jamais scoré blind | **CYCLE** : régénérer une grille **blind** (P2) puis P3 + P4 |
 
 ### Commandes — P1 #1 (re-score declaration-creance)
 
@@ -80,7 +81,7 @@ python3 scripts/codex-blind-scoring.py phase2-criteria \
 | Workflow | Type | État | Note |
 |---|---|---|---|
 | #2 relevé de forclusion L.622-26 | mode sur `declaration-creance` | ✅ **construit** (`ee665fc`) → remonté en P1 #3 | — |
-| #3 prévention difficultés (mandat ad hoc, conciliation, sauvegarde accélérée) | nouveau skill | à construire | borné aux 3 dispositifs (spec §5.3) |
+| #3 prévention difficultés (mandat ad hoc, conciliation, sauvegarde accélérée) | nouveau skill | ✅ **construit** (`f3d5081`) → remonté en P1 #4 | — |
 
 → construire le SKILL.md + scénario blind (gratuit, sans Codex), puis remonter en P1.
 
@@ -111,7 +112,10 @@ seulement quand le cycle ami sera clos : `spa-review`, `gap-review`,
 - P1 #1 re-score `declaration-creance` : ~1 session Codex.
 - P1 #2 cycle `mise-en-demeure-commerciale` : ~2 sessions.
 - P1 #3 cycle `--releve-forclusion` : ~2 sessions.
-- P1 #4 cycle `rupture-brutale` : ~2 sessions.
-- **Total P1 ≈ 7 sessions Codex** (les Phases 3 Claude sont gratuites).
+- P1 #4 cycle `prevention-difficultes` : ~2 sessions.
+- P1 #5 cycle `rupture-brutale` : ~2 sessions.
+- **Total P1 ≈ 9 sessions Codex** (les Phases 3 Claude sont gratuites).
+
+> **Cadrage budget** : si les crédits sont serrés, scorer d'abord **P1 #1 (re-score, ~1 session)** + **P1 #2 et #4** (les deux nouveaux skills 🔴 les plus exposés). `--releve-forclusion` et `rupture-brutale` peuvent attendre la vague suivante.
 
 Quand P1 est vert (pas de gate CRITIQUE FAIL sur les 3) → **bump DA v0.1.0 → v0.2.0** (avec README + CHANGELOG + `npm test`/`branding:check`).
