@@ -161,7 +161,7 @@ Le scoreur rend, en fin de réponse, un bloc JSON strict
 de façon déterministe :
 
 ```bash
-python3 scripts/tiered_scoring.py /tmp/verdicts-ZG7Q5O.json
+python3 scripts/tiered_scoring.py .../da-declaration-creance/ground-truth.md .../da-declaration-creance/verdicts-ZG7Q5O.json
 # → {"status":"ADMIS|RÉSERVES|INSUFFISANT|REJETÉ","score":...,"gate_failures":[...]}
 ```
 
