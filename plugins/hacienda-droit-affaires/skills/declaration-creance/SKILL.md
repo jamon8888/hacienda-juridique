@@ -160,6 +160,7 @@ delai_base = 2 mois
 si creancier_etranger (hors France/UE/EEE) : delai_base = 4 mois (art. R.622-24 C.com. [Légifrance])
 
 date_forclusion = date_publication_bodacc + delai_base
+si date_forclusion tombe un samedi, dimanche ou jour férié : prorogée au premier jour ouvrable suivant (art. 642 CPC [Légifrance])
 jours_restants  = date_forclusion - aujourd'hui
 ```
 
@@ -173,7 +174,7 @@ jours_restants  = date_forclusion - aujourd'hui
 | < 0 j | 🔴🔴 | **FORCLUSION** — proposer requête en relevé art. L.622-26 C.com. [Légifrance] ou abandon |
 
 Cas particuliers à signaler (sans calculer automatiquement) :
-- Créance née postérieurement au jugement d'ouverture art. L.622-17 C.com. `[Légifrance]` — régime distinct (créances post privilégiées).
+- **Antérieure ou postérieure — critère = fait générateur, pas échéance.** Une créance est **antérieure** (et se déclare au passif) si son fait générateur — livraison effectuée, prestation exécutée — précède le jugement d'ouverture, **même si son échéance contractuelle est postérieure**. Ne **jamais** classer une créance en postérieure (art. L.622-17 C.com. `[Légifrance]`, régime distinct des créances postérieures privilégiées) au seul motif que sa date d'échéance suit le jugement. `[review]` si le fait générateur s'étale (prestations successives).
 - Créance non échue à la date du jugement — le jugement d'ouverture ne la rend pas exigible (art. L.622-29 C.com. `[Légifrance]`) ; déclarée à hauteur du capital restant dû `[review]`.
 - Créance en monnaie étrangère — conversion taux jugement `[review]`.
 
@@ -185,7 +186,8 @@ Cas particuliers à signaler (sans calculer automatiquement) :
 |---|---|---|
 | Principal | Montant en euros à la date du jugement d'ouverture | [utilisateur fourni] |
 | Intérêts contractuels | Arrêtés à la date du jugement art. L.622-28 C.com. [Légifrance] — sauf prêts ou délais de paiement >= 1 an (intérêts continuent à courir) | calcul + [review] si zone grise |
-| Frais accessoires / clause pénale (de retard) | Arrêtés à la date du jugement art. L.622-28 C.com. [Légifrance] — assimilés aux intérêts de retard et majorations | [review] |
+| Indemnité forfaitaire de recouvrement | 40 € par facture **en retard à la date du jugement** (art. L.441-10, D.441-5 C.com. [Légifrance]) — non due pour une facture non encore échue au jugement | calcul |
+| Clause pénale (de retard) | Déclenchée **seulement si la condition contractuelle est remplie** (typiquement mise en demeure restée infructueuse) ; arrêtée à la date du jugement art. L.622-28 C.com. [Légifrance] ; **modérable par le juge** si manifestement excessive (art. 1231-5 C.civ. [Légifrance]) | [review] |
 | TVA | Si applicable selon nature créance et régime | calcul |
 | **Total déclaré** | Somme des composantes | — |
 
@@ -203,6 +205,20 @@ Présenter un tableau détaillé : Nature / Base / Taux ou règle / Montant arr�
 | Réserve de propriété | Vente avec clause de réserve de propriété art. L.624-16 C.com. [Légifrance] | CGV signées avec clause + facture + bon de livraison |
 
 Tag `[review]` sur la recevabilité du privilège si l'inscription est tardive, mal libellée, ou si le rang est contestable. Ne **jamais** présenter un privilège comme acquis sans vérification de l'inscription / publication.
+
+**Rang par défaut — chirographaire.** En l'absence d'un privilège ou d'une sûreté valablement inscrit, une créance de prix (fournisseur, prestataire) est **chirographaire**. Ne pas la qualifier de privilégiée, fiscale, sociale, superprivilégiée, ni de créance postérieure L.622-17, sans fondement vérifié. Sur-revendiquer un rang fragilise la déclaration `[review]`.
+
+### Réserve de propriété — déclaration ET action en revendication (deux procédures distinctes)
+
+La clause de réserve de propriété (art. L.624-16 C.com. `[Légifrance]`) ne se fait **pas** valoir par la seule déclaration de créance : elle suppose une **action en revendication distincte**.
+
+| Point | Règle |
+|---|---|
+| Délai | **3 mois** à compter de la publication BODACC du jugement (art. L.624-9 C.com. `[Légifrance]`) — délai propre, **distinct** des 2 mois de la déclaration de créance |
+| Destinataire | demande amiable par LRAR à l'**administrateur judiciaire** (à défaut, au mandataire/débiteur selon la procédure) ; à défaut d'acquiescement dans **1 mois**, saisine du **juge-commissaire** dans le mois suivant (art. L.624-17, R.624-13 C.com. `[à vérifier]`) |
+| Assiette | uniquement les biens **non incorporés**, **individualisables** et retrouvés en nature chez le débiteur ; les biens déjà incorporés ou transformés échappent à la revendication `[review]` |
+| Forme | clause convenue **par écrit au plus tard à la livraison** — des CGV acceptées à l'ouverture du compte peuvent constituer cet écrit pour les opérations suivantes `[review]` |
+| Articulation | déclarer la créance monétaire pour son **montant total** et signaler la revendication en parallèle ; ne **pas** déduire d'office la valeur des biens revendiqués du montant déclaré (ajustement seulement en cas de restitution effective ou de paiement du prix) |
 
 ---
 
@@ -246,7 +262,7 @@ L'art. L.622-21 C.com. `[Légifrance]` (arrêt des poursuites individuelles) int
 
 ## Étape 6 — Post-flight `verifier-citations`
 
-Appel automatique sur la sortie complète. Articles à vérifier : L.622-21, L.622-24, L.622-26, L.622-28, L.622-29 (présents dans `references/articles-c-civ-c-com-index.md` → tag `[Légifrance]`). R.622-24 (réglementaire, délais procéduraux) présent dans l'index → tag `[Légifrance]` si cité. Si PISTE non configuré : mode dégradé documenté.
+Appel automatique sur la sortie complète. Articles à vérifier : L.622-17, L.622-21, L.622-24, L.622-26, L.622-28, L.622-29 (présents dans `references/articles-c-civ-c-com-index.md` → tag `[Légifrance]`). R.622-24 (réglementaire, délais) présent dans l'index → tag `[Légifrance]` si cité. Articles mobilisés par la réserve de propriété / revendication et les accessoires — **L.624-9, L.624-16, L.624-17, R.624-13 C.com., L.441-10, D.441-5 C.com., art. 642 CPC, art. 1231-5 C.civ.** — à vérifier sur Légifrance ; si absents de l'index, garder `[à vérifier]` plutôt que `[Légifrance]`. Si PISTE non configuré : mode dégradé documenté.
 
 ---
 
