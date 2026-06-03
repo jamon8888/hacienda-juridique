@@ -1,7 +1,7 @@
 # Scénario blind — Analyse de rupture brutale (L.442-1, II)
 
 > **INPUT BLIND UNIQUEMENT.** Ce fichier ne contient que les faits fictifs.
-> La vérité terrain et les criteria sont dans `ground-truth.md` (NE PAS ouvrir
+> Le corrigé attendu et les criteria sont dans `ground-truth.md` (NE PAS ouvrir
 > en Phase 3). Aucune donnée réelle — parties, montants et SIREN fictifs.
 >
 > **Entry point :** `/h-droit-affaires:analyser-rupture-brutale ./contrat-A-B.pdf ./notification-rupture.pdf --review --side=victime`
