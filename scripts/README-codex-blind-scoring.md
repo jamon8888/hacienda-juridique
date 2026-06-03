@@ -184,6 +184,7 @@ Avant de publier un score :
 - [ ] Phase 3 a reçu uniquement `scenario.md` (PAS `ground-truth.md`)
 - [ ] Phase 4 a reçu `scenario.md` + `ground-truth.md` + `live-output.md` (PAS le SKILL.md)
 - [ ] Code scoring unique par cycle, non réutilisé
+- [ ] **Inputs blind cycle-agnostiques** : `scenario.md` et `ground-truth.md` ne contiennent **aucun code de cycle** en dur (titre, footer, `_provenance`). Le code ne vit que dans la commande Phase 4 (`--code`) et le nom du rapport — sinon Codex confond l'ancien et le nouveau cycle dans son scoring
 - [ ] (variante criteria) Bloc JSON de verdicts agrégé par `tiered_scoring.py` — score **non** calculé à la main par le scoreur
 - [ ] Rapport final marqué `[scoring blind protocole D.0]` (et pas `[scoring auto-référent]`)
 

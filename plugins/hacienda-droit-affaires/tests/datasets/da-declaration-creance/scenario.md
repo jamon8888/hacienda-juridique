@@ -1,4 +1,4 @@
-# Scénario blind — Déclaration de créance procédure collective (cycle ZG7Q5O)
+# Scénario blind — Déclaration de créance procédure collective
 
 > **INPUT BLIND UNIQUEMENT.** Ce fichier ne contient que les faits fictifs.
 > Le corrigé attendu et les criteria sont dans `ground-truth.md` (NE PAS ouvrir
@@ -102,4 +102,4 @@ Aucune déclaration n'a encore été déposée auprès du mandataire.
 ---
 
 *Cadre : `--side=creancier` ; sortie attendue dans* `live-output.md`.
-*Code de cycle :* `ZG7Q5O`.
+*(Le code de cycle est généré au moment du scoring, hors de ce fichier blind.)*

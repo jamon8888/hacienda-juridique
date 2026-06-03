@@ -1,6 +1,6 @@
 {
   "skill": "declaration-creance",
-  "_provenance": "Phase 2 blind Codex GPT-5.5 HIGH (cycle ZG7Q5O) + durcissement humain C-011/C-012 (taux/intérêts [à vérifier]) + recalibrage post-ZG7Q5O (finding B) : C-001 scindé (ancrage CRITIQUE / prorogation -> C-025 MINEUR), C-012 tolère la convention ±1j, C-023 découplé de C-011. Grille passée de 24 à 25 criteria : les verdicts-ZG7Q5O.json (24) correspondent à la grille pré-B.",
+  "_provenance": "Phase 2 blind Codex GPT-5.5 HIGH + durcissement humain C-011/C-012 (taux/intérêts [à vérifier]) + recalibrage humain finding B (post-1er cycle) : C-001 scindé (ancrage CRITIQUE / prorogation -> C-025 MINEUR), C-012 tolère la convention ±1j, C-023 découplé de C-011. Grille à 25 criteria (le 1er cycle de scoring portait sur 24 criteria, pré-recalibrage).",
   "criteria": [
     {
       "id": "C-001",
