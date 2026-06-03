@@ -18,9 +18,10 @@
 | Mineurs | 3/3 PASS = **100 %** |
 | FAIL totaux | 6/24 — C-001, C-008, C-011, C-012, C-020, C-023 |
 
-> Sortie brute de `tiered_scoring.py` : `majeur_rate 0.7333 / mineur_rate 0.75`. L'écart
-> avec les 68,75 % / 100 % ci-dessus vient d'une **dérive de niveau** (C-023, voir §3.C) :
-> les taux corrects sont calculés sur les niveaux du ground-truth.
+> Au moment du scoring, la sortie brute affichait `majeur_rate 0.7333 / mineur_rate 0.75`
+> à cause d'une **dérive de niveau** (C-023, voir §3.C). Depuis le correctif `aa4d400`,
+> le run canonique (`tiered_scoring.py <ground-truth> <verdicts>`) tire le niveau du
+> ground-truth et donne bien **68,75 % / 100 %**.
 
 ## 1. Lecture honnête — le skill est proche, pas cassé
 
@@ -62,7 +63,7 @@ mais fausse les taux. → tâche tooling de suivi.
 
 ## 3. Actions priorisées
 
-1. **Tooling** : `tiered_scoring` tire le niveau du ground-truth (join par id), + test de non-régression sur la dérive.
+1. **Tooling** : `tiered_scoring` tire le niveau du ground-truth (join par id), + test de non-régression sur la dérive. — ✅ **fait** (`aa4d400`, `load_scored`).
 2. **Grille** : scinder C-001 (B1), assouplir C-012 (B2), neutraliser C-023-en-aval (B3).
 3. **Skill** : A1 (prorogation appliquée), A2 (certification sincère), A3 (escalade revendication dans la sortie).
 4. **Re-run** un cycle après correctifs → cible **ADMIS / RÉSERVES** sans gate.
