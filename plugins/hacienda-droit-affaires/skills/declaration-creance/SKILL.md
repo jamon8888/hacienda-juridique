@@ -190,13 +190,18 @@ Cas particuliers à signaler (sans calculer automatiquement) :
 | Composante | Règle | Tag |
 |---|---|---|
 | Principal | Montant en euros à la date du jugement d'ouverture | [utilisateur fourni] |
-| Intérêts contractuels | Arrêtés à la date du jugement art. L.622-28 C.com. [Légifrance] — sauf prêts ou délais de paiement >= 1 an (intérêts continuent à courir) | calcul + [review] si zone grise |
+| Intérêts contractuels | Arrêtés à la date du jugement art. L.622-28 C.com. [Légifrance] — sauf prêts ou délais de paiement >= 1 an (intérêts continuent à courir). **Taux : ne jamais inventer une valeur** — si le taux légal du semestre n'a pas été consulté sur source, écrire `[à vérifier]` + le bon concept (taux légal **professionnel**, pas consommateur), sans chiffre affirmé | calcul + [à vérifier] sur le taux |
 | Indemnité forfaitaire de recouvrement | 40 € par facture **en retard à la date du jugement** (art. L.441-10, D.441-5 C.com. [Légifrance]) — non due pour une facture non encore échue au jugement | calcul |
-| Clause pénale (de retard) | Déclenchée **seulement si la condition contractuelle est remplie** (typiquement mise en demeure restée infructueuse) ; arrêtée à la date du jugement art. L.622-28 C.com. [Légifrance] ; **modérable par le juge** si manifestement excessive (art. 1231-5 C.civ. [Légifrance]) | [review] |
+| Clause pénale (de retard) | Déclenchée **seulement si la condition contractuelle est remplie** (typiquement mise en demeure restée infructueuse) ; calculée sur la **base stipulée par la clause** — expliciter si « principal » s'entend HT ou TTC `[review]` et **afficher la base retenue** ; arrêtée à la date du jugement art. L.622-28 C.com. [Légifrance] ; **modérable par le juge** si manifestement excessive (art. 1231-5 C.civ. [Légifrance]) | [review] |
 | TVA | Si applicable selon nature créance et régime | calcul |
 | **Total déclaré** | Somme des composantes | — |
 
 Présenter un tableau détaillé : Nature / Base / Taux ou règle / Montant arrêté au [date jugement] / Total. Si la date du jugement est `[à vérifier]`, présenter le calcul à la date publication BODACC et flaguer l'écart possible en note du relecteur.
+
+**Garde-fous chiffrage — auto-contrôle avant sortie :**
+- **Taux légal** : jamais un chiffre inventé. Un taux affirmé sans source consultée est une erreur — écrire `[à vérifier]` + le concept (taux légal professionnel).
+- **Base de la clause pénale** : afficher la base retenue (HT ou TTC du principal) et la taguer `[review]` ; ne pas changer de base d'une ligne à l'autre.
+- **Cohérence du total** : le total déclaré doit être **arithmétiquement égal à la somme des composantes affichées**. Recalculer l'addition avant de sortir ; si une composante est `[à vérifier]`, le total l'est aussi.
 
 ---
 

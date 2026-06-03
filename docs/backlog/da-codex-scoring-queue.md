@@ -104,7 +104,7 @@ seulement quand le cycle ami sera clos : `spa-review`, `gap-review`,
 | declaration-creance | B — recalibrage grille (split C-001/C-025, C-012, C-023) | ✅ fait (`94fe91e`) |
 | tooling | C — niveau autoritatif depuis ground-truth | ✅ fait (`aa4d400`) |
 | declaration-creance | mesurer le gain A+B | ✅ fait (IKJ4AF : REJETÉ→INSUFFISANT, gate fermé, 3 correctifs A confirmés en aveugle) |
-| declaration-creance | **D — chiffrage** : taux légal inventé (C-011), clause pénale sur mauvaise base (C-014), total incohérent (C-023) | ⏳ à corriger en Étape 3 — prochaine itération skill, puis 3ᵉ cycle de scoring |
+| declaration-creance | **D — chiffrage** : taux légal inventé (C-011), clause pénale sur mauvaise base (C-014), total incohérent (C-023) | ✅ correctif Étape 3 appliqué (garde-fous : pas de taux inventé, base clause pénale explicite `[review]`, auto-contrôle arithmétique du total) — **gain à confirmer au 3ᵉ cycle Codex** |
 
 ---
 
