@@ -1,230 +1,172 @@
-`NOTES DE TRAVAIL INTERNES — NE CONSTITUE PAS UN AVIS JURIDIQUE — Faire valider par un avocat avant tout acte`
-
-> **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✗ (PISTE non configurée — articles cités depuis `references/articles-c-civ-c-com-index.md`, à vérifier) / BODACC ✗ (SIREN fictif, données issues du scénario) / Pappers ✗ / Judilibre ✗
-> - **Lecture :** scénario fictif intégral (faits, CGV, 4 factures, mise en demeure, configuration réserve de propriété)
-> - **Signalé pour ton jugement :** 5 éléments `[review]` — base clause pénale (HT vs TTC), opportunité de revendiquer réserve de propriété sur fraction non incorporée 12 000 €, taux d'intérêt légal applicable S1 2026 (`[a verifier]`), application intérêts sur TTC, qualification F-2026-0012 (antérieure mais non échue)
-> - **Fraîcheur :** vérification jurisprudence Cass. com. récente sur L.622-24 / L.624-16 / L.624-9 **impossible** dans ce mode dégradé — à confirmer manuellement
-> - **Avant de t'appuyer dessus :** (1) profil cabinet non configuré → lancer `/entretien-demarrage` (seuil approbateur > 100 k€ et qualité signataire indispensables car total > 100 k€) ; (2) vérifier le taux d'intérêt légal créances professionnelles S1 2026 (placeholder utilisé : 7 % → taux total contractuel ~ 12 %) ; (3) trancher base clause pénale HT/TTC ; (4) décider de l'introduction d'une action en revendication (délai 3 mois = avant 12 mai 2026, art. L.624-9 C.com.)
-
----
-
-# 🟢 Statut forclusion
-
-| Champ | Valeur |
-|---|---|
-| Date publication BODACC | 19 février 2026 `[scénario fictif]` |
-| Délai applicable | 2 mois (créancier français — métropole) — art. L.622-24 C.com. `[Légifrance]` |
-| **Date forclusion** | **19 avril 2026** |
-| Date du jour (cadre) | 28 février 2026 |
-| Jours restants | **50 jours** |
-| Statut | 🟢 — envoi normal, LRAR sous 1-2 semaines |
-| Action recommandée | Envoi recommandé AR au mandataire **avant le 15 avril 2026** (marge de sécurité 4 jours) |
-
-**Échéance parallèle à ne pas manquer** — Si METALLO-PRO entend exercer la **revendication réserve de propriété** sur la fraction non incorporée (12 000 € HT), délai **3 mois** à compter de la publication du jugement d'ouverture — art. L.624-9 C.com. `[connaissance modèle — à vérifier]`. Forclusion revendication ≈ **19 mai 2026** (ou 12 mai 2026 si point de départ = date du jugement — `[review]` sur le dies a quo).
-
----
-
-# Récapitulatif procédure
-
-| Champ | Valeur |
-|---|---|
-| Débiteur | BÂTIR-EST — SAS, SIREN-FICTIF-333333333, siège Décines-Charpieu (69) |
-| Tribunal | Tribunal de commerce de **Lyon** |
-| N° RG | `[a verifier]` (non communiqué dans le scénario — extraire du jugement publié) |
-| Type | **Redressement judiciaire** |
-| Date jugement d'ouverture | 12 février 2026 |
-| Date de cessation des paiements | 15 décembre 2025 |
-| Période d'observation | 6 mois (jusqu'au ~ 12 août 2026, sauf prorogation) |
-| Publication BODACC | 19 février 2026 (BODACC A, réf. fictive 20260219-AAA-0042) |
-| Mandataire judiciaire (destinataire déclaration) | **Me Catherine LEROY** — SELARL LEROY & ASSOCIÉS, 12 rue Vendôme, 69006 Lyon |
-| Administrateur judiciaire | Me Thomas BRAVARD, 5 cours Lafayette, 69003 Lyon — mission d'**assistance** (dirigeant en place assisté) |
-
----
-
-# Calcul créance — composantes (arrêtées au 12 février 2026, date du jugement d'ouverture)
-
-## 1. Principal — factures impayées antérieures
-
-Toutes les factures sont nées **avant** le jugement d'ouverture (livraisons antérieures au 12/02/2026) → créances antérieures, à déclarer au passif.
-
-| Référence | Livraison | Échéance | HT | TVA 20 % | TTC | Statut au 12/02/2026 |
-|---|---|---|---|---|---|---|
-| F-2025-1142 | 12 nov 2025 | 31 déc 2025 | 18 230,00 € | 3 646,00 € | 21 876,00 € | Échue, impayée |
-| F-2025-1198 | 28 nov 2025 | 31 déc 2025 | 21 415,00 € | 4 283,00 € | 25 698,00 € | Échue, impayée |
-| F-2025-1241 | 11 déc 2025 | 31 janv 2026 | 24 980,00 € | 4 996,00 € | 29 976,00 € | Échue, impayée |
-| F-2026-0012 | 9 janv 2026 | 28 févr 2026 | 22 825,00 € | 4 565,00 € | 27 390,00 € | **Non échue** au jour du jugement `[review]` |
-| **Totaux** | | | **87 450,00 €** | **17 490,00 €** | **104 940,00 €** | |
-
-**Principal déclaré TTC : 104 940,00 €**
-
-> `[review]` — F-2026-0012 : créance antérieure (fait générateur = livraison du 9/01/2026, avant jugement) mais non échue au 12/02/2026. Déclarable à hauteur du capital art. L.622-25 C.com. `[connaissance modèle — à vérifier]`. Mention explicite de l'échéance future dans la déclaration recommandée.
-
-## 2. Intérêts de retard arrêtés au 12 février 2026 — art. L.622-28 C.com. `[Légifrance]`
-
-Règle : intérêts contractuels arrêtés au jour du jugement (les intérêts cessent de courir, sauf prêts ≥ 1 an — non applicable ici, créances commerciales).
-
-CGV art. 8 : taux légal **majoré de 5 points**.
-
-Taux légal créances professionnelles S1 2026 : `[a verifier]` — placeholder 7,00 % → **taux total contractuel 12,00 % annuel** `[connaissance modèle — à vérifier]`. **Recalculer après publication officielle Banque de France / arrêté ministériel.**
-
-Base de calcul : montant TTC (convention L.441-10 C.com.) `[review]`.
-
-| Facture | Base TTC | Jours de retard | Intérêts arrêtés 12/02/2026 (taux placeholder 12 %) |
-|---|---|---|---|
-| F-2025-1142 | 21 876,00 € | 43 j (01/01 → 12/02/2026) | ≈ **309,30 €** |
-| F-2025-1198 | 25 698,00 € | 43 j | ≈ **363,33 €** |
-| F-2025-1241 | 29 976,00 € | 12 j (01/02 → 12/02/2026) | ≈ **118,32 €** |
-| F-2026-0012 | 27 390,00 € | 0 j (non échue au 12/02/2026) | **0 €** |
-| **Total intérêts** | | | **≈ 790,95 €** `[a recalculer]` |
-
-## 3. Indemnité forfaitaire recouvrement — L.441-10 C.com. `[connaissance modèle — à vérifier]`
-
-40 € par facture **échue impayée** au jour du jugement → 3 factures (F-2026-0012 non échue exclue) → **120,00 €**.
-
-## 4. Clause pénale 15 % — CGV art. 10
-
-Conditions d'exigibilité : non-paiement persistant 8 jours après mise en demeure restée infructueuse. **Périmètre** : la mise en demeure du 8/01/2026 (reçue le 12/01/2026) visait **F-2025-1142, F-2025-1198, F-2025-1241** uniquement. F-2026-0012 et tout solde non visé par la MED → **hors clause pénale** `[review]`.
-
-Base 15 % `[review]` (HT vs TTC) :
-
-- Principal HT visé par MED : 18 230 + 21 415 + 24 980 = **64 625 € HT** → 15 % = **9 693,75 €**
-- Principal TTC visé par MED : 21 876 + 25 698 + 29 976 = **77 550 € TTC** → 15 % = **11 632,50 €**
-
-Plancher CGV : 500 € — non déclenché.
-
-→ Déclaration possible sur la base **TTC (11 632,50 €)**, en signalant le risque de réduction par le juge-commissaire au titre du **pouvoir modérateur art. 1231-5 C.civ.** `[Légifrance]` (clause pénale manifestement excessive). `[review]`
-
-Conservativement, la déclaration peut viser le maximum contractuel **TTC** et laisser le juge apprécier.
-
-## 5. Récapitulatif total déclaré (chiffres placeholder — à vérifier)
-
-| Composante | Montant |
-|---|---|
-| Principal TTC (4 factures) | 104 940,00 € |
-| Intérêts contractuels arrêtés 12/02/2026 (taux placeholder 12 %) | 790,95 € `[a recalculer]` |
-| Indemnité forfaitaire L.441-10 (3 factures échues × 40 €) | 120,00 € |
-| Clause pénale 15 % TTC (3 factures visées par MED) | 11 632,50 € `[review]` |
-| **TOTAL DÉCLARÉ TTC** | **≈ 117 483,45 €** `[a recalculer après vérification taux légal S1 2026]` |
-
-> 🟠 **Montant > 100 000 €** → escalade interne recommandée vers l'approbateur configuré (cf. matrice profil cabinet). Profil non configuré : décision de signataire à clarifier avant envoi.
-
----
-
-# Réserve de propriété — fraction non incorporée
-
-Stipulation CGV art. 4 (clause de réserve de propriété de plein droit, acceptée à l'ouverture du compte en 2021) → opposable à la procédure collective sous conditions strictes art. **L.624-16 al. 2 C.com.** `[connaissance modèle — à vérifier]` :
-
-| Élément | F-2026-0012 (HT 22 825 €) | Issue |
-|---|---|---|
-| Marchandises incorporées au gros œuvre « Hortensias » (10 825 € HT) | Incorporation = **perte du droit de revendication** (les matériaux deviennent immeubles par destination / accession) `[review]` | ❌ Revendication impossible — déclarer en chirographaire dans le principal |
-| Marchandises non incorporées, stockées sur chantier, individualisables (lots étiquetés METALLO-PRO, 12 000 € HT) | Conditions L.624-16 réunies : identité, individualisation, propriété démontrée | ✅ **Revendication possible** dans le délai **3 mois** art. L.624-9 C.com. |
-
-**Action séparée recommandée** : demande de revendication adressée à l'administrateur (Me BRAVARD) avec copie au mandataire (Me LEROY), justifiée par CGV signées + facture + bon de livraison + photos / inventaire de chantier attestant l'individualisation.
-
-**Articulation avec la déclaration** :
-- La fraction non incorporée (12 000 € HT) peut être **déclarée à titre conservatoire** dans la déclaration de créance, **sous condition suspensive d'échec de la revendication** (formule standard). `[review]`
-- Cela évite la perte du rang si la revendication échoue.
-
----
-
-# 📄 Projet de déclaration de créance — version mandataire (mode silencieux)
-
-> *Le bloc ci-dessous est destiné à être envoyé en LRAR à Me LEROY. Il ne reproduit ni l'en-tête de confidentialité interne, ni les tags de provenance, ni la note du relecteur.*
-
----
-
-**METALLO-PRO**
-SAS au capital de [...] — SIREN 444 444 444 — RCS Lyon
-Siège : [adresse complète à compléter], 69800 Saint-Priest
-Représentée par [nom, qualité — service contentieux / DAF / dirigeant habilité]
-Tél. : [...] — Email : [...]
-
-LRAR
-
-À l'attention de **Maître Catherine LEROY**
-SELARL LEROY & ASSOCIÉS — Mandataire judiciaire
-12 rue Vendôme
-69006 Lyon
-
-À Saint-Priest, le [date d'envoi]
-
----
-
-**OBJET : Déclaration de créance — BÂTIR-EST (SAS, SIREN 333 333 333)**
-**Procédure : Redressement judiciaire — Tribunal de commerce de Lyon — Jugement du 12 février 2026 — Publication BODACC du 19 février 2026**
-
-Maître,
-
-Conformément aux dispositions de l'article L.622-24 du Code de commerce, la société METALLO-PRO, soussignée, déclare entre vos mains, au passif de la SAS BÂTIR-EST en redressement judiciaire, la créance détaillée ci-après.
-
-**1. Origine et nature de la créance**
-
-Créance commerciale née de l'exécution d'un courant d'affaires fournisseur ouvert depuis mars 2021, régi par les Conditions Générales de Vente METALLO-PRO en vigueur depuis le 1er janvier 2024 et acceptées par BÂTIR-EST. Les marchandises (matériaux métalliques destinés au BTP) ont été livrées avant le jugement d'ouverture. Aucun paiement n'est intervenu depuis le 1er janvier 2026.
-
-**2. Décompte des créances déclarées**
-
-a) **Principal — factures impayées antérieures au jugement d'ouverture :**
-
-| Référence | Livraison | Échéance | HT | TVA 20 % | TTC |
-|---|---|---|---|---|---|
-| F-2025-1142 | 12/11/2025 | 31/12/2025 | 18 230,00 € | 3 646,00 € | 21 876,00 € |
-| F-2025-1198 | 28/11/2025 | 31/12/2025 | 21 415,00 € | 4 283,00 € | 25 698,00 € |
-| F-2025-1241 | 11/12/2025 | 31/01/2026 | 24 980,00 € | 4 996,00 € | 29 976,00 € |
-| F-2026-0012 | 09/01/2026 | 28/02/2026 (*non échue au 12/02/2026 — déclarée en capital*) | 22 825,00 € | 4 565,00 € | 27 390,00 € |
-| **Total principal TTC** | | | **87 450,00 €** | **17 490,00 €** | **104 940,00 €** |
-
-b) **Intérêts contractuels arrêtés au 12 février 2026** (CGV art. 8 — taux d'intérêt légal majoré de 5 points), conformément à l'article L.622-28 du Code de commerce : **[montant à finaliser après publication taux légal créances professionnelles S1 2026]** — calcul provisoire **≈ 790,95 €**.
-
-c) **Indemnité forfaitaire pour frais de recouvrement** — 40 € par facture échue impayée (article L.441-10 du Code de commerce et CGV art. 9) : **3 × 40 € = 120,00 €**.
-
-d) **Clause pénale** — 15 % du principal TTC restant dû sur les factures visées par mise en demeure du 8 janvier 2026 restée infructueuse (CGV art. 10) : 15 % × 77 550,00 € TTC = **11 632,50 €**.
-
-**Total déclaré : ≈ 117 483,45 €** (sous réserve de finalisation du taux d'intérêt applicable au S1 2026).
-
-**3. Nature de la créance — déclaration en chirographaire avec revendication parallèle**
-
-La présente créance est déclarée à titre **chirographaire**.
-
-Toutefois, METALLO-PRO entend faire valoir, par voie séparée et dans le délai de l'article L.624-9 du Code de commerce, le **bénéfice de la clause de réserve de propriété** stipulée à l'article 4 des CGV (article L.624-16 du Code de commerce), pour la fraction des matériaux livrés au titre de la facture F-2026-0012, demeurés non incorporés au gros œuvre du chantier « Résidence Les Hortensias » à Villeurbanne, individualisables sur site (lots étiquetés METALLO-PRO), pour une valeur estimée de **12 000 € HT** au jour du jugement d'ouverture.
-
-Une demande de revendication sera adressée à Maître Thomas BRAVARD, administrateur judiciaire, dans les meilleurs délais. La part objet de la revendication est, en conséquence, **déclarée à titre conservatoire** dans la présente, sous condition suspensive d'échec de la revendication.
-
-**4. Pièces jointes**
-
-1. CGV METALLO-PRO version 1er janvier 2024 + preuve d'acceptation par BÂTIR-EST.
-2. Factures F-2025-1142, F-2025-1198, F-2025-1241, F-2026-0012 (originaux ou copies certifiées).
-3. Bons de livraison correspondants.
-4. Mise en demeure du 8 janvier 2026 + accusé de réception du 12 janvier 2026.
-5. Extrait de balance auxiliaire BÂTIR-EST au 12 février 2026.
-6. Tableau de décompte des intérêts contractuels arrêtés au 12 février 2026.
-7. Inventaire / photographies des matériaux non incorporés sur le chantier « Hortensias » (pour la revendication parallèle).
-8. Pouvoir du signataire (le cas échéant).
-
-Je vous prie d'agréer, Maître, l'expression de ma considération distinguée.
-
+🟢 Statut forclusion
+Élément	Valeur
+Date publication BODACC	19 février 2026 (BODACC A réf. « 20260219-AAA-0042 »)
+Délai applicable	2 mois (créancier France métropolitaine, art. L.622-24 C.com. [à vérifier])
+Échéance brute	19 avril 2026 — dimanche
+Date forclusion retenue	lundi 20 avril 2026 (prorogation art. 642 CPC [à vérifier])
+Aujourd'hui	28 février 2026
+Jours restants	~51 jours → 🟢 envoi normal (LRAR sous 1-2 semaines)
+Alerte parallèle — action en revendication réserve de propriété (F-2026-0012) : délai distinct de 3 mois à compter publication BODACC (art. L.624-9 C.com. [à vérifier]) → échéance brute 19 mai 2026 (mardi, pas de prorogation requise). Destinataire : administrateur Me BRAVARD (et non le mandataire). Ne pas confondre les deux délais.
+
+Récapitulatif procédure
+Tribunal : Tribunal de commerce de Lyon
+Type : Redressement judiciaire
+Jugement d'ouverture : 12 février 2026
+Date de cessation des paiements : 15 décembre 2025
+Période d'observation : 6 mois
+Publication BODACC : 19 février 2026 (BODACC A, réf. fictive 20260219-AAA-0042)
+Mandataire judiciaire : Me Catherine LEROY, SELARL LEROY & ASSOCIÉS, 12 rue Vendôme, 69006 Lyon → destinataire de la déclaration de créance
+Administrateur judiciaire : Me Thomas BRAVARD, 5 cours Lafayette, 69003 Lyon — mission d'assistance → destinataire de la demande de revendication
+N° RG : non communiqué dans le brief → [à vérifier] sur l'annonce BODACC source
+Composantes de la créance (arrêtées au 12 février 2026)
+a) Principal — factures impayées
+Référence	Livraison	Échéance	HT	TVA 20 %	TTC	Statut au 12/02/2026
+F-2025-1142	12 nov 2025	31 déc 2025	18 230,00	3 646,00	21 876,00	échue (43 j de retard)
+F-2025-1198	28 nov 2025	31 déc 2025	21 415,00	4 283,00	25 698,00	échue (43 j de retard)
+F-2025-1241	11 déc 2025	31 janv 2026	24 980,00	4 996,00	29 976,00	échue (12 j de retard)
+F-2026-0012	9 janv 2026	28 févr 2026	22 825,00	4 565,00	27 390,00	non échue au jugement (livrée antérieurement → fait générateur antérieur → créance antérieure)
+Total principal			87 450,00	17 490,00	104 940,00	
+Les 4 factures sont des créances antérieures au sens de L.622-24 C.com. : critère = fait générateur (livraison effectuée avant le 12/02/2026), pas l'échéance contractuelle. F-2026-0012 (non échue) reste déclarée à hauteur du capital restant dû (L.622-29 C.com. [à vérifier]).
+
+b) Intérêts de retard — arrêtés au 12 février 2026 (L.622-28 C.com.)
+CGV art. 8 : taux légal + 5 points, de plein droit. Taux d'intérêt légal pour créances entre professionnels S1 2026 : [à vérifier] (non consulté dans cette session).
+
+Calcul à structurer dès le taux confirmé (formule : montant TTC × (taux légal + 5 %) × nb jours / 365) :
+
+Facture	Base TTC	Jours retard au 12/02/2026	Intérêts (à compléter)
+F-2025-1142	21 876,00	43 j (du 01/01 au 12/02/2026)	[à compléter — taux à vérifier]
+F-2025-1198	25 698,00	43 j (du 01/01 au 12/02/2026)	[à compléter — taux à vérifier]
+F-2025-1241	29 976,00	12 j (du 01/02 au 12/02/2026)	[à compléter — taux à vérifier]
+F-2026-0012	—	0 j (non échue)	néant
+Indication pour cadrage (taux légal pro S1 2026 ≈ 12 % → +5 pts = ~17 %, valeur à confirmer) : ordre de grandeur ~700-750 € au total. Ne pas figer dans le courrier avant vérification.
+
+c) Indemnité forfaitaire de recouvrement — art. L.441-10 C.com.
+40 € par facture en retard au 12/02/2026 :
+
+F-2025-1142 : 40 €
+F-2025-1198 : 40 €
+F-2025-1241 : 40 €
+F-2026-0012 : non due (non échue au jugement)
+Sous-total : 120 €
+
+d) Clause pénale CGV art. 10 — 15 % du principal restant dû
+Conditions de déclenchement (CGV art. 10) : mise en demeure restée infructueuse 8 jours.
+
+LRAR du 8 janvier 2026 reçue le 12 janvier 2026 — visait F-2025-1142, F-2025-1198, F-2025-1241.
+Expiration des 8 jours : 20 janvier 2026 → infructueuse → clause pénale acquise sur ces 3 factures.
+F-2026-0012 : non visée par la MED → clause pénale non acquise.
+Base de calcul — « principal restant dû ». Lecture retenue : HT (interprétation usuelle des CGV pro [review]).
+
+Base HT (F-1142 + F-1198 + F-1241) : 18 230 + 21 415 + 24 980 = 64 625 € HT
+15 % × 64 625 = 9 693,75 € (≥ minimum 500 €)
+[review] — possible modération par le juge si manifestement excessive (art. 1231-5 C.civ.), à signaler dans le bordereau.
+e) Récapitulatif déclaré
+Composante	Montant
+Principal TTC (4 factures)	104 940,00 €
+Intérêts de retard arrêtés au 12/02/2026 (L.622-28)	[à compléter, ordre ~700-750 €]
+Indemnité forfaitaire L.441-10 (3 × 40 €)	120,00 €
+Clause pénale 15 % HT (F-1142, F-1198, F-1241) [review]	9 693,75 €
+Total déclaré	≈ 115 450 € TTC (à figer après taux légal)
+Montant > seuil approbateur 100 k€ → escalade interne requise avant envoi.
+
+Rang et privilège revendiqué
+Rang principal de la créance : chirographaire (fournisseur de matériaux, aucune sûreté inscrite mentionnée dans le brief).
+Réserve de propriété (CGV art. 4) sur F-2026-0012 : à traiter par une action en revendication distincte (L.624-16 et L.624-9 C.com.), pas par la seule déclaration. Voir section ci-dessous.
+Déclaration de créance — projet de courrier (à signer service contentieux / DAF)
+SAS METALLO-PRO
+SIREN 444 444 444
+[Adresse siège — Saint-Priest (69)]
+Représentée par [Nom + qualité du signataire — service contentieux / DAF / dirigeant habilité]
+À : Maître Catherine LEROY
+    SELARL LEROY & ASSOCIÉS
+    Mandataire judiciaire
+    12 rue Vendôme — 69006 LYON
+Lettre recommandée avec accusé de réception
+Lyon, le [date d'envoi]
+Référence procédure :
+- Tribunal de commerce de Lyon
+- Jugement d'ouverture du 12 février 2026
+- Publication BODACC du 19 février 2026 (BODACC A, réf. 20260219-AAA-0042)
+- Procédure : redressement judiciaire de la SAS BÂTIR-EST, SIREN 333 333 333
+- N° RG : [à compléter — non disponible à date]
+OBJET : DÉCLARATION DE CRÉANCE — SAS BÂTIR-EST (SIREN 333 333 333)
+Madame, Monsieur,
+Conformément aux articles L.622-24 et suivants du Code de commerce, la SAS
+METALLO-PRO déclare au passif de la SAS BÂTIR-EST la créance suivante,
+arrêtée à la date du jugement d'ouverture (12 février 2026) :
+1. PRINCIPAL — factures impayées (créances antérieures)
+   | Référence    | Livraison      | Échéance       | TTC          |
+   |--------------|----------------|----------------|--------------|
+   | F-2025-1142  | 12 nov 2025    | 31 déc 2025    | 21 876,00 €  |
+   | F-2025-1198  | 28 nov 2025    | 31 déc 2025    | 25 698,00 €  |
+   | F-2025-1241  | 11 déc 2025    | 31 janv 2026   | 29 976,00 €  |
+   | F-2026-0012  | 9 janv 2026    | 28 févr 2026   | 27 390,00 €  |
+   | Total principal                                  | 104 940,00 € |
+   La facture F-2026-0012, livrée le 9 janvier 2026, constitue une créance
+   antérieure dont le fait générateur précède le jugement d'ouverture, et
+   se trouve déclarée à hauteur du capital restant dû.
+2. INTÉRÊTS DE RETARD — arrêtés au 12 février 2026 (art. L.622-28 C.com.)
+   Au taux d'intérêt légal en vigueur majoré de cinq points (CGV art. 8),
+   sur les factures F-2025-1142, F-2025-1198 et F-2025-1241 :
+   [montant à compléter] €.
+3. INDEMNITÉ FORFAITAIRE DE FRAIS DE RECOUVREMENT (art. L.441-10 C.com.)
+   40 € par facture échue impayée à la date du jugement, soit 3 × 40 €
+   = 120,00 €.
+4. CLAUSE PÉNALE CONTRACTUELLE (CGV art. 10)
+   Clause pénale de 15 % du principal HT acquise sur les factures
+   F-2025-1142, F-2025-1198 et F-2025-1241 (mise en demeure du 8 janvier
+   2026 reçue le 12 janvier 2026 restée infructueuse au-delà du délai de
+   huit jours), soit 15 % × 64 625 € HT = 9 693,75 €.
+MONTANT TOTAL DÉCLARÉ : [à figer après intégration des intérêts] €,
+soit environ 115 450 € TTC.
+Rang revendiqué : chirographaire.
+Réserve de propriété — La SAS METALLO-PRO précise qu'elle entend faire
+valoir la clause de réserve de propriété stipulée à l'article 4 de ses
+conditions générales de vente sur la fraction des matériaux livrés au
+titre de la facture F-2026-0012 demeurée non incorporée et
+individualisable sur le chantier « Résidence Les Hortensias » à
+Villeurbanne. Une demande en revendication sera adressée séparément à
+Maître Thomas BRAVARD, administrateur judiciaire, dans le délai de trois
+mois de la publication du jugement d'ouverture, conformément aux articles
+L.624-9 et L.624-16 du Code de commerce. La présente créance est
+déclarée pour son montant total ; aucune déduction n'est opérée à ce
+stade.
+La société soussignée certifie que la présente créance est sincère et
+exacte, qu'elle subsiste en son entier à la date du jugement d'ouverture
+et qu'elle n'a fait l'objet d'aucun paiement, novation ni compensation
+à ce jour.
+Pièces jointes (bordereau ci-après).
+Fait à [ville], le [date].
 [Signature]
-[Nom + qualité du signataire]
-METALLO-PRO
+[Nom — qualité du signataire]
+Pièces à joindre (bordereau)
+Extrait Kbis SAS METALLO-PRO (≤ 3 mois)
+Copie annonce BODACC du 19 février 2026 (réf. 20260219-AAA-0042)
+Conditions générales de vente METALLO-PRO version 1er janvier 2024 (extrait articles 4, 8, 9, 10) + preuve d'acceptation à l'ouverture du compte
+Facture F-2025-1142 du 12 nov 2025 + bon de livraison
+Facture F-2025-1198 du 28 nov 2025 + bon de livraison
+Facture F-2025-1241 du 11 déc 2025 + bon de livraison
+Facture F-2026-0012 du 9 janv 2026 + bon de livraison
+Mise en demeure LRAR du 8 janvier 2026 + accusé de réception du 12 janvier 2026
+Extrait balance auxiliaire BÂTIR-EST au 12 février 2026 (solde 104 940 € TTC)
+Tableau de calcul des intérêts de retard arrêtés au 12 février 2026
+Délégation / pouvoir de signature du signataire (le cas échéant)
+Action en revendication réserve de propriété — à conduire en parallèle (échéance 19 mai 2026)
+À traiter comme une procédure distincte, à ne pas glisser dans la déclaration au mandataire :
 
----
+Destinataire : Me Thomas BRAVARD, administrateur judiciaire (mission d'assistance), 5 cours Lafayette, 69003 Lyon.
+Forme : demande amiable par LRAR adressée à l'administrateur (acquiescement attendu sous 1 mois). À défaut d'acquiescement, saisine du juge-commissaire dans le mois suivant (art. L.624-17 / R.624-13 C.com. [à vérifier]).
+Délai global : 3 mois à compter publication BODACC = échéance 19 mai 2026 (art. L.624-9 C.com. [à vérifier]).
+Assiette revendicable : uniquement la fraction non incorporée, individualisable et retrouvée en nature sur le chantier « Résidence Les Hortensias » — 12 000 € HT (lots étiquetés au nom de METALLO-PRO).
+Assiette non revendicable : la fraction incorporée au gros œuvre (10 825 € HT) — [review] : la jurisprudence retient que les biens incorporés à un immeuble en construction échappent à la revendication, sous réserve de l'appréciation de l'individualisation et de l'incorporation effective.
+Articulation avec la déclaration : déclarer la créance pour son montant total TTC ; n'ajuster qu'en cas de restitution effective ou de paiement subrogatoire par le sous-acquéreur.
+Forme de la réserve : CGV art. 4 acceptées à l'ouverture du compte en 2021, applicables aux opérations suivantes — écrit antérieur à la livraison réputé constitué [review].
+Une question hors de ma checklist habituelle
+La date de cessation des paiements fixée au 15 décembre 2025 ouvre une période suspecte d'environ 2 mois avant le jugement. Toutes les factures sauf F-2026-0012 ont leur fait générateur avant la cessation des paiements (livraisons de novembre et décembre 2025), donc hors période suspecte ; la F-2026-0012 (livraison 9/01/2026, post-cessation) est en revanche dans la période suspecte. Aucun paiement reçu n'est mentionné — donc pas d'exposition immédiate à une action en nullité L.632-1/L.632-2. À surveiller toutefois si un éventuel paiement antérieur sortait du brief ultérieurement : il pourrait être attaqué par le mandataire. Vaut un coup d'œil au grand livre BÂTIR-EST 15/12/2025 → 12/02/2026.
 
-# Une question hors de ma checklist habituelle
-
-La mise en demeure du 8 janvier 2026 visait explicitement F-2025-1142, F-2025-1198 et F-2025-1241. F-2026-0012 (livrée le 9 janvier, soit le lendemain) n'y figure pas. Si la pratique cabinet est de déclencher la clause pénale aussi sur les factures postérieures à la MED initiale, il faudrait vérifier qu'une **seconde mise en demeure** n'a pas été adressée avant le 12 février 2026 — ce qui rouvrirait la clause pénale sur F-2026-0012 (≈ 4 109 € supplémentaires TTC) et étendrait le périmètre de l'indemnité L.441-10. À confirmer avec le service contentieux METALLO-PRO.
-
----
-
-# Que veux-tu faire ? Choisis une option et je la déroule :
-
-1. **Rédiger** — je finalise la LRAR au mandataire (Me LEROY) au format prêt à signer, plus un courrier séparé de revendication réserve de propriété à l'administrateur (Me BRAVARD) sur les 12 000 € HT non incorporés.
-2. **Escalader** — note d'escalade interne METALLO-PRO (montant > 100 k€, profil approbateur à configurer) résumant : forclusion 19/04/2026, total ≈ 117 k€, deux décisions à prendre (taux intérêts S1 2026, base clause pénale HT/TTC), revendication 12 000 € à introduire avant 19/05/2026.
-3. **Compléter les faits** — j'établis la liste des 5 questions ouvertes à poser au service contentieux METALLO-PRO : taux légal pro S1 2026 confirmé ? deuxième MED visant F-2026-0012 ? RG du jugement ? identité signataire ? photos d'inventaire disponibles pour la revendication ?
-4. **Surveiller et attendre** — j'ajoute le dossier au tracker procédures collectives avec trois échéances : 15/04/2026 (envoi LRAR), 19/04/2026 (forclusion déclaration), 19/05/2026 (forclusion revendication art. L.624-9).
-5. **Autre** — précise.
-
----
-
-**Sources consultées :** `[Légifrance — index articles plugin, à vérifier sur source primaire]`, `[scénario fictif]`, `[connaissance modèle — à vérifier]`
-**Citations vérifiées :** non — PISTE non configurée, mode dégradé documenté
-**Date d'analyse :** 28 février 2026 (cadre scénario)
+Que veux-tu faire ? Choisis une option et je la déroule :
+Rédiger — je finalise le courrier LRAR à Me LEROY (déclaration + bordereau pièces) et la LRAR séparée à Me BRAVARD (demande de revendication réserve de propriété sur les 12 000 € HT non incorporés), prêts à signer une fois le taux légal confirmé.
+Escalader — note d'escalade vers l'approbateur déclaration > 100 k€ (profil cabinet à compléter — [A CONFIGURER]) avec faits-clés, forclusion 20 avril 2026, exposition ~115 k€ et décision attendue (validation montant + signature).
+Compléter les faits — questions à poser : (i) taux légal pro S1 2026 confirmé par compta ? (ii) base clause pénale HT ou TTC selon usage cabinet ? (iii) inventaire contradictoire de la part non incorporée sur chantier Hortensias avant LRAR à l'administrateur ? (iv) N° RG disponible au greffe TC Lyon ?
+Surveiller et attendre — ajout au tracker procédures collectives : envoi prévu sous 7 jours, forclusion déclaration 20/04/2026, forclusion revendication 19/05/2026, jalon admission/contestation à anticiper à 2-3 mois post-envoi.
+Autre — précise.
