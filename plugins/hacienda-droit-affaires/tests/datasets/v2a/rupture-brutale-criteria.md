@@ -1,7 +1,7 @@
 # Criteria atomiques — `analyser-rupture-brutale` (scénario v2a)
 
-> **Pilote format criteria atomiques.** Conversion de la section « Vérité terrain —
-> résultat attendu » de [`rupture-brutale-scenario.md`](./rupture-brutale-scenario.md)
+> **Pilote format criteria atomiques.** Conversion de la vérité terrain du scénario
+> rupture-brutale (faits désormais isolés dans [`scenario.md`](../da-rupture-brutale/scenario.md))
 > en critères PASS/FAIL atomiques, à la manière du `task.json` Harvey LAB, mais
 > adaptés à la doctrine FR et aux conventions Hacienda (échelle 🔴🟠🟡🟢, tags `[review]`).
 >
@@ -111,7 +111,7 @@ criterion : le livrable scopé, le `match_criteria`, et le `niveau` (jamais le S
 ```json
 {
   "skill": "analyser-rupture-brutale",
-  "scenario": "v2a/rupture-brutale-scenario.md",
+  "scenario": "da-rupture-brutale/scenario.md",
   "scoring": "tiered-gated",
   "criteria": [
     {
