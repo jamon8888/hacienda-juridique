@@ -11,7 +11,7 @@ description: >
   Format conforme aux usages mandataire judiciaire. Brouillon, validation
   avocat/mandataire obligatoire.
 version: "2.0.0"
-argument-hint: "[SIREN débiteur, créance, jugement, publication BODACC]"
+argument-hint: "[SIREN débiteur, créance, jugement, publication BODACC ; --releve-forclusion pour la requête L.622-26]"
 authors: ["Hacienda"]
 tags: [procedures-collectives, declaration-creance, forclusion, bodacc, l622-24]
 ---
@@ -84,6 +84,7 @@ Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-droit-affaires:entreti
 
 ## Intake
 
+0. **Mode** — défaut : rédaction de la déclaration de créance. `--releve-forclusion` : rédige une **requête en relevé de forclusion** (art. L.622-26 C.com.) lorsque le délai L.622-24 est déjà acquis — voir la section dédiée plus bas.
 1. **SIREN débiteur** — `--siren=123456789` (**obligatoire**)
 2. **Montant créance** — `--montant=85000` (en euros, **obligatoire**)
 3. **Nature créance** — `--nature=facture|loyer|prestation|salaire|pret|...`
@@ -109,6 +110,7 @@ Si `--siren` ou `--montant` absent : stopper et demander explicitement. Pas de v
 - [ ] Mandataire extrait depuis `raw` ou flagué `[à vérifier]` — pas de valeur fabriquée
 - [ ] Montant total cohérent avec composantes (principal + intérêts et frais L.622-28 + TVA)
 - [ ] Sortie comprend : statut forclusion + récap procédure + projet déclaration + pièces + note du relecteur + question hors checklist + arbre 5 options
+- [ ] (mode `--releve-forclusion`) Délai d'action **6 mois** depuis publication BODACC vérifié (gate de recevabilité) ; **cause** du relevé documentée (non-imputabilité OU omission débiteur L.622-6) ; requête adressée au **juge-commissaire** ; conséquence (concours aux seules répartitions postérieures) signalée
 
 ---
 
@@ -333,11 +335,59 @@ La déclaration de créance est un livrable externe au sens de CLAUDE.md plugin 
 
 ---
 
+## Mode `--releve-forclusion` — Requête en relevé de forclusion (L.622-26)
+
+Déclenché quand la forclusion L.622-24 est **déjà acquise** (Étape 2 → 🔴🔴) ou demandé explicitement. Produit une **requête motivée adressée au juge-commissaire** (et non au mandataire). La requête ne dispense pas de la déclaration : si le relevé est accordé, enchaîner sur la déclaration dans le délai fixé par le juge-commissaire.
+
+### Étape R1 — Recevabilité de l'action en relevé (gate)
+
+- **Délai d'action : 6 mois** à compter de la publication du jugement d'ouverture au BODACC (art. L.622-26 al. 2 C.com. `[Légifrance]`). Ce délai est lui-même un délai de forclusion.
+- Cas d'allongement / report du point de départ (créancier qui ne pouvait connaître l'obligation au moment de l'ouverture, créance révélée tardivement, délai porté à un an dans certains cas) → `[à vérifier]`, ne pas trancher sans consultation de l'article en vigueur.
+- Si le délai de 6 mois est lui-même expiré → la voie du relevé est fermée `[review]` : **le signaler** et ne pas rédiger une requête vouée à l'irrecevabilité. Calcul obligatoire :
+
+```
+date_limite_action_releve = date_publication_bodacc + 6 mois
+(prorogée au 1er jour ouvrable suivant si week-end/jour férié — art. 642 CPC)
+```
+
+### Étape R2 — Cause du relevé (l'une des deux, art. L.622-26 al. 1)
+
+| Cause | Critère | Charge de preuve |
+|---|---|---|
+| (a) Défaillance **non due au fait du créancier** | absence d'information, créance née/révélée tardivement, impossibilité de connaître la procédure | sur le créancier — appréciation stricte `[review]` |
+| (b) Créance **omise par le débiteur** lors de l'établissement de la liste art. L.622-6 C.com. `[Légifrance]` | le débiteur devait porter le créancier sur la liste remise au mandataire ; l'omission ouvre le relevé | plus favorable au créancier — établir l'omission |
+
+Documenter précisément les faits à l'appui de la cause invoquée. Ne pas présenter le relevé comme acquis : il relève de l'appréciation du juge-commissaire `[review]`.
+
+### Étape R3 — Rédaction de la requête (au juge-commissaire)
+
+```
+[Identification créancier] — [Procédure : TC, n° RG, type, date jugement, date publication BODACC]
+
+À Monsieur/Madame le Juge-commissaire
+
+OBJET : REQUÊTE EN RELEVÉ DE FORCLUSION (art. L.622-26 C.com.) — créance [débiteur, SIREN]
+
+1. Rappel de la procédure et de la forclusion encourue (date publication BODACC + 2 mois = [date], dépassée).
+2. Recevabilité : la présente demande est formée dans le délai de 6 mois de la publication (échéance [date]).
+3. Cause du relevé : [(a) défaillance non imputable au créancier OU (b) omission du débiteur dans la liste L.622-6], exposée en fait et étayée par les pièces.
+4. Créance à déclarer : montant et nature (renvoi au détail de la déclaration projetée).
+PAR CES MOTIFS, plaise au juge-commissaire de relever le créancier de la forclusion et de l'autoriser à déclarer sa créance dans le délai qu'il fixera.
+[Pièces : justificatifs de la cause + justificatifs de la créance]
+```
+
+### Étape R4 — Conséquences à signaler
+
+- Le créancier relevé **ne concourt qu'aux répartitions postérieures à sa demande** (art. L.622-26 C.com. `[à vérifier]`) — il ne participe pas aux distributions déjà intervenues.
+- Le relevé obtenu, **déclarer la créance** dans le délai fixé (enchaîner sur le mode déclaration standard).
+
+---
+
 ## Ce skill ne fait pas
 
 - L'envoi physique du courrier recommandé (acte du créancier / cabinet).
 - Le suivi de l'état des créances (admission / contestation par le mandataire ou le juge-commissaire) → `v1.1+`.
-- La rédaction détaillée d'une **requête en relevé de forclusion art. L.622-26 C.com.** `[Légifrance]` (mémoire argumenté sur l'absence de fait du créancier, créance inconnue du débiteur) → trame minimale possible, dossier complet renvoyé `v1.1+`.
+- Le **dépôt** de la requête en relevé de forclusion au greffe et sa plaidoirie devant le juge-commissaire (acte de l'avocat) — le mode `--releve-forclusion` produit la requête motivée, pas son dépôt ni l'audience.
 - La revue d'un acte de cession en cours de procédure collective (plan de cession art. L.642-1 C.com. `[Légifrance]`) → renvoyer vers un avocat spécialisé restructuring.
 - Le conseil sur une poursuite individuelle suspendue par art. L.622-21 C.com. `[Légifrance]` (arrêt des poursuites) — signalement uniquement.
 - La contestation d'une créance déjà admise (recours devant juge-commissaire) → `v1.1+`.
