@@ -105,6 +105,76 @@ python3 scripts/codex-blind-scoring.py phase4 \
 
 **Anti-leakage automatique** : le script refuse explicitement si un des arguments pointe vers un fichier `SKILL.md`.
 
+## Variante criteria atomiques tiered-gated (DA & au-delà)
+
+Depuis le commit `7fd0845`, le helper expose deux sous-commandes parallèles qui
+produisent et notent la vérité terrain au **format criteria atomiques** plutôt
+qu'au format holistique pondéré. L'agrégation du score devient alors
+**déterministe** (Python), pas laissée au jugement du scoreur.
+
+| | Holistique (`phase2` / `phase4`) | Criteria atomiques (`phase2-criteria` / `phase4-criteria`) |
+|---|---|---|
+| Vérité terrain | findings cotés 🔴🟠🟡🟢 + grille en prose | liste de criteria PASS/FAIL, chacun `CRITIQUE` / `MAJEUR` / `MINEUR` |
+| Phase 4 | le scoreur Codex rend un score pondéré | le scoreur rend PASS/FAIL par criterion + un bloc JSON ; le score est calculé par `scripts/tiered_scoring.py` |
+| Agrégation | jugement Codex | déterministe : un seul `CRITIQUE` FAIL ⇒ REJETÉ (gate) |
+
+### Phase 2 criteria — vérité terrain (Codex GPT-5.5 **HIGH**)
+
+```bash
+python3 scripts/codex-blind-scoring.py phase2-criteria \
+  --skill declaration-creance \
+  --skill-description "Rédige une déclaration de créance L.622-24 C.com. : forclusion, structure, rang/privilège." \
+  --domain droit-affaires \
+  --mode "rédaction déclaration côté créancier" \
+  --scenario plugins/hacienda-droit-affaires/tests/datasets/da-declaration-creance/scenario.md \
+  --output plugins/hacienda-droit-affaires/tests/datasets/da-declaration-creance/ground-truth.md
+```
+
+Le ground-truth produit **EST** la grille d'évaluation (à la Harvey LAB : pas de
+golden answer séparé). Il se termine par un bloc JSON
+`{"skill":...,"criteria":[{"id","niveau","axe","match_criteria"}, ...]}`.
+
+> Pas de `phase1` distincte dans cette variante : le `scenario.md` est rédigé à
+> la main (faits fictifs blind) ou via `phase1` puis nettoyé. Le guard
+> `check_scenario_no_truth` refuse tout scenario contenant « Vérité terrain »,
+> « Recommandation attendue », etc.
+
+### Phase 3 — identique au workflow holistique
+
+Session Claude Code fraîche, input = `scenario.md` uniquement, sortie =
+`live-output.md`. Ne pas ouvrir `ground-truth.md`.
+
+### Phase 4 criteria — scoring criterion-par-criterion (Codex GPT-5.5 medium)
+
+```bash
+python3 scripts/codex-blind-scoring.py phase4-criteria \
+  --skill declaration-creance --skill-version 2.0.0 --code ZG7Q5O \
+  --scenario plugins/hacienda-droit-affaires/tests/datasets/da-declaration-creance/scenario.md \
+  --ground-truth plugins/hacienda-droit-affaires/tests/datasets/da-declaration-creance/ground-truth.md \
+  --live-output plugins/hacienda-droit-affaires/tests/datasets/da-declaration-creance/live-output.md \
+  --date 2026-06-15 \
+  --output docs/backlog/da-scoring-declaration-creance-ZG7Q5O.md
+```
+
+Le scoreur rend, en fin de réponse, un bloc JSON strict
+`{"criteria":[{"id","niveau","verdict"}, ...]}`. Le sauvegarder, puis agréger
+de façon déterministe :
+
+```bash
+python3 scripts/tiered_scoring.py /tmp/verdicts-ZG7Q5O.json
+# → {"status":"ADMIS|RÉSERVES|INSUFFISANT|REJETÉ","score":...,"gate_failures":[...]}
+```
+
+### Règle d'agrégation tiered-gated
+
+- Tout criterion **CRITIQUE** en FAIL ⇒ `status: REJETÉ`, `score: 0.0` (gate),
+  quels que soient les autres criteria.
+- Sinon : `status` dérivé du taux de réussite des **MAJEURS** (ADMIS si 100 %,
+  RÉSERVES si ≥ 80 %, sinon INSUFFISANT) ;
+  `score = round(0.8 × taux_majeurs + 0.2 × taux_mineurs, 4)`.
+
+Implémentation et tests : `scripts/tiered_scoring.py`, `scripts/test_tiered_scoring.py`.
+
 ## Checklist anti-leakage par cycle
 
 Avant de publier un score :
@@ -114,6 +184,7 @@ Avant de publier un score :
 - [ ] Phase 3 a reçu uniquement `scenario.md` (PAS `ground-truth.md`)
 - [ ] Phase 4 a reçu `scenario.md` + `ground-truth.md` + `live-output.md` (PAS le SKILL.md)
 - [ ] Code scoring unique par cycle, non réutilisé
+- [ ] (variante criteria) Bloc JSON de verdicts agrégé par `tiered_scoring.py` — score **non** calculé à la main par le scoreur
 - [ ] Rapport final marqué `[scoring blind protocole D.0]` (et pas `[scoring auto-référent]`)
 
 ## Codes d'erreur du script
@@ -149,7 +220,7 @@ python3 scripts/codex-blind-scoring.py phase4 --skill x --skill-version 1 \
 | Phase 2 | GPT-5.5 effort HIGH |
 | Phase 4 | GPT-5.5 effort medium |
 
-**GPT-4.5 (orion) déconseillé** sur PI FR — risque de citations CPI / CJUE inventées.
+**GPT-4.5 (orion) déconseillé** sur PI/DA FR — risque de citations CPI / C.com. / CJUE inventées.
 
 ## Évolutions du script
 
