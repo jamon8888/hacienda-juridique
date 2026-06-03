@@ -1,12 +1,12 @@
 {
   "skill": "declaration-creance",
-  "_provenance": "Phase 2 blind Codex GPT-5.5 HIGH (cycle ZG7Q5O) + durcissement humain C-011/C-012 (taux légal et intérêts chiffrés tagués [à vérifier], gate de distinction pro/conso conservé)",
+  "_provenance": "Phase 2 blind Codex GPT-5.5 HIGH (cycle ZG7Q5O) + durcissement humain C-011/C-012 (taux/intérêts [à vérifier]) + recalibrage post-ZG7Q5O (finding B) : C-001 scindé (ancrage CRITIQUE / prorogation -> C-025 MINEUR), C-012 tolère la convention ±1j, C-023 découplé de C-011. Grille passée de 24 à 25 criteria : les verdicts-ZG7Q5O.json (24) correspondent à la grille pré-B.",
   "criteria": [
     {
       "id": "C-001",
       "niveau": "CRITIQUE",
       "axe": "forclusion_declaration",
-      "match_criteria": "PASS si la sortie calcule que le délai de déclaration court à compter de la publication BODACC du 19 février 2026, expire en principe le 19 avril 2026, puis est prorogé au lundi 20 avril 2026 à 24h car le 19 avril 2026 est un dimanche. FAIL si elle fait courir le délai depuis le jugement du 12 février 2026, depuis la cessation des paiements du 15 décembre 2025, ou retient une date butoir non prorogée."
+      "match_criteria": "PASS si la sortie fait courir le délai de déclaration à compter de la publication BODACC du 19 février 2026 et retient une échéance de principe au 19 avril 2026 (publication + 2 mois). FAIL si elle fait courir le délai depuis le jugement du 12 février 2026 ou depuis la cessation des paiements du 15 décembre 2025. (La prorogation jour-férié est évaluée séparément, criterion C-025.)"
     },
     {
       "id": "C-002",
@@ -72,7 +72,7 @@
       "id": "C-012",
       "niveau": "MAJEUR",
       "axe": "interets",
-      "match_criteria": "PASS si la sortie calcule les intérêts par la bonne méthode : uniquement sur les trois factures échues avant le jugement (F-2025-1142 et F-2025-1198 du 1er janvier au 11 février 2026 ; F-2025-1241 du 1er février au 11 février 2026), arrêtés au jugement d'ouverture, sur base annuelle 365 jours, le montant chiffré étant tagué [à vérifier] car dépendant du taux (le total ≈ 485,98 euros est indicatif). FAIL si elle applique des intérêts à F-2026-0012, calcule au-delà du jugement, ou retient des périodes incompatibles avec les dates d'échéance."
+      "match_criteria": "PASS si la sortie calcule les intérêts par la bonne méthode : uniquement sur les trois factures échues avant le jugement (F-2025-1142, F-2025-1198, F-2025-1241), depuis leur échéance respective et arrêtés au jugement d'ouverture — la date de coupure au 11 ou au 12 février 2026 est une convention admise, ±1 jour toléré —, sur base annuelle 365 jours, le montant chiffré tagué [à vérifier] (total ≈ 485,98 euros indicatif). FAIL si elle applique des intérêts à F-2026-0012 ou calcule au-delà du jugement d'ouverture."
     },
     {
       "id": "C-013",
@@ -138,13 +138,19 @@
       "id": "C-023",
       "niveau": "MAJEUR",
       "axe": "total_declare",
-      "match_criteria": "PASS si, lorsqu'elle chiffre un total accessoirisé, la sortie aboutit à un total cohérent autour de 117178,48 euros, composé de 104940,00 euros de principal TTC, 485,98 euros d'intérêts arrêtés, 120,00 euros d'indemnités forfaitaires et 11632,50 euros de clause pénale, avec les accessoires présentés séparément. FAIL si elle mélange principal et accessoires ou produit un total sans ventilation vérifiable."
+      "match_criteria": "PASS si la sortie présente une ventilation séparée principal / intérêts / indemnité forfaitaire / clause pénale, et un total interne cohérent avec ses propres composantes (principal TTC 104940,00 euros + forfait 120,00 euros + clause pénale 11632,50 euros + intérêts [à vérifier]). FAIL si elle mélange principal et accessoires, ou si le total est arithmétiquement incohérent avec la somme de ses composantes. Le montant exact du total n'est pas évalué tant que les intérêts restent [à vérifier] (dépendance amont C-011/C-012)."
     },
     {
       "id": "C-024",
       "niveau": "MINEUR",
       "axe": "hygiene_juridique",
       "match_criteria": "PASS si la sortie distingue clairement faits, droit applicable, analyse, incertitudes et validation humaine, et ne présente pas le livrable comme un conseil juridique final. FAIL si elle formule une conclusion catégorique sans réserve de validation ou cite des sources non consultées comme vérifiées."
+    },
+    {
+      "id": "C-025",
+      "niveau": "MINEUR",
+      "axe": "forclusion_prorogation",
+      "match_criteria": "PASS si la sortie proroge l'échéance de forclusion au premier jour ouvrable suivant lorsqu'elle tombe un samedi, dimanche ou jour férié — le 19 avril 2026 étant un dimanche, échéance reportée au lundi 20 avril 2026 (art. 642 CPC). FAIL si elle retient une échéance tombant un week-end ou un jour férié sans la proroger."
     }
   ]
 }
