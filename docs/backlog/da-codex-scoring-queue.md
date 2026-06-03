@@ -28,7 +28,7 @@ Mode d'emploi complet : [`scripts/README-codex-blind-scoring.md`](../../scripts/
 
 | # | Skill | Scénario blind | Grille (Phase 2) | État scoring | Prochaine action Codex |
 |---|---|---|---|---|---|
-| 1 | **declaration-creance** | ✅ `da-declaration-creance/scenario.md` | ✅ `ground-truth.md` (25 criteria, recalibrée B) | scoré 1× **REJETÉ** (ZG7Q5O, *pré-correctifs A/B*) | **RE-SCORE** (P2 déjà faite) : Phase 3 sur skill corrigé + Phase 4 contre grille recalibrée → confirmer passage du gate C-001 et chiffrer le gain |
+| 1 | **declaration-creance** | ✅ `da-declaration-creance/scenario.md` | ✅ `ground-truth.md` (25 criteria, recalibrée B) | ✅ scoré 2× — **IKJ4AF : INSUFFISANT** (score 0,8, **gate fermé** ; ZG7Q5O était REJETÉ) | **A+B validés.** Reste **finding D (chiffrage)** → après correction, viser RÉSERVES/ADMIS sur un 3ᵉ cycle |
 | 2 | **mise-en-demeure-commerciale** | ✅ `da-mise-en-demeure-commerciale/scenario.md` | ❌ à générer | jamais scoré | **CYCLE COMPLET** (P2 + P3 + P4) |
 | 3 | **declaration-creance `--releve-forclusion`** (#2) | ✅ `da-releve-forclusion/scenario.md` | ❌ à générer | jamais scoré | **CYCLE COMPLET** (P2 + P3 + P4) — mode distinct ; gate sur le délai d'action 6 mois + cause du relevé |
 | 4 | **prevention-difficultes** (#3) | ✅ `da-prevention-difficultes/scenario.md` | ❌ à générer | jamais scoré | **CYCLE COMPLET** — gate cessation des paiements ; orientation mandat ad hoc / conciliation / sauvegarde accélérée |
@@ -103,7 +103,8 @@ seulement quand le cycle ami sera clos : `spa-review`, `gap-review`,
 | declaration-creance | A — correctifs skill (prorogation, certification, escalade revendication) | ✅ fait (`733f362`) |
 | declaration-creance | B — recalibrage grille (split C-001/C-025, C-012, C-023) | ✅ fait (`94fe91e`) |
 | tooling | C — niveau autoritatif depuis ground-truth | ✅ fait (`aa4d400`) |
-| declaration-creance | **mesurer le gain A+B** | ⏳ bloqué sur re-score P1 #1 |
+| declaration-creance | mesurer le gain A+B | ✅ fait (IKJ4AF : REJETÉ→INSUFFISANT, gate fermé, 3 correctifs A confirmés en aveugle) |
+| declaration-creance | **D — chiffrage** : taux légal inventé (C-011), clause pénale sur mauvaise base (C-014), total incohérent (C-023) | ⏳ à corriger en Étape 3 — prochaine itération skill, puis 3ᵉ cycle de scoring |
 
 ---
 
