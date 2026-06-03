@@ -103,6 +103,9 @@ Si `--siren` ou `--montant` absent : stopper et demander explicitement. Pas de v
 - [ ] Profil cabinet bloc procédures collectives lu, seuil approbateur et qualité signataire identifiés
 - [ ] Lookup `bodacc_procedures` exécuté ; type procédure, date publication, mandataire renseignés ou flagués `[à vérifier]`
 - [ ] Calcul forclusion vérifié (jours restants cohérents avec date du jour, délai 2 ou 4 mois selon `--etranger`)
+- [ ] **Prorogation appliquée** : si la forclusion tombe un samedi / dimanche / jour férié, la date retenue **ET affichée** est le 1er jour ouvrable suivant (art. 642 CPC), pas la date brute
+- [ ] **Certification** (créance sincère et exacte) présente dans le corps de la déclaration
+- [ ] Si **réserve de propriété revendiquée** : la sortie explicite délai 3 mois (L.624-9), destinataire **administrateur**, ET l'escalade (défaut d'acquiescement 1 mois → saisine juge-commissaire) — pas seulement le principe
 - [ ] Mandataire extrait depuis `raw` ou flagué `[à vérifier]` — pas de valeur fabriquée
 - [ ] Montant total cohérent avec composantes (principal + intérêts et frais L.622-28 + TVA)
 - [ ] Sortie comprend : statut forclusion + récap procédure + projet déclaration + pièces + note du relecteur + question hors checklist + arbre 5 options
@@ -252,6 +255,8 @@ Privilège revendiqué (le cas échéant) : [type + fondement légal + référen
 
 Justificatifs joints : [liste numérotée — facture(s), bon(s) de livraison, contrat, mise en demeure, acte de nantissement, etc.]
 
+Le créancier certifie que la présente créance est sincère et exacte, qu'elle subsiste en son entier à la date du jugement d'ouverture et qu'elle n'a fait l'objet d'aucun paiement, novation ni compensation à ce jour.
+
 Fait à [ville], le [date].
 Signature, qualité du signataire ([service contentieux / DAF / dirigeant habilité, conformément au profil cabinet]).
 ```
@@ -283,7 +288,7 @@ Appel automatique sur la sortie complète. Articles à vérifier : L.622-17, L.6
 # 🟢/🟠/🔴/🔴🔴 Statut forclusion
 - Date publication BODACC : [date]
 - Délai applicable : 2 mois (ou 4 mois si créancier étranger)
-- Date forclusion : [date]
+- Date forclusion : [date **prorogée au 1er jour ouvrable suivant si elle tombe un week-end / jour férié — art. 642 CPC** ; indiquer la date brute entre parenthèses si prorogation appliquée]
 - Jours restants : [N]
 - Action recommandée : [envoi normal / prioritaire / URGENT / requête en relevé L.622-26]
 
