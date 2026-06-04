@@ -17,3 +17,5 @@ coverage/
 dist-pkg/
 *.tsbuildinfo
 .gitnexus
+__pycache__/
+*.pyc
