@@ -11,7 +11,7 @@ description: >
   Format conforme aux usages mandataire judiciaire. Brouillon, validation
   avocat/mandataire obligatoire.
 version: "2.0.0"
-argument-hint: "[SIREN débiteur, créance, jugement, publication BODACC]"
+argument-hint: "[SIREN débiteur, créance, jugement, publication BODACC ; --releve-forclusion pour la requête L.622-26]"
 authors: ["Hacienda"]
 tags: [procedures-collectives, declaration-creance, forclusion, bodacc, l622-24]
 ---
@@ -84,6 +84,7 @@ Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-droit-affaires:entreti
 
 ## Intake
 
+0. **Mode** — défaut : rédaction de la déclaration de créance. `--releve-forclusion` : rédige une **requête en relevé de forclusion** (art. L.622-26 C.com.) lorsque le délai L.622-24 est déjà acquis — voir la section dédiée plus bas.
 1. **SIREN débiteur** — `--siren=123456789` (**obligatoire**)
 2. **Montant créance** — `--montant=85000` (en euros, **obligatoire**)
 3. **Nature créance** — `--nature=facture|loyer|prestation|salaire|pret|...`
@@ -103,9 +104,13 @@ Si `--siren` ou `--montant` absent : stopper et demander explicitement. Pas de v
 - [ ] Profil cabinet bloc procédures collectives lu, seuil approbateur et qualité signataire identifiés
 - [ ] Lookup `bodacc_procedures` exécuté ; type procédure, date publication, mandataire renseignés ou flagués `[à vérifier]`
 - [ ] Calcul forclusion vérifié (jours restants cohérents avec date du jour, délai 2 ou 4 mois selon `--etranger`)
+- [ ] **Prorogation appliquée** : si la forclusion tombe un samedi / dimanche / jour férié, la date retenue **ET affichée** est le 1er jour ouvrable suivant (art. 642 CPC), pas la date brute
+- [ ] **Certification** (créance sincère et exacte) présente dans le corps de la déclaration
+- [ ] Si **réserve de propriété revendiquée** : la sortie explicite délai 3 mois (L.624-9), destinataire **administrateur**, ET l'escalade (défaut d'acquiescement 1 mois → saisine juge-commissaire) — pas seulement le principe
 - [ ] Mandataire extrait depuis `raw` ou flagué `[à vérifier]` — pas de valeur fabriquée
 - [ ] Montant total cohérent avec composantes (principal + intérêts et frais L.622-28 + TVA)
 - [ ] Sortie comprend : statut forclusion + récap procédure + projet déclaration + pièces + note du relecteur + question hors checklist + arbre 5 options
+- [ ] (mode `--releve-forclusion`) Délai d'action **6 mois** depuis publication BODACC vérifié (gate de recevabilité) ; **cause** du relevé documentée (non-imputabilité OU omission débiteur L.622-6) ; requête adressée au **juge-commissaire** ; conséquence (concours aux seules répartitions postérieures) signalée
 
 ---
 
@@ -160,6 +165,7 @@ delai_base = 2 mois
 si creancier_etranger (hors France/UE/EEE) : delai_base = 4 mois (art. R.622-24 C.com. [Légifrance])
 
 date_forclusion = date_publication_bodacc + delai_base
+si date_forclusion tombe un samedi, dimanche ou jour férié : prorogée au premier jour ouvrable suivant (art. 642 CPC [Légifrance])
 jours_restants  = date_forclusion - aujourd'hui
 ```
 
@@ -173,7 +179,7 @@ jours_restants  = date_forclusion - aujourd'hui
 | < 0 j | 🔴🔴 | **FORCLUSION** — proposer requête en relevé art. L.622-26 C.com. [Légifrance] ou abandon |
 
 Cas particuliers à signaler (sans calculer automatiquement) :
-- Créance née postérieurement au jugement d'ouverture art. L.622-17 C.com. `[Légifrance]` — régime distinct (créances post privilégiées).
+- **Antérieure ou postérieure — critère = fait générateur, pas échéance.** Une créance est **antérieure** (et se déclare au passif) si son fait générateur — livraison effectuée, prestation exécutée — précède le jugement d'ouverture, **même si son échéance contractuelle est postérieure**. Ne **jamais** classer une créance en postérieure (art. L.622-17 C.com. `[Légifrance]`, régime distinct des créances postérieures privilégiées) au seul motif que sa date d'échéance suit le jugement. `[review]` si le fait générateur s'étale (prestations successives).
 - Créance non échue à la date du jugement — le jugement d'ouverture ne la rend pas exigible (art. L.622-29 C.com. `[Légifrance]`) ; déclarée à hauteur du capital restant dû `[review]`.
 - Créance en monnaie étrangère — conversion taux jugement `[review]`.
 
@@ -184,12 +190,18 @@ Cas particuliers à signaler (sans calculer automatiquement) :
 | Composante | Règle | Tag |
 |---|---|---|
 | Principal | Montant en euros à la date du jugement d'ouverture | [utilisateur fourni] |
-| Intérêts contractuels | Arrêtés à la date du jugement art. L.622-28 C.com. [Légifrance] — sauf prêts ou délais de paiement >= 1 an (intérêts continuent à courir) | calcul + [review] si zone grise |
-| Frais accessoires / clause pénale (de retard) | Arrêtés à la date du jugement art. L.622-28 C.com. [Légifrance] — assimilés aux intérêts de retard et majorations | [review] |
+| Intérêts contractuels | Arrêtés à la date du jugement art. L.622-28 C.com. [Légifrance] — sauf prêts ou délais de paiement >= 1 an (intérêts continuent à courir). **Taux : consulter Légifrance/PISTE** pour la valeur (donnée publiée, pas un jugement) et la fournir avec source ; `[à vérifier]` **uniquement** en mode dégradé si l'outil est indisponible ; **ne jamais inventer**, et bon concept (taux légal **professionnel**, pas consommateur) | calcul + `[Légifrance]` (ou `[à vérifier]` si dégradé) |
+| Indemnité forfaitaire de recouvrement | 40 € par facture **en retard à la date du jugement** (art. L.441-10, D.441-5 C.com. [Légifrance]) — non due pour une facture non encore échue au jugement | calcul |
+| Clause pénale (de retard) | Déclenchée **seulement si la condition contractuelle est remplie** (typiquement mise en demeure restée infructueuse) ; calculée sur la **base stipulée par la clause** — expliciter si « principal » s'entend HT ou TTC `[review]` et **afficher la base retenue** ; arrêtée à la date du jugement art. L.622-28 C.com. [Légifrance] ; **modérable par le juge** si manifestement excessive (art. 1231-5 C.civ. [Légifrance]) | [review] |
 | TVA | Si applicable selon nature créance et régime | calcul |
 | **Total déclaré** | Somme des composantes | — |
 
 Présenter un tableau détaillé : Nature / Base / Taux ou règle / Montant arrêté au [date jugement] / Total. Si la date du jugement est `[à vérifier]`, présenter le calcul à la date publication BODACC et flaguer l'écart possible en note du relecteur.
+
+**Garde-fous chiffrage — auto-contrôle avant sortie :**
+- **Taux légal** : jamais un chiffre inventé. Un taux affirmé sans source consultée est une erreur — écrire `[à vérifier]` + le concept (taux légal professionnel).
+- **Base de la clause pénale** : afficher la base retenue (HT ou TTC du principal) et la taguer `[review]` ; ne pas changer de base d'une ligne à l'autre.
+- **Cohérence du total** : le total déclaré doit être **arithmétiquement égal à la somme des composantes affichées**. Recalculer l'addition avant de sortir ; si une composante est `[à vérifier]`, le total l'est aussi.
 
 ---
 
@@ -203,6 +215,20 @@ Présenter un tableau détaillé : Nature / Base / Taux ou règle / Montant arr�
 | Réserve de propriété | Vente avec clause de réserve de propriété art. L.624-16 C.com. [Légifrance] | CGV signées avec clause + facture + bon de livraison |
 
 Tag `[review]` sur la recevabilité du privilège si l'inscription est tardive, mal libellée, ou si le rang est contestable. Ne **jamais** présenter un privilège comme acquis sans vérification de l'inscription / publication.
+
+**Rang par défaut — chirographaire.** En l'absence d'un privilège ou d'une sûreté valablement inscrit, une créance de prix (fournisseur, prestataire) est **chirographaire**. Ne pas la qualifier de privilégiée, fiscale, sociale, superprivilégiée, ni de créance postérieure L.622-17, sans fondement vérifié. Sur-revendiquer un rang fragilise la déclaration `[review]`.
+
+### Réserve de propriété — déclaration ET action en revendication (deux procédures distinctes)
+
+La clause de réserve de propriété (art. L.624-16 C.com. `[Légifrance]`) ne se fait **pas** valoir par la seule déclaration de créance : elle suppose une **action en revendication distincte**.
+
+| Point | Règle |
+|---|---|
+| Délai | **3 mois** à compter de la publication BODACC du jugement (art. L.624-9 C.com. `[Légifrance]`) — délai propre, **distinct** des 2 mois de la déclaration de créance |
+| Destinataire | demande amiable par LRAR à l'**administrateur judiciaire** (à défaut, au mandataire/débiteur selon la procédure) ; à défaut d'acquiescement dans **1 mois**, saisine du **juge-commissaire** dans le mois suivant (art. L.624-17, R.624-13 C.com. `[à vérifier]`) |
+| Assiette | uniquement les biens **non incorporés**, **individualisables** et retrouvés en nature chez le débiteur ; les biens déjà incorporés ou transformés échappent à la revendication `[review]` |
+| Forme | clause convenue **par écrit au plus tard à la livraison** — des CGV acceptées à l'ouverture du compte peuvent constituer cet écrit pour les opérations suivantes `[review]` |
+| Articulation | déclarer la créance monétaire pour son **montant total** et signaler la revendication en parallèle ; ne **pas** déduire d'office la valeur des biens revendiqués du montant déclaré (ajustement seulement en cas de restitution effective ou de paiement du prix) |
 
 ---
 
@@ -236,6 +262,8 @@ Privilège revendiqué (le cas échéant) : [type + fondement légal + référen
 
 Justificatifs joints : [liste numérotée — facture(s), bon(s) de livraison, contrat, mise en demeure, acte de nantissement, etc.]
 
+Le créancier certifie que la présente créance est sincère et exacte, qu'elle subsiste en son entier à la date du jugement d'ouverture et qu'elle n'a fait l'objet d'aucun paiement, novation ni compensation à ce jour.
+
 Fait à [ville], le [date].
 Signature, qualité du signataire ([service contentieux / DAF / dirigeant habilité, conformément au profil cabinet]).
 ```
@@ -246,7 +274,7 @@ L'art. L.622-21 C.com. `[Légifrance]` (arrêt des poursuites individuelles) int
 
 ## Étape 6 — Post-flight `verifier-citations`
 
-Appel automatique sur la sortie complète. Articles à vérifier : L.622-21, L.622-24, L.622-26, L.622-28, L.622-29 (présents dans `references/articles-c-civ-c-com-index.md` → tag `[Légifrance]`). R.622-24 (réglementaire, délais procéduraux) présent dans l'index → tag `[Légifrance]` si cité. Si PISTE non configuré : mode dégradé documenté.
+Appel automatique sur la sortie complète. Articles à vérifier : L.622-17, L.622-21, L.622-24, L.622-26, L.622-28, L.622-29 (présents dans `references/articles-c-civ-c-com-index.md` → tag `[Légifrance]`). R.622-24 (réglementaire, délais) présent dans l'index → tag `[Légifrance]` si cité. Articles mobilisés par la réserve de propriété / revendication et les accessoires — **L.624-9, L.624-16, L.624-17, R.624-13 C.com., L.441-10, D.441-5 C.com., art. 642 CPC, art. 1231-5 C.civ.** — à vérifier sur Légifrance ; si absents de l'index, garder `[à vérifier]` plutôt que `[Légifrance]`. Si PISTE non configuré : mode dégradé documenté.
 
 ---
 
@@ -267,7 +295,7 @@ Appel automatique sur la sortie complète. Articles à vérifier : L.622-21, L.6
 # 🟢/🟠/🔴/🔴🔴 Statut forclusion
 - Date publication BODACC : [date]
 - Délai applicable : 2 mois (ou 4 mois si créancier étranger)
-- Date forclusion : [date]
+- Date forclusion : [date **prorogée au 1er jour ouvrable suivant si elle tombe un week-end / jour férié — art. 642 CPC** ; indiquer la date brute entre parenthèses si prorogation appliquée]
 - Jours restants : [N]
 - Action recommandée : [envoi normal / prioritaire / URGENT / requête en relevé L.622-26]
 
@@ -312,11 +340,59 @@ La déclaration de créance est un livrable externe au sens de CLAUDE.md plugin 
 
 ---
 
+## Mode `--releve-forclusion` — Requête en relevé de forclusion (L.622-26)
+
+Déclenché quand la forclusion L.622-24 est **déjà acquise** (Étape 2 → 🔴🔴) ou demandé explicitement. Produit une **requête motivée adressée au juge-commissaire** (et non au mandataire). La requête ne dispense pas de la déclaration : si le relevé est accordé, enchaîner sur la déclaration dans le délai fixé par le juge-commissaire.
+
+### Étape R1 — Recevabilité de l'action en relevé (gate)
+
+- **Délai d'action : 6 mois** à compter de la publication du jugement d'ouverture au BODACC (art. L.622-26 al. 2 C.com. `[Légifrance]`). Ce délai est lui-même un délai de forclusion.
+- Cas d'allongement / report du point de départ (créancier qui ne pouvait connaître l'obligation au moment de l'ouverture, créance révélée tardivement, délai porté à un an dans certains cas) → `[à vérifier]`, ne pas trancher sans consultation de l'article en vigueur.
+- Si le délai de 6 mois est lui-même expiré → la voie du relevé est fermée `[review]` : **le signaler** et ne pas rédiger une requête vouée à l'irrecevabilité. Calcul obligatoire :
+
+```
+date_limite_action_releve = date_publication_bodacc + 6 mois
+(prorogée au 1er jour ouvrable suivant si week-end/jour férié — art. 642 CPC)
+```
+
+### Étape R2 — Cause du relevé (l'une des deux, art. L.622-26 al. 1)
+
+| Cause | Critère | Charge de preuve |
+|---|---|---|
+| (a) Défaillance **non due au fait du créancier** | absence d'information, créance née/révélée tardivement, impossibilité de connaître la procédure | sur le créancier — appréciation stricte `[review]` |
+| (b) Créance **omise par le débiteur** lors de l'établissement de la liste art. L.622-6 C.com. `[Légifrance]` | le débiteur devait porter le créancier sur la liste remise au mandataire ; l'omission ouvre le relevé | plus favorable au créancier — établir l'omission |
+
+Documenter précisément les faits à l'appui de la cause invoquée. Ne pas présenter le relevé comme acquis : il relève de l'appréciation du juge-commissaire `[review]`.
+
+### Étape R3 — Rédaction de la requête (au juge-commissaire)
+
+```
+[Identification créancier] — [Procédure : TC, n° RG, type, date jugement, date publication BODACC]
+
+À Monsieur/Madame le Juge-commissaire
+
+OBJET : REQUÊTE EN RELEVÉ DE FORCLUSION (art. L.622-26 C.com.) — créance [débiteur, SIREN]
+
+1. Rappel de la procédure et de la forclusion encourue (date publication BODACC + 2 mois = [date], dépassée).
+2. Recevabilité : la présente demande est formée dans le délai de 6 mois de la publication (échéance [date]).
+3. Cause du relevé : [(a) défaillance non imputable au créancier OU (b) omission du débiteur dans la liste L.622-6], exposée en fait et étayée par les pièces.
+4. Créance à déclarer : montant et nature (renvoi au détail de la déclaration projetée).
+PAR CES MOTIFS, plaise au juge-commissaire de relever le créancier de la forclusion et de l'autoriser à déclarer sa créance dans le délai qu'il fixera.
+[Pièces : justificatifs de la cause + justificatifs de la créance]
+```
+
+### Étape R4 — Conséquences à signaler
+
+- Le créancier relevé **ne concourt qu'aux répartitions postérieures à sa demande** (art. L.622-26 C.com. `[à vérifier]`) — il ne participe pas aux distributions déjà intervenues.
+- Le relevé obtenu, **déclarer la créance** dans le délai fixé (enchaîner sur le mode déclaration standard).
+
+---
+
 ## Ce skill ne fait pas
 
 - L'envoi physique du courrier recommandé (acte du créancier / cabinet).
 - Le suivi de l'état des créances (admission / contestation par le mandataire ou le juge-commissaire) → `v1.1+`.
-- La rédaction détaillée d'une **requête en relevé de forclusion art. L.622-26 C.com.** `[Légifrance]` (mémoire argumenté sur l'absence de fait du créancier, créance inconnue du débiteur) → trame minimale possible, dossier complet renvoyé `v1.1+`.
+- Le **dépôt** de la requête en relevé de forclusion au greffe et sa plaidoirie devant le juge-commissaire (acte de l'avocat) — le mode `--releve-forclusion` produit la requête motivée, pas son dépôt ni l'audience.
 - La revue d'un acte de cession en cours de procédure collective (plan de cession art. L.642-1 C.com. `[Légifrance]`) → renvoyer vers un avocat spécialisé restructuring.
 - Le conseil sur une poursuite individuelle suspendue par art. L.622-21 C.com. `[Légifrance]` (arrêt des poursuites) — signalement uniquement.
 - La contestation d'une créance déjà admise (recours devant juge-commissaire) → `v1.1+`.

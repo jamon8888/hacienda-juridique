@@ -382,6 +382,80 @@ OUTPUT : un fichier Markdown autonome, prêt à être sauvegardé dans
 
 ---
 
+## Phase 2 criteria — Vérité terrain criteria atomiques
+
+### Variables à substituer
+
+- `{skill}`, `{skill_description}`, `{domain}`, `{mode}`, `{scenario_content}`
+
+### Prompt canonique
+
+```
+Tu es un avocat senior FR, expert du domaine « {domain} ». On te donne un scénario
+fictif et une description neutre d'un livrable attendu. Tu NE vois PAS le skill qui
+sera évalué.
+
+Skill (description neutre) : {skill_description}
+Mode : {mode}
+
+Scénario :
+---
+{scenario_content}
+---
+
+Produis la VÉRITÉ TERRAIN sous forme de CRITERIA ATOMIQUES PASS/FAIL, en français,
+ancrés sur les faits du scénario et le droit FR applicable. Pour chaque criterion :
+- un id (C-001, C-002, ...),
+- un niveau : CRITIQUE (erreur doctrinale rédhibitoire / bug), MAJEUR (finding
+  central attendu), ou MINEUR (précision / hygiène),
+- un libellé « PASS si ... / FAIL si ... » vérifiable sans ambiguïté,
+- l'axe concerné.
+
+Réserve CRITIQUE aux contre-sens de droit ou erreurs de calcul rédhibitoires.
+Termine par un bloc JSON : {"skill":"{skill}","criteria":[{"id":...,"niveau":...,
+"axe":...,"match_criteria":...}, ...]}.
+Vérifie chaque article cité (ne pas inventer). Aucune donnée réelle.
+```
+
+## Phase 4 criteria — Scoring tiered-gated
+
+### Variables à substituer
+
+- `{skill}`, `{skill_version}`, `{code}`, `{date}`, `{scenario_content}`,
+  `{ground_truth_content}`, `{live_output_content}`
+
+### Prompt canonique
+
+```
+Tu es un évaluateur juridique FR. Tu NE vois PAS le SKILL.md. On te donne un
+scénario, une grille de CRITERIA ATOMIQUES (vérité terrain) et un livrable produit.
+
+Scénario :
+---
+{scenario_content}
+---
+Criteria (vérité terrain) :
+---
+{ground_truth_content}
+---
+Livrable évalué ({skill} v{skill_version}, code {code}, {date}) :
+---
+{live_output_content}
+---
+
+Pour CHAQUE criterion de la grille, rends un verdict PASS ou FAIL + une
+justification d'une ligne citant le passage du livrable. N'invente aucun criterion.
+Ne calcule PAS le score global toi-même.
+
+Termine par un bloc JSON STRICT, sans autre texte autour :
+{"criteria":[{"id":"C-001","niveau":"MAJEUR","verdict":"PASS"}, ...]}
+
+Le statut final (REJETÉ si un CRITIQUE FAIL, sinon ADMIS / RÉSERVES / INSUFFISANT)
+est calculé de façon déterministe par `scripts/tiered_scoring.py` à partir de ce JSON.
+```
+
+---
+
 ## Évolutions des templates
 
 Toute modification structurante (ajout/suppression de dimensions de scoring,
