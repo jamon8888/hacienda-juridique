@@ -67,7 +67,26 @@ python3 scripts/codex-blind-scoring.py phase2-criteria \
   --domain droit-affaires --mode "draft payer côté créancier" \
   --scenario plugins/hacienda-droit-affaires/tests/datasets/da-mise-en-demeure-commerciale/scenario.md \
   --output plugins/hacienda-droit-affaires/tests/datasets/da-mise-en-demeure-commerciale/ground-truth.md
-# puis Phase 3 (session Claude fraîche) → live-output.md, puis Phase 4 comme ci-dessus.
+
+# nouveau code de cycle
+python3 -c "import secrets,string;print(''.join(secrets.choice(string.ascii_uppercase+string.digits) for _ in range(6)))"
+
+# Phase 3 : session Claude FRAÎCHE, input = scenario.md seul (PAS ground-truth.md)
+#   /h-droit-affaires:mise-en-demeure-commerciale --draft --type=payer .../da-mise-en-demeure-commerciale/scenario.md
+#   → sauver da-mise-en-demeure-commerciale/live-output.md
+
+# Phase 4 criteria (Codex medium)
+python3 scripts/codex-blind-scoring.py phase4-criteria \
+  --skill mise-en-demeure-commerciale --skill-version 2.0.0 --code <CODE> \
+  --scenario plugins/hacienda-droit-affaires/tests/datasets/da-mise-en-demeure-commerciale/scenario.md \
+  --ground-truth plugins/hacienda-droit-affaires/tests/datasets/da-mise-en-demeure-commerciale/ground-truth.md \
+  --live-output plugins/hacienda-droit-affaires/tests/datasets/da-mise-en-demeure-commerciale/live-output.md \
+  --date <YYYY-MM-DD> \
+  --output docs/backlog/da-scoring-mise-en-demeure-commerciale-<CODE>.md
+# sauver le JSON verdicts → da-mise-en-demeure-commerciale/verdicts-<CODE>.json (UTF-8, pas /tmp), puis agréger :
+python3 scripts/tiered_scoring.py \
+  plugins/hacienda-droit-affaires/tests/datasets/da-mise-en-demeure-commerciale/ground-truth.md \
+  plugins/hacienda-droit-affaires/tests/datasets/da-mise-en-demeure-commerciale/verdicts-<CODE>.json
 ```
 
 > ⚠️ À surveiller à la lecture de la grille mise-en-demeure : ≥ 1 gate CRITIQUE sur la
