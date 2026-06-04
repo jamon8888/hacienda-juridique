@@ -226,7 +226,7 @@ Si plusieurs créances/factures, joindre un tableau récapitulatif ; au-delà de
 | Poste | Règle | Tag |
 |---|---|---|
 | Principal | montant des factures échues impayées | [utilisateur fourni] |
-| Intérêts moratoires | à défaut de taux conventionnel : taux légal (art. 1231-6 C.civ `[Légifrance]`) ; si CGV conformes : taux légal **professionnel** majoré (souvent + ... points) à compter de l'échéance / de la mise en demeure (art. 1344-1 C.civ `[Légifrance]`) | [à vérifier] |
+| Intérêts moratoires | à défaut de taux conventionnel : taux légal (art. 1231-6 C.civ `[Légifrance]`) ; si CGV conformes : taux légal **professionnel** majoré (+ N points selon CGV) à compter de l'échéance / de la mise en demeure (art. 1344-1 C.civ `[Légifrance]`). **Consulter Légifrance/PISTE pour la valeur du taux** (donnée publiée, pas un jugement) et la fournir avec source ; `[à vérifier]` **uniquement** si l'outil est indisponible (mode dégradé) ; **jamais inventer** | `[Légifrance]` (ou `[à vérifier]` si dégradé) |
 | Indemnité forfaitaire de recouvrement | **40 € par facture** en retard (art. L.441-10, D.441-5 C.com. `[Légifrance]`) ; indemnité complémentaire sur justificatifs si frais réels supérieurs | [à vérifier] |
 | Clause pénale | si stipulée au contrat/CGV ; **modérable** par le juge si manifestement excessive ou dérisoire (art. 1231-5 C.civ `[Légifrance]`) | [review] |
 

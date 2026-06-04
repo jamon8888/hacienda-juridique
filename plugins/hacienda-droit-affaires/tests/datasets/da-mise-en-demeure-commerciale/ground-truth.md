@@ -1,7 +1,7 @@
 {
   "skill": "mise-en-demeure-commerciale",
   "_sources": "Sources officielles vérifiées : Code civil art. [1344](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000032042162/2026-02-24), [1344-1](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032035273/2026-05-10), [1231-5](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032010131) ; Code de commerce art. [L.441-10](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038414392/2021-11-08), [D.441-5](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000043197457/2023-02-03), [L.622-21](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000044052603/2022-04-01) ; taux d’intérêt légal : arrêtés du [19 juin 2025](https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000051783195) et du [15 décembre 2025](https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000053165415).",
-  "_provenance": "Phase 2 blind Codex GPT-5.5 HIGH (cycle AOV4CS) — JSON extrait de la réponse markdown",
+  "_provenance": "Phase 2 blind Codex GPT-5.5 HIGH (cycle AOV4CS) — JSON extrait de la réponse markdown | C-011 assouplie (finding E2) : accepte [à vérifier] en mode dégradé.",
   "criteria": [
     {
       "id": "C-001",
@@ -67,7 +67,7 @@
       "id": "C-011",
       "niveau": "MAJEUR",
       "axe": "calcul intérêts",
-      "match_criteria": "PASS si le taux contractuel est identifié comme taux d’intérêt légal applicable aux créances professionnelles majoré de 5 points, soit 7,76 % pour fin 2025 et 7,62 % pour début 2026 ; FAIL si le livrable utilise le taux consommateur ou un taux BCE + 10 points en contradiction avec les CGV."
+      "match_criteria": "PASS si la sortie traite le taux d'intérêt moratoire correctement : SOIT elle fournit le taux légal professionnel applicable avec sa source (Légifrance/JORF), SOIT — en mode dégradé, outil de consultation indisponible — elle identifie le bon concept (taux légal professionnel, pas consommateur) et le tague [à vérifier] sans inventer de valeur. FAIL si elle invente un taux chiffré sans source, applique le taux consommateur, ou omet la majoration contractuelle des CGV."
     },
     {
       "id": "C-012",
