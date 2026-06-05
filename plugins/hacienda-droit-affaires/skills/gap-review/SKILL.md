@@ -154,6 +154,7 @@ Vérifier :
 - **Date de référence** — closing ou signing ? (signing-driven : risque interim period acquéreur ; closing-driven : risque divulgation tardive cédant)
 - **Date de réalisation** — effet rétroactif au closing, à compter de la notification, etc.
 - **Articulation garanties légales** — éviction (art. 1626 C.civ `[Légifrance]`), vices cachés (art. 1641 C.civ `[Légifrance]`), délivrance (art. 1602 C.civ `[Légifrance]`) : la GAP complète, n'écarte pas par principe `[review]`
+- **Plancher d'ordre public — non négociable.** Une clause d'exclusivité ou d'écartement des recours ne peut **jamais** neutraliser le **dol et la réticence dolosive (art. 1137 C.civ `[Légifrance]`)**, la **fraude**, ni plus largement les **vices du consentement (art. 1130 C.civ `[Légifrance]`)** et l'exigence de **bonne foi contractuelle (art. 1104 C.civ `[Légifrance]`)** : ces fondements sont d'ordre public et survivent à la GAP, hors plafond et hors durée. Face à une clause « garantie exclusive / garanties légales écartées dans toute la mesure permise », **affirmer explicitement** que rien ne limite l'action pour dol/fraude (1130/1137) ni le recours pour mauvaise foi (1104) — c'est 🔴 si la clause prétend les écarter absolument.
 
 Findings 🟢/🟡/🟠/🔴 par sous-point. Tag `[review]` sur jugements subjectifs (opposabilité d'une disclosure tardive, étendue raisonnable d'une exclusion).
 
@@ -172,6 +173,8 @@ Vérifier et tabuler :
 | Franchise absolue vs déduite | absolue / déduite | Déduite = avantageux acquéreur ; absolue = avantageux cédant | impact économique | 🟢/🟡/🟠/🔴 |
 | Durée garantie générale | x ans | 18-24 mois standard | ± | 🟢/🟡/🟠/🔴 |
 | Durée garantie fiscale / sociale | x ans | Prescription + délai de reprise (3 ans min) [à vérifier] | ± | 🟢/🟡/🟠/🔴 |
+
+**Durée fiscale — ancrage droit de reprise.** La garantie fiscale doit survivre **au moins jusqu'à l'expiration du droit de reprise de l'administration**, et non sur la durée générale. Pour la **TVA, droit de reprise jusqu'à la fin de la 3ᵉ année suivante (art. L.176 LPF `[Légifrance]`)** ; impôts directs : 3 ans (art. L.169 LPF `[Légifrance]`), porté à 10 ans en cas d'activité occulte/fraude `[à vérifier]`. Une durée générale de 12-18 mois est **manifestement insuffisante** pour des exercices encore dans le délai de reprise (ex. exercices N-1/N-2) → 🔴, exiger une durée fiscale spécifique alignée sur la reprise + 30 jours.
 | Durée garantie environnement | x ans | 5-10 ans selon exposition [à vérifier] | ± | 🟢/🟡/🟠/🔴 |
 
 **Franchise absolue vs déduite.** Absolue = en deçà du seuil, aucune indemnisation ; au-delà, indemnisation **du dépassement seulement**. Déduite = au-delà du seuil, indemnisation **intégrale**. Impact économique très différent. `[review]` si la clause est ambiguë.
@@ -224,6 +227,8 @@ Pour chaque finding matériel du rapport de DD : identifier la garantie GAP appl
 | ex. Salarié protégé, contentieux prud'homal en cours | 🟠 | Garantie sociale | Oui | Inclure dans périmètre, durée jusqu'à prescription |
 | ex. Non-conformité RGPD (registre incomplet) | 🟡 | Garantie RGPD spécifique [review] | Non si pas de garantie RGPD distincte | Ajouter clause ad hoc ou réduction de prix |
 | ex. Brevet cédé sans inscription RNB | 🟠 | Renvoi `/h-pi:contrats-pi` | — | Régulariser inscription avant closing |
+
+**Risque public ≠ coût de travaux.** Un finding réglementaire inexécuté (ex. mise en demeure ICPE, arrêté préfectoral de mise en conformité non exécuté) ne se chiffre **pas** au seul coût des travaux : son inexécution expose à des **sanctions administratives et à l'exécution d'office aux frais de l'exploitant (art. L.171-8 C. env. `[Légifrance]`)**, voire à une consignation de sommes, une suspension d'activité ou des sanctions pénales. Conséquence GAP : qualifier 🔴, exiger une **condition suspensive d'exécution + quitus de l'autorité (DREAL)** et/ou une garantie environnementale spécifique de longue durée (exposition sols/eaux 7-10 ans) avec plafond dédié — ne jamais se limiter à une indemnité égale au coût estimé des travaux.
 
 **Plancher sévérité cross-skill.** Si la DD signale 🔴, ne pas dégrader silencieusement en 🟠 dans la GAP review. Si l'analyse GAP estime la couverture suffisante, le statut reste 🔴 sur le finding DD avec mention « couvert par garantie X » — ne pas réécrire la criticité source.
 
