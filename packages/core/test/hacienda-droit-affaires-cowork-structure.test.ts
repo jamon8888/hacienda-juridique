@@ -85,6 +85,12 @@ function collectTextFiles(dir: string): string[] {
     const stats = statSync(absolutePath);
 
     if (stats.isDirectory()) {
+      // Les fixtures de test (tests/datasets) enregistrent des sorties modèle
+      // brutes (scoring blind) ; elles ne sont pas des fichiers livrés et ne
+      // sont pas soumises au lint d'hygiène des renvois inter-plugins.
+      if (entry === "tests") {
+        continue;
+      }
       files.push(...collectTextFiles(absolutePath));
       continue;
     }

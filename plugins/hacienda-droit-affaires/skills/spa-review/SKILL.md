@@ -223,6 +223,18 @@ Vérifier :
 Un earn-out sans formule déterminable ou sans gouvernance post-closing est 🟠
 ou 🔴 selon matérialité.
 
+**Ancrage doctrinal — déterminabilité du prix.** Un complément de prix dont le
+montant dépend de la seule appréciation discrétionnaire ou « de bonne foi » d'une
+partie (formule du type « si la performance est satisfaisante ») n'est pas un prix
+**déterminé ou déterminable par des éléments objectifs** : il heurte les art. 1591
+et 1163 C.civ `[Légifrance]` et expose à un **risque de nullité** de la stipulation
+de prix (voire de la vente). C'est le grief premier — pas seulement l'exécution de
+bonne foi (1104) ni le contentieux post-closing. Exiger des **critères objectifs**
+(EBITDA / CA / marge définis, retraitements, période) ; l'**expertise d'un tiers
+art. 1592 C.civ** `[Légifrance]` est une *solution* de détermination, pas une
+justification du caractère discrétionnaire. Côté acquéreur, une rédaction
+discrétionnaire en sa faveur est un faux confort : elle est attaquable.
+
 ---
 
 ## Étape 7 — Déclarations, garanties, indemnisation et disclosure
@@ -252,6 +264,19 @@ Si `--dd-findings` est fourni, créer un tableau :
 Pour chaque finding matériel, vérifier qu'il est traité par au moins une
 protection : CP, déclaration spécifique, indemnité spécifique, escrow, réduction
 de prix, engagement post-closing ou abandon documenté.
+
+**Ancrage doctrinal — matérialité et consentement.** Un finding DD structurant
+pour la valeur ou le consentement de l'acquéreur (dépendance client, clause de
+changement de contrôle sur un contrat clé, litige majeur, perte d'un actif
+essentiel) ne se traite pas seulement en risque commercial : il engage le
+**devoir précontractuel d'information art. 1112-1 C.civ** `[Légifrance]` à la
+charge des cédants et, en cas de rétention d'une information déterminante, ouvre
+le terrain des **vices du consentement (réticence dolosive, erreur — art. 1130 et
+1137 C.civ)** `[Légifrance]`. Conséquence pratique : exiger une **déclaration
+spécifique** couvrant le point, une **indemnité dédiée** ou un ajustement de prix,
+et qualifier explicitement la matérialité (ex. un client > 20-30 % du CA est
+présumé structurant `[review]`). Minimiser un tel finding est une faute d'analyse,
+pas un choix de négociation.
 
 Si aucun finding DD n'est fourni, mentionner : "Confrontation DD non exécutée ;
 un SPA ne peut pas être considéré signing-ready sans revue des findings DD."
