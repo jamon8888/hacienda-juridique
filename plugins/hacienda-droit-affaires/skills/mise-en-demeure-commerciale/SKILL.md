@@ -159,6 +159,7 @@ Si plusieurs créances/factures, joindre un tableau récapitulatif ; au-delà de
 
 > ⚠️ Note du relecteur
 > - **Sources :** Légifrance ✓ / BODACC ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Procédure collective :** {résultat explicite de la détection — ex. « BODACC consulté, aucune sauvegarde/RJ/LJ ouverte pour {débiteur} : poursuite possible » | « ✗ BODACC non interrogé en live — à vérifier avant envoi »}. **Garde-fou L.622-21 C.com.** : si une procédure collective s'ouvrait (ou si la détection a échoué), l'arrêt des poursuites individuelles **interdirait** la mise en demeure d'une créance antérieure → bascule `declaration-creance`. *(Ligne obligatoire — ne jamais omettre, même quand le débiteur est in bonis.)*
 > - **Lecture :** {N} factures / contrat / échanges
 > - **Signalé pour ton jugement :** {N} éléments [review] (clause pénale, délai, taux) | aucun
 > - **Fraîcheur :** taux légal du semestre + jurisprudence intérêts/clause pénale — {N} | recherche impossible
@@ -205,7 +206,7 @@ Si plusieurs créances/factures, joindre un tableau récapitulatif ; au-delà de
 
 1. Invoquer `check-pii` (probabilité élevée seuil B : SIREN + montants + dénominations). Respecter la décision.
 2. Lire le profil cabinet (bloc contrats commerciaux + matrice d'approbateurs).
-3. **Détection procédure collective (obligatoire).** Si un SIREN est fourni ou détectable (regex `\b[0-9]{9}\b` + Luhn) : `bodacc_procedures`. Si sauvegarde/RJ/LJ ouverte et la créance est **antérieure** au jugement → **STOP** : pas de mise en demeure (arrêt des poursuites L.622-21 C.com. `[Légifrance]`), renvoi `declaration-creance`. Distinguer les créances **postérieures** privilégiées (art. L.622-17) qui, elles, peuvent être réclamées `[review]`.
+3. **Détection procédure collective (obligatoire).** Si un SIREN est fourni ou détectable (regex `\b[0-9]{9}\b` + Luhn) : `bodacc_procedures`. Si sauvegarde/RJ/LJ ouverte et la créance est **antérieure** au jugement → **STOP** : pas de mise en demeure (arrêt des poursuites L.622-21 C.com. `[Légifrance]`), renvoi `declaration-creance`. Distinguer les créances **postérieures** privilégiées (art. L.622-17) qui, elles, peuvent être réclamées `[review]`. **Tracer le résultat dans la note du relecteur (ligne « Procédure collective » obligatoire), y compris quand aucune procédure n'est ouverte** : le garde-fou L.622-21 doit rester visible dans le livrable, jamais vérifié en silence.
 4. **Test rupture brutale.** Si l'opération revient à cesser une relation commerciale établie → signaler le risque L.442-1, II C.com. et renvoyer `analyser-rupture-brutale` avant envoi.
 5. Identifier les parties, le contrat applicable, le droit applicable et la juridiction (si clause attributive).
 
