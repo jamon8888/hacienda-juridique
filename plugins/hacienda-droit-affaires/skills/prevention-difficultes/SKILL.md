@@ -119,7 +119,7 @@ Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-droit-affaires:entreti
 ## Outils MCP à privilégier
 
 - Identification entreprise + difficultés publiées : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures` (vérifier qu'aucune procédure collective n'est déjà ouverte).
-- Socle sources : `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`.
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `eurlex_recherche`, `eurlex_consulter`.
 
 ---
 

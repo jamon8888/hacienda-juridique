@@ -87,7 +87,9 @@ Chaque skill Droit des affaires est invocable directement comme commande du plug
 | `/h-droit-affaires:gouvernance-ag` | Convocations et PV d'assemblées. |
 | `/h-droit-affaires:liste-de-points` | Issues list de négociation. |
 | `/h-droit-affaires:loi-term-sheet` | LOI, NBO et term sheet M&A. |
+| `/h-droit-affaires:mise-en-demeure-commerciale` | Mise en demeure commerciale B2B (payer / exécuter) avec garde-fou procédure collective. |
 | `/h-droit-affaires:pacte-associes-review` | Revue de pacte d'associés. |
+| `/h-droit-affaires:prevention-difficultes` | Orientation prévention (mandat ad hoc / conciliation / sauvegarde accélérée). |
 | `/h-droit-affaires:reviser-contrat` | Revue de contrat commercial. |
 | `/h-droit-affaires:reviser-nda` | Triage NDA et confidentialité. |
 | `/h-droit-affaires:revue-tabulaire` | Revue tabulaire multi-documents. |

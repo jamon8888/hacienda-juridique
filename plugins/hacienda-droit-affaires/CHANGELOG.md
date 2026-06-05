@@ -1,5 +1,28 @@
 # Changelog — hacienda-droit-affaires
 
+## [0.2.0] — 2026-06-05
+
+Socle **procédures collectives / persona ami** validé par sparring scoring blind
+tiered-gated (protocole 4 phases, cf. `docs/methodology/sparring-scoring-protocol.md`).
+Les deux skills cœur passent leur cycle blind sans gate CRITIQUE FAIL.
+
+### Validé blind (criteria-driven)
+- `declaration-creance` (L.622-24) — **RÉSERVES** (0,85, gate ouvert ; cycle CBO94O). Ancrage doctrinal (fait générateur, prorogation 642 CPC, revendication réserve de propriété, chirographaire) + garde-fous chiffrage (pas de taux inventé, base clause pénale explicite, auto-contrôle arithmétique). Régressions mineures C-006/C-009 + clause pénale C-014 tracées (finding F, v0.3.0).
+- `mise-en-demeure-commerciale` (nouveau) — **ADMIS** (0,95, gate fermé ; cycle FCQDWM). Sommes (intérêts 1344-1, forfait 40 € L.441-10, clause pénale 1231-5), délai raisonnable, **garde-fou procédure collective L.622-21 rendu visible** dans la note du relecteur (ligne « Procédure collective » obligatoire) → bascule `declaration-creance` si débiteur en sauvegarde/RJ/LJ.
+
+### Ajouts (construits, non encore scorés blind)
+- `declaration-creance --releve-forclusion` — requête en relevé de forclusion L.622-26 (délai d'action 6 mois, cause non imputable au créancier).
+- `prevention-difficultes` — mandat ad hoc / conciliation / sauvegarde accélérée ; gate cessation des paiements.
+
+### Méthodologie & outillage
+- Protocole sparring scoring blind 4 phases (Phase 2 vérité terrain HIGH sans SKILL.md, Phase 3 exécution live sans ground-truth, Phase 4 scoring medium sans SKILL.md).
+- `scripts/tiered_scoring.py` (agrégation tiered-gated, niveau autoritatif depuis le ground-truth) + `scripts/codex-blind-scoring.py` (`phase2-criteria` / `phase4-criteria`).
+- Tranche E2 : `mise-en-demeure` **et** `declaration-creance` consultent Légifrance/PISTE pour le taux légal (`[à vérifier]` = repli dégradé documenté seulement).
+
+### Limites assumées v0.2.0
+- `--releve-forclusion`, `prevention-difficultes`, `analyser-rupture-brutale` : non scorés blind → usage sous validation humaine renforcée (file `docs/backlog/da-codex-scoring-queue.md`).
+- Persona frère M&A (`spa-review`, `gap-review`, `loi-term-sheet`, etc.) : hors périmètre v0.2.0, scoring blind vague suivante.
+
 ## [Non publié] — M&A UX + SPA review (2026-05-26)
 
 ### Ajouts

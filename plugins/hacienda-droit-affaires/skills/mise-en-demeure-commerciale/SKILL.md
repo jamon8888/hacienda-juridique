@@ -136,7 +136,7 @@ Side = **créancier / demandeur** par nature de l'acte.
 Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Si une source n'a pas été consultée, garder `[à vérifier]`.
 
 - Détection procédure collective + enrichissement : `bodacc_procedures`, `bodacc_by_siren`, `company_full_profile`.
-- Socle sources : `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`.
+- Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `eurlex_recherche`, `eurlex_consulter`.
 
 ---
 
