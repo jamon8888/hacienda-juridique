@@ -1,5 +1,26 @@
 # Changelog — hacienda-droit-affaires
 
+## [0.3.0] — 2026-06-05
+
+Cœur **persona frère M&A trade** validé par sparring scoring blind tiered-gated
+(protocole 4 phases). Les trois skills les plus exposés du cycle de vie d'un deal
+trade passent leur cycle blind **sans gate CRITIQUE FAIL**.
+
+### Validé blind (criteria-driven)
+- `loi-term-sheet` — **RÉSERVES** (0,90, gate-clean **dès le cycle 1, sans correctif** ; cycle AMDZQA). Qualification binding/non-binding (le titre « non contraignant » ne neutralise pas une obligation impérative), liberté de rompre les pourparlers + bonne foi (1104) + 1112 al. 2, sources réelles (1104/1112/1112-1/1231-5/1304-2). Skill nativement bien ancré.
+- `gap-review` — **RÉSERVES** (0,904, gate-clean ; cycle SFZLV2). Correctif **H1** : dol/fraude/vices du consentement non-écartables par une clause d'exclusivité GAP (1130/1137/1104) ; durée de la garantie fiscale ancrée sur le droit de reprise LPF (L.176 TVA / L.169 IS) ; mise en demeure ICPE inexécutée = risque public d'exécution d'office (L.171-8 C. env.), pas un simple coût de travaux.
+- `spa-review` — **gate-clean** (INSUFFISANT 0,71, gate ouvert ; cycle NQ4FOV). Correctif **G1** : earn-out indéterminable ancré sur la déterminabilité du prix (1591/1163, nullité) ; finding DD matériel cadré via le devoir d'information 1112-1 et les vices du consentement 1130/1137.
+
+### Méthodologie
+- Extension du protocole sparring scoring blind au persona frère (file `docs/backlog/da-codex-scoring-queue-frere.md`).
+- Confirmation : le défaut d'ancrage d'article observé sur spa-review/gap-review est **spécifique**, pas systémique (loi-term-sheet passe nativement) — pas de consigne transversale CLAUDE.md.
+- Correctif tooling : le test `cowork-structure` exclut désormais `tests/datasets` du lint d'hygiène des renvois (sorties modèle brutes, pas des fichiers livrés).
+
+### Limites assumées v0.3.0
+- `spa-review` reste INSUFFISANT (gate-clean) : findings de couverture G2 (objectivité CP, mécanique leakage, formalités SAS/CSE + sanctions) et G3 (hygiène renvoi PI) reportés.
+- `gap-review` H2 et `loi-term-sheet` I1 : majeurs résiduels de polish reportés.
+- F4 `due-diligence-dataroom`, F5 `pacte-associes-review`, F6 `closing-checklist-fr` : non scorés blind → usage sous validation humaine renforcée.
+
 ## [0.2.0] — 2026-06-05
 
 Socle **procédures collectives / persona ami** validé par sparring scoring blind
