@@ -191,6 +191,18 @@ des concentrations, consentements de cocontractants clés.
 Une CP nécessaire mais absente est 🔴. Une CP rédigée de façon potestative ou
 trop discrétionnaire est 🟠 avec tag `[review]`.
 
+**Objectiver les CP sous contrôle de l'acquéreur.** Les CP que l'acquéreur
+maîtrise — typiquement l'**obtention du financement** et la **satisfaction des
+diligences** — doivent être encadrées par des **critères objectifs** et une
+**obligation d'efforts** (reasonable best efforts, montant/type de financement,
+documentation, date butoir, conséquences de l'échec). Une condition dont la
+réalisation dépend de la **seule volonté de l'acquéreur** est **potestative** et
+expose à la nullité (art. 1304 et 1304-3 C.civ `[Légifrance]` : la condition
+suspensive qui dépend de la seule volonté du débiteur est nulle ; rappeler que
+la défaillance de la condition provoquée par la partie qui y avait intérêt est
+réputée accomplie). Côté acquéreur, une CP financement « à sa libre
+appréciation » est un faux confort : attaquable et source de contentieux. 🟠/🔴.
+
 ---
 
 ## Étape 5 — Période intercalaire, MAC et résiliation
@@ -222,6 +234,16 @@ Vérifier :
 
 Un earn-out sans formule déterminable ou sans gouvernance post-closing est 🟠
 ou 🔴 selon matérialité.
+
+**Mécanique du leakage (locked box) — protection acquéreur.** En locked box,
+exiger que **tout leakage non autorisé soit remboursé euro pour euro** par les
+cédants, avec : définition précise du leakage (et liste limitative du *permitted
+leakage*), **procédure de notification**, intérêts le cas échéant, et surtout
+une indemnisation **hors plafond et hors franchise de la GAP** (la restitution
+d'une sortie de valeur indue n'est pas un sinistre de garantie). Une clause qui
+limite la protection au seul « leakage significatif » ou la soumet au plafond
+GAP (souvent 8-15 % du prix) est 🔴 côté acquéreur : elle vide la locked box de
+son effet. `[review]`.
 
 **Ancrage doctrinal — déterminabilité du prix.** Un complément de prix dont le
 montant dépend de la seule appréciation discrétionnaire ou « de bonne foi » d'une
@@ -289,6 +311,25 @@ Vérifier non-concurrence cédant, non-sollicitation, confidentialité,
 accompagnement post-closing, transition services, obligations de coopération.
 Taguer `[review]` sur durée, territoire, activité et contrepartie.
 
+**Formalités sociétaires (cession de titres SAS).** Signaler la vérification des
+**statuts de la cible** (clauses d'agrément, préemption, inaliénabilité) et de la
+**chaîne de propriété des titres** : une cession contraire à une clause statutaire
+d'agrément est **nulle** (art. L.227-15 C.com. `[Légifrance]`). Au closing, le
+transfert s'opère par inscription au **registre de mouvements de titres** + mise à
+jour des comptes d'associés — renvoyer `closing-checklist-fr` pour l'exécution.
+
+**Formalités sociales.** Pour une cible d'un effectif significatif, vérifier les
+obligations d'**information-consultation du CSE** (art. L.2312-8 / L.2312-37
+C. trav. `[Légifrance]`) et, si les conditions PME sont réunies, l'**information
+des salariés** (art. L.23-10-7 C.com. `[Légifrance]`) — leur omission peut
+fragiliser l'opération. Renvoyer `hacienda-social`.
+
+**Sanctions contractuelles.** Vérifier que le leakage, la violation des covenants
+intercalaires et la non-concurrence sont assortis de **sanctions efficaces**
+(indemnité, clause pénale, exécution forcée). Rappeler le pouvoir de **modération
+judiciaire d'une clause pénale manifestement excessive ou dérisoire** (art.
+1231-5 C.civ `[Légifrance]`) : calibrer le montant, ni dérisoire ni confiscatoire.
+
 ---
 
 ## Étape 10 — Renvois et liste de points
@@ -298,7 +339,7 @@ Produire les renvois actifs :
 - `gap-review` pour la GAP technique ;
 - `closing-checklist-fr` pour CP, signing, closing, post-closing ;
 - `due-diligence-dataroom` si les findings DD manquent ;
-- `hacienda-propriete-intellectuelle` pour PI ;
+- `/h-pi:contrats-pi` (ou `/h-pi:audit-pi-ma`) pour PI — toujours le namespace court `/h-pi:`, jamais la forme longue du nom de plugin ;
 - `hacienda-fiscal` pour fiscalité ;
 - `hacienda-social` pour social ;
 - `hacienda-reglementaire` pour autorisations sectorielles.
