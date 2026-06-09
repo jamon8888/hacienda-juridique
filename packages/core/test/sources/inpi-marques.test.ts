@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { afterEach, beforeEach, describe, it, expect, vi } from "vitest";
 import { readFileSync } from "node:fs";
 import {
   InpiMarqueSchema,
@@ -112,13 +112,22 @@ describe("InpiPublicationRecenteSchema", () => {
 });
 
 describe("InpiClient.marquesPublicationsRecentes", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-06-09T12:00:00Z"));
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("calcule la fenêtre + appelle l'endpoint avec les bons params", async () => {
     const fetchMock = vi.fn(async (url: string) => {
       if (url.includes("/services/sso/login")) {
         return new Response(JSON.stringify({ access_token: "t", expires_in: 3600 }));
       }
       expect(url).toContain("/services/marques/publications");
-      expect(url).toContain("since=2026-05-09");
+      expect(url).toContain("since=2026-05-11");
       expect(url).toContain("classes=25");
       return new Response(JSON.stringify({
         publications: [{
@@ -126,12 +135,12 @@ describe("InpiClient.marquesPublicationsRecentes", () => {
           signe: "APEXLEAVE",
           classes: ["25"],
           titulaire: "Concurrent SAS",
-          datePublication: "2026-05-12",
-          dateOpposition_limite: "2026-07-12",
+          datePublication: "2026-05-11",
+          dateOpposition_limite: "2026-07-11",
           urlSource: "https://data.inpi.fr/marques/FR4123456",
         }],
         total: 1,
-        dateMaxBase: "2026-05-15",
+        dateMaxBase: "2026-06-09",
       }));
     });
     const client = new InpiClient({
@@ -139,11 +148,11 @@ describe("InpiClient.marquesPublicationsRecentes", () => {
       fetch: fetchMock as unknown as typeof fetch,
     });
     const out = await client.marquesPublicationsRecentes({
-      since: "2026-05-09",
+      since: "2026-05-11",
       classes: ["25"],
     });
     expect(out.publications).toHaveLength(1);
-    expect(out.publications[0].dateOpposition_limite).toBe("2026-07-12");
+    expect(out.publications[0].dateOpposition_limite).toBe("2026-07-11");
   });
 
   it("refuse une fenêtre > 30 jours", async () => {
@@ -152,7 +161,7 @@ describe("InpiClient.marquesPublicationsRecentes", () => {
       fetch: vi.fn() as unknown as typeof fetch,
     });
     await expect(
-      client.marquesPublicationsRecentes({ since: "2026-04-01" })
+      client.marquesPublicationsRecentes({ since: "2026-05-09" })
     ).rejects.toThrow(/fenêtre|30 jours/);
   });
 });
