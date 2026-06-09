@@ -83,6 +83,39 @@ CRITIQUE échouait.
 4. **Reconfirmation Codex optionnelle** : F4/F5 avaient une grille DeepSeek archivée
    (`ground-truth-deepseek.md`) — la grille officielle est Codex. Rien d'urgent.
 
+## ➡️ Prochaine vague — décision de cadrage (2026-06-09)
+
+Après brainstorming, deux chantiers décidés, en parallèle :
+
+### Chantier A (prioritaire, dans la nouvelle conversation) — SPIKE distressed-M&A
+Construire **un** nouveau cycle à l'**intersection M&A ↔ restructuring** (le *moat*
+d'un cabinet M&A-restructuring ; aucun outil grand public ne le couvre ; relie les
+2 personas déjà validés). Méthode : **brainstorming → design doc → build skill →
+scoring blind** (mêmes Phases 2-4 Codex). Les 2 personas (frère M&A + ami
+restructuring) servent de **validateurs métier**.
+
+Candidats de cycle (à départager au brainstorming) :
+| Candidat | Périmètre | Articles clés | Note |
+|---|---|---|---|
+| **Pre-pack cession** ⭐ | cession préparée en conciliation/mandat ad hoc puis adoptée en sauvegarde/RJ | L.611-x, L.628-x, L.642-2 | **Recommandé** : pont exact `prevention-difficultes` → `spa-review` (réutilise les 2 personas) |
+| Reprise à la barre / plan de cession | offre de reprise d'une entreprise en RJ/LJ : périmètre, prix, emplois, contrats, sûretés, calendrier tribunal | L.642-1 et s., L.642-5 | Le plus iconique du distressed M&A FR |
+| Cession d'actifs isolés en procédure | rachat fonds/IP/stocks à un débiteur en LJ, purge des sûretés | L.642-19 | Plus simple, plus fréquent |
+| Asset vs share deal en distress | arbitrage structuration quand la cible est en difficulté | L.632-1 (période suspecte), responsabilité repreneur | Décision stratégique transverse |
+
+→ **Démarrer la nouvelle conversation par le brainstorming de ce spike** (choisir le
+candidat, scoper, design doc dans `docs/superpowers/specs/`, puis build + score).
+Reco de départ : **pre-pack cession**.
+
+### Chantier B (parallèle, délégué à Codex) — complétude
+Scorer en aveugle les **6 skills de fond non couverts** (droit des affaires
+général, non différenciants mais pour un plugin 100 % validé) :
+`reviser-contrat`, `reviser-nda`, `constitution-societe`, `gouvernance-ag`,
+`financement-startup`, `cgv-generator`. Même workflow (scénario blind → Phase 2
+grille Codex → Phase 3 session fraîche → Phase 4 score → agrégation). Les 6 skills
+outils/composants (`check-pii`, `verifier-citations`, `entretien-demarrage`,
+`consulter-digest`, `liste-de-points`, `revue-tabulaire`) ne nécessitent pas de
+scoring doctrinal (infrastructure).
+
 ## Conventions / pièges
 
 - Briefs personas (`docs/personas/*-test-brief.md`) = docs pour testeurs **humains**,
