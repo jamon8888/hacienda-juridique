@@ -1,5 +1,29 @@
 # Changelog — hacienda-droit-affaires
 
+## [0.5.0] — 2026-06-09
+
+**Les deux personas validés au protocole de sparring scoring blind Codex — 11 skills,
+tous gate-clean RÉSERVES ou ADMIS.**
+
+### Persona ami (procédures collectives) — complété
+- `prevention-difficultes` — **RÉSERVES 0,87** (gate-clean dès le cycle 1) : diagnostic cessation des paiements, gate des 45 jours, privilège de new money L.611-11, sauvegarde accélérée.
+- `declaration-creance --releve-forclusion` — **RÉSERVES 0,853** après correctif **M2** : le régime de déclaration/forclusion/relevé (L.622-24 à L.622-27) s'applique en redressement par renvoi de L.631-14 C.com. et en liquidation par renvoi de **L.641-3 C.com.** (viser l'article-passerelle, ne pas appliquer L.622-26 directement en LJ/RJ).
+- `analyser-rupture-brutale` — **RÉSERVES 0,886** (gate-clean dès le cycle 1) : visa L.442-1, II, relation établie, brutalité = insuffisance de préavis, safe harbor 18 mois, préjudice = marge brute sur préavis manquant.
+
+(Rappel v0.2.0 : `declaration-creance` RÉSERVES, `mise-en-demeure-commerciale` ADMIS.)
+
+### Persona frère (M&A trade) — consolidé
+- `spa-review` — relevé de **gate-clean 0,71 à RÉSERVES 0,974** par le correctif **G2** (objectivité des CP acquéreur 1304/1304-3, leakage hors plafond GAP, formalités SAS L.227-15 / CSE L.2312-8-37 / sanctions 1231-5) + **G3** (renvoi PI au namespace court `/h-pi:`).
+- Pour mémoire (v0.4.0) : gap-review 0,904, loi-term-sheet 0,90, due-diligence-dataroom ADMIS 1,0, pacte-associes-review ADMIS 1,0, closing-checklist-fr 0,95.
+
+### Méthodologie
+- **Garde-fou anti-contamination Phase 3** : une session d'exécution live peut lire `ground-truth.md` ; les prompts Phase 3 interdisent désormais explicitement la lecture du corrigé.
+- Correctifs doctrinaux validés en aveugle cette vague : G2, M2.
+
+### Limites assumées v0.5.0
+- Findings de polish non gating reportés : G4/C-035 (spa), H2 (gap), I1 (loi), J2 (closing), K1 (dd), M-résiduels (releve-forclusion C-013/C-016, rupture-brutale C-013/C-022, prevention C-008).
+- Slash-commands explicites (`commands/`) non encore créées — les skills s'activent par auto-activation (langage naturel).
+
 ## [0.4.0] — 2026-06-09
 
 **Persona frère M&A trade — 6/6 skills validés au protocole de sparring scoring
