@@ -1,5 +1,26 @@
 # Changelog — hacienda-droit-affaires
 
+## [0.4.0] — 2026-06-09
+
+**Persona frère M&A trade — 6/6 skills validés au protocole de sparring scoring
+blind Codex**, tous gate-clean (aucun gate CRITIQUE FAIL).
+
+### Validé blind au protocole Codex
+- `due-diligence-dataroom` — **ADMIS 1,0** (grille Codex 30 criteria / 5 gates). Audit data-room 7 thèmes : les 7 findings matériels captés (convention réglementée L.227-10, client concentré + change of control, forfait-jours/URSSAF, cession PI L.131-3 CPI, rupture brutale L.442-1, violation RGPD non notifiée).
+- `pacte-associes-review` — **ADMIS 1,0** après correctif **L1** : ancrage de la clause léonine (art. 1844-1) sur un leaver confiscatoire « pour toute cause » sans distinction good/bad, en plus de 1843-4/proportionnalité.
+- `loi-term-sheet` — **RÉSERVES 0,90** (gate-clean dès le cycle 1, sans correctif) : qualification binding/non-binding, liberté de rompre + bonne foi (1104/1112), sources réelles.
+- `closing-checklist-fr` — **RÉSERVES 0,95** après correctif **J1** : nullité de l'agrément statutaire violé (L.227-15), transfert d'actions par virement de compte à compte (L.228-1 al.9 + L.211-17 CMF).
+- `gap-review` — **RÉSERVES 0,904** après correctif **H1** : dol/fraude/vices non-écartables (1130/1137/1104), durée fiscale sur droit de reprise LPF (L.176/L.169), ICPE inexécutée = risque public L.171-8 C.env.
+- `spa-review` — **gate-clean (INSUFFISANT 0,71)** après correctif **G1** : earn-out indéterminable ancré sur la déterminabilité du prix (1591/1163), finding DD matériel via 1112-1/1130.
+
+### Méthodologie — durcissement
+- Extension du protocole au persona frère (file `docs/backlog/da-codex-scoring-queue-frere.md`).
+- **Expérience naturelle DeepSeek vs Codex (F4/F5/F6)** : la variance des scores vient de la **construction de la grille**, pas du scoreur (F6 = contrôle : même grille Codex → DeepSeek et Codex donnent 0,95 identique). Le **gate-pass est le signal fiable** (binaire, scoreur-indépendant) ; le chiffre n'est fiable qu'avec une grille robuste. Un cycle full-DeepSeek (F5) avait gonflé un score à 1,0 en masquant un vrai trou (gate C-009), démasqué par la reconfirmation Codex puis fermé par L1.
+
+### Limites assumées v0.4.0
+- Findings de polish non gating reportés v0.4.x : G2/G3 (spa-review), H2 (gap-review), I1 (loi-term-sheet), J2 (closing-checklist), K1 (due-diligence-dataroom).
+
+
 ## [0.3.0] — 2026-06-05
 
 Cœur **persona frère M&A trade** validé par sparring scoring blind tiered-gated
