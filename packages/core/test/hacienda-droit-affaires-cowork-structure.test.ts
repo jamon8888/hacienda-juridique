@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const pluginRoot = resolve(root, "plugins/hacienda-droit-affaires");
+const droitAffairesCommandNamespace = "h-da";
 
 type PluginManifest = { version: string };
 type VersionFile = { version: string };
@@ -75,6 +76,28 @@ function collectSkillFiles(): string[] {
     .filter((skillName) => existsSync(resolve(skillsDir, skillName, "SKILL.md")))
     .map((skillName) => resolve(skillsDir, skillName, "SKILL.md"))
     .sort();
+}
+
+function collectCommandFiles(): string[] {
+  const commandsDir = resolve(pluginRoot, "commands", droitAffairesCommandNamespace);
+
+  if (!existsSync(commandsDir)) {
+    return [];
+  }
+
+  return readdirSync(commandsDir)
+    .filter((fileName) => extname(fileName) === ".md")
+    .map((fileName) => resolve(commandsDir, fileName))
+    .sort();
+}
+
+function frontmatterValue(content: string, key: string): string | undefined {
+  const frontmatter = content.match(/^---\n([\s\S]*?)\n---/)?.[1];
+  return frontmatter?.match(new RegExp(`^${key}:\\s*(.+)$`, "m"))?.[1];
+}
+
+function skillNameFromFile(file: string): string {
+  return dirname(file).split(/[\\/]/).at(-1)!;
 }
 
 function collectTextFiles(dir: string): string[] {
@@ -207,17 +230,51 @@ describe("hacienda droit affaires cowork packaging", () => {
     }
   });
 
-  it("documents every skill as an invokable factory-prefixed command", () => {
+  it("ships a thin h-da slash command wrapper for every skill", () => {
+    const skillFiles = collectSkillFiles();
+    const commandFiles = collectCommandFiles();
+
+    expect(commandFiles.length).toBe(skillFiles.length);
+
+    for (const skillFile of skillFiles) {
+      const skillName = skillNameFromFile(skillFile);
+      const commandFile = resolve(
+        pluginRoot,
+        "commands",
+        droitAffairesCommandNamespace,
+        `${skillName}.md`
+      );
+
+      expect(existsSync(commandFile), skillName).toBe(true);
+
+      const skillContent = readFileSync(skillFile, "utf8");
+      const commandContent = readFileSync(commandFile, "utf8");
+
+      expect(frontmatterValue(commandContent, "description"), skillName).toBe(
+        frontmatterValue(skillContent, "description")
+      );
+      expect(frontmatterValue(commandContent, "argument-hint"), skillName).toBe(
+        frontmatterValue(skillContent, "argument-hint")
+      );
+      expect(commandContent, skillName).toContain(`Use the \`${skillName}\` skill`);
+      expect(commandContent, skillName).toContain("$ARGUMENTS");
+      expect(commandContent, skillName).not.toContain("/h-droit-affaires:");
+    }
+  });
+
+  it("documents every skill as an invokable short factory-prefixed command", () => {
     const readme = readFileSync(resolve(pluginRoot, "README.md"), "utf8");
     const claudeTemplate = readFileSync(resolve(pluginRoot, "CLAUDE.md"), "utf8");
 
     for (const file of collectSkillFiles()) {
-      const skillName = dirname(file).split(/[\\/]/).at(-1);
+      const skillName = skillNameFromFile(file);
 
-      expect(readme, skillName).toContain(`/h-droit-affaires:${skillName}`);
+      expect(readme, skillName).toContain(`/${droitAffairesCommandNamespace}:${skillName}`);
     }
 
+    expect(readme).not.toContain("/h-droit-affaires:");
     expect(readme).not.toContain("/hacienda-droit-affaires:");
+    expect(claudeTemplate).not.toContain("/h-droit-affaires:");
     expect(claudeTemplate).not.toContain("/hacienda-droit-affaires:");
   });
 
@@ -226,6 +283,7 @@ describe("hacienda droit affaires cowork packaging", () => {
     const combined = shippedFiles.map((file) => readFileSync(file, "utf8")).join("\n");
 
     expect(combined).not.toContain("/hacienda-propriete-intellectuelle:");
+    expect(combined).not.toContain("/hacienda-droit-affaires:");
     expect(combined).not.toContain("companyFullProfile");
     expect(combined).not.toContain("bodaccProcedures");
     expect(combined).not.toContain("bodaccBySiren");
