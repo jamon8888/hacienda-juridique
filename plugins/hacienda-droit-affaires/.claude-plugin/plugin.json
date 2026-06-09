@@ -1,6 +1,6 @@
 {
   "name": "hacienda-droit-affaires",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Droit des affaires français : revue de contrats commerciaux, M&A (GAP, due diligence, term sheet), procédures collectives côté créancier (déclarations de créance L.622-24, suivi de forclusion), avec validation des citations Légifrance et détection PII embarquée.",
   "author": { "name": "Hacienda", "url": "https://hacienda.diy" },
   "repository": "https://github.com/jamon8888/hacienda-juridique",
