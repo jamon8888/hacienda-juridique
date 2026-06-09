@@ -146,7 +146,7 @@ Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitud
 2. Lire profil cabinet (bloc procédures collectives) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
 3. Lookup procédure : `bodacc_procedures` (wrapper MCP : `bodacc_procedures`). Filtre côté API : `familleavis = "procedures-collectives"`, tri `dateparution DESC`.
 4. Identifier sur l'annonce la plus récente d'ouverture :
-   - **Type de procédure** — déduit de `typeavis` (sauvegarde / redressement judiciaire / liquidation judiciaire)
+   - **Type de procédure** — déduit de `typeavis` (sauvegarde / redressement judiciaire / liquidation judiciaire). **Fondement applicable selon la procédure** : le régime de déclaration des créances et de forclusion/relevé des art. **L.622-24 à L.622-27 C.com.** est propre à la **sauvegarde** ; en **redressement judiciaire** il s'applique par renvoi de l'art. **L.631-14 C.com. `[Légifrance]`**, et en **liquidation judiciaire** par renvoi de l'art. **L.641-3 C.com. `[Légifrance]`**. Toujours qualifier la procédure ET viser l'article-passerelle quand il ne s'agit pas d'une sauvegarde — la déclaration et la requête en relevé en LJ/RJ se fondent sur L.622-24/L.622-26 **via** L.641-3 / L.631-14, pas directement.
    - **Date publication BODACC** — `dateparution` (point de départ du délai L.622-24)
    - **Date jugement d'ouverture** — extraite de `raw` (souvent dans le texte de l'annonce) ; fallback `[à vérifier]` si parsing échoue
    - **Mandataire désigné (nom + adresse)** — n'est **pas** un champ direct de `BodaccAnnonce`. Tenter extraction depuis `raw` (réponse BODACC OpenDataSoft non parsée par `parseAnnonce`). Si parsing échoue : marquer `[à vérifier]` en sortie et recommander vérification manuelle sur l'annonce BODACC publiée.
@@ -245,6 +245,7 @@ Référence procédure :
 - Tribunal de commerce de [ville]
 - N° RG : [...]
 - Type : [sauvegarde / redressement judiciaire / liquidation judiciaire]
+- Fondement du régime de déclaration/relevé : [sauvegarde → L.622-24 et s. directement | redressement judiciaire → L.622-24 et s. par renvoi de L.631-14 C.com. | liquidation judiciaire → L.622-24 et s. par renvoi de L.641-3 C.com.] — **viser l'article-passerelle dans le livrable quand ce n'est pas une sauvegarde**
 - Date jugement d'ouverture : [date]
 - Date publication BODACC : [date]
 
@@ -346,6 +347,7 @@ Déclenché quand la forclusion L.622-24 est **déjà acquise** (Étape 2 → �
 
 ### Étape R1 — Recevabilité de l'action en relevé (gate)
 
+- **Fondement selon la procédure.** Qualifier d'abord la procédure et viser l'article-passerelle : le relevé de forclusion L.622-26 s'applique directement en **sauvegarde**, par renvoi de **L.631-14 C.com.** en **redressement judiciaire**, et par renvoi de **L.641-3 C.com. `[Légifrance]`** en **liquidation judiciaire**. La requête doit l'énoncer (ex. « art. L.622-24 et L.622-26, applicables à la liquidation judiciaire par renvoi de l'art. L.641-3 C.com. »).
 - **Délai d'action : 6 mois** à compter de la publication du jugement d'ouverture au BODACC (art. L.622-26 al. 2 C.com. `[Légifrance]`). Ce délai est lui-même un délai de forclusion.
 - Cas d'allongement / report du point de départ (créancier qui ne pouvait connaître l'obligation au moment de l'ouverture, créance révélée tardivement, délai porté à un an dans certains cas) → `[à vérifier]`, ne pas trancher sans consultation de l'article en vigueur.
 - Si le délai de 6 mois est lui-même expiré → la voie du relevé est fermée `[review]` : **le signaler** et ne pas rédiger une requête vouée à l'irrecevabilité. Calcul obligatoire :
