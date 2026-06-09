@@ -177,6 +177,7 @@ sociaux). Pour **chaque CP**, renseigner :
 Points de qualification :
 
 - **CP potestative** — une CP dont la réalisation dépend de la seule volonté de la partie obligée est fragile `[review]` ; la signaler.
+- **CP d'agrément statutaire** — lorsque les statuts soumettent la cession à un agrément (clause d'agrément SAS — liberté statutaire art. L.227-14 C.com. `[Légifrance]` ; identifier l'organe compétent dans les statuts), l'agrément doit être **obtenu avant le closing** et **ne peut pas être régularisé après ni écarté par le seul acquéreur**. Signaler expressément la **sanction** : une cession réalisée **en violation** d'une clause statutaire d'agrément est **nulle** (art. L.227-15 C.com. `[Légifrance]`). C'est donc une CP 🔴 tant qu'elle n'est pas levée — pas une simple formalité interne.
 - **CP réglementaire / sectorielle** — une autorisation administrative (autorisation sectorielle, contrôle des investissements étrangers, contrôle des concentrations) ne se chiffre pas et son issue ne se préjuge pas `[review]` ; renvoyer le volet réglementaire à `hacienda-reglementaire` et le volet concurrence à un conseil concurrence. Ce skill recense la CP, il ne l'instruit pas.
 - **Renonciation à une CP** — préciser quelle partie peut renoncer à quelle CP (une CP est en principe stipulée dans l'intérêt d'une partie déterminée).
 
@@ -266,13 +267,18 @@ l'opération et la régularité fiscale. **Distinguer selon le type d'opération
 ### 4.1 Cession de titres
 
 - **Inscription au registre de mouvements de titres et mise à jour des comptes
-  d'associés.** Pour les actions (SAS, SA), l'ordre de mouvement de titres
-  signé au closing est inscrit sur le **registre de mouvements de titres** de
-  la société, et le compte d'associé individuel de l'acquéreur est mis à jour.
-  **C'est cette inscription — et non le seul acte de cession — qui emporte le
-  transfert opposable des actions** à la société et aux tiers. L'omission de
-  cette formalité est un risque sérieux : la cession peut être inopposable
-  `[review]`. Responsable : la société (ou son mandataire / l'avocat).
+  d'associés.** Pour les actions (SAS, SA), le transfert de propriété **s'opère
+  par virement du compte du cédant au compte de l'acquéreur** (art. L.228-1 al. 9
+  C.com. `[Légifrance]` et art. L.211-17 CMF `[Légifrance]`) : l'ordre de
+  mouvement de titres signé au closing est inscrit sur le **registre de
+  mouvements de titres** de la société et le compte d'associé individuel de
+  l'acquéreur est mis à jour. **C'est cette inscription en compte — et non le
+  seul acte de cession ni la seule signature — qui emporte le transfert et son
+  opposabilité** à la société et aux tiers. Corriger expressément toute idée que
+  « la signature suffit » ou que « les formalités se régularisent plus tard » :
+  tant que le virement de compte à compte n'est pas porté, l'acquéreur n'est pas
+  propriétaire opposable. L'omission est un risque sérieux `[review]`.
+  Responsable : la société (ou son mandataire / l'avocat).
   Échéance : sans délai après le closing.
   - Pour les **parts de SARL**, la cession est rendue opposable à la société
     soit par signification (formes de l'art. 1690 C.civ `[à vérifier]`), soit —
