@@ -82,7 +82,18 @@ En lui fournissant comme input **uniquement** le `scenario.md`. La sortie est sa
 plugins/hacienda-propriete-intellectuelle/tests/datasets/d2-analyse-opposition-marque/live-output.md
 ```
 
-**Anti-leakage manuel** : la session Claude Code de Phase 3 ne doit pas ouvrir `ground-truth.md`. Idéalement, conserver le ground-truth dans un sous-dossier ou marquer explicitement « blind input only ».
+**Trois règles dures pour une Phase 3 propre** (apprises à l'usage — leur oubli fait perdre du temps ou invalide le cycle) :
+
+1. **Resynchroniser le cache du plugin AVANT la session** — sinon la Phase 3 teste une version périmée du skill et les correctifs n'ont aucun effet :
+   ```bash
+   rsync -a --delete plugins/<plugin>/skills/ \
+     ~/.claude/plugins/cache/<marketplace>/<plugin>/<version>/skills/
+   ```
+2. **Session Claude VRAIMENT neuve** — une session déjà ouverte (ou réutilisée) peut avoir l'ancien skill en contexte ; symptôme = `live-output.md` **byte-identique** au run précédent malgré un correctif. Ouvrir une session neuve APRÈS le resync, et vérifier dans la sortie qu'un ancrage attendu du correctif apparaît (`grep`).
+3. **Interdire EXPLICITEMENT la lecture du ground-truth dans le prompt** (pas seulement « fournir scenario.md ») — une session zélée peut explorer le dossier et ouvrir `ground-truth.md`, ce qui **contamine** le run (elle voit le corrigé) :
+   > « Lis UNIQUEMENT `…/scenario.md`. N'ouvre AUCUN autre fichier de ce dossier, surtout PAS `ground-truth.md` (ce serait le corrigé). »
+
+   Vérif après coup : `grep -c "match_criteria" live-output.md` doit valoir **0** (sinon le ground-truth a fuité → recommencer en session neuve).
 
 ### 5. Phase 4 — Scoring (Codex GPT-5.5 medium)
 
@@ -175,14 +186,50 @@ python3 scripts/tiered_scoring.py .../da-declaration-creance/ground-truth.md ...
 
 Implémentation et tests : `scripts/tiered_scoring.py`, `scripts/test_tiered_scoring.py`.
 
+## Règles pratiques apprises à l'usage
+
+**Sauver du JSON PUR, pas le markdown de Codex.** Codex rend souvent une réponse
+markdown (criteria explicités) **suivie** d'un bloc JSON. `tiered_scoring.py` et le
+loader de grille exigent du **JSON pur**. Extraire le **seul** bloc `{…}` (celui qui
+contient `"criteria"`) et l'écrire dans `ground-truth.md` (Phase 2) et
+`verdicts-<CODE>.json` (Phase 4). Un helper d'extraction du dernier objet JSON
+équilibré contenant `"criteria"` fiabilise l'opération.
+
+**Chemins des verdicts.** Sauver `verdicts-<CODE>.json` **dans le dossier du dataset**
+(`…/da-<skill>/verdicts-<CODE>.json`), en **UTF-8**, **jamais dans `/tmp`** (la tmpfs
+peut saturer et on perd la trace). Snapshoter le `live-output.md` d'un cycle avant
+de le réécrire (`live-output-<CODE>.md`) pour garder l'historique avant/après correctif.
+
+**Scoreur de substitution (DeepSeek) — possible mais à encadrer.** Le prompt généré
+est agnostique au modèle : on peut le coller dans DeepSeek si les crédits Codex
+manquent. Mais :
+- **Codex reste le scoreur de référence** (comparabilité des chiffres entre cycles).
+- **Ne pas utiliser le même modèle que la Phase 3** (auto-référence) : la Phase 3 est
+  produite par Claude → un scoreur Claude noterait du Claude. DeepSeek (autre famille)
+  est OK ; **Opus est à éviter** comme scoreur.
+- Une **grille DeepSeek peut être indulgente** (constaté : un 1,0 full-DeepSeek
+  masquait un vrai trou de gate, démasqué à la reconfirmation Codex). Reconfirmer au
+  Codex avant tout claim release sur un cycle full-DeepSeek.
+
+**Se fier aux GATES, se méfier des CHIFFRES.** Expérience naturelle observée : le
+**même** `live-output` scoré sous deux grilles différentes donne des scores très
+écartés (0,818 vs 1,0), alors qu'à **grille fixe** deux scoreurs (DeepSeek vs Codex)
+donnent le **même** score. ⇒ La variance vient de la **construction de la grille**,
+pas du scoreur. Le **gate-pass/fail est le signal fiable** (binaire, scoreur-
+indépendant) ; le score `/1` n'est comparable qu'à grille robuste (Codex). Un gate
+qui passe « de justesse » (substance présente mais article exact non cité) est un
+**soft pass** fragile : ancrer l'article dans le skill pour le rendre robuste.
+
 ## Checklist anti-leakage par cycle
 
 Avant de publier un score :
 
 - [ ] Phase 1 et Phase 2 dans des sessions Codex distinctes
 - [ ] Phase 2 a reçu uniquement `scenario.md` + description neutre (PAS le SKILL.md complet)
-- [ ] Phase 3 a reçu uniquement `scenario.md` (PAS `ground-truth.md`)
+- [ ] **Cache du plugin resynchronisé** (`rsync skills/ → cache/skills/`) AVANT la Phase 3, dans une session Claude **neuve**
+- [ ] Phase 3 a reçu uniquement `scenario.md`, avec **interdiction explicite** d'ouvrir `ground-truth.md` ; vérif `grep -c match_criteria live-output.md` = 0
 - [ ] Phase 4 a reçu `scenario.md` + `ground-truth.md` + `live-output.md` (PAS le SKILL.md)
+- [ ] `ground-truth.md` et `verdicts-<CODE>.json` sont du **JSON pur** (bloc extrait, pas le markdown Codex), en UTF-8, dans le dossier du dataset (pas `/tmp`)
 - [ ] Code scoring unique par cycle, non réutilisé
 - [ ] **Inputs blind cycle-agnostiques** : `scenario.md` et `ground-truth.md` ne contiennent **aucun code de cycle** en dur (titre, footer, `_provenance`). Le code ne vit que dans la commande Phase 4 (`--code`) et le nom du rapport — sinon Codex confond l'ancien et le nouveau cycle dans son scoring
 - [ ] (variante criteria) Bloc JSON de verdicts agrégé par `tiered_scoring.py` — score **non** calculé à la main par le scoreur
