@@ -61,7 +61,7 @@ BODACC OpenDataSoft (procédures collectives, annonces) est public sans clé.
 ## Premier lancement
 
 ```
-/h-droit-affaires:entretien-demarrage
+/h-da:entretien-demarrage
 ```
 
 Configure votre profil cabinet (réutilisé par les autres plugins Hacienda via
@@ -71,30 +71,39 @@ Configure votre profil cabinet (réutilisé par les autres plugins Hacienda via
 
 Chaque skill Droit des affaires est invocable directement comme commande du plugin :
 
+Conclusion mécanisme Claude Code / Cowork : les slash-commands de plugin sont
+des fichiers Markdown découverts dans `commands/` (ou les chemins `commands`
+déclarés dans `.claude-plugin/plugin.json`). Le frontmatter porte notamment
+`description` et `argument-hint`, puis le corps de commande devient l'instruction
+exécutée. Le nom du plugin reste `hacienda-droit-affaires` pour l'installation ;
+le namespace court d'invocation est porté par le sous-dossier `commands/h-da/`,
+qui expose les wrappers sous la forme `/h-da:<skill>` tout en conservant
+l'auto-activation des skills.
+
 | Commande | Usage |
 | --- | --- |
-| `/h-droit-affaires:analyser-rupture-brutale` | Analyse du risque de rupture brutale. |
-| `/h-droit-affaires:cgv-generator` | Génération assistée de CGV/CGU. |
-| `/h-droit-affaires:check-pii` | Détection PII pré-vol. |
-| `/h-droit-affaires:closing-checklist-fr` | Checklist signing, closing et post-closing. |
-| `/h-droit-affaires:constitution-societe` | Constitution de société et choix de forme. |
-| `/h-droit-affaires:consulter-digest` | Lecture du digest de veille. |
-| `/h-droit-affaires:declaration-creance` | Déclaration de créance et forclusion. |
-| `/h-droit-affaires:due-diligence-dataroom` | Due diligence data-room M&A. |
-| `/h-droit-affaires:entretien-demarrage` | Configuration initiale du profil Droit des affaires. |
-| `/h-droit-affaires:financement-startup` | Instruments de financement startup. |
-| `/h-droit-affaires:gap-review` | Revue de garantie d'actif et de passif. |
-| `/h-droit-affaires:gouvernance-ag` | Convocations et PV d'assemblées. |
-| `/h-droit-affaires:liste-de-points` | Issues list de négociation. |
-| `/h-droit-affaires:loi-term-sheet` | LOI, NBO et term sheet M&A. |
-| `/h-droit-affaires:mise-en-demeure-commerciale` | Mise en demeure commerciale B2B (payer / exécuter) avec garde-fou procédure collective. |
-| `/h-droit-affaires:pacte-associes-review` | Revue de pacte d'associés. |
-| `/h-droit-affaires:prevention-difficultes` | Orientation prévention (mandat ad hoc / conciliation / sauvegarde accélérée). |
-| `/h-droit-affaires:reviser-contrat` | Revue de contrat commercial. |
-| `/h-droit-affaires:reviser-nda` | Triage NDA et confidentialité. |
-| `/h-droit-affaires:revue-tabulaire` | Revue tabulaire multi-documents. |
-| `/h-droit-affaires:spa-review` | Revue de SPA / protocole de cession. |
-| `/h-droit-affaires:verifier-citations` | Vérification post-flight des citations. |
+| `/h-da:analyser-rupture-brutale` | Analyse du risque de rupture brutale. |
+| `/h-da:cgv-generator` | Génération assistée de CGV/CGU. |
+| `/h-da:check-pii` | Détection PII pré-vol. |
+| `/h-da:closing-checklist-fr` | Checklist signing, closing et post-closing. |
+| `/h-da:constitution-societe` | Constitution de société et choix de forme. |
+| `/h-da:consulter-digest` | Lecture du digest de veille. |
+| `/h-da:declaration-creance` | Déclaration de créance et forclusion. |
+| `/h-da:due-diligence-dataroom` | Due diligence data-room M&A. |
+| `/h-da:entretien-demarrage` | Configuration initiale du profil Droit des affaires. |
+| `/h-da:financement-startup` | Instruments de financement startup. |
+| `/h-da:gap-review` | Revue de garantie d'actif et de passif. |
+| `/h-da:gouvernance-ag` | Convocations et PV d'assemblées. |
+| `/h-da:liste-de-points` | Issues list de négociation. |
+| `/h-da:loi-term-sheet` | LOI, NBO et term sheet M&A. |
+| `/h-da:mise-en-demeure-commerciale` | Mise en demeure commerciale B2B (payer / exécuter) avec garde-fou procédure collective. |
+| `/h-da:pacte-associes-review` | Revue de pacte d'associés. |
+| `/h-da:prevention-difficultes` | Orientation prévention (mandat ad hoc / conciliation / sauvegarde accélérée). |
+| `/h-da:reviser-contrat` | Revue de contrat commercial. |
+| `/h-da:reviser-nda` | Triage NDA et confidentialité. |
+| `/h-da:revue-tabulaire` | Revue tabulaire multi-documents. |
+| `/h-da:spa-review` | Revue de SPA / protocole de cession. |
+| `/h-da:verifier-citations` | Vérification post-flight des citations. |
 
 ## Plugin compagnon recommandé
 

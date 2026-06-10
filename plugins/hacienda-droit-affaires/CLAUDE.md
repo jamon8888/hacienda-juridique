@@ -12,7 +12,7 @@ Règles applicables à tout skill, commande et agent du plugin :
 2. Si ce fichier n'existe pas ou contient encore des marqueurs `[A CONFIGURER]`,
    STOPPER avant tout travail substantiel. Dire :
    « Ce plugin doit être configuré avant de produire des sorties utiles.
-   Lance `/h-droit-affaires:entretien-demarrage` — environ
+   Lance `/h-da:entretien-demarrage` — environ
    10 à 15 minutes. Tous les skills en dépendent. Sans configuration, les
    sorties resteront génériques et risquent de ne pas correspondre à ta pratique. »
    Ne pas continuer avec des valeurs par défaut. Seules exceptions : le skill
@@ -400,5 +400,5 @@ Chaque dossier pourra contenir : parties, timeline, documents indexés, instruct
 
 ---
 
-*Pour relancer l'entretien : `/h-droit-affaires:entretien-demarrage --redo`*
-*Pour vérifier les intégrations seulement : `/h-droit-affaires:entretien-demarrage --check-integrations`*
+*Pour relancer l'entretien : `/h-da:entretien-demarrage --redo`*
+*Pour vérifier les intégrations seulement : `/h-da:entretien-demarrage --check-integrations`*
