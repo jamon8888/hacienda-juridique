@@ -22,7 +22,9 @@ tous gate-clean RÉSERVES ou ADMIS.**
 
 ### Limites assumées v0.5.0
 - Findings de polish non gating reportés : G4/C-035 (spa), H2 (gap), I1 (loi), J2 (closing), K1 (dd), M-résiduels (releve-forclusion C-013/C-016, rupture-brutale C-013/C-022, prevention C-008).
-- Slash-commands explicites (`commands/`) non encore créées — les skills s'activent par auto-activation (langage naturel).
+- Slash-commands explicites créées sous `commands/h-da/` : 22 wrappers minces
+  exposent `/h-da:<skill>` et délèguent aux skills, sans remplacer
+  l'auto-activation par langage naturel.
 
 ## [0.4.0] — 2026-06-09
 
