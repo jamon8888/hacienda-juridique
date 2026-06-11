@@ -98,6 +98,7 @@ l'auto-activation des skills.
 | `/h-da:loi-term-sheet` | LOI, NBO et term sheet M&A. |
 | `/h-da:mise-en-demeure-commerciale` | Mise en demeure commerciale B2B (payer / exécuter) avec garde-fou procédure collective. |
 | `/h-da:pacte-associes-review` | Revue de pacte d'associés. |
+| `/h-da:pre-pack-cession` | Cadrage du montage pre-pack cession (distressed-M&A). |
 | `/h-da:prevention-difficultes` | Orientation prévention (mandat ad hoc / conciliation / sauvegarde accélérée). |
 | `/h-da:reviser-contrat` | Revue de contrat commercial. |
 | `/h-da:reviser-nda` | Triage NDA et confidentialité. |
