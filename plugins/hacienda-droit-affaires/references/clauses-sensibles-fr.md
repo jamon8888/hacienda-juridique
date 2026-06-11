@@ -132,7 +132,8 @@ Exiger une hiérarchisation des manquements, une mise en demeure sauf urgence ca
 ## 6. Force majeure post-réforme
 
 **Article fondateur :** art. 1218 C.civ [Légifrance]
-**Jurisprudence clé :** appréciation stricte de l'extériorité / imprévisibilité / irrésistibilité avant et après codification [à vérifier]
+**Critères légaux (art. 1218 al. 1 C.civ, réd. ord. n° 2016-131 du 10 février 2016) :** événement (1) échappant au contrôle du débiteur, (2) raisonnablement imprévisible lors de la conclusion du contrat, et (3) dont les effets ne peuvent être évités par des mesures appropriées [connaissance modèle — à vérifier].
+**Attention millésime :** la trilogie jurisprudentielle classique « extériorité / imprévisibilité / irrésistibilité » est la formulation *antérieure* à la réforme de 2016. Depuis l'ordonnance 2016-131, « extériorité » n'est plus un critère autonome — remplacé par « échappant au contrôle du débiteur ». Ne jamais présenter la trilogie comme l'état actuel du droit ; citer les trois critères légaux ci-dessus [à vérifier].
 **Posture playbook par défaut :** équilibré
 
 **Libellé typique à détecter :**
