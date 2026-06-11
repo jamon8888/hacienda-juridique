@@ -128,8 +128,14 @@ outputs/pre-pack-cession-<entreprise-slug>-YYYY-MM-DD.md
 - **Qui fait quoi** : débiteur / conciliateur ou mandataire ad hoc (prospecteur) / tribunal / CSE. Calendrier indicatif `[à vérifier]`.
 
 # 3. Points de vigilance (ancrés sur l'article tranchant — focale {côté})
-{Côté débiteur : prospection régulière et traçable (L.611-7), confidentialité (L.611-15), consultation CSE/CSEC préalable, intervention AGS, requête au tribunal, sort des sûretés (nantissement fonds).}
-{Côté repreneur : purge du passif et contrats repris désignés par le tribunal (L.642-7), irrévocabilité de l'offre une fois déposée (L.642-2), voies de recours / contestation (L.661-6), report des sûretés spéciales (L.642-12), risque période suspecte (L.632-1) sur les actes du débiteur.}
+**Mécanique du plan de cession (commune, à cadrer dès l'amont) :**
+- L'offre doit être **écrite et ferme** — périmètre, contrats repris, prix, financement, emplois maintenus, garanties, date — au sens de **L.642-2**. Une **LOI / lettre d'intention indicative n'est pas** une offre judiciaire recevable.
+- Le **tribunal choisit** l'offre sur les critères de **L.642-5** : pérennité de l'emploi, paiement des créanciers, garanties d'exécution — **pas** la vitesse, la discrétion ni la préférence du dirigeant.
+- Le périmètre vise une **activité autonome et l'emploi (L.642-1)** : alerter si le repreneur veut isoler des actifs clés (ex. marque + brevet) au point de **vider l'activité** (cherry-picking) → risque de rejet.
+- En RJ, la cession peut être **préparée/ordonnée par l'administrateur (L.631-21-1)** et ordonnée si le redressement est manifestement impossible (L.631-22).
+
+{Côté débiteur : prospection régulière et traçable (L.611-7) ; confidentialité (L.611-15) ; **consultation CSE/CSEC préalable** ; intervention **AGS** (créances salariales) ; **budget de continuation jusqu'au jugement** (fournisseurs critiques, moratoires écrits) ; requête au tribunal ; sort des sûretés (nantissement fonds).}
+{Côté repreneur : convertir la LOI en **offre ferme L.642-2** ; purge du passif et **contrats repris désignés par le tribunal (L.642-7)** ; irrévocabilité de l'offre une fois déposée (L.642-2) ; voies de recours / contestation (L.661-6) ; report des sûretés spéciales (L.642-12) ; **éligibilité du repreneur (L.642-3** — interdictions, interposition prohibée) ; si **repreneur concurrent** : NDA / clean team / limitation des données sensibles (clients, prix) en data-room ; risque période suspecte (L.632-1) sur les actes du débiteur.}
 
 # 4. Renvois & prochaines étapes
 - **Amont** : `/h-da:prevention-difficultes` (choix mandat ad hoc / conciliation).
@@ -155,7 +161,7 @@ La phase amiable est **strictement confidentielle** (L.611-15). Ne produire **au
 
 ## Étape 1 — Pré-flight et Gate 1 (cessation des paiements)
 
-1. Invoquer `check-pii`. Lire le profil cabinet (blocs procédures collectives + M&A) et le **side** déclaré.
+1. Invoquer `check-pii`. Lire le profil cabinet (blocs procédures collectives + M&A) et le **side** déclaré. Raisonner **à la date du jour** (dates absolues, pas relatives) avec un **rétroplanning explicite** : CP + 45 j, calendrier de la procédure et des offres.
 2. Vérifier via `bodacc_procedures` l'état des procédures déjà ouvertes sur la cible.
 3. **Trancher la cessation des paiements** (art. L.631-1 C.com. `[Légifrance]`) : passif exigible vs actif disponible, date de survenance.
    - Non / prévisible, ou ≤ 45 j → voie amiable ouverte → véhicule **sauvegarde accélérée (L.628-1 s.)** si accord majoritaire des créanciers en vue. Étape 2.
@@ -176,7 +182,11 @@ Mandat ad hoc (L.611-3) / conciliation (L.611-4 s.) : confier au conciliateur / 
 
 ## Étape 4 — Bascule en procédure collective et plan de cession
 
-Ouvrir le véhicule retenu (sauvegarde accélérée L.628-1 s. *ou* RJ L.631-19-1). Déposer/recueillir les offres de reprise ; le **tribunal arrête le plan de cession** (L.642-1 s., L.642-2) et désigne les **contrats cédés** (L.642-7). Articuler : **consultation du CSE/CSEC** préalable, intervention de l'**AGS** pour les créances salariales, sort des **sûretés** (report L.642-12), **irrévocabilité de l'offre** déposée (L.642-2). Tous délais/calendrier `[à vérifier]`.
+Ouvrir le véhicule retenu (sauvegarde accélérée L.628-1 s. *ou* RJ L.631-19-1 ; en RJ, cession préparée/ordonnée par l'**administrateur L.631-21-1**, ordonnée si redressement manifestement impossible L.631-22).
+
+**Offre et choix du tribunal** — l'offre amiable préparée n'évite un nouvel appel d'offres que si elle **satisfait L.642-2** (offre écrite et ferme : périmètre, contrats, prix, financement, emplois, garanties, date) **et** que les démarches de prospection sont **rapportées au tribunal**. Une LOI indicative ne suffit pas. Le **tribunal arrête le plan de cession** (L.642-1 s., L.642-2) en retenant l'offre sur les critères de **L.642-5** (emploi durable, paiement des créanciers, garanties d'exécution), désigne les **contrats cédés** (L.642-7), et veille à ce que le périmètre forme une **activité autonome (L.642-1)** sans cherry-picking vidant l'activité.
+
+**Articuler** : **consultation CSE/CSEC** préalable, intervention **AGS** (créances salariales), **budget de continuation** jusqu'au jugement, **éligibilité du repreneur (L.642-3)**, sort des **sûretés** (report L.642-12), **irrévocabilité de l'offre** déposée (L.642-2). Tous délais/calendrier `[à vérifier]`.
 
 ## Étape 5 — Vigilance side-aware
 
