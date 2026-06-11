@@ -1,14 +1,45 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# =============================================================================
+# da-scoring.sh — wrapper de scoring blind 4 phases pour les skills DA.
+#
+# Généralisation de l'ancien da-chantier-b-scoring.sh : table de skills
+# extensible (plus seulement les 6 skills de fond du Chantier B).
+#
+# Usage rapide (un skill = un argument) :
+#   bash scripts/da-scoring.sh list
+#   bash scripts/da-scoring.sh phase1 <skill>          # genere le prompt scenario (Codex)
+#   bash scripts/da-scoring.sh phase2 <skill>          # genere le prompt grille (Codex HIGH)
+#   bash scripts/da-scoring.sh phase3-resync           # rsync cache avant session fraiche
+#   bash scripts/da-scoring.sh phase3-prompt <skill>   # prompt session Claude fraiche
+#   bash scripts/da-scoring.sh phase4 <skill>          # genere le prompt scoring (Codex)
+#   bash scripts/da-scoring.sh aggregate <skill>       # tiered_scoring.py (verdict final)
+#
+# Overrides par variable d'environnement :
+#   CODE=PPK4ZZ  bash scripts/da-scoring.sh phase4 pre-pack-cession   # code de cycle
+#   DATE=2026-06-15 ... ; CACHE_SKILLS=/autre/chemin ...
+#
+# -----------------------------------------------------------------------------
+# POUR AJOUTER UN SKILL : ajouter une ligne dans le tableau SKILLS, puis une
+# entree dans CHACUNE des 5 fonctions code_for / mode_for / spec_for / desc_for
+# / command_for. Rien d'autre a toucher.
+#   - code_for     : code de cycle 6 chars (defaut ; surchargeable via CODE=...)
+#   - mode_for     : mode d'invocation court (1 ligne)
+#   - spec_for     : specificites metier a inclure subtilement dans le scenario
+#   - desc_for     : description NEUTRE pour Codex Phase 2 (PAS le SKILL.md)
+#   - command_for  : commande /h-da:<skill> avec ses flags (side, mode)
+# =============================================================================
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-DATE="${DATE:-2026-06-10}"
+DATE="${DATE:-$(date +%F)}"
 DATASET_ROOT="plugins/hacienda-droit-affaires/tests/datasets"
 BACKLOG_ROOT="docs/backlog"
 PLUGIN_SKILLS="plugins/hacienda-droit-affaires/skills/"
 CACHE_SKILLS="${CACHE_SKILLS:-$HOME/.claude/plugins/cache/hacienda-juridique/hacienda-droit-affaires/0.1.0/skills/}"
+SKILL_VERSION="${SKILL_VERSION:-2.0.0}"
 
 SKILLS=(
   reviser-contrat
@@ -17,9 +48,13 @@ SKILLS=(
   gouvernance-ag
   financement-startup
   cgv-generator
+  pre-pack-cession
 )
 
+# Code de cycle par defaut, surchargeable via la variable d'environnement CODE
+# (utile pour les skills re-scores sur plusieurs cycles, ex. pre-pack-cession).
 code_for() {
+  if [[ -n "${CODE:-}" ]]; then printf "%s" "$CODE"; return; fi
   case "$1" in
     reviser-contrat) printf "6YFSSW" ;;
     reviser-nda) printf "IJ30QP" ;;
@@ -27,6 +62,7 @@ code_for() {
     gouvernance-ag) printf "S60EV7" ;;
     financement-startup) printf "KJ039D" ;;
     cgv-generator) printf "87MHRS" ;;
+    pre-pack-cession) printf "PPK3VE" ;;
   esac
 }
 
@@ -38,6 +74,7 @@ mode_for() {
     gouvernance-ag) printf "convocation et PV d'assemblee" ;;
     financement-startup) printf "comparaison instrument et revue term sheet seed" ;;
     cgv-generator) printf "generation CGV/CGU B2B ou B2C" ;;
+    pre-pack-cession) printf "note de cadrage du montage pre-pack (mode unique)" ;;
   esac
 }
 
@@ -49,6 +86,7 @@ spec_for() {
     gouvernance-ag) printf "AGO/AGE ; forme SAS/SARL/SA ; delais et mentions de convocation ; quorum/majorite ; conventions reglementees ; decision sensible ; PV exploitable mais brouillon" ;;
     financement-startup) printf "BSPCE ; BSA ; obligations convertibles ; augmentation de capital ; term sheet seed ; clauses de pacte a renvoyer ; pas de conseil fiscal final" ;;
     cgv-generator) printf "regime B2B/B2C ; vente a distance ou SaaS ; clauses abusives ; delais de paiement ; responsabilite ; retractation si consommateur ; clauses a taguer review" ;;
+    pre-pack-cession) printf "cession preparee en mandat ad hoc/conciliation puis plan de cession ; cessation des paiements ambigue (passif exigible vs actif disponible) ; repreneur identifie via LOI indicative ; acte recent a risque periode suspecte ; confidentialite (fuite presse/salaries) ; CSE a consulter ; nantissement/suretes ; actifs PI (marque/brevet) convoites ; side debiteur ou repreneur" ;;
   esac
 }
 
@@ -60,6 +98,7 @@ desc_for() {
     gouvernance-ag) printf "Gouvernance d'assemblee : mode convocation pour generer une convocation d'AGO ou d'AGE conforme aux delais et mentions obligatoires, et mode PV pour generer ou reviser un proces-verbal. Adapte quorum, majorite et formalisme a la forme sociale." ;;
     financement-startup) printf "Conseil sur les instruments de financement de la startup : BSPCE, BSA, obligations convertibles, augmentation de capital. Mode comparer pour choisir l'instrument et mode review pour relire une term sheet de levee. Renvoie vers pacte-associes-review pour les clauses de pacte et ne donne pas de conseil fiscal final." ;;
     cgv-generator) printf "Genere des CGV B2B ou des CGU/CGV B2C sous forme de brouillon assiste. Detecte le regime a l'intake, applique le cadre correspondant, tague les arbitrages review et ne produit jamais un document pret a publier sans validation." ;;
+    pre-pack-cession) printf "Note de cadrage du montage d'un pre-pack cession : cession negociee confidentiellement en amont (mandat ad hoc/conciliation) puis realisee via une procedure collective sous forme de plan de cession. Diagnostic de faisabilite, choix du vehicule procedural, sequencage des deux phases, points de vigilance. Side-aware debiteur/repreneur. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
   esac
 }
 
@@ -71,20 +110,21 @@ command_for() {
     gouvernance-ag) printf "/h-da:gouvernance-ag --convocation --pv" ;;
     financement-startup) printf "/h-da:financement-startup --review" ;;
     cgv-generator) printf "/h-da:cgv-generator --draft" ;;
+    pre-pack-cession) printf "/h-da:pre-pack-cession --side=debiteur" ;;
   esac
 }
 
 usage() {
   cat <<'EOF'
 Usage:
-  bash scripts/da-chantier-b-scoring.sh list
-  bash scripts/da-chantier-b-scoring.sh init <skill>
-  bash scripts/da-chantier-b-scoring.sh phase1 <skill>
-  bash scripts/da-chantier-b-scoring.sh phase2 <skill>
-  bash scripts/da-chantier-b-scoring.sh phase3-resync
-  bash scripts/da-chantier-b-scoring.sh phase3-prompt <skill>
-  bash scripts/da-chantier-b-scoring.sh phase4 <skill>
-  bash scripts/da-chantier-b-scoring.sh aggregate <skill>
+  bash scripts/da-scoring.sh list
+  bash scripts/da-scoring.sh init <skill>
+  bash scripts/da-scoring.sh phase1 <skill>
+  bash scripts/da-scoring.sh phase2 <skill>
+  bash scripts/da-scoring.sh phase3-resync
+  bash scripts/da-scoring.sh phase3-prompt <skill>
+  bash scripts/da-scoring.sh phase4 <skill>
+  bash scripts/da-scoring.sh aggregate <skill>
 
 Skills:
   reviser-contrat
@@ -93,24 +133,34 @@ Skills:
   gouvernance-ag
   financement-startup
   cgv-generator
+  pre-pack-cession
+
+Overrides (variables d'environnement) :
+  CODE=<6chars>   code de cycle (surcharge le defaut ; obligatoire pour re-scorer un skill)
+  DATE=YYYY-MM-DD date du scoring (defaut : date du jour)
+  CACHE_SKILLS=…  chemin du cache plugin pour phase3-resync
 
 Notes:
-  - Phase 1, Phase 2 et Phase 4 doivent chacune partir dans une session Codex neuve.
-  - Avant chaque Phase 3, lancer phase3-resync puis ouvrir une session Claude fraîche.
-  - Phase 3 doit partir dans une session Claude fraîche, sans lire ground-truth.md.
+  - Phase 1, Phase 2 et Phase 4 doivent chacune partir dans une session Codex neuve, SANS le SKILL.md.
+  - Avant chaque Phase 3, lancer phase3-resync puis ouvrir une session Claude fraiche.
+  - Phase 3 doit partir dans une session Claude fraiche, sans lire ground-truth.md.
   - Sauver le JSON Phase 2 pur dans ground-truth.md et le JSON Phase 4 pur dans verdicts-<CODE>.json.
-  - CHECKPOINT revue des gates (entre Phase 2 et Phase 3) : faire relire les critères
-    CRITIQUES par Claude pour vérifier que PASS = complément exact de FAIL (pas de zone
-    orpheline « juste sur le fond, imprécis sur la forme »). Un gate asymétrique ou un
-    gate-recall produit un faux REJETÉ. Ne PAS modifier la grille après le run live
-    (intégrité blind) : la revue se fait AVANT la Phase 3. Cf. C-024 (reviser-contrat)
-    et C-006 (reviser-nda).
+  - Si la sortie Codex est aplatie (sans retours a la ligne) : python3 -m json.tool fichier > tmp && mv tmp fichier.
+  - CHECKPOINT revue des gates (entre Phase 2 et Phase 3) : faire relire les criteres
+    CRITIQUES par Claude pour verifier que PASS = complement exact de FAIL (pas de zone
+    orpheline « juste sur le fond, imprecis sur la forme »). Un gate asymetrique ou un
+    gate-recall produit un faux REJETE. Ne PAS modifier la grille apres le run live
+    (integrite blind) : la revue se fait AVANT la Phase 3. Cf. C-024 (reviser-contrat),
+    C-006 (reviser-nda), C-005 (pre-pack-cession).
 EOF
 }
 
 has_skill() {
-  local skill="$1"
-  code_for "$skill" >/dev/null
+  local skill="$1" s
+  for s in "${SKILLS[@]}"; do
+    [[ "$s" == "$skill" ]] && return 0
+  done
+  return 1
 }
 
 dataset_dir() {
@@ -126,11 +176,11 @@ init_dataset() {
 }
 
 prompt_path() {
-  printf "/tmp/da-b-%s-%s.txt" "$1" "$2"
+  printf "/tmp/da-scoring-%s-%s.txt" "$1" "$2"
 }
 
 err_path() {
-  printf "/tmp/da-b-%s-%s-err.txt" "$1" "$2"
+  printf "/tmp/da-scoring-%s-%s-err.txt" "$1" "$2"
 }
 
 copy_and_report() {
@@ -314,21 +364,22 @@ phase3_resync() {
 
 phase4() {
   local skill="$1"
-  local dir
+  local dir code
   dir="$(dataset_dir "$skill")"
+  code="$(code_for "$skill")"
   init_dataset "$skill" >/dev/null
   run_prompt_command "$skill" phase4 \
     python3 scripts/codex-blind-scoring.py phase4-criteria \
       --skill "$skill" \
-      --skill-version 2.0.0 \
-      --code "$(code_for "$skill")" \
+      --skill-version "$SKILL_VERSION" \
+      --code "$code" \
       --scenario "$dir/scenario.md" \
       --ground-truth "$dir/ground-truth.md" \
       --live-output "$dir/live-output.md" \
       --date "$DATE" \
-      --output "$BACKLOG_ROOT/da-scoring-$skill-$(code_for "$skill").md"
-  echo "save pure Codex verdict JSON to: $dir/verdicts-$(code_for "$skill").json"
-  echo "save scoring report markdown to: $BACKLOG_ROOT/da-scoring-$skill-$(code_for "$skill").md"
+      --output "$BACKLOG_ROOT/da-scoring-$skill-$code.md"
+  echo "save pure Codex verdict JSON to: $dir/verdicts-$code.json"
+  echo "save scoring report markdown to: $BACKLOG_ROOT/da-scoring-$skill-$code.md"
 }
 
 aggregate() {
@@ -341,7 +392,7 @@ aggregate() {
 }
 
 list_skills() {
-  printf "| Skill | Code | Dataset | Mode |\n"
+  printf "| Skill | Code defaut | Dataset | Mode |\n"
   printf "|---|---|---|---|\n"
   for skill in "${SKILLS[@]}"; do
     printf "| \`%s\` | \`%s\` | \`%s\` | %s |\n" \
