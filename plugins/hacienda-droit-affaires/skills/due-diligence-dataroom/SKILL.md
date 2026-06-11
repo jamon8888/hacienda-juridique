@@ -138,7 +138,7 @@ grille de matérialité ne peuvent pas être calibrées. Voir aussi
 
 ## Mode Anno Desktop Optionnel
 
-Pour une data-room autorisée, appeler `anno_health`, puis `detect`. N'utiliser `legal_ingest` que sur demande explicite d'indexation. Ensuite, `legal_search`, `legal_graph_query`, `legal_extract_contract` et `tabular_review_create` peuvent aider à relier pièces, contrats, risques et findings. Anno est une source interne de dossier, jamais une source primaire.
+Pour une data-room autorisée, appeler `anno_health`, puis `detect`. N'utiliser `legal_ingest` que sur demande explicite d'indexation. Ensuite, `legal_search`, `legal_graph_query`, `legal_extract_contract`, `review_create`, `review_add_rows`, `review_extract` peuvent aider à relier pièces, contrats, risques et findings. Anno est une source interne de dossier, jamais une source primaire.
 
 ## Outils MCP à privilégier
 

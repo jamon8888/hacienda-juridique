@@ -125,7 +125,7 @@ substantielle.
 
 ## Mode Anno Desktop Optionnel
 
-Quand Anno Tabular est disponible, utiliser `anno_health`, puis `detect` avant toute pièce client. Pour les lots déjà autorisés, construire la grille avec `tabular_review_create` et affiner les cellules avec `tabular_review_refine_cell`. Les lignes à confiance faible, contradiction, citation absente ou source officielle non consultée restent `[à vérifier]`.
+Quand Anno Tabular est disponible, utiliser `anno_health`, puis `detect` avant toute pièce client. Pour les lots déjà autorisés, construire la grille avec `review_create` et affiner les cellules avec `review_refine_cell`. Les lignes à confiance faible, contradiction, citation absente ou source officielle non consultée restent `[à vérifier]`.
 
 ## Outils MCP à privilégier
 

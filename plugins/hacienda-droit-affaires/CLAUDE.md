@@ -349,12 +349,12 @@ Workflows Anno Droit des affaires autorisés quand Anno est disponible :
 
 | Workflow | Outils Anno utiles |
 |---|---|
-| Revue de contrat / NDA | `legal_extract_contract`, `legal_risk_review`, `legal_search`, revue tabulaire |
-| Due diligence data-room | `legal_ingest`, `legal_search`, `legal_graph_query`, `legal_extract_contract`, `tabular_review_create` |
-| SPA / protocole de cession | `legal_extract_contract`, `legal_risk_review`, `tabular_review_create`, `legal_validate_field` |
-| GAP | `legal_extract_contract`, `legal_mandatory_clause_audit`, `legal_risk_review`, `tabular_review_create` |
+| Revue de contrat / NDA | `legal_extract_contract`, `legal_risk_review`, `legal_search`, `review_create`, `review_extract` |
+| Due diligence data-room | `legal_ingest`, `legal_search`, `legal_graph_query`, `legal_extract_contract`, `review_create`, `review_add_rows`, `review_extract` |
+| SPA / protocole de cession | `legal_extract_contract`, `legal_risk_review`, `review_create`, `review_extract`, `legal_validate_field` |
+| GAP | `legal_extract_contract`, `legal_mandatory_clause_audit`, `legal_risk_review`, `review_create`, `review_extract` |
 | Déclaration de créance | `legal_timeline`, `legal_prescription_check`, `legal_validate_field`, `legal_search` |
-| Gouvernance / assemblées | `legal_timeline`, `legal_validate_field`, `tabular_review_create` |
+| Gouvernance / assemblées | `legal_timeline`, `legal_validate_field`, `review_create`, `review_extract` |
 
 Quand Anno Tabular est disponible, traiter les workflows riches comme une
 revue de dossier structurée : documents, clauses, faits, risques ou échéances

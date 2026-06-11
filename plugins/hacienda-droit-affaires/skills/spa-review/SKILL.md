@@ -109,7 +109,7 @@ substantielle.
 
 ## Mode Anno Desktop Optionnel
 
-Sur un SPA volumineux, appeler `anno_health`, puis `detect`. Utiliser `legal_extract_contract` pour extraire structure, déclarations, conditions et annexes ; `legal_risk_review` pour préparer la matrice de risques ; `tabular_review_create` pour relier findings DD, garanties, indemnisations et conditions de closing.
+Sur un SPA volumineux, appeler `anno_health`, puis `detect`. Utiliser `legal_extract_contract` pour extraire structure, déclarations, conditions et annexes ; `legal_risk_review` pour préparer la matrice de risques ; `review_create` et `review_extract` pour relier findings DD, garanties, indemnisations et conditions de closing.
 
 ## Outils MCP à privilégier
 

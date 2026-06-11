@@ -92,7 +92,8 @@ function collectCommandFiles(): string[] {
 }
 
 function frontmatterValue(content: string, key: string): string | undefined {
-  const frontmatter = content.match(/^---\n([\s\S]*?)\n---/)?.[1];
+  const stripped = content.replace(/^\uFEFF/, "").replace(/\r\n/g, "\n");
+  const frontmatter = stripped.match(/^---\n([\s\S]*?)\n---/)?.[1];
   return frontmatter?.match(new RegExp(`^${key}:\\s*(.+)$`, "m"))?.[1];
 }
 
@@ -321,7 +322,10 @@ describe("hacienda droit affaires cowork packaging", () => {
     expect(combined).toContain("legal_timeline");
     expect(combined).toContain("legal_prescription_check");
     expect(combined).toContain("legal_validate_field");
-    expect(combined).toContain("tabular_review_create");
+    expect(combined).toContain("review_create");
+    expect(combined).toContain("review_add_rows");
+    expect(combined).toContain("review_extract");
+    expect(combined).toContain("review_refine_cell");
     expect(combined).toContain("source interne");
     expect(combined).toContain("jamais comme source primaire");
   });

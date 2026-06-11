@@ -118,8 +118,8 @@ le requiert pas. Anno sert uniquement de mémoire/RAG local de dossier client :
 `anno_health`, `detect`, `legal_ingest` sur demande explicite, puis
 `legal_search`, `legal_graph_query`, `legal_extract_contract`,
 `legal_risk_review`, `legal_mandatory_clause_audit`, `legal_timeline`,
-`legal_prescription_check`, `legal_validate_field` et `tabular_review_create`
-selon le workflow.
+`legal_prescription_check`, `legal_validate_field`, `review_create`,
+`review_add_rows`, `review_extract`, `review_refine_cell` selon le workflow.
 
 Les workflows les plus utiles sont `reviser-contrat`, `reviser-nda`,
 `revue-tabulaire`, `due-diligence-dataroom`, `spa-review`, `gap-review`,

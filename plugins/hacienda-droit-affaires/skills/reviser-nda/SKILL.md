@@ -118,7 +118,7 @@ substantiel.
 
 ## Mode Anno Desktop Optionnel
 
-Pour un lot de NDA ou une data-room confidentielle, appeler `anno_health`, puis `detect`. Utiliser `legal_extract_contract`, `legal_risk_review` et, si une grille est demandée, `tabular_review_create`. Ne pas indexer sans demande explicite.
+Pour un lot de NDA ou une data-room confidentielle, appeler `anno_health`, puis `detect`. Utiliser `legal_extract_contract`, `legal_risk_review` et, si une grille est demandée, `review_create` et `review_extract`. Ne pas indexer sans demande explicite.
 
 ## Outils MCP à privilégier
 

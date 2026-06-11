@@ -64,6 +64,7 @@ export type AnnoEngineCompat = {
     setup: string[];
     memory: string[];
     legal: string[];
+    knowledge: string[];
     tabular: string[];
   };
   release_page_url: string;

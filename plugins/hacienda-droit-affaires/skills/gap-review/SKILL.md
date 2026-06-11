@@ -110,7 +110,7 @@ Si `--side` est absent : stopper et demander explicitement. Le skill est side-de
 
 ## Mode Anno Desktop Optionnel
 
-Sur une GAP longue ou liée à des annexes DD, appeler `anno_health`, puis `detect`. Utiliser `legal_extract_contract`, `legal_mandatory_clause_audit`, `legal_risk_review` et `tabular_review_create` pour cartographier déclarations, exceptions, plafonds, franchises, durées et preuves.
+Sur une GAP longue ou liée à des annexes DD, appeler `anno_health`, puis `detect`. Utiliser `legal_extract_contract`, `legal_mandatory_clause_audit`, `legal_risk_review` et `review_create`, `review_extract` pour cartographier déclarations, exceptions, plafonds, franchises, durées et preuves.
 
 ## Outils MCP à privilégier
 
