@@ -1,82 +1,89 @@
 CONFIDENTIEL — DOCUMENT DE TRAVAIL — Secret professionnel art. 66-5 loi n°71-1130 du 31 décembre 1971
-[Phase amiable confidentielle — L.611-15 C.com. — document strictement interne au débiteur et à ses conseils]
+*(Phase amiable strictement confidentielle — L.611-15 C.com. Document interne au débiteur et à ses conseils. À ne communiquer à aucun tiers, NORDPLAST compris, au-delà du strict nécessaire encadré par le mandataire ad hoc.)*
 
 > **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✗ (non interrogée cette session — citations issues de la connaissance modèle, à confirmer via `verifier-citations`) / BODACC ✗ / Judilibre ✗
-> - **Lecture :** situation décrite (faits client) + 0 pièce communiquée
-> - **Signalé pour ton jugement :** 4 éléments `[review]` — (1) **date de cessation des paiements non tranchée** (expert-comptable n'a pas statué sur passif exigible / actif disponible) ; (2) **nantissement du matériel consenti il y a 3 semaines pour une dette antérieure** → risque de nullité période suspecte L.632-1 ; (3) **confidentialité L.611-15 déjà entamée** (presse locale + réseaux) ; (4) **repreneur unique sans prospection organisée** (L.611-7).
-> - **Fraîcheur :** réforme du 15 septembre 2021 (ord. 2021-1193, transposition directive restructuration UE 2019/1023) — vérifier durées/seuils en vigueur (45 j cessation des paiements, régime sauvegarde accélérée L.628-1 s., calendrier offres). `[à vérifier]`
-> - **Profil cabinet :** bloc `[A CONFIGURER]` — note produite avec valeurs par défaut (rôle avocat, en-tête secret professionnel, TC compétent). **Lancer `/h-da:entretien-demarrage`** pour fiabiliser approbateurs et politique PII.
-> - **Avant de t'appuyer dessus :** faire trancher la date de cessation des paiements par l'expert-comptable **avant tout engagement** avec NORDPLAST — elle commande le véhicule ET la qualification période suspecte du nantissement.
+> - **Sources :** Légifrance ✗ (non connectée cette session) / BODACC ✗ / Judilibre ✗ — **tous les articles cités sont `[à vérifier]`** en source primaire avant appui.
+> - **Lecture :** situation décrite (faits fictifs) + 0 pièce annexée. Aucun document comptable, ni LOI NORDPLAST, ni acte de nantissement consultés.
+> - **Signalé pour ton jugement :** 4 éléments `[review]` — (1) date exacte de cessation des paiements **non tranchée** par l'expert-comptable ; (2) confidentialité L.611-15 **déjà entamée** (presse + rumeur salarié) ; (3) **prospection unique** (NORDPLAST seul, L.611-7) ; (4) **nantissement matériel consenti il y a 3 semaines pour dette antérieure** → risque période suspecte L.632-1.
+> - **Fraîcheur :** réforme du 15 septembre 2021 (ord. n°2021-1193, transposition directive restructuration UE 2019/1023) — durées, seuils et articulation sauvegarde accélérée / RJ à confirmer en vigueur.
+> - **Avant de t'appuyer dessus :** faire **trancher par l'expert-comptable la date de cessation des paiements** (passif exigible vs actif disponible) — c'est la clé du Gate 1 — et faire qualifier par l'avocat le **nantissement du matériel** au regard de L.632-1. Profil cabinet `[A CONFIGURER]` : en-tête avocat et tribunal de commerce retenus par défaut, à confirmer.
 
 # Pre-pack cession — note de cadrage [CÔTÉ débiteur]
 
-**Bottom line.** Un pre-pack cession est *envisageable* mais le projet du dirigeant — « tout boucler en mandat ad hoc, vite et en discrétion » — est **juridiquement impossible en l'état** sur trois points : (1) le mandat ad hoc **ne réalise pas** la cession, il la prépare ; la purge du passif et l'opposabilité *erga omnes* ne s'obtiennent que par le **plan de cession arrêté par le tribunal (L.642-2)** ; (2) le **Gate 1 n'est pas tranché** (cessation des paiements incertaine) et il commande le véhicule ; (3) **deux signaux d'alerte forts** sont déjà présents — un **nantissement consenti il y a 3 semaines pour une dette ancienne** (risque période suspecte) et une **confidentialité déjà compromise**. Avant tout engagement avec NORDPLAST : faire trancher la cessation des paiements et purger ces risques.
+**Bottom-line.** Oui, une cession préparée reste envisageable, **mais pas comme le dirigeant l'imagine**. « Tout boucler en mandat ad hoc » est juridiquement **impossible** : le mandat ad hoc *prépare* la cession, il ne la *réalise pas*. La purge du passif, l'opposabilité erga omnes et la sécurité du repreneur ne s'obtiennent **que par le plan de cession arrêté par le tribunal** (L.642-2 `[à vérifier]`) — donc dans une **procédure collective (RJ ou LJ)**, jamais en amiable seul, et **jamais en sauvegarde accélérée** (qui n'aboutit qu'à un plan de *continuation*). Surtout, **deux des quatre conditions du pre-pack sont déjà fragilisées** (confidentialité entamée, prospection unique) et **un acte récent expose à la nullité de la période suspecte**. À cadrer impérativement avant tout engagement avec NORDPLAST.
 
 # 1. Diagnostic & gates
 
-- **Gate 1 — cessation des paiements : INCERTAIN `[review]`.** L'expert-comptable n'a **pas** formellement tranché passif exigible / actif disponible (art. L.631-1 C.com.). Des factures fournisseurs stratégiques sont impayées depuis **~50 jours** ; deux moratoires sont en cours (un accord **oral**, l'autre absent) — un accord oral non formalisé ne neutralise pas l'exigibilité. **On ne peut pas présumer.** Conséquence directe sur le véhicule :
-  - si la cessation des paiements est **avérée depuis > 45 jours** → conciliation et sauvegarde accélérée **fermées** → véhicule **RJ (L.631-19-1) → plan de cession (L.642-1 s., L.642-2)**, avec obligation de déclarer la cessation des paiements (L.631-4 `[à vérifier]`) ;
-  - si **non / prévisible / ≤ 45 j** → voie amiable encore ouverte → **sauvegarde accélérée (L.628-1 s.)** possible si accord majoritaire des créanciers en vue.
-  - **Rétroplanning (à la date du 12 juin 2026) :** des impayés à ~50 jours placent déjà l'entreprise dans la zone critique des 45 jours `[à vérifier]`. **Action n°1 : datage de la cessation des paiements par l'expert-comptable**, avec inventaire du passif exigible (y compris échéances bancaires/sociales/fiscales) et de l'actif disponible (trésorerie + réserves de crédit mobilisables).
+- **Gate 1 — cessation des paiements : INCERTAIN `[review]`.**
+  L'expert-comptable n'a **pas tranché** le rapport passif exigible / actif disponible (art. L.631-1 C.com. `[à vérifier]`). Des factures fournisseurs stratégiques sont impayées depuis ~50 jours, un moratoire n'est qu'**oral pour un créancier, absent pour l'autre** (un accord oral non formalisé ne neutralise pas l'exigibilité). La trésorerie est « très tendue ». Le mandat ad hoc a été ouvert il y a ~6 semaines.
+  → **Il faut faire dater la cessation des paiements avant d'avancer.** Conséquences :
+  - Si CP avérée et **> 45 j** : la conciliation est fermée, **déclaration de cessation des paiements obligatoire** (L.631-4 `[à vérifier]`) → **RJ (L.631-19-1)**.
+  - Si CP **≤ 45 j** ou prévisible : marge pour préparer en amiable, **mais la réalisation de la cession suppose de toute façon la bascule en RJ**.
+  - **Point déterminant, indépendant de la date :** le plan de cession ne s'adopte **qu'en RJ ou LJ** (L.631-22 / L.642-1 `[à vérifier]`). La cession **présuppose la cessation des paiements**. Le véhicule sera donc le **redressement judiciaire**, pas l'amiable, et pas la sauvegarde accélérée.
 
-- **Gate 2 — faisabilité pre-pack (4 critères cumulatifs) :**
-  1. **Confidentialité tenable (L.611-15)** — 🔴 `[review]`. La presse économique locale a déjà évoqué des « tensions de trésorerie » et un salarié a relayé la rumeur. L'intérêt premier du pre-pack (discrétion vis-à-vis des clients automobiles) **est déjà partiellement éventé**. Cela ne tue pas le montage mais en **réduit le bénéfice** : il faut piloter la communication et accélérer la sécurisation juridique plutôt que parier sur le secret.
-  2. **Repreneur crédible identifié** — 🟡. NORDPLAST GMBH a manifesté un intérêt **sérieux** et remis une **LOI indicative**. C'est un candidat réel — mais une **LOI indicative n'est pas une offre ferme** au sens de **L.642-2** (offre écrite et ferme : périmètre, contrats repris, prix, financement, emplois maintenus, garanties, date). À convertir.
-  3. **Prospection régulière organisée (L.611-7)** — 🔴 `[review]`. « Aucun autre candidat n'a été activement sollicité. » Un **repreneur unique sans appel à candidatures** organisé par le mandataire ad hoc **fragilise l'opposabilité de l'offre** devant le tribunal et **expose à contestation** (notamment d'un créancier ou d'un candidat évincé). Confier **dès maintenant** au mandataire ad hoc un **mandat de prospection traçable**.
-  4. **Pas d'acte à risque période suspecte (L.632-1)** — 🔴 `[review]`. **Point le plus sensible.** Le **nantissement sur matériel consenti il y a 3 semaines à un fournisseur de résine en garantie d'une dette née il y a plus d'un an** correspond précisément à une **sûreté constituée pour une dette antérieurement contractée** — cas de **nullité de droit** de la période suspecte (L.632-1, I C.com.) si la date de cessation des paiements est **reportée** à une date antérieure à cet acte. Le paiement/garantie obtenu « pour obtenir la poursuite des livraisons » n'immunise pas l'acte. Le **nantissement bancaire sur le fonds de commerce** est, lui, à dater et à situer par rapport à la cessation des paiements.
+- **Gate 2 — faisabilité pre-pack (4 critères cumulatifs) : 3 critères 🔴 sur 4.**
+  | Critère | Statut | Motif |
+  |---|---|---|
+  | Confidentialité tenable (L.611-15) | 🔴 `[review]` | La presse économique locale évoque déjà des « tensions de trésorerie » et un salarié a relayé la rumeur sur les réseaux. La discrétion — **raison d'être** du pre-pack — est déjà compromise. L'intérêt même du montage s'érode. |
+  | Repreneur crédible identifié | 🟡 | NORDPLAST a manifesté un intérêt **sérieux**, mais n'a remis qu'une **LOI indicative** — ce n'est **pas** une offre ferme L.642-2. De plus c'est un **concurrent** (risque sur les données sensibles, voir Bloc 3). |
+  | Prospection régulière organisée (L.611-7) | 🔴 | **Aucun autre candidat n'a été sollicité.** Un repreneur unique sans mise en concurrence fragilise l'opposabilité de l'offre devant le tribunal et expose à contestation (L.661-6). |
+  | Pas d'acte à risque période suspecte (L.632-1) | 🔴 | Il y a 3 semaines, la société a consenti à un **créancier ancien** (dette née il y a > 1 an) un **nantissement sur matériel en garantie d'une dette antérieurement contractée**. C'est un cas typique de **nullité de droit de la période suspecte** (sûreté pour dette antérieure, L.632-1, I `[à vérifier]`) **si la date de cessation des paiements est fixée avant cet acte**. |
 
-  **Conclusion gates :** le montage **n'est pas validé en l'état**. Gate 1 doit être tranché ; deux des quatre critères du Gate 2 sont 🔴. Ce ne sont pas des « non » définitifs, mais des **conditions à purger avant de s'engager** avec NORDPLAST.
+  **Conclusion Gate 2 :** en l'état, **ce n'est pas un pre-pack abouti** — c'est une cession judiciaire à organiser dans une procédure collective, avec trois fragilités à corriger d'abord. Le montage « cession discrète et rapide avec NORDPLAST » tel que demandé n'est **pas tenable** sans purger ces points.
+
+- **Point pivot (à marteler au dirigeant) :** la cession ne se réalise **que par le plan de cession arrêté par le tribunal** (L.642-2). On ne « signe » pas la cession en mandat ad hoc. Le mandat ad hoc sert à **présélectionner le repreneur et préparer le dossier**, pas à transférer les actifs purgés du passif.
 
 # 2. Véhicule & séquençage
 
-- **Véhicule (sous réserve Gate 1) :**
-  - cessation des paiements > 45 j → **RJ (L.631-19-1)** → **plan de cession (L.642-1 s., L.642-2)** ; la cession peut être **préparée/ordonnée par l'administrateur (L.631-21-1)**, ordonnée si le redressement est manifestement impossible (L.631-22).
-  - cessation des paiements non avérée / ≤ 45 j + accord majoritaire des créanciers en vue → **sauvegarde accélérée (L.628-1 s.)**.
-- **Point pivot (à marteler au dirigeant) :** la cession **ne se réalise pas en mandat ad hoc**. Le mandat ad hoc **prépare** (prospection, cahier des charges, présélection) ; seul le **jugement arrêtant le plan de cession (L.642-2)** purge le passif, rend l'offre opposable à tous et sécurise le repreneur. « Boucler en amiable » exposerait à un acte attaquable et sans purge.
-- **Séquençage :**
-  1. **Phase amiable** (mandat ad hoc en cours, ouvert il y a 6 semaines) : datage cessation des paiements → mandat de **prospection L.611-7** au mandataire ad hoc → cahier des charges + périmètre → conversion LOI NORDPLAST en offre **L.642-2**.
-  2. **Bascule collective** (RJ ou sauvegarde accélérée selon Gate 1) : ouverture, déclaration le cas échéant de la cessation des paiements.
-  3. **Dépôt et examen des offres** : offre(s) écrite(s) et ferme(s) ; démarches de prospection **rapportées au tribunal**.
-  4. **Jugement arrêtant le plan de cession** : choix par le tribunal sur les critères **L.642-5**, désignation des **contrats cédés (L.642-7)**, contrôle du périmètre **activité autonome (L.642-1)**.
-- **Qui fait quoi :** débiteur (orchestre, prépare, finance la continuation) · mandataire ad hoc (prospecte, trace) · administrateur (en RJ, prépare/ordonne la cession L.631-21-1) · tribunal (arrête le plan) · CSE (consultation préalable obligatoire). Calendrier indicatif `[à vérifier]`.
+- **Véhicule de la cession : RJ (L.631-19-1) → plan de cession (L.642-1 s., L.642-2) `[à vérifier]`.** En RJ, la cession peut être **préparée et ordonnée par l'administrateur (L.631-21-1)** et ordonnée si le redressement est manifestement impossible (L.631-22). **Pas de sauvegarde accélérée** : elle ne produit qu'un plan de **continuation** (L.628-1), pas une cession. Si la situation se dégrade au point que le redressement est manifestement impossible → **LJ (L.640-1)**, le plan de cession reste réalisable.
 
-# 3. Points de vigilance — focale débiteur (orchestration)
+- **Séquençage (sans se faire piéger) :**
+  1. **Faire trancher la date de cessation des paiements** (expert-comptable) — gate de tout le reste.
+  2. **Confier au mandataire ad hoc un mandat de prospection traçable (L.611-7)** : ne pas rester sur NORDPLAST seul — solliciter d'autres candidats, documenter la démarche. C'est ce qui rendra l'offre opposable devant le tribunal.
+  3. **Préparer le cahier des charges de cession et le périmètre** (activité autonome — voir Bloc 3), sous confidentialité (L.611-15) tant que possible.
+  4. **Bascule en RJ** (déclaration de la cessation des paiements) — c'est l'entrée dans le collectif.
+  5. **Dépôt et examen des offres** : l'offre de NORDPLAST doit être **convertie en offre écrite et ferme L.642-2** (périmètre, contrats repris, prix, financement, emplois maintenus, garanties, date). Les démarches de prospection sont **rapportées au tribunal**.
+  6. **Jugement arrêtant le plan de cession** : le **tribunal choisit** sur les critères L.642-5 (emploi durable, paiement des créanciers, garanties d'exécution), désigne les **contrats cédés (L.642-7)**, vérifie le périmètre (activité autonome, L.642-1).
 
-**Mécanique du plan de cession (commune, à cadrer dès l'amont) :**
-- L'offre NORDPLAST doit devenir **écrite et ferme** au sens de **L.642-2** (périmètre, contrats repris, prix, financement, emplois maintenus, garanties, date). La **LOI indicative actuelle n'est pas recevable** comme offre judiciaire.
-- C'est le **tribunal qui choisit** l'offre, sur les critères de **L.642-5** : **pérennité de l'emploi, paiement des créanciers, garanties d'exécution** — **pas** la vitesse, la discrétion ni la préférence du dirigeant pour NORDPLAST. Gérer l'attente du client sur ce point.
-- **Cherry-picking — alerte forte.** NORDPLAST veut « surtout deux actifs : la **marque PLASTIREVA** et un **brevet de procédé bi-matière** ». Si l'offre isole ces actifs clés au point de **vider l'activité** de sa substance (L.642-1 exige une **activité autonome préservant l'emploi**), le périmètre risque le **rejet**. Il faut un périmètre cohérent (site + actifs PI + volume d'emplois suffisant), pas une captation des seuls joyaux.
+- **Qui fait quoi :** débiteur (M. R) prépare et décide d'engager ; **mandataire ad hoc** = prospecteur et organisateur de la mise en concurrence ; **administrateur judiciaire** (en RJ) prépare/ordonne la cession ; **tribunal** arrête le plan et choisit l'offre ; **CSE** consulté préalablement. Calendrier indicatif `[à vérifier]`.
 
-**Spécifiquement côté débiteur :**
-- **Prospection régulière et traçable (L.611-7)** — élargir au-delà de NORDPLAST, faire piloter par le mandataire ad hoc, documenter chaque diligence (réduit le risque de contestation et conforte l'offre devant le tribunal).
-- **Confidentialité (L.611-15)** — aucun document destiné à des tiers produit en phase amiable ; encadrer strictement les échanges et la data-room. La fuite étant amorcée, préparer un **plan de communication** (clients automobiles, salariés) coordonné avec le calendrier juridique.
-- **Consultation CSE/CSEC préalable** (90 salariés) — obligatoire avant la cession ; séquencer sans rompre la confidentialité prématurément.
-- **Intervention AGS** — créances salariales prises en charge dans le cadre de la procédure ; à articuler avec le périmètre des salariés repris par NORDPLAST.
-- **Budget de continuation jusqu'au jugement** — sécuriser les fournisseurs critiques (résine notamment) par des **moratoires écrits** (l'accord oral est insuffisant) et un plan de trésorerie tenant jusqu'au plan de cession.
-- **Sort des sûretés** — cartographier le **nantissement bancaire sur le fonds** et le **nantissement matériel** litigieux ; anticiper leur sort dans le plan (report L.642-12) et le risque de nullité du second (L.632-1).
-- **Requête au tribunal** — préparer l'ouverture du véhicule retenu une fois Gate 1 tranché.
-- **Repreneur concurrent (NORDPLAST = concurrent européen)** — encadrer strictement les **données sensibles** (clients automobiles, prix, savoir-faire) communiquées en phase amiable : **NDA renforcé / clean team**, divulgation graduée. Un concurrent qui n'irait pas au bout aurait capté de l'information stratégique.
+# 3. Points de vigilance — côté débiteur
+
+**Mécanique du plan de cession (à cadrer dès l'amont) :**
+- La **LOI indicative de NORDPLAST n'est pas une offre recevable.** Il faudra une **offre écrite et ferme au sens de L.642-2** `[à vérifier]`, irrévocable une fois déposée.
+- **Le tribunal choisit l'offre (L.642-5)** — sur la pérennité de l'emploi, le paiement des créanciers et les garanties d'exécution — **pas** sur la vitesse, la discrétion ni la préférence du dirigeant pour NORDPLAST. Le dirigeant doit comprendre qu'il **ne maîtrise pas le choix du repreneur**.
+- **Cherry-picking — alerte forte.** NORDPLAST veut « **surtout** » la **marque PLASTIREVA** et le **brevet de procédé d'injection bi-matière**, avec seulement « une partie » des salariés. Le périmètre cédé doit former une **activité autonome préservant l'emploi (L.642-1)**. Isoler les deux actifs clés au point de **vider l'activité de sa substance** expose le plan à un **risque de rejet** par le tribunal. À surveiller de près dans la construction de l'offre.
+
+**Spécifiques au side débiteur (orchestration) :**
+- **Période suspecte — priorité absolue (L.632-1 `[à vérifier]`).** Le nantissement de matériel consenti il y a 3 semaines pour une dette antérieure est un **acte à haut risque de nullité de droit** si la cessation des paiements est datée antérieurement. À faire qualifier par l'avocat **avant** toute déclaration. Ne consentir **aucun autre acte anormal** d'ici la bascule (paiement préférentiel, sûreté nouvelle, cession sous-évaluée).
+- **Confidentialité (L.611-15) déjà entamée.** La fuite presse + rumeur salarié réduit l'intérêt du pre-pack. Gérer la communication, mais **ne produire aucun document destiné à des tiers** pendant la phase amiable. Ne rien adresser à NORDPLAST au-delà du strict nécessaire encadré par le mandataire.
+- **Consultation CSE/CSEC préalable obligatoire** (90 salariés) avant l'opération de cession.
+- **Intervention de l'AGS** pour les créances salariales (salariés non repris notamment).
+- **Budget de continuation jusqu'au jugement** : sécuriser les fournisseurs critiques (les deux en moratoire), obtenir des **moratoires écrits** (l'accord oral ne suffit pas), maintenir l'exploitation.
+- **Sort des sûretés :** le **nantissement bancaire sur le fonds de commerce** et le report des sûretés spéciales (L.642-12 `[à vérifier]`) à traiter dans le plan.
+- **Site en location-gérance :** vérifier le sort du **contrat de location-gérance** (cessible ? désigné par le tribunal L.642-7 ? accord du propriétaire/bailleur du fonds ?) — l'activité dépend du site.
+- **Requête au tribunal** : préparer le dossier d'ouverture du RJ.
 
 # 4. Renvois & prochaines étapes
 
-- **Amont :** `/h-da:prevention-difficultes` — cadrage mandat ad hoc / conciliation et, le cas échéant, bascule sauvegarde accélérée ; **gate cessation des paiements 45 j**.
-- **Aval :** `/h-da:spa-review` · `/h-da:gap-review` · `/h-da:closing-checklist-fr` — l'acte de cession et son closing (hors de ce skill).
-- **Latéral :** `/h-da:declaration-creance` (créanciers, dont fournisseurs) ; **`/h-pi:contrats-pi`** — actifs PI substantiels au périmètre (**marque PLASTIREVA + brevet bi-matière**), valorisation, transfert et inscription au plan de cession.
+- **Amont :** `/h-da:prevention-difficultes` — pour cadrer le passage mandat ad hoc → bascule collective et trancher la date de cessation des paiements.
+- **Aval :** `/h-da:spa-review` / `/h-da:gap-review` / `/h-da:closing-checklist-fr` — pour l'acte de cession et son closing (ce skill ne rédige ni l'offre ni l'acte).
+- **Latéral :** `/h-da:declaration-creance` (créanciers, dont la banque nantie) ; `/h-pi:contrats-pi` — **fortement recommandé** vu que la marque et le brevet sont au cœur de la convoitise du repreneur.
 
 # Une question hors de ma checklist habituelle
 
-Le **site industriel unique est exploité en location-gérance**. Dans un plan de cession, le sort de ce contrat est déterminant : peut-il être **cédé par le tribunal (L.642-7)** sans l'accord du loueur de fonds, ou la cession suppose-t-elle l'accord/le maintien du contrat de location-gérance ? Si le repreneur ne sécurise pas l'occupation du site, le périmètre « activité autonome » L.642-1 est fragilisé — à vérifier **avant** de présenter l'offre. À relier au nantissement bancaire sur le fonds de commerce.
+L'articulation **prix de cession / désintéressement des créanciers** mérite attention : NORDPLAST cible précisément les deux actifs incorporels (marque + brevet) qui concentrent vraisemblablement la valeur. Si le prix offert est calibré sur un périmètre « activité » mais que la valeur réelle réside dans la PI isolable, le tribunal — et les créanciers, dont la banque nantie sur le fonds — pourraient contester l'équilibre. À documenter par une **évaluation indépendante des actifs PI** avant de figer l'offre.
 
 # Que veux-tu faire ? Choisis une option :
 
-1. **Rédiger** — je prépare (a) la trame de questions à l'expert-comptable pour **dater la cessation des paiements** (passif exigible / actif disponible), ou (b) la trame du **cahier des charges de cession** + mandat de prospection L.611-7 au mandataire ad hoc.
-2. **Escalader** — note courte vers l'approbateur configuré [profil `[A CONFIGURER]`] : décision d'engager le montage malgré les deux alertes 🔴 (nantissement période suspecte, prospection unique).
-3. **Compléter les faits** — date exacte de cessation des paiements ; date précise et conditions du nantissement matériel ; date de constitution du nantissement bancaire sur le fonds ; fermeté/contenu de l'offre NORDPLAST ; actes des 18 derniers mois.
-4. **Surveiller et attendre** — point de revisite **avant que les impayés ne consolident une cessation des paiements > 45 j**, ce qui basculerait le véhicule en RJ.
+1. **Rédiger** — je prépare la trame de la **requête d'ouverture du RJ** ou le **cahier des charges de cession** (périmètre, activité autonome, emplois).
+2. **Escalader** — note vers l'approbateur configuré `[A CONFIGURER]` pour décision d'engager le montage (et de faire qualifier le nantissement L.632-1).
+3. **Compléter les faits** — questions : date exacte de cessation des paiements (passif exigible / actif disponible) ; date précise et termes du nantissement de matériel ; contenu de la LOI NORDPLAST (périmètre, prix, emplois) ; sort du contrat de location-gérance ; actes des 18 derniers mois.
+4. **Surveiller et attendre** — suivi avec point de revisite avant que la cessation des paiements n'atteigne 45 j (si elle n'est pas déjà dépassée).
 5. **Autre** — précise.
 
 ---
-Sources consultées : (aucune base interrogée cette session — citations `[connaissance modèle — à vérifier]`)
-Citations vérifiées : non — lancer `verifier-citations` (L.611-7, L.611-15, L.628-1 s., L.631-1, L.631-4, L.631-19-1, L.631-21-1, L.631-22, L.632-1, L.642-1, L.642-2, L.642-3, L.642-5, L.642-7, L.642-12)
+
+Sources consultées : aucune base primaire connectée cette session (Légifrance ✗ / BODACC ✗ / Judilibre ✗)
+Citations vérifiées : non — tous articles `[à vérifier]`
 Date d'analyse : 2026-06-12
