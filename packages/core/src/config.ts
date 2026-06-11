@@ -1,7 +1,10 @@
 import { readFileSync, existsSync } from "node:fs";
 import { homedir } from "node:os";
 import { resolve } from "node:path";
+import { config as loadDotenv } from "dotenv";
 import { log } from "./logger.js";
+
+loadDotenv();
 
 export type PisteEnv = "production" | "sandbox";
 
