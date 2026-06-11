@@ -48,9 +48,9 @@ C'est le **pont exact** entre les 2 personas déjà validés :
 ### Gate 1 — Cessation des paiements (réutilise la logique `prevention-difficultes`)
 Détermine le **véhicule**, pas un go/no-go binaire :
 - CP ≤ 45 j ou non constatée → voie amiable possible (mandat ad hoc / conciliation)
-  → **sauvegarde accélérée** (L.628-x) si accord majoritaire en vue.
-- CP > 45 j → conciliation fermée → bascule **RJ + plan de cession** (L.642-x)
-  directement.
+  → **sauvegarde accélérée** (L.628-1 s.) si accord majoritaire en vue.
+- CP > 45 j → conciliation fermée → bascule **RJ** (L.631-19-1) → **plan de cession**
+  (L.642-1 s., L.642-2) directement.
 - CP incertaine → poser la question (passif exigible vs actif disponible) avant
   d'avancer.
 
@@ -62,6 +62,11 @@ Détermine le **véhicule**, pas un go/no-go binaire :
   (L.611-7) — opposabilité de l'offre choisie / transparence vis-à-vis du tribunal.
 - **Pas de fraude / période suspecte anticipée** (L.632-1) — sinon risque de
   nullité de la cession.
+
+> **Ne sont PAS des gates** (kill-switches), mais des points de **séquençage /
+> vigilance** (Bloc 3) : consultation CSE / CSEC, intervention AGS, sort des
+> sûretés. Ce sont des contraintes de calendrier ou d'exposition, pas des
+> conditions qui rendent le pre-pack infaisable.
 
 ## Sortie — note de cadrage *side-aware*, 4 blocs
 
