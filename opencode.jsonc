@@ -1,0 +1,14 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "openwork-cloud": {
+      "type": "remote",
+      "enabled": true,
+      "url": "https://app.openworklabs.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ow_mcp_at_lVIDlOJIZgS1gUrB6A5Fiu3ga4trJwlakPgi8RlgBok"
+      },
+      "oauth": false
+    }
+  }
+}

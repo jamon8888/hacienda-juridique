@@ -189,8 +189,8 @@ Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
 # {Pour --review} Analyse des instruments
 [revue des instruments mentionnés dans la term sheet : valorisation, dilution, mécanique propre — UNIQUEMENT les instruments]
 
-# {Pour --review} Renvoi pacte-associes-review
-[liste des clauses de pacte identifiées dans la term sheet — liquidation preference, anti-dilution, gouvernance, vesting, drag/tag, leaver — et renvoi explicite vers /h-droit-affaires:pacte-associes-review avec les options (a)/(b)/(c). Ces clauses ne sont PAS analysées au fond ici.]
+# {Pour --review} Clauses de pacte — triage term sheet + renvoi
+[chaque clause de pacte présente dans la term sheet — liquidation preference, anti-dilution, gouvernance/véto, vesting, drag/tag, leaver — FLAGUÉE avec sévérité 🟢/🟡/🟠/🔴, enjeu pour le client et bornage de négociation au stade term sheet ; PUIS renvoi de la rédaction détaillée vers /h-droit-affaires:pacte-associes-review avec les options (a)/(b)/(c). Le playbook détaillé n'est pas déroulé ici, mais aucune clause n'est renvoyée sans avoir été flaguée et bornée.]
 
 # Dimension fiscale — signalée, non traitée
 [rappel que le volet fiscal de chaque instrument — notamment le régime BSPCE art. 163 bis G CGI [à vérifier] — relève d'un conseil fiscal / expert-comptable et n'est pas traité par ce skill]
@@ -322,15 +322,26 @@ instruments. Pour chacun, à partir de `references/instruments-financement-fr.md
   [à vérifier], intérêts d'OC, plus-values) est **signalé et renvoyé** à un
   fiscaliste — jamais traité au fond.
 
-> **RENVOI EXPLICITE ET AUTOMATIQUE — `pacte-associes-review`.** Les **clauses de
-> pacte** que comporte presque toujours une term sheet de levée —
-> **liquidation preference, anti-dilution / ratchet, gouvernance et droits de
-> véto, vesting, drag / tag-along, good / bad leaver** — **ne sont pas analysées
-> au fond ici**. Dès qu'une telle clause est identifiée dans la term sheet, le
-> skill la **liste** et **renvoie** vers `/h-droit-affaires:pacte-associes-review`,
-> avec les options : (a) enchaîner `pacte-associes-review` sur ces clauses,
-> (b) limiter `financement-startup` à l'analyse des instruments, (c) les deux en
-> séquence. Ne jamais traiter une clause de pacte au fond dans ce skill.
+> **CLAUSES DE PACTE — flaguer et borner ici, router le détail.** Une term sheet de
+> levée comporte presque toujours des clauses de pacte — **liquidation preference,
+> anti-dilution / ratchet, gouvernance et droits de véto, vesting, drag / tag-along,
+> good / bad leaver**. Ce skill **ne rédige pas** ces clauses et **ne déroule pas le
+> playbook complet** (c'est le rôle de `pacte-associes-review`), MAIS il **ne les
+> renvoie jamais sans les avoir traitées au stade term sheet**. Pour chaque clause
+> de pacte présente :
+> - **flaguer** avec une **sévérité** 🟢/🟡/🟠/🔴 ;
+> - **énoncer l'enjeu** pour le client (ce que la clause lui coûte ou lui impose) ;
+> - **borner activement** quand la term sheet est déséquilibrée — ex. véto investisseur
+>   trop large → exiger seuils, carve-outs (budget approuvé), urgence et absence de
+>   blocage abusif ; anti-dilution « méthode à définir » → **refuser** de la laisser
+>   indéterminée et recommander une méthode avec exceptions usuelles ; vesting inversé /
+>   leaver → poser les principes à négocier ; drag/tag → conditions de majorité, prix,
+>   protection des fondateurs.
+> PUIS **renvoyer la rédaction détaillée** vers `/h-droit-affaires:pacte-associes-review`,
+> avec les options : (a) enchaîner `pacte-associes-review`, (b) limiter
+> `financement-startup` à l'analyse des instruments, (c) les deux en séquence.
+> **Lister-puis-renvoyer sans flaguer ni borner est une sous-livraison** : le client
+> arbitre et signe la term sheet *avant* l'étape pacte.
 
 Tag inline `[review]` sur les appréciations de fait (valorisation, ampleur de la
 dilution acceptable, éligibilité BSPCE). Respecter le plancher de sévérité
@@ -368,9 +379,12 @@ Légifrance »).
   des intérêts d'OC, plus-values, droits d'enregistrement. La dimension fiscale
   est **signalée et renvoyée** à un conseil fiscal / expert-comptable, jamais
   traitée au fond.
-- L'analyse des **clauses de pacte d'associés** — liquidation preference,
-  anti-dilution / ratchet, gouvernance et droits de véto, vesting, drag /
-  tag-along, leaver → renvoyer vers `/h-droit-affaires:pacte-associes-review`.
+- La **rédaction et le playbook détaillé des clauses de pacte d'associés** —
+  liquidation preference, anti-dilution / ratchet, gouvernance et droits de véto,
+  vesting, drag / tag-along, leaver. Ce skill les **flague, note leur sévérité et
+  borne l'enjeu de négociation au stade term sheet**, puis renvoie la rédaction
+  détaillée vers `/h-droit-affaires:pacte-associes-review` — il ne les laisse
+  jamais non traitées.
 - La **valorisation** de la société — appréciation économique ; le skill la
   signale en `[review]`, il ne la chiffre pas.
 - La **rédaction de la documentation** de l'opération (statuts modifiés, contrat

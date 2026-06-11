@@ -12,6 +12,19 @@
 ### Limites assumées v0.6.0
 - Résiduel non-gating **rotatif** sur le live (C-012 CSE / C-021 éligibilité L.642-3 selon le run) — effet de saillance, le contenu est couvert par le skill. Polish v0.6.x.
 
+## [0.5.1] — 2026-06-10
+
+### Anno Integration Update
+- Updated Anno engine compatibility to **0.10.0** (from 0.3.0)
+- Added `knowledge` tool tier: `knowledge_sources`, `knowledge_status`, `knowledge_search`, `knowledge_add_local_folder`, `knowledge_sync`, `knowledge_forget`
+- Updated `core` tool tier with new unified tools: `index`, `sync_corpus`, `sources`, `corpus_list`, `corpus_get`, `corpus_health`, `status`, `forget`, `privacy_prepare_folder`, `privacy_finalize_folder`, `privacy_status`
+- Renamed tabular tools to match Anno 0.10: `review_create`, `review_add_rows`, `review_extract`, `review_refine_cell`, `review_set_cell`, `review_lock_cell`, `review_unlock_cell`, `review_export`, `review_get`
+- Extended `hacienda-droit-affaires` Anno workflows with:
+  - Corpus indexing workflow (`index`, `sync_corpus`, `corpus_health`)
+  - Local knowledge sources workflow (`knowledge_add_local_folder`, `knowledge_sync`, `knowledge_search`)
+  - Tabular review tools integrated into each legal workflow
+- Updated overlay markdown with new mandatory runtime rules for unified indexing and knowledge sources
+
 ## [0.5.0] — 2026-06-09
 
 **Les deux personas validés au protocole de sparring scoring blind Codex — 11 skills,

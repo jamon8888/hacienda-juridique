@@ -142,8 +142,8 @@ describe("hacienda anno desktop distribution", () => {
     expect(compat.tool_tiers.setup).toContain("anno_init_vault");
     expect(compat.tool_tiers.memory).toContain("memory_invalidate");
     expect(compat.tool_tiers.legal).toContain("legal_validate_field");
-    expect(compat.tool_tiers.tabular).toContain("tabular_review_create");
-    expect(compat.tool_tiers.tabular).toContain("tabular_review_verify_citations_in_output");
+    expect(compat.tool_tiers.tabular).toContain("review_create");
+    expect(compat.tool_tiers.tabular).toContain("review_get");
     expect(compat.release_page_url).toBe("https://github.com/arclabs561/anno/releases");
   });
 
@@ -176,8 +176,8 @@ describe("hacienda anno desktop distribution", () => {
     const tabular = buildAnnoTabularMarkdown();
 
     expect(tabular).toContain("# Hacienda Anno Tabular Review");
-    expect(tabular).toContain("tabular_review_create");
-    expect(tabular).toContain("tabular_review_lock_cell");
+    expect(tabular).toContain("review_create");
+    expect(tabular).toContain("review_lock_cell");
     expect(tabular).toContain("review_status");
     expect(tabular).toContain("decision_status");
     expect(tabular).toContain("grid_to_work_product");
@@ -264,7 +264,7 @@ describe("hacienda anno desktop distribution", () => {
 
   it("builds the generated orchestration artifact content without mutating dist", () => {
     expect(buildAnnoCoordinatorMarkdown()).toContain("fallback_hacienda");
-    expect(buildAnnoTabularMarkdown()).toContain("tabular_review_create");
+    expect(buildAnnoTabularMarkdown()).toContain("review_create");
     expect(buildAnnoMatterVaultMarkdown()).toContain("matter_vault");
     expect(buildAnnoWorkflowBlueprintsMarkdown()).toContain("workflow_blueprint");
     expect(

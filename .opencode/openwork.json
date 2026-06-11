@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "workspace": {
+    "name": "hacienda-juridique",
+    "createdAt": 1781095274725,
+    "preset": "starter"
+  },
+  "authorizedRoots": [
+    "C:\\Users\\NMarchitecte\\hacienda-juridique"
+  ],
+  "reload": null
+}

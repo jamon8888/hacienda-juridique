@@ -137,7 +137,7 @@ Si le mode ou la forme sont absents : stopper et demander explicitement.
 
 ## Mode Anno Desktop Optionnel
 
-Pour un historique social déjà autorisé, appeler `anno_health`, puis `detect`. Utiliser `legal_timeline`, `legal_validate_field` et `tabular_review_create` pour rapprocher convocations, feuilles de présence, PV, décisions et échéances.
+Pour un historique social déjà autorisé, appeler `anno_health`, puis `detect`. Utiliser `legal_timeline`, `legal_validate_field`, `review_create` et `review_extract` pour rapprocher convocations, feuilles de présence, PV, décisions et échéances.
 
 ## Outils MCP à privilégier
 
