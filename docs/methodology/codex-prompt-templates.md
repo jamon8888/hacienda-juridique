@@ -411,7 +411,30 @@ ancrés sur les faits du scénario et le droit FR applicable. Pour chaque criter
 - un libellé « PASS si ... / FAIL si ... » vérifiable sans ambiguïté,
 - l'axe concerné.
 
-Réserve CRITIQUE aux contre-sens de droit ou erreurs de calcul rédhibitoires.
+RÈGLES DE RÉDACTION DES CRITÈRES (impératives) :
+1. PASS et FAIL doivent être COMPLÉMENTAIRES : ensemble ils couvrent toute sortie
+   plausible, sans zone médiane non allouée. Une réponse substantiellement correcte
+   mais au libellé imparfait (terminologie datée, formulation équivalente, synonyme
+   doctrinal) doit tomber clairement en PASS. NE JAMAIS rédiger un PASS qui exige la
+   récitation d'un libellé exact face à un FAIL étroit (« invente un critère contraire
+   / ignore totalement ») : la zone « juste sur le fond, imprécis sur la forme »
+   resterait orpheline et produirait un faux verdict.
+2. Privilégie la forme PIÈGE pour les gates CRITIQUES : FAIL = commet une ERREUR
+   AFFIRMATIVE NOMMÉE qui tromperait le client (ex. qualifie d'illégale une clause
+   légale, applique le régime consommateur à du B2B, valide une exonération
+   dangereuse) ; PASS = ne commet pas cette erreur. Évite les gates « recall »
+   (PASS = énonce exactement la doctrine X) : ils sont la cause des faux REJETÉ.
+3. Réserve CRITIQUE aux erreurs qui TROMPENT LE CLIENT ou renversent une conclusion
+   de droit : contre-sens de droit, mauvais régime applicable, calcul rédhibitoire.
+   Une imprécision de millésime, une citation datée mais substantiellement juste, ou
+   l'oubli d'un seul sous-élément sont MAJEUR ou MINEUR, JAMAIS CRITIQUE.
+4. Zone PASSIVE orpheline : si le PASS exige un TRAITEMENT ACTIF (« critique »,
+   « refuse », « borne », « propose ») et le FAIL une ERREUR ACTIVE (« valide »,
+   « accepte »), une sortie qui se contente de MENTIONNER puis RENVOYER (« clause à
+   voir ailleurs », « méthode à définir », « non analysé au fond ») tombe entre les
+   deux et sera comptée FAIL à tort. Si la mention/le renvoi sans analyse doit
+   suffire, l'écrire dans le PASS ; sinon, le FAIL doit viser explicitement « se
+   contente de mentionner ou renvoyer sans traiter ».
 Termine par un bloc JSON : {"skill":"{skill}","criteria":[{"id":...,"niveau":...,
 "axe":...,"match_criteria":...}, ...]}.
 Vérifie chaque article cité (ne pas inventer). Aucune donnée réelle.
@@ -462,3 +485,18 @@ Toute modification structurante (ajout/suppression de dimensions de scoring,
 modification de la pondération, changement de format de livrable) = nouveau
 template versionné `codex-prompt-templates-v2.md`. Les anciens templates
 restent disponibles pour comparaison historique.
+
+### Journal
+
+- **2026-06-10** — Phase 2 criteria : ajout des « RÈGLES DE RÉDACTION DES CRITÈRES »
+  (complémentarité PASS/FAIL sans zone orpheline, forme piège pour les gates,
+  CRITIQUE réservé aux erreurs trompant le client). Clarification non structurante
+  (dimensions, pondération et format inchangés). Origine : Chantier B `reviser-contrat`
+  (6YFSSW), gate C-024 asymétrique + sur-classé → faux REJETÉ 0,0.
+- **2026-06-11** — Phase 2 criteria : ajout de la règle 4 (zone PASSIVE orpheline :
+  PASS « traitement actif » / FAIL « erreur active » laisse orphelin le « mentionne
+  puis renvoie sans traiter »). Origine : Chantier B `financement-startup` (KJ039D),
+  gates C-014 (véto) et C-020 (anti-dilution) ratés par le checkpoint — la sortie
+  listait-puis-renvoyait au pacte sans borner. Motif non couvert par les 3 premières
+  règles (libellé exact, complétude, niveau). Le skill a été corrigé en parallèle
+  (flaguer/borner au stade term sheet avant routage `pacte-associes-review`).

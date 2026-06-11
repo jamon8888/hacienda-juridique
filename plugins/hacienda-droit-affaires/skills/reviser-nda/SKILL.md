@@ -17,7 +17,7 @@ tags: [nda, confidentialite, triage, non-concurrence]
 
 > **TRIAGE RAPIDE, PAS REVUE COMPLÈTE.**
 >
-> Ce skill produit un verdict 🟢 VERT / 🟠 ORANGE / 🔴 ROUGE sur 8 points clés,
+> Ce skill produit un verdict 🟢 VERT / 🟠 ORANGE / 🔴 ROUGE sur 9 points clés,
 > calibré pour une décision rapide « signer / négocier 1-2 points / refuser ».
 > Il ne remplace pas une revue clause par clause.
 >
@@ -37,7 +37,7 @@ tags: [nda, confidentialite, triage, non-concurrence]
 <example>
 <user>/h-droit-affaires:reviser-nda ./NDA-prestataire-marketing.pdf</user>
 <response>
-NDA unilatéral standard, prestataire marketing → droit français → triage 8 points :
+NDA unilatéral standard, prestataire marketing → droit français → triage 9 points :
 1. Définition info confidentielles : précise, catégories listées → 🟢
 2. Exceptions standard : 5 sur 5 (déjà publique, indépendant, légale, tiers, autorisée) → 🟢
 3. Durée : 3 ans post-contrat → 🟢
@@ -54,7 +54,7 @@ NDA unilatéral standard, prestataire marketing → droit français → triage 8
 <example>
 <user>/h-droit-affaires:reviser-nda ./NDA-fournisseur-industriel.pdf</user>
 <response>
-NDA bilatéral, fournisseur industriel, durée 10 ans + clause non-concurrence 2 ans sans contrepartie chiffrée → triage 8 points :
+NDA bilatéral, fournisseur industriel, durée 10 ans + clause non-concurrence 2 ans sans contrepartie chiffrée → triage 9 points :
 1. Définition info : large mais bornée par usage → 🟡
 2. Exceptions : 4 sur 5 (manque "développement indépendant") → 🟠
 3. Durée : 10 ans → 🟠 (limite haute, à négocier vers 5 ans)
@@ -108,11 +108,11 @@ substantiel.
 - [ ] Routing PI testé — renvoi `PI:contrats-pi` si NDA partenariat R&D / PI substantiel
 - [ ] Structure du NDA qualifiée (unilatéral / bilatéral)
 - [ ] Droit applicable et juridiction identifiés ; cadre FR / UE confirmé ou alerte juridiction étrangère
-- [ ] Tableau 8 points renseigné, aucune ligne vide
+- [ ] Tableau 9 points renseigné, aucune ligne vide
 - [ ] Non-concurrence salariée : vérification contrepartie financière obligatoire si présente
 - [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
 - [ ] Verdict 🟢 / 🟠 / 🔴 cohérent avec la règle de synthèse
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + tableau 8 points + recommandations + question hors checklist + arbre de décision 5 options
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + tableau 9 points + recommandations + question hors checklist + arbre de décision 5 options
 
 ---
 
@@ -155,7 +155,7 @@ Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitud
 
 ---
 
-## Étape 2 — Analyse 8 points clés
+## Étape 2 — Analyse 9 points clés
 
 Triage rapide selon le tableau de référence ci-dessous. Pour chaque point, attribuer un statut 🟢 Conforme / 🟡 À surveiller / 🟠 À négocier / 🔴 Bloquant.
 
@@ -169,6 +169,7 @@ Triage rapide selon le tableau de référence ci-dessous. Pour chaque point, att
 | 6 | Loi applicable | FR ou UE | Common law neutre | Pays sans état de droit fiable |
 | 7 | Clause pénale | Montant raisonnable + révision possible 1231-5 | Montant disproportionné | Astreinte journalière abusive |
 | 8 | Non-concurrence (si présente, salarié) | Avec contrepartie ≥ 25% rémunération | Contrepartie symbolique | **Sans contrepartie = NULLE** (jurisp 10 juil. 2002) |
+| 9 | Périmètre destinataires / affiliés / tiers | Destinataires nommés ou par fonction (need-to-know) ; tiers liés par engagement écrit ; récepteur responsable de leurs manquements | « Affiliates » larges sans liste, flow-down de responsabilité implicite | Partage libre à affiliés / clients / agents / sous-traitants sans liste ni signature, ou sous simple « commercially reasonable efforts », sans responsabilité du récepteur |
 
 **Les 5 exceptions classiques (point 2)** — informations (a) déjà publiques au moment de la divulgation, (b) tombées dans le domaine public sans faute du récepteur, (c) déjà détenues par le récepteur avant la divulgation, (d) développées indépendamment sans usage de l'information confidentielle, (e) divulguées sur ordonnance judiciaire ou obligation légale impérative.
 
@@ -176,6 +177,7 @@ Triage rapide selon le tableau de référence ci-dessous. Pour chaque point, att
 - Point 1 (définition / secret d'affaires) — art. L.151-1 C.com. `[Légifrance]`, loi n° 2018-670 du 30 juil. 2018 `[à vérifier]`
 - Point 7 (clause pénale) — art. 1231-5 C.civ `[Légifrance]` (pouvoir modérateur du juge sur peine manifestement excessive ou dérisoire)
 - Point 8 (non-concurrence salariée) — **Cass. soc. 10 juil. 2002, n° 00-45.135** `[Judilibre]` : contrepartie financière obligatoire, à défaut nullité de la clause. Articulation avec art. L.1121-1 C.trav `[à vérifier]` (restriction proportionnée).
+- Point 9 (périmètre destinataires / tiers) — un tiers non-signataire n'est en principe pas tenu par le NDA (effet relatif des contrats, art. 1199 C.civ `[à vérifier]`) : pour engager affiliés, salariés, sous-traitants et clients, exiger soit leur signature, soit un **porte-fort** par lequel la partie réceptrice se rend garante de leur respect et répond de leurs manquements (art. 1204 C.civ `[à vérifier]`). Une définition large des « Affiliates » sans liste ni mécanisme d'engagement vide la confidentialité de sa portée.
 
 **Règles d'analyse :**
 - Les articles cités doivent exister dans `references/articles-c-civ-c-com-index.md`. À défaut, tag `[à vérifier]` et signaler en note du relecteur.
@@ -187,7 +189,7 @@ Triage rapide selon le tableau de référence ci-dessous. Pour chaque point, att
 
 ## Étape 3 — Verdict 🟢 VERT / 🟠 ORANGE / 🔴 ROUGE
 
-Règle de synthèse appliquée au tableau des 8 points :
+Règle de synthèse appliquée au tableau des 9 points :
 
 - **🟢 VERT — OK signer en l'état.** Tous les points 🟢 ou 🟡 isolé sans enjeu structurant. Aucun 🟠, aucun 🔴.
 - **🟠 ORANGE — négocier 1 à 2 points avant signature.** 1 à 2 points 🟠, aucun 🔴. La négociation est ciblée : un mail court sur les points concernés suffit.
@@ -231,7 +233,7 @@ Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
 
 {Une phrase de bottom-line liant le verdict aux 1-2 points dominants.}
 
-## Tableau 8 points
+## Tableau 9 points
 
 | # | Point | Constat dans le NDA | Statut | Article / jurisprudence |
 |---|---|---|---|---|
@@ -243,6 +245,7 @@ Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
 | 6 | Loi applicable | ... | ... | règlement Rome I n° 593/2008 `[à vérifier]` |
 | 7 | Clause pénale | ... | ... | art. 1231-5 C.civ `[Légifrance]` |
 | 8 | Non-concurrence salariée | présente / absente / N/A | ... | Cass. soc. 10 juil. 2002 n° 00-45.135 `[Judilibre]` |
+| 9 | Périmètre destinataires / affiliés / tiers | ... | ... | art. 1199 C.civ ; art. 1204 C.civ (porte-fort) `[à vérifier]` |
 
 ## Recommandations
 
