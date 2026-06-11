@@ -23,8 +23,10 @@ tags: [pre-pack, plan-de-cession, distressed-m&a, restructuring, l642, l611, sau
 > **BROUILLON, VALIDATION HUMAINE (AVOCAT) OBLIGATOIRE.**
 >
 > **🔴 Double gate.**
-> - **Gate 1 — cessation des paiements (±45 j)** : détermine le **véhicule** de
->   bascule (sauvegarde accélérée L.628-1 s. *vs* RJ L.631-19-1 → plan de cession).
+> - **Gate 1 — cessation des paiements (±45 j)** : le **plan de cession ne s'adopte
+>   qu'en RJ ou LJ** (L.631-22 / L.642-1) — la cession **présuppose la cessation des
+>   paiements**. La **sauvegarde accélérée (L.628-1 s.) n'est PAS un véhicule de
+>   cession** (elle n'aboutit qu'à un plan de *continuation*).
 > - **Gate 2 — faisabilité pre-pack** : 4 conditions cumulatives. Si l'une tombe,
 >   ce n'est pas un pre-pack → STOP + renvoi motivé.
 >
@@ -45,10 +47,12 @@ tags: [pre-pack, plan-de-cession, distressed-m&a, restructuring, l642, l611, sau
    n'est pas un pre-pack mais une **cession judiciaire ordinaire** → renvoi
    `prevention-difficultes` / dispositif collectif de droit commun.
 
-3. **Nominal — sauvegarde accélérée.** Pas en cessation des paiements, accord
-   majoritaire des créanciers en vue, repreneur identifié, prospection organisée
-   par le conciliateur. → Gate 1 : amiable ouvert → **sauvegarde accélérée
-   (L.628-1 s.)** pour adopter le plan ; le pre-pack joue à plein.
+3. **Nominal — pré-pack cession via RJ.** Difficulté avérée, repreneur identifié,
+   prospection organisée par le conciliateur, confidentialité tenue. → préparation
+   en conciliation puis **bascule en RJ** (déclaration de la cessation des paiements)
+   pour faire arrêter le **plan de cession (L.642-1 s.)** ; le pre-pack joue à plein.
+   *(La sauvegarde accélérée, elle, ne servirait qu'un plan de continuation — autre
+   montage, renvoi `prevention-difficultes`.)*
 
 ## Chargement du profil
 
@@ -123,7 +127,7 @@ outputs/pre-pack-cession-<entreprise-slug>-YYYY-MM-DD.md
   {Si un critère 🔴 → conclusion : pas de pre-pack, renvoi.}
 
 # 2. Véhicule & séquençage
-- **Véhicule** : {sauvegarde accélérée L.628-1 s. | RJ L.631-19-1 → plan de cession L.642-1 s., L.642-2}.
+- **Véhicule de la cession** : **RJ (L.631-19-1) ou LJ → plan de cession (L.642-1 s., L.642-2)** — **jamais** la sauvegarde accélérée (qui ne produit qu'un plan de *continuation*, L.628-1). {Si l'objectif est une continuation, renvoi prevention-difficultes.}
 - **Séquençage** : phase amiable (mandat ad hoc / conciliation, prospection L.611-7) → bascule collective → dépôt et examen des offres → jugement arrêtant le plan de cession.
 - **Qui fait quoi** : débiteur / conciliateur ou mandataire ad hoc (prospecteur) / tribunal / CSE. Calendrier indicatif `[à vérifier]`.
 
@@ -163,9 +167,10 @@ La phase amiable est **strictement confidentielle** (L.611-15). Ne produire **au
 
 1. Invoquer `check-pii`. Lire le profil cabinet (blocs procédures collectives + M&A) et le **side** déclaré. Raisonner **à la date du jour** (dates absolues, pas relatives) avec un **rétroplanning explicite** : CP + 45 j, calendrier de la procédure et des offres.
 2. Vérifier via `bodacc_procedures` l'état des procédures déjà ouvertes sur la cible.
-3. **Trancher la cessation des paiements** (art. L.631-1 C.com. `[Légifrance]`) : passif exigible vs actif disponible, date de survenance.
-   - Non / prévisible, ou ≤ 45 j → voie amiable ouverte → véhicule **sauvegarde accélérée (L.628-1 s.)** si accord majoritaire des créanciers en vue. Étape 2.
-   - Oui > 45 j → conciliation/sauvegarde accélérée fermées → véhicule **RJ (L.631-19-1) → plan de cession (L.642-1 s., L.642-2)**. Rappeler l'obligation de déclarer la cessation des paiements (L.631-4 C.com. `[à vérifier]`). Étape 2.
+3. **Trancher la cessation des paiements** (art. L.631-1 C.com. `[Légifrance]`) : passif exigible vs actif disponible, date de survenance. **Le plan de cession ne s'adopte qu'en RJ ou LJ** (L.631-22 / L.642-1) : la cession présuppose la cessation des paiements.
+   - Non / prévisible → préparer en mandat ad hoc / conciliation, mais la **réalisation de la cession suppose de basculer en RJ** (déclaration de la cessation des paiements). Si l'objectif réel est une *continuation* (pas une vente), ce n'est pas une cession : sauvegarde accélérée L.628-1 s. → renvoi `/h-da:prevention-difficultes`. Étape 2.
+   - Oui ≤ 45 j → conciliation encore possible en amont, puis **bascule RJ** pour le plan de cession. Étape 2.
+   - Oui > 45 j → conciliation fermée, déclaration obligatoire (L.631-4 C.com. `[à vérifier]`) → **RJ (L.631-19-1) → plan de cession (L.642-1 s., L.642-2)**, ou **LJ** si redressement manifestement impossible (L.640-1). Étape 2.
    - Incertain → poser la question, ne pas présumer.
 
 ## Étape 2 — Gate 2 (faisabilité pre-pack)
