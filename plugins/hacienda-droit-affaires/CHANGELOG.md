@@ -1,5 +1,17 @@
 # Changelog — hacienda-droit-affaires
 
+## [0.6.0] — 2026-06-11
+
+**Nouveau skill `pre-pack-cession` (distressed-M&A) — gate-clean RÉSERVES 0,89, pont `prevention-difficultes` ↔ `spa-review`.**
+
+### Spike distressed-M&A (Chantier A)
+- `pre-pack-cession` — **RÉSERVES 0,89**, **gate-clean (0 gate CRITIQUE sur 2 runs indépendants PPK2EN/PPK3VE)**. Cadrage du montage pre-pack à l'intersection M&A ↔ restructuring : double gate (cessation des paiements ±45 j → véhicule ; faisabilité pre-pack — confidentialité L.611-15, repreneur crédible, prospection L.611-7, période suspecte L.632-1) ; note de cadrage *side-aware* (débiteur / repreneur). Pont amont `prevention-difficultes` → aval `spa-review` / `gap-review` / `closing-checklist-fr`.
+- Correctifs blind : enrichissement de la mécanique du plan de cession (offre L.642-2, choix du tribunal L.642-5, périmètre = activité autonome L.642-1, RJ par administrateur L.631-21-1/L.631-22, éligibilité repreneur L.642-3) ; **C-005** — le plan de cession ne s'adopte qu'en **RJ ou LJ** (la sauvegarde accélérée ne produit qu'un plan de *continuation*).
+- 23 skills ; wrapper `/h-da:pre-pack-cession` + entrée README.
+
+### Limites assumées v0.6.0
+- Résiduel non-gating **rotatif** sur le live (C-012 CSE / C-021 éligibilité L.642-3 selon le run) — effet de saillance, le contenu est couvert par le skill. Polish v0.6.x.
+
 ## [0.5.1] — 2026-06-10
 
 ### Anno Integration Update

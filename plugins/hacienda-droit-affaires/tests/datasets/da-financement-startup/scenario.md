@@ -75,9 +75,9 @@ visé le 15 décembre 2026.
 
 ### Pièce 1 — Email de transmission du CEO
 
-**De :** Marius Delvenne, Président  
-**A :** Cabinet fictif Aulne Avocats  
-**Date :** 9 octobre 2026, 08:42  
+**De :** Marius Delvenne, Président
+**A :** Cabinet fictif Aulne Avocats
+**Date :** 9 octobre 2026, 08:42
 **Objet :** Revue urgente term sheet Argile / choix instrument
 
 Bonjour,
@@ -122,7 +122,7 @@ instruments et conditions à arrêter ultérieurement.
 
 ### Pièce 3 — Extrait du pacte d'associés existant
 
-**Date :** 18 mars 2025  
+**Date :** 18 mars 2025
 **Parties :** Fondateurs, Atelier Tremplin SAS et business angels historiques.
 
 **Article 3 — Information.** La Société communique aux associés détenant au
@@ -144,8 +144,8 @@ bons et options.
 
 ### Pièce 4 — Projet de term sheet seed transmis par Argile Ventures
 
-**Document :** Term Sheet indicatif et non exhaustif — Nébuleuse Traçabilité SAS  
-**Version :** 8 octobre 2026, 19:17  
+**Document :** Term Sheet indicatif et non exhaustif — Nébuleuse Traçabilité SAS
+**Version :** 8 octobre 2026, 19:17
 **Investisseur leader :** Fondation Argile Ventures SLP
 
 **1. Nature de l'opération.** L'opération prendra la forme d'une augmentation de
@@ -246,9 +246,9 @@ autres stipulations devront être reprises dans la documentation définitive.
 
 ### Pièce 5 — Email du fonds après la réunion préparatoire
 
-**De :** Salomé Virenque, Partner, Argile Ventures  
-**A :** Marius Delvenne ; Ilyana Cho  
-**Date :** 9 octobre 2026, 14:26  
+**De :** Salomé Virenque, Partner, Argile Ventures
+**A :** Marius Delvenne ; Ilyana Cho
+**Date :** 9 octobre 2026, 14:26
 **Objet :** Re: Term sheet seed
 
 Marius, Ilyana,

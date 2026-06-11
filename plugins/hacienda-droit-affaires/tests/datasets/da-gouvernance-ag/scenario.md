@@ -97,9 +97,9 @@ Mention manuscrite de Lina Morel :
 > "Prévoir une seule AG pour tout voter, pas le temps de séparer AGO/AGE.
 > Envoyer si possible avant ce soir."
 ### Pièce 4 — Projet de convocation non finalisé
-**De :** Lina Morel, Présidente  
-**À :** Associés Atelier Nebule  
-**Date prévue d'envoi :** 18 juin 2026  
+**De :** Lina Morel, Présidente
+**À :** Associés Atelier Nebule
+**Date prévue d'envoi :** 18 juin 2026
 **Objet :** Convocation AG Atelier Nebule
 Chers associés,
 Vous êtes convoqués à l'assemblée générale d'Atelier Nebule qui se tiendra le
@@ -144,10 +144,10 @@ Contrat-cadre de 36 mois pour modules Nebule-K2 :
 Sans sous-traitance firmware, l'équipe technique estime un retard de six à huit
 semaines.
 ### Pièce 7 — Term sheet Banque Triporteur
-**Banque :** Banque Triporteur, agence entreprises Loire Atlantique  
-**Montant :** 650 000 euros  
-**Objet :** financement du stock de composants et avance de production Merca  
-**Durée :** 18 mois  
+**Banque :** Banque Triporteur, agence entreprises Loire Atlantique
+**Montant :** 650 000 euros
+**Objet :** financement du stock de composants et avance de production Merca
+**Durée :** 18 mois
 **Taux :** Euribor 3 mois + 3,10 %
 Sûretés et engagements demandés : nantissement du compte de stocks financés,
 garantie Bpifrance sollicitée à hauteur de 50 %, maintien des fonds propres
@@ -155,10 +155,10 @@ au-dessus de 700 000 euros, reporting mensuel du carnet de commandes.
 La banque demande une copie certifiée conforme du PV autorisant l'opération et
 donnant pouvoir à la présidente pour signer tout document bancaire.
 ### Pièce 8 — Contrat Boreal Firmware SARL
-**Prestataire :** Boreal Firmware SARL, SIREN fictif 514 982 307  
-**Gérant :** Édouard Morel  
-**Client :** Atelier Nebule SAS  
-**Date du projet :** 12 juin 2026  
+**Prestataire :** Boreal Firmware SARL, SIREN fictif 514 982 307
+**Gérant :** Édouard Morel
+**Client :** Atelier Nebule SAS
+**Date du projet :** 12 juin 2026
 **Durée :** jusqu'au 31 décembre 2026, renouvelable par avenant
 Boreal développe et maintient un module logiciel embarqué reliant les capteurs
 Nebule-K2 à l'interface Merca.
@@ -189,9 +189,9 @@ en avril et mai 2026 pour un total de 214 300 euros HT.
 **Sixième résolution.** L'assemblée confère tous pouvoirs au porteur d'un
 original, d'une copie ou d'un extrait du PV pour accomplir toutes formalités.
 ### Pièce 10 — Projet de procès-verbal brouillon
-**Atelier Nebule SAS**  
-SAS au capital de 82 400 euros  
-Siège social : 18 rue des Pluviers, 44000 Nantes  
+**Atelier Nebule SAS**
+SAS au capital de 82 400 euros
+Siège social : 18 rue des Pluviers, 44000 Nantes
 SIREN fictif 831 604 972
 Le 25 juin 2026 à 9h30, les associés se sont réunis au siège social sur
 convocation de la présidente.
