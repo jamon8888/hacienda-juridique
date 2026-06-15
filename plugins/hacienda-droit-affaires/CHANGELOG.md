@@ -1,5 +1,17 @@
 # Changelog — hacienda-droit-affaires
 
+## [0.7.0] — 2026-06-15
+
+**Nouveau skill `reprise-a-la-barre` (distressed-M&A #2) — gate-clean RÉSERVES 0,95.**
+
+### Cycle distressed-M&A #2 (élargissement du moat)
+- `reprise-a-la-barre` — **RÉSERVES 0,95**, **gate-clean (7 gates CRITIQUE sur 7, run RLB3SU)**. Playbook tactique **côté repreneur** pour construire, optimiser et défendre une offre de reprise sur une cible **déjà en RJ/LJ** (appel d'offres ouvert, plan de cession L.642-1 s.). Double gate : (1) porte d'entrée — cible déjà en procédure avec appel d'offres ; sinon renvoi `pre-pack-cession` ; (2) recevabilité — éligibilité L.642-3 + offre ferme L.642-2. Frontière anti-chevauchement avec `pre-pack-cession` portée par le Gate 1.
+- Correctifs blind : **C-001** — régime de la cession en RJ ancré sur **L.631-22** (cession dès la période d'observation → L.642-1 s.) ; **C-016** — sort complet des sûretés **L.642-12** (quote-part, droit de préférence, droit de suite jusqu'au paiement intégral, droit de rétention non affecté). Opère aussi L.642-5 (critères du tribunal), L.642-7 (contrats repris), L.642-9 (substitution NEWCO / garantie solidaire), L.642-10 (inaliénabilité), L.642-11 (résolution), L.661-6 (recours restreints).
+- 24 skills ; wrapper `/h-da:reprise-a-la-barre` + entrée README.
+
+### Limites assumées v0.7.0
+- `reprise-a-la-barre` : résiduel non-gating **C-019** (articulation CSE / L.1233-58, calendrier de l'avis) — polish optionnel v0.7.x. Mode unique (pas de `--review`). Cession d'actifs isolés L.642-19 hors périmètre.
+
 ## [0.6.0] — 2026-06-11
 
 **Nouveau skill `pre-pack-cession` (distressed-M&A) — gate-clean RÉSERVES 0,89, pont `prevention-difficultes` ↔ `spa-review`.**
