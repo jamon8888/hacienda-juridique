@@ -219,7 +219,7 @@ describe("hacienda droit affaires cowork packaging", () => {
   it("declares explicit V2 metadata and command hints on every skill", () => {
     const skillFiles = collectSkillFiles();
 
-    expect(skillFiles.length).toBe(24);
+    expect(skillFiles.length).toBe(25);
 
     for (const file of skillFiles) {
       const content = readFileSync(file, "utf8");
