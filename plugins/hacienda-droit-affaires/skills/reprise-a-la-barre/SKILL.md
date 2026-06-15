@@ -149,7 +149,8 @@ outputs/reprise-a-la-barre-<entreprise-slug>-YYYY-MM-DD.md
 - **Positionnement vs offres concurrentes** : points faibles à couvrir, surenchère possible.
 
 # 4. Risques & suites
-- **Sûretés** : report / quote-part du prix (L.642-12) ; **inexécution / résolution** du plan de cession (L.642-11).
+- **Sûretés (L.642-12)** : quote-part du prix par actif grevé + droit de préférence ; droit de suite maintenu **tant que le prix n'est pas intégralement payé** ; droit de rétention (gage stock) **non affecté** par le plan ; échéances des crédits sur biens conservés. **Ne disparaissent pas** sans traitement.
+- **Inexécution / résolution** du plan de cession (L.642-11).
 - **Publicité de l'offre** : le contenu des offres est **communiqué aux organes de la procédure et déposé au greffe** (consultable par les intéressés) → **calibrer** les informations concurrentielles sensibles que l'on y fait figurer ; pas de confidentialité totale.
 - **Inaliénabilité (L.642-10)** : le tribunal peut **interdire la revente** de tout ou partie des biens cédés pendant un délai → anticiper si le fonds vise une cession ultérieure de la marque / du fichier.
 - **Voies de recours (L.661-6)** : recours **restreints** — le **cessionnaire ne peut faire appel** du jugement arrêtant le plan **que s'il lui impose des charges autres que ses engagements** ; un **candidat évincé** n'a pas de recours ordinaire équivalent à une renégociation. Ne pas tabler sur un appel large.
@@ -200,7 +201,12 @@ Le **tribunal arrête le plan de cession** en retenant l'offre qui assure le mie
 
 ## Étape 5 — Risques post-arrêté (L.642-12 / L.642-11 / L.642-10 / L.661-6)
 
-- **Sûretés** : report du droit de suite et **quote-part du prix** affectée aux créanciers inscrits (L.642-12) — le cessionnaire qui paie le prix peut purger ; pour un bien grevé qu'il conserve, il peut devoir **régler les échéances du crédit garanti** restant dues `[review]`. Anticiper la **ventilation du prix par actif grevé** (nantissement fonds de commerce, gage stock).
+- **Sûretés — sort complet (L.642-12 C.com. `[Légifrance]`).** Ne jamais dire que le nantissement (fonds de commerce) ou le gage (stock) disparaissent sans traitement. Mécanique :
+  - une **quote-part du prix de cession** est affectée par le tribunal à chaque bien grevé compris dans le périmètre, sur laquelle s'exerce le **droit de préférence** des créanciers inscrits ;
+  - le **droit de suite** est **maintenu tant que le prix de cession n'est pas intégralement payé** : le cessionnaire ne purge qu'au **paiement complet du prix** (sous réserves textuelles) ;
+  - pour un **bien grevé que le cessionnaire conserve** et qui sert de garantie à un crédit, il peut devoir **régler les échéances** restant dues ;
+  - le **droit de rétention** d'un créancier (ex. gage avec dépossession sur le stock) **n'est pas affecté** par le plan : il faut le **désintéresser pour récupérer le bien**.
+  - → **Ventiler le prix par actif grevé** dès l'offre et chiffrer cette charge. `[review]`
 - **Inexécution du plan** : si le cessionnaire n'exécute pas ses engagements, le tribunal peut prononcer la **résolution du plan de cession** (L.642-11) — mesurer l'exposition ; ne s'engager que sur du tenable.
 - **Inaliénabilité (L.642-10)** : le tribunal peut **interdire la revente** de tout ou partie des biens cédés pendant un délai → vérifier avant tout projet de cession ultérieure (marque, fichier).
 - **Publicité de l'offre (L.642-2 / L.642-5)** : son contenu est **communiqué aux organes et déposé au greffe** (consultable) → **calibrer** les informations concurrentielles sensibles que l'on y fait figurer ; pas de confidentialité totale.
