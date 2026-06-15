@@ -66,7 +66,7 @@ code_for() {
     cgv-generator) printf "87MHRS" ;;
     pre-pack-cession) printf "PPK3VE" ;;
     reprise-a-la-barre) printf "RLB3SU" ;;
-    cession-actifs-isoles) echo "CAI1QU" ;;
+    cession-actifs-isoles) echo "CAI2EN" ;;
   esac
 }
 
