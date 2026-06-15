@@ -51,6 +51,7 @@ SKILLS=(
   pre-pack-cession
   reprise-a-la-barre
   cession-actifs-isoles
+  asset-vs-share-distress
 )
 
 # Code de cycle par defaut, surchargeable via la variable d'environnement CODE
@@ -67,6 +68,7 @@ code_for() {
     pre-pack-cession) printf "PPK3VE" ;;
     reprise-a-la-barre) printf "RLB3SU" ;;
     cession-actifs-isoles) echo "CAI2EN" ;;
+    asset-vs-share-distress) echo "AVS1RT" ;;
   esac
 }
 
@@ -81,6 +83,7 @@ mode_for() {
     pre-pack-cession) printf "note de cadrage du montage pre-pack (mode unique)" ;;
     reprise-a-la-barre) printf "note tactique cote repreneur (mode unique)" ;;
     cession-actifs-isoles) echo "note tactique (mode unique)" ;;
+    asset-vs-share-distress) echo "note d'orientation (mode unique)" ;;
   esac
 }
 
@@ -95,6 +98,7 @@ spec_for() {
     pre-pack-cession) printf "cession preparee en mandat ad hoc/conciliation puis plan de cession ; cessation des paiements ambigue (passif exigible vs actif disponible) ; repreneur identifie via LOI indicative ; acte recent a risque periode suspecte ; confidentialite (fuite presse/salaries) ; CSE a consulter ; nantissement/suretes ; actifs PI (marque/brevet) convoites ; side debiteur ou repreneur" ;;
     reprise-a-la-barre) printf "cible deja en redressement judiciaire ; appel d'offres ouvert avec date limite proche ; candidat-repreneur (concurrent/fonds) ; simple LOI indicative pas une offre ferme ; lien possible repreneur/parent du dirigeant ou societe interposee (piege eligibilite) ; offre concurrente deposee ; suretes sur les actifs ; contrats cles a reprendre (bail, licence) ; CSE ; tentation cherry-picking marque+fichier clients ; cote repreneur" ;;
     cession-actifs-isoles) echo "docs/superpowers/specs/2026-06-15-hacienda-da-cession-actifs-isoles-design.md" ;;
+    asset-vs-share-distress) echo "docs/superpowers/specs/2026-06-15-hacienda-da-asset-vs-share-distress-design.md" ;;
   esac
 }
 
@@ -109,6 +113,7 @@ desc_for() {
     pre-pack-cession) printf "Note de cadrage du montage d'un pre-pack cession : cession negociee confidentiellement en amont (mandat ad hoc/conciliation) puis realisee via une procedure collective sous forme de plan de cession. Diagnostic de faisabilite, choix du vehicule procedural, sequencage des deux phases, points de vigilance. Side-aware debiteur/repreneur. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
     reprise-a-la-barre) printf "Playbook cote candidat-repreneur pour construire, optimiser et defendre une offre de reprise sur une entreprise deja en redressement ou liquidation judiciaire, dans le cadre d'un appel d'offres ouvert (plan de cession). Recevabilite de l'offre, construction des mentions, contrats repris, criteres de choix du tribunal, sort des suretes, voies de recours. Cote repreneur. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
     cession-actifs-isoles) echo "Note tactique cote repreneur pour l'acquisition d'actifs isoles (fonds, marques, stocks, creances) aupres d'un debiteur en liquidation judiciaire, hors plan de cession." ;;
+    asset-vs-share-distress) echo "Note d'orientation cote repreneur pour arbitrer la structuration d'acquisition d'une cible en difficulte (rachat de titres vs rachat d'actifs) et orienter vers la bonne procedure." ;;
   esac
 }
 
@@ -123,6 +128,7 @@ command_for() {
     pre-pack-cession) printf "/h-da:pre-pack-cession --side=debiteur" ;;
     reprise-a-la-barre) printf "/h-da:reprise-a-la-barre --side=repreneur" ;;
     cession-actifs-isoles) echo "/h-da:cession-actifs-isoles" ;;
+    asset-vs-share-distress) echo "/h-da:asset-vs-share-distress" ;;
   esac
 }
 
@@ -148,6 +154,7 @@ Skills:
   pre-pack-cession
   reprise-a-la-barre
   cession-actifs-isoles
+  asset-vs-share-distress
 
 Overrides (variables d'environnement) :
   CODE=<6chars>   code de cycle (surcharge le defaut ; obligatoire pour re-scorer un skill)

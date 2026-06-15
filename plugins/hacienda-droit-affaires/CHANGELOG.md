@@ -1,5 +1,17 @@
 # Changelog — hacienda-droit-affaires
 
+## [0.9.0] — 2026-06-15
+
+**Nouveau skill `asset-vs-share-distress` (distressed-M&A #4, routeur) — gate-clean ADMIS 1,0 (run AVS1RT, sans faute au 1er cycle).**
+
+### Cycle distressed-M&A #4 (entonnoir amont du moat)
+- `asset-vs-share-distress` — **ADMIS 1,0**, **gate-clean (9 gates CRITIQUE sur 9, run AVS1RT)**. Note d'orientation **côté repreneur** : arbitrage **titres vs actifs** pour une cible en difficulté, cartographie de la responsabilité repreneur, puis **routage** vers le bon playbook. Double gate : (1) diagnostic du niveau de difficulté + routage (CP > 45 j sans procédure → déclaration / `prevention-difficultes`) ; (2) responsabilité repreneur — share deal ne purge pas le passif + période suspecte **L.632-1 / L.632-2**.
+- Opère aussi L.1224-1 (transfert social), solidarité fiscale L.1684 CGI (flag, pas de conseil fiscal), extension/confusion de patrimoine, insuffisance d'actif L.651-2, passif environnemental ICPE. Garde-fou anti-redondance : décide et route, n'exécute pas (ne déroule pas L.642-x). **Moat distressed-M&A complet** : `pre-pack-cession` · `reprise-a-la-barre` · `cession-actifs-isoles` · `asset-vs-share-distress`.
+- 26 skills ; wrapper `/h-da:asset-vs-share-distress` + entrée README.
+
+### Limites assumées v0.9.0
+- `asset-vs-share-distress` : mode unique (pas de `--review`). Aucun conseil fiscal (flag + renvoi). Côté repreneur uniquement. Base de preuve = 1 cycle gate-clean ADMIS (run unique).
+
 ## [0.8.0] — 2026-06-15
 
 **Nouveau skill `cession-actifs-isoles` (distressed-M&A #3) — gate-clean RÉSERVES 0,9385.**
