@@ -83,6 +83,7 @@ l'auto-activation des skills.
 | Commande | Usage |
 | --- | --- |
 | `/h-da:analyser-rupture-brutale` | Analyse du risque de rupture brutale. |
+| `/h-da:cession-actifs-isoles` | Playbook côté repreneur : construire et défendre une offre d'acquisition d'actifs isolés (fonds, marques, stocks) en LJ, hors plan de cession (L.642-19). |
 | `/h-da:cgv-generator` | Génération assistée de CGV/CGU. |
 | `/h-da:check-pii` | Détection PII pré-vol. |
 | `/h-da:closing-checklist-fr` | Checklist signing, closing et post-closing. |

@@ -1,5 +1,18 @@
 # Changelog — hacienda-droit-affaires
 
+## [0.8.0] — 2026-06-15
+
+**Nouveau skill `cession-actifs-isoles` (distressed-M&A #3) — gate-clean RÉSERVES 0,9385.**
+
+### Cycle distressed-M&A #3 (complément du moat)
+- `cession-actifs-isoles` — **RÉSERVES 0,9385**, **gate-clean (8 gates CRITIQUE sur 8, run CAI2EN)**. Playbook tactique **côté repreneur** pour construire et défendre une offre d'acquisition d'**actifs isolés** (fonds, marques, stock, créances) auprès d'un débiteur **en LJ**, **hors plan de cession** (cession de gré à gré ou aux enchères, **L.642-19**). Double gate : (1) qualification — actif isolé vs entreprise/unité de production en going concern ; sinon renvoi `reprise-a-la-barre` (going concern) ou `pre-pack-cession` (amont confidentiel) ; (2) recevabilité — éligibilité **L.642-20→L.642-3** (interdictions/interposition) + **ordonnance du juge-commissaire L.642-19** (une offre au liquidateur ne vaut pas vente).
+- Opère le sort des sûretés (report du droit de préférence sur le prix, **droit de rétention non purgé** art. 2286 C.civ, purge au paiement), l'**absence** de transfert automatique des contrats (**L.642-7 a contrario**), le **transfert automatique des salariés** si entité économique autonome (**L.1224-1**), le risque de période suspecte (**L.632-1**) et les recours contre l'ordonnance (L.661-x).
+- Correctifs blind (cycle CAI1QU → CAI2EN) : **C-006** — éligibilité reformulée en *faits à établir* (qualité exacte à l'ouverture, dirigeance de fait, interposition, bénéficiaire effectif) plutôt qu'une nullité tranchée ; **C-016** — diligence sur la consistance et la valeur réelle des actifs (inventaire, péremption, propriété, assurance).
+- 25 skills ; wrapper `/h-da:cession-actifs-isoles` + entrée README.
+
+### Limites assumées v0.8.0
+- `cession-actifs-isoles` : résiduel non-gating **C-019** (arbitrages client enchérir/retrait) — variance de scoreur (PASS au cycle 1, normalisé FAIL conservateur au cycle 2). Mode unique (pas de `--review`). Immeubles (L.642-18) hors périmètre.
+
 ## [0.7.0] — 2026-06-15
 
 **Nouveau skill `reprise-a-la-barre` (distressed-M&A #2) — gate-clean RÉSERVES 0,95.**
