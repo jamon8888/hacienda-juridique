@@ -83,6 +83,7 @@ l'auto-activation des skills.
 | Commande | Usage |
 | --- | --- |
 | `/h-da:analyser-rupture-brutale` | Analyse du risque de rupture brutale. |
+| `/h-da:asset-vs-share-distress` | Arbitrage de structuration côté repreneur pour une cible en difficulté : titres vs actifs, responsabilité repreneur (période suspecte, passif), routage vers le bon playbook. |
 | `/h-da:cession-actifs-isoles` | Playbook côté repreneur : construire et défendre une offre d'acquisition d'actifs isolés (fonds, marques, stocks) en LJ, hors plan de cession (L.642-19). |
 | `/h-da:cgv-generator` | Génération assistée de CGV/CGU. |
 | `/h-da:check-pii` | Détection PII pré-vol. |
