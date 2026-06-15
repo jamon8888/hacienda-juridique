@@ -64,7 +64,7 @@ code_for() {
     financement-startup) printf "KJ039D" ;;
     cgv-generator) printf "87MHRS" ;;
     pre-pack-cession) printf "PPK3VE" ;;
-    reprise-a-la-barre) printf "RLB1OF" ;;
+    reprise-a-la-barre) printf "RLB3SU" ;;
   esac
 }
 
