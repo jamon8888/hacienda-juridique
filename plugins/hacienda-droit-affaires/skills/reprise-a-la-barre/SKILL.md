@@ -30,6 +30,12 @@ tags: [reprise-a-la-barre, plan-de-cession, distressed-m&a, restructuring, l642,
 >   que la cession peut être **préparée confidentiellement** (mandat ad hoc /
 >   conciliation) → ce n'est pas une reprise à la barre → **renvoi
 >   `pre-pack-cession`**.
+>
+> **Régime applicable — la LJ n'est PAS un préalable.** En **redressement
+> judiciaire**, le tribunal peut arrêter une **cession totale ou partielle dès la
+> période d'observation** : c'est **L.631-22** qui le permet et rend applicable le
+> régime du plan de cession **L.642-1 et s.** Ne jamais dire qu'il faut attendre une
+> liquidation, ni que la cession serait impossible pendant l'observation.
 > - **Gate 2 — recevabilité de l'offre** : (a) **éligibilité du repreneur
 >   (L.642-3)** — dirigeants, parents et alliés jusqu'au 2nd degré, interposition
 >   de personne sont **interdits d'acquérir** → offre **nulle** ; (b) **offre ferme
@@ -84,6 +90,7 @@ Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage
 
 - [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] **Gate 1 — porte d'entrée tranchée** : cible **déjà en RJ/LJ avec appel d'offres ouvert** → ce skill ; sinon (cession préparable confidentiellement) → STOP + renvoi `pre-pack-cession`
+- [ ] **Régime confirmé** : en RJ, cession possible **dès la période d'observation** (L.631-22 → L.642-1 s.) ; ne jamais exiger une LJ préalable
 - [ ] **Gate 2 (a) — éligibilité (L.642-3)** : pas de dirigeant / parent / interposition prohibée ; si lien suspect → STOP, offre potentiellement nulle, `[review]`
 - [ ] **Gate 2 (b) — offre ferme et écrite (L.642-2)** : ce qui est sur la table est-il une **offre** (périmètre, contrats, prix, financement, emplois, garanties, date) ou une **LOI** ? une LOI est irrecevable
 - [ ] **Point pivot rappelé** : le tribunal choisit sur **L.642-5** (emploi, créanciers, garanties), pas le prix seul
@@ -126,11 +133,13 @@ outputs/reprise-a-la-barre-<entreprise-slug>-YYYY-MM-DD.md
 
 # 1. Diagnostic & recevabilité
 - **Gate 1 — porte d'entrée** : cible en {RJ / LJ} ✅, appel d'offres ouvert, date limite {date [review]}, administrateur {nom}. {Si pas de procédure ouverte → pas une reprise à la barre, renvoi pre-pack-cession.}
+- **Régime** : en RJ, la cession (totale/partielle) peut être arrêtée **dès la période d'observation** (**L.631-22**, qui rend applicable **L.642-1 s.**) — pas besoin d'attendre une LJ.
 - **Gate 2 (a) — éligibilité (L.642-3)** : {OK / 🔴 lien dirigeant-parent-interposition → offre nulle}.
 - **Gate 2 (b) — offre ferme L.642-2** : {offre ferme ✅ / 🔴 simple LOI indicative → irrecevable, à convertir}.
 
-# 2. Construction de l'offre (mentions L.642-2)
-- **Périmètre des actifs** ; **contrats repris désignés** (L.642-7) ; **prix et affectation** ; **financement** ; **emplois maintenus** ; **garanties d'exécution** ; **date de réalisation**.
+# 2. Construction de l'offre (mentions L.642-2 II)
+- Mentions **à peine d'irrecevabilité** : **désignation des biens, droits et contrats** inclus ; **prévisions d'activité et de financement** ; **prix et modalités de règlement** ; **apporteurs de capitaux et garants** ; **date de réalisation** ; **niveau et perspectives d'emploi** ; **garanties d'exécution** ; **cessions d'actifs envisagées dans les 2 ans** ; **durée des engagements**.
+- **Porteur de l'offre / NEWCO (L.642-9)** : identifier le **cessionnaire**, les **apporteurs de capitaux** et **garants** ; toute **substitution** au profit d'une NEWCO suppose l'**autorisation du tribunal** et la **garantie solidaire** de l'auteur de l'offre retenue.
 - **Activité autonome (L.642-1)** : alerter si le périmètre isole des actifs clés (marque + fichier) au point de **vider l'activité** (cherry-picking) → risque de rejet.
 
 # 3. Optimisation vs critères du tribunal (L.642-5)
@@ -141,7 +150,9 @@ outputs/reprise-a-la-barre-<entreprise-slug>-YYYY-MM-DD.md
 
 # 4. Risques & suites
 - **Sûretés** : report / quote-part du prix (L.642-12) ; **inexécution / résolution** du plan de cession (L.642-11).
-- **Voies de recours (L.661-6)** : la sienne (en cas de rejet) et celles des **candidats évincés** (qui peuvent contester le plan retenu).
+- **Publicité de l'offre** : le contenu des offres est **communiqué aux organes de la procédure et déposé au greffe** (consultable par les intéressés) → **calibrer** les informations concurrentielles sensibles que l'on y fait figurer ; pas de confidentialité totale.
+- **Inaliénabilité (L.642-10)** : le tribunal peut **interdire la revente** de tout ou partie des biens cédés pendant un délai → anticiper si le fonds vise une cession ultérieure de la marque / du fichier.
+- **Voies de recours (L.661-6)** : recours **restreints** — le **cessionnaire ne peut faire appel** du jugement arrêtant le plan **que s'il lui impose des charges autres que ses engagements** ; un **candidat évincé** n'a pas de recours ordinaire équivalent à une renégociation. Ne pas tabler sur un appel large.
 - **Irrévocabilité** de l'offre une fois déposée (L.642-2).
 
 # Renvois & prochaines étapes
@@ -167,6 +178,7 @@ outputs/reprise-a-la-barre-<entreprise-slug>-YYYY-MM-DD.md
 1. Invoquer `check-pii`. Lire le profil cabinet (blocs procédures collectives + M&A) et confirmer le **côté repreneur**. Raisonner **à la date du jour** (dates absolues) avec un **rétroplanning** : date limite de dépôt des offres, audience.
 2. Vérifier via `bodacc_procedures` / `bodacc_by_siren` que la cible est **bien en RJ/LJ** : type de procédure, date du jugement d'ouverture, administrateur désigné.
 3. **Trancher la porte d'entrée** : procédure ouverte + appel d'offres en cours → ce skill. **Aucune procédure ouverte** et cession préparable confidentiellement → ce n'est pas une reprise à la barre → **renvoi `/h-da:pre-pack-cession`** (montage amont). Ne pas avancer sans avoir tranché.
+4. **Trancher le régime (art. L.631-22 / L.642-1 s. `[Légifrance]`)** : si la cible est en **redressement judiciaire**, le tribunal peut arrêter la cession (totale ou partielle) **dès la période d'observation** sur le fondement de **L.631-22**, qui rend applicable le régime du plan de cession **L.642-1 et s.** Ne jamais conditionner la reprise à la barre à une **liquidation préalable** ni affirmer que la cession serait impossible pendant l'observation.
 
 ## Étape 2 — Gate 2 (recevabilité de l'offre)
 
@@ -176,21 +188,27 @@ Trancher les **deux** verrous. Si l'un tombe → STOP + signalement motivé.
 
 ## Étape 3 — Construction de l'offre (L.642-2 / L.642-7 / L.642-1)
 
-Bâtir l'offre sur les **mentions obligatoires (L.642-2)**. Identifier les **contrats à reprendre** : ce sont ceux **désignés par le tribunal** dans le jugement de cession (L.642-7), cédés de plein droit au cessionnaire — lister ceux qui sont nécessaires à l'activité (bail, licence, fournisseurs). Vérifier que le périmètre forme une **activité autonome (L.642-1)** : alerter sur tout cherry-picking (isoler la marque + le fichier clients) qui viderait l'activité et exposerait l'offre au rejet.
+Bâtir l'offre sur les **mentions obligatoires (L.642-2 II)** (cf. Bloc 2 : biens/droits/contrats, prévisions, prix, apporteurs/garants, date, emploi, garanties, cessions d'actifs <2 ans, durée des engagements). Identifier les **contrats à reprendre** : ce sont ceux **désignés par le tribunal** dans le jugement de cession (L.642-7), cédés de plein droit au cessionnaire — lister ceux qui sont nécessaires à l'activité (bail, licence, fournisseurs). Points d'attention par contrat :
+- **Bail commercial** : cessible par le plan **nonobstant clause contraire**, aux **conditions en vigueur au jour de l'ouverture** ; toute **clause imposant au cédant une solidarité avec le cessionnaire est réputée non écrite** — le repreneur ne reprend donc pas automatiquement les arriérés locatifs par solidarité.
+- **Licence de procédé concédée par un tiers** : vérifier une éventuelle clause d'**intuitu personae / agrément / changement de contrôle** ; recueillir les observations du concédant — un repreneur concurrent peut crisper.
+
+Vérifier que le périmètre forme une **activité autonome (L.642-1)** : alerter sur tout cherry-picking (isoler la marque + le fichier clients) qui viderait l'activité et exposerait l'offre au rejet.
 
 ## Étape 4 — Optimisation vs critères du tribunal (L.642-5)
 
 Le **tribunal arrête le plan de cession** en retenant l'offre qui assure le mieux, sur les trois critères de **L.642-5** : (1) la **pérennité de l'emploi**, (2) le **paiement des créanciers**, (3) les **garanties d'exécution**. Optimiser l'offre sur ces axes (pas le prix seul). En cas d'**offre(s) concurrente(s)**, identifier les points faibles relatifs et la marge de surenchère (l'offre ne peut être modifiée que dans un sens plus favorable, L.642-2). Si le repreneur est un **concurrent**, prévoir NDA / clean team / limitation des données sensibles (clients, prix) en data-room.
 
-## Étape 5 — Risques post-arrêté (L.642-12 / L.642-11 / L.661-6)
+## Étape 5 — Risques post-arrêté (L.642-12 / L.642-11 / L.642-10 / L.661-6)
 
-- **Sûretés** : report du droit de suite et **quote-part du prix** affectée aux créanciers inscrits (L.642-12) — le cessionnaire qui paie le prix peut purger ; anticiper la quote-part.
-- **Inexécution du plan** : si le cessionnaire n'exécute pas ses engagements, le tribunal peut prononcer la **résolution du plan de cession** (L.642-11) — mesurer l'exposition.
-- **Voies de recours (L.661-6 C.com. `[Légifrance]`)** : appel des décisions arrêtant ou rejetant le plan de cession — la sienne en cas de rejet, et celles des **candidats évincés** qui peuvent contester le plan retenu (aléa et calendrier).
+- **Sûretés** : report du droit de suite et **quote-part du prix** affectée aux créanciers inscrits (L.642-12) — le cessionnaire qui paie le prix peut purger ; pour un bien grevé qu'il conserve, il peut devoir **régler les échéances du crédit garanti** restant dues `[review]`. Anticiper la **ventilation du prix par actif grevé** (nantissement fonds de commerce, gage stock).
+- **Inexécution du plan** : si le cessionnaire n'exécute pas ses engagements, le tribunal peut prononcer la **résolution du plan de cession** (L.642-11) — mesurer l'exposition ; ne s'engager que sur du tenable.
+- **Inaliénabilité (L.642-10)** : le tribunal peut **interdire la revente** de tout ou partie des biens cédés pendant un délai → vérifier avant tout projet de cession ultérieure (marque, fichier).
+- **Publicité de l'offre (L.642-2 / L.642-5)** : son contenu est **communiqué aux organes et déposé au greffe** (consultable) → **calibrer** les informations concurrentielles sensibles que l'on y fait figurer ; pas de confidentialité totale.
+- **Voies de recours (L.661-6 C.com. `[Légifrance]`)** : recours **restreints** — le **cessionnaire ne peut faire appel** du jugement arrêtant le plan **que si celui-ci lui impose des charges autres que les engagements souscrits** ; un **candidat évincé** ne dispose pas d'un recours ordinaire équivalent à une renégociation. Ne pas tabler sur un appel large en cas de rejet.
 
 ## Étape 6 — Post-flight `verifier-citations`
 
-Lancer `verifier-citations` sur tous les articles cités (L.642-1, L.642-2, L.642-3, L.642-5, L.642-7, L.642-11, L.642-12, L.661-6). Tout article non confirmé reste `[à vérifier]`.
+Lancer `verifier-citations` sur tous les articles cités (L.631-22, L.642-1, L.642-2, L.642-3, L.642-5, L.642-7, L.642-9, L.642-10, L.642-11, L.642-12, L.661-6). Tout article non confirmé reste `[à vérifier]`.
 
 ---
 
