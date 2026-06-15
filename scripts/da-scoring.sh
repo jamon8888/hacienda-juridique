@@ -49,6 +49,7 @@ SKILLS=(
   financement-startup
   cgv-generator
   pre-pack-cession
+  reprise-a-la-barre
 )
 
 # Code de cycle par defaut, surchargeable via la variable d'environnement CODE
@@ -63,6 +64,7 @@ code_for() {
     financement-startup) printf "KJ039D" ;;
     cgv-generator) printf "87MHRS" ;;
     pre-pack-cession) printf "PPK3VE" ;;
+    reprise-a-la-barre) printf "RLB3SU" ;;
   esac
 }
 
@@ -75,6 +77,7 @@ mode_for() {
     financement-startup) printf "comparaison instrument et revue term sheet seed" ;;
     cgv-generator) printf "generation CGV/CGU B2B ou B2C" ;;
     pre-pack-cession) printf "note de cadrage du montage pre-pack (mode unique)" ;;
+    reprise-a-la-barre) printf "note tactique cote repreneur (mode unique)" ;;
   esac
 }
 
@@ -87,6 +90,7 @@ spec_for() {
     financement-startup) printf "BSPCE ; BSA ; obligations convertibles ; augmentation de capital ; term sheet seed ; clauses de pacte a renvoyer ; pas de conseil fiscal final" ;;
     cgv-generator) printf "regime B2B/B2C ; vente a distance ou SaaS ; clauses abusives ; delais de paiement ; responsabilite ; retractation si consommateur ; clauses a taguer review" ;;
     pre-pack-cession) printf "cession preparee en mandat ad hoc/conciliation puis plan de cession ; cessation des paiements ambigue (passif exigible vs actif disponible) ; repreneur identifie via LOI indicative ; acte recent a risque periode suspecte ; confidentialite (fuite presse/salaries) ; CSE a consulter ; nantissement/suretes ; actifs PI (marque/brevet) convoites ; side debiteur ou repreneur" ;;
+    reprise-a-la-barre) printf "cible deja en redressement judiciaire ; appel d'offres ouvert avec date limite proche ; candidat-repreneur (concurrent/fonds) ; simple LOI indicative pas une offre ferme ; lien possible repreneur/parent du dirigeant ou societe interposee (piege eligibilite) ; offre concurrente deposee ; suretes sur les actifs ; contrats cles a reprendre (bail, licence) ; CSE ; tentation cherry-picking marque+fichier clients ; cote repreneur" ;;
   esac
 }
 
@@ -99,6 +103,7 @@ desc_for() {
     financement-startup) printf "Conseil sur les instruments de financement de la startup : BSPCE, BSA, obligations convertibles, augmentation de capital. Mode comparer pour choisir l'instrument et mode review pour relire une term sheet de levee. Renvoie vers pacte-associes-review pour les clauses de pacte et ne donne pas de conseil fiscal final." ;;
     cgv-generator) printf "Genere des CGV B2B ou des CGU/CGV B2C sous forme de brouillon assiste. Detecte le regime a l'intake, applique le cadre correspondant, tague les arbitrages review et ne produit jamais un document pret a publier sans validation." ;;
     pre-pack-cession) printf "Note de cadrage du montage d'un pre-pack cession : cession negociee confidentiellement en amont (mandat ad hoc/conciliation) puis realisee via une procedure collective sous forme de plan de cession. Diagnostic de faisabilite, choix du vehicule procedural, sequencage des deux phases, points de vigilance. Side-aware debiteur/repreneur. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
+    reprise-a-la-barre) printf "Playbook cote candidat-repreneur pour construire, optimiser et defendre une offre de reprise sur une entreprise deja en redressement ou liquidation judiciaire, dans le cadre d'un appel d'offres ouvert (plan de cession). Recevabilite de l'offre, construction des mentions, contrats repris, criteres de choix du tribunal, sort des suretes, voies de recours. Cote repreneur. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
   esac
 }
 
@@ -111,6 +116,7 @@ command_for() {
     financement-startup) printf "/h-da:financement-startup --review" ;;
     cgv-generator) printf "/h-da:cgv-generator --draft" ;;
     pre-pack-cession) printf "/h-da:pre-pack-cession --side=debiteur" ;;
+    reprise-a-la-barre) printf "/h-da:reprise-a-la-barre --side=repreneur" ;;
   esac
 }
 
@@ -134,6 +140,7 @@ Skills:
   financement-startup
   cgv-generator
   pre-pack-cession
+  reprise-a-la-barre
 
 Overrides (variables d'environnement) :
   CODE=<6chars>   code de cycle (surcharge le defaut ; obligatoire pour re-scorer un skill)
