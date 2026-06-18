@@ -46,24 +46,25 @@ tags: [procedures-collectives, cessation-paiements, depot-de-bilan, debiteur, l6
 ## Examples
 
 <example>
-<user>/h-da:declaration-cessation-paiements — SAS, trésorerie épuisée, passif fournisseurs+URSSAF exigible depuis 3 semaines, redressement espéré</user>
+<user>/h-da:declaration-cessation-paiements — SAS, trésorerie épuisée, passif fournisseurs+URSSAF exigible, redressement espéré</user>
 <response>
 1. Pré-flight `check-pii` (dénominations + montants + dirigeant → seuil B fréquent).
-2. Gate CdP (L.631-1) : passif exigible > actif disponible confirmé → cessation des paiements établie. Date présumée de CdP `[review]` : ~3 semaines.
-3. Délai 45 j (L.631-4) : CdP + 45 j → ~24 j restants → 🟠 — déposer sous quelques jours.
-4. Tribunal : SAS = société commerciale → tribunal de commerce.
-5. Orientation : redressement espéré → demander RJ (le tribunal tranche RJ/LJ).
-6. Pièces R.631-1 + squelette de déclaration ([à compléter] : chiffres trésorerie, état créances/dettes, inventaire).
+2. Gate CdP (L.631-1) : sur les chiffres fournis, passif exigible > actif disponible → cessation **probable**, insuffisance provisoire ~[X] € **à confirmer par une situation de trésorerie datée**. Ne pas écrire « établie ».
+3. Date de CdP : **non arrêtée** — déduite de chiffres datés, fixée par le tribunal ; le premier impayé n'est qu'un indice. Laisser `[à compléter — date à arrêter avec l'expert-comptable]` `[review]`, ne pas fabriquer de date.
+4. Délai 45 j (L.631-4) : court depuis la date réelle ; **aucune échéance exacte calculable** tant que la date n'est pas arrêtée. Traiter le dépôt comme une obligation à brève échéance ; alerte retard **conditionnelle** si la date se confirme ancienne.
+5. Tribunal : SAS = société commerciale → tribunal de commerce.
+6. Orientation : redressement **sans le garantir** — réclamer financement/trésorerie prévisionnelle/rentabilité avant de pencher ; sinon présenter RJ et LJ. Le tribunal tranche.
+7. Pièces R.631-1 (liste complète, dont état actif disponible/passif exigible + attestation sur l'honneur mandat ad hoc/conciliation < 18 mois) + squelette de déclaration ([à compléter] : chiffres, créances, inventaire).
 </response>
 </example>
 
 <example>
-<user>/h-da:declaration-cessation-paiements — SARL, cessation des paiements remonte à ~4 mois, activité arrêtée</user>
+<user>/h-da:declaration-cessation-paiements — SARL, le client dit que « ça s'est dégradé il y a ~4 mois », activité quasi arrêtée</user>
 <response>
-Gate CdP : établie. Date de CdP ~4 mois `[review]`.
-Délai 45 j : **DÉPASSÉ d'environ 75 jours** → 🔴🔴.
-ALERTE déclaration tardive : faute de gestion possible (interdiction de gérer L.653-8 ; insuffisance d'actif L.651-2 `[Légifrance]`) ; la période suspecte court depuis la date de CdP (nullités L.632-1/2). Ces risques visent **personnellement le dirigeant** — fais évaluer ta responsabilité par un avocat (un futur skill dédié couvrira l'analyse). Déposer **immédiatement** (le retard aggrave l'exposition, il ne l'efface pas).
-Activité arrêtée + pas de redressement envisageable → orientation LJ (L.640-1), le tribunal tranche.
+Gate CdP : cessation **probable** (à confirmer par situation datée). Date de CdP **non arrêtée** : « ~4 mois » est une approximation du client, **pas** une date — `[à compléter — à arrêter avec l'expert-comptable]` `[review]`. Ne pas convertir en date précise.
+Délai 45 j : **si** la date se confirme à ~4 mois, le délai serait **vraisemblablement dépassé (à confirmer)** — pas un retard établi.
+ALERTE exposition dirigeant (conditionnelle) : un dépassement exposerait personnellement le dirigeant — faute de gestion possible (interdiction de gérer L.653-8 ; insuffisance d'actif L.651-2 `[Légifrance]`), période suspecte depuis la date de CdP (L.632-1/2). **Nommer, pas évaluer** : faire évaluer par un avocat. Agir sans délai.
+Orientation : activité quasi arrêtée → la LJ (L.640-1) est plausible **mais** réclamer les données de viabilité avant de pencher ; le tribunal décide.
 </response>
 </example>
 
@@ -106,14 +107,15 @@ Si la forme sociale ou les éléments de CdP sont absents : stopper et demander.
 - [ ] Forme sociale et éléments de cessation des paiements fournis (refus du défaut)
 - [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet bloc procédures collectives lu ; qualité signataire (dirigeant de droit) identifiée
-- [ ] **Gate CdP** : qualification L.631-1 explicite (actif disponible vs passif exigible, réserves de crédit/moratoires pris en compte). Si **pas** de CdP → renvoi `prevention-difficultes`, ne pas rédiger de déclaration
-- [ ] Date de cessation des paiements taguée `[review]` (jugement, point de départ période suspecte)
-- [ ] Calcul délai 45 j vérifié (cohérent avec la date du jour ; neutralisé si conciliation demandée)
-- [ ] Si délai **dépassé** : alerte tardive explicite (faute de gestion, L.653-8 ; insuffisance d'actif L.651-2) + renvoi évaluation responsabilité à un avocat — **nommée, pas évaluée**
+- [ ] **Gate CdP** : qualification L.631-1 explicite (actif disponible vs passif exigible, réserves de crédit/moratoires pris en compte). Cessation **probable** (insuffisance provisoire chiffrée, à confirmer par situation datée) — **pas** « établie » sur chiffres non datés. Si **pas** de CdP → renvoi `prevention-difficultes`, ne pas rédiger de déclaration
+- [ ] Date de CdP **non fabriquée** : pas de date calendaire précise sur une approximation ; premier impayé = indice, pas la date ; `[à compléter]` + `[review]` (point de départ période suspecte, fixée par le tribunal)
+- [ ] Délai 45 j : **aucune échéance exacte calculable** tant que la date n'est pas arrêtée ; retard présenté **conditionnellement**, jamais affirmé sur la seule ancienneté d'un impayé ; neutralisé si conciliation demandée
+- [ ] Si délai **possiblement dépassé** : alerte exposition dirigeant (faute de gestion, L.653-8 ; insuffisance d'actif L.651-2) + renvoi évaluation à un avocat — **nommée, pas évaluée**
 - [ ] Tribunal compétent identifié (TC vs tribunal judiciaire selon la qualité du débiteur)
-- [ ] Orientation RJ/LJ donnée AVEC mention que le tribunal décide (le dirigeant demande)
-- [ ] Checklist pièces R.631-1 complète ; chiffres client en `[à compléter]`, jamais fabriqués
-- [ ] Sortie comprend : statut délai + qualification CdP + orientation RJ/LJ + projet déclaration + pièces + note du relecteur + question hors checklist + arbre 5 options
+- [ ] Orientation RJ/LJ **sans trancher** : redressement non garanti, données de viabilité (financement/trésorerie/rentabilité) réclamées ; le tribunal décide
+- [ ] Checklist pièces R.631-1 **complète** (dont état actif disponible/passif exigible, attestation sur l'honneur mandat ad hoc/conciliation < 18 mois, formalités datation/signature/certification/délai 7 j/motivation des absences, SIREN/CA/ICPE) ; aucune donnée fabriquée, aucune pièce déclarée « sans objet » sans vérification
+- [ ] Aucune **fabrication** : ni date, ni chiffres, ni créanciers, ni biens, ni personnes — `[à compléter]` partout où la donnée n'est pas fournie
+- [ ] Sortie comprend : qualification CdP (probable) + statut délai conditionnel + orientation RJ/LJ + projet déclaration + pièces + note du relecteur + question hors checklist + arbre 5 options
 
 ---
 
@@ -151,29 +153,22 @@ Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitud
    - **Actif disponible** = liquidités + valeurs réalisables immédiatement + **réserves de crédit** et **moratoires** dont bénéficie le débiteur (L.631-1 al. 2).
    - **Passif exigible** = dettes échues **et** exigées (réclamées).
    - Si actif disponible ≥ passif exigible (notamment grâce à un moratoire/ligne de crédit) → **pas de CdP** → **stopper la rédaction** et renvoyer `/h-da:prevention-difficultes` (sauvegarde + amiable encore ouverts).
-4. Si CdP établie : retenir une **date présumée de cessation des paiements**, la taguer `[review]` (le tribunal la fixera et peut la reporter jusqu'à 18 mois, L.631-8 `[Légifrance]` ; elle est le point de départ de la période suspecte, L.632-1/L.632-2).
+   - **Conclusion mesurée, jamais affirmée sur des chiffres non datés.** Tant que les chiffres ne sont pas établis par une **situation de trésorerie datée**, conclure à une cessation **probable** (et non « établie »), en chiffrant l'**insuffisance provisoire** (passif exigible − actif disponible) **sous réserve de confirmation**. Ne pas écrire « cessation établie » sur des chiffres approximatifs. Si la cessation n'est finalement pas confirmée → `/h-da:prevention-difficultes` (et borner la conciliation : ouverte tant qu'il n'y a pas CdP de plus de 45 j).
+4. **Date de cessation des paiements — ne jamais la fabriquer ni l'ancrer sur le premier impayé.** La date de CdP est celle où l'actif disponible est devenu insuffisant pour couvrir le passif exigible ; elle se déduit de **chiffres datés** et est **fixée par le tribunal** (report possible jusqu'à 18 mois, L.631-8 `[Légifrance]`). Le **premier impayé et les mises en demeure ne sont que des _indices_, jamais la date elle-même.** Si la date n'est pas établie par des pièces datées : ne **pas** produire de date calendaire précise — la laisser en **fourchette / `[à compléter — date exacte à arrêter avec l'expert-comptable]`**, taguée `[review]` (point de départ de la période suspecte, L.632-1/L.632-2). Une approximation du client (« il y a ~10 semaines ») reste une approximation : ne pas la convertir en date précise présentée comme acquise.
 
-## Étape 2 — Calcul du délai 45 j (règle dure) + alerte tardive
+## Étape 2 — Délai légal de 45 j + alerte (conditionnelle tant que la date n'est pas arrêtée)
 
-```
-date_cdp = date présumée de cessation des paiements [review]
-date_limite_declaration = date_cdp + 45 jours (art. L.631-4 C.com. RJ / L.640-4 C.com. LJ [Légifrance])
-si une conciliation (L.611-4) a été demandée avant l'échéance : délai neutralisé tant que la conciliation court [review]
-si date_limite tombe un samedi/dimanche/jour férié : prorogée au 1er jour ouvrable suivant (art. 642 CPC [Légifrance])
-jours_restants = date_limite_declaration - aujourd'hui
-```
+Le délai de déclaration est de **45 jours à compter de la date réelle de cessation des paiements** (art. L.631-4 C.com. RJ / L.640-4 C.com. LJ `[Légifrance]`). Il est neutralisé si une **conciliation** (L.611-4 `[Légifrance]`) a été demandée dans l'intervalle.
 
-**Échelle d'alerte :**
+**Règle d'or : aucune échéance exacte n'est calculable tant que la date de CdP n'est pas arrêtée.** Ne **pas** inventer de date limite ni de nombre de jours de retard à partir d'une date approximative.
 
-| Jours restants | Statut | Action |
-|---|---|---|
-| > 15 j | 🟢 | Préparer le dépôt sans précipitation |
-| 1-15 j | 🟠 | Déposer en priorité |
-| 0 | 🔴 | Déposer aujourd'hui |
-| < 0 (tardif) | 🔴🔴 | **DÉCLARATION TARDIVE** — déposer immédiatement + alerte responsabilité dirigeant |
+- **Date de CdP établie (pièces datées)** : échéance = date + 45 j (prorogée au 1er jour ouvrable suivant si week-end/férié, art. 642 CPC `[Légifrance]`) ; calculer les jours restants.
+- **Date de CdP non encore arrêtée** : présenter le délai **conditionnellement** — « 45 j à compter de la date qui sera retenue ; dès qu'elle est arrêtée, échéance = date + 45 j ». Donner au plus une **fourchette explicitement hypothétique** (« si la CdP se confirme autour de [période approx.], le délai serait vraisemblablement déjà dépassé »), **jamais** comme un fait acquis. Le **retard est possible, à confirmer** — ne jamais l'affirmer catégoriquement sur la seule ancienneté d'un impayé.
 
-**Alerte tardive (si jours_restants < 0) — NOMMER, ne pas évaluer :**
-> La déclaration tardive expose **personnellement le dirigeant** : faute de gestion pouvant justifier une **interdiction de gérer** (art. L.653-8 C.com. `[Légifrance]`) et une **action en contribution à l'insuffisance d'actif** (art. L.651-2 C.com. `[Légifrance]`) ; la **période suspecte** court depuis la date de CdP (nullités L.632-1/L.632-2). **Déposer immédiatement** — le retard aggrave l'exposition, il ne l'efface pas. L'**évaluation** de cette responsabilité (faute caractérisée, quantum, moyens de défense, sort des cautions) relève d'un avocat. `[review]`
+Dans tous les cas, le message d'**urgence d'agir** ne dépend pas d'une date précise : la cessation étant probable, traiter le dépôt comme une **obligation à brève échéance** et ne pas inviter à temporiser.
+
+**Alerte exposition dirigeant (si le délai est — même conditionnellement — possiblement dépassé) — NOMMER, ne pas évaluer :**
+> Un dépassement des 45 j exposerait **personnellement le dirigeant** : faute de gestion pouvant justifier une **interdiction de gérer** (art. L.653-8 C.com. `[Légifrance]`) et une **action en contribution à l'insuffisance d'actif** (art. L.651-2 C.com. `[Légifrance]`) ; la **période suspecte** court depuis la date de CdP (nullités L.632-1/L.632-2). **Agir sans délai** — un retard aggraverait l'exposition. L'**évaluation** de cette responsabilité (faute caractérisée, quantum, moyens de défense, sort des cautions) relève d'un avocat. `[review]`
 
 ## Étape 3 — Tribunal compétent
 
@@ -184,11 +179,12 @@ jours_restants = date_limite_declaration - aujourd'hui
 
 Fondement : éligibilité L.631-2 C.com. `[Légifrance]` ; compétence selon la qualité du débiteur `[à vérifier]` (confirmer le greffe compétent localement).
 
-## Étape 4 — Orientation RJ vs LJ
+## Étape 4 — Orientation RJ vs LJ (sans trancher, et seulement avec les données)
 
 - **Redressement judiciaire (RJ)** — activité poursuivie, redressement **possible** (L.631-1).
 - **Liquidation judiciaire (LJ)** — redressement **manifestement impossible** (art. L.640-1 C.com. `[Légifrance]`).
-- Mention obligatoire : **c'est le tribunal qui qualifie et décide** ; le dirigeant *demande* l'ouverture de la procédure qui lui paraît adaptée. `[review]`
+- **Ne pas choisir la procédure à la place du dirigeant ni du tribunal.** Évaluer le redressement **sans le garantir** et **réclamer d'abord les données** qui conditionnent ce jugement : financement disponible, trésorerie prévisionnelle, rentabilité / carnet de commandes. Sans ces données, présenter les **deux voies**, pas une recommandation ferme.
+- Mention obligatoire : **c'est le tribunal qui qualifie et décide** ; le dirigeant *demande* l'ouverture de la procédure. `[review]`
 
 ## Étape 5 — Pièces à joindre (R.631-1 C.com.)
 
@@ -198,14 +194,18 @@ Checklist (art. R.631-1 C.com. `[à vérifier]` — confirmer la liste en vigueu
 |---|---|---|---|
 | 1 | Comptes annuels du dernier exercice | client | [à compléter] |
 | 2 | Situation de trésorerie datée de moins d'un mois | client | [à compléter] |
-| 3 | Nombre de salariés + montant du chiffre d'affaires (dernier exercice) | client | [à compléter] |
+| 3 | **État du passif exigible et de l'actif disponible** (établissant la cessation) | client | [à compléter] |
 | 4 | État chiffré des créances et des dettes avec noms et domiciles des créanciers | client | [à compléter] |
 | 5 | État actif et passif des sûretés + engagements hors bilan | client | [à compléter] |
 | 6 | Inventaire sommaire des biens | client | [à compléter] |
-| 7 | Nom et adresse des représentants du personnel (CSE) | client | [à compléter] |
-| 8 | Le cas échéant, liste des membres tenus solidairement / indéfiniment du passif | client | [à compléter] |
+| 7 | Nombre de salariés + chiffre d'affaires (dernier exercice) + SIREN | client | [à compléter] |
+| 8 | Nom et adresse des représentants du personnel (CSE) | client | [à compléter] |
+| 9 | **Attestation sur l'honneur** d'absence (ou existence) de mandat ad hoc / conciliation dans les **18 derniers mois** | dirigeant | [à compléter] |
+| 10 | Le cas échéant : liste des membres tenus solidairement / indéfiniment du passif ; documents **ICPE** si activité classée | client | [à compléter] |
 
-Ne **jamais** renseigner ces chiffres à la place du client : `[à compléter]` partout où la donnée n'est pas fournie.
+**Formalités des pièces :** chaque pièce doit être **datée, signée et certifiée sincère et véritable** par le dirigeant. Une pièce qui ne peut être fournie au dépôt peut être produite dans un **délai de 7 jours** (à confirmer sur Légifrance `[à vérifier]`), et **toute absence ou impossibilité doit être motivée** dans la déclaration.
+
+Ne **jamais** renseigner une donnée à la place du client : `[à compléter]` partout où la donnée n'est pas fournie, et **ne pas affirmer qu'une pièce est « sans objet » sans vérification** (`[review]`).
 
 ## Étape 6 — Rédaction de la déclaration (squelette)
 
@@ -247,20 +247,19 @@ Appel automatique sur la sortie complète. Articles à vérifier : **L.631-1, L.
 > - **Fraîcheur :** vérification jurisprudence post-{date} sur la date de CdP / déclaration tardive — {N} arrêts [Judilibre] | recherche impossible
 > - **Avant de t'appuyer dessus :** {action concrète — ex. faire confirmer la date de CdP et l'actif disponible par l'expert-comptable} | « prêt pour dépôt au greffe »
 
-# 🟢/🟠/🔴/🔴🔴 Statut délai de déclaration
-- Date de cessation des paiements : [date] [review]
-- Délai légal : 45 jours (L.631-4 / L.640-4)
-- Date limite de déclaration : [date prorogée 1er jour ouvrable si week-end/férié]
-- Jours restants : [N]
-- {Alerte tardive si < 0 : bloc responsabilité dirigeant}
-
 # Qualification de la cessation des paiements
-- Actif disponible vs passif exigible (L.631-1) : [synthèse] [review]
+- Actif disponible vs passif exigible (L.631-1) : [synthèse chiffrée] → cessation **probable**, insuffisance provisoire [N] € **à confirmer par une situation de trésorerie datée** [review]
 - {Si pas de CdP : renvoi prevention-difficultes — pas de déclaration}
+
+# Statut délai de déclaration (conditionnel)
+- Date de cessation des paiements : **non arrêtée** — [fourchette / à compléter, à arrêter avec l'expert-comptable] [review] (le premier impayé est un indice, pas la date ; fixée par le tribunal)
+- Délai légal : 45 jours à compter de la date retenue (L.631-4 / L.640-4) — **aucune échéance exacte calculable** tant que la date n'est pas arrêtée
+- Lecture conditionnelle : {si la date se confirme autour de [période], le délai serait vraisemblablement dépassé — à confirmer} ; dans tous les cas, dépôt = obligation à brève échéance
+- {Alerte exposition dirigeant si délai possiblement dépassé : bloc responsabilité — nommée, pas évaluée}
 
 # Tribunal compétent et orientation
 - Tribunal : [TC / TJ de ville]
-- Procédure demandée : [RJ / LJ] — le tribunal décide [review]
+- Orientation : redressement non garanti — données de viabilité (financement/trésorerie/rentabilité) à fournir ; sinon présenter RJ **et** LJ. Le tribunal décide [review]
 
 # Déclaration de cessation des paiements — projet
 [texte complet du template Étape 6]
@@ -274,7 +273,7 @@ Appel automatique sur la sortie complète. Articles à vérifier : **L.631-1, L.
 # Que veux-tu faire ? Choisis une option et je la déroule :
 1. **Rédiger** — je complète la déclaration et le bordereau de pièces dès que tu fournis les chiffres.
 2. **Escalader** — note vers {approbateur / avocat référent configuré} : faits-clés, délai, exposition dirigeant.
-3. **Compléter les faits** — questions à l'expert-comptable / dirigeant (actif disponible exact, date précise de CdP, état des créances).
+3. **Compléter les faits** — questions à l'expert-comptable / dirigeant (situation de trésorerie datée, date de CdP à arrêter sur pièces, état des créances, données de viabilité).
 4. **Surveiller et attendre** — j'ajoute l'échéance des 45 j au tracker ; rappel avant dépôt.
 5. **Autre** — précise.
 ```
@@ -287,7 +286,7 @@ La déclaration est un livrable externe (CLAUDE.md §2) : retirer l'en-tête de 
 
 ## Ce skill ne fait pas
 
-- La **qualification définitive** de la date de cessation des paiements (le tribunal la fixe, L.631-8) — le skill propose une date `[review]`.
+- La **fixation de la date** de cessation des paiements (le tribunal la fixe, L.631-8) — le skill ne fabrique pas de date : il l'établit sur pièces datées ou la laisse `[à compléter]` `[review]`, le premier impayé n'étant qu'un indice.
 - L'**évaluation** de la responsabilité du dirigeant (faute de gestion, insuffisance d'actif L.651-2, sanctions, sort des cautions) → futur skill dédié / avocat. Le skill **nomme** l'exposition, il ne l'évalue pas.
 - Le **dépôt physique** au greffe et la comparution (actes du dirigeant / de l'avocat).
 - Le **choix amiable vs collectif** quand il n'y a pas (encore) cessation des paiements → `prevention-difficultes`.
