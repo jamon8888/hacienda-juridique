@@ -1,5 +1,14 @@
 # Changelog — hacienda-droit-affaires
 
+## 0.10.0
+
+- feat: skill `orientation` — point d'entrée de triage/routage du plugin
+  (front-door `/h-da:orientation` + auto-activation sur formulations vagues).
+  Trie par type de dossier, rappelle l'anonymisation avant ingestion de données,
+  route vers le bon skill ou sous-routeur. Routeur agnostique au side,
+  non-doctrinal (pas de scoring blind). Skills : 26 → 27.
+- fix: préfixe périmé `/h-droit-affaires:` → `/h-da:` dans `entretien-demarrage`.
+
 ## [0.9.0] — 2026-06-15
 
 **Nouveau skill `asset-vs-share-distress` (distressed-M&A #4, routeur) — gate-clean ADMIS 1,0 (run AVS1RT, sans faute au 1er cycle).**
