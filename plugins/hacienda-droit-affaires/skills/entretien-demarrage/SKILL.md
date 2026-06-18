@@ -24,7 +24,7 @@ tags: [onboarding, company-profile, integrations, credentials]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:entretien-demarrage</user>
+<user>/h-da:entretien-demarrage</user>
 <response>
 1. Détecte si ~/.claude/plugins/config/hacienda-juridique/company-profile.md existe → propose
    réutiliser/enrichir/recommencer
@@ -37,7 +37,7 @@ tags: [onboarding, company-profile, integrations, credentials]
 </example>
 
 <example>
-<user>/h-droit-affaires:entretien-demarrage --check-integrations</user>
+<user>/h-da:entretien-demarrage --check-integrations</user>
 <response>
 Diagnostic uniquement, pas de relance des questions profil. Affiche le
 tableau des sources avec ✓ / ? / ✗ et instructions de configuration.
@@ -45,7 +45,7 @@ tableau des sources avec ✓ / ? / ✗ et instructions de configuration.
 </example>
 
 <example>
-<user>/h-droit-affaires:entretien-demarrage --redo</user>
+<user>/h-da:entretien-demarrage --redo</user>
 <response>
 Recommence depuis zéro. Demande confirmation avant d'écraser le profil
 existant.
@@ -178,9 +178,9 @@ Instructions pour obtenir les clés :
 ✓ Diagnostic connexions : [état] mode [opérationnel/dégradé]
 
 Prochaines étapes recommandées :
-- /h-droit-affaires:reviser-contrat <fichier>  (pour tester)
-- /h-droit-affaires:declaration-creance <fichier>
-- /h-droit-affaires:entretien-demarrage --check-integrations
+- /h-da:reviser-contrat <fichier>  (pour tester)
+- /h-da:declaration-creance <fichier>
+- /h-da:entretien-demarrage --check-integrations
   (à relancer si vous configurez des clés API plus tard)
 ```
 
