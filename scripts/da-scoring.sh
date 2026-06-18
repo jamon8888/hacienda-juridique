@@ -52,6 +52,7 @@ SKILLS=(
   reprise-a-la-barre
   cession-actifs-isoles
   asset-vs-share-distress
+  declaration-cessation-paiements
 )
 
 # Code de cycle par defaut, surchargeable via la variable d'environnement CODE
@@ -69,6 +70,7 @@ code_for() {
     reprise-a-la-barre) printf "RLB3SU" ;;
     cession-actifs-isoles) echo "CAI2EN" ;;
     asset-vs-share-distress) echo "AVS1RT" ;;
+    declaration-cessation-paiements) echo "DCP1RT" ;;
   esac
 }
 
@@ -84,6 +86,7 @@ mode_for() {
     reprise-a-la-barre) printf "note tactique cote repreneur (mode unique)" ;;
     cession-actifs-isoles) echo "note tactique (mode unique)" ;;
     asset-vs-share-distress) echo "note d'orientation (mode unique)" ;;
+    declaration-cessation-paiements) echo "declaration au greffe (mode unique)" ;;
   esac
 }
 
@@ -99,6 +102,7 @@ spec_for() {
     reprise-a-la-barre) printf "cible deja en redressement judiciaire ; appel d'offres ouvert avec date limite proche ; candidat-repreneur (concurrent/fonds) ; simple LOI indicative pas une offre ferme ; lien possible repreneur/parent du dirigeant ou societe interposee (piege eligibilite) ; offre concurrente deposee ; suretes sur les actifs ; contrats cles a reprendre (bail, licence) ; CSE ; tentation cherry-picking marque+fichier clients ; cote repreneur" ;;
     cession-actifs-isoles) echo "docs/superpowers/specs/2026-06-15-hacienda-da-cession-actifs-isoles-design.md" ;;
     asset-vs-share-distress) echo "docs/superpowers/specs/2026-06-15-hacienda-da-asset-vs-share-distress-design.md" ;;
+    declaration-cessation-paiements) echo "cote debiteur ; cessation des paiements ambigue (moratoire URSSAF + ligne de credit non utilisee = reserve de credit, vs passif exigible fournisseurs/banque) testant le gate L.631-1 ; date de cessation des paiements ambigue (point de depart periode suspecte, a taguer review) ; declaration potentiellement tardive au-dela des 45 jours ; caution personnelle du dirigeant (a nommer, pas a evaluer) ; SARL = tribunal de commerce ; RJ vs LJ ambigu (activite au ralenti) ; chiffres financiers manquants a laisser a completer, jamais fabriques" ;;
   esac
 }
 
@@ -114,6 +118,7 @@ desc_for() {
     reprise-a-la-barre) printf "Playbook cote candidat-repreneur pour construire, optimiser et defendre une offre de reprise sur une entreprise deja en redressement ou liquidation judiciaire, dans le cadre d'un appel d'offres ouvert (plan de cession). Recevabilite de l'offre, construction des mentions, contrats repris, criteres de choix du tribunal, sort des suretes, voies de recours. Cote repreneur. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
     cession-actifs-isoles) echo "Note tactique cote repreneur pour l'acquisition d'actifs isoles (fonds, marques, stocks, creances) aupres d'un debiteur en liquidation judiciaire, hors plan de cession." ;;
     asset-vs-share-distress) echo "Note d'orientation cote repreneur pour arbitrer la structuration d'acquisition d'une cible en difficulte (rachat de titres vs rachat d'actifs) et orienter vers la bonne procedure." ;;
+    declaration-cessation-paiements) echo "Cote debiteur/dirigeant : preparation de la declaration de cessation des paiements (depot de bilan) a deposer au greffe. Qualifie la cessation des paiements (actif disponible vs passif exigible), calcule le delai legal de 45 jours, alerte si la declaration est tardive (exposition du dirigeant), liste les pieces a joindre, oriente sur le tribunal competent et redressement vs liquidation, et redige le squelette de la declaration sans fabriquer les chiffres du client. Si l'entreprise n'est pas en cessation des paiements, renvoie vers les dispositifs de prevention. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
   esac
 }
 
@@ -129,6 +134,7 @@ command_for() {
     reprise-a-la-barre) printf "/h-da:reprise-a-la-barre --side=repreneur" ;;
     cession-actifs-isoles) echo "/h-da:cession-actifs-isoles" ;;
     asset-vs-share-distress) echo "/h-da:asset-vs-share-distress" ;;
+    declaration-cessation-paiements) echo "/h-da:declaration-cessation-paiements" ;;
   esac
 }
 
@@ -155,6 +161,7 @@ Skills:
   reprise-a-la-barre
   cession-actifs-isoles
   asset-vs-share-distress
+  declaration-cessation-paiements
 
 Overrides (variables d'environnement) :
   CODE=<6chars>   code de cycle (surcharge le defaut ; obligatoire pour re-scorer un skill)
