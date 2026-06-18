@@ -128,12 +128,17 @@ description: >
   Il ORIENTE, il n'exécute pas et ne produit aucune analyse juridique. Ne pas
   déclencher quand l'utilisateur nomme déjà l'action (« révise ce contrat »,
   « rédige une mise en demeure ») : laisser le skill direct s'activer.
+version: "2.0.0"
 argument-hint: "[décris ta situation ou ton type de dossier — ex : « reprise d'une société en difficulté », « contrat reçu à relire », « impayé client »]"
 authors: ["Hacienda"]
 tags: [orientation, routeur, triage, onboarding, front-door]
 ---
 
 # Skill — Orientation droit des affaires
+
+> Note : le champ `version: "2.0.0"` est requis par le test de structure sur
+> chaque SKILL.md (il n'est pas comparé au wrapper). Le wrapper (Task 3) n'en
+> porte pas — conforme au pattern des autres wrappers du plugin.
 
 > **Le point de départ.** Tu as un dossier mais tu ne sais pas quel outil
 > utiliser ? Décris ta situation : je trie, je m'assure que l'anonymisation est
