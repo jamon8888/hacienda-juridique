@@ -12,6 +12,7 @@ humaine obligatoire avant tout usage externe.
 
 | Bloc | Skills |
 |---|---|
+| Orientation / triage | `orientation` |
 | Contrats commerciaux | `reviser-contrat`, `reviser-nda`, `liste-de-points`, `revue-tabulaire` |
 | M&A léger | `gap-review` |
 | Procédures collectives | `declaration-creance` |
@@ -99,6 +100,7 @@ l'auto-activation des skills.
 | `/h-da:liste-de-points` | Issues list de négociation. |
 | `/h-da:loi-term-sheet` | LOI, NBO et term sheet M&A. |
 | `/h-da:mise-en-demeure-commerciale` | Mise en demeure commerciale B2B (payer / exécuter) avec garde-fou procédure collective. |
+| `/h-da:orientation` | Point de départ : décris ton dossier, je trie et je route vers le bon skill (rappelle l'anonymisation avant les données). |
 | `/h-da:pacte-associes-review` | Revue de pacte d'associés. |
 | `/h-da:pre-pack-cession` | Cadrage du montage pre-pack cession (distressed-M&A). |
 | `/h-da:prevention-difficultes` | Orientation prévention (mandat ad hoc / conciliation / sauvegarde accélérée). |
