@@ -15,7 +15,7 @@ description: >
 argument-hint: "[décris ta situation ou ton type de dossier — ex : « reprise d'une société en difficulté », « contrat reçu à relire », « impayé client »]"
 ---
 
-Use the `orientation` skill with these arguments:
+Use the `cas` skill with these arguments:
 
 $ARGUMENTS
 

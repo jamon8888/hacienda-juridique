@@ -1,5 +1,5 @@
 ---
-name: orientation
+name: cas
 description: >
   Point de départ de toute requête droit des affaires dans Cowork : aiguille
   l'utilisateur (débutant comme confirmé) qui ne sait pas quel skill lancer, ou

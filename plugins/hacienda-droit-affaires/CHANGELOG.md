@@ -2,8 +2,8 @@
 
 ## 0.10.0
 
-- feat: skill `orientation` — point d'entrée de triage/routage du plugin
-  (front-door `/h-da:orientation` + auto-activation sur formulations vagues).
+- feat: skill `cas` — point d'entrée de triage/routage du plugin
+  (front-door `/h-da:cas` + auto-activation sur formulations vagues).
   Trie par type de dossier, rappelle l'anonymisation avant ingestion de données,
   route vers le bon skill ou sous-routeur. Routeur agnostique au side,
   non-doctrinal (pas de scoring blind). Skills : 26 → 27.
