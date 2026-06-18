@@ -2,8 +2,9 @@
 
 > Point de départ de toute requête dans Cowork pour le plugin droit des affaires.
 > Repo : `jamon8888/hacienda-juridique`. Plugin : `plugins/hacienda-droit-affaires` (DA).
-> Skill : `orientation` (nom provisoire, ajustable). Handoff de référence :
-> `docs/handoff/handoff-2026-06-15-asset-vs-share-distress.md`.
+> Skill : **`cas`** (`/h-da:cas`, nom retenu le 2026-06-17 — « j'ai un cas »).
+> Ce doc emploie `orientation` comme nom de travail historique ; lire `cas`.
+> Handoff de référence : `docs/handoff/handoff-2026-06-15-asset-vs-share-distress.md`.
 
 ## 1. Problème UX
 

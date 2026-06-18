@@ -12,9 +12,14 @@
 
 ---
 
-## ⚠️ Placeholder de nommage (lire avant de commencer)
+## ⚠️ Nom retenu : `cas` (`/h-da:cas`)
 
-Le nom du skill n'est **pas tranché**. Ce plan utilise `orientation` comme **nom de travail concret** partout. Si un autre nom est retenu (`triage`, `boussole`, `compass`, `dossier`, `start`…), substituer `orientation` dans **exactement** ces emplacements (Tâche 0) :
+> **Décision finale (2026-06-17)** : le skill s'appelle **`cas`** (« j'ai un cas »,
+> côté persona avocat). Ce plan utilise `orientation` comme nom de travail
+> historique ; partout où il dit `orientation`, lire **`cas`**. L'implémentation
+> livrée applique déjà `cas`.
+
+Le nom du skill (historiquement) utilisait `orientation` comme **nom de travail concret** partout. Si un autre nom est retenu (`triage`, `boussole`, `compass`, `dossier`, `start`…), substituer `orientation` dans **exactement** ces emplacements (Tâche 0) :
 
 1. Dossier du skill : `plugins/hacienda-droit-affaires/skills/<NOM>/SKILL.md`
 2. Frontmatter `name:` dans ce SKILL.md
