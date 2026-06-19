@@ -147,8 +147,9 @@ Usage:
   bash scripts/da-scoring.sh phase2 <skill>
   bash scripts/da-scoring.sh phase3-resync
   bash scripts/da-scoring.sh phase3-prompt <skill>
-  bash scripts/da-scoring.sh phase4 <skill>
-  bash scripts/da-scoring.sh aggregate <skill>
+  bash scripts/da-scoring.sh phase4 <skill>       # 1er cycle : code par défaut ; re-run : CODE=<NOUVEAU> obligatoire
+  bash scripts/da-scoring.sh aggregate <skill>    # sans CODE : lit le verdicts le plus récent
+  bash scripts/da-scoring.sh cycles <skill>       # liste tous les cycles + leur verdict agrégé
 
 Skills:
   reviser-contrat
@@ -394,7 +395,20 @@ phase4() {
   local skill="$1"
   local dir code
   dir="$(dataset_dir "$skill")"
+  # Garde anti-écrasement / anti-code-périmé : si des cycles existent déjà et
+  # qu'aucun CODE explicite n'est fourni, refuser — sinon phase4 réutilise le
+  # code par défaut (1er cycle) et écrase/confond un cycle existant.
+  if [[ -z "${CODE:-}" ]] && ls "$dir"/verdicts-*.json >/dev/null 2>&1; then
+    {
+      echo "ERREUR phase4 : des cycles existent déjà pour '$skill' :"
+      ls -1t "$dir"/verdicts-*.json | sed 's#.*/verdicts-##; s#\.json##; s/^/  - /'
+      echo "Pour un nouveau cycle, définis un code explicite :"
+      echo "  CODE=<NOUVEAU> bash scripts/da-scoring.sh phase4 $skill"
+    } >&2
+    return 1
+  fi
   code="$(code_for "$skill")"
+  echo "→ Phase 4 — code de cycle : $code" >&2
   init_dataset "$skill" >/dev/null
   run_prompt_command "$skill" phase4 \
     python3 scripts/codex-blind-scoring.py phase4-criteria \
@@ -430,6 +444,21 @@ aggregate() {
   python3 scripts/tiered_scoring.py "$dir/ground-truth.md" "$vfile"
 }
 
+cycles() {
+  local skill="$1" dir f code
+  dir="$(dataset_dir "$skill")"
+  if ! ls "$dir"/verdicts-*.json >/dev/null 2>&1; then
+    echo "Aucun cycle (verdicts-*.json) pour '$skill' dans $dir." >&2
+    return 0
+  fi
+  echo "Cycles de scoring pour '$skill' (du plus récent au plus ancien) :"
+  for f in $(ls -t "$dir"/verdicts-*.json); do
+    code="$(basename "$f" .json | sed 's/^verdicts-//')"
+    printf "\n=== %s ===\n" "$code"
+    python3 scripts/tiered_scoring.py "$dir/ground-truth.md" "$f"
+  done
+}
+
 list_skills() {
   printf "| Skill | Code defaut | Dataset | Mode |\n"
   printf "|---|---|---|---|\n"
@@ -450,7 +479,7 @@ main() {
     phase3-resync)
       phase3_resync
       ;;
-    init|phase1|phase2|phase3-prompt|phase4|aggregate)
+    init|phase1|phase2|phase3-prompt|phase4|aggregate|cycles)
       if [[ -z "$skill" ]] || ! has_skill "$skill"; then
         usage >&2
         exit 1
@@ -462,6 +491,7 @@ main() {
         phase3-prompt) phase3_prompt "$skill" ;;
         phase4) phase4 "$skill" ;;
         aggregate) aggregate "$skill" ;;
+        cycles) cycles "$skill" ;;
       esac
       ;;
     *)
