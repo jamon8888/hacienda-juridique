@@ -115,7 +115,7 @@ Si la forme sociale ou les éléments de CdP sont absents : stopper et demander.
 - [ ] Tribunal compétent identifié (TC vs tribunal judiciaire selon la qualité du débiteur)
 - [ ] Orientation RJ/LJ **sans trancher** : redressement non garanti, données de viabilité (financement/trésorerie/rentabilité) réclamées ; le tribunal décide
 - [ ] Checklist pièces R.631-1 **complète** (dont état actif disponible/passif exigible, attestation sur l'honneur mandat ad hoc/conciliation < 18 mois, formalités datation/signature/certification/délai 7 j/motivation des absences, SIREN/CA/ICPE) ; aucune donnée fabriquée, aucune pièce déclarée « sans objet » sans vérification
-- [ ] Aucune **fabrication** : ni date, ni chiffres, ni créanciers, ni biens, ni personnes — `[à compléter]` partout où la donnée n'est pas fournie
+- [ ] Aucune **fabrication** : ni date, ni chiffres, ni créanciers, ni biens, ni personnes — `[à compléter]` partout où la donnée n'est pas fournie. **En particulier** : ne pas convertir une approximation (« ~10 semaines ») en **dates calendaires** ni en **jours de retard précis** — rester en semaines relatives
 - [ ] Sortie comprend : qualification CdP (probable) + statut délai conditionnel + orientation RJ/LJ + projet déclaration + pièces + note du relecteur + question hors checklist + arbre 5 options
 
 ---
@@ -165,7 +165,8 @@ Le délai de déclaration est de **45 jours à compter de la date réelle de ces
 **Règle d'or : aucune échéance exacte n'est calculable tant que la date de CdP n'est pas arrêtée.** Ne **pas** inventer de date limite ni de nombre de jours de retard à partir d'une date approximative.
 
 - **Date de CdP établie (pièces datées)** : échéance = date + 45 j (prorogée au 1er jour ouvrable suivant si week-end/férié, art. 642 CPC `[Légifrance]`) ; calculer les jours restants.
-- **Date de CdP non encore arrêtée** : présenter le délai **conditionnellement** — « 45 j à compter de la date qui sera retenue ; dès qu'elle est arrêtée, échéance = date + 45 j ». Donner au plus une **fourchette explicitement hypothétique** (« si la CdP se confirme autour de [période approx.], le délai serait vraisemblablement déjà dépassé »), **jamais** comme un fait acquis. Le **retard est possible, à confirmer** — ne jamais l'affirmer catégoriquement sur la seule ancienneté d'un impayé.
+- **Date de CdP non encore arrêtée** : présenter le délai **conditionnellement** — « 45 j à compter de la date qui sera retenue ; dès qu'elle est arrêtée, échéance = date + 45 j ». Le **retard est possible, à confirmer** — ne jamais l'affirmer catégoriquement sur la seule ancienneté d'un impayé.
+  - **INTERDICTION ABSOLUE de fabriquer des dates.** Rester en **termes relatifs** (« ~10 semaines », « ~45 jours »). Ne **jamais** convertir une approximation en **dates calendaires** (proscrit : « entre le 10 avril et le 15 mai 2026 ») ni en **nombre de jours de retard précis** (proscrit : « dépassé d'environ 25 jours »). Produire une date ou une échéance calendaire à partir d'une approximation **est une fabrication** (cf. règle de non-supplémentation). Tout au plus : « si la CdP se confirme autour de ~10 semaines, le délai de 45 j serait vraisemblablement dépassé — à confirmer une fois la date arrêtée sur pièces datées ».
 
 Dans tous les cas, le message d'**urgence d'agir** ne dépend pas d'une date précise : la cessation étant probable, traiter le dépôt comme une **obligation à brève échéance** et ne pas inviter à temporiser.
 

@@ -412,11 +412,22 @@ phase4() {
 
 aggregate() {
   local skill="$1"
-  local dir
+  local dir vfile
   dir="$(dataset_dir "$skill")"
-  python3 scripts/tiered_scoring.py \
-    "$dir/ground-truth.md" \
-    "$dir/verdicts-$(code_for "$skill").json"
+  if [[ -n "${CODE:-}" ]]; then
+    # Code explicite : utiliser ce verdicts précis.
+    vfile="$dir/verdicts-$CODE.json"
+  else
+    # Pas de CODE : prendre le verdicts le PLUS RÉCENT (évite de retomber
+    # silencieusement sur le code par défaut et de rescorer un ancien cycle).
+    vfile="$(ls -t "$dir"/verdicts-*.json 2>/dev/null | head -1)"
+  fi
+  if [[ -z "$vfile" || ! -f "$vfile" ]]; then
+    echo "ERREUR aggregate : aucun fichier verdicts trouvé (${CODE:+CODE=$CODE → }$dir)." >&2
+    return 1
+  fi
+  echo "→ aggregate lit : $vfile" >&2
+  python3 scripts/tiered_scoring.py "$dir/ground-truth.md" "$vfile"
 }
 
 list_skills() {
