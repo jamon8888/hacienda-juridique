@@ -1,5 +1,14 @@
 # Changelog — hacienda-droit-affaires
 
+## 0.11.0
+
+- feat: skill `declaration-cessation-paiements` — côté débiteur/dirigeant :
+  qualification de la cessation des paiements (L.631-1), délai 45 j
+  (L.631-4 / L.640-4), alerte déclaration tardive (L.651-2 / L.653-8 nommés,
+  évaluation routée avocat), pièces R.631-1, orientation tribunal + RJ/LJ,
+  squelette de déclaration. Gate : pas de CdP → `prevention-difficultes`.
+  Premier skill du pan cédant/débiteur. Skills : 27 → 28.
+
 ## 0.10.0
 
 - feat: skill `cas` — point d'entrée de triage/routage du plugin

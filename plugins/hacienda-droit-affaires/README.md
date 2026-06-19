@@ -15,7 +15,7 @@ humaine obligatoire avant tout usage externe.
 | Orientation / triage | `cas` |
 | Contrats commerciaux | `reviser-contrat`, `reviser-nda`, `liste-de-points`, `revue-tabulaire` |
 | M&A léger | `gap-review` |
-| Procédures collectives | `declaration-creance` |
+| Procédures collectives | `declaration-creance`, `declaration-cessation-paiements` |
 | Transversal | `entretien-demarrage`, `verifier-citations`, `check-pii` |
 | Agents (surveillance) | `bodacc-watcher`, `bodacc-procedures-watcher`, `echeances-societaires` |
 
@@ -92,6 +92,7 @@ l'auto-activation des skills.
 | `/h-da:closing-checklist-fr` | Checklist signing, closing et post-closing. |
 | `/h-da:constitution-societe` | Constitution de société et choix de forme. |
 | `/h-da:consulter-digest` | Lecture du digest de veille. |
+| `/h-da:declaration-cessation-paiements` | Côté débiteur : déclaration de cessation des paiements (dépôt de bilan), délai 45 j, pièces R.631-1, orientation RJ/LJ. |
 | `/h-da:declaration-creance` | Déclaration de créance et forclusion. |
 | `/h-da:due-diligence-dataroom` | Due diligence data-room M&A. |
 | `/h-da:entretien-demarrage` | Configuration initiale du profil Droit des affaires. |
