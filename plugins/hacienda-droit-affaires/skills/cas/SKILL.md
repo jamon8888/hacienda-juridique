@@ -36,9 +36,11 @@ tags: [orientation, routeur, triage, onboarding, front-door]
 3. Gate anonymisation : vérifier que le pré-vol PII / l'anonymisation est actif ;
    sinon avertir et proposer `/anon-on` (ou `/h-da:check-pii`) AVANT de coller
    des pièces.
-4. Route : « → `/h-da:asset-vs-share-distress` » (sous-routeur qui décidera
-   titres vs actifs et le niveau de difficulté ; il garde son double gate).
-   Ne PAS dérouler L.642-x ici.
+4. Route selon le side : si le dossier est **côté repreneur/acquéreur** →
+   « → `/h-da:asset-vs-share-distress` » (sous-routeur titres vs actifs) ; si
+   **côté cédant/débiteur** (le dirigeant de la boîte en difficulté) →
+   « → `/h-da:distress-cedant` » (sous-routeur sauver / céder / déposer).
+   Chaque sous-routeur garde son double gate. Ne PAS dérouler L.642-x ici.
 </response>
 </example>
 
@@ -107,7 +109,8 @@ triage.
 | Contrat à produire | `/h-da:cgv-generator` · `/h-da:constitution-societe` |
 | Litige commercial / impayé | `/h-da:mise-en-demeure-commerciale` · `/h-da:analyser-rupture-brutale` |
 | Opération M&A (cible saine) | `/h-da:loi-term-sheet` → `/h-da:due-diligence-dataroom` → `/h-da:spa-review` → `/h-da:gap-review` → `/h-da:closing-checklist-fr` |
-| Entreprise en difficulté | → `/h-da:asset-vs-share-distress` (sous-routeur) |
+| Entreprise en difficulté — **côté repreneur/acquéreur** | → `/h-da:asset-vs-share-distress` (sous-routeur titres vs actifs) |
+| Entreprise en difficulté — **côté cédant/débiteur** | → `/h-da:distress-cedant` (sous-routeur sauver / céder / déposer) |
 | Dirigeant exposé / responsabilité personnelle (procédure ouverte ou imminente) | `/h-da:responsabilite-dirigeant` |
 | Créance dans une procédure ouverte | `/h-da:declaration-creance` |
 | Vie sociale (AG / pacte / financement) | `/h-da:gouvernance-ag` · `/h-da:pacte-associes-review` · `/h-da:financement-startup` |
