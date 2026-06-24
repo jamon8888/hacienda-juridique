@@ -94,6 +94,7 @@ l'auto-activation des skills.
 | `/h-da:consulter-digest` | Lecture du digest de veille. |
 | `/h-da:declaration-cessation-paiements` | Côté débiteur : déclaration de cessation des paiements (dépôt de bilan), délai 45 j, pièces R.631-1, orientation RJ/LJ. |
 | `/h-da:declaration-creance` | Déclaration de créance et forclusion. |
+| `/h-da:distress-cedant` | Note d'orientation côté cédant/débiteur : arbitrage sauver / céder / déposer, pivot 45 j, exposition dirigeant (Gate 1 + Gate 2), routage vers le bon skill. |
 | `/h-da:due-diligence-dataroom` | Due diligence data-room M&A. |
 | `/h-da:entretien-demarrage` | Configuration initiale du profil Droit des affaires. |
 | `/h-da:financement-startup` | Instruments de financement startup. |
