@@ -72,7 +72,7 @@ code_for() {
     cession-actifs-isoles) echo "CAI2EN" ;;
     asset-vs-share-distress) echo "AVS1RT" ;;
     declaration-cessation-paiements) echo "DCP1RT" ;;
-    responsabilite-dirigeant) echo "RD1RT" ;;
+    responsabilite-dirigeant) echo "RDG1RT" ;;
   esac
 }
 
