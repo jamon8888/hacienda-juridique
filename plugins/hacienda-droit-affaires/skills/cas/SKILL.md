@@ -108,6 +108,7 @@ triage.
 | Litige commercial / impayé | `/h-da:mise-en-demeure-commerciale` · `/h-da:analyser-rupture-brutale` |
 | Opération M&A (cible saine) | `/h-da:loi-term-sheet` → `/h-da:due-diligence-dataroom` → `/h-da:spa-review` → `/h-da:gap-review` → `/h-da:closing-checklist-fr` |
 | Entreprise en difficulté | → `/h-da:asset-vs-share-distress` (sous-routeur) |
+| Dirigeant exposé / responsabilité personnelle (procédure ouverte ou imminente) | `/h-da:responsabilite-dirigeant` |
 | Créance dans une procédure ouverte | `/h-da:declaration-creance` |
 | Vie sociale (AG / pacte / financement) | `/h-da:gouvernance-ag` · `/h-da:pacte-associes-review` · `/h-da:financement-startup` |
 
