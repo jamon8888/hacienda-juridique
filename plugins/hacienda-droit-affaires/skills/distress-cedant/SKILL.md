@@ -89,7 +89,8 @@ Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage
 3. **Intention stratégique** — le client penche-t-il pour **sauver** (restructurer), **céder** (vendre l'entreprise) ou **déposer** (dépôt de bilan) ? pourquoi ? (le niveau de difficulté **détermine** lesquelles de ces voies sont encore ouvertes).
 4. **Date de la CdP** — déductible de pièces datées (relances, échéances impayées, courriels) ou fixée par le tribunal ? (**déterminant** — pivot 45 j ; **ne pas fabriquer**, raisonner conditionnellement tant que la date n'est pas établie).
 5. **Exposition du dirigeant** — **caution personnelle** ? retard de déclaration déjà constitué ? signaux de faute de gestion (poursuite d'activité déficitaire, actes en période suspecte) ? (à **signaler** comme facteur du fork, **pas à évaluer** — Gate 2).
-6. **Objectifs fiscaux** — déficits reportables, droits d'enregistrement, solidarité (dimension fiscale → flag + renvoi conseil fiscal, pas d'avis).
+6. **Contrats structurants** — perte/dénonciation d'un client clé (qui conditionne la crédibilité d'un redressement), baux commerciaux et crédits-bails à **clause de résiliation sur cession** ? (à **prendre en compte comme contraintes du diagnostic** sauver/céder/déposer, **sans en faire l'analyse fine** — déférée aux feuilles).
+7. **Objectifs fiscaux** — déficits reportables, droits d'enregistrement, solidarité (dimension fiscale → flag + renvoi conseil fiscal, pas d'avis).
 
 ---
 
@@ -103,6 +104,8 @@ Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage
 - [ ] **Date de CdP non fabriquée** : pivot 45 j apprécié **conditionnellement** tant que la date n'est pas établie par pièces / tribunal
 - [ ] **Rien chiffré** (insuffisance, passif, caution) ni requalifié finement (CdP → `declaration-cessation-paiements`)
 - [ ] **Aucun conseil fiscal** donné : déficits / droits d'enregistrement / solidarité → flag + renvoi conseil fiscal
+- [ ] **Contrats structurants pris en compte** comme contraintes du diagnostic (client clé perdu, baux / crédits-bails à clause de résiliation sur cession), sans analyse fine
+- [ ] **PII limitée dans le corps** : SIREN, dénomination et nom du dirigeant réduits au nécessaire / pseudonymisés là où l'identification n'est pas indispensable au raisonnement
 - [ ] Côté cédant/débiteur déclaré ; le skill décide et route, **n'exécute pas**
 - [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
 
