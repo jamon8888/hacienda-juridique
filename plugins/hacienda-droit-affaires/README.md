@@ -15,7 +15,7 @@ humaine obligatoire avant tout usage externe.
 | Orientation / triage | `cas` |
 | Contrats commerciaux | `reviser-contrat`, `reviser-nda`, `liste-de-points`, `revue-tabulaire` |
 | M&A léger | `gap-review` |
-| Procédures collectives | `declaration-creance`, `declaration-cessation-paiements`, `responsabilite-dirigeant` |
+| Procédures collectives | `declaration-creance`, `declaration-cessation-paiements`, `responsabilite-dirigeant`, `distress-cedant` |
 | Transversal | `entretien-demarrage`, `verifier-citations`, `check-pii` |
 | Agents (surveillance) | `bodacc-watcher`, `bodacc-procedures-watcher`, `echeances-societaires` |
 

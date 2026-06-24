@@ -1,5 +1,10 @@
 # Changelog — hacienda-droit-affaires
 
+## 0.13.0
+
+- Ajout du skill `distress-cedant` (routeur du pan cédant/débiteur, dernière pièce, miroir de `asset-vs-share-distress`) : diagnostic du niveau de difficulté + routage selon le pivot des 45 jours (CdP > 45 j non déclarée → `declaration-cessation-paiements`, à l'inverse du côté repreneur), arbitrage sauver / céder / déposer non tranché, exposition dirigeant signalée et routée vers `responsabilite-dirigeant`. Décide et oriente, n'exécute pas ; ne chiffre rien, ne fabrique aucune date, aucun conseil fiscal.
+- `cas` : la ligne « entreprise en difficulté » devient un fork par side (repreneur → `asset-vs-share-distress` ; cédant → `distress-cedant`). Pan cédant/débiteur complet et symétrique au pan repreneur. Skills : 29 → 30.
+
 ## 0.12.0
 
 - Ajout du skill `responsabilite-dirigeant` (pan cédant/débiteur) : évalue la responsabilité personnelle du dirigeant sur 4 axes (contribution à l'insuffisance d'actif L.651-2 + L.652-1 ; sanctions L.653-x ; banqueroute L.654-1 nommée ; cautions personnelles). Qualification + facteurs, pas de quantum, tous stades. Évalue ce que `declaration-cessation-paiements` nomme.
