@@ -1,5 +1,10 @@
 # Changelog — hacienda-droit-affaires
 
+## 0.12.0
+
+- Ajout du skill `responsabilite-dirigeant` (pan cédant/débiteur) : évalue la responsabilité personnelle du dirigeant sur 4 axes (contribution à l'insuffisance d'actif L.651-2 + L.652-1 ; sanctions L.653-x ; banqueroute L.654-1 nommée ; cautions personnelles). Qualification + facteurs, pas de quantum, tous stades. Évalue ce que `declaration-cessation-paiements` nomme.
+- Renvois `declaration-cessation-paiements` → `responsabilite-dirigeant` branchés ; ligne de routage ajoutée à `cas`.
+
 ## 0.11.0
 
 - feat: skill `declaration-cessation-paiements` — côté débiteur/dirigeant :

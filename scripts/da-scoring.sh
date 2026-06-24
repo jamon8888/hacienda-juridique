@@ -53,6 +53,7 @@ SKILLS=(
   cession-actifs-isoles
   asset-vs-share-distress
   declaration-cessation-paiements
+  responsabilite-dirigeant
 )
 
 # Code de cycle par defaut, surchargeable via la variable d'environnement CODE
@@ -71,6 +72,7 @@ code_for() {
     cession-actifs-isoles) echo "CAI2EN" ;;
     asset-vs-share-distress) echo "AVS1RT" ;;
     declaration-cessation-paiements) echo "DCP1RT" ;;
+    responsabilite-dirigeant) echo "RD1RT" ;;
   esac
 }
 
@@ -87,6 +89,7 @@ mode_for() {
     cession-actifs-isoles) echo "note tactique (mode unique)" ;;
     asset-vs-share-distress) echo "note d'orientation (mode unique)" ;;
     declaration-cessation-paiements) echo "declaration au greffe (mode unique)" ;;
+    responsabilite-dirigeant) echo "evaluation responsabilite du dirigeant 4 axes (mode unique)" ;;
   esac
 }
 
@@ -103,6 +106,7 @@ spec_for() {
     cession-actifs-isoles) echo "docs/superpowers/specs/2026-06-15-hacienda-da-cession-actifs-isoles-design.md" ;;
     asset-vs-share-distress) echo "docs/superpowers/specs/2026-06-15-hacienda-da-asset-vs-share-distress-design.md" ;;
     declaration-cessation-paiements) echo "cote debiteur ; cessation des paiements ambigue (moratoire URSSAF + ligne de credit non utilisee = reserve de credit, vs passif exigible fournisseurs/banque) testant le gate L.631-1 ; date de cessation des paiements ambigue (point de depart periode suspecte, a taguer review) ; declaration potentiellement tardive au-dela des 45 jours ; caution personnelle du dirigeant (a nommer, pas a evaluer) ; SARL = tribunal de commerce ; RJ vs LJ ambigu (activite au ralenti) ; chiffres financiers manquants a laisser a completer, jamais fabriques" ;;
+    responsabilite-dirigeant) echo "cote dirigeant debiteur ; entreprise en RJ ou LJ ouverte ; qualite dirigeant de droit ou de fait (a qualifier, taguer review si de fait) ; faute de gestion possible (retard de declaration, poursuite d'activite deficitaire, comptes courants d'associe debiteurs, confusion de patrimoine, prelevements anormaux) testant L.651-2 et le sous-cas L.652-1 ; insuffisance d'actif a ne JAMAIS chiffrer ; sanctions personnelles L.653-8 interdiction de gerer et L.653-3 s. faillite personnelle ; signaux possibles de banqueroute L.654-1 a NOMMER sans evaluer (renvoi penaliste) ; caution personnelle du dirigeant dont le sort varie selon la phase (observation L.631-14, plan L.626-11, cloture LJ L.643-11) a ne jamais dire eteinte sans pieces ; faits en semaines relatives, aucune date calendaire ni quantum fabrique ; les 4 axes doivent etre evalues sans skip silencieux" ;;
   esac
 }
 
@@ -119,6 +123,7 @@ desc_for() {
     cession-actifs-isoles) echo "Note tactique cote repreneur pour l'acquisition d'actifs isoles (fonds, marques, stocks, creances) aupres d'un debiteur en liquidation judiciaire, hors plan de cession." ;;
     asset-vs-share-distress) echo "Note d'orientation cote repreneur pour arbitrer la structuration d'acquisition d'une cible en difficulte (rachat de titres vs rachat d'actifs) et orienter vers la bonne procedure." ;;
     declaration-cessation-paiements) echo "Cote debiteur/dirigeant : preparation de la declaration de cessation des paiements (depot de bilan) a deposer au greffe. Qualifie la cessation des paiements (actif disponible vs passif exigible), calcule le delai legal de 45 jours, alerte si la declaration est tardive (exposition du dirigeant), liste les pieces a joindre, oriente sur le tribunal competent et redressement vs liquidation, et redige le squelette de la declaration sans fabriquer les chiffres du client. Si l'entreprise n'est pas en cessation des paiements, renvoie vers les dispositifs de prevention. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
+    responsabilite-dirigeant) echo "Cote dirigeant debiteur : evalue (qualifie, ne conclut pas) la responsabilite personnelle du dirigeant d'une entreprise en procedure collective, sur quatre axes traites en un seul skill avec triage interne : contribution a l'insuffisance d'actif L.651-2 et sous-cas L.652-1, sanctions personnelles L.653-8 et L.653-3 s., banqueroute L.654-1 NOMMEE et renvoyee au penaliste, cautions personnelles du dirigeant. Qualifie chaque axe avec facteurs aggravants/attenuants, tous stades, sans chiffrer le quantum ni fabriquer de date, sans rediger de memoire en defense. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
   esac
 }
 
@@ -135,6 +140,7 @@ command_for() {
     cession-actifs-isoles) echo "/h-da:cession-actifs-isoles" ;;
     asset-vs-share-distress) echo "/h-da:asset-vs-share-distress" ;;
     declaration-cessation-paiements) echo "/h-da:declaration-cessation-paiements" ;;
+    responsabilite-dirigeant) echo "/h-da:responsabilite-dirigeant" ;;
   esac
 }
 
@@ -163,6 +169,7 @@ Skills:
   cession-actifs-isoles
   asset-vs-share-distress
   declaration-cessation-paiements
+  responsabilite-dirigeant
 
 Overrides (variables d'environnement) :
   CODE=<6chars>   code de cycle (surcharge le defaut ; obligatoire pour re-scorer un skill)

@@ -15,7 +15,7 @@ humaine obligatoire avant tout usage externe.
 | Orientation / triage | `cas` |
 | Contrats commerciaux | `reviser-contrat`, `reviser-nda`, `liste-de-points`, `revue-tabulaire` |
 | M&A léger | `gap-review` |
-| Procédures collectives | `declaration-creance`, `declaration-cessation-paiements` |
+| Procédures collectives | `declaration-creance`, `declaration-cessation-paiements`, `responsabilite-dirigeant` |
 | Transversal | `entretien-demarrage`, `verifier-citations`, `check-pii` |
 | Agents (surveillance) | `bodacc-watcher`, `bodacc-procedures-watcher`, `echeances-societaires` |
 
@@ -106,6 +106,7 @@ l'auto-activation des skills.
 | `/h-da:pre-pack-cession` | Cadrage du montage pre-pack cession (distressed-M&A). |
 | `/h-da:prevention-difficultes` | Orientation prévention (mandat ad hoc / conciliation / sauvegarde accélérée). |
 | `/h-da:reprise-a-la-barre` | Playbook côté repreneur : construire et défendre une offre de reprise gagnante sur une cible en RJ/LJ (plan de cession, L.642). |
+| `/h-da:responsabilite-dirigeant` | Côté dirigeant : évalue l'exposition personnelle du dirigeant (insuffisance d'actif L.651-2, sanctions L.653-x, banqueroute nommée, cautions). Tous stades. |
 | `/h-da:reviser-contrat` | Revue de contrat commercial. |
 | `/h-da:reviser-nda` | Triage NDA et confidentialité. |
 | `/h-da:revue-tabulaire` | Revue tabulaire multi-documents. |
