@@ -54,7 +54,7 @@ tags: [procedures-collectives, responsabilite-dirigeant, faute-de-gestion, l651-
 <response>
 1. Pré-flight `check-pii` (dénomination + dirigeant + montants → seuil B fréquent).
 2. Intake complet : forme SAS, qualité = dirigeant **de droit**, stade = **RJ ouverte**. Faits en semaines relatives (« ~10 semaines de retard », jamais de date calendaire).
-3. **Synthèse en tête** : criticité max 🟠 (axe L.651-2, retard DCP) ; axes L.651-2 🟠 · L.653-8 🟡 · banqueroute 🟢 (nommée) · cautions 🟠.
+3. **Synthèse en tête** : criticité max 🟠 (axe L.651-2, retard DCP) ; axes L.651-2 🟠 · L.653-8 🟡 · banqueroute (nommée, pas évaluée) · cautions 🟠.
 4. **Axe 1 — L.651-2** : retard de déclaration = faute de gestion *possible* `[review]` (indice, pas conclusion) ; insuffisance d'actif **non chiffrée** (réclamer l'état du passif) ; comptabilité à jour = facteur **atténuant** ; aucune conciliation = facteur aggravant. Lien de causalité à établir.
 5. **Axe 2 — L.653-8** : le retard DCP figure parmi les cas d'interdiction de gérer ; 🟡 conditionnel `[review]`.
 6. **Axe 3 — banqueroute** : aucun signal de détournement/comptabilité fictive → nommée, rien à signaler, renvoi pénaliste si éléments apparaissent. Pas de note 🟢🟡🟠🔴 (non évaluée).
@@ -125,7 +125,7 @@ Si forme sociale, qualité du dirigeant ou stade absents : stopper et demander. 
 - [ ] Profil cabinet bloc procédures collectives lu ; rôle utilisateur (en-tête) et matrice d'approbateurs identifiés
 - [ ] **Qualité dirigeant** explicite (droit / fait) ; si « fait » : qualification taguée `[review]` (elle-même contestable)
 - [ ] **Les 4 axes sont évalués** — aucun skip silencieux ; un axe sans signal est explicitement marqué (« 🟢 — aucun signal sur ce stade » ou « sans objet »), jamais omis
-- [ ] **Banqueroute (axe 3) NOMMÉE, jamais évaluée** : cas légaux listés + renvoi pénaliste ; pas de note 🟢🟡🟠🔴, pas de qualification d'intention (dol/détournement/dissimulation)
+- [ ] **G4 — banqueroute** : (axe 3) NOMMÉE, jamais évaluée : cas légaux listés + renvoi pénaliste ; pas de note 🟢🟡🟠🔴, pas de qualification d'intention (dol/détournement/dissimulation)
 - [ ] **G1 — dates** : semaines relatives uniquement ; aucune date calendaire ; aucun nombre de jours de retard précis ; le 1er impayé est un indice, pas la date
 - [ ] **G2 — quantum** : aucun chiffre d'insuffisance d'actif ni de contribution ; réclamer un état du passif si des chiffres sont demandés ; `[à compléter]`
 - [ ] **G3 — qualification de fait** : facteurs aggravants/atténuants présentés en **indices** ; jamais « faute caractérisée » / « manifestement » ; conclusion réservée au tribunal `[review]`
