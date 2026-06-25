@@ -56,6 +56,7 @@ SKILLS=(
   responsabilite-dirigeant
   distress-cedant
   defense-dirigeant
+  spa-review-distressed
 )
 
 # Code de cycle par defaut, surchargeable via la variable d'environnement CODE
@@ -77,6 +78,7 @@ code_for() {
     responsabilite-dirigeant) echo "RDG1RT" ;;
     distress-cedant) echo "DCD1RT" ;;
     defense-dirigeant) echo "DFD1RT" ;;
+    spa-review-distressed) echo "SPADIS" ;;
   esac
 }
 
@@ -96,6 +98,7 @@ mode_for() {
     responsabilite-dirigeant) echo "evaluation responsabilite du dirigeant 4 axes (mode unique)" ;;
     distress-cedant) echo "note d'orientation routeur cedant (mode unique)" ;;
     defense-dirigeant) echo "trame de defense du dirigeant assigne (mode unique)" ;;
+    spa-review-distressed) echo "revue SPA avec overlay --distressed (cible en difficulte)" ;;
   esac
 }
 
@@ -115,6 +118,7 @@ spec_for() {
     responsabilite-dirigeant) echo "cote dirigeant debiteur ; entreprise en RJ ou LJ ouverte ; qualite dirigeant de droit ou de fait (a qualifier, taguer review si de fait) ; faute de gestion possible (retard de declaration, poursuite d'activite deficitaire, comptes courants d'associe debiteurs, confusion de patrimoine, prelevements anormaux) testant L.651-2 et le sous-cas L.652-1 ; insuffisance d'actif a ne JAMAIS chiffrer ; sanctions personnelles L.653-8 interdiction de gerer et L.653-3 s. faillite personnelle ; signaux possibles de banqueroute L.654-1 a NOMMER sans evaluer (renvoi penaliste) ; caution personnelle du dirigeant dont le sort varie selon la phase (observation L.631-14, plan L.626-11, cloture LJ L.643-11) a ne jamais dire eteinte sans pieces ; faits en semaines relatives, aucune date calendaire ni quantum fabrique ; les 4 axes doivent etre evalues sans skip silencieux" ;;
     distress-cedant) echo "cote cedant/debiteur ; routeur d'entonnoir sauver/ceder/deposer ; niveau de difficulte a diagnostiquer grossierement (in bonis difficultes / amiable / CdP <=45j / CdP >45j / RJ-LJ) ; cessation des paiements a date INCERTAINE ('environ l'automne') testant le pivot 45 j sans la fabriquer en date calendaire ; pivot 45 j qui route a l'INVERSE du repreneur (CdP >45j non declaree -> declaration-cessation-paiements, JAMAIS prevention-difficultes : erreur qui trompe le client) ; fork sauver/ceder/deposer a NE PAS trancher a la place du client ; exposition dirigeant (caution, retard, faute de gestion L.651-2 L.653-8 periode suspecte) a SIGNALER et router vers responsabilite-dirigeant sans evaluer ni chiffrer ; ne pas requalifier finement la CdP (defere a declaration-cessation-paiements) ; objectifs fiscaux (deficits) a flaguer sans conseil ; cas RJ/LJ subie -> signaler le role limite du debiteur (pas de feuille debiteur dediee)" ;;
     defense-dirigeant) echo "cote dirigeant ASSIGNE en responsabilite ; une action est ENGAGEE (assignation/conclusions du liquidateur, du ministere public ou des controleurs sur carence) -- si aucune action engagee, le skill doit RENVOYER a responsabilite-dirigeant et ne rien armer ; axe(s) vise(s) parmi L.651-2 contribution a l'insuffisance d'actif, sous-cas L.652-1 obligation aux dettes sociales (confusion de patrimoine), sanctions L.653-8 interdiction de gerer / L.653-3 s. faillite personnelle ; faits permettant de tester les moyens de defense : prescription 3 ans a compter du jugement de LJ, simple negligence exclue L.651-2 al.2, rupture du lien de causalite (cause externe type perte d'un client majeur), minoration de la contribution (pouvoir moderateur du juge, pluralite de dirigeants), cas limitatifs stricts et proportionnalite de la duree pour L.653 ; une banqueroute L.654 eventuellement poursuivie en parallele a NOMMER (articulation penal/civil : sursis a statuer, autorite du penal sur le civil, renvoi penaliste) sans la plaider ; le skill produit une TRAME (moyens ordonnes par force + pieces a produire) et NE REDIGE PAS le memoire ; ne chiffre aucun quantum, ne pronostique aucune issue, faits en semaines relatives, ne fabrique aucune piece ; ne traite que les axes reellement attaques" ;;
+    spa-review-distressed) echo "revue d'un SPA prive de cession de titres d'une cible EN DIFFICULTE mais PAS encore a la barre (pre-procedure / amiable / pre-pack), avec le mode --distressed actif ; side acquereur ou cedant ; doit appliquer l'overlay difficulte : (D1) periode suspecte et nullites L.632-1 de droit / L.632-2 facultatives sans DATER la cessation des paiements (date fixee par le tribunal, retroactive) et sans CONCLURE a la nullite (risque review) ; (D2) passif non purge en share deal -> GAP centrale ; (D3) garantie de la garantie (sequestre/GAPD) face a un cedant insolvable, sinon protection theorique ; (D4) transferts et solidarites L.1224-1, L.1684 CGI/L.267 LPF, ICPE a NOMMER et renvoyer sans conseil fiscal ; (D5) MAC et condition suspensive d'absence de procedure ; gate barre : si la cible est DEJA en RJ/LJ avec appel d'offres ouvert, REFUSER l'overlay et renvoyer reprise-a-la-barre / cession-actifs-isoles ; ne chiffre pas le passif ; exposition dirigeant cedant a NOMMER et router vers responsabilite-dirigeant sans evaluer ; faits en semaines relatives" ;;
   esac
 }
 
@@ -134,6 +138,7 @@ desc_for() {
     responsabilite-dirigeant) echo "Cote dirigeant debiteur : evalue (qualifie, ne conclut pas) la responsabilite personnelle du dirigeant d'une entreprise en procedure collective, sur quatre axes traites en un seul skill avec triage interne : contribution a l'insuffisance d'actif L.651-2 et sous-cas L.652-1, sanctions personnelles L.653-8 et L.653-3 s., banqueroute L.654-1 NOMMEE et renvoyee au penaliste, cautions personnelles du dirigeant. Qualifie chaque axe avec facteurs aggravants/attenuants, tous stades, sans chiffrer le quantum ni fabriquer de date, sans rediger de memoire en defense. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
     distress-cedant) echo "Cote cedant/debiteur : routeur d'entonnoir distress, derniere piece et miroir de asset-vs-share-distress. Diagnostique le niveau de difficulte et route selon le pivot des 45 jours (CdP >45 j non declaree -> declaration-cessation-paiements, a l'inverse du cote repreneur), eclaire l'arbitrage sauver/ceder/deposer sans le trancher, signale l'exposition du dirigeant et route vers responsabilite-dirigeant. Decide et oriente, n'execute pas ; ne chiffre rien, ne fabrique aucune date, aucun conseil fiscal. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
     defense-dirigeant) echo "Aval contentieux de responsabilite-dirigeant : arme la trame de defense du dirigeant ASSIGNE en responsabilite dans une procedure collective. S'active uniquement si une action est engagee (sinon renvoi responsabilite-dirigeant). Produit une trame de moyens ordonnes par force sur les axes civils L.651-2 (+ L.652-1) et sanctions L.653-x, confrontes aux faits, avec pieces a produire. NE REDIGE PAS le memoire (l'avocat redige l'acte) ; banqueroute L.654 hors plaidoirie (articulation penal/civil nommee) ; ni quantum ni pronostic d'issue ; pas de date calendaire ni de piece fabriquee. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
+    spa-review-distressed) echo "Revue d'un SPA prive sur une cible en difficulte (pre-procedure/amiable/pre-pack) avec le mode --distressed : applique l'overlay difficulte (periode suspecte/nullites L.632-1/2, passif non purge, garantie de la garantie, transferts/solidarites, MAC/CS), side-aware. Refuse et renvoie aux playbooks barre si la cible est deja a la barre. Ne date pas la cessation des paiements, ne chiffre pas le passif, ne conclut pas la nullite (risque review), n'evalue pas la responsabilite du dirigeant. Brouillon soumis a validation avocat M&A. NE PAS supposer le contenu du SKILL.md ni du module de reference." ;;
   esac
 }
 
@@ -153,6 +158,7 @@ command_for() {
     responsabilite-dirigeant) echo "/h-da:responsabilite-dirigeant" ;;
     distress-cedant) echo "/h-da:distress-cedant" ;;
     defense-dirigeant) echo "/h-da:defense-dirigeant" ;;
+    spa-review-distressed) echo "/h-da:spa-review --distressed" ;;
   esac
 }
 
@@ -184,6 +190,7 @@ Skills:
   responsabilite-dirigeant
   distress-cedant
   defense-dirigeant
+  spa-review-distressed
 
 Overrides (variables d'environnement) :
   CODE=<6chars>   code de cycle (surcharge le defaut ; obligatoire pour re-scorer un skill)
