@@ -1,5 +1,10 @@
 # Changelog — hacienda-droit-affaires
 
+## 0.14.0
+
+- Ajout du skill `defense-dirigeant` (pan cédant/débiteur, contentieux) : aval de `responsabilite-dirigeant`. Quand une action en responsabilité est **engagée**, arme une **trame de défense** structurée (moyens ordonnés par force) sur les axes civils L.651-2 (+ L.652-1) et sanctions L.653-x. Ne rédige pas le mémoire (l'avocat rédige l'acte) ; banqueroute hors plaidoirie (articulation pénal/civil nommée) ; ni quantum ni pronostic d'issue.
+- Résout le « futur skill dédié » de `responsabilite-dirigeant` (frontière mémoire en défense) ; ligne de routage ajoutée à `cas` (dirigeant **assigné**).
+
 ## 0.13.0
 
 - Ajout du skill `distress-cedant` (routeur du pan cédant/débiteur, dernière pièce, miroir de `asset-vs-share-distress`) : diagnostic du niveau de difficulté + routage selon le pivot des 45 jours (CdP > 45 j non déclarée → `declaration-cessation-paiements`, à l'inverse du côté repreneur), arbitrage sauver / céder / déposer non tranché, exposition dirigeant signalée et routée vers `responsabilite-dirigeant`. Décide et oriente, n'exécute pas ; ne chiffre rien, ne fabrique aucune date, aucun conseil fiscal.
