@@ -112,6 +112,7 @@ triage.
 | Entreprise en difficulté — **côté repreneur/acquéreur** | → `/h-da:asset-vs-share-distress` (sous-routeur titres vs actifs) |
 | Entreprise en difficulté — **côté cédant/débiteur** | → `/h-da:distress-cedant` (sous-routeur sauver / céder / déposer) |
 | Dirigeant exposé / responsabilité personnelle (procédure ouverte ou imminente) | `/h-da:responsabilite-dirigeant` |
+| Dirigeant **assigné** (action L.651-2 / L.653 engagée — assignation reçue) | `/h-da:defense-dirigeant` |
 | Créance dans une procédure ouverte | `/h-da:declaration-creance` |
 | Vie sociale (AG / pacte / financement) | `/h-da:gouvernance-ag` · `/h-da:pacte-associes-review` · `/h-da:financement-startup` |
 
