@@ -1,5 +1,10 @@
 # Changelog — hacienda-droit-affaires
 
+## 0.15.0
+
+- Mode `--distressed` ajouté à `spa-review` et `gap-review` : overlay « cible en difficulté » (pré-procédure / amiable / pre-pack) chargeant le module partagé `references/distressed-overlay-fr.md` — période suspecte et nullités (L.632-1/L.632-2), passif non purgé en share deal, garantie de la garantie face à un cédant insolvable, transferts/solidarités (L.1224-1, L.1684 CGI), MAC/CS spécifiques. Activable par flag ou proposé après auto-détection de signaux de difficulté. Frontière stricte : cible déjà à la barre → renvoi `reprise-a-la-barre` / `cession-actifs-isoles`. Ne date pas la cessation des paiements, ne chiffre pas le passif, ne conclut pas la nullité (risque `[review]`).
+- Relie le moat distressed-M&A (`asset-vs-share-distress`) au quotidien M&A/PE. Pas de nouveau skill (31).
+
 ## 0.14.0
 
 - Ajout du skill `defense-dirigeant` (pan cédant/débiteur, contentieux) : aval de `responsabilite-dirigeant`. Quand une action en responsabilité est **engagée**, arme une **trame de défense** structurée (moyens ordonnés par force) sur les axes civils L.651-2 (+ L.652-1) et sanctions L.653-x. Ne rédige pas le mémoire (l'avocat rédige l'acte) ; banqueroute hors plaidoirie (articulation pénal/civil nommée) ; ni quantum ni pronostic d'issue.

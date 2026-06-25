@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "hacienda-droit-affaires",
   "display_name": "Hacienda Droit des Affaires",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "Connecteur MCP local Hacienda pour les workflows de droit des affaires : contrats commerciaux, M&A, droit des societes, procedures collectives, BODACC, Pappers et recherche juridique officielle.",
   "author": {
     "name": "Hacienda",
