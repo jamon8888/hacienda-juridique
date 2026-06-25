@@ -246,8 +246,9 @@ Si `--dd-findings` non fourni : sauter l'axe et mentionner dans la note du relec
 3. **D2 — passif non purgé** : la GAP couvre-t-elle l'antérieur non révélé et les conséquences d'une procédure future ?
 4. **D1 — période suspecte** : une GAP ou une sûreté consentie en période suspecte peut elle-même être attaquable (L.632-1/2 `[Légifrance]`) — signaler `[review]`, **ne pas dater** la cessation des paiements.
 5. **D4** : transferts & solidarités (L.1224-1, L.1684 CGI/L.267 LPF, ICPE — cross-link avec l'axe environnement existant).
+6. **Exposition dirigeant cédant** : nommer et renvoyer `/h-da:responsabilite-dirigeant` ; ne pas évaluer.
 
-Intégrer les findings distressed dans la liste de points (sévérité side-aware). **Ne pas chiffrer** le passif (`[à compléter]`) ; exposition dirigeant → renvoi `/h-da:responsabilite-dirigeant`.
+Intégrer les findings distressed dans la liste de points (sévérité side-aware). **Ne pas chiffrer** le passif (`[à compléter]`).
 
 ---
 
