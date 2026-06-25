@@ -15,7 +15,7 @@ humaine obligatoire avant tout usage externe.
 | Orientation / triage | `cas` |
 | Contrats commerciaux | `reviser-contrat`, `reviser-nda`, `liste-de-points`, `revue-tabulaire` |
 | M&A léger | `gap-review` |
-| Procédures collectives | `declaration-creance`, `declaration-cessation-paiements`, `responsabilite-dirigeant` |
+| Procédures collectives | `declaration-creance`, `declaration-cessation-paiements`, `responsabilite-dirigeant`, `distress-cedant` |
 | Transversal | `entretien-demarrage`, `verifier-citations`, `check-pii` |
 | Agents (surveillance) | `bodacc-watcher`, `bodacc-procedures-watcher`, `echeances-societaires` |
 
@@ -94,6 +94,7 @@ l'auto-activation des skills.
 | `/h-da:consulter-digest` | Lecture du digest de veille. |
 | `/h-da:declaration-cessation-paiements` | Côté débiteur : déclaration de cessation des paiements (dépôt de bilan), délai 45 j, pièces R.631-1, orientation RJ/LJ. |
 | `/h-da:declaration-creance` | Déclaration de créance et forclusion. |
+| `/h-da:distress-cedant` | Note d'orientation côté cédant/débiteur : arbitrage sauver / céder / déposer, pivot 45 j, exposition dirigeant (Gate 1 + Gate 2), routage vers le bon skill. |
 | `/h-da:due-diligence-dataroom` | Due diligence data-room M&A. |
 | `/h-da:entretien-demarrage` | Configuration initiale du profil Droit des affaires. |
 | `/h-da:financement-startup` | Instruments de financement startup. |
