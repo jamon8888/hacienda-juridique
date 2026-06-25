@@ -222,7 +222,7 @@ Structurer la sortie avec : faits retenus, droit applicable par axe, qualificati
 - Criticité maximale : {🟠} sur axe prime : {L.651-2 — retard DCP}
 - Axes en jeu : L.651-2 {🟠} · L.653-8 {🟡} · Banqueroute {nommée, pas évaluée} · Cautions {🟠}
 - Stade : {RJ ouverte / LJ / action engagée / pré-CdP imminente}
-- {Si action engagée : « Avocat contentieuiste recommandé — ce skill qualifie, ne rédige pas la défense. »}
+- {Si action engagée : « Avocat contentieuiste recommandé ; `/h-da:defense-dirigeant` arme la trame de défense — ce skill qualifie, ne rédige pas la défense. »}
 
 # Faits retenus
 {chronologie sobre, en semaines relatives, sans dates calendaires}
@@ -278,9 +278,9 @@ Date d'analyse : YYYY-MM-DD
 - **Conclure** à une faute de gestion, une sanction ou une responsabilité — le tribunal qualifie ; le skill présente des facteurs `[review]`.
 - **Chiffrer** l'insuffisance d'actif, la contribution ou les amendes (piège fabrication) — `[à compléter]`, réclamer l'état du passif.
 - **Évaluer** la banqueroute (L.654-1) — pénal : nommée et renvoyée au pénaliste.
-- **Rédiger un mémoire en défense** quand une action L.651-2 / L.653-8 est engagée → renvoi avocat contentieuiste ; futur skill dédié.
+- **Rédiger un mémoire en défense** quand une action L.651-2 / L.653-8 est engagée → `/h-da:defense-dirigeant` arme la **trame** de défense (moyens), puis l'avocat rédige l'acte.
 - **Trancher** la qualification de dirigeant **de fait** — la nommer `[review]`.
-- **Stratégier** la défense (constituer les preuves, ordonner les moyens, choisir l'expert).
+- **Stratégier** la défense (ordonner les moyens, constituer les preuves, choisir l'expert) → `/h-da:defense-dirigeant` (si action engagée).
 - Le conseil **fiscal** (solidarité fiscale du dirigeant, L.267 LPF) — nommé si signaux, sinon hors scope ; renvoi.
 - **Fabriquer** des dates (semaines relatives uniquement).
 
