@@ -71,18 +71,31 @@ revue par tâche + **revue whole-branch Opus : READY TO MERGE, 0 Critical / 0 Im
 legacy `/h-droit-affaires:` pré-existant — hors scope. `npm test` 309 ✓ (3 skip eurlex-live),
 typecheck/build/branding verts, structure 11/11 (count 31).
 
-## 5. Décision contrôle live miroir `gap-review --distressed`
+## 5. Contrôle live miroir `gap-review --distressed` — FAIT (post-merge)
 
-**Skippé (décision Candy).** Valeur marginale quasi nulle : le module partagé est déjà
-blind-ADMIS via SPADIS, et le câblage gap (étape 6bis, barre gate, D3 central) a passé la
-revue par tâche **et** la revue whole-branch. Pas de scoring formel sur le chemin GAP.
+**Sanity live exécutée** (Sonnet, post-merge) sur un mini fact-pattern GAP distressed (cible
+CP négatifs, GAP nue sans séquestre, garant personne physique, nantissement pour dette
+antérieure, contrôles URSSAF/DGFiP) : **6/6 PASS** — activation du mode, **garantie de la
+garantie centrée en 🔴**, gate barre respecté (procède sans sur-refuser), anti-fabrication
+tenue (ne date pas la CdP, nullité = `[review]`), pas de contamination SPA. **Verdict : étape
+6bis fonctionnelle, module suffisant.**
+
+**Décision : pas de cycle blind dédié GAP.** Le seul angle qui l'aurait justifié — un delta
+doctrinal propre au GAP — n'existe pas (la doctrine est partagée et déjà ADMIS via SPADIS).
+Un seul point mineur remonté, **non bloquant** : l'immunité de l'accord de conciliation
+homologué (**L.611-10-1 C.com.**) n'est pas dans le module — noté en backlog
+`docs/backlog/da-distressed-overlay-L611-10-1-enrichment.md` (enrichissement optionnel D1 bis ;
+s'il est repris, c'est une modif du **module partagé** → impacte spa **et** gap → mini cycle de
+validation à ce moment-là seulement).
 
 ## 6. Reste à faire (prochaine session)
 
-- **Merger la PR #62** (validation humaine), puis clôturer (DA → v0.15.0).
-- **Pistes annexes** (inchangées) : cycle blind dédié `gap-review --distressed` si un delta
-  doctrinal propre apparaît à l'usage ; mode `--draft` (mémoire en défense rédigé, hors scope
-  v1) ; AMF / cibles cotées (v2).
+- **PR #62 MERGÉE** (`bc49a96`, 2026-06-25). `main` à **v0.15.0, 31 skills** ; branches locale
+  + distante supprimées. **Cycle distressed-overlay entièrement soldé.**
+- **Cycle blind dédié GAP : tranché — NON** (sanity §5, module suffisant). Ne rouvrir que si
+  l'enrichissement L.611-10-1 (modif du module partagé) est repris.
+- **Pistes annexes** (inchangées) : mode `--draft` (mémoire en défense rédigé, hors scope v1) ;
+  AMF / cibles cotées (v2) ; enrichissement L.611-10-1 (backlog).
 - **Intendance** (pré-existante, hors PR) : `AGENTS.md`, `CLAUDE.md`, `package*.json`,
   `.claude/`, backlogs. Index GitNexus stale.
 
