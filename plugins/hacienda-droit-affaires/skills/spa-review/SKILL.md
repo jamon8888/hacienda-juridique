@@ -86,7 +86,7 @@ substantielle.
 
 ## Intake
 
-1. **Mode** — `--review` par défaut ; options de sortie `--red-flags`, `--issues-list`, `--signing-ready`.
+1. **Mode** — `--review` par défaut ; options de sortie `--red-flags`, `--issues-list`, `--signing-ready` ; **`--distressed`** (overlay « cible en difficulté » — charge `references/distressed-overlay-fr.md`). Hors `--distressed`, si des **signaux de difficulté** sont détectés (procédure collective, cessation des paiements, prix symbolique + reprise de passif, déclaration de créance, sûretés récentes pour dettes antérieures), **proposer** l'overlay sans l'imposer.
 2. **Fichier SPA** — chemin du PDF / DOCX / Markdown.
 3. **Side** — `--side=acquereur` | `--side=cedant` (**obligatoire**). Une analyse neutre d'un SPA n'a pas de sens praticien.
 4. **Type d'opération** — `--type=cession-titres` | `--type=cession-fonds` | `--type=asset-deal` | `--type=fusion`. Si absent, auto-détecter puis demander confirmation.
@@ -332,6 +332,21 @@ judiciaire d'une clause pénale manifestement excessive ou dérisoire** (art.
 
 ---
 
+## Étape 9bis — Overlay difficulté (si `--distressed` ou overlay accepté)
+
+**N'exécuter que si le mode distressed est actif.** Charger `references/distressed-overlay-fr.md` et appliquer sa grille **side-aware** au SPA :
+
+1. **Gate barre** : si la cible est **déjà en RJ/LJ avec appel d'offres ouvert**, STOP overlay → renvoi `/h-da:reprise-a-la-barre` / `/h-da:cession-actifs-isoles` (l'acte serait judiciaire, pas un SPA privé).
+2. **D1 — période suspecte / nullités** (L.632-1 de droit / L.632-2 facultatives `[Légifrance]`) : le timing du deal expose-t-il à une nullité ? clauses à risque (prix anormalement bas, paiement préférentiel, sûreté pour dette antérieure). **Ne pas dater** la cessation des paiements ; nullité = risque `[review]`.
+3. **D2 — passif non purgé** (share deal) : la GAP couvre-t-elle l'antérieur non révélé + une procédure future ?
+4. **D3 — garantie de la garantie** : séquestre / GAPD / caution exigés face à un cédant fragile ; sinon protection théorique → renvoi `/h-da:gap-review --distressed`.
+5. **D4/D5** : transferts & solidarités (L.1224-1, L.1684 CGI/L.267 LPF, ICPE — cross-link, renvoi) ; MAC + CS « absence de procédure ».
+6. **Exposition dirigeant cédant** : nommer et renvoyer `/h-da:responsabilite-dirigeant` ; ne pas évaluer.
+
+Sortir les findings distressed dans la liste de points (sévérité 🟢🟡🟠🔴) et une ligne dédiée du résumé. **Ne pas chiffrer** le passif (`[à compléter]`).
+
+---
+
 ## Étape 10 — Renvois et liste de points
 
 Produire les renvois actifs :
@@ -375,6 +390,12 @@ non traités par une source primaire consultée restent `[à vérifier]`.
 
 | # | Sujet | Statut | Pourquoi ça compte | Action |
 |---|---|---|---|---|
+
+## Overlay difficulté (si `--distressed`)
+- Gate barre : {cible à la barre → renvoi reprise/cession-actifs | deal privé, overlay appliqué}
+- Période suspecte / nullités (L.632-1/2) : {risque [review] | sans objet}
+- Passif non purgé + garantie de la garantie : {état | à compléter}
+- Renvois distressed : {gap-review --distressed / responsabilite-dirigeant / asset-vs-share-distress}
 
 ## Analyse par axes
 
@@ -430,6 +451,8 @@ non traités par une source primaire consultée restent `[à vérifier]`.
 - Piloter le closing : utiliser `closing-checklist-fr`.
 - Auditer une data-room complète : utiliser `due-diligence-dataroom`.
 - Donner un avis fiscal, social, PI, réglementaire ou AMF détaillé.
+- **Dater** la cessation des paiements ou la période suspecte en mode `--distressed` — semaines relatives ; la date est fixée par le tribunal (`[à compléter]`).
+- **Couvrir une cession judiciaire à la barre** — dès que la cible est en RJ/LJ avec appel d'offres ouvert, renvoi `/h-da:reprise-a-la-barre` / `/h-da:cession-actifs-isoles`.
 
 ## Ton
 

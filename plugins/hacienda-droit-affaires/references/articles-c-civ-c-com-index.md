@@ -106,6 +106,8 @@ laissé en `[a compléter]`.
 | L.622-29 | Non-exigibilité des créances non échues au jugement d'ouverture | LEGIARTI000006236741 | Le jugement d'ouverture ne rend pas exigibles les créances non échues ; toute clause contraire réputée non écrite |
 | R.622-24 | Délai déclaration de créance — créancier hors France/UE/EEE (4 mois) | LEGIARTI000029175247 | Délai porté à 4 mois vs 2 mois de droit commun L.622-24 |
 | L.631-1 | Redressement judiciaire | [a compléter] | Qualification de procédure |
+| L.632-1 | Nullités de droit de la période suspecte | [a compléter] | Actes à titre gratuit, contrats déséquilibrés, paiements de dettes non échues, sûretés pour dettes antérieures — annulation de plein droit |
+| L.632-2 | Nullités facultatives de la période suspecte | [a compléter] | Paiements de dettes échues et actes à titre onéreux annulables si le cocontractant connaissait la cessation des paiements |
 | L.640-1 | Liquidation judiciaire | [a compléter] | Qualification de procédure |
 | L.651-2 | Responsabilité pour insuffisance d'actif | [a compléter] | Gouvernance / risques dirigeant |
 
