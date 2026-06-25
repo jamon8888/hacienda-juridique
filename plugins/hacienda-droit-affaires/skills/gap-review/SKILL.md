@@ -89,6 +89,7 @@ Si le profil n'est pas peuplé (`[A CONFIGURER]`) : stopper et demander `/h-droi
 2. **Side** — `--side=cedant` | `--side=acquereur` (**obligatoire**, pas d'auto-détection)
 3. **Findings DD** (optionnel) — `--dd-findings=./rapport-dd.md` — active l'axe 5
 4. **Prix cession** (optionnel) — `--prix=15000000` (en €) — active les ratios plafond/prix
+5. **Mode `--distressed`** (optionnel) — overlay « cible en difficulté » : charge `references/distressed-overlay-fr.md` et centre la revue sur la **garantie de la garantie** (séquestre/GAPD face à un cédant insolvable) et le passif non purgé. Hors flag, si des **signaux de difficulté** apparaissent (procédure collective, cessation des paiements, cédant en perte, prix symbolique), **proposer** l'overlay sans l'imposer.
 
 Si `--side` est absent : stopper et demander explicitement. Le skill est side-dependent, une analyse « neutre » n'a pas de sens praticien.
 
@@ -236,6 +237,20 @@ Si `--dd-findings` non fourni : sauter l'axe et mentionner dans la note du relec
 
 ---
 
+## Étape 6bis — Overlay difficulté (si `--distressed` ou overlay accepté)
+
+**N'exécuter que si le mode distressed est actif.** Charger `references/distressed-overlay-fr.md` :
+
+1. **Gate barre** : cible **déjà en RJ/LJ avec appel d'offres ouvert** → STOP overlay → renvoi `/h-da:reprise-a-la-barre` / `/h-da:cession-actifs-isoles` (l'acte serait judiciaire).
+2. **D3 — garantie de la garantie (point central GAP distressed)** : une GAP d'un cédant en difficulté ne vaut rien sans **séquestre / garantie autonome à première demande (GAPD) / caution bancaire**. Sans elle, qualifier la GAP **🔴** (protection théorique) ; calibrer durée/montant sur les passifs latents (fiscal/social/environnemental, exposition longue).
+3. **D2 — passif non purgé** : la GAP couvre-t-elle l'antérieur non révélé et les conséquences d'une procédure future ?
+4. **D1 — période suspecte** : une GAP ou une sûreté consentie en période suspecte peut elle-même être attaquable (L.632-1/2 `[Légifrance]`) — signaler `[review]`, **ne pas dater** la cessation des paiements.
+5. **D4** : transferts & solidarités (L.1224-1, L.1684 CGI/L.267 LPF, ICPE — cross-link avec l'axe environnement existant).
+
+Intégrer les findings distressed dans la liste de points (sévérité side-aware). **Ne pas chiffrer** le passif (`[à compléter]`) ; exposition dirigeant → renvoi `/h-da:responsabilite-dirigeant`.
+
+---
+
 ## Étape 7 — Liste de points consolidée
 
 Appel interne au skill `liste-de-points` en **mode composant** (findings array en input, pas de fichier intermédiaire). Retour du tableau seul (6 colonnes) ; en-tête de confidentialité et note du relecteur fournis par `gap-review`.
@@ -290,6 +305,12 @@ abusif, exposition fiscale non couverte). Une ligne de prochaine action.}
 ## Axe 5 — Confrontation DD (si fourni)
 {Tableau gap analysis finding par finding ; sinon mention « axe non exécuté »}
 
+## Overlay difficulté (si `--distressed`)
+- Gate barre : {à la barre → renvoi reprise/cession-actifs | GAP privée, overlay appliqué}
+- Garantie de la garantie : {séquestre/GAPD présent | absent → 🔴} [review]
+- Passif non purgé / période suspecte (L.632-1/2) : {risque [review] | sans objet}
+- Renvois : {spa-review --distressed / responsabilite-dirigeant / asset-vs-share-distress}
+
 # Liste de points
 
 | # | Axe | Clause | Statut | Risque | Position souhaitée ({side}) | Formulation proposée |
@@ -341,6 +362,8 @@ Si la sortie est destinée à un comité d'investissement, sponsor business non-
 - Conseil fiscal détaillé sur la cession (régime plus-values, droits d'enregistrement, intégration fiscale, neutralité 210-A CGI) — signalement uniquement, renvoi conseil fiscal.
 - Conseil social détaillé (information-consultation CSE art. L.2312-8 C. trav. `[à vérifier]`, transfert des contrats art. L.1224-1 C. trav. `[à vérifier]`) — signalement, renvoi.
 - Préparer une déclaration de créance si la cible entre en procédure collective post-signing → renvoyer `/h-droit-affaires:declaration-creance`.
+- **Dater** la cessation des paiements / la période suspecte en mode `--distressed` (semaines relatives ; date fixée par le tribunal).
+- **Couvrir une GAP de cession judiciaire à la barre** — renvoi `/h-da:reprise-a-la-barre` / `/h-da:cession-actifs-isoles`.
 
 ---
 
