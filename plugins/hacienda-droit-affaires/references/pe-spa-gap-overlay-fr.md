@@ -60,7 +60,7 @@ risque opposés pour le sponsor.
   - Les définitions contractuelles de la dette nette et du BFR : toute ambiguïté est
     une source de litige post-closing `[review]` ;
   - Le *sample statement* (exemple de calcul) : exiger qu'il soit annexé, à défaut
-    `[à compléter]` ;
+    `[review]` ;
   - Le mécanisme de dispute (expert tiers, délai, coûts) ;
   - La cohérence du mécanisme de prix avec le *funds flow* au closing (→ Axe S5).
 
@@ -237,7 +237,7 @@ en profondeur la structure de la GAP. Vérifier :
   pas les *fundamental warranties* (titre, capacité) qui restent en GAP directe ;
 - Les exclusions standards de la police : *known issues* (risques identifiés en DD),
   risques *forward-looking*, environnement/ICPE, *transfer pricing*, régimes fiscaux
-  particuliers `[à vérifier]` → ces exclusions doivent être couverts par une garantie
+  particuliers `[à vérifier]` → ces exclusions doivent être couvertes par une garantie
   spécifique (*specific indemnity*) dans la GAP ou restent à risque de l'acquéreur ;
 - L'alignement des paramètres police ↔ GAP :
   - *Retention* (franchise police) ↔ panier GAP : le cédant reste-il exposé sur la
