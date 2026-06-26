@@ -99,7 +99,7 @@ l'auto-activation des skills.
 | `/h-da:due-diligence-dataroom` | Due diligence data-room M&A. |
 | `/h-da:entretien-demarrage` | Configuration initiale du profil Droit des affaires. |
 | `/h-da:financement-startup` | Instruments de financement startup. |
-| `/h-da:gap-review` | Revue de garantie d'actif et de passif. Mode `--distressed` : cible en difficulté (garantie de la garantie). |
+| `/h-da:gap-review` | Revue de garantie d'actif et de passif. Mode `--distressed` : cible en difficulté (garantie de la garantie). Mode `--pe` : revue GAP sous l'angle W&I / disclosure (overlay Private Equity). |
 | `/h-da:gouvernance-ag` | Convocations et PV d'assemblées. |
 | `/h-da:liste-de-points` | Issues list de négociation. |
 | `/h-da:loi-term-sheet` | LOI, NBO et term sheet M&A. |
@@ -112,7 +112,7 @@ l'auto-activation des skills.
 | `/h-da:reviser-contrat` | Revue de contrat commercial. |
 | `/h-da:reviser-nda` | Triage NDA et confidentialité. |
 | `/h-da:revue-tabulaire` | Revue tabulaire multi-documents. |
-| `/h-da:spa-review` | Revue de SPA / protocole de cession. Mode `--distressed` : cible en difficulté (période suspecte, passif non purgé). |
+| `/h-da:spa-review` | Revue de SPA / protocole de cession. Mode `--distressed` : cible en difficulté (période suspecte, passif non purgé). Mode `--pe --side=sponsor` : revue SPA côté sponsor (locked box, certain funds, rollover, MAC, W&I, overlay Private Equity). |
 | `/h-da:verifier-citations` | Vérification post-flight des citations. |
 
 ## Plugin compagnon recommandé

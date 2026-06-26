@@ -1,5 +1,9 @@
 # Changelog — hacienda-droit-affaires
 
+## 0.17.0
+
+- Ajout du mode `--pe --side=sponsor` à `spa-review` et du mode `--pe` à `gap-review` : module frère partagé `pe-overlay-fr.md` (axes S1–S5 / W1–W3), côté sponsor, overlay Private Equity (locked box, certain funds, rollover, MAC, W&I, articulation GAP/W&I / disclosure). Count skills : 31 inchangé. Renvois live activés dans `pe-overlay-fr.md` (section `## Renvois`).
+
 ## 0.16.0
 
 - Ajout du mode `--pe` (overlay Private Equity) à `pacte-associes-review` : module partagé `pe-overlay-fr.md`, axes P1-P5, gate France/Lux, side sponsor/management. Revue standard inchangée.
