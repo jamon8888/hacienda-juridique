@@ -1,5 +1,9 @@
 # Changelog — hacienda-droit-affaires
 
+## 0.16.0
+
+- Ajout du mode `--pe` (overlay Private Equity) à `pacte-associes-review` : module partagé `pe-overlay-fr.md`, axes P1-P5, gate France/Lux, side sponsor/management. Revue standard inchangée.
+
 ## 0.15.0
 
 - Mode `--distressed` ajouté à `spa-review` et `gap-review` : overlay « cible en difficulté » (pré-procédure / amiable / pre-pack) chargeant le module partagé `references/distressed-overlay-fr.md` — période suspecte et nullités (L.632-1/L.632-2), passif non purgé en share deal, garantie de la garantie face à un cédant insolvable, transferts/solidarités (L.1224-1, L.1684 CGI), MAC/CS spécifiques. Activable par flag ou proposé après auto-détection de signaux de difficulté. Frontière stricte : cible déjà à la barre → renvoi `reprise-a-la-barre` / `cession-actifs-isoles`. Ne date pas la cessation des paiements, ne chiffre pas le passif, ne conclut pas la nullité (risque `[review]`).

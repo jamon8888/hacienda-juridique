@@ -93,7 +93,7 @@ l'auto-activation des skills.
 | `/h-da:constitution-societe` | Constitution de société et choix de forme. |
 | `/h-da:consulter-digest` | Lecture du digest de veille. |
 | `/h-da:declaration-cessation-paiements` | Côté débiteur : déclaration de cessation des paiements (dépôt de bilan), délai 45 j, pièces R.631-1, orientation RJ/LJ. |
-| `/h-da:declaration-creance` | Déclaration de créance et forclusion. |
+| `/h-da:declaration-creance` | Déclaration de créance et forclusion. Mode `--releve-forclusion` : requête L.622-26 lorsque le délai L.622-24 est dépassé. |
 | `/h-da:defense-dirigeant` | Aval contentieux de `responsabilite-dirigeant` : arme la trame de défense du dirigeant **assigné** (L.651-2 / L.652-1 / sanctions L.653-x). Moyens ordonnés par force ; ne rédige pas le mémoire. |
 | `/h-da:distress-cedant` | Note d'orientation côté cédant/débiteur : arbitrage sauver / céder / déposer, pivot 45 j, exposition dirigeant (Gate 1 + Gate 2), routage vers le bon skill. |
 | `/h-da:due-diligence-dataroom` | Due diligence data-room M&A. |
@@ -104,7 +104,7 @@ l'auto-activation des skills.
 | `/h-da:liste-de-points` | Issues list de négociation. |
 | `/h-da:loi-term-sheet` | LOI, NBO et term sheet M&A. |
 | `/h-da:mise-en-demeure-commerciale` | Mise en demeure commerciale B2B (payer / exécuter) avec garde-fou procédure collective. |
-| `/h-da:pacte-associes-review` | Revue de pacte d'associés. |
+| `/h-da:pacte-associes-review` | Revue de pacte d'associés. Mode `--pe` : overlay Private Equity / pacte d'investissement (LBO, sponsor + management, axes P1-P5, gate France/Lux, side sponsor/management). |
 | `/h-da:pre-pack-cession` | Cadrage du montage pre-pack cession (distressed-M&A). |
 | `/h-da:prevention-difficultes` | Orientation prévention (mandat ad hoc / conciliation / sauvegarde accélérée). |
 | `/h-da:reprise-a-la-barre` | Playbook côté repreneur : construire et défendre une offre de reprise gagnante sur une cible en RJ/LJ (plan de cession, L.642). |
