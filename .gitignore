@@ -19,3 +19,5 @@ dist-pkg/
 .gitnexus
 __pycache__/
 *.pyc
+
+.claude/
