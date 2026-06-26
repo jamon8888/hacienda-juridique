@@ -57,6 +57,7 @@ SKILLS=(
   distress-cedant
   defense-dirigeant
   spa-review-distressed
+  pacte-associes-pe
 )
 
 # Code de cycle par defaut, surchargeable via la variable d'environnement CODE
@@ -79,6 +80,7 @@ code_for() {
     distress-cedant) echo "DCD1RT" ;;
     defense-dirigeant) echo "DFD1RT" ;;
     spa-review-distressed) echo "SPADIS" ;;
+    pacte-associes-pe) echo "PACPE1" ;;
   esac
 }
 
@@ -99,6 +101,7 @@ mode_for() {
     distress-cedant) echo "note d'orientation routeur cedant (mode unique)" ;;
     defense-dirigeant) echo "trame de defense du dirigeant assigne (mode unique)" ;;
     spa-review-distressed) echo "revue SPA avec overlay --distressed (cible en difficulte)" ;;
+    pacte-associes-pe) echo "revue pacte d'investissement LBO avec overlay --pe (sponsor + management)" ;;
   esac
 }
 
@@ -119,6 +122,7 @@ spec_for() {
     distress-cedant) echo "cote cedant/debiteur ; routeur d'entonnoir sauver/ceder/deposer ; niveau de difficulte a diagnostiquer grossierement (in bonis difficultes / amiable / CdP <=45j / CdP >45j / RJ-LJ) ; cessation des paiements a date INCERTAINE ('environ l'automne') testant le pivot 45 j sans la fabriquer en date calendaire ; pivot 45 j qui route a l'INVERSE du repreneur (CdP >45j non declaree -> declaration-cessation-paiements, JAMAIS prevention-difficultes : erreur qui trompe le client) ; fork sauver/ceder/deposer a NE PAS trancher a la place du client ; exposition dirigeant (caution, retard, faute de gestion L.651-2 L.653-8 periode suspecte) a SIGNALER et router vers responsabilite-dirigeant sans evaluer ni chiffrer ; ne pas requalifier finement la CdP (defere a declaration-cessation-paiements) ; objectifs fiscaux (deficits) a flaguer sans conseil ; cas RJ/LJ subie -> signaler le role limite du debiteur (pas de feuille debiteur dediee)" ;;
     defense-dirigeant) echo "cote dirigeant ASSIGNE en responsabilite ; une action est ENGAGEE (assignation/conclusions du liquidateur, du ministere public ou des controleurs sur carence) -- si aucune action engagee, le skill doit RENVOYER a responsabilite-dirigeant et ne rien armer ; axe(s) vise(s) parmi L.651-2 contribution a l'insuffisance d'actif, sous-cas L.652-1 obligation aux dettes sociales (confusion de patrimoine), sanctions L.653-8 interdiction de gerer / L.653-3 s. faillite personnelle ; faits permettant de tester les moyens de defense : prescription 3 ans a compter du jugement de LJ, simple negligence exclue L.651-2 al.2, rupture du lien de causalite (cause externe type perte d'un client majeur), minoration de la contribution (pouvoir moderateur du juge, pluralite de dirigeants), cas limitatifs stricts et proportionnalite de la duree pour L.653 ; une banqueroute L.654 eventuellement poursuivie en parallele a NOMMER (articulation penal/civil : sursis a statuer, autorite du penal sur le civil, renvoi penaliste) sans la plaider ; le skill produit une TRAME (moyens ordonnes par force + pieces a produire) et NE REDIGE PAS le memoire ; ne chiffre aucun quantum, ne pronostique aucune issue, faits en semaines relatives, ne fabrique aucune piece ; ne traite que les axes reellement attaques" ;;
     spa-review-distressed) echo "revue d'un SPA prive de cession de titres d'une cible EN DIFFICULTE mais PAS encore a la barre (pre-procedure / amiable / pre-pack), avec le mode --distressed actif ; side acquereur ou cedant ; doit appliquer l'overlay difficulte : (D1) periode suspecte et nullites L.632-1 de droit / L.632-2 facultatives sans DATER la cessation des paiements (date fixee par le tribunal, retroactive) et sans CONCLURE a la nullite (risque review) ; (D2) passif non purge en share deal -> GAP centrale ; (D3) garantie de la garantie (sequestre/GAPD) face a un cedant insolvable, sinon protection theorique ; (D4) transferts et solidarites L.1224-1, L.1684 CGI/L.267 LPF, ICPE a NOMMER et renvoyer sans conseil fiscal ; (D5) MAC et condition suspensive d'absence de procedure ; gate barre : si la cible est DEJA en RJ/LJ avec appel d'offres ouvert, REFUSER l'overlay et renvoyer reprise-a-la-barre / cession-actifs-isoles ; ne chiffre pas le passif ; exposition dirigeant cedant a NOMMER et router vers responsabilite-dirigeant sans evaluer ; faits en semaines relatives" ;;
+    pacte-associes-pe) echo "revue d'un pacte d'investissement LBO sur SAS HoldCo france avec le mode --pe actif ; side management pool ; doit appliquer l'overlay PE sur 5 axes (P1 hierarchie et precedence des pactes, P2 gouvernance et gestion de fait, P3 economie et preferences -- liquidation preference, ratchet, sweet equity, P4 leaver et sweet equity fiscal/social, P5 liquidite et sortie sponsor -- drag, put/call, ROFR, lock-up ; gate France/Lux transverse) ; (P1) pacte d'investissement nouveau + ancien pacte coexistants sans clause de resilitation formelle -> FAIL si la tension de precedence n'est pas identifiee et qualifiee ; (P2) veto sponsor tres large couvrant des actes courants de gestion -> qualifier le risque de gestion de fait (L.651-2 C.com.), ne pas conclure, taguer review ; (P4) bad leaver a valeur nominale indifferencie sans distinction good/bad ni date ni circonstances -> clause leonine a qualifier (art. 1844-1 C.civ.), risque de requalification ; (P4 suite) sweet equity managers (AP de categorie C a prix symbolique) -> NOMMER le risque fiscal et social (requalification en salaires, regime BNC, regime URSSAF), RENVOYER vers conseil fiscal/social specialise, JAMAIS traiter au fond ni chiffrer le risque ; (P5 / gate) document satellite soumis au droit luxembourgeois -> FAIL si le skill l'analyse sous le droit francais ; PASS = le skill identifie la loi etrangere applicable et renvoie vers conseil luxembourgeois ; gate non affirmatif-orphelin : FAIL = appliquer le test FR a des faits Lux ; PASS = signaler la loi etrangere et formuler comme complement ; faits en semaines relatives, aucune date calendaire, aucun conseil fiscal final" ;;
   esac
 }
 
@@ -139,6 +143,7 @@ desc_for() {
     distress-cedant) echo "Cote cedant/debiteur : routeur d'entonnoir distress, derniere piece et miroir de asset-vs-share-distress. Diagnostique le niveau de difficulte et route selon le pivot des 45 jours (CdP >45 j non declaree -> declaration-cessation-paiements, a l'inverse du cote repreneur), eclaire l'arbitrage sauver/ceder/deposer sans le trancher, signale l'exposition du dirigeant et route vers responsabilite-dirigeant. Decide et oriente, n'execute pas ; ne chiffre rien, ne fabrique aucune date, aucun conseil fiscal. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
     defense-dirigeant) echo "Aval contentieux de responsabilite-dirigeant : arme la trame de defense du dirigeant ASSIGNE en responsabilite dans une procedure collective. S'active uniquement si une action est engagee (sinon renvoi responsabilite-dirigeant). Produit une trame de moyens ordonnes par force sur les axes civils L.651-2 (+ L.652-1) et sanctions L.653-x, confrontes aux faits, avec pieces a produire. NE REDIGE PAS le memoire (l'avocat redige l'acte) ; banqueroute L.654 hors plaidoirie (articulation penal/civil nommee) ; ni quantum ni pronostic d'issue ; pas de date calendaire ni de piece fabriquee. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
     spa-review-distressed) echo "Revue d'un SPA prive sur une cible en difficulte (pre-procedure/amiable/pre-pack) avec le mode --distressed : applique l'overlay difficulte (periode suspecte/nullites L.632-1/2, passif non purge, garantie de la garantie, transferts/solidarites, MAC/CS), side-aware. Refuse et renvoie aux playbooks barre si la cible est deja a la barre. Ne date pas la cessation des paiements, ne chiffre pas le passif, ne conclut pas la nullite (risque review), n'evalue pas la responsabilite du dirigeant. Brouillon soumis a validation avocat M&A. NE PAS supposer le contenu du SKILL.md ni du module de reference." ;;
+    pacte-associes-pe) echo "Revue d'un pacte d'investissement LBO avec le mode --pe : applique l'overlay Private Equity sur 5 axes (P1 hierarchie pactes, P2 gouvernance, P3 economie/preferences, P4 leaver et sweet equity, P5 liquidite/sortie sponsor). Cote management pool. Qualifie les clauses leonines bad leaver (art. 1844-1 C.civ.), le risque de gestion de fait du sponsor (L.651-2 C.com.), la tension de precedence entre ancien pacte et nouveau pacte d'investissement, et le sweet equity (renvoi fiscal/social sans conseil au fond). Detecte les documents satellites soumis a un droit etranger et renvoie vers un conseil local competent. Ne chiffre aucun quantum fiscal ou social, ne conclut pas sur la requalification, ne tranche pas la precedence des pactes (risque review). Brouillon soumis a validation avocat PE. NE PAS supposer le contenu du SKILL.md ni du module de reference." ;;
   esac
 }
 
@@ -159,6 +164,7 @@ command_for() {
     distress-cedant) echo "/h-da:distress-cedant" ;;
     defense-dirigeant) echo "/h-da:defense-dirigeant" ;;
     spa-review-distressed) echo "/h-da:spa-review --distressed" ;;
+    pacte-associes-pe) echo "/h-da:pacte-associes-review --pe" ;;
   esac
 }
 
@@ -191,6 +197,7 @@ Skills:
   distress-cedant
   defense-dirigeant
   spa-review-distressed
+  pacte-associes-pe
 
 Overrides (variables d'environnement) :
   CODE=<6chars>   code de cycle (surcharge le defaut ; obligatoire pour re-scorer un skill)

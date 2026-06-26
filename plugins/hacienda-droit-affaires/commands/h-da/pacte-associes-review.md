@@ -6,7 +6,7 @@ description: >
   d'information et de liquidité. Triage par criticité, liste de points de
   négociation. Renvoie vers PI:contrats-pi si apports/licences PI substantiels.
   Brouillon soumis à validation humaine (avocat).
-argument-hint: "[pacte, side, playbook ou points sensibles]"
+argument-hint: "[pacte, side, playbook ou points sensibles] [--pe] [--side=sponsor|management]"
 ---
 
 Use the `pacte-associes-review` skill with these arguments:

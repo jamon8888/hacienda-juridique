@@ -54,6 +54,30 @@ laissé en `[a compléter]`.
 
 ---
 
+## Code civil — droit des sociétés (pacte d'associés / PE)
+
+> Articles introduits pour le mode `--pe` de `pacte-associes-review` (overlay Private Equity).
+> Aucun identifiant Légifrance n'a été relu en session pour cette section — tout reste `[à vérifier]`.
+
+| Article | Libellé court | LEGIARTI | Notes |
+|---|---|---|---|
+| 1832 | Définition de la société — affectio societatis — vocation aux bénéfices et contribution aux pertes | [à vérifier] | Fondement de base du contrat de société : définition, mise en commun d'apports, partage des bénéfices et contribution aux pertes. La prohibition des clauses léonines repose sur **art. 1844-1 al. 2 C.civ seul** (voir entrée ci-dessous). |
+| 1843-4 | Évaluation des droits sociaux — désignation d'un expert tiers | [à vérifier] | Utilisé pour le prix de rachat de parts en cas d'agrément refusé (renvoi art. L.228-24 C.com.) ou de leaver. Attention : le champ d'application a été restreint après la réforme 2014 (ord. n° 2014-863). Vérifier portée sur pacte PE. |
+| 1844-1 | Clause léonine — al. 2 : interdiction de stipuler qu'un associé supportera toutes les pertes ou sera exonéré de toute contribution | [à vérifier] | Risque léonine à surveiller sur : liquidation preference + ratchet + mécanismes d'exonération de pertes en mode PE. La qualification léonine est une appréciation de fait `[review]` — jamais conclure ici. Renvoi `financement-startup` pour instruments ADP/BSA. |
+
+> **Liquidation preference** — pas d'article dédié en droit français. Montage purement contractuel
+> (actions de préférence L.228-11 C.com. + droits pécuniaires spécifiques dans les statuts ou
+> le pacte). Vérifier la structure réelle (titres ou clauses de pacte). L.228-11 `[à vérifier]`
+> — ne pas citer sans avoir lu l'article. Risque léonine : watch 1844-1 `[à vérifier]`.
+
+> **Gestion de fait / dirigeant de fait** — fondement multi-articles, non réduit à un seul.
+> Terrain civil : responsabilité L.651-2 C.com. (déjà dans l'index, `[à vérifier]`).
+> Terrain pénal (L.241-3, L.242-6 C.com.) : hors périmètre overlay. La qualification
+> « dirigeant de fait » est une appréciation jurisprudentielle `[review]` — jamais conclure.
+> Signal déclencheur overlay PE : reserved matters / veto sponsor trop large.
+
+---
+
 ## Code de procédure civile
 
 | Article | Libellé court | LEGIARTI | Notes |
@@ -185,6 +209,7 @@ laissé en `[a compléter]`.
 | Article | Libellé court | LEGIARTI | Notes |
 |---|---|---|---|
 | L.228-1 | Valeurs mobilières — définition, forme au porteur ou nominative | LEGIARTI000036175265 | Version modifiée 2018 ; droits identiques par catégorie |
+| L.228-11 | Actions de préférence — émission, droits pécuniaires et politiques dérogatoires | [à vérifier] | Fondement statutaire des liquidation preferences, ratchets et sweet equity en PE. Instrument à réserver au renvoi `financement-startup` pour la mécanique ; ici, signaler uniquement le fondement. `[à vérifier]` : article modifié plusieurs fois (ord. 2004 → loi PACTE 2019). |
 | L.228-24 | Procédure d'agrément — notification, refus, rachat | LEGIARTI000006227756 | Silence 3 mois = agrément réputé acquis ; renvoi art. 1843-4 C.civ pour prix |
 
 ### Constitution générale (articles L.210-x)

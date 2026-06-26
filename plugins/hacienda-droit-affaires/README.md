@@ -104,7 +104,7 @@ l'auto-activation des skills.
 | `/h-da:liste-de-points` | Issues list de négociation. |
 | `/h-da:loi-term-sheet` | LOI, NBO et term sheet M&A. |
 | `/h-da:mise-en-demeure-commerciale` | Mise en demeure commerciale B2B (payer / exécuter) avec garde-fou procédure collective. |
-| `/h-da:pacte-associes-review` | Revue de pacte d'associés. |
+| `/h-da:pacte-associes-review` | Revue de pacte d'associés. Mode `--pe` : overlay Private Equity / pacte d'investissement (LBO, sponsor + management, axes P1-P5, gate France/Lux, side sponsor/management). |
 | `/h-da:pre-pack-cession` | Cadrage du montage pre-pack cession (distressed-M&A). |
 | `/h-da:prevention-difficultes` | Orientation prévention (mandat ad hoc / conciliation / sauvegarde accélérée). |
 | `/h-da:reprise-a-la-barre` | Playbook côté repreneur : construire et défendre une offre de reprise gagnante sur une cible en RJ/LJ (plan de cession, L.642). |

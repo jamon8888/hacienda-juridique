@@ -7,10 +7,10 @@ description: >
   d'information et de liquidité. Triage par criticité, liste de points de
   négociation. Renvoie vers PI:contrats-pi si apports/licences PI substantiels.
   Brouillon soumis à validation humaine (avocat).
-version: "2.0.0"
-argument-hint: "[pacte, side, playbook ou points sensibles]"
+version: "2.1.0"
+argument-hint: "[pacte, side, playbook ou points sensibles] [--pe] [--side=sponsor|management]"
 authors: ["Hacienda"]
-tags: [pacte-associes, societes, revue, drag-along, preemption, agrement]
+tags: [pacte-associes, societes, revue, drag-along, preemption, agrement, private-equity, pacte-investissement, lbo, management-package]
 ---
 
 # Skill — Revue de pacte d'associés
@@ -66,6 +66,18 @@ Détection d'une composante PI substantielle : le pacte organise l'apport au cap
 </response>
 </example>
 
+<example>
+<user>/h-droit-affaires:pacte-associes-review ./pacte-investissement-lbo.pdf --pe --side=management</user>
+<response>
+1. Pré-flight check-pii + lecture profil
+2. Identification : pacte d'investissement, SAS HoldCo FR, sponsor + managers rollover → signaux PE
+3. Gate France/Lux : HoldCo FR, docs FR → jambe FR couverte
+4. Étape 2bis : 5 axes P1-P5, side=management
+5. Bloc « Architecture documentaire & précédence » : conflit détecté entre le pacte d'investissement et le pacte existant non résolu par clause de précédence → 🔴
+6. Liste de points : bad leaver à valeur nominale indifférencié → 🔴 (léonine [review]) ; véto sponsor très large → gestion de fait [review] ; requalification fiscale/sociale du sweet equity → nommée et renvoyée
+</response>
+</example>
+
 ---
 
 ## Chargement du profil
@@ -90,6 +102,8 @@ substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-p
 2. **Fichier pacte** — chemin du PDF / DOCX / Markdown
 3. **Side** (optionnel) — `--side=fondateur` | `--side=investisseur` | `--side=societe` (auto-détecté si non précisé ; détermine la posture appliquée)
 4. **Forme sociale concernée** (optionnel) — `--forme=SAS` | `--forme=SARL` | `--forme=SA` (auto-détectée à partir du document si non précisée ; conditionne les fondements d'agrément et d'inaliénabilité)
+5. **Mode `--pe`** (optionnel) — overlay Private Equity / pacte d'investissement. Active l'étape 2bis. Auto-proposé si des signaux PE sont détectés (voir `references/pe-overlay-fr.md`).
+6. **Side PE** (avec `--pe`) — `--side=sponsor | management`. En mode `--pe`, `--side` bascule sur ce couple (la lecture side-aware et le glossaire deviennent sponsor/manager). Hors `--pe`, les sides standard fondateur/investisseur/société s'appliquent.
 
 ---
 
@@ -104,6 +118,9 @@ substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-p
 - [ ] Liste de points triée par criticité décroissante, sans doublon, sans remplissage
 - [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
 - [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + liste de points + recommandation + question hors checklist + arbre de décision 5 options + footer A si applicable
+- [ ] Si `--pe` : module `pe-overlay-fr.md` chargé, gate France/Lux posé, 5 axes P1-P5 passés, side sponsor/management appliqué
+- [ ] Si `--pe` : requalification fiscale/sociale du management package nommée et renvoyée, jamais traitée au fond
+- [ ] Hors `--pe` : revue standard 11 clauses strictement inchangée
 
 ---
 
@@ -140,6 +157,8 @@ sérialisables, générer en parallèle un dashboard HTML autonome via
 > - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
 > - **Fraîcheur :** recherche des évolutions depuis {date} — {N} mises à jour intégrées | rien trouvé
 > - **Avant de t'appuyer dessus :** {1-2 actions concrètes OU « prêt pour relecture »}
+
+{Si mode --pe : bloc « Architecture documentaire & précédence » — matrice statuts / pacte existant / pacte d'investissement + conflits de précédence. Sinon, omettre.}
 
 # Résumé exécutif
 
@@ -194,6 +213,7 @@ Si l'utilisateur précise que la sortie est destinée à une contrepartie (co-as
    - SARL → agrément légal des cessions à tiers art. L.223-14 C.com. ; décisions art. L.223-29 `[à vérifier]` / L.223-30 C.com.
    - SA / société par actions non cotée → clause d'agrément statutaire art. L.228-23 C.com., procédure art. L.228-24 C.com.
 4. **Test composante PI.** Si le pacte organise un apport au capital de droits de PI substantiels (brevets, marques, logiciels, savoir-faire R&D) ou une licence de PI structurante entre associés → renvoyer vers `/h-pi:contrats-pi` pour ce volet, avec les options (a) lancer ce skill pour le volet PI, (b) limiter `pacte-associes-review` aux clauses de vie sociale, (c) les deux en séquence. Ne pas analyser le volet PI à fond ici.
+5. **Détection PE.** Repérer les signaux PE (voir `references/pe-overlay-fr.md` §signaux). Si présents et que `--pe` n'est pas posé : proposer l'overlay PE et attendre l'acceptation avant d'exécuter l'étape 2bis. Ne pas activer l'overlay sans flag ni acceptation.
 
 ---
 
@@ -226,6 +246,19 @@ Pour chaque clause de pacte identifiée (voir `references/clauses-pacte-associes
 - **Agrément (clause 2).** Distinguer agrément statutaire (opposable, violation → nullité, art. L.227-15 C.com. en SAS) et agrément du pacte (effet relatif, violation → dommages-intérêts). Fondement par forme sociale : L.227-14 (SAS), L.223-14 (SARL), L.228-23 (clause statutaire en société par actions non cotée).
 - **Drag-along (clause 4).** Une clause de drag-along sans seuil de déclenchement chiffré est un défaut rédactionnel majeur → 🟠/🔴. Vérifier aussi l'égalité des conditions et le périmètre des garanties imposées au minoritaire.
 - **Good/bad leaver (clause leaver).** Un rachat à la **valeur nominale pour toute cause de départ, sans distinction good leaver / bad leaver** (y compris décès, invalidité, retraite, révocation sans cause), crée une **décote potentiellement confiscatoire** → 🔴. Exposer **deux fondements cumulatifs** : (i) contrôle de proportionnalité et valorisation par expert (art. 1843-4 C.civ `[à vérifier]`), la décote indifférenciée étant disproportionnée ; (ii) **risque de requalification en clause léonine (art. 1844-1 al. 2 C.civ `[à vérifier]`)** lorsque la décote revient à priver systématiquement l'associé sortant de la valeur de ses titres. Exiger une distinction **good leaver** (juste valeur / expertise) / **bad leaver** (décote justifiée et définie). Ne pas confondre avec la **promesse de rachat à prix plancher au profit de l'investisseur**, qui relève elle aussi du contrôle léonine (1844-1) mais sous l'angle de l'exonération des pertes — les deux clauses appellent l'article, à des titres distincts.
+
+---
+
+## Étape 2bis — Overlay Private Equity (mode `--pe` uniquement)
+
+Ne s'exécute que si `--pe` est posé OU si des signaux PE ont été détectés (étape 1) et l'utilisateur a accepté la proposition. Sinon, sauter entièrement cette étape : la revue standard est complète sans elle.
+
+1. Charger `references/pe-overlay-fr.md`.
+2. **Gate d'application France/Lux.** Si le pacte vise une entité luxembourgeoise ou que les documents sont régis par le droit luxembourgeois : couvrir la seule jambe FR et exclure les docs Lux (formulation type du module). Ne pas analyser un pacte Lux comme un pacte FR.
+3. Basculer le side sur **sponsor / management**.
+4. Passer les **5 axes P1-P5** du module. Les findings P2-P5 se fondent dans la liste de points (étape 3), triés par criticité, avec le side appliqué.
+5. Produire le **bloc « Architecture documentaire & précédence »** (P1) : matrice statuts ↔ pacte existant ↔ pacte d'investissement + liste des conflits de précédence. Ce bloc se place **au-dessus** de la liste de points dans la sortie.
+6. **Anti-fabrication** : requalification fiscale/sociale = nommée et renvoyée ; pas de quantum ; léonine / gestion de fait = `[review]` ; instruments → `financement-startup` ; pas de date fabriquée.
 
 ---
 
@@ -267,6 +300,10 @@ Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
 - Faire le focus GAP M&A → renvoyer `gap-review` (v1).
 - Donner un avis fiscal détaillé (régime des BSA de relution, plus-values de cession) — signalement uniquement.
 - Donner un avis social complet sur un dirigeant cumulant un contrat de travail — la clause est analysée, la stratégie sociale est renvoyée au plugin compagnon.
+- (mode PE) Traiter le volet **fonds** (règlement / LPA / side letters) → `fonds-pe-fr-triage` (vague ultérieure).
+- (mode PE) Donner un avis **fiscal/social** sur le management package — requalification signalée et renvoyée.
+- (mode PE) **Rédiger** le pacte d'investissement (review only).
+- (mode PE) Couvrir les **documents luxembourgeois** (gate France/Lux).
 
 ---
 
