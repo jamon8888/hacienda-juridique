@@ -1,9 +1,7 @@
 # Scénario fictif — revue d'un pacte d'investissement PE (mode --pe)
 
-> Dataset de scoring blind. **Fact pattern fictif, sans solution.**
-> Tous les noms, chiffres et entités sont inventés. À ne pas confondre avec un
-> dossier réel. Input pour Phase 2 (ground-truth Codex, sans accès au SKILL.md)
-> et Phase 3 (live, sans accès au ground-truth).
+> Fact pattern fictif, sans solution. Tous les noms, chiffres et entités sont
+> inventés. À ne pas confondre avec un dossier réel.
 
 ## Requête utilisateur (telle que reçue dans Cowork)
 
