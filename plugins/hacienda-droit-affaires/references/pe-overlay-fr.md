@@ -32,8 +32,7 @@ ce module : la revue standard 11 clauses est inchangée.
 
 3. **Aucun signal PE réel dans le document** → pas d'overlay ; revue standard.
 4. **Volet fonds uniquement** (règlement/LPA/side letters d'un FCPR/FPCI/SLP) →
-   hors périmètre de cet overlay ; skill dédié `fonds-pe-fr-triage` (vague
-   ultérieure).
+   hors périmètre de cet overlay ; skill dédié `fonds-pe-fr-triage` (à venir — vague ultérieure).
 
 ---
 
@@ -246,37 +245,6 @@ vue du sponsor qui veut sortir à des conditions optimales. Vérifier :
 
 ---
 
-## Lecture side-aware (synthèse)
-
-| Axe | Sponsor (imposer / structurer) | Management (protéger / négocier) |
-|---|---|---|
-| P1 précédence | Clause de précédence du pacte d'investissement ; accession deed de tous les managers | Vérifier que l'adhésion ne crée pas d'obligations supplémentaires non négociées ; termination du pacte existant si défavorable |
-| P2 gouvernance | Reserved matters larges ; board composition majoritaire ; information rights cascade LP | Limiter les reserved matters aux décisions structurantes ; éviter le risque gestion de fait ; protéger la confidentialité opérationnelle |
-| P3 économie | Liquidation preference élevée et participante ; ratchet sponsor protecteur du TRI | Limiter la préférence (non-participating ou cap) ; watch léonine ; s'assurer du sweet equity réel après préférence |
-| P4 leaver | Leaver à prix nominal ou décote sur bad leaver ; vesting long ; accélération limitée | Éviter la clause confiscatoire ; obtenir FMV ou 1843-4 pour le prix ; prévoir accélération sur départ involontaire ou CoC |
-| P5 liquidité | Drag libre et rapide ; garanties imposées aux managers ; ROFR sponsor en premier | Seuil de prix minimum sur le drag ; égalité des conditions ; limiter les garanties personnelles ; put à FMV post lock-up |
-
----
-
-## Anti-fabrication PE
-
-- **Requalification fiscale/sociale du management package** : nommée et renvoyée
-  vers un fiscaliste/socialiste. **Jamais traitée au fond par cet overlay.**
-- **Pas de quantum** : pas de chiffrage de l'exposition fiscale/sociale, pas de taux,
-  pas de montant de requalification.
-- **Léonine / gestion de fait** : qualification en `[review]` uniquement, jamais
-  conclusion. La probabilité de requalification dépend d'une appréciation de fait
-  que seul un avocat ou le juge peut faire.
-- **Instruments** (BSA/BSPCE/ADP/AGA/OC) : signalés et renvoyés à `financement-startup`.
-  L'overlay ne rédige ni ne structure les instruments.
-- **Dates** : pas de date calendaire fabriquée pour les jalons de vesting ou de
-  sortie ; utiliser des semaines/mois relatifs.
-- **Citations** : tout article non vérifié en source primaire Légifrance reste
-  `[à vérifier]`. Aucun identifiant LEGIARTI inventé.
-- **Documents luxembourgeois** : hors périmètre (gate P0 ci-dessus).
-
----
-
 ## Glossaire PE FR praticien
 
 > Actif partagé de tous les futurs modes PE Hacienda (glossaire complet intégré dès v2.1.0).
@@ -377,6 +345,37 @@ vue du sponsor qui veut sortir à des conditions optimales. Vérifier :
 | Red flag report | Rapport court sur risques majeurs. `[jargon marché]` | Rapport de DD red flags. | Partner-ready, utile en PE. |
 | Closing bible | Dossier final des actes signés et preuves. `[jargon marché]` | Bible de closing. `[formel]` | Post-closing et audit trail. |
 | Accession deed | Acte d'adhésion au pacte d'investissement. `[jargon marché]` | Acte d'adhésion / avenant d'adhésion. `[formel]` | Indispensable pour les managers rollovers — voir axe P1. |
+
+---
+
+## Lecture side-aware (synthèse)
+
+| Axe | Sponsor (imposer / structurer) | Management (protéger / négocier) |
+|---|---|---|
+| P1 précédence | Clause de précédence du pacte d'investissement ; accession deed de tous les managers | Vérifier que l'adhésion ne crée pas d'obligations supplémentaires non négociées ; termination du pacte existant si défavorable |
+| P2 gouvernance | Reserved matters larges ; board composition majoritaire ; information rights cascade LP | Limiter les reserved matters aux décisions structurantes ; éviter le risque gestion de fait ; protéger la confidentialité opérationnelle |
+| P3 économie | Liquidation preference élevée et participante ; ratchet sponsor protecteur du TRI | Limiter la préférence (non-participating ou cap) ; watch léonine ; s'assurer du sweet equity réel après préférence |
+| P4 leaver | Leaver à prix nominal ou décote sur bad leaver ; vesting long ; accélération limitée | Éviter la clause confiscatoire ; obtenir FMV ou 1843-4 pour le prix ; prévoir accélération sur départ involontaire ou CoC |
+| P5 liquidité | Drag libre et rapide ; garanties imposées aux managers ; ROFR sponsor en premier | Seuil de prix minimum sur le drag ; égalité des conditions ; limiter les garanties personnelles ; put à FMV post lock-up |
+
+---
+
+## Anti-fabrication PE
+
+- **Requalification fiscale/sociale du management package** : nommée et renvoyée
+  vers un fiscaliste/socialiste. **Jamais traitée au fond par cet overlay.**
+- **Pas de quantum** : pas de chiffrage de l'exposition fiscale/sociale, pas de taux,
+  pas de montant de requalification.
+- **Léonine / gestion de fait** : qualification en `[review]` uniquement, jamais
+  conclusion. La probabilité de requalification dépend d'une appréciation de fait
+  que seul un avocat ou le juge peut faire.
+- **Instruments** (BSA/BSPCE/ADP/AGA/OC) : signalés et renvoyés à `financement-startup`.
+  L'overlay ne rédige ni ne structure les instruments.
+- **Dates** : pas de date calendaire fabriquée pour les jalons de vesting ou de
+  sortie ; utiliser des semaines/mois relatifs.
+- **Citations** : tout article non vérifié en source primaire Légifrance reste
+  `[à vérifier]`. Aucun identifiant LEGIARTI inventé.
+- **Documents luxembourgeois** : hors périmètre (gate P0 ci-dessus).
 
 ---
 

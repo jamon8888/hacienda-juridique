@@ -61,7 +61,7 @@ laissé en `[a compléter]`.
 
 | Article | Libellé court | LEGIARTI | Notes |
 |---|---|---|---|
-| 1832 | Définition de la société — affectio societatis — prohibition clause léonine (al. 3 implicite) | [à vérifier] | Fondement de base de la société ; la prohibition léonine découle de la combinaison 1832 / 1844-1. Ne pas confondre l'interdiction de principe (léonine) avec les clauses de liquidation preference contractuelles. |
+| 1832 | Définition de la société — affectio societatis — vocation aux bénéfices et contribution aux pertes | [à vérifier] | Fondement de base du contrat de société : définition, mise en commun d'apports, partage des bénéfices et contribution aux pertes. La prohibition des clauses léonines repose sur **art. 1844-1 al. 2 C.civ seul** (voir entrée ci-dessous). |
 | 1843-4 | Évaluation des droits sociaux — désignation d'un expert tiers | [à vérifier] | Utilisé pour le prix de rachat de parts en cas d'agrément refusé (renvoi art. L.228-24 C.com.) ou de leaver. Attention : le champ d'application a été restreint après la réforme 2014 (ord. n° 2014-863). Vérifier portée sur pacte PE. |
 | 1844-1 | Clause léonine — al. 2 : interdiction de stipuler qu'un associé supportera toutes les pertes ou sera exonéré de toute contribution | [à vérifier] | Risque léonine à surveiller sur : liquidation preference + ratchet + mécanismes d'exonération de pertes en mode PE. La qualification léonine est une appréciation de fait `[review]` — jamais conclure ici. Renvoi `financement-startup` pour instruments ADP/BSA. |
 
