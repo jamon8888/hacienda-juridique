@@ -90,6 +90,7 @@ Si le profil n'est pas peuplé (`[A CONFIGURER]`) : stopper et demander `/h-droi
 3. **Findings DD** (optionnel) — `--dd-findings=./rapport-dd.md` — active l'axe 5
 4. **Prix cession** (optionnel) — `--prix=15000000` (en €) — active les ratios plafond/prix
 5. **Mode `--distressed`** (optionnel) — overlay « cible en difficulté » : charge `references/distressed-overlay-fr.md` et centre la revue sur la **garantie de la garantie** (séquestre/GAPD face à un cédant insolvable) et le passif non purgé. Hors flag, si des **signaux de difficulté** apparaissent (procédure collective, cessation des paiements, cédant en perte, prix symbolique), **proposer** l'overlay sans l'imposer.
+6. **Mode `--pe`** (optionnel) — overlay Private Equity side sponsor : charge `references/pe-spa-gap-overlay-fr.md` et centre la GAP sur la **matrice GAP / W&I / disclosure**. `--side=sponsor` par défaut. Hors flag, si des signaux PE apparaissent, **proposer** l'overlay sans l'imposer.
 
 Si `--side` est absent : stopper et demander explicitement. Le skill est side-dependent, une analyse « neutre » n'a pas de sens praticien.
 
@@ -252,6 +253,17 @@ Intégrer les findings distressed dans la liste de points (sévérité side-awar
 
 ---
 
+## Étape 6ter — Overlay PE — matrice GAP/W&I/disclosure (si `--pe` ou overlay accepté)
+
+**N'exécuter que si le mode PE est actif.** Charger `references/pe-spa-gap-overlay-fr.md` :
+1. **W1 — matrice GAP / W&I / disclosure** : ce que la police W&I couvre vs la GAP ; exclusions (known issues, forward-looking, environnement, transfer pricing) ; alignement rétention / de minimis / basket / cap **police ↔ GAP** ; disclosure letter comme outil contre les exclusions « known ».
+2. **W2 — recours limité côté cédant sponsor** : GAP « nil recourse / 1 € » adossée W&I — l'acquéreur s'appuie sur la police, pas sur le covenant du cédant sortant ; security for claims ; sandbagging / anti-sandbagging `[review]`.
+3. **W3 — discipline disclosure FR** : articulation disclosure letter ↔ devoir d'information `1112-1 C.civ [à vérifier]` ; fair disclosure ; data room comme disclosure ; réticence dolosive `1137 C.civ [à vérifier]`.
+
+**Gate France/Lux** (cf. module partagé) : docs fonds Lux hors périmètre. Intégrer les findings PE dans la liste de points (sévérité side-aware sponsor). Si la cible est aussi en difficulté, **les overlays `--pe` et `--distressed` s'empilent** sans se dupliquer (garantie de la garantie reste l'axe distressed). **Ne pas chiffrer** (`[à compléter]`).
+
+---
+
 ## Étape 7 — Liste de points consolidée
 
 Appel interne au skill `liste-de-points` en **mode composant** (findings array en input, pas de fichier intermédiaire). Retour du tableau seul (6 colonnes) ; en-tête de confidentialité et note du relecteur fournis par `gap-review`.
@@ -312,6 +324,11 @@ abusif, exposition fiscale non couverte). Une ligne de prochaine action.}
 - Passif non purgé / période suspecte (L.632-1/2) : {risque [review] | sans objet}
 - Renvois : {spa-review --distressed / responsabilite-dirigeant / asset-vs-share-distress}
 
+## Overlay PE (si `--pe`)
+- Side : {sponsor | cedant}
+- Matrice : {W1 GAP/W&I/disclosure · W2 recours limité · W3 disclosure FR}
+- Renvois PE : {spa-review --pe / pacte-associes-review --pe}
+
 # Liste de points
 
 | # | Axe | Clause | Statut | Risque | Position souhaitée ({side}) | Formulation proposée |
@@ -365,6 +382,8 @@ Si la sortie est destinée à un comité d'investissement, sponsor business non-
 - Préparer une déclaration de créance si la cible entre en procédure collective post-signing → renvoyer `/h-droit-affaires:declaration-creance`.
 - **Dater** la cessation des paiements / la période suspecte en mode `--distressed` (semaines relatives ; date fixée par le tribunal).
 - **Couvrir une GAP de cession judiciaire à la barre** — renvoi `/h-da:reprise-a-la-barre` / `/h-da:cession-actifs-isoles`.
+- **Souscrire / placer** la police W&I ni en interpréter les conditions au fond en mode `--pe` (signalée, articulation seulement).
+- **Traiter au fond** la requalification fiscale/sociale (nommée et renvoyée).
 
 ---
 
