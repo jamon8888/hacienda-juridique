@@ -221,10 +221,17 @@ describe("hacienda droit affaires cowork packaging", () => {
 
     expect(skillFiles.length).toBe(31);
 
+    const EXPECTED_SKILL_VERSION: Record<string, string> = {
+      "pacte-associes-review": "2.1.0",
+    };
+    const DEFAULT_SKILL_VERSION = "2.0.0";
+
     for (const file of skillFiles) {
       const content = readFileSync(file, "utf8");
+      const skillName = skillNameFromFile(file);
+      const expectedVersion = EXPECTED_SKILL_VERSION[skillName] ?? DEFAULT_SKILL_VERSION;
 
-      expect(content, file).toMatch(/^version:\s*"2\.\d+\.\d+"/m);
+      expect(content, file).toMatch(new RegExp(`^version:\\s*"${expectedVersion}"`, "m"));
       expect(content, file).toMatch(/^argument-hint:/m);
       expect(content, file).not.toMatch(/^version:\s*"?1\.0\.0"?/m);
       expect(content, file).not.toContain("\r\n");
