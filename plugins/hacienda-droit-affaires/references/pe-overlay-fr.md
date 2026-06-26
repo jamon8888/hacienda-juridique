@@ -375,7 +375,7 @@ vue du sponsor qui veut sortir à des conditions optimales. Vérifier :
   sortie ; utiliser des semaines/mois relatifs.
 - **Citations** : tout article non vérifié en source primaire Légifrance reste
   `[à vérifier]`. Aucun identifiant LEGIARTI inventé.
-- **Documents luxembourgeois** : hors périmètre (gate P0 ci-dessus).
+- **Documents luxembourgeois** : hors périmètre (gate France/Lux ci-dessus).
 
 ---
 
