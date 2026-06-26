@@ -4,7 +4,7 @@
 **Branche :** `feat/da-pacte-pe-overlay` (non mergée, non poussée)
 **Version :** hacienda-droit-affaires **0.16.0** ; skill `pacte-associes-review` **v2.0.0 → v2.1.0**
 **Skills :** **31 inchangé** (c'est un mode, pas un skill)
-**Statut scoring :** **non lancé** — dataset `da-pacte-associes-pe` + cycle `PACPE1` prêts ; le cycle blind 4 phases est piloté par Candy. **Release gate = ADMIS gate-clean.**
+**Statut scoring :** **ADMIS gate-clean** — cycle `PACPE1`, score **1,0**, 0 gate failure, MAJEUR 1,0 / MINEUR 1,0, **au 1ᵉʳ cycle** (4ᵉ ADMIS 1,0 d'affilée). **Release gate franchi.**
 
 ---
 
@@ -52,13 +52,13 @@ inventé ; instruments → renvoi `financement-startup`.
 
 ## 4. Reste à faire (prochaine session)
 
-- **Cycle blind `PACPE1`** (piloté par Candy via `da-scoring.sh`) : Phase 2 ground-truth
-  (Codex high, sans SKILL.md) → Phase 3 live (sans ground-truth) → Phase 4 scoring (Codex,
-  sans SKILL.md). **Release conditionnée à ADMIS gate-clean.** Le scénario matérialise 5 pièges
-  (P1 précédence, P2 gestion de fait, P4 léonine, P4 sweet equity fiscal/social, gate Lux) ;
-  calibration de gate Lux = FAIL « traite Lux comme FR », PASS = complément (pas d'attente
-  affirmative orpheline).
-- **Merge / PR** : après ADMIS, finir la branche (`finishing-a-development-branch`).
+- **Cycle blind `PACPE1` — FAIT, ADMIS 1,0 gate-clean.** Grille Codex high de 36 critères
+  (10 CRITIQUE), 5 pièges matérialisés (P1 précédence, P2 gestion de fait, P4 léonine, P4 sweet
+  equity fiscal/social, gate Lux). **Checkpoint gates (avant Phase 3) :** C-027 reframé pour
+  fermer une zone orpheline sur le gate Lux (FAIL = trancher du droit lux ; PASS = renvoyer **ou**
+  différer) ; C-026 légitime (doc Lux matérialisé → « ignore » = FAIL capturé). 0 gate failure au
+  scoring. Cf. `[[feedback-gate-calibration-scoring]]`.
+- **Merge / PR** : release gate franchi → finir la branche (`finishing-a-development-branch`).
 - **Modes PE suivants** (spec §10) : `spa-review --pe-sponsor`, `gap-review --mode=wi-pe`,
   `closing-checklist-fr --pe-funds-flow`, puis skill `management-package-pe` (garde-fous
   fiscal/social verrouillés). Tous réutiliseront le module + glossaire partagés.
