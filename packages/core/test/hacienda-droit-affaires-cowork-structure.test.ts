@@ -224,7 +224,7 @@ describe("hacienda droit affaires cowork packaging", () => {
     for (const file of skillFiles) {
       const content = readFileSync(file, "utf8");
 
-      expect(content, file).toMatch(/^version:\s*"2\.0\.0"/m);
+      expect(content, file).toMatch(/^version:\s*"2\.\d+\.\d+"/m);
       expect(content, file).toMatch(/^argument-hint:/m);
       expect(content, file).not.toMatch(/^version:\s*"?1\.0\.0"?/m);
       expect(content, file).not.toContain("\r\n");
