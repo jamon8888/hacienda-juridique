@@ -90,7 +90,7 @@ Si le profil n'est pas peuplé (`[A CONFIGURER]`) : stopper et demander `/h-droi
 3. **Findings DD** (optionnel) — `--dd-findings=./rapport-dd.md` — active l'axe 5
 4. **Prix cession** (optionnel) — `--prix=15000000` (en €) — active les ratios plafond/prix
 5. **Mode `--distressed`** (optionnel) — overlay « cible en difficulté » : charge `references/distressed-overlay-fr.md` et centre la revue sur la **garantie de la garantie** (séquestre/GAPD face à un cédant insolvable) et le passif non purgé. Hors flag, si des **signaux de difficulté** apparaissent (procédure collective, cessation des paiements, cédant en perte, prix symbolique), **proposer** l'overlay sans l'imposer.
-6. **Mode `--pe`** (optionnel) — overlay Private Equity side sponsor : charge `references/pe-spa-gap-overlay-fr.md` et centre la GAP sur la **matrice GAP / W&I / disclosure**. `--side=sponsor` par défaut. Hors flag, si des signaux PE apparaissent, **proposer** l'overlay sans l'imposer.
+6. **Mode `--pe`** (optionnel) — overlay Private Equity side sponsor : charge `references/pe-spa-gap-overlay-fr.md` et centre la GAP sur la **matrice GAP / W&I / disclosure**. `--side=sponsor` par défaut (`--side=sponsor` ≡ côté acquéreur ; `--side=cedant` ≡ côté cédant sponsor). Hors flag, si des signaux PE apparaissent, **proposer** l'overlay sans l'imposer.
 
 Si `--side` est absent : stopper et demander explicitement. Le skill est side-dependent, une analyse « neutre » n'a pas de sens praticien.
 
