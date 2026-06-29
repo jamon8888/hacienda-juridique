@@ -470,8 +470,26 @@ Pour CHAQUE criterion de la grille, rends un verdict PASS ou FAIL + une
 justification d'une ligne citant le passage du livrable. N'invente aucun criterion.
 Ne calcule PAS le score global toi-même.
 
-Termine par un bloc JSON STRICT, sans autre texte autour :
-{"criteria":[{"id":"C-001","niveau":"MAJEUR","verdict":"PASS"}, ...]}
+⚠️ SORTIE OBLIGATOIRE — ta réponse DOIT se terminer par le bloc de verdicts décrit
+ci-dessous, et RIEN après lui. Sans ce bloc exact, le scoring est inexploitable et
+le travail est perdu. Respecte TOUTES ces règles :
+
+- Précède le bloc EXACTEMENT de cette ligne marqueur, seule sur sa ligne :
+  ===VERDICTS_JSON===
+- Juste après le marqueur, mets le JSON en BRUT sur une seule ligne (PAS de
+  clôture markdown, PAS de texte avant ou après).
+- Chaque objet contient EXACTEMENT trois clés : "id", "niveau", "verdict"
+  (verdict vaut "PASS" ou "FAIL"). PAS de "axe", PAS de "match_criteria".
+- NE RECOPIE PAS la grille d'entrée : la grille fournie n'a PAS de clé "verdict" ;
+  ton bloc DOIT en avoir une, non vide, sur CHAQUE objet. Recopier la grille = échec.
+- Un objet par criterion, dans l'ordre de la grille, aucun omis, aucun ajouté.
+- Avant d'envoyer, RELIS ton bloc et vérifie que chaque objet porte bien une clé
+  "verdict" ∈ {"PASS","FAIL"}.
+
+Exemple EXACT du format attendu (le marqueur seul sur sa ligne, puis le JSON brut) :
+
+===VERDICTS_JSON===
+{"criteria":[{"id":"C-001","niveau":"MAJEUR","verdict":"PASS"},{"id":"C-002","niveau":"CRITIQUE","verdict":"FAIL"}]}
 
 Le statut final (REJETÉ si un CRITIQUE FAIL, sinon ADMIS / RÉSERVES / INSUFFISANT)
 est calculé de façon déterministe par `scripts/tiered_scoring.py` à partir de ce JSON.
@@ -488,6 +506,13 @@ restent disponibles pour comparaison historique.
 
 ### Journal
 
+- **2026-06-29** — Phase 4 criteria : durcissement du bloc de sortie verdicts.
+  Marqueur `===VERDICTS_JSON===` + JSON brut une ligne, interdiction explicite de
+  recopier la grille (sans `verdict`), clés `{id,niveau,verdict}` exigées et
+  auto-vérification avant envoi. Récupération outillée via `scripts/extract-verdicts.py`
+  (bloc marqueur → JSON → table markdown). Origine : caprice récurrent Codex
+  (verdicts en table seule → `aggregate` KeyError, cf. cycle SPAPE1). Non structurant
+  (schéma JSON inchangé : `{id,niveau,verdict}`).
 - **2026-06-10** — Phase 2 criteria : ajout des « RÈGLES DE RÉDACTION DES CRITÈRES »
   (complémentarité PASS/FAIL sans zone orpheline, forme piège pour les gates,
   CRITIQUE réservé aux erreurs trompant le client). Clarification non structurante
