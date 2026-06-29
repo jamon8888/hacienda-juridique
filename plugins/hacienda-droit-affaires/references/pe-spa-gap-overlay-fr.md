@@ -230,7 +230,7 @@ et à un cédant sponsor souhaitant une sortie propre, la question du *security 
 **Funds flow / sources & uses.** Le tableau de flux (sources et emplois au closing) est
 un artefact clé du deal PE. La réconciliation entre le prix SPA, les montants ECL/DCL,
 le réinvestissement managers et les frais de transaction doit être parfaite. L'analyse
-détaillée du funds flow relève de `/h-da:closing-checklist-fr --pe-funds-flow` (à venir).
+détaillée du funds flow relève de `/h-da:closing-checklist-fr --pe`.
 Ce module signale les incohérences entre le prix du SPA et la structure ECL/DCL.
 
 ---
@@ -391,8 +391,7 @@ une information déterminante du consentement. Dans un deal PE :
 - **Requalification fiscale/sociale** du management package → nommée et renvoyée,
   jamais traitée au fond.
 
-- **Funds flow détaillé au closing** → `/h-da:closing-checklist-fr --pe-funds-flow`
-  (à venir — candidat #4).
+- **Funds flow détaillé au closing** → `/h-da:closing-checklist-fr --pe`
 
 ---
 
@@ -402,7 +401,7 @@ une information déterminante du consentement. Dans un deal PE :
   `/h-da:pacte-associes-review --pe`.
 - Instruments management package (BSA/BSPCE/ADP/AGA/OC) : `/h-da:financement-startup`.
 - Revue GAP sous angle W&I / disclosure : `/h-da:gap-review --pe` ↔ `/h-da:spa-review --pe`.
-- Funds flow / sources & uses au closing : `/h-da:closing-checklist-fr` (à venir).
+- Funds flow / sources & uses au closing : `/h-da:closing-checklist-fr --pe`.
 - PI substantiel dans les contrats cible : `/h-pi:contrats-pi`.
 - Cible en difficulté (overlay complémentaire) : voir `references/distressed-overlay-fr.md`
   (overlays s'empilent sans se dupliquer).
