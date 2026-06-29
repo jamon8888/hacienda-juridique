@@ -25,7 +25,7 @@
 - Étape conditionnelle : `plugins/hacienda-droit-affaires/skills/spa-review/SKILL.md` (étape 9bis)
 - Dataset : `plugins/hacienda-droit-affaires/tests/datasets/da-spa-review-distressed/`
 - Wrapper scoring : `scripts/da-scoring.sh` (entrée SPADIS)
-- Spec source : `docs/backlog/da-pacte-associes-pe-spec.md`
+- Spec source : `docs/superpowers/specs/2026-06-26-hacienda-da-pacte-associes-pe-design.md`
 
 ---
 
@@ -39,7 +39,7 @@
 | `plugins/hacienda-droit-affaires/.claude-plugin/plugin.json` (+ README, CHANGELOG, marketplace racine) | Bump version + mention mode | **Modify** |
 | `plugins/hacienda-droit-affaires/tests/datasets/da-pacte-associes-pe/scenario.md` | Fact-pattern de scoring (matérialise les erreurs dangereuses) | **Create** |
 | `scripts/da-scoring.sh` | Entrée de cycle pacte-pe (prompts phases 2/3/4) | **Modify** |
-| `docs/backlog/da-pacte-associes-pe-spec.md` | Spec (déjà écrite) | — |
+| `docs/superpowers/specs/2026-06-26-hacienda-da-pacte-associes-pe-design.md` | Spec (déjà écrite) | — |
 
 ---
 
@@ -87,7 +87,7 @@ git commit -m "feat(da): index articles PE-spécifiques pour overlay pacte --pe"
 
 **Files:**
 - Create: `plugins/hacienda-droit-affaires/references/pe-overlay-fr.md`
-- Lire pour imiter : `references/distressed-overlay-fr.md`, `docs/backlog/da-pe-landscape-fr-v2-pratique.md` (glossaire + douleurs), `docs/backlog/da-pacte-associes-pe-spec.md` (§3, §4).
+- Lire pour imiter : `references/distressed-overlay-fr.md`, `docs/backlog/da-pe-landscape-fr-v2-pratique.md` (glossaire + douleurs), `docs/superpowers/specs/2026-06-26-hacienda-da-pacte-associes-pe-design.md` (§3, §4).
 
 **Interfaces:**
 - Consumes: l'index de Task 1.
