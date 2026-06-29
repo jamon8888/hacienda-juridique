@@ -4,7 +4,8 @@ description: >
   suspensives à lever, séquençage signing/closing, documentation à réunir,
   formalités post-closing (dépôt au greffe, registre de mouvements de titres,
   droits d'enregistrement). Brouillon soumis à validation humaine (avocat).
-argument-hint: "[deal, side, conditions suspensives, calendrier]"
+  Mode `--pe` : lentille closing LBO (funds flow / sources & uses, mécanique day-1, assistance financière).
+argument-hint: "[deal, side, conditions suspensives, calendrier] [--pe --side=sponsor|cedant]"
 ---
 
 Use the `closing-checklist-fr` skill with these arguments:

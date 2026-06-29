@@ -89,7 +89,7 @@ l'auto-activation des skills.
 | `/h-da:cession-actifs-isoles` | Playbook côté repreneur : construire et défendre une offre d'acquisition d'actifs isolés (fonds, marques, stocks) en LJ, hors plan de cession (L.642-19). |
 | `/h-da:cgv-generator` | Génération assistée de CGV/CGU. |
 | `/h-da:check-pii` | Détection PII pré-vol. |
-| `/h-da:closing-checklist-fr` | Checklist signing, closing et post-closing. |
+| `/h-da:closing-checklist-fr` | Checklist signing, closing et post-closing. Mode `--pe` : lentille closing LBO côté sponsor (funds flow / sources & uses, CP financement & certain funds, mécanique de closing day-1, security package & assistance financière L.225-216 C.com., adhésion rollover & post-closing PE). |
 | `/h-da:constitution-societe` | Constitution de société et choix de forme. |
 | `/h-da:consulter-digest` | Lecture du digest de veille. |
 | `/h-da:declaration-cessation-paiements` | Côté débiteur : déclaration de cessation des paiements (dépôt de bilan), délai 45 j, pièces R.631-1, orientation RJ/LJ. |

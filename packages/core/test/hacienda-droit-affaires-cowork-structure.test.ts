@@ -223,6 +223,7 @@ describe("hacienda droit affaires cowork packaging", () => {
 
     const EXPECTED_SKILL_VERSION: Record<string, string> = {
       "pacte-associes-review": "2.1.0",
+      "closing-checklist-fr": "2.1.0",
     };
     const DEFAULT_SKILL_VERSION = "2.0.0";
 
