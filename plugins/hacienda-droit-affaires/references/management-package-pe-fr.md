@@ -151,9 +151,9 @@ des gains d'options : renvoi fiscaliste/socialiste.
 ### Economics à connaître et expliquer
 
 **Envy ratio.** L'envy ratio rapporte le multiple d'investissement du sponsor à celui des
-managers, en tenant compte de la part du capital acquise pour un investissement donné. En
-pratique : si le sponsor investit 10 pour obtenir 40% du capital et que le manager investit 1
-pour obtenir 5% du capital, l'envy ratio mesure l'asymétrie de ces economics. Un envy ratio
+managers, en tenant compte de la part du capital acquise pour un investissement donné. Exemple schématique (chiffres fictifs) : si le sponsor investit 10 pour obtenir 40% du capital
+et que le manager investit 1 pour obtenir 5% du capital, l'envy ratio mesure l'asymétrie de ces
+economics. Un envy ratio
 élevé favorise le manager (qui obtient une part de valeur supérieure à sa mise proportionnelle) ;
 un envy ratio faible signale un upside très limité pour le manager après récupération de la
 liquidation preference. **Mal compris ou mal expliqué, l'envy ratio est une source récurrente
@@ -244,8 +244,8 @@ départ leaver. Sa détermination est un point majeur de négociation :
   réelle, en particulier si la société a créé de la valeur depuis l'entrée du manager.
 - **Prix d'entrée / prix de souscription.** Prix payé à l'entrée, sans indexation sur la
   performance. Avantage pour le sponsor dans les premières années.
-- **Prix avec décote.** Décote sur FMV, souvent entre 10% et 30% `[à compléter selon pacte]`,
-  appliquée sur le bad leaver pour refléter la sanction contractuelle.
+- **Prix avec décote.** Décote sur FMV `[à compléter selon pacte]`, appliquée sur le bad
+  leaver pour refléter la sanction contractuelle.
 
 ### 🔴 Risque de clause confiscatoire : bad leaver à prix nominal trop large
 
@@ -381,6 +381,11 @@ la note du relecteur produite par le skill.
 La question-list est l'artefact central du skill `management-package-pe`. Elle est structurée
 en **matrice instrument × event × manager**, chaque cellule produisant une question à poser
 au spécialiste fiscal/social. Ce module fournit le gabarit ; les réponses sont hors périmètre.
+
+> **Lecture de la matrice.** Cette matrice est **instanciée par manager** : chaque manager
+> participant au package fait l'objet d'une passe distincte. La lecture est **side-aware
+> (sponsor | manager)** — le côté détermine le cadrage de chaque question (rapprocher des
+> points d'attention sponsor/manager de l'Axe M3).
 
 #### Matrice instrument × event : questions à poser
 
