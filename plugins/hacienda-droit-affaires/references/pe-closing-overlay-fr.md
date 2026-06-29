@@ -176,7 +176,7 @@ capitalisation BidCo) peut invalider des actes ou déclencher un événement de 
 ### Ce que la checklist standard couvre déjà
 
 Mainlevées des sûretés grevant les titres cédés ; formalités d'opposabilité du transfert de
-propriété des titres (L.228-1 C.com. `[à vérifier]` — déjà à l'index).
+propriété des titres (L.228-1 C.com. `[Légifrance]` — déjà à l'index).
 
 ### Ce que l'overlay PE ajoute
 
@@ -241,7 +241,7 @@ closing LBO. Il faut tenir le registre à **deux niveaux** :
   cash après reinvest). Chaque mouvement doit figurer dans le registre de mouvements de titres
   de BidCo — **ne pas oublier ce niveau**.
 - **Niveau cible** : transfert des titres de la cible aux vendeurs vers BidCo (virement de
-  compte à compte, L.228-1 C.com. `[à vérifier]` — déjà à l'index).
+  compte à compte, L.228-1 C.com. `[Légifrance]` — déjà à l'index).
 
 **Inscription des nantissements de comptes-titres :** formalité d'opposabilité — vérifier que
 l'inscription est réalisée et que le délai courant depuis la date de closing est respecté
