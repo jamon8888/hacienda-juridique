@@ -270,6 +270,28 @@ python3 scripts/codex-blind-scoring.py phase4 --skill x --skill-version 1 \
 
 **GPT-4.5 (orion) déconseillé** sur PI/DA FR — risque de citations CPI / C.com. / CJUE inventées.
 
+## Récupérer les verdicts Phase 4 — `extract-verdicts.py`
+
+Codex doit terminer sa réponse Phase 4 par le bloc `===VERDICTS_JSON===` suivi du
+JSON brut (cf. template durci). En pratique il lui arrive de rendre seulement la
+table markdown, ou de recopier la grille sans `verdict` — ce qui casse `aggregate`
+(`KeyError: 'verdict'`). `extract-verdicts.py` récupère les verdicts quelle que
+soit la forme rendue (bloc marqueur → JSON `{"criteria":[...]}` → table
+`| C-xxx | PASS/FAIL |`), reprend le niveau autoritatif du ground-truth, valide la
+cohérence des ids, et écrit `verdicts-<CODE>.json` :
+
+```bash
+# la sortie Codex est dans le presse-papier :
+python3 scripts/extract-verdicts.py <skill> <CODE> --clipboard
+# ou depuis un fichier (ex. le rapport da-scoring-<skill>-<CODE>.md) :
+python3 scripts/extract-verdicts.py <skill> <CODE> --file docs/backlog/da-scoring-<skill>-<CODE>.md
+# ou via un pipe :
+pbpaste | python3 scripts/extract-verdicts.py <skill> <CODE>
+```
+
+Il affiche ensuite la commande `aggregate` à lancer. Le niveau venant toujours du
+ground-truth, un juge Phase 4 ne peut pas redéfinir la sévérité d'un criterion.
+
 ## Évolutions du script
 
 Toute modification incompatible (renommage d'argument, changement de format de prompt structurant) = nouveau script versionné `codex-blind-scoring-v2.py`. Le script actuel reste exécutable pour rejouer des cycles historiques.

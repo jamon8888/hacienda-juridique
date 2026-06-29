@@ -86,7 +86,7 @@ substantielle.
 
 ## Intake
 
-1. **Mode** — `--review` par défaut ; options de sortie `--red-flags`, `--issues-list`, `--signing-ready` ; **`--distressed`** (overlay « cible en difficulté » — charge `references/distressed-overlay-fr.md`). Hors `--distressed`, si des **signaux de difficulté** sont détectés (procédure collective, cessation des paiements, prix symbolique + reprise de passif, déclaration de créance, sûretés récentes pour dettes antérieures), **proposer** l'overlay sans l'imposer.
+1. **Mode** — `--review` par défaut ; options de sortie `--red-flags`, `--issues-list`, `--signing-ready` ; **`--distressed`** (overlay « cible en difficulté » — charge `references/distressed-overlay-fr.md`). Hors `--distressed`, si des **signaux de difficulté** sont détectés (procédure collective, cessation des paiements, prix symbolique + reprise de passif, déclaration de créance, sûretés récentes pour dettes antérieures), **proposer** l'overlay sans l'imposer. **`--pe`** (overlay Private Equity, side sponsor — charge `references/pe-spa-gap-overlay-fr.md`) avec `--side=sponsor` (défaut) ou `--side=cedant` (`--side=sponsor` ≡ côté acquéreur ; `--side=cedant` ≡ côté cédant sponsor). Hors `--pe`, si des **signaux PE** (sponsor/BidCo/management package/rollover/ratchet/liquidation preference) sont détectés, **proposer** l'overlay sans l'imposer.
 2. **Fichier SPA** — chemin du PDF / DOCX / Markdown.
 3. **Side** — `--side=acquereur` | `--side=cedant` (**obligatoire**). Une analyse neutre d'un SPA n'a pas de sens praticien.
 4. **Type d'opération** — `--type=cession-titres` | `--type=cession-fonds` | `--type=asset-deal` | `--type=fusion`. Si absent, auto-détecter puis demander confirmation.
@@ -347,6 +347,20 @@ Sortir les findings distressed dans la liste de points (sévérité 🟢🟡🟠
 
 ---
 
+## Étape 9ter — Overlay PE (si `--pe` ou overlay accepté)
+
+**N'exécuter que si le mode PE est actif.** Charger `references/pe-spa-gap-overlay-fr.md`
+et appliquer ses axes **side-aware sponsor** au SPA :
+1. **S1 — mécanisme de prix PE** : locked box vs completion accounts ; leakage hors plafond GAP `[review]`.
+2. **S2 — certain funds & financement** : CP financement, ECL/DCL, BidCo SPV ; condition de financement résiduelle = risque d'exécution `[review]`.
+3. **S3 — MAC & période intercalaire** : MAC PE, interim covenants, antitrust/IEF/CSE en CP `[à vérifier]`.
+4. **S4 — rollover & management package** : cohérence SPA↔pacte → renvoi `/h-da:pacte-associes-review --pe` ; instruments → `/h-da:financement-startup` ; **requalif fiscale/sociale nommée et renvoyée, jamais traitée**.
+5. **S5 — garanties, W&I & funds flow** : articulation GAP/W&I → renvoi `/h-da:gap-review --pe` ; security for claims ; funds flow → `/h-da:closing-checklist-fr` (à venir).
+
+**Gate France/Lux** (cf. module partagé) : entité/docs fonds Lux → STOP overlay, renvoi conseil luxembourgeois ; l'overlay couvre la jambe FR. Sortir les findings PE dans la liste de points (sévérité 🟢🟡🟠🔴) et une ligne dédiée du résumé. **Ne pas chiffrer** le leakage / l'ajustement de prix (`[à compléter]`) ; **ne pas dater** le closing (semaines relatives). Si la cible est aussi en difficulté, **les overlays `--pe` et `--distressed` s'empilent** sans se dupliquer.
+
+---
+
 ## Étape 10 — Renvois et liste de points
 
 Produire les renvois actifs :
@@ -396,6 +410,11 @@ non traités par une source primaire consultée restent `[à vérifier]`.
 - Période suspecte / nullités (L.632-1/2) : {risque [review] | sans objet}
 - Passif non purgé + garantie de la garantie : {état | à compléter}
 - Renvois distressed : {gap-review --distressed / responsabilite-dirigeant / asset-vs-share-distress}
+
+## Overlay PE (si `--pe`)
+- Side : {sponsor | cedant}
+- Findings par axe : {S1 prix · S2 certain funds · S3 MAC · S4 rollover · S5 W&I/funds flow}
+- Renvois PE : {pacte-associes-review --pe / gap-review --pe / financement-startup / closing-checklist-fr (à venir)}
 
 ## Analyse par axes
 
@@ -453,6 +472,9 @@ non traités par une source primaire consultée restent `[à vérifier]`.
 - Donner un avis fiscal, social, PI, réglementaire ou AMF détaillé.
 - **Dater** la cessation des paiements ou la période suspecte en mode `--distressed` — semaines relatives ; la date est fixée par le tribunal (`[à compléter]`).
 - **Couvrir une cession judiciaire à la barre** — dès que la cible est en RJ/LJ avec appel d'offres ouvert, renvoi `/h-da:reprise-a-la-barre` / `/h-da:cession-actifs-isoles`.
+- **Traiter au fond** la requalification fiscale/sociale du management package en mode `--pe` (nommée et renvoyée).
+- **Structurer/rédiger** les instruments du management package (→ `/h-da:financement-startup`).
+- **Chiffrer** le leakage / l'ajustement de prix (`[à compléter]`).
 
 ## Ton
 

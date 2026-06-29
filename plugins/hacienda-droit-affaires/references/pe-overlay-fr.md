@@ -382,8 +382,8 @@ vue du sponsor qui veut sortir à des conditions optimales. Vérifier :
 ## Renvois
 
 - Instruments management package (BSA/BSPCE/ADP/AGA/OC) : `/h-da:financement-startup`.
-- Revue SPA côté sponsor (locked box, CP financement, rollover, MAC, W&I) :
-  `spa-review --pe` (à venir — vague PE candidat #2).
+- Revue SPA côté sponsor (locked box, certain funds, rollover, MAC, W&I) : `/h-da:spa-review --pe --side=sponsor`.
+- Revue GAP sous l'angle W&I / disclosure : `/h-da:gap-review --pe`.
 - Garanties personnelles managers / GAP managers cédants : `/h-da:gap-review`.
 - Orientation share vs asset si cible en difficulté : `/h-da:asset-vs-share-distress`.
 - Volet PI substantiel dans les contrats cible : `PI:contrats-pi`.
