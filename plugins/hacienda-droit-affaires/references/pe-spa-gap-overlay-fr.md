@@ -44,9 +44,16 @@ risque opposés pour le sponsor.
 
 - **Locked box** : le prix est fixé à une *date de référence économique* antérieure au
   signing ; la valeur est « verrouillée ». Le sponsor doit vérifier :
-  - Le *no-leakage covenant* : entre la date de référence et le closing, aucune valeur
-    ne peut sortir de la cible sans autorisation (dividendes, rémunérations hors cours
-    normal, paiements intragroupe) ;
+  - La **détermination de la date locked box** et la mise à disposition des **comptes
+    locked box arrêtés à cette date** : sans une date de référence clairement fixée *et*
+    les comptes correspondants, la base économique du prix fixe ne peut pas être validée
+    → `[review]` (réclamer les comptes `[à compléter]`) ;
+  - Le *no-leakage covenant* et la **définition du leakage** : entre la date de référence
+    et le closing, aucune valeur ne peut sortir de la cible sans autorisation. Exiger une
+    définition **élargie et précise** du leakage, couvrant non seulement les dividendes,
+    rémunérations hors cours normal et paiements intragroupe, mais aussi les **paiements
+    aux vendeurs ou parties liées, renonciations de créances, avantages indirects, frais
+    et impôts** ; une définition trop étroite laisse passer des fuites de valeur `[review]` ;
   - La liste de *permitted leakage* négociée ligne à ligne : l'absence d'un poste
     habituel dans la liste autorisée est un signal `[review]` ;
   - Le mécanisme de remboursement du leakage non autorisé : côté acquéreur, ce
