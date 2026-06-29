@@ -103,6 +103,7 @@ l'auto-activation des skills.
 | `/h-da:gouvernance-ag` | Convocations et PV d'assemblées. |
 | `/h-da:liste-de-points` | Issues list de négociation. |
 | `/h-da:loi-term-sheet` | LOI, NBO et term sheet M&A. |
+| `/h-da:management-package-pe` | Cartographie management package PE (LBO) côté français : documents, instruments, economics (sweet equity, envy ratio, ratchet, vesting, leaver), signalement clauses confiscatoires, question-list fiscal/social. Side-aware sponsor \| manager. |
 | `/h-da:mise-en-demeure-commerciale` | Mise en demeure commerciale B2B (payer / exécuter) avec garde-fou procédure collective. |
 | `/h-da:pacte-associes-review` | Revue de pacte d'associés. Mode `--pe` : overlay Private Equity / pacte d'investissement (LBO, sponsor + management, axes P1-P5, gate France/Lux, side sponsor/management). |
 | `/h-da:pre-pack-cession` | Cadrage du montage pre-pack cession (distressed-M&A). |

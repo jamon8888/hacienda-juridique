@@ -219,7 +219,7 @@ describe("hacienda droit affaires cowork packaging", () => {
   it("declares explicit V2 metadata and command hints on every skill", () => {
     const skillFiles = collectSkillFiles();
 
-    expect(skillFiles.length).toBe(31);
+    expect(skillFiles.length).toBe(32);
 
     const EXPECTED_SKILL_VERSION: Record<string, string> = {
       "pacte-associes-review": "2.1.0",
