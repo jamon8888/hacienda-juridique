@@ -59,6 +59,7 @@ SKILLS=(
   spa-review-distressed
   spa-review-pe
   pacte-associes-pe
+  closing-pe
 )
 
 # Code de cycle par defaut, surchargeable via la variable d'environnement CODE
@@ -83,6 +84,7 @@ code_for() {
     spa-review-distressed) echo "SPADIS" ;;
     spa-review-pe) echo "SPAPE1" ;;
     pacte-associes-pe) echo "PACPE1" ;;
+    closing-pe) echo "CLOPE1" ;;
   esac
 }
 
@@ -105,6 +107,7 @@ mode_for() {
     spa-review-distressed) echo "revue SPA avec overlay --distressed (cible en difficulte)" ;;
     spa-review-pe) echo "revue SPA avec overlay --pe (cible PE, side sponsor)" ;;
     pacte-associes-pe) echo "revue pacte d'investissement LBO avec overlay --pe (sponsor + management)" ;;
+    closing-pe) echo "pilotage du closing d'une acquisition LBO avec le mode --pe actif, side sponsor" ;;
   esac
 }
 
@@ -127,6 +130,7 @@ spec_for() {
     spa-review-distressed) echo "revue d'un SPA prive de cession de titres d'une cible EN DIFFICULTE mais PAS encore a la barre (pre-procedure / amiable / pre-pack), avec le mode --distressed actif ; side acquereur ou cedant ; doit appliquer l'overlay difficulte : (D1) periode suspecte et nullites L.632-1 de droit / L.632-2 facultatives sans DATER la cessation des paiements (date fixee par le tribunal, retroactive) et sans CONCLURE a la nullite (risque review) ; (D2) passif non purge en share deal -> GAP centrale ; (D3) garantie de la garantie (sequestre/GAPD) face a un cedant insolvable, sinon protection theorique ; (D4) transferts et solidarites L.1224-1, L.1684 CGI/L.267 LPF, ICPE a NOMMER et renvoyer sans conseil fiscal ; (D5) MAC et condition suspensive d'absence de procedure ; gate barre : si la cible est DEJA en RJ/LJ avec appel d'offres ouvert, REFUSER l'overlay et renvoyer reprise-a-la-barre / cession-actifs-isoles ; ne chiffre pas le passif ; exposition dirigeant cedant a NOMMER et router vers responsabilite-dirigeant sans evaluer ; faits en semaines relatives" ;;
     spa-review-pe) echo "revue d'un SPA d'acquisition LBO cote sponsor : locked box, certain funds, MAC, rollover/management package, articulation GAP/W&I" ;;
     pacte-associes-pe) echo "revue d'un pacte d'investissement LBO sur SAS HoldCo france avec le mode --pe actif ; side management pool ; doit appliquer l'overlay PE sur 5 axes (P1 hierarchie et precedence des pactes, P2 gouvernance et gestion de fait, P3 economie et preferences -- liquidation preference, ratchet, sweet equity, P4 leaver et sweet equity fiscal/social, P5 liquidite et sortie sponsor -- drag, put/call, ROFR, lock-up ; gate France/Lux transverse) ; (P1) pacte d'investissement nouveau + ancien pacte coexistants sans clause de resilitation formelle -> FAIL si la tension de precedence n'est pas identifiee et qualifiee ; (P2) veto sponsor tres large couvrant des actes courants de gestion -> qualifier le risque de gestion de fait (L.651-2 C.com.), ne pas conclure, taguer review ; (P4) bad leaver a valeur nominale indifferencie sans distinction good/bad ni date ni circonstances -> clause leonine a qualifier (art. 1844-1 C.civ.), risque de requalification ; (P4 suite) sweet equity managers (AP de categorie C a prix symbolique) -> NOMMER le risque fiscal et social (requalification en salaires, regime BNC, regime URSSAF), RENVOYER vers conseil fiscal/social specialise, JAMAIS traiter au fond ni chiffrer le risque ; (P5 / gate) document satellite soumis au droit luxembourgeois -> FAIL si le skill l'analyse sous le droit francais ; PASS = le skill identifie la loi etrangere applicable et renvoie vers conseil luxembourgeois ; gate non affirmatif-orphelin : FAIL = appliquer le test FR a des faits Lux ; PASS = signaler la loi etrangere et formuler comme complement ; faits en semaines relatives, aucune date calendaire, aucun conseil fiscal final" ;;
+    closing-pe) echo "closing d'une acquisition LBO sur SAS (BidCo FR -> cible FR) avec le mode --pe actif, side sponsor ; doit appliquer l'overlay sur 5 axes (L1 funds flow / sources & uses, L2 CP financement & certain funds, L3 mecanique de closing day-1, L4 security package & assistance financiere, L5 adhesion rollover & post-closing PE) ; (L1) tableau sources & uses dont une ligne ne reconcilie pas (prix SPA != ligne use, ou Somme sources != Somme uses) -> FAIL si l'incoherence n'est pas detectee ; structure a produire, montants a NE PAS chiffrer (a completer) ; (L4 piege phare) la cible donne une surete/garantie remontante au service de la dette d'acquisition de BidCo -> assistance financiere L.225-216 C.com. : FAIL si le risque n'est pas signale ; qualifier review, NE JAMAIS valider le montage ; (gate) document/entite de fonds soumis au droit luxembourgeois -> FAIL si analyse sous droit francais ; PASS = identifie la loi etrangere et renvoie conseil luxembourgeois ; gate non affirmatif-orphelin ; (L5) registre de mouvements de titres au niveau BidCo (holding) oublie -> FAIL ; (L2) desalignement CP du SPA vs conditions DCL/ECL non signale -> FAIL ; faits en semaines relatives, aucune date calendaire, aucun conseil fiscal final, aucun quantum" ;;
   esac
 }
 
@@ -149,6 +153,7 @@ desc_for() {
     spa-review-distressed) echo "Revue d'un SPA prive sur une cible en difficulte (pre-procedure/amiable/pre-pack) avec le mode --distressed : applique l'overlay difficulte (periode suspecte/nullites L.632-1/2, passif non purge, garantie de la garantie, transferts/solidarites, MAC/CS), side-aware. Refuse et renvoie aux playbooks barre si la cible est deja a la barre. Ne date pas la cessation des paiements, ne chiffre pas le passif, ne conclut pas la nullite (risque review), n'evalue pas la responsabilite du dirigeant. Brouillon soumis a validation avocat M&A. NE PAS supposer le contenu du SKILL.md ni du module de reference." ;;
     spa-review-pe) echo "Revue d'un SPA d'acquisition LBO cote sponsor : applique l'overlay Private Equity (locked box et leakage, certain funds et conditions residuelles, reserved matters sponsor, bad leaver managers, structure multi-niveaux). Articulation GAP/W&I, side sponsor. Brouillon soumis a validation avocat M&A/PE. NE PAS supposer le contenu du SKILL.md ni du module de reference." ;;
     pacte-associes-pe) echo "Revue d'un pacte d'investissement LBO avec le mode --pe : applique l'overlay Private Equity sur 5 axes (P1 hierarchie pactes, P2 gouvernance, P3 economie/preferences, P4 leaver et sweet equity, P5 liquidite/sortie sponsor). Cote management pool. Qualifie les clauses leonines bad leaver (art. 1844-1 C.civ.), le risque de gestion de fait du sponsor (L.651-2 C.com.), la tension de precedence entre ancien pacte et nouveau pacte d'investissement, et le sweet equity (renvoi fiscal/social sans conseil au fond). Detecte les documents satellites soumis a un droit etranger et renvoie vers un conseil local competent. Ne chiffre aucun quantum fiscal ou social, ne conclut pas sur la requalification, ne tranche pas la precedence des pactes (risque review). Brouillon soumis a validation avocat PE. NE PAS supposer le contenu du SKILL.md ni du module de reference." ;;
+    closing-pe) echo "Pilotage du closing d'une acquisition LBO avec le mode --pe : applique l'overlay Private Equity sur 5 axes (L1 funds flow/sources & uses, L2 CP financement & certain funds, L3 mecanique de closing day-1, L4 security package & assistance financiere, L5 adhesion rollover & post-closing PE). Side sponsor. Produit la structure du funds flow (jamais les montants), signale l'assistance financiere L.225-216 C.com. (la cible ne peut pas garantir la dette d'acquisition) sans valider de montage, et le registre de mouvements de titres aux deux niveaux (BidCo + cible). Detecte les documents de fonds soumis a un droit etranger et renvoie au conseil local. Ne chiffre aucun montant ni quantum fiscal, ne valide pas le montage d'assistance financiere, ne donne pas d'avis fiscal. Brouillon soumis a validation avocat M&A/PE. NE PAS supposer le contenu du SKILL.md ni du module de reference." ;;
   esac
 }
 
@@ -171,6 +176,7 @@ command_for() {
     spa-review-distressed) echo "/h-da:spa-review --distressed" ;;
     spa-review-pe) echo "/h-da:spa-review --pe --side=sponsor" ;;
     pacte-associes-pe) echo "/h-da:pacte-associes-review --pe" ;;
+    closing-pe) echo "/h-da:closing-checklist-fr --pe --side=sponsor" ;;
   esac
 }
 
@@ -205,6 +211,7 @@ Skills:
   spa-review-distressed
   spa-review-pe
   pacte-associes-pe
+  closing-pe
 
 Overrides (variables d'environnement) :
   CODE=<6chars>   code de cycle (surcharge le defaut ; obligatoire pour re-scorer un skill)

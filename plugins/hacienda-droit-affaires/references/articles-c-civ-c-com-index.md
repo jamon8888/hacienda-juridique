@@ -195,6 +195,7 @@ laissé en `[a compléter]`.
 | L.225-3 | SA — apports en nature, libération intégrale à l'émission | LEGIARTI000006223427 | Actions d'apport libérées dès émission ; pas d'apport en industrie |
 | L.225-96 | SA — assemblée générale extraordinaire (quorum et majorité) | [a compléter] | Quorum 1/4 sur 1re convocation, 1/5 sur 2e ; majorité 2/3 des voix exprimées |
 | L.225-98 | SA — assemblée générale ordinaire (quorum et majorité) | LEGIARTI000042339455 | Quorum 1/5 sur 1re convocation ; majorité simple des voix exprimées |
+| L.225-216 | Interdiction de l'assistance financière — une société ne peut avancer des fonds, consentir des prêts ni donner des sûretés en vue de la souscription ou de l'achat de ses propres actions par un tiers | [à vérifier] | Closing LBO / debt push-down / upstream guarantee. Piège phâre `closing-checklist-fr --pe` (axe L4). Applicabilité à la SAS par renvoi L.227-1 `[à vérifier]`. |
 
 ### SAS (articles L.227-x)
 

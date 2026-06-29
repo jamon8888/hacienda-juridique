@@ -5,10 +5,11 @@ description: >
   suspensives à lever, séquençage signing/closing, documentation à réunir,
   formalités post-closing (dépôt au greffe, registre de mouvements de titres,
   droits d'enregistrement). Brouillon soumis à validation humaine (avocat).
-version: "2.0.0"
-argument-hint: "[deal, side, conditions suspensives, calendrier]"
+  Mode `--pe` : lentille closing LBO (funds flow / sources & uses, mécanique day-1, assistance financière).
+version: "2.1.0"
+argument-hint: "[deal, side, conditions suspensives, calendrier] [--pe --side=sponsor|cedant]"
 authors: ["Hacienda"]
-tags: [closing, checklist, ma, conditions-suspensives, formalites]
+tags: [closing, checklist, ma, conditions-suspensives, formalites, pe, lbo, funds-flow]
 ---
 
 # Skill — Checklist de closing
@@ -74,6 +75,19 @@ La checklist post-closing est rendue en tableau avec statut et responsable par f
 </response>
 </example>
 
+<example>
+<user>/h-droit-affaires:closing-checklist-fr --type=cession-titres --forme=SAS --pe --side=sponsor</user>
+<response>
+Mode PE (side sponsor). Outre les 4 volets standard, l'Étape PE applique L1–L5 : Volet 5 funds flow /
+sources & uses (structure, montants `[à compléter]`), séquençage CP financement (DCL/ECL/certain funds),
+chorégraphie day-1 (capitalisation BidCo → tirage dette → paiement vendeurs → rollover →
+refinancement/mainlevées → security package), et 🔴 contrôle assistance financière (L.225-216 C.com.
+`[à vérifier]` : la cible ne peut pas garantir la dette d'acquisition — `[review]`, renvoi montage).
+Registre de mouvements de titres aux deux niveaux (BidCo + cible) + accession deed rollover au closing.
+Gate France/Lux : docs fonds Lux hors périmètre.
+</response>
+</example>
+
 ---
 
 ## Chargement du profil
@@ -100,6 +114,14 @@ pour les éléments cabinet partagés cross-plugins.
 3. **Conditions suspensives connues** — `--cp="agrément du conseil, financement"`. Liste libre des CP déjà identifiées. Si l'option est absente, le skill demande les CP à l'intake ou les déduit des documents fournis et le signale.
 4. **Date de closing visée** — `--closing=2026-09-30`. Sert à calculer les échéances de levée des CP et à ordonner le séquençage. Si absente, le séquençage est rendu en jalons relatifs (closing − N jours).
 
+**Mode `--pe` (overlay Private Equity, side sponsor).** Charge `references/pe-closing-overlay-fr.md`.
+En mode `--pe`, `--side` bascule sur `--side=sponsor` (défaut, ≡ acquéreur) | `--side=cedant`
+(≡ cédant sponsor). Hors `--pe`, si des **signaux PE** sont détectés (sponsor / BidCo / funds flow /
+sources & uses / ECL / DCL / certain funds / rollover / accession deed / debt push-down), **proposer**
+l'overlay sans l'imposer (un seul signal sérieux suffit). L'overlay couvre la **jambe française** ;
+docs / entité fonds luxembourgeois → STOP overlay, renvoi conseil luxembourgeois (gate France/Lux,
+cf. module partagé).
+
 Le skill peut aussi prendre en intake les documents disponibles (SPA, projet de
 GAP, statuts, projet de CP) ; il les lit pour alimenter le recensement, sans
 les analyser au fond — la revue de fond relève des skills dédiés (voir
@@ -121,6 +143,10 @@ les analyser au fond — la revue de fond relève des skills dédiés (voir
 - [ ] Articles hors index ou en `[a compléter]` tagués `[à vérifier]`
 - [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
 - [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + checklist en 4 volets sous forme de tableaux + question hors checklist + arbre de décision 5 options + footer A si applicable
+- [ ] Si `--pe` : module `references/pe-closing-overlay-fr.md` chargé, side `sponsor`/`cedant` posé, gate France/Lux respecté
+- [ ] Si `--pe` : Volet 5 funds flow / sources & uses produit (structure ; montants `[à compléter]`, aucun chiffre fabriqué)
+- [ ] Si `--pe` : assistance financière (L.225-216 C.com.) vérifiée — aucune sûreté/garantie remontante de la cible validée ; risque qualifié `[review]` et renvoyé
+- [ ] Si `--pe` : registre de mouvements de titres aux deux niveaux (BidCo + cible) ; accession deed rollover présent
 
 ---
 
@@ -353,6 +379,35 @@ l'expert ; aucun taux n'est chiffré comme une certitude.
 
 ---
 
+## Étape PE — Overlay closing LBO (si `--pe` ou overlay accepté)
+
+Ne s'exécute qu'avec `--pe` (flag) ou après acceptation d'une auto-proposition. Charger
+`references/pe-closing-overlay-fr.md` et appliquer les 5 axes, side `sponsor` (défaut) ou `cedant` :
+
+1. **L1 — Funds flow / sources & uses** : produire le **tableau sources & uses** (Volet 5) ;
+   réconciliation Σsources = Σuses, cohérence avec le prix SPA et les montants ECL/DCL ; waterfall
+   des virements day-1. **Ne pas chiffrer** — structure et lignes, montants en `[à compléter]`.
+2. **L2 — CP financement & certain funds** : séquencer les conditions DCL/ECL et le certain funds
+   pour le jour J ; signaler tout désalignement CP du SPA ↔ conditions de financement (→ Volet 1).
+3. **L3 — Mécanique de closing LBO** : chorégraphie day-1 (capitalisation BidCo → tirage dette →
+   paiement vendeurs → rollover → refinancement/mainlevées → security package) (→ Volet 2).
+4. **L4 — Security package & assistance financière** : 🔴 vérifier qu'aucune sûreté/garantie
+   remontante de la cible ne sécurise la dette d'acquisition (**assistance financière L.225-216
+   C.com. `[à vérifier]`**) ; qualifier le risque `[review]`, **ne jamais valider un montage**,
+   renvoyer au montage fiscal/financier (→ Volets 2/3 + findings).
+5. **L5 — Adhésion rollover & post-closing PE** : accession deed au closing ; **registre de
+   mouvements de titres aux deux niveaux (BidCo + cible)** ; inscription des nantissements ; closing
+   bible PE ; régime fiscal d'apport rollover → `[à vérifier]`, renvoi expert (→ Volet 4).
+
+**Gate France/Lux** (module partagé) : entité/docs fonds Lux → STOP overlay, renvoi conseil
+luxembourgeois ; l'overlay couvre la jambe FR. Sortir les findings PE dans les volets existants
+(sévérité 🟢🟡🟠🔴) + le **Volet 5 funds flow**. **Ne pas chiffrer** le funds flow (`[à compléter]`) ;
+**ne pas valider** l'assistance financière (`[review]`, renvoi) ; **ne pas dater** le closing
+(semaines relatives). Si la cible est aussi en difficulté, **les overlays `--pe` et `--distressed`
+s'empilent** sans se dupliquer.
+
+---
+
 ## Étape 5 — Post-flight
 
 Appel automatique de `verifier-citations` sur la sortie complète. Les articles
@@ -389,6 +444,24 @@ Si PISTE n'est pas configuré : mode dégradé documenté dans la note du relect
 | ... | Inscription au registre de mouvements de titres + mise à jour des comptes d'associés | sans délai après closing | ... | société / mandataire |
 | ... | Enregistrement de la cession — droits d'enregistrement (taux a verifier — renvoi expert-comptable / hacienda-fiscal) | délai propre — a verifier | ... | acquéreur / rédacteur |
 | ... | Information des tiers (changement de contrôle, organes, salariés selon le cas) | ... | ... | ... |
+
+## Volet 5 — Funds flow / sources & uses (si `--pe`)
+
+Réconciliation **sources & uses** au closing (structure ; **montants en `[à compléter]`, jamais chiffrés**).
+
+| Sources | Montant | Uses | Montant |
+|---|---|---|---|
+| Equity sponsor (ECL) | [à compléter] | Prix d'acquisition (SPA) | [à compléter] |
+| Rollover managers (reinvest) | [à compléter] | Refinancement dette existante cible | [à compléter] |
+| Dette senior (DCL) | [à compléter] | Frais de transaction + prime W&I | [à compléter] |
+| Mezzanine / unitranche / vendor loan | [à compléter] | Frais de mise en place de la dette | [à compléter] |
+| Cash on balance sheet | [à compléter] | Escrow / holdback + BFR day-1 | [à compléter] |
+| **Σ sources** | [à compléter] | **Σ uses** | [à compléter] |
+
+Réconciliation : Σsources = Σuses ; le prix SPA figure en use ; cohérence ECL/DCL/reinvest.
+Toute incohérence est un point 🟠/🔴. Waterfall des virements day-1 rendu en tableau (étape / flux /
+compte émetteur → récepteur / moment), avec la ligne 🔴 **assistance financière** si une sûreté/garantie
+remontante de la cible sécurise la dette d'acquisition (L.225-216 C.com. `[à vérifier]`, `[review]`).
 
 # Une question hors de ma checklist habituelle
 
@@ -432,6 +505,11 @@ non-juriste, la contrepartie ou un conseil tiers :
 - Instruire une autorisation administrative ou sectorielle (contrôle des investissements étrangers, autorisations sectorielles) → `hacienda-reglementaire` ; le contrôle des concentrations relève d'un conseil concurrence.
 - Instruire les obligations d'information-consultation des salariés → `hacienda-social`.
 - Réaliser, signer ou exécuter le closing — acte des parties et de l'approbateur configuré ; ce skill organise et séquence, il n'exécute pas.
+- En mode `--pe` : ne **chiffre pas** le funds flow (structure du tableau sources & uses ; montants `[à compléter]`).
+- En mode `--pe` : ne **valide pas** un montage d'**assistance financière / debt push-down / upstream guarantee** (L.225-216 C.com.) — risque nommé, qualifié `[review]`, renvoyé.
+- En mode `--pe` : pas d'avis fiscal (régime d'apport du rollover, intégration fiscale LBO, droits d'enregistrement) → `[à vérifier]`, renvoi expert / `hacienda-fiscal`.
+- En mode `--pe` : ne structure pas les instruments du management package (BSA/BSPCE/ADP/AGA/OC) → `financement-startup`.
+- En mode `--pe` : ne couvre pas les documents luxembourgeois (gate France/Lux).
 
 ---
 
@@ -448,3 +526,4 @@ cession de fonds de commerce et fusion — les formalités diffèrent. Ne jamais
 chiffrer un taux de droits d'enregistrement : c'est un sujet fiscal, tagué
 `[à vérifier]` et renvoyé à l'expert. La sortie est un brouillon soumis à
 validation humaine (avocat) M&A avant d'être utilisée pour piloter une opération réelle.
+En mode `--pe`, le funds flow / sources & uses est l'artefact central (structure, jamais les montants), et l'assistance financière (L.225-216 C.com.) est le piège closing LBO à signaler sans jamais valider de montage.

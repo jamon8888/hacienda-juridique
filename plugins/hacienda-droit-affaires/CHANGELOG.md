@@ -1,5 +1,18 @@
 # Changelog — hacienda-droit-affaires
 
+## 0.18.0
+
+### Ajouté
+- Mode `closing-checklist-fr --pe` (lentille closing LBO, side sponsor) : axes L1–L5
+  (funds flow / sources & uses, CP financement & certain funds, mécanique de closing day-1,
+  security package & **assistance financière L.225-216 C.com.**, adhésion rollover & post-closing PE).
+  4ᵉ mode de la vague Private Equity ; module frère partagé `references/pe-closing-overlay-fr.md`.
+- Article `L.225-216 C.com.` (assistance financière) ajouté à l'index.
+
+### Modifié
+- Forward-refs des modes `spa-review --pe` / `gap-review --pe` alignés `--pe-funds-flow` → `--pe`.
+- `closing-checklist-fr` 2.0.0 → 2.1.0 (mode ajouté ; closing standard inchangé).
+
 ## 0.17.0
 
 - Ajout du mode `--pe --side=sponsor` à `spa-review` et du mode `--pe` à `gap-review` : module frère partagé `pe-overlay-fr.md` (axes S1–S5 / W1–W3), côté sponsor, overlay Private Equity (locked box, certain funds, rollover, MAC, W&I, articulation GAP/W&I / disclosure). Count skills : 31 inchangé. Renvois live activés dans `pe-overlay-fr.md` (section `## Renvois`).

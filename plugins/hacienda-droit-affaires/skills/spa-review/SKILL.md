@@ -355,7 +355,7 @@ et appliquer ses axes **side-aware sponsor** au SPA :
 2. **S2 — certain funds & financement** : CP financement, ECL/DCL, BidCo SPV ; condition de financement résiduelle = risque d'exécution `[review]`.
 3. **S3 — MAC & période intercalaire** : MAC PE, interim covenants, antitrust/IEF/CSE en CP `[à vérifier]`.
 4. **S4 — rollover & management package** : cohérence SPA↔pacte → renvoi `/h-da:pacte-associes-review --pe` ; instruments → `/h-da:financement-startup` ; **requalif fiscale/sociale nommée et renvoyée, jamais traitée**.
-5. **S5 — garanties, W&I & funds flow** : articulation GAP/W&I → renvoi `/h-da:gap-review --pe` ; security for claims ; funds flow → `/h-da:closing-checklist-fr` (à venir).
+5. **S5 — garanties, W&I & funds flow** : articulation GAP/W&I → renvoi `/h-da:gap-review --pe` ; security for claims ; funds flow → `/h-da:closing-checklist-fr --pe`.
 
 **Gate France/Lux** (cf. module partagé) : entité/docs fonds Lux → STOP overlay, renvoi conseil luxembourgeois ; l'overlay couvre la jambe FR. Sortir les findings PE dans la liste de points (sévérité 🟢🟡🟠🔴) et une ligne dédiée du résumé. **Ne pas chiffrer** le leakage / l'ajustement de prix (`[à compléter]`) ; **ne pas dater** le closing (semaines relatives). Si la cible est aussi en difficulté, **les overlays `--pe` et `--distressed` s'empilent** sans se dupliquer.
 
@@ -414,7 +414,7 @@ non traités par une source primaire consultée restent `[à vérifier]`.
 ## Overlay PE (si `--pe`)
 - Side : {sponsor | cedant}
 - Findings par axe : {S1 prix · S2 certain funds · S3 MAC · S4 rollover · S5 W&I/funds flow}
-- Renvois PE : {pacte-associes-review --pe / gap-review --pe / financement-startup / closing-checklist-fr (à venir)}
+- Renvois PE : {pacte-associes-review --pe / gap-review --pe / financement-startup / closing-checklist-fr --pe}
 
 ## Analyse par axes
 
