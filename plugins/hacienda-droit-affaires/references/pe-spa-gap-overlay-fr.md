@@ -179,6 +179,12 @@ Vérifier la cohérence SPA ↔ pacte :
 - Le non-compete du SPA est-il articulé avec le non-compete du pacte (durée, périmètre,
   contrepartie en droit FR) ? Tout désalignement = `[review]` ;
 - L'*accession deed* est-il conditionnel au closing ou signé avant ? Vérifier la date.
+- **Fondateurs/cédants en rollover** (pas seulement les managers) : un fondateur qui
+  réinvestit cumule **trois qualités** — *vendeur* (titres cédés), *garant* (au titre de
+  la GAP) et *investisseur rollover* (titres BidCo/HoldCo) — source de conflits d'intérêts
+  `[review]`. Exiger qu'il **signe lui aussi l'*accession deed*** au pacte ; à défaut, ses
+  droits et obligations d'investisseur ne lui sont pas opposables (analyse du pacte via
+  `/h-da:pacte-associes-review --pe`).
 
 **Renvoi pacte.** L'analyse détaillée du pacte (gouvernance, leaver, drag/tag, liquidation
 preference, ratchet, sweet equity, leaver indexé) relève de `/h-da:pacte-associes-review --pe`.
@@ -281,6 +287,11 @@ et non sur lui directement. La structure courante est :
   capacité) et les *specific indemnities* (risques identifiés) ;
 - Security for claims (escrow ou GAPD) calibrée sur les *fundamental warranties* et les
   *specific indemnities* seulement.
+- **Recours directs à préserver hors W&I**, quelle que soit la police : la **fraude** du
+  cédant (jamais assurable ni excluable), le **leakage** (cf. Axe S1), les **garanties
+  fondamentales** et les **covenants spécifiques** restent exerçables **directement contre
+  les vendeurs** — vérifier qu'une clause de recours nil/réduit ne les emporte pas par
+  inadvertance `[review]`.
 
 Côté acquéreur : vérifier que la police W&I est effectivement souscrite, valide et
 suffisante avant d'accepter un recours cédant nil ou réduit. Sans police W&I en place
