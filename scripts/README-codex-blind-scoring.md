@@ -168,8 +168,11 @@ python3 scripts/codex-blind-scoring.py phase4-criteria \
 ```
 
 Le scoreur rend, en fin de réponse, un bloc JSON strict
-`{"criteria":[{"id","niveau","verdict"}, ...]}`. Le sauvegarder, puis agréger
-de façon déterministe :
+`{"criteria":[{"id","niveau","verdict","preuve"}, ...]}`. La clé **`preuve`**
+(citation/localisation imposée au scoreur, anti-hallucination) est **conservée** dans
+`verdicts-<CODE>.json` par `extract-verdicts.py` et sert d'**audit** : un FAIL dont la
+preuve cite un passage traitant le point est une auto-contradiction à revoir. Le
+sauvegarder, puis agréger de façon déterministe (`tiered_scoring.py` ignore `preuve`) :
 
 ```bash
 python3 scripts/tiered_scoring.py .../da-declaration-creance/ground-truth.md .../da-declaration-creance/verdicts-ZG7Q5O.json

@@ -33,7 +33,11 @@ def read_raw(args) -> str:
 
 
 def parse_verdicts(raw: str) -> dict:
-    """Retourne {id: verdict} depuis la sortie Codex, par tentatives successives."""
+    """Retourne {id: {"verdict","preuve"}} depuis la sortie Codex, par tentatives successives.
+
+    La clé "preuve" (citation/localisation imposée au scorer, anti-hallucination) est
+    préservée quand présente ; vide sinon (verdict legacy 3 clés ou fallback table).
+    """
     # 1. bloc après le marqueur
     m = re.search(r"===VERDICTS_JSON===\s*(\{.*?\})", raw, re.S)
     candidates = [m.group(1)] if m else []
@@ -46,15 +50,39 @@ def parse_verdicts(raw: str) -> dict:
             continue
         crit = data.get("criteria", [])
         if crit and all("verdict" in c for c in crit):
-            return {c["id"]: c["verdict"].strip().upper() for c in crit}
-    # 3. fallback : table markdown | C-xxx | PASS/FAIL |
+            return {
+                c["id"]: {
+                    "verdict": c["verdict"].strip().upper(),
+                    "preuve": (c.get("preuve") or "").strip(),
+                }
+                for c in crit
+            }
+    # 3. fallback : table markdown | C-xxx | PASS/FAIL | (sans preuve)
     rows = re.findall(r"^\|\s*(C-\d{3})\s*\|\s*(PASS|FAIL|PARTIEL)\s*\|", raw, re.M)
     if rows:
-        return {cid: ("FAIL" if v == "PARTIEL" else v) for cid, v in rows}
+        return {cid: {"verdict": ("FAIL" if v == "PARTIEL" else v), "preuve": ""} for cid, v in rows}
     raise SystemExit(
         "extract-verdicts : aucun verdict trouvé (ni bloc ===VERDICTS_JSON===, "
         "ni JSON avec 'verdict', ni table | C-xxx | PASS/FAIL |)."
     )
+
+
+def build_payload(skill: str, code: str, gt_criteria: list, verd: dict) -> dict:
+    """Construit le JSON verdicts persisté : niveau autoritatif du ground-truth,
+    verdict + preuve repris de la sortie Codex parsée."""
+    return {
+        "skill": skill,
+        "code": code,
+        "criteria": [
+            {
+                "id": c["id"],
+                "niveau": c["niveau"],
+                "verdict": verd[c["id"]]["verdict"],
+                "preuve": verd[c["id"]].get("preuve", ""),
+            }
+            for c in gt_criteria
+        ],
+    }
 
 
 def main() -> None:
@@ -82,20 +110,20 @@ def main() -> None:
             f"verdicts incohérents avec le ground-truth — "
             f"non scorés: {manq or 'aucun'} ; inconnus: {trop or 'aucun'}"
         )
-    bad = {c: v for c, v in verd.items() if v not in ("PASS", "FAIL")}
+    bad = {c: d["verdict"] for c, d in verd.items() if d["verdict"] not in ("PASS", "FAIL")}
     if bad:
         raise SystemExit(f"verdicts non PASS/FAIL : {bad}")
 
     code = args.code
     out_path = ddir / f"verdicts-{code}.json"
-    payload = {
-        "skill": args.skill,
-        "code": code,
-        "criteria": [
-            {"id": c["id"], "niveau": c["niveau"], "verdict": verd[c["id"]]}
-            for c in gt["criteria"]
-        ],
-    }
+    payload = build_payload(args.skill, code, gt["criteria"], verd)
+    missing = [c["id"] for c in payload["criteria"] if not c["preuve"]]
+    if missing:
+        print(
+            f"⚠️  {len(missing)} verdict(s) sans preuve (Codex devrait toujours en fournir) : "
+            f"{missing[:8]}{'…' if len(missing) > 8 else ''}",
+            file=sys.stderr,
+        )
     out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     fails = [c["id"] for c in payload["criteria"] if c["verdict"] == "FAIL"]
     print(f"écrit {out_path} — {len(payload['criteria'])} verdicts, FAIL={fails or 'aucun'}")

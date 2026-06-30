@@ -435,6 +435,13 @@ RÈGLES DE RÉDACTION DES CRITÈRES (impératives) :
    deux et sera comptée FAIL à tort. Si la mention/le renvoi sans analyse doit
    suffire, l'écrire dans le PASS ; sinon, le FAIL doit viser explicitement « se
    contente de mentionner ou renvoyer sans traiter ».
+5. DENSITÉ BORNÉE : produis 20-30 critères MAXIMUM. Privilégie les critères
+   DISCRIMINANTS (pièges, gates, findings centraux) ; ne fragmente PAS un même
+   point en multiples sous-items conjonctifs (un critère « éligibilité X » qui
+   exige 5 sous-conditions reste UN critère, pas cinq). Une grille trop dense
+   (> 30) dilue le signal et produit des faux FAIL de PROFONDEUR sur un livrable
+   brouillon (qui ne déroule pas chaque sous-item) : c'est un défaut de grille,
+   pas du skill.
 Termine par un bloc JSON : {"skill":"{skill}","criteria":[{"id":...,"niveau":...,
 "axe":...,"match_criteria":...}, ...]}.
 Vérifie chaque article cité (ne pas inventer). Aucune donnée réelle.
@@ -466,8 +473,8 @@ Livrable évalué ({skill} v{skill_version}, code {code}, {date}) :
 {live_output_content}
 ---
 
-Pour CHAQUE criterion de la grille, rends un verdict PASS ou FAIL + une
-justification d'une ligne citant le passage du livrable. N'invente aucun criterion.
+Pour CHAQUE criterion de la grille, rends un verdict PASS ou FAIL + une "preuve"
+(citation/localisation du livrable, décrite ci-dessous). N'invente aucun criterion.
 Ne calcule PAS le score global toi-même.
 
 ⚠️ SORTIE OBLIGATOIRE — ta réponse DOIT se terminer par le bloc de verdicts décrit
@@ -478,18 +485,26 @@ le travail est perdu. Respecte TOUTES ces règles :
   ===VERDICTS_JSON===
 - Juste après le marqueur, mets le JSON en BRUT sur une seule ligne (PAS de
   clôture markdown, PAS de texte avant ou après).
-- Chaque objet contient EXACTEMENT trois clés : "id", "niveau", "verdict"
-  (verdict vaut "PASS" ou "FAIL"). PAS de "axe", PAS de "match_criteria".
+- Chaque objet contient EXACTEMENT quatre clés : "id", "niveau", "verdict",
+  "preuve" (verdict vaut "PASS" ou "FAIL"). PAS de "axe", PAS de "match_criteria".
+- La clé "preuve" est OBLIGATOIRE et NON VIDE sur chaque objet — c'est le garde-fou
+  anti-hallucination qui t'oblige à LOCALISER le passage du livrable avant de trancher :
+  - PASS : une courte citation (≤ ~15 mots) du LIVRABLE qui établit le critère ;
+  - FAIL : soit la phrase du livrable qui le contredit, soit le seul mot "absent"
+    si le livrable ne traite PAS le point.
+  - Cohérence exigée : un FAIL dont la "preuve" est une citation réelle du livrable
+    traitant le point est une AUTO-CONTRADICTION — relis et corrige le verdict avant
+    d'envoyer. (La preuve est conservée dans `verdicts-<code>.json` et sert d'audit.)
 - NE RECOPIE PAS la grille d'entrée : la grille fournie n'a PAS de clé "verdict" ;
   ton bloc DOIT en avoir une, non vide, sur CHAQUE objet. Recopier la grille = échec.
 - Un objet par criterion, dans l'ordre de la grille, aucun omis, aucun ajouté.
 - Avant d'envoyer, RELIS ton bloc et vérifie que chaque objet porte bien une clé
-  "verdict" ∈ {"PASS","FAIL"}.
+  "verdict" ∈ {"PASS","FAIL"} ET une clé "preuve" non vide.
 
 Exemple EXACT du format attendu (le marqueur seul sur sa ligne, puis le JSON brut) :
 
 ===VERDICTS_JSON===
-{"criteria":[{"id":"C-001","niveau":"MAJEUR","verdict":"PASS"},{"id":"C-002","niveau":"CRITIQUE","verdict":"FAIL"}]}
+{"criteria":[{"id":"C-001","niveau":"MAJEUR","verdict":"PASS","preuve":"« inscription au RMT BidCo + comptes »"},{"id":"C-002","niveau":"CRITIQUE","verdict":"FAIL","preuve":"absent"}]}
 
 Le statut final (REJETÉ si un CRITIQUE FAIL, sinon ADMIS / RÉSERVES / INSUFFISANT)
 est calculé de façon déterministe par `scripts/tiered_scoring.py` à partir de ce JSON.
@@ -506,6 +521,13 @@ restent disponibles pour comparaison historique.
 
 ### Journal
 
+- **2026-06-30** — Phase 4 criteria : clé `preuve` OBLIGATOIRE par verdict (4 clés
+  `{id,niveau,verdict,preuve}`). Garde-fou anti-hallucination (force à localiser le
+  passage avant de trancher) + audit a posteriori (preuve persistée dans
+  `verdicts-<code>.json` via `extract-verdicts.py`). Phase 2 criteria : règle 5
+  « densité bornée 20-30 max » (anti faux-FAIL de profondeur, cf. cycles closing-pe /
+  management-package-pe à 44-50 critères). `tiered_scoring.py` inchangé (ignore la clé
+  en plus). Fix A + B du backlog `scorer-phase4-false-negatives-fix.md`.
 - **2026-06-29** — Phase 4 criteria : durcissement du bloc de sortie verdicts.
   Marqueur `===VERDICTS_JSON===` + JSON brut une ligne, interdiction explicite de
   recopier la grille (sans `verdict`), clés `{id,niveau,verdict}` exigées et
