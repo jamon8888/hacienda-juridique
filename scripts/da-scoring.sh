@@ -24,7 +24,10 @@ set -euo pipefail
 # POUR AJOUTER UN SKILL : ajouter une ligne dans le tableau SKILLS, puis une
 # entree dans CHACUNE des 5 fonctions code_for / mode_for / spec_for / desc_for
 # / command_for. Rien d'autre a toucher.
-#   - code_for     : code de cycle 6 chars (defaut ; surchargeable via CODE=...)
+#   - code_for     : code de cycle TOUJOURS 6 caracteres [A-Z0-9] — JAMAIS 5 ni 7
+#                    (regex codex-blind-scoring.py [A-Z0-9]{6} ; garde fail-fast
+#                    dans code_for). Convention PE : topic(3)+PE+cycle (CLOPE1,
+#                    SPAPE1, PACPE1, MANPE1). Surchargeable via CODE=... (6 chars).
 #   - mode_for     : mode d'invocation court (1 ligne)
 #   - spec_for     : specificites metier a inclure subtilement dans le scenario
 #   - desc_for     : description NEUTRE pour Codex Phase 2 (PAS le SKILL.md)
@@ -66,28 +69,41 @@ SKILLS=(
 # Code de cycle par defaut, surchargeable via la variable d'environnement CODE
 # (utile pour les skills re-scores sur plusieurs cycles, ex. pre-pack-cession).
 code_for() {
-  if [[ -n "${CODE:-}" ]]; then printf "%s" "$CODE"; return; fi
-  case "$1" in
-    reviser-contrat) printf "6YFSSW" ;;
-    reviser-nda) printf "IJ30QP" ;;
-    constitution-societe) printf "0JO6GK" ;;
-    gouvernance-ag) printf "S60EV7" ;;
-    financement-startup) printf "KJ039D" ;;
-    cgv-generator) printf "87MHRS" ;;
-    pre-pack-cession) printf "PPK3VE" ;;
-    reprise-a-la-barre) printf "RLB3SU" ;;
-    cession-actifs-isoles) echo "CAI2EN" ;;
-    asset-vs-share-distress) echo "AVS1RT" ;;
-    declaration-cessation-paiements) echo "DCP1RT" ;;
-    responsabilite-dirigeant) echo "RDG1RT" ;;
-    distress-cedant) echo "DCD1RT" ;;
-    defense-dirigeant) echo "DFD1RT" ;;
-    spa-review-distressed) echo "SPADIS" ;;
-    spa-review-pe) echo "SPAPE1" ;;
-    pacte-associes-pe) echo "PACPE1" ;;
-    closing-pe) echo "CLOPE1" ;;
-    management-package-pe) echo "MGMT1" ;;
-  esac
+  local c=""
+  if [[ -n "${CODE:-}" ]]; then
+    c="$CODE"
+  else
+    case "$1" in
+      reviser-contrat) c="6YFSSW" ;;
+      reviser-nda) c="IJ30QP" ;;
+      constitution-societe) c="0JO6GK" ;;
+      gouvernance-ag) c="S60EV7" ;;
+      financement-startup) c="KJ039D" ;;
+      cgv-generator) c="87MHRS" ;;
+      pre-pack-cession) c="PPK3VE" ;;
+      reprise-a-la-barre) c="RLB3SU" ;;
+      cession-actifs-isoles) c="CAI2EN" ;;
+      asset-vs-share-distress) c="AVS1RT" ;;
+      declaration-cessation-paiements) c="DCP1RT" ;;
+      responsabilite-dirigeant) c="RDG1RT" ;;
+      distress-cedant) c="DCD1RT" ;;
+      defense-dirigeant) c="DFD1RT" ;;
+      spa-review-distressed) c="SPADIS" ;;
+      spa-review-pe) c="SPAPE1" ;;
+      pacte-associes-pe) c="PACPE1" ;;
+      closing-pe) c="CLOPE1" ;;
+      management-package-pe) c="MANPE1" ;;
+    esac
+  fi
+  # Garde fail-fast : le code de cycle fait TOUJOURS exactement 6 caracteres
+  # [A-Z0-9] (exige par codex-blind-scoring.py, regex r"[A-Z0-9]{6}"). Une
+  # erreur de longueur s'est deja produite (MGMT1 = 5) -> on echoue tot ici
+  # avec un message clair plutot que tard dans la session Codex.
+  if [[ ! "$c" =~ ^[A-Z0-9]{6}$ ]]; then
+    echo "ERREUR da-scoring : code de cycle invalide '$c' pour '$1' — doit faire EXACTEMENT 6 caracteres [A-Z0-9] (ex. MANPE1). Corrige code_for() ou la variable CODE=." >&2
+    return 1
+  fi
+  printf "%s" "$c"
 }
 
 mode_for() {

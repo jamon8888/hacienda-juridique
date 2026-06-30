@@ -1,7 +1,7 @@
 # Handoff scoring — `management-package-pe`
 
 **Skill scoré :** `management-package-pe` v2.0.0
-**Code de cycle :** `MGMT1` (défaut premier cycle ; surcharger via `CODE=<NOUVEAU>` pour un re-run)
+**Code de cycle :** `MANPE1` (défaut premier cycle ; surcharger via `CODE=<NOUVEAU>` pour un re-run)
 **Protocole :** blind 4 phases — [`docs/methodology/sparring-scoring-protocol.md`](../../../../docs/methodology/sparring-scoring-protocol.md)
 **Release rule :** gate-clean (voir ci-dessous)
 **Token economy :** les runs Codex (Phase 1, Phase 2, Phase 4) et le run live (Phase 3) sont lancés par Candy, pas par l'agent.
@@ -17,7 +17,7 @@ Ce dossier contient le matériel de scoring blind prêt à l'emploi :
 | `scenario.md` | Phase 1 — dataset fictif | Produit ici (scaffold) |
 | `ground-truth.md` | Phase 2 — grille de vérité terrain | Produit ici (scaffold) |
 | `live-output.md` | Phase 3 — sortie live du skill | À produire par Candy (session Claude fraîche) |
-| `verdicts-MGMT1.json` | Phase 4 — verdicts critère par critère | À produire par Candy (session Codex) |
+| `verdicts-MANPE1.json` | Phase 4 — verdicts critère par critère | À produire par Candy (session Codex) |
 
 > **Ce task ne produit PAS** `live-output.md` ni `verdicts-*.json`. Ces fichiers
 > sont produits par les runs de Candy selon le workflow ci-dessous.
@@ -82,7 +82,7 @@ cd /Users/candynguyen/dev/hacienda-juridique
 
 # Vérifier que le skill est bien listé dans da-scoring.sh
 bash scripts/da-scoring.sh list | grep management-package-pe
-# Attendu : une ligne avec management-package-pe | MGMT1 | …
+# Attendu : une ligne avec management-package-pe | MANPE1 | …
 ```
 
 > **Note :** si `management-package-pe` n'est pas encore dans la table du
@@ -90,7 +90,7 @@ bash scripts/da-scoring.sh list | grep management-package-pe
 > fonctions `SKILLS`, `code_for`, `mode_for`, `spec_for`, `desc_for`,
 > `command_for` (voir commentaire en tête du script). Entrées suggérées :
 >
-> - `code_for` → `MGMT1`
+> - `code_for` → `MANPE1`
 > - `mode_for` → `cartographie management package PE, side sponsor, LBO mid-market`
 > - `spec_for` → voir la description du spec dans le brief Task 4
 > - `desc_for` → `Cartographie le management package LBO cote francais : recense les documents et le "qui signe quoi", nomme et explique les instruments et economics (sweet equity, envy ratio, ratchet, vesting, leaver), signale le risque de clause confiscatoire, et produit une liste de questions fiscal/social a renvoyer au specialiste. Ne valorise rien, ne donne aucun avis fiscal/social. Side-aware sponsor | manager. NE PAS supposer le contenu du SKILL.md.`
@@ -165,19 +165,19 @@ bash scripts/da-scoring.sh phase4 management-package-pe
 
 Sauvegarder le JSON pur dans :
 ```
-plugins/hacienda-droit-affaires/tests/datasets/da-management-package-pe/verdicts-MGMT1.json
+plugins/hacienda-droit-affaires/tests/datasets/da-management-package-pe/verdicts-MANPE1.json
 ```
 
 Si Codex ne produit pas le bloc JSON proprement :
 ```bash
-pbpaste | python3 scripts/extract-verdicts.py management-package-pe MGMT1
+pbpaste | python3 scripts/extract-verdicts.py management-package-pe MANPE1
 ```
 
 ### Agrégation finale
 
 ```bash
 bash scripts/da-scoring.sh aggregate management-package-pe
-# → appelle tiered_scoring.py sur ground-truth.md + verdicts-MGMT1.json
+# → appelle tiered_scoring.py sur ground-truth.md + verdicts-MANPE1.json
 # → status : ADMIS | RÉSERVES | INSUFFISANT | REJETÉ
 ```
 
@@ -222,12 +222,12 @@ grep -i "requalification\|cotisations\|taux\|regime\|salaire" \
 
 Si un FAIL de Codex semble être un faux négatif (le contenu est présent dans
 `live-output.md` mais scoré FAIL), noter le cas en commentaire dans le rapport
-`docs/backlog/da-scoring-management-package-pe-MGMT1.md` et traiter selon
+`docs/backlog/da-scoring-management-package-pe-MANPE1.md` et traiter selon
 `docs/backlog/scorer-phase4-false-negatives-fix.md`.
 
 ---
 
-## Checklist anti-leakage cycle MGMT1
+## Checklist anti-leakage cycle MANPE1
 
 - [ ] Phase 2 Codex HIGH — session distincte, sans SKILL.md
 - [ ] CHECKPOINT grille CRITIQUE relu avant Phase 3 (gate pas gate-recall)
@@ -235,7 +235,7 @@ Si un FAIL de Codex semble être un faux négatif (le contenu est présent dans
 - [ ] Session Claude Phase 3 vraiment neuve (pas de contexte résiduel)
 - [ ] `live-output.md` : `grep -c match_criteria` = 0
 - [ ] Phase 4 Codex medium — session distincte des Phases 1, 2, 3, sans SKILL.md
-- [ ] `ground-truth.md` et `verdicts-MGMT1.json` : JSON pur, UTF-8, dans le dossier dataset
+- [ ] `ground-truth.md` et `verdicts-MANPE1.json` : JSON pur, UTF-8, dans le dossier dataset
 - [ ] Agrégation par `tiered_scoring.py` (pas à la main)
 - [ ] Rapport marqué `[scoring blind protocole D.0]`
 - [ ] Release décidée sur gate-clean (5 CRITIQUES PASS), pas sur le score `/1`
@@ -246,5 +246,5 @@ Si un FAIL de Codex semble être un faux négatif (le contenu est présent dans
 
 Le rapport est sauvegardé par Phase 4 dans :
 ```
-docs/backlog/da-scoring-management-package-pe-MGMT1.md
+docs/backlog/da-scoring-management-package-pe-MANPE1.md
 ```
