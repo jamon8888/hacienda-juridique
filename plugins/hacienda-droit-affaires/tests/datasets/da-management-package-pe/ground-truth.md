@@ -209,7 +209,7 @@
       "id": "C-035",
       "niveau": "CRITIQUE",
       "axe": "BSPCE et détention FCPR",
-      "match_criteria": "PASS si la sortie n’affirme pas que la détention de BidCo à 100 % par un FCPR rend, à elle seule, BidCo inéligible aux BSPCE et demande l’application du mécanisme de neutralisation prévu par le texte ; FAIL si elle conclut à l’inéligibilité sur ce seul motif."
+      "match_criteria": "PASS si la sortie n’affirme pas que la détention de BidCo par un FCPR rend, à elle seule, BidCo inéligible aux BSPCE — elle peut poser la condition de détention par des personnes physiques comme une question à renvoyer au fiscaliste ; FAIL si elle conclut à l’inéligibilité de BidCo aux BSPCE sur ce seul motif. (Gate aligné sur les danger-gates frères C-025/C-030/C-039 : danger seul, sans prong recall de profondeur.)"
     },
     {
       "id": "C-036",
