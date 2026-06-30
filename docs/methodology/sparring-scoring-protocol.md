@@ -5,6 +5,11 @@
 **Référence dans CLAUDE.md** : section « Validation interne (sparring scoring) ».
 **Plan d'origine** : `docs/superpowers/plans/2026-06-01-hacienda-pi-vague-d-release-readiness.md` § D.0.
 
+> **Modèle canonique actuel pour une décision release** : vérité terrain sous forme de
+> **criteria atomiques PASS/FAIL**, scoring **tiered-gated** et agrégation déterministe.
+> Le scoring holistique pondéré reste disponible uniquement pour rejouer ou comparer les
+> cycles historiques ; il ne fonde pas, à lui seul, une décision release.
+
 ---
 
 ## 1. Pourquoi ce protocole
@@ -33,7 +38,7 @@ Sans cette séparation, le scoring devient une auto-évaluation déguisée.
 
 **Acteur** : Codex (GPT-5.5 effort medium), session dédiée.
 **Input** : nom du skill cible + domaine + mode d'invocation + spécificités métier à inclure subtilement.
-**Output** : un fichier `scenario.md` contenant uniquement le scénario fictif + pièces fournies + posture cabinet + question explicite.
+**Output** : un fichier `scenario.md` contenant uniquement le scénario fictif + pièces fournies + posture cabinet + question explicite. Ce fichier reste **cycle-agnostique** : aucun code de cycle n'y est inscrit. Si les faits ne donnent qu'une chronologie approximative, conserver des semaines relatives et ne jamais fabriquer de date calendaire.
 **Interdiction stricte** : aucune section "Vérité terrain", aucune recommandation, aucune cotation 🔴🟠🟡🟢.
 
 Template canonique : voir `docs/methodology/codex-prompt-templates.md` § Phase 1.
@@ -42,7 +47,9 @@ Template canonique : voir `docs/methodology/codex-prompt-templates.md` § Phase 
 
 **Acteur** : Codex (GPT-5.5 effort **HIGH** — phase la plus consequence), session distincte de Phase 1.
 **Input** : `scenario.md` de Phase 1 + une **description neutre minimale** du skill cible (2-3 lignes). **PAS le SKILL.md complet** — c'est l'anti-leakage critique.
-**Output** : un fichier `ground-truth.md` contenant les findings critiques attendus, nuances métier subtiles, pièges, recommandation, grille de scoring adaptée.
+**Output canonique** : un fichier `ground-truth.md` qui **EST la grille d'évaluation** (approche « à la Harvey LAB ») : 20 à 30 criteria atomiques PASS/FAIL, chacun doté d'un `id`, d'un `niveau` autoritatif (`CRITIQUE`, `MAJEUR`, `MINEUR`), d'un `axe` et de `match_criteria`. Il n'existe ni golden answer séparé ni grille pondérée pour ce workflow.
+
+Les gates `CRITIQUE` suivent la forme **gate-piège**, pas gate-recall : ils sanctionnent une erreur affirmative qui tromperait le client (mauvais régime, qualification inversée, validation d'un acte vicié), jamais la récitation incomplète d'une doctrine ou l'omission d'un sous-item. Ne pas fragmenter un point en sous-items conjonctifs. Si « mentionner puis renvoyer sans traiter » suffit, ce cas doit être écrit dans le PASS afin d'éviter une zone passive orpheline.
 
 Template canonique : voir `docs/methodology/codex-prompt-templates.md` § Phase 2.
 
@@ -58,9 +65,15 @@ Cette phase est la seule qui ne se prête pas à Codex (les skills vivent dans l
 
 **Acteur** : Codex (GPT-5.5 effort medium), session distincte des Phases 1, 2 et 3.
 **Inputs** : `scenario.md` + `ground-truth.md` + `live-output.md`. **PAS le `SKILL.md`** — sinon le scoreur compare structures au lieu d'évaluer substantiellement.
-**Output** : un rapport de scoring dans `docs/backlog/pi-scoring-<domaine>-<code>.md` avec grille pondérée + verdict + gaps DESIGN inférés.
+**Outputs canoniques** :
+- un rapport complet dans `docs/backlog/<prefix>-scoring-<skill>-<code>.md`, avec le raisonnement par criterion ;
+- un `verdicts-<code>.json` persistant, limité pour chaque criterion à l'objet à quatre clés `{id,niveau,verdict,preuve}`.
 
-Template canonique : voir `docs/methodology/codex-prompt-templates.md` § Phase 4.
+La `preuve` est obligatoire : citation de 15 mots maximum du livrable pour un PASS ; phrase contredisante ou `absent` pour un FAIL. Le scoreur ne calcule ni le score ni le statut. `scripts/tiered_scoring.py` reprend le niveau autoritatif du `ground-truth.md` et calcule de façon déterministe `REJETÉ`, `ADMIS`, `RÉSERVES` ou `INSUFFISANT`.
+
+Template canonique : voir `docs/methodology/codex-prompt-templates.md` § Phase 4 criteria.
+
+La variante holistique (`phase2` / `phase4`) est conservée pour les cycles historiques. La variante criteria (`phase2-criteria` / `phase4-criteria`) est la référence pour toute nouvelle décision release.
 
 ---
 
@@ -76,7 +89,7 @@ Template canonique : voir `docs/methodology/codex-prompt-templates.md` § Phase 
 
 ### Règles souples (à documenter si transgressées)
 
-- Codes scoring (6 caractères alphanumériques aléatoires) : permet de tracer un cycle complet. Ex. K7M2PX, R4VN9W.
+- Codes scoring : exactement 6 caractères `[A-Z0-9]`, aléatoires ou mnémoniques, pour tracer un cycle complet. Ex. `K7M2PX`, `CLOPE1`, `SPAPE1`, `PACPE1`, `MANPE1`.
 - `ground-truth.md` peut être versionné en git mais doit être **conservé dans un sous-dossier `ground-truth/` ou un fichier explicitement nommé** pour signaler son isolation.
 - Si le même acteur réalise plusieurs phases consécutives par contrainte (par exemple absence d'accès Codex), c'est admissible mais le scoring final doit être marqué `[scoring partiellement blind]` ou `[scoring auto-référent]` selon le cas.
 
@@ -86,13 +99,13 @@ Template canonique : voir `docs/methodology/codex-prompt-templates.md` § Phase 
 
 ### Code scoring
 
-6 caractères alphanumériques aléatoires majuscules. Oneliner Python :
+Exactement 6 caractères alphanumériques majuscules (`[A-Z0-9]{6}`). Le code peut être aléatoire ou mnémonique ; le garde fail-fast de `scripts/da-scoring.sh` refuse toute autre longueur. Génération aléatoire :
 
 ```bash
 python3 -c "import secrets, string; print(''.join(secrets.choice(string.ascii_uppercase+string.digits) for _ in range(6)))"
 ```
 
-Exemples historiques : K7M2PX (DA SPA review), R4VN9W (DA GAP review), M7K3PX (PI marque), B5N9QZ (PI brevet), etc.
+Exemples historiques : `K7M2PX` (aléatoire), `CLOPE1`, `SPAPE1`, `PACPE1`, `MANPE1` (mnémoniques PE). L'incident `RD1RT` (5 caractères) a conduit au code valide `RDG1RT`.
 
 ### Structure dossier par cycle
 
@@ -100,10 +113,11 @@ Exemples historiques : K7M2PX (DA SPA review), R4VN9W (DA GAP review), M7K3PX (P
 plugins/<plugin>/tests/datasets/<batch>-<skill>/
 ├── scenario.md           # Phase 1 — Codex
 ├── ground-truth.md       # Phase 2 — Codex (session distincte)
-└── live-output.md        # Phase 3 — Claude Code
+├── live-output.md        # Phase 3 — Claude Code
+└── verdicts-<code>.json  # Phase 4 — {id,niveau,verdict,preuve}
 
 docs/backlog/
-└── <plugin-prefix>-scoring-<batch>-<skill>-<code>.md   # Phase 4 — Codex
+└── <prefix>-scoring-<skill>-<code>.md   # Phase 4 — rapport complet Codex
 ```
 
 Exemples :
@@ -119,6 +133,12 @@ Exemples :
 - Tout sparring scoring justifiant une **décision release** (passage à v1.x.x, packaging Cowork, validation associé).
 - Tout sparring scoring justifiant un **budget de modifications skill** (ancrage doctrinal, refonte, retrait).
 - Toute publication d'un score chiffré comme métrique objective (interne ou externe).
+
+### Décision release
+
+La décision repose sur **GATE-CLEAN** : peu de gates `CRITIQUE`, binaires et vérifiables à la main. Sur une grille dense, le score chiffré peut devenir un artefact de profondeur. Avant de conclure à un déficit du skill, spot-checker tout FAIL contre `live-output.md` et sa `preuve`.
+
+Le seuil `ADMIS = 1,0` sur les MAJEUR est sensible à la variance d'un run live frais : borner les cycles, conserver les artefacts et ne pas boucler indéfiniment. Un recalibrage de gate après Phase 2 n'est admissible que s'il est tracé, validé humainement et restaure la complémentarité PASS/FAIL. S'il intervient après un live, la justification doit établir qu'il corrige la grille indépendamment du score recherché, et non qu'il fabrique un résultat.
 
 ### Optionnel
 
@@ -166,7 +186,7 @@ Le script prépare les prompts Codex prêts à coller (avec substitution placeho
 
 Voir `docs/methodology/codex-prompt-templates.md`.
 
-Les 3 templates (Phase 1, Phase 2, Phase 4) sont les versions canoniques à utiliser ou à étendre. Modifications majeures = nouveau protocole D.x.x.
+Le fichier contient cinq templates : Phase 1, Phase 2 et Phase 4 holistiques (historiques), plus `phase2-criteria` et `phase4-criteria`. Pour une décision release, le parcours canonique est Phase 1 + `phase2-criteria` + Phase 3 + `phase4-criteria`. Modifications majeures = nouveau protocole D.x.x.
 
 ---
 
@@ -179,6 +199,24 @@ Ce protocole est inscrit dans `CLAUDE.md` racine du repo (section « Validation 
 
 ---
 
-## 10. Évolutions
+## 10. Évolutions datées
+
+- **2026-06-01** — D.0 : protocole blind en 4 phases, 4 acteurs séparés et règles anti-leakage.
+- **2026-06-02** — Variante criteria atomiques tiered-gated : `ground-truth.md` devient la grille (approche Harvey LAB), sans golden answer séparé ; agrégation déterministe par `tiered_scoring.py`. Ajout du launchpad D.2.
+- **2026-06-03** — Niveau autoritatif repris du ground-truth (`load_scored`) et inputs blind rendus cycle-agnostiques.
+- **2026-06-19** — Durcissement du code de cycle contre les réutilisations accidentelles ; garde anti-fabrication des dates : chronologie relative, jamais de date calendaire inventée.
+- **2026-06-24** — Code de cycle fixé à exactement 6 caractères après l'incident `RD1RT` (5 caractères), corrigé en `RDG1RT`.
+- **2026-06-26** — Consolidation du gate-piège et du gate France/Lux : fermeture des zones orphelines par complémentarité PASS/FAIL, sans transformer une attente de recall en gate `CRITIQUE`.
+- **2026-06-29** — Bloc Phase 4 durci (`===VERDICTS_JSON===`, JSON sur une ligne) ; décision release assumée sur gate-clean ; spot-check des FAIL contre `live-output.md` sur les grilles denses.
+- **2026-06-30** — `preuve` obligatoire et persistée par verdict ; densité bornée à 20–30 criteria ; garde fail-fast des codes 6 caractères. Les cycles management-package-pe confirment que **module depth ≠ live depth** : verrouiller le danger dans le `SKILL.md`, borner la grille pour la profondeur.
+
+### Garde de version
 
 Toute modification structurante du protocole (nombre de phases, lignées de modèles, formats livrables) = nouveau document `sparring-scoring-protocol-v2.md` + référence croisée. Pas d'écrasement silencieux.
+
+> **Décision (2026-06-30, humain).** La promotion du workflow criteria atomiques
+> tiered-gated au rang de référence release est une **évolution compatible de D.0**,
+> harmonisée **in-place** : la variante holistique pondérée reste documentée comme
+> historique (rejouable), il n'y a donc **pas d'écrasement silencieux** justifiant un
+> `sparring-scoring-protocol-v2.md`. Un v2 ne sera créé que pour un changement
+> réellement structurant (nombre de phases, lignées de modèles, refonte des livrables).

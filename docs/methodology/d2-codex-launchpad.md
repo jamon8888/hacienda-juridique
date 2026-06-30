@@ -3,11 +3,21 @@
 **Référence plan** : `docs/superpowers/plans/2026-06-01-hacienda-pi-vague-d-release-readiness.md` § D.2.
 **Protocole blind** : `docs/methodology/sparring-scoring-protocol.md`.
 
-Ce launchpad est conçu pour éviter le terminal autant que possible.
+**Statut** : launchpad historique du lot PI D.2, conçu pour éviter le terminal autant
+que possible. Son wrapper `scripts/d2.py` appelle encore les templates holistiques
+pondérés `phase2` / `phase4`, et les prompts Phase 1 pré-rendus inscrivent le code de
+cycle dans le scénario. Il reste rejouable pour comparaison historique, mais ne
+constitue plus le parcours canonique d'une nouvelle décision release.
+
+> **Décision (2026-06-30, humain).** La migration `d2-v2` (wrapper criteria, prompts
+> Phase 1 régénérés sans code embarqué, extraction des verdicts à quatre clés, nouveau
+> format de livrable) est un chantier **structurant suivi en backlog**
+> (`docs/backlog/d2-launchpad-v2-migration.md`), hors de cette passe d'harmonisation. Ce
+> document reste le launchpad historique en attendant `d2-v2`.
 
 ---
 
-## TL;DR — workflow par skill (1 ligne par phase)
+## TL;DR — workflow D.2 historique (1 ligne par phase)
 
 Pour `mise-en-demeure-pi` (exemple) :
 
@@ -31,7 +41,50 @@ python3 scripts/d2.py phase4 mise-en-demeure-pi
 # → sauvegarde dans docs/backlog/pi-scoring-d2-mise-en-demeure-pi-M6D5ZX.md
 ```
 
-C'est tout. Pas de paramètres à retaper. Le wrapper `scripts/d2.py` connaît les 29 skills.
+C'est tout pour rejouer le lot D.2 historique. Pas de paramètres à retaper. Le
+wrapper `scripts/d2.py` connaît les 29 skills.
+
+## Parcours canonique actuel pour une nouvelle release
+
+Le protocole reste à 4 phases, mais les Phases 2 et 4 utilisent les templates
+criteria atomiques tiered-gated. Exemple pour `mise-en-demeure-pi` :
+
+```bash
+# Phase 1 — scénario cycle-agnostique (conversation Codex distincte)
+python3 scripts/codex-blind-scoring.py phase1 \
+  --skill mise-en-demeure-pi --domain contentieux-pi \
+  --mode "lettre d'assertion contre tiers contrefacteur présumé" \
+  --specificites "posture cabinet ; approbateurs ; risque de procédure abusive" \
+  --code M6D5ZX \
+  --output plugins/hacienda-propriete-intellectuelle/tests/datasets/d2-mise-en-demeure-pi/scenario.md
+
+# Phase 2 — le ground-truth EST la grille de 20-30 criteria
+python3 scripts/codex-blind-scoring.py phase2-criteria \
+  --skill mise-en-demeure-pi \
+  --skill-description "Prépare une mise en demeure PI à partir d'un dossier fictif, sous validation humaine." \
+  --domain contentieux-pi \
+  --mode "lettre d'assertion contre tiers contrefacteur présumé" \
+  --scenario plugins/hacienda-propriete-intellectuelle/tests/datasets/d2-mise-en-demeure-pi/scenario.md \
+  --output plugins/hacienda-propriete-intellectuelle/tests/datasets/d2-mise-en-demeure-pi/ground-truth.md
+
+# Phase 3 — session Claude Code fraîche, scenario.md seul
+
+# Phase 4 — rapport complet + bloc {id,niveau,verdict,preuve}
+python3 scripts/codex-blind-scoring.py phase4-criteria \
+  --skill mise-en-demeure-pi --skill-version 2.0.0 --code M6D5ZX \
+  --scenario plugins/hacienda-propriete-intellectuelle/tests/datasets/d2-mise-en-demeure-pi/scenario.md \
+  --ground-truth plugins/hacienda-propriete-intellectuelle/tests/datasets/d2-mise-en-demeure-pi/ground-truth.md \
+  --live-output plugins/hacienda-propriete-intellectuelle/tests/datasets/d2-mise-en-demeure-pi/live-output.md \
+  --output docs/backlog/pi-scoring-mise-en-demeure-pi-M6D5ZX.md
+```
+
+Sauvegarder la réponse Phase 4 complète dans le rapport indiqué et uniquement son
+bloc JSON dans
+`plugins/hacienda-propriete-intellectuelle/tests/datasets/d2-mise-en-demeure-pi/verdicts-M6D5ZX.json`.
+Le niveau vient du ground-truth ; le statut et le score sont calculés par
+`scripts/tiered_scoring.py`. `extract-verdicts.py` cible actuellement les datasets DA,
+d'où l'arbitrage `d2-v2` ci-dessus. La décision release repose sur **gate-clean**,
+après spot-check des FAIL contre `live-output.md`.
 
 ---
 
@@ -133,6 +186,15 @@ Avant de publier un score, vérifier :
 - [ ] Phase 4 a reçu `scenario.md` + `ground-truth.md` + `live-output.md` (jamais le SKILL.md)
 - [ ] Le wrapper `d2.py` n'a pas reporté de garde-fou déclenché
 - [ ] Le rapport final porte le marqueur `[scoring blind protocole D.0]`
+
+Pour tout nouveau cycle canonique, ajouter :
+
+- [ ] `scenario.md` et `ground-truth.md` sont cycle-agnostiques
+- [ ] le ground-truth contient 20–30 criteria atomiques, avec gates-pièges et sans zone passive orpheline
+- [ ] le verdict persistant contient `{id,niveau,verdict,preuve}` pour chaque criterion
+- [ ] le rapport complet et le JSON de verdicts sont deux artefacts distincts
+- [ ] le scoreur ne calcule pas le statut ; `tiered_scoring.py` agrège
+- [ ] la décision release se prend sur gate-clean après spot-check des FAIL
 
 ---
 

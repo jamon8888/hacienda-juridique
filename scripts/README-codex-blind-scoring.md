@@ -5,6 +5,13 @@ Helper Codex pour le protocole blind sparring scoring Hacienda.
 **Référence protocole** : [`docs/methodology/sparring-scoring-protocol.md`](../docs/methodology/sparring-scoring-protocol.md)
 **Templates Codex** : [`docs/methodology/codex-prompt-templates.md`](../docs/methodology/codex-prompt-templates.md)
 
+> **Workflow canonique pour une décision release** : `phase1` →
+> `phase2-criteria` → Phase 3 → `phase4-criteria` → extraction du bloc verdicts
+> (`extract-verdicts.py` pour les datasets DA) → `tiered_scoring.py`. Les commandes
+> `phase2` / `phase4` holistiques pondérées sont
+> conservées pour les cycles historiques et les comparaisons, pas comme fondement
+> autonome d'une release.
+
 ## Pourquoi un script
 
 Sans script, le risque d'erreurs sur un cycle de scoring est élevé :
@@ -20,7 +27,11 @@ Le script verrouille tout ça.
 
 Pour un skill `<skill>` (ex. `analyse-opposition-marque`), 4 étapes :
 
-### 1. Générer un code scoring 6 chars
+### 1. Choisir un code scoring de 6 caractères
+
+Le code est exactement conforme à `[A-Z0-9]{6}`. Il peut être aléatoire ou
+mnémonique (`CLOPE1`, `SPAPE1`, `PACPE1`, `MANPE1`) ; `da-scoring.sh` échoue
+immédiatement sur toute autre longueur. Pour un code aléatoire :
 
 ```bash
 python3 -c "import secrets, string; print(''.join(secrets.choice(string.ascii_uppercase+string.digits) for _ in range(6)))"
@@ -48,7 +59,13 @@ python3 scripts/codex-blind-scoring.py phase1 \
 4. Récupérer le markdown généré, le sauvegarder dans le `--output` indiqué.
 5. **Fermer la session Codex** (ne pas l'utiliser pour Phase 2).
 
+Le helper exige `--code` pour l'orchestration, mais le `scenario.md` généré reste
+**cycle-agnostique** : aucun code de cycle ne doit apparaître dans son contenu.
+
 ### 3. Phase 2 — Vérité terrain (Codex GPT-5.5 **HIGH**)
+
+Cette commande utilise la variante holistique historique. Pour une nouvelle
+décision release, utiliser `phase2-criteria` ci-dessous.
 
 ```bash
 python3 scripts/codex-blind-scoring.py phase2 \
@@ -97,6 +114,9 @@ plugins/hacienda-propriete-intellectuelle/tests/datasets/d2-analyse-opposition-m
 
 ### 5. Phase 4 — Scoring (Codex GPT-5.5 medium)
 
+Cette commande utilise la variante holistique historique. Pour une nouvelle
+décision release, utiliser `phase4-criteria` ci-dessous.
+
 ```bash
 python3 scripts/codex-blind-scoring.py phase4 \
   --skill analyse-opposition-marque \
@@ -116,9 +136,9 @@ python3 scripts/codex-blind-scoring.py phase4 \
 
 **Anti-leakage automatique** : le script refuse explicitement si un des arguments pointe vers un fichier `SKILL.md`.
 
-## Variante criteria atomiques tiered-gated (DA & au-delà)
+## Workflow canonique — criteria atomiques tiered-gated
 
-Depuis le commit `7fd0845`, le helper expose deux sous-commandes parallèles qui
+Depuis le commit `7fd0845`, le helper expose deux sous-commandes qui
 produisent et notent la vérité terrain au **format criteria atomiques** plutôt
 qu'au format holistique pondéré. L'agrégation du score devient alors
 **déterministe** (Python), pas laissée au jugement du scoreur.
@@ -145,8 +165,8 @@ Le ground-truth produit **EST** la grille d'évaluation (à la Harvey LAB : pas 
 golden answer séparé). Il se termine par un bloc JSON
 `{"skill":...,"criteria":[{"id","niveau","axe","match_criteria"}, ...]}`.
 
-> Pas de `phase1` distincte dans cette variante : le `scenario.md` est rédigé à
-> la main (faits fictifs blind) ou via `phase1` puis nettoyé. Le guard
+> La Phase 1 reste distincte : le `scenario.md` est rédigé à la main par un acteur
+> séparé ou généré via `phase1`. Dans les deux cas, il reste cycle-agnostique. Le guard
 > `check_scenario_no_truth` refuse tout scenario contenant « Vérité terrain »,
 > « Recommandation attendue », etc.
 
@@ -173,6 +193,11 @@ Le scoreur rend, en fin de réponse, un bloc JSON strict
 `verdicts-<CODE>.json` par `extract-verdicts.py` et sert d'**audit** : un FAIL dont la
 preuve cite un passage traitant le point est une auto-contradiction à revoir. Le
 sauvegarder, puis agréger de façon déterministe (`tiered_scoring.py` ignore `preuve`) :
+
+La réponse Markdown complète du scoreur, avec le raisonnement par criterion, reste
+dans `docs/backlog/<prefix>-scoring-<skill>-<CODE>.md`. Seul le bloc à quatre clés
+est extrait dans `verdicts-<CODE>.json` ; le niveau est repris du ground-truth,
+jamais redéfini par le scoreur.
 
 ```bash
 python3 scripts/tiered_scoring.py .../da-declaration-creance/ground-truth.md .../da-declaration-creance/verdicts-ZG7Q5O.json
@@ -214,14 +239,31 @@ manquent. Mais :
   masquait un vrai trou de gate, démasqué à la reconfirmation Codex). Reconfirmer au
   Codex avant tout claim release sur un cycle full-DeepSeek.
 
-**Se fier aux GATES, se méfier des CHIFFRES.** Expérience naturelle observée : le
+**Décider sur GATE-CLEAN, se méfier des chiffres.** Expérience naturelle observée : le
 **même** `live-output` scoré sous deux grilles différentes donne des scores très
 écartés (0,818 vs 1,0), alors qu'à **grille fixe** deux scoreurs (DeepSeek vs Codex)
 donnent le **même** score. ⇒ La variance vient de la **construction de la grille**,
 pas du scoreur. Le **gate-pass/fail est le signal fiable** (binaire, scoreur-
 indépendant) ; le score `/1` n'est comparable qu'à grille robuste (Codex). Un gate
 qui passe « de justesse » (substance présente mais article exact non cité) est un
-**soft pass** fragile : ancrer l'article dans le skill pour le rendre robuste.
+**soft pass** fragile : ancrer l'article dans le skill pour le rendre robuste. Sur
+une grille dense, le score est un artefact de profondeur : la décision release se
+prend sur gate-clean. Spot-checker chaque FAIL contre `live-output.md` et sa `preuve`
+avant de conclure à un déficit du skill.
+
+**Borner les cycles.** `SEUIL_ADMIS = 1.0` est sensible à la variance d'un run live
+frais : un MAJEUR peut osciller entre PASS et FAIL. Fixer un nombre de cycles, garder
+les artefacts et ne pas boucler indéfiniment.
+
+**Checkpoint contrôleur.** Entre Phase 2 et Phase 3, un gate peut être élevé,
+démoté ou reformulé si le changement est tracé et validé humainement, et s'il
+restaure la cohérence `PASS` ↔ trigger `FAIL`. Si le recalibrage intervient après un
+live, tracer en quoi il corrige la grille indépendamment du score recherché ; ne pas
+tuner la grille pour fabriquer un résultat.
+
+**Module depth ≠ live depth.** Enrichir un module de référence ne garantit pas que
+sa profondeur remonte dans un brouillon live single-pass. Verrouiller les dangers
+dans le `SKILL.md` ; borner la grille pour la profondeur.
 
 ## Checklist anti-leakage par cycle
 
@@ -233,9 +275,12 @@ Avant de publier un score :
 - [ ] Phase 3 a reçu uniquement `scenario.md`, avec **interdiction explicite** d'ouvrir `ground-truth.md` ; vérif `grep -c match_criteria live-output.md` = 0
 - [ ] Phase 4 a reçu `scenario.md` + `ground-truth.md` + `live-output.md` (PAS le SKILL.md)
 - [ ] `ground-truth.md` et `verdicts-<CODE>.json` sont du **JSON pur** (bloc extrait, pas le markdown Codex), en UTF-8, dans le dossier du dataset (pas `/tmp`)
-- [ ] Code scoring unique par cycle, non réutilisé
+- [ ] Code scoring unique, non réutilisé, exactement conforme à `[A-Z0-9]{6}` (aléatoire ou mnémonique)
 - [ ] **Inputs blind cycle-agnostiques** : `scenario.md` et `ground-truth.md` ne contiennent **aucun code de cycle** en dur (titre, footer, `_provenance`). Le code ne vit que dans la commande Phase 4 (`--code`) et le nom du rapport — sinon Codex confond l'ancien et le nouveau cycle dans son scoring
-- [ ] (variante criteria) Bloc JSON de verdicts agrégé par `tiered_scoring.py` — score **non** calculé à la main par le scoreur
+- [ ] Bloc verdicts à quatre clés `{id,niveau,verdict,preuve}`, `preuve` non vide, niveau autoritatif repris du ground-truth
+- [ ] Bloc JSON de verdicts agrégé par `tiered_scoring.py` — score **non** calculé à la main par le scoreur
+- [ ] Rapport complet conservé dans `docs/backlog/<prefix>-scoring-<skill>-<CODE>.md`
+- [ ] Chaque FAIL est spot-checké contre `live-output.md` avant de diagnostiquer un déficit skill
 - [ ] Rapport final marqué `[scoring blind protocole D.0]` (et pas `[scoring auto-référent]`)
 
 ## Codes d'erreur du script
@@ -274,6 +319,11 @@ python3 scripts/codex-blind-scoring.py phase4 --skill x --skill-version 1 \
 **GPT-4.5 (orion) déconseillé** sur PI/DA FR — risque de citations CPI / C.com. / CJUE inventées.
 
 ## Récupérer les verdicts Phase 4 — `extract-verdicts.py`
+
+L'implémentation actuelle cible les datasets
+`plugins/hacienda-droit-affaires/tests/datasets/da-<skill>/`. Pour les autres plugins,
+extraire manuellement le bloc strict ou créer un helper versionné après arbitrage ;
+ne pas prétendre que l'outil couvre un chemin qu'il ne résout pas.
 
 Codex doit terminer sa réponse Phase 4 par le bloc `===VERDICTS_JSON===` suivi du
 JSON brut (cf. template durci). En pratique il lui arrive de rendre seulement la
