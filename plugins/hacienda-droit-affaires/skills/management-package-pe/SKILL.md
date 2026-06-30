@@ -137,7 +137,7 @@ Rendu en tableau (instrument / caractéristique / valeur indiquée ou `[à compl
 
 ### M3 — Signalement leaver et risque confiscatoire
 
-Identifier les clauses susceptibles de priver le manager d'une partie substantielle de son upside en cas de départ (bad leaver à prix symbolique ou nominal, ratchet anormalement défavorable, drag-along sans prix plancher protégeant le management). Chaque clause identifiée est signalée `[review]` : elle est nommée, son mécanisme est décrit, son impact potentiel est indiqué — aucun avis de fond, renvoi à `pacte-associes-review --pe` pour la revue clause-par-clause.
+Identifier les clauses susceptibles de priver le manager d'une partie substantielle de son upside en cas de départ (bad leaver à prix symbolique ou nominal, ratchet anormalement défavorable, drag-along sans prix plancher protégeant le management). Chaque clause identifiée est signalée `[review]` : elle est nommée, son mécanisme est décrit, son impact potentiel est indiqué — aucun avis de fond, renvoi à `pacte-associes-review --pe` pour la revue clause-par-clause. Toute clause dont la validité est en jeu (ex. non-concurrence sans contrepartie) est qualifiée « **potentiellement nulle `[review]`** », jamais « nulle » : conclure la nullité est un avis de fond interdit.
 
 Une clause confiscatoire potentielle est un point 🟠/🔴 selon sa sévérité apparente.
 
@@ -164,6 +164,7 @@ Format : liste numérotée, une question par ligne, destinataire indiqué (avoca
 
 - Ne valorise rien, ne chiffre pas les economics (envy ratio, ratchet, TRI, multiple) — cartographie et nommage uniquement.
 - Ne donne aucun avis fiscal ou social : il nomme les enjeux et les renvoie au spécialiste (`[à vérifier]` systématique sur tout point fiscal/social).
+- Ne conclut **jamais** à la nullité, la validité ou la licéité d'une clause — y compris une clause de non-concurrence sans contrepartie financière, même quand la règle paraît évidente. Il écrit « clause **potentiellement nulle `[review]`** » et renvoie au spécialiste (avocat social / fiscaliste). Affirmer qu'une clause « est nulle » est un avis de fond, interdit.
 - Ne fait pas la revue clause-par-clause du pacte d'associés ou des instruments → `pacte-associes-review --pe`.
 - Ne couvre pas le droit luxembourgeois (entité fonds Lux, instruments Lux, carried interest structure Lux) — gate France/Lux, renvoi conseil Lux.
 - Ne fabrique aucune date calendaire ni aucun montant.

@@ -45,7 +45,7 @@
     },
     {
       "id": "C-008",
-      "niveau": "CRITIQUE",
+      "niveau": "MAJEUR",
       "axe": "Approbation ADP-B",
       "match_criteria": "PASS si la sortie ne valide pas l’émission en l’état et exige la décision compétente de l’associé de BidCo, les statuts définissant les droits, les rapports requis et la constatation de l’augmentation de capital ; FAIL si elle affirme que les projets contractuels ou une décision autonome du président suffisent à créer et émettre valablement les ADP-B."
     },
@@ -57,7 +57,7 @@
     },
     {
       "id": "C-010",
-      "niveau": "CRITIQUE",
+      "niveau": "MAJEUR",
       "axe": "Autorisation BSPCE",
       "match_criteria": "PASS si la sortie considère la décision du président insuffisante en l’absence d’une autorisation ou délégation préalable régulière de l’associé compétent et des rapports requis ; FAIL si elle valide le plan BSPCE sur la seule décision du président."
     },
@@ -219,7 +219,7 @@
     },
     {
       "id": "C-037",
-      "niveau": "CRITIQUE",
+      "niveau": "MAJEUR",
       "axe": "Éligibilité bénéficiaire BSPCE",
       "match_criteria": "PASS si la sortie relève qu’à la date du plan Kalmbach n’est pas confirmé comme salarié ou dirigeant éligible de BidCo et que Valenox n’est pas encore sa filiale détenue à 75 %, puis demande de suspendre ou refaire l’attribution ; FAIL si elle valide l’attribution en se fondant sur la situation attendue après closing."
     },
@@ -249,7 +249,7 @@
     },
     {
       "id": "C-042",
-      "niveau": "CRITIQUE",
+      "niveau": "MAJEUR",
       "axe": "Carried franco-luxembourgeois",
       "match_criteria": "PASS si la question-list demande le document satellite, l’identité du débiteur, les conditions d’acquisition, le régime du LP agreement, la résidence fiscale, la source du gain, les obligations sociales et les conflits d’intérêts ; FAIL si elle attribue un régime français ou luxembourgeois définitif sans ces informations."
     },
