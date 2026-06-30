@@ -1,5 +1,17 @@
 # Changelog — hacienda-droit-affaires
 
+## 0.19.0
+
+### Ajouté
+- **Skill neuf `management-package-pe`** (candidat PE #5, premier skill neuf de la vague PE) :
+  cartographie d'un management package LBO côté FR + question-list fiscal/social. Axes M1–M5
+  side-aware sponsor | manager (cartographie « qui signe quoi », instruments & economics,
+  leaver/confiscatoire, **STOP fiscal/social**, question-list). Module frère partagé
+  `references/management-package-pe-fr.md` ; orchestrateur léger (renvois `pacte-associes-review --pe`,
+  `spa-review --pe`, `financement-startup`, `closing-checklist-fr --pe`).
+- Article `L.225-197-1 C.com.` (AGA) indexé `[à vérifier]`.
+- Compte de skills : 31 → 32.
+
 ## 0.18.0
 
 ### Ajouté

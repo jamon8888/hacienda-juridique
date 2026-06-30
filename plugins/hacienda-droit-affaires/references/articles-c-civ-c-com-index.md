@@ -210,7 +210,8 @@ laissé en `[a compléter]`.
 | Article | Libellé court | LEGIARTI | Notes |
 |---|---|---|---|
 | L.228-1 | Valeurs mobilières — définition, forme au porteur ou nominative | LEGIARTI000036175265 | Version modifiée 2018 ; droits identiques par catégorie |
-| L.228-11 | Actions de préférence — émission, droits pécuniaires et politiques dérogatoires | [à vérifier] | Fondement statutaire des liquidation preferences, ratchets et sweet equity en PE. Instrument à réserver au renvoi `financement-startup` pour la mécanique ; ici, signaler uniquement le fondement. `[à vérifier]` : article modifié plusieurs fois (ord. 2004 → loi PACTE 2019). |
+| L.225-197-1 | Attribution gratuite d'actions (AGA) — plan approuvé par l'AGE, conditions d'acquisition et de conservation | [à vérifier] | Instrument management package PE ; mécanique d'émission renvoyée à `financement-startup` ; ici, signaler le fondement. Régime social/fiscal spécifique : renvoi fiscaliste/socialiste. `[à vérifier]` |
+| L.228-11 | Actions de préférence — émission, droits pécuniaires et politiques dérogatoires | [à vérifier] | Fondement statutaire des liquidation preferences, ratchets et sweet equity en PE (sweet equity / ADP). Cité par `management-package-pe` (Axe M2). Instrument à réserver au renvoi `financement-startup` pour la mécanique ; ici, signaler uniquement le fondement. `[à vérifier]` : article modifié plusieurs fois (ord. 2004 → loi PACTE 2019). |
 | L.228-24 | Procédure d'agrément — notification, refus, rachat | LEGIARTI000006227756 | Silence 3 mois = agrément réputé acquis ; renvoi art. 1843-4 C.civ pour prix |
 
 ### Constitution générale (articles L.210-x)

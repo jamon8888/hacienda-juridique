@@ -147,6 +147,7 @@ Hacienda et tout élément non consulté directement reste `[à vérifier]`.
 | Due diligence data-room | `due-diligence-dataroom` |
 | SPA / protocole de cession | `spa-review` |
 | Garantie d'Actif et de Passif | `gap-review` |
+| Management package / MEP (instruments, leaver, vesting, fiscal-social) | `management-package-pe` |
 | Signing / closing / post-closing | `closing-checklist-fr` |
 
 `spa-review` est l'entrée naturelle pour un SPA complet. Il orchestre les
