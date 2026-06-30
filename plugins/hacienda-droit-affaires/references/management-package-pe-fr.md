@@ -159,7 +159,10 @@ un envy ratio faible signale un upside très limité pour le manager après réc
 liquidation preference. **Mal compris ou mal expliqué, l'envy ratio est une source récurrente
 de contentieux** post-closing entre sponsor et managers : le manager découvre à la sortie que
 son upside est quasi-nul après la cascade de distribution. Ce module l'explique ; il ne le
-chiffre pas `[à compléter — calcul sur scénario fictif sponsor-side]`.
+chiffre pas `[à compléter — calcul sur scénario fictif sponsor-side]`. Pour être interprétable,
+la question-list fait **définir explicitement** le numérateur (multiple d'investissement du
+sponsor), le dénominateur (multiple du manager) et la **base retenue** (capital émis ou fully
+diluted) ; sans ces trois éléments, un envy ratio annoncé n'est pas exploitable `[à compléter]`.
 
 **Ratchet.** Mécanisme d'ajustement de la participation du manager (ou du sponsor) selon la
 performance atteinte à la sortie. Deux sens à ne pas confondre :
@@ -174,7 +177,12 @@ performance atteinte à la sortie. Deux sens à ne pas confondre :
 
 La formule du ratchet doit être lue sur au moins un scénario de sortie fictif pour vérifier
 l'arithmétique — une formule mal rédigée produit une économie non conforme à l'intention des
-parties. Ce module nomme la mécanique ; le calcul concret est renvoyé au conseil financier.
+parties. Ce module nomme la mécanique ; le calcul concret est renvoyé au conseil financier. La
+question-list fait préciser les paramètres structurants du ratchet : caractère **marginal ou
+rétroactif** (le franchissement d'un seuil ne majore-t-il que la tranche au-delà, ou recalcule-t-il
+toute la quote-part ?), **ordre et nombre des seuils** (hurdles), existence d'un **plafond** (cap),
+**effet dilutif** sur les autres porteurs, et **traitement des départs** (un leaver conserve-t-il le
+bénéfice du ratchet déjà acquis ?) `[à compléter]`.
 
 **Hurdle.** Seuil de performance (TRI ou multiple d'investissement) que le sponsor doit
 atteindre avant que le ratchet management soit déclenché, ou avant que l'équipe de gestion
@@ -231,6 +239,13 @@ Le leaver price intermédiaire (entre nominal et FMV) est fréquent.
 **Intermediate leaver.** Catégorie intermédiaire entre early et good/bad, correspondant aux
 départs survenus entre deux jalons de vesting. Certains pactes prévoient des prix progressifs
 selon l'ancienneté ou la proportion de vesting accompli.
+
+> **Quand une catégorie manque.** Si le pacte se limite à une définition binaire (ou ne définit
+> qu'un bad leaver extensif), le skill **signale l'absence** de graduation et **propose, comme
+> point à négocier** `[review]`, une structuration en catégories objectives good / bad / early /
+> intermediate, chacune avec sa **règle de prix** (FMV / décote / nominal) et son **traitement du
+> vesting** (acquis conservé ou non). Le skill propose la structure à négocier ; il ne tranche pas
+> la licéité d'une clause (renvoi `pacte-associes-review --pe`).
 
 ### Leaver price (prix de rachat)
 
@@ -394,7 +409,7 @@ au spécialiste fiscal/social. Ce module fournit le gabarit ; les réponses sont
 | **Ordinary shares** | Le prix de souscription est-il documenté à valeur de marché ? Rapport d'expert à l'appui ? Risque de requalification en avantage en nature `[à vérifier]` ? | Absence de vesting typique — la question ne se pose pas, mais vérifier si des conditions de maintien existent. | Rachat à nominal : qualification du gain/perte ? Traitement fiscal du différentiel entrée/rachat `[à vérifier]` ? | Les plus-values relèvent-elles du régime PFU, du barème progressif, ou d'un autre régime `[à vérifier]` ? Y a-t-il un risque de requalification si l'aléa est absent ? |
 | **ADP** | Les droits attachés à l'ADP créent-ils un avantage à l'émission (dividende prioritaire garanti) susceptible d'être requalifié `[à vérifier]` ? Les formalités AGE sont-elles accomplies ? | — | Prix de rachat des ADP en cas de leaver : indexé sur quoi ? Traitement fiscal de la décote ou de la plus-value `[à vérifier]` ? | Conversion en actions ordinaires avant exit : incidence fiscale `[à vérifier]` ? Régime des plus-values sur ADP après conversion ? |
 | **BSA** | La valeur des BSA à l'émission est-elle justifiée (rapport de valorisation) ? L'avantage lié au prix d'exercice inférieur à la valeur de marché est-il qualifié `[à vérifier]` ? | L'exercice du BSA déclenche-t-il un fait générateur fiscal `[à vérifier]` ? Traitement de la levée et de la souscription des actions sous-jacentes ? | BSA non exercés : perte en capital déductible `[à vérifier]` ? BSA cédés : régime de la plus-value sur valeurs mobilières `[à vérifier]` ? | Cession des actions issues de l'exercice des BSA : régime fiscal (PFU / barème / abus de droit) `[à vérifier]` ? Conditions du risque de requalification en salaire ? |
-| **BSPCE** | La société est-elle éligible aux BSPCE après entrée du fonds PE `[à vérifier]` ? Plan approuvé en AGE `[à vérifier]` ? Attribution nominative `[à vérifier]` ? | — | BSPCE non exercés à la date de leaver : caducité ou transmission `[à vérifier]` ? | Gains sur BSPCE : taux forfaitaire CGI `[à vérifier]` ? Activité exercée depuis plus ou moins de trois ans à la date de cession `[à vérifier]` ? Conditions du taux réduit `[à vérifier]` ? |
+| **BSPCE** | **Éligibilité émettrice :** la société est-elle éligible aux BSPCE après entrée du fonds PE `[à vérifier]` ? Si elle est détenue par un FCPR/FPCI, le **mécanisme légal de neutralisation** (transparence sur les porteurs de parts au regard du seuil de détention par des personnes physiques) est-il applicable `[à vérifier]` — question au fiscaliste, pas une conclusion ? **Éligibilité bénéficiaire :** à la date d'attribution, le bénéficiaire est-il salarié ou dirigeant éligible de la société **émettrice**, ou d'une société dont l'émettrice détient ≥ 75 % `[à vérifier]` ? La cible est-elle **déjà filiale détenue ≥ 75 % par l'émettrice à cette date**, ou seulement après le closing `[à vérifier]` ? **Formalités :** plan approuvé en AGE `[à vérifier]` ? Attribution nominative `[à vérifier]` ? | — | BSPCE non exercés à la date de leaver : caducité ou transmission `[à vérifier]` ? | Gains sur BSPCE : taux forfaitaire CGI `[à vérifier]` ? Activité exercée depuis plus ou moins de trois ans à la date de cession `[à vérifier]` ? Conditions du taux réduit `[à vérifier]` ? |
 | **AGA** | Plan d'attribution approuvé en AGE `[à vérifier]` ? Conditions d'acquisition (présence, performance) `[à vérifier]` ? | Acquisition des actions au terme de la période d'acquisition : fait générateur fiscal — contribution patronale et salariale `[à vérifier]` ? | Perte des actions en cours d'acquisition : incidence fiscale sur le manager `[à vérifier]` ? Contribution patronale sur la valeur acquise `[à vérifier]` ? | Cession des actions après période de conservation : régime fiscal des plus-values d'AGA `[à vérifier]` ? Prélèvements sociaux sur la plus-value d'acquisition `[à vérifier]` ? |
 | **OC / OCA** | L'émission de l'OCA est-elle à valeur de marché (prime de risque obligataire + prime de conversion) ? Traitement fiscal des intérêts pour le manager `[à vérifier]` ? | — | Remboursement anticipé de l'OCA en cas de leaver : traitement fiscal du différentiel principal/prix de remboursement `[à vérifier]` ? | Conversion avant exit : incidence fiscale de la conversion `[à vérifier]` ? Régime des plus-values sur les actions issues de la conversion `[à vérifier]` ? |
 | **Options (SO)** | Plan d'options approuvé en AGE `[à vérifier]` ? Prix d'exercice supérieur ou égal à la valeur de marché à la date d'attribution `[à vérifier]` ? | — | Options non exercées à la date de leaver : caducité, délai de grâce `[à vérifier]` ? | Levée des options et cession des actions : régime fiscal des gains d'options — contribution salariale, IR, PS `[à vérifier]` ? Traitement de la fraction rabais excédentaire `[à vérifier]` ? |
@@ -425,6 +440,15 @@ au spécialiste fiscal/social. Ce module fournit le gabarit ; les réponses sont
 
 6. **Prescription fiscale.** En cas de contrôle fiscal, quel est le délai de reprise applicable
    selon le type d'instrument et de gain `[à vérifier]` ?
+
+7. **Carried interest à composante luxembourgeoise (hors périmètre jambe FR — nommage seulement).**
+   Si les managers participent au carried de l'équipe de gestion via une structure de droit
+   luxembourgeois : qui est le **débiteur** du carried ? Quelles sont les **conditions d'acquisition**
+   (vesting, hurdle, clawback) ? Quel est le **régime du LP agreement / des side letters** `[à vérifier]` ?
+   Quelle est la **résidence fiscale** de chaque manager bénéficiaire ? Quelle est la **source du gain**
+   (FR / Lux) ? Quelles **obligations sociales** `[à vérifier]` ? Quels **conflits d'intérêts** (manager à
+   la fois cédant, garant de GAP et porteur de carry) ? Le **document satellite** est à demander ; le
+   régime FR/Lux est **renvoyé à un conseil luxembourgeois + fiscaliste FR — jamais attribué ici**.
 
 ### Carte des handoffs (renvois obligatoires)
 
