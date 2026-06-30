@@ -195,6 +195,8 @@ laissé en `[a compléter]`.
 | L.225-3 | SA — apports en nature, libération intégrale à l'émission | LEGIARTI000006223427 | Actions d'apport libérées dès émission ; pas d'apport en industrie |
 | L.225-96 | SA — assemblée générale extraordinaire (quorum et majorité) | [a compléter] | Quorum 1/4 sur 1re convocation, 1/5 sur 2e ; majorité 2/3 des voix exprimées |
 | L.225-98 | SA — assemblée générale ordinaire (quorum et majorité) | LEGIARTI000042339455 | Quorum 1/5 sur 1re convocation ; majorité simple des voix exprimées |
+| L.225-177 | Options de souscription ou d'achat d'actions (stock options) — autorisation AGE, conditions d'attribution | [à vérifier] | Instrument management package PE ; mécanique d'émission renvoyée à `financement-startup` ; ici, signaler le fondement. Régime fiscal/social spécifique : renvoi fiscaliste/socialiste. `[à vérifier]` |
+| L.225-197-1 | Attribution gratuite d'actions (AGA) — plan approuvé par l'AGE, conditions d'acquisition et de conservation | [à vérifier] | Instrument management package PE ; mécanique d'émission renvoyée à `financement-startup` ; ici, signaler le fondement. Régime social/fiscal spécifique : renvoi fiscaliste/socialiste. `[à vérifier]` |
 | L.225-216 | Interdiction de l'assistance financière — une société ne peut avancer des fonds, consentir des prêts ni donner des sûretés en vue de la souscription ou de l'achat de ses propres actions par un tiers | [à vérifier] | Closing LBO / debt push-down / upstream guarantee. Piège phâre `closing-checklist-fr --pe` (axe L4). Applicabilité à la SAS par renvoi L.227-1 `[à vérifier]`. |
 
 ### SAS (articles L.227-x)
@@ -210,7 +212,7 @@ laissé en `[a compléter]`.
 | Article | Libellé court | LEGIARTI | Notes |
 |---|---|---|---|
 | L.228-1 | Valeurs mobilières — définition, forme au porteur ou nominative | LEGIARTI000036175265 | Version modifiée 2018 ; droits identiques par catégorie |
-| L.228-11 | Actions de préférence — émission, droits pécuniaires et politiques dérogatoires | [à vérifier] | Fondement statutaire des liquidation preferences, ratchets et sweet equity en PE. Instrument à réserver au renvoi `financement-startup` pour la mécanique ; ici, signaler uniquement le fondement. `[à vérifier]` : article modifié plusieurs fois (ord. 2004 → loi PACTE 2019). |
+| L.228-11 | Actions de préférence — émission, droits pécuniaires et politiques dérogatoires | [à vérifier] | Fondement statutaire des liquidation preferences, ratchets et sweet equity en PE (sweet equity / ADP). Cité par `management-package-pe` (Axe M2). Instrument à réserver au renvoi `financement-startup` pour la mécanique ; ici, signaler uniquement le fondement. `[à vérifier]` : article modifié plusieurs fois (ord. 2004 → loi PACTE 2019). |
 | L.228-24 | Procédure d'agrément — notification, refus, rachat | LEGIARTI000006227756 | Silence 3 mois = agrément réputé acquis ; renvoi art. 1843-4 C.civ pour prix |
 
 ### Constitution générale (articles L.210-x)

@@ -24,7 +24,10 @@ set -euo pipefail
 # POUR AJOUTER UN SKILL : ajouter une ligne dans le tableau SKILLS, puis une
 # entree dans CHACUNE des 5 fonctions code_for / mode_for / spec_for / desc_for
 # / command_for. Rien d'autre a toucher.
-#   - code_for     : code de cycle 6 chars (defaut ; surchargeable via CODE=...)
+#   - code_for     : code de cycle TOUJOURS 6 caracteres [A-Z0-9] — JAMAIS 5 ni 7
+#                    (regex codex-blind-scoring.py [A-Z0-9]{6} ; garde fail-fast
+#                    dans code_for). Convention PE : topic(3)+PE+cycle (CLOPE1,
+#                    SPAPE1, PACPE1, MANPE1). Surchargeable via CODE=... (6 chars).
 #   - mode_for     : mode d'invocation court (1 ligne)
 #   - spec_for     : specificites metier a inclure subtilement dans le scenario
 #   - desc_for     : description NEUTRE pour Codex Phase 2 (PAS le SKILL.md)
@@ -60,32 +63,47 @@ SKILLS=(
   spa-review-pe
   pacte-associes-pe
   closing-pe
+  management-package-pe
 )
 
 # Code de cycle par defaut, surchargeable via la variable d'environnement CODE
 # (utile pour les skills re-scores sur plusieurs cycles, ex. pre-pack-cession).
 code_for() {
-  if [[ -n "${CODE:-}" ]]; then printf "%s" "$CODE"; return; fi
-  case "$1" in
-    reviser-contrat) printf "6YFSSW" ;;
-    reviser-nda) printf "IJ30QP" ;;
-    constitution-societe) printf "0JO6GK" ;;
-    gouvernance-ag) printf "S60EV7" ;;
-    financement-startup) printf "KJ039D" ;;
-    cgv-generator) printf "87MHRS" ;;
-    pre-pack-cession) printf "PPK3VE" ;;
-    reprise-a-la-barre) printf "RLB3SU" ;;
-    cession-actifs-isoles) echo "CAI2EN" ;;
-    asset-vs-share-distress) echo "AVS1RT" ;;
-    declaration-cessation-paiements) echo "DCP1RT" ;;
-    responsabilite-dirigeant) echo "RDG1RT" ;;
-    distress-cedant) echo "DCD1RT" ;;
-    defense-dirigeant) echo "DFD1RT" ;;
-    spa-review-distressed) echo "SPADIS" ;;
-    spa-review-pe) echo "SPAPE1" ;;
-    pacte-associes-pe) echo "PACPE1" ;;
-    closing-pe) echo "CLOPE1" ;;
-  esac
+  local c=""
+  if [[ -n "${CODE:-}" ]]; then
+    c="$CODE"
+  else
+    case "$1" in
+      reviser-contrat) c="6YFSSW" ;;
+      reviser-nda) c="IJ30QP" ;;
+      constitution-societe) c="0JO6GK" ;;
+      gouvernance-ag) c="S60EV7" ;;
+      financement-startup) c="KJ039D" ;;
+      cgv-generator) c="87MHRS" ;;
+      pre-pack-cession) c="PPK3VE" ;;
+      reprise-a-la-barre) c="RLB3SU" ;;
+      cession-actifs-isoles) c="CAI2EN" ;;
+      asset-vs-share-distress) c="AVS1RT" ;;
+      declaration-cessation-paiements) c="DCP1RT" ;;
+      responsabilite-dirigeant) c="RDG1RT" ;;
+      distress-cedant) c="DCD1RT" ;;
+      defense-dirigeant) c="DFD1RT" ;;
+      spa-review-distressed) c="SPADIS" ;;
+      spa-review-pe) c="SPAPE1" ;;
+      pacte-associes-pe) c="PACPE1" ;;
+      closing-pe) c="CLOPE1" ;;
+      management-package-pe) c="MANPE1" ;;
+    esac
+  fi
+  # Garde fail-fast : le code de cycle fait TOUJOURS exactement 6 caracteres
+  # [A-Z0-9] (exige par codex-blind-scoring.py, regex r"[A-Z0-9]{6}"). Une
+  # erreur de longueur s'est deja produite (MGMT1 = 5) -> on echoue tot ici
+  # avec un message clair plutot que tard dans la session Codex.
+  if [[ ! "$c" =~ ^[A-Z0-9]{6}$ ]]; then
+    echo "ERREUR da-scoring : code de cycle invalide '$c' pour '$1' — doit faire EXACTEMENT 6 caracteres [A-Z0-9] (ex. MANPE1). Corrige code_for() ou la variable CODE=." >&2
+    return 1
+  fi
+  printf "%s" "$c"
 }
 
 mode_for() {
@@ -108,6 +126,7 @@ mode_for() {
     spa-review-pe) echo "revue SPA avec overlay --pe (cible PE, side sponsor)" ;;
     pacte-associes-pe) echo "revue pacte d'investissement LBO avec overlay --pe (sponsor + management)" ;;
     closing-pe) echo "pilotage du closing d'une acquisition LBO avec le mode --pe actif, side sponsor" ;;
+    management-package-pe) echo "cartographie management package PE, side sponsor, LBO mid-market" ;;
   esac
 }
 
@@ -131,6 +150,7 @@ spec_for() {
     spa-review-pe) echo "revue d'un SPA d'acquisition LBO cote sponsor : locked box, certain funds, MAC, rollover/management package, articulation GAP/W&I" ;;
     pacte-associes-pe) echo "revue d'un pacte d'investissement LBO sur SAS HoldCo france avec le mode --pe actif ; side management pool ; doit appliquer l'overlay PE sur 5 axes (P1 hierarchie et precedence des pactes, P2 gouvernance et gestion de fait, P3 economie et preferences -- liquidation preference, ratchet, sweet equity, P4 leaver et sweet equity fiscal/social, P5 liquidite et sortie sponsor -- drag, put/call, ROFR, lock-up ; gate France/Lux transverse) ; (P1) pacte d'investissement nouveau + ancien pacte coexistants sans clause de resilitation formelle -> FAIL si la tension de precedence n'est pas identifiee et qualifiee ; (P2) veto sponsor tres large couvrant des actes courants de gestion -> qualifier le risque de gestion de fait (L.651-2 C.com.), ne pas conclure, taguer review ; (P4) bad leaver a valeur nominale indifferencie sans distinction good/bad ni date ni circonstances -> clause leonine a qualifier (art. 1844-1 C.civ.), risque de requalification ; (P4 suite) sweet equity managers (AP de categorie C a prix symbolique) -> NOMMER le risque fiscal et social (requalification en salaires, regime BNC, regime URSSAF), RENVOYER vers conseil fiscal/social specialise, JAMAIS traiter au fond ni chiffrer le risque ; (P5 / gate) document satellite soumis au droit luxembourgeois -> FAIL si le skill l'analyse sous le droit francais ; PASS = le skill identifie la loi etrangere applicable et renvoie vers conseil luxembourgeois ; gate non affirmatif-orphelin : FAIL = appliquer le test FR a des faits Lux ; PASS = signaler la loi etrangere et formuler comme complement ; faits en semaines relatives, aucune date calendaire, aucun conseil fiscal final" ;;
     closing-pe) echo "closing d'une acquisition LBO sur SAS (BidCo FR -> cible FR) avec le mode --pe actif, side sponsor ; doit appliquer l'overlay sur 5 axes (L1 funds flow / sources & uses, L2 CP financement & certain funds, L3 mecanique de closing day-1, L4 security package & assistance financiere, L5 adhesion rollover & post-closing PE) ; (L1) tableau sources & uses dont une ligne ne reconcilie pas (prix SPA != ligne use, ou Somme sources != Somme uses) -> FAIL si l'incoherence n'est pas detectee ; structure a produire, montants a NE PAS chiffrer (a completer) ; (L4 piege phare) la cible donne une surete/garantie remontante au service de la dette d'acquisition de BidCo -> assistance financiere L.225-216 C.com. : FAIL si le risque n'est pas signale ; qualifier review, NE JAMAIS valider le montage ; (gate) document/entite de fonds soumis au droit luxembourgeois -> FAIL si analyse sous droit francais ; PASS = identifie la loi etrangere et renvoie conseil luxembourgeois ; gate non affirmatif-orphelin ; (L5) registre de mouvements de titres au niveau BidCo (holding) oublie -> FAIL ; (L2) desalignement CP du SPA vs conditions DCL/ECL non signale -> FAIL ; faits en semaines relatives, aucune date calendaire, aucun conseil fiscal final, aucun quantum" ;;
+    management-package-pe) echo "BidCo FR / plusieurs managers signant subscription + pacte + promesses put/call + rollover ; sweet equity ADP + BSPCE ; envy ratio + ratchet (seuils a completer) ; bad leaver a prix nominal (definition trop large = confiscatoire amorce) ; amorce piege fiscal/social : ADP souscrites au prix nominal alors que valorisation BidCo est superieure + plancher de rachat garanti = alea absent + vesting time-based pur + presence = lien remuneratoire potentiel ; plan BSPCE approuve par president seul (sans AGE) ; gate France/Lux : GP Lux + document satellite carried interest managers sous droit Lux" ;;
   esac
 }
 
@@ -154,6 +174,7 @@ desc_for() {
     spa-review-pe) echo "Revue d'un SPA d'acquisition LBO cote sponsor : applique l'overlay Private Equity (locked box et leakage, certain funds et conditions residuelles, reserved matters sponsor, bad leaver managers, structure multi-niveaux). Articulation GAP/W&I, side sponsor. Brouillon soumis a validation avocat M&A/PE. NE PAS supposer le contenu du SKILL.md ni du module de reference." ;;
     pacte-associes-pe) echo "Revue d'un pacte d'investissement LBO avec le mode --pe : applique l'overlay Private Equity sur 5 axes (P1 hierarchie pactes, P2 gouvernance, P3 economie/preferences, P4 leaver et sweet equity, P5 liquidite/sortie sponsor). Cote management pool. Qualifie les clauses leonines bad leaver (art. 1844-1 C.civ.), le risque de gestion de fait du sponsor (L.651-2 C.com.), la tension de precedence entre ancien pacte et nouveau pacte d'investissement, et le sweet equity (renvoi fiscal/social sans conseil au fond). Detecte les documents satellites soumis a un droit etranger et renvoie vers un conseil local competent. Ne chiffre aucun quantum fiscal ou social, ne conclut pas sur la requalification, ne tranche pas la precedence des pactes (risque review). Brouillon soumis a validation avocat PE. NE PAS supposer le contenu du SKILL.md ni du module de reference." ;;
     closing-pe) echo "Pilotage du closing d'une acquisition LBO avec le mode --pe : applique l'overlay Private Equity sur 5 axes (L1 funds flow/sources & uses, L2 CP financement & certain funds, L3 mecanique de closing day-1, L4 security package & assistance financiere, L5 adhesion rollover & post-closing PE). Side sponsor. Produit la structure du funds flow (jamais les montants), signale l'assistance financiere L.225-216 C.com. (la cible ne peut pas garantir la dette d'acquisition) sans valider de montage, et le registre de mouvements de titres aux deux niveaux (BidCo + cible). Detecte les documents de fonds soumis a un droit etranger et renvoie au conseil local. Ne chiffre aucun montant ni quantum fiscal, ne valide pas le montage d'assistance financiere, ne donne pas d'avis fiscal. Brouillon soumis a validation avocat M&A/PE. NE PAS supposer le contenu du SKILL.md ni du module de reference." ;;
+    management-package-pe) echo "Cartographie le management package LBO cote francais : recense les documents et le 'qui signe quoi', nomme et explique les instruments et economics (sweet equity, envy ratio, ratchet, vesting, leaver), signale le risque de clause confiscatoire, et produit une liste de questions fiscal/social a renvoyer au specialiste. Ne valorise rien, ne donne aucun avis fiscal/social. Side-aware sponsor | manager. Brouillon soumis a validation humaine. NE PAS supposer le contenu du SKILL.md." ;;
   esac
 }
 
@@ -177,6 +198,7 @@ command_for() {
     spa-review-pe) echo "/h-da:spa-review --pe --side=sponsor" ;;
     pacte-associes-pe) echo "/h-da:pacte-associes-review --pe" ;;
     closing-pe) echo "/h-da:closing-checklist-fr --pe --side=sponsor" ;;
+    management-package-pe) echo "/h-da:management-package-pe --side=sponsor" ;;
   esac
 }
 
@@ -212,6 +234,7 @@ Skills:
   spa-review-pe
   pacte-associes-pe
   closing-pe
+  management-package-pe
 
 Overrides (variables d'environnement) :
   CODE=<6chars>   code de cycle (surcharge le defaut ; obligatoire pour re-scorer un skill)
