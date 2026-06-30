@@ -9,6 +9,10 @@
 
 GPT-4.5 (orion) **déconseillé** : risque de citations CPI / CJUE inventées sur domaine niche droit français PI.
 
+**Parcours canonique release** : Phase 1 → `phase2-criteria` → Phase 3 →
+`phase4-criteria`. Les templates holistiques pondérés `phase2` / `phase4` sont
+conservés pour rejouer les cycles historiques, pas comme base autonome de release.
+
 ---
 
 ## Phase 1 — Génération du dataset fictif
@@ -21,7 +25,6 @@ GPT-4.5 (orion) **déconseillé** : risque de citations CPI / CJUE inventées su
 | `{domain}` | Domaine PI | `marques` |
 | `{mode}` | Mode d'invocation du skill | `analyse offensive opposition INPI L.712-4` |
 | `{specificites}` | Liste des nuances métier à inclure subtilement | `motifs absolus L.711-2 ; restauration L.712-4-1` |
-| `{code}` | Code scoring 6 chars | `K7M2PX` |
 
 ### Prompt canonique
 
@@ -44,14 +47,13 @@ PARAMÈTRES :
 - Skill cible : {skill}
 - Domaine PI : {domain}
 - Mode d'invocation : {mode}
-- Code scoring : {code}
 - Spécificités métier à inclure subtilement : {specificites}
 
 INSTRUCTIONS :
 
 Génère un dossier fictif structuré comme suit :
 
-# Dataset test — `{skill}` — Code {code}
+# Dataset test — `{skill}`
 
 **Domaine** : {domain}
 **Skill cible** : `/h-pi:{skill}`
@@ -104,6 +106,10 @@ CONTRAINTES :
 - Format Markdown autonome.
 - Disclaimer fictif en tête (déjà dans le template).
 - AUCUNE section "Vérité terrain", AUCUNE cotation 🔴🟠🟡🟢, AUCUNE recommandation.
+- Le scénario reste CYCLE-AGNOSTIQUE : aucun code de cycle dans le titre, le corps
+  ou une provenance. Le code appartient à l'orchestration et au rapport Phase 4.
+- Si la chronologie fournie est approximative, conserve des semaines relatives ;
+  n'invente jamais une date calendaire ni un nombre de jours précis.
 - Tu génères les faits, pas leur interprétation.
 - Longueur cible : 200-400 lignes.
 
@@ -114,6 +120,9 @@ prêt à être sauvegardé dans `tests/datasets/<batch>-{skill}/scenario.md`.
 ---
 
 ## Phase 2 — Génération de la vérité terrain
+
+**Statut** : variante holistique pondérée historique, conservée pour rejouer les
+anciens cycles. Pour une décision release, utiliser `phase2-criteria`.
 
 ### Variables à substituer
 
@@ -222,6 +231,9 @@ OUTPUT : un fichier Markdown autonome, prêt à être sauvegardé dans
 ---
 
 ## Phase 4 — Scoring comparatif
+
+**Statut** : variante holistique pondérée historique, conservée pour rejouer les
+anciens cycles. Pour une décision release, utiliser `phase4-criteria`.
 
 ### Variables à substituer
 
@@ -384,6 +396,9 @@ OUTPUT : un fichier Markdown autonome, prêt à être sauvegardé dans
 
 ## Phase 2 criteria — Vérité terrain criteria atomiques
 
+**Statut** : template canonique pour toute nouvelle décision release. Le
+`ground-truth.md` produit **EST** la grille ; aucun golden answer séparé.
+
 ### Variables à substituer
 
 - `{skill}`, `{skill_description}`, `{domain}`, `{mode}`, `{scenario_content}`
@@ -435,6 +450,13 @@ RÈGLES DE RÉDACTION DES CRITÈRES (impératives) :
    deux et sera comptée FAIL à tort. Si la mention/le renvoi sans analyse doit
    suffire, l'écrire dans le PASS ; sinon, le FAIL doit viser explicitement « se
    contente de mentionner ou renvoyer sans traiter ».
+5. DENSITÉ BORNÉE : produis 20-30 critères MAXIMUM. Privilégie les critères
+   DISCRIMINANTS (pièges, gates, findings centraux) ; ne fragmente PAS un même
+   point en multiples sous-items conjonctifs (un critère « éligibilité X » qui
+   exige 5 sous-conditions reste UN critère, pas cinq). Une grille trop dense
+   (> 30) dilue le signal et produit des faux FAIL de PROFONDEUR sur un livrable
+   brouillon (qui ne déroule pas chaque sous-item) : c'est un défaut de grille,
+   pas du skill.
 Termine par un bloc JSON : {"skill":"{skill}","criteria":[{"id":...,"niveau":...,
 "axe":...,"match_criteria":...}, ...]}.
 Vérifie chaque article cité (ne pas inventer). Aucune donnée réelle.
@@ -466,9 +488,14 @@ Livrable évalué ({skill} v{skill_version}, code {code}, {date}) :
 {live_output_content}
 ---
 
-Pour CHAQUE criterion de la grille, rends un verdict PASS ou FAIL + une
-justification d'une ligne citant le passage du livrable. N'invente aucun criterion.
+Pour CHAQUE criterion de la grille, rends un verdict PASS ou FAIL + une "preuve"
+(citation/localisation du livrable, décrite ci-dessous). N'invente aucun criterion.
 Ne calcule PAS le score global toi-même.
+
+Avant le bloc JSON final, produis le rapport complet de scoring : un tableau ou une
+section par criterion avec le verdict et son raisonnement. Cette réponse complète est
+sauvegardée dans `docs/backlog/<prefix>-scoring-<skill>-<code>.md`. Seul le bloc JSON
+final est extrait vers `verdicts-<code>.json`.
 
 ⚠️ SORTIE OBLIGATOIRE — ta réponse DOIT se terminer par le bloc de verdicts décrit
 ci-dessous, et RIEN après lui. Sans ce bloc exact, le scoring est inexploitable et
@@ -478,18 +505,28 @@ le travail est perdu. Respecte TOUTES ces règles :
   ===VERDICTS_JSON===
 - Juste après le marqueur, mets le JSON en BRUT sur une seule ligne (PAS de
   clôture markdown, PAS de texte avant ou après).
-- Chaque objet contient EXACTEMENT trois clés : "id", "niveau", "verdict"
-  (verdict vaut "PASS" ou "FAIL"). PAS de "axe", PAS de "match_criteria".
+- Chaque objet contient EXACTEMENT quatre clés : "id", "niveau", "verdict",
+  "preuve" (verdict vaut "PASS" ou "FAIL"). PAS de "axe", PAS de "match_criteria".
+- Recopie `niveau` à l'identique depuis le ground-truth : il est autoritatif et ne
+  doit jamais être élevé ou déclassé par le scoreur.
+- La clé "preuve" est OBLIGATOIRE et NON VIDE sur chaque objet — c'est le garde-fou
+  anti-hallucination qui t'oblige à LOCALISER le passage du livrable avant de trancher :
+  - PASS : une courte citation (≤ ~15 mots) du LIVRABLE qui établit le critère ;
+  - FAIL : soit la phrase du livrable qui le contredit, soit le seul mot "absent"
+    si le livrable ne traite PAS le point.
+  - Cohérence exigée : un FAIL dont la "preuve" est une citation réelle du livrable
+    traitant le point est une AUTO-CONTRADICTION — relis et corrige le verdict avant
+    d'envoyer. (La preuve est conservée dans `verdicts-<code>.json` et sert d'audit.)
 - NE RECOPIE PAS la grille d'entrée : la grille fournie n'a PAS de clé "verdict" ;
   ton bloc DOIT en avoir une, non vide, sur CHAQUE objet. Recopier la grille = échec.
 - Un objet par criterion, dans l'ordre de la grille, aucun omis, aucun ajouté.
 - Avant d'envoyer, RELIS ton bloc et vérifie que chaque objet porte bien une clé
-  "verdict" ∈ {"PASS","FAIL"}.
+  "verdict" ∈ {"PASS","FAIL"} ET une clé "preuve" non vide.
 
 Exemple EXACT du format attendu (le marqueur seul sur sa ligne, puis le JSON brut) :
 
 ===VERDICTS_JSON===
-{"criteria":[{"id":"C-001","niveau":"MAJEUR","verdict":"PASS"},{"id":"C-002","niveau":"CRITIQUE","verdict":"FAIL"}]}
+{"criteria":[{"id":"C-001","niveau":"MAJEUR","verdict":"PASS","preuve":"« inscription au RMT BidCo + comptes »"},{"id":"C-002","niveau":"CRITIQUE","verdict":"FAIL","preuve":"absent"}]}
 
 Le statut final (REJETÉ si un CRITIQUE FAIL, sinon ADMIS / RÉSERVES / INSUFFISANT)
 est calculé de façon déterministe par `scripts/tiered_scoring.py` à partir de ce JSON.
@@ -504,15 +541,19 @@ modification de la pondération, changement de format de livrable) = nouveau
 template versionné `codex-prompt-templates-v2.md`. Les anciens templates
 restent disponibles pour comparaison historique.
 
+> **Décision (2026-06-30, humain).** L'ajout de `preuve` est **additif et
+> rétrocompatible** (`extract-verdicts.py` le préserve, `tiered_scoring.py` l'ignore) :
+> il enrichit le schéma sans casser l'existant ni les verdicts à 3 clés legacy. Il est
+> donc intégré **in-place**, sans `codex-prompt-templates-v2.md`.
+
 ### Journal
 
-- **2026-06-29** — Phase 4 criteria : durcissement du bloc de sortie verdicts.
-  Marqueur `===VERDICTS_JSON===` + JSON brut une ligne, interdiction explicite de
-  recopier la grille (sans `verdict`), clés `{id,niveau,verdict}` exigées et
-  auto-vérification avant envoi. Récupération outillée via `scripts/extract-verdicts.py`
-  (bloc marqueur → JSON → table markdown). Origine : caprice récurrent Codex
-  (verdicts en table seule → `aggregate` KeyError, cf. cycle SPAPE1). Non structurant
-  (schéma JSON inchangé : `{id,niveau,verdict}`).
+- **2026-06-01** — D.0 : protocole blind 4 phases, acteurs séparés et anti-leakage.
+- **2026-06-02** — Ajout des templates criteria atomiques tiered-gated inspirés de
+  Harvey LAB : le ground-truth est la grille, sans golden answer séparé ; agrégation
+  déterministe par `tiered_scoring.py`. Mise en place du launchpad D.2.
+- **2026-06-03** — Le niveau devient autoritatif depuis le ground-truth (`load_scored`),
+  jamais depuis les verdicts ; les inputs blind deviennent cycle-agnostiques.
 - **2026-06-10** — Phase 2 criteria : ajout des « RÈGLES DE RÉDACTION DES CRITÈRES »
   (complémentarité PASS/FAIL sans zone orpheline, forme piège pour les gates,
   CRITIQUE réservé aux erreurs trompant le client). Clarification non structurante
@@ -525,3 +566,18 @@ restent disponibles pour comparaison historique.
   listait-puis-renvoyait au pacte sans borner. Motif non couvert par les 3 premières
   règles (libellé exact, complétude, niveau). Le skill a été corrigé en parallèle
   (flaguer/borner au stade term sheet avant routage `pacte-associes-review`).
+- **2026-06-19** — Durcissement anti-footgun du code de cycle et garde
+  anti-fabrication des dates : conserver les semaines relatives, ne jamais convertir
+  une approximation en date calendaire inventée.
+- **2026-06-24** — Code de cycle fixé à 6 caractères stricts après l'incident
+  `RD1RT` (5 caractères), corrigé en `RDG1RT`.
+- **2026-06-26** — Consolidation du gate-piège et du gate France/Lux : un gate
+  `CRITIQUE` vise l'erreur affirmative qui trompe le client ; fermeture des zones
+  orphelines par complémentarité PASS/FAIL.
+- **2026-06-29** — Phase 4 criteria : marqueur `===VERDICTS_JSON===`, JSON brut sur
+  une ligne et extraction outillée. Sur grilles denses, décision release sur
+  gate-clean et spot-check des FAIL contre `live-output.md` avant tout diagnostic.
+- **2026-06-30** — Phase 4 criteria : clé `preuve` obligatoire par verdict, soit
+  `{id,niveau,verdict,preuve}`, persistée par `extract-verdicts.py`. Phase 2 criteria :
+  densité bornée à 20–30 criteria. Le garde fail-fast de `da-scoring.sh` impose les
+  codes `[A-Z0-9]{6}`. `tiered_scoring.py` reste inchangé et ignore `preuve`.
