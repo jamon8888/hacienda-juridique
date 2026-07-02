@@ -100,11 +100,14 @@ identifiants > seuil) ; **sans ghost**, compteur + avertissement, *tu* décides 
 fois. Ghost n'étant pas tout à fait prêt, la formulation exacte du statut (à venir /
 optionnel / bêta) est **`[review]`** — Candy cale le wording.
 
-### Section « ce qui veille en arrière-plan » (agents)
+### Section agents — RETIRÉE (2026-06-30)
 
-Brève : 4 agents passifs (`bodacc-procedures-watcher` forclusions, `bodacc-watcher`
-portefeuille, `echeances-societaires`, `veille-jurisprudence`) — à activer une fois,
-observer. Pas le cœur du doc.
+Décision : **pas de section agents** dans cette version. Les 4 agents
+(`bodacc-procedures-watcher`, `bodacc-watcher`, `echeances-societaires`,
+`veille-jurisprudence`) n'ont **aucune trace de test** ; `veille-jurisprudence` a un
+branchement MCP non confirmé (note « Wave 6 »). Advertir une capacité non vérifiée
+contredit le pilier « honnête ». À réintroduire une fois les agents vérifiés (voir
+tâche de vérification agents).
 
 ## 5. Machinerie non exposée comme « situation »
 
