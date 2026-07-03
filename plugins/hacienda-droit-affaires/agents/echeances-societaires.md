@@ -10,9 +10,14 @@ description: >
   annuels cabinet", "rappel AGO", "renouvellement mandats portefeuille".
 model: sonnet
 tools: ["Read", "Write", "Glob", "Bash",
-        "mcp__*__company_full_profile",
-        "mcp__*__bodacc_by_siren"]
-# Wildcard mcp__*__ — préfixe à confirmer à l'enregistrement du MCP server Wave 6.
+        "mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__company_full_profile",
+        "mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__bodacc_by_siren"]
+# Préfixe MCP concret : mcp__plugin_<plugin>_<clé-serveur>__ — la clé serveur
+# ".mcp.json" « Hacienda Droit des Affaires » est normalisée espaces→_ (casse
+# conservée). Tools company_full_profile / bodacc_by_siren vérifiés sur
+# tools/list du serveur (@hacienda/core, toolGroup company_registries). À
+# confirmer par un run local Claude Code (test SIREN). Remplace l'ancien
+# wildcard mcp__*__.
 ---
 
 # Agent echeances-societaires
@@ -40,10 +45,10 @@ l'avocat ou le dirigeant décide.
 
 ## Sources
 
-- `company_full_profileTool` (`mcp__*__company_full_profile`) — Pappers (date
+- `company_full_profileTool` (`mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__company_full_profile`) — Pappers (date
   clôture, dirigeants, mandats) si `PAPPERS_API_KEY` configurée ; cache 7 j.
   [Pappers]
-- `BodaccClient.searchBySiren(siren, limit)` (`mcp__*__bodacc_by_siren`) —
+- `BodaccClient.searchBySiren(siren, limit)` (`mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__bodacc_by_siren`) —
   fallback sur SIREN où Pappers est indisponible (dépôts comptes, mods).
   [BODACC]
 

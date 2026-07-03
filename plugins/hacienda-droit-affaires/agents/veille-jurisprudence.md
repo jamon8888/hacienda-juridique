@@ -9,9 +9,15 @@ description: >
   "nouveautés droit des affaires", "quoi de neuf en droit des affaires".
 model: sonnet
 tools: ["Read", "Write", "Glob", "Bash",
-        "mcp__*__legifrance_search",
-        "mcp__*__judilibre_search"]
-# Wildcard mcp__*__ — préfixe à confirmer à l'enregistrement du MCP server Wave 6.
+        "mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__legifrance_recherche",
+        "mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__judilibre_recherche"]
+# Préfixe MCP concret : mcp__plugin_<plugin>_<clé-serveur>__ — la clé serveur
+# ".mcp.json" « Hacienda Droit des Affaires » est normalisée espaces→_ (casse
+# conservée). Noms de tools vérifiés sur tools/list du serveur MCP
+# (@hacienda/core, toolGroup legal_research) : legifrance_recherche +
+# judilibre_recherche. Les anciens noms legifrance_search / judilibre_search
+# N'EXISTAIENT PAS (corrigés — cf. bug historique searchTextes/searchArrets).
+# À confirmer par un run local Claude Code. Remplace l'ancien wildcard mcp__*__.
 # En v1.2 : filtrage chambre commerciale uniquement (champ `chambres` extensible pour v1.3+).
 ---
 

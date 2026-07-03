@@ -10,12 +10,15 @@ description: >
   "alerte cible M&A", "monitoring portefeuille SIREN", "veille BODACC cabinet".
 model: sonnet
 tools: ["Read", "Write", "Glob", "Bash",
-        "mcp__*__bodacc_by_siren",
-        "mcp__*__bodacc_procedures",
-        "mcp__*__company_full_profile"]
-# TODO: préfixe mcp__<server>__ à confirmer quand hacienda-droit-affaires
-# enregistrera son MCP server (mcp-server/src/.gitkeep actuellement vide).
-# Wildcard mcp__*__ utilisé en attendant l'enregistrement Wave 6.
+        "mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__bodacc_by_siren",
+        "mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__bodacc_procedures",
+        "mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__company_full_profile"]
+# Préfixe MCP concret : mcp__plugin_<plugin>_<clé-serveur>__ — la clé serveur
+# ".mcp.json" « Hacienda Droit des Affaires » est normalisée espaces→_ (casse
+# conservée). Tools bodacc_by_siren / bodacc_procedures / company_full_profile
+# vérifiés sur tools/list du serveur (@hacienda/core, toolGroup
+# company_registries). À confirmer par un run local Claude Code (test SIREN).
+# Remplace l'ancien wildcard mcp__*__.
 ---
 
 # Agent bodacc-watcher

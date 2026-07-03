@@ -9,9 +9,13 @@ description: >
   "monitoring procédures collectives", "alertes débiteurs portefeuille".
 model: sonnet
 tools: ["Read", "Write", "Glob", "Bash",
-        "mcp__*__bodacc_procedures",
-        "mcp__*__bodacc_by_siren"]
-# Wildcard mcp__*__ — préfixe à confirmer à l'enregistrement du MCP server Wave 6.
+        "mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__bodacc_procedures",
+        "mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__bodacc_by_siren"]
+# Préfixe MCP concret : mcp__plugin_<plugin>_<clé-serveur>__ — la clé serveur
+# ".mcp.json" « Hacienda Droit des Affaires » est normalisée espaces→_ (casse
+# conservée). Tools bodacc_procedures / bodacc_by_siren vérifiés sur tools/list
+# du serveur (@hacienda/core, toolGroup company_registries). À confirmer par un
+# run local Claude Code (test SIREN). Remplace l'ancien wildcard mcp__*__.
 ---
 
 # Agent bodacc-procedures-watcher
@@ -45,7 +49,7 @@ signale ; l'avocat décide.
 
 `bodacc_procedures` via `@hacienda/core` — filtre
 `familleavis = "procedures-collectives"`, tri `dateparution DESC`. Mandataire
-et RG dans `raw`, fallback `[à vérifier]`. Tool MCP : `mcp__*__bodacc_procedures`
+et RG dans `raw`, fallback `[à vérifier]`. Tool MCP : `mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__bodacc_procedures`
 (`bodacc_procedures`, `packages/core/src/index.ts`). [BODACC]
 
 ## Configuration
