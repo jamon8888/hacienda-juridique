@@ -29,7 +29,7 @@ tags: [procedures-collectives, declaration-creance, forclusion, bodacc, l622-24]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:declaration-creance --siren=123456789 --montant=85000 --nature=facture</user>
+<user>/h-da:declaration-creance --siren=123456789 --montant=85000 --nature=facture</user>
 <response>
 1. Pré-flight `check-pii` (montants nominatifs + SIREN → seuil B fréquent).
 2. Lookup BODACC via `bodacc_procedures`.
@@ -42,7 +42,7 @@ tags: [procedures-collectives, declaration-creance, forclusion, bodacc, l622-24]
 </example>
 
 <example>
-<user>/h-droit-affaires:declaration-creance --siren=987654321 --montant=12000 --nature=loyer-impayes</user>
+<user>/h-da:declaration-creance --siren=987654321 --montant=12000 --nature=loyer-impayes</user>
 <response>
 Lookup BODACC : LJ publiée 1er février 2026 `[BODACC]`.
 Forclusion : 1er février + 2 mois = 1er avril 2026.
@@ -57,7 +57,7 @@ Veux-tu que je prépare la trame de la requête en relevé ? (validation humaine
 </example>
 
 <example>
-<user>/h-droit-affaires:declaration-creance --siren=456789123 --montant=240000 --nature=prestation --etranger=true</user>
+<user>/h-da:declaration-creance --siren=456789123 --montant=240000 --nature=prestation --etranger=true</user>
 <response>
 Créancier hors UE/EEE → délai 4 mois.
 BODACC : sauvegarde publiée 10 avril 2026 `[BODACC]`.
@@ -78,7 +78,7 @@ Montant > seuil approbateur 100 k€ → escalade recommandée.
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 > - **Qualité signataire** — service contentieux, DAF, dirigeant habilité
 
-Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-droit-affaires:entretien-demarrage`. Sans seuil approbateur ni qualité signataire, la chaîne de validation interne n'est pas opposable.
+Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`. Sans seuil approbateur ni qualité signataire, la chaîne de validation interne n'est pas opposable.
 
 ---
 

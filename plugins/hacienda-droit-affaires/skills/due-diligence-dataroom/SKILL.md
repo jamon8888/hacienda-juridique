@@ -39,7 +39,7 @@ tags: [due-diligence, dataroom, ma, materialite, gap, pe, red-flags]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:due-diligence-dataroom ./data-room-cible-X/ --side=acquereur</user>
+<user>/h-da:due-diligence-dataroom ./data-room-cible-X/ --side=acquereur</user>
 <response>
 1. Pré-flight `check-pii` sur l'ensemble du dossier data-room (volume élevé : contrats salariés, IBAN, SIREN, montants > 10k€ → seuil B franchi → prompt utilisateur, décision respectée)
 2. Lecture profil cabinet (bloc M&A / Corporate : side acquéreur, posture DD — thèmes prioritaires et seuil de matérialité)
@@ -55,7 +55,7 @@ tags: [due-diligence, dataroom, ma, materialite, gap, pe, red-flags]
 </example>
 
 <example>
-<user>/h-droit-affaires:due-diligence-dataroom ./data-room/ --side=acquereur --themes=corporate,contrats,contentieux</user>
+<user>/h-da:due-diligence-dataroom ./data-room/ --side=acquereur --themes=corporate,contrats,contentieux</user>
 <response>
 DD ciblée sur 3 thèmes (corporate / gouvernance, contrats matériels, contentieux / passifs). Les 4 autres thèmes (social, PI, fiscal, RGPD) ne sont pas couverts.
 
@@ -64,7 +64,7 @@ Le rapport ne traite que les 3 thèmes demandés. La note du relecteur, champ «
 </example>
 
 <example>
-<user>/h-droit-affaires:due-diligence-dataroom ./data-room-volumineuse/ --side=acquereur</user>
+<user>/h-da:due-diligence-dataroom ./data-room-volumineuse/ --side=acquereur</user>
 <response>
 Data-room volumineuse (plusieurs centaines de documents : contrats de travail, liasses fiscales, contrats clients nominatifs). Le pré-flight `check-pii` agrège les identifiants sur tout le dossier : le seuil B (50 identifiants OU 1+ catégorie sensible) est très largement franchi dès les premiers documents (IBAN, NIR sur contrats de travail, montants).
 
@@ -73,7 +73,7 @@ Data-room volumineuse (plusieurs centaines de documents : contrats de travail, l
 </example>
 
 <example>
-<user>/h-droit-affaires:due-diligence-dataroom ./data-room/ --side=acquereur --themes=corporate,contrats</user>
+<user>/h-da:due-diligence-dataroom ./data-room/ --side=acquereur --themes=corporate,contrats</user>
 <response>
 DD ciblée corporate + contrats. Findings matériels remontés : (a) un contrat client clé comporte une clause de changement de contrôle permettant la résiliation en cas de cession → 🔴 ; (b) une clause d'agrément statutaire non purgée → 🟠.
 
@@ -110,7 +110,7 @@ Livrable : red flag report partner-ready (findings 🔴/🟠 matériels + table 
 > - **Rôle de l'utilisateur courant** — pour l'en-tête de confidentialité
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/h-droit-affaires:entretien-demarrage`. Le bloc M&A est requis —
+demander `/h-da:entretien-demarrage`. Le bloc M&A est requis —
 sans side habituel ni seuil de matérialité, la qualification des findings et la
 grille de matérialité ne peuvent pas être calibrées. Voir aussi
 `~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour les éléments cabinet partagés.

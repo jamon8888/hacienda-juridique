@@ -56,7 +56,7 @@ tags: [rupture-brutale, distribution, l442-1, contentieux, preavis, relation-eta
 ## Examples
 
 <example>
-<user>/h-droit-affaires:analyser-rupture-brutale ./contrat-distribution-A-B.pdf ./notification-rupture-A.pdf --review --side=victime</user>
+<user>/h-da:analyser-rupture-brutale ./contrat-distribution-A-B.pdf ./notification-rupture-A.pdf --review --side=victime</user>
 <response>
 1. Pré-flight `check-pii` (parties + volumes commerciaux → seuil B fréquent → prompt utilisateur).
 2. Lecture profil cabinet (posture contentieuse, approbateur configuré pour mise en demeure).
@@ -72,7 +72,7 @@ tags: [rupture-brutale, distribution, l442-1, contentieux, preavis, relation-eta
 </example>
 
 <example>
-<user>/h-droit-affaires:analyser-rupture-brutale ./bons-de-commande-ponctuels.pdf --review</user>
+<user>/h-da:analyser-rupture-brutale ./bons-de-commande-ponctuels.pdf --review</user>
 <response>
 Identification : relation ponctuelle de 18 mois, bons de commande successifs sans contrat-cadre, aucune exclusivité contractuelle, aucune dépendance économique (la cible représentait < 5 % du CA de B), pas de tacite reconduction.
 
@@ -85,7 +85,7 @@ Sortie : note du relecteur (1 ligne — aucun flag), résumé exécutif court, r
 </example>
 
 <example>
-<user>/h-droit-affaires:analyser-rupture-brutale ./historique-relation-X.pdf --review</user>
+<user>/h-da:analyser-rupture-brutale ./historique-relation-X.pdf --review</user>
 <response>
 Étape 1 — Détection : la contrepartie X (auteur de la rupture) est en redressement judiciaire (BODACC, jugement d'ouverture du 12 mars 2026, publication du 18 mars 2026) `[BODACC]`.
 
@@ -93,14 +93,14 @@ Sortie : note du relecteur (1 ligne — aucun flag), résumé exécutif court, r
 
 Date de forclusion estimée : 18 mai 2026. Le skill `analyser-rupture-brutale` chiffre l'indemnisation (préavis manquant × marge brute) ; la déclaration de créance elle-même relève de `declaration-creance`.
 
-Renvoi actif : `/h-droit-affaires:declaration-creance --siren=<X> --nature=indemnisation-rupture-brutale --montant=<estimation chiffrée>`.
+Renvoi actif : `/h-da:declaration-creance --siren=<X> --nature=indemnisation-rupture-brutale --montant=<estimation chiffrée>`.
 
 Sortie : qualification + estimation préjudice + recommandation Engager (déclarer la créance avant forclusion, parallèlement à l'éventuelle action judiciaire).
 </response>
 </example>
 
 <example>
-<user>/h-droit-affaires:analyser-rupture-brutale ./contrat-distribution-marque-Y.pdf --review</user>
+<user>/h-da:analyser-rupture-brutale ./contrat-distribution-marque-Y.pdf --review</user>
 <response>
 Identification : contrat de distribution exclusive de produits de marque Y, incluant une licence d'usage de la marque Y au distributeur. Composante PI forte (la marque structure l'économie du contrat).
 
@@ -121,7 +121,7 @@ Si (b) ou (c) → poursuivre l'analyse rupture brutale standard. Si (a) seul →
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/h-droit-affaires:entretien-demarrage` avant toute analyse
+demander `/h-da:entretien-demarrage` avant toute analyse
 substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour les
 éléments cabinet partagés cross-plugins.
 

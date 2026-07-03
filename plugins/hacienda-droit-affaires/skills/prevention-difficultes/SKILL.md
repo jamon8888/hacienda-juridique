@@ -42,7 +42,7 @@ tags: [prevention, mandat-ad-hoc, conciliation, sauvegarde-acceleree, l611, entr
 ## Examples
 
 <example>
-<user>/h-droit-affaires:prevention-difficultes --orienter "trésorerie tendue, négociation avec 3 banques, pas en cessation des paiements"</user>
+<user>/h-da:prevention-difficultes --orienter "trésorerie tendue, négociation avec 3 banques, pas en cessation des paiements"</user>
 <response>
 1. Pré-flight `check-pii`. Lecture profil cabinet (position dominante : débiteur).
 2. **Gate cessation des paiements** : l'entreprise fait encore face à son passif exigible → PAS en cessation des paiements. Dispositifs préventifs ouverts.
@@ -52,7 +52,7 @@ tags: [prevention, mandat-ad-hoc, conciliation, sauvegarde-acceleree, l611, entr
 </example>
 
 <example>
-<user>/h-droit-affaires:prevention-difficultes --draft "conciliation, accord avec apport de trésorerie d'un actionnaire"</user>
+<user>/h-da:prevention-difficultes --draft "conciliation, accord avec apport de trésorerie d'un actionnaire"</user>
 <response>
 Mode conciliation, avec apport d'argent frais. Étape 4 :
 - Requête en ouverture de conciliation au président du tribunal (désignation d'un conciliateur, mission, durée 4 mois prorogeable 1 mois).
@@ -62,7 +62,7 @@ Sortie : requête + structure d'accord + note sur l'arbitrage constaté/homologu
 </example>
 
 <example>
-<user>/h-droit-affaires:prevention-difficultes --orienter "cessation des paiements depuis 2 mois, plus de trésorerie"</user>
+<user>/h-da:prevention-difficultes --orienter "cessation des paiements depuis 2 mois, plus de trésorerie"</user>
 <response>
 **Gate cessation des paiements** : cessation des paiements depuis ~60 jours, soit **> 45 jours**.
 
@@ -73,7 +73,7 @@ Sortie : requête + structure d'accord + note sur l'arbitrage constaté/homologu
 </example>
 
 <example>
-<user>/h-droit-affaires:prevention-difficultes --orienter "conciliation en cours, un créancier minoritaire bloque l'accord"</user>
+<user>/h-da:prevention-difficultes --orienter "conciliation en cours, un créancier minoritaire bloque l'accord"</user>
 <response>
 Conciliation engagée mais un créancier minoritaire refuse un accord soutenu par la majorité → orientation **sauvegarde accélérée** (art. L.628-1 s. C.com. `[Légifrance]`) : procédure collective rapide ouverte **sur la base de la conciliation** pour imposer le plan pré-négocié aux récalcitrants, dans un délai bref (le tribunal arrête le plan sous ~2 mois, prorogeable `[à vérifier]`). Conditions : conciliation préalable, comptes établis, projet de plan susceptible d'un soutien suffisant `[review]`. C'est la passerelle de l'amiable vers le collectif.
 </response>
@@ -88,7 +88,7 @@ Conciliation engagée mais un créancier minoritaire refuse un accord soutenu pa
 > - **Tribunaux habituels** — président du tribunal compétent (commerce / judiciaire selon l'activité)
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
-Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-droit-affaires:entretien-demarrage`.
+Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`.
 
 ---
 

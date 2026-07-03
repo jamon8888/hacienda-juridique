@@ -206,4 +206,4 @@ de `@hacienda/core` (zéro CDN, sortable/filtrable — `references/dashboard-tem
 - **Ne couvre pas les décisions AMF** : source non intégrée en v1.2 (prévue v2,
   voir tableau sources `CLAUDE.md` du plugin § 10).
 - **Ne gère pas la configuration** : modifications de `veille-config.yaml` via
-  `/h-droit-affaires:entretien-demarrage` ou édition manuelle du YAML.
+  `/h-da:entretien-demarrage` ou édition manuelle du YAML.

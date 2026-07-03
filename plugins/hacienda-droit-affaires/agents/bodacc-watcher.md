@@ -81,7 +81,7 @@ sirens:
 **Si le fichier est absent ou vide** : l'agent stoppe immédiatement et propose :
 
 > Watchlist introuvable. Pour démarrer :
-> - Lancer `/h-droit-affaires:entretien-demarrage` (configure la watchlist
+> - Lancer `/h-da:entretien-demarrage` (configure la watchlist
 >   au fil de l'entretien cabinet), ou
 > - Créer manuellement le fichier `watchlist-siren.yaml` avec le format ci-dessus.
 >
@@ -123,9 +123,9 @@ mandataire/administrateur/plan — parser avec fallback `[à vérifier]`.
 
 5. **Cross-référencer avec les skills du plugin** :
    - Procédure collective détectée sur SIREN `client` ou `fournisseur` →
-     proposer `/h-droit-affaires:declaration-creance`.
+     proposer `/h-da:declaration-creance`.
    - Modification substantielle (statuts, dirigeants) sur SIREN `fournisseur`
-     dont contrat actif → proposer `/h-droit-affaires:reviser-contrat`.
+     dont contrat actif → proposer `/h-da:reviser-contrat`.
    - Changement contrôle sur SIREN `cible-ma` en cours de LOI → marquer
      🔴 et signaler impact sur la lettre d'intention.
 
@@ -145,8 +145,8 @@ Localisation : {ville} ({numerodepartement})
 
 Action recommandée :
 → {commande skill selon type d'événement}
-  Exemple : /h-droit-affaires:declaration-creance (procédure collective)
-            /h-droit-affaires:reviser-contrat (modification fournisseur)
+  Exemple : /h-da:declaration-creance (procédure collective)
+            /h-da:reviser-contrat (modification fournisseur)
 
 Source : BODACC OpenDataSoft (public, sans authentification) [BODACC]
 Validation humaine obligatoire avant toute action externe.
@@ -176,7 +176,7 @@ Si > 10 lignes : générer aussi un HTML autonome via `renderDashboard()` de
   contractuels) — rôle des skills.
 - **N'agit pas automatiquement** : propose le skill, l'utilisateur le lance.
 - **Ne déclare pas de créance** : renvoie vers
-  `/h-droit-affaires:declaration-creance` qui demande validation avocat.
+  `/h-da:declaration-creance` qui demande validation avocat.
 - **Pas d'envoi** au mandataire, contrepartie ou tribunal.
 - **Ne gère pas la watchlist** : modifications via
-  `/h-droit-affaires:entretien-demarrage` ou édition manuelle du YAML.
+  `/h-da:entretien-demarrage` ou édition manuelle du YAML.

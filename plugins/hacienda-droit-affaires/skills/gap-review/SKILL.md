@@ -29,7 +29,7 @@ tags: [gap, ma, garantie-actif-passif, cession, spa]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:gap-review ./GAP-cession-Y.pdf --side=acquereur --prix=15000000</user>
+<user>/h-da:gap-review ./GAP-cession-Y.pdf --side=acquereur --prix=15000000</user>
 <response>
 1. Pré-flight `check-pii` (typique : montants > 100k€ → seuil B → prompt utilisateur)
 2. Lecture profil bloc M&A (side acquéreur, plafond cible 20-25 %, approbateur SPA)
@@ -44,14 +44,14 @@ Exemple finding : plafond global 12 % du prix → 🟠 (sous fourchette acquére
 </example>
 
 <example>
-<user>/h-droit-affaires:gap-review ./GAP-projet.pdf --side=cedant --prix=8000000</user>
+<user>/h-da:gap-review ./GAP-projet.pdf --side=cedant --prix=8000000</user>
 <response>
 Posture inverse côté cédant : plafond cible 10-15 %, demander knowledge qualifier, accepter best knowledge si défini limitativement, refuser garantie de la garantie au-delà du séquestre standard. Findings calibrés en miroir : plafond 18 % → 🟠 cédant (au-dessus fourchette) là où il serait 🟡 acquéreur.
 </response>
 </example>
 
 <example>
-<user>/h-droit-affaires:gap-review ./GAP.pdf --side=acquereur --dd-findings=./rapport-dd.md --prix=20000000</user>
+<user>/h-da:gap-review ./GAP.pdf --side=acquereur --dd-findings=./rapport-dd.md --prix=20000000</user>
 <response>
 Axe 5 activé : confrontation findings DD ↔ garanties. Tableau gap analysis par finding matériel : garantie applicable + couverture (Oui/Partielle/Non) + recommandation (clause ad hoc / réduction de prix / abandon point).
 
@@ -60,7 +60,7 @@ Exemple : finding « litige fiscal pendant 450 k€ — redressement TVA 2025-03
 </example>
 
 <example>
-<user>/h-droit-affaires:gap-review ./GAP-FR-UK-deal.pdf --side=acquereur</user>
+<user>/h-da:gap-review ./GAP-FR-UK-deal.pdf --side=acquereur</user>
 <response>
 Détection clauses common law importées (waiver, indemnification, representations & warranties, disclosure letter) → traduction en concepts FR (GAP française, déclarations et garanties au sens du droit FR, devoir précontractuel art. 1112-1 C.civ `[Légifrance]`, articulation dol / réticence dolosive `[à vérifier]`).
 
@@ -79,7 +79,7 @@ Note du relecteur : « Doc bilingue détecté — ce skill applique le cadre fra
 > - **Clauses "jamais acceptées"** côté habituel (ex. acquéreur : refus knowledge qualifier ; cédant : refus garantie de la garantie au-delà séquestre standard)
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
-Si le profil n'est pas peuplé (`[A CONFIGURER]`) : stopper et demander `/h-droit-affaires:entretien-demarrage`. Le bloc M&A est requis — sans side habituel ni fourchettes, le calibrage des findings est impossible.
+Si le profil n'est pas peuplé (`[A CONFIGURER]`) : stopper et demander `/h-da:entretien-demarrage`. Le bloc M&A est requis — sans side habituel ni fourchettes, le calibrage des findings est impossible.
 
 ---
 
@@ -379,7 +379,7 @@ Si la sortie est destinée à un comité d'investissement, sponsor business non-
 - Revue PI-centric d'un actif cédé → renvoyer `/h-pi:contrats-pi`.
 - Conseil fiscal détaillé sur la cession (régime plus-values, droits d'enregistrement, intégration fiscale, neutralité 210-A CGI) — signalement uniquement, renvoi conseil fiscal.
 - Conseil social détaillé (information-consultation CSE art. L.2312-8 C. trav. `[à vérifier]`, transfert des contrats art. L.1224-1 C. trav. `[à vérifier]`) — signalement, renvoi.
-- Préparer une déclaration de créance si la cible entre en procédure collective post-signing → renvoyer `/h-droit-affaires:declaration-creance`.
+- Préparer une déclaration de créance si la cible entre en procédure collective post-signing → renvoyer `/h-da:declaration-creance`.
 - **Dater** la cessation des paiements / la période suspecte en mode `--distressed` (semaines relatives ; date fixée par le tribunal).
 - **Couvrir une GAP de cession judiciaire à la barre** — renvoi `/h-da:reprise-a-la-barre` / `/h-da:cession-actifs-isoles`.
 - **Souscrire / placer** la police W&I ni en interpréter les conditions au fond en mode `--pe` (signalée, articulation seulement).

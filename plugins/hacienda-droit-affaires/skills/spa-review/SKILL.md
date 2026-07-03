@@ -24,16 +24,16 @@ tags: [spa, ma, cession-titres, protocole-cession, signing, closing, gap]
 >
 > **Frontière avec les autres skills.** `spa-review` traite l'architecture du
 > SPA et les points de cohérence. La GAP technique reste traitée par
-> `/h-droit-affaires:gap-review`. Le pilotage signing / closing /
-> post-closing reste traité par `/h-droit-affaires:closing-checklist-fr`.
-> L'audit data-room reste traité par `/h-droit-affaires:due-diligence-dataroom`.
+> `/h-da:gap-review`. Le pilotage signing / closing /
+> post-closing reste traité par `/h-da:closing-checklist-fr`.
+> L'audit data-room reste traité par `/h-da:due-diligence-dataroom`.
 
 ---
 
 ## Examples
 
 <example>
-<user>/h-droit-affaires:spa-review ./SPA-cible-X.pdf --side=acquereur --type=cession-titres --prix=12000000 --dd-findings=./rapport-dd.md</user>
+<user>/h-da:spa-review ./SPA-cible-X.pdf --side=acquereur --type=cession-titres --prix=12000000 --dd-findings=./rapport-dd.md</user>
 <response>
 1. Pré-flight `check-pii` sur le SPA et les findings DD.
 2. Lecture profil cabinet, bloc M&A / Corporate.
@@ -46,21 +46,21 @@ tags: [spa, ma, cession-titres, protocole-cession, signing, closing, gap]
 </example>
 
 <example>
-<user>/h-droit-affaires:spa-review ./SPA-sell-side.pdf --side=cedant --type=cession-titres --red-flags</user>
+<user>/h-da:spa-review ./SPA-sell-side.pdf --side=cedant --type=cession-titres --red-flags</user>
 <response>
 Mode `--red-flags`, côté cédant. La sortie se concentre sur les blocages : MAC trop large, garantie de la garantie non plafonnée, covenant d'interim empêchant l'exploitation normale, earn-out discrétionnaire. Les points mineurs sont reportés en annexe courte.
 </response>
 </example>
 
 <example>
-<user>/h-droit-affaires:spa-review ./SPA.pdf --side=acquereur --signing-ready</user>
+<user>/h-da:spa-review ./SPA.pdf --side=acquereur --signing-ready</user>
 <response>
 Gate signing-ready : le SPA n'est pas prêt à signer. Trois prérequis manquent : disclosure letter annexée, décisions sociales d'agrément, confirmation de levée d'une CP réglementaire. Le skill recommande de lancer `closing-checklist-fr` après correction.
 </response>
 </example>
 
 <example>
-<user>/h-droit-affaires:spa-review ./SPA-portefeuille-PI.pdf --side=acquereur --type=cession-titres</user>
+<user>/h-da:spa-review ./SPA-portefeuille-PI.pdf --side=acquereur --type=cession-titres</user>
 <response>
 Détection d'un portefeuille PI structurant dans les actifs de la cible : marques, logiciel, open source, noms de domaine. `spa-review` traite l'architecture M&A et signale les protections SPA nécessaires, puis renvoie vers `/h-pi:audit-pi-ma` ou `/h-pi:contrats-pi` pour l'analyse PI approfondie.
 </response>
@@ -79,7 +79,7 @@ Détection d'un portefeuille PI structurant dans les actifs de la cible : marque
 > - **Politique PII** — `passive` / `active` / `strict` + seuil B.
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent), stopper et
-demander `/h-droit-affaires:entretien-demarrage` avant toute revue SPA
+demander `/h-da:entretien-demarrage` avant toute revue SPA
 substantielle.
 
 ---
@@ -271,7 +271,7 @@ Analyser l'architecture générale :
 - articulation avec GAP.
 
 Ne pas refaire `gap-review`. Si les clauses de garantie sont substantielles,
-renvoyer vers `/h-droit-affaires:gap-review` avec les paramètres déjà
+renvoyer vers `/h-da:gap-review` avec les paramètres déjà
 extraits : side, prix, fichiers et findings DD.
 
 ---

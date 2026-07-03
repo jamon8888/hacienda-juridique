@@ -36,7 +36,7 @@ tags: [issues-list, negotiation, composable]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:liste-de-points --from-analysis ./analyse-contrat-SPA.md --posture=protecteur</user>
+<user>/h-da:liste-de-points --from-analysis ./analyse-contrat-SPA.md --posture=protecteur</user>
 <response>
 Mode standalone détecté (fichier d'analyse fourni).
 1. Lecture profil cabinet (posture protecteur override, clauses "jamais acceptées")
@@ -71,7 +71,7 @@ Retour : tableau seul (6 colonnes). En-tête et note du relecteur fournis par re
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/h-droit-affaires:entretien-demarrage`. Seule exception : en
+demander `/h-da:entretien-demarrage`. Seule exception : en
 mode composant invoqué par un skill caller qui a déjà vérifié le profil.
 
 ---

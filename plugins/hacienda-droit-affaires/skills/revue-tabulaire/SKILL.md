@@ -32,7 +32,7 @@ tags: [extraction, multi-docs, tableau, brique-atomique]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:revue-tabulaire ./ndas/*.pdf --colonnes="durée,non-concurrence,loi-applicable,juridiction"</user>
+<user>/h-da:revue-tabulaire ./ndas/*.pdf --colonnes="durée,non-concurrence,loi-applicable,juridiction"</user>
 <response>
 1. Pré-flight `check-pii` sur l'ensemble du lot (12 fichiers, 347 mentions identifiantes → seuil B → prompt utilisateur)
 2. Lecture profil cabinet (politique PII active)
@@ -45,7 +45,7 @@ tags: [extraction, multi-docs, tableau, brique-atomique]
 </example>
 
 <example>
-<user>/h-droit-affaires:revue-tabulaire ./contrats-distribution/*.pdf --colonnes="parties,date-signature,date-expiration,exclusivite,territoire,droit-applicable"</user>
+<user>/h-da:revue-tabulaire ./contrats-distribution/*.pdf --colonnes="parties,date-signature,date-expiration,exclusivite,territoire,droit-applicable"</user>
 <response>
 Lot de 8 contrats de distribution → extraction 6 colonnes :
 - Lecture rapide de chaque document, extraction des valeurs textuelles
@@ -64,7 +64,7 @@ Lot de 8 contrats de distribution → extraction 6 colonnes :
 > - **Rôle de l'utilisateur courant** — pour l'en-tête de confidentialité
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/h-droit-affaires:entretien-demarrage` avant toute extraction
+demander `/h-da:entretien-demarrage` avant toute extraction
 substantielle.
 
 ---

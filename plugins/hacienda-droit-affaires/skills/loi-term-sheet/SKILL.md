@@ -34,7 +34,7 @@ tags: [loi, term-sheet, lettre-intention, ma, pourparlers, binding]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:loi-term-sheet ./LOI-cible-X.pdf --review --side=acquereur</user>
+<user>/h-da:loi-term-sheet ./LOI-cible-X.pdf --review --side=acquereur</user>
 <response>
 1. Pré-flight `check-pii` (29 identifiants, 5 montants > 10k€ → sous seuil B → continue)
 2. Lecture profil cabinet (bloc M&A / Corporate : side habituel acquéreur, taille de deals, matrice d'approbateurs)
@@ -49,7 +49,7 @@ tags: [loi, term-sheet, lettre-intention, ma, pourparlers, binding]
 </example>
 
 <example>
-<user>/h-droit-affaires:loi-term-sheet ./term-sheet-acquisition.pdf --review</user>
+<user>/h-da:loi-term-sheet ./term-sheet-acquisition.pdf --review</user>
 <response>
 Identification : term sheet d'acquisition, clause d'exclusivité de 18 mois.
 Finding 🟠 — clause d'exclusivité :
@@ -61,7 +61,7 @@ Recommandation : ramener la durée à une valeur proportionnée (souvent 6 à 12
 </example>
 
 <example>
-<user>/h-droit-affaires:loi-term-sheet --draft --side=acquereur</user>
+<user>/h-da:loi-term-sheet --draft --side=acquereur</user>
 <response>
 Mode `--draft`, side acquéreur. Intake : contexte du deal (taille, calendrier visé), périmètre de l'opération, points déjà arbitrés.
 Le skill produit un projet de LOI structuré avec, pour chaque clause, sa qualification binding / non-binding **explicite** :
@@ -84,7 +84,7 @@ Sortie : brouillon de LOI + note du relecteur + tableau binding / non-binding + 
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/h-droit-affaires:entretien-demarrage` avant toute revue ou
+demander `/h-da:entretien-demarrage` avant toute revue ou
 rédaction substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour
 les éléments cabinet partagés cross-plugins.
 

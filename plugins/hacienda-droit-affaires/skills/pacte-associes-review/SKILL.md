@@ -34,7 +34,7 @@ tags: [pacte-associes, societes, revue, drag-along, preemption, agrement, privat
 ## Examples
 
 <example>
-<user>/h-droit-affaires:pacte-associes-review ./pacte-associes-startup.pdf --review --side=fondateur</user>
+<user>/h-da:pacte-associes-review ./pacte-associes-startup.pdf --review --side=fondateur</user>
 <response>
 1. Pré-flight `check-pii` (31 identifiants, aucune catégorie sensible → sous seuil B → continue)
 2. Lecture profil cabinet (posture pacte = protecteur fondateurs, matrice d'approbateurs, politique PII)
@@ -48,7 +48,7 @@ tags: [pacte-associes, societes, revue, drag-along, preemption, agrement, privat
 </example>
 
 <example>
-<user>/h-droit-affaires:pacte-associes-review ./pacte-v2.pdf</user>
+<user>/h-da:pacte-associes-review ./pacte-v2.pdf</user>
 <response>
 Identification : pacte d'associés, SAS. Détection d'une clause d'inaliénabilité de 15 ans.
 Finding 🔴 — clause d'inaliénabilité :
@@ -59,7 +59,7 @@ Recommandation : ramener la durée à une valeur conforme (≤ 10 ans en SAS, id
 </example>
 
 <example>
-<user>/h-droit-affaires:pacte-associes-review ./pacte-jv-techno.pdf</user>
+<user>/h-da:pacte-associes-review ./pacte-jv-techno.pdf</user>
 <response>
 Détection d'une composante PI substantielle : le pacte organise l'apport au capital d'un portefeuille de brevets et une licence croisée de savoir-faire entre les associés. Renvoi taxonomie :
 "Ce pacte comporte un volet propriété intellectuelle substantiel — apport de brevets au capital et licence de savoir-faire entre associés. Le skill le mieux adapté pour ce volet est `/h-pi:contrats-pi`, qui couvre les spécificités PI (évaluation des apports, périmètre de licence, inscription au RNB pour opposabilité). Souhaites-tu (a) lancer `contrats-pi` à la place pour le volet PI, (b) continuer avec `pacte-associes-review` sur les seules clauses de vie sociale (préemption, agrément, drag/tag, leaver, véto), ou (c) faire les deux en séquence ?"
@@ -67,7 +67,7 @@ Détection d'une composante PI substantielle : le pacte organise l'apport au cap
 </example>
 
 <example>
-<user>/h-droit-affaires:pacte-associes-review ./pacte-investissement-lbo.pdf --pe --side=management</user>
+<user>/h-da:pacte-associes-review ./pacte-investissement-lbo.pdf --pe --side=management</user>
 <response>
 1. Pré-flight check-pii + lecture profil
 2. Identification : pacte d'investissement, SAS HoldCo FR, sponsor + managers rollover → signaux PE
@@ -90,7 +90,7 @@ Détection d'une composante PI substantielle : le pacte organise l'apport au cap
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/h-droit-affaires:entretien-demarrage` avant toute revue
+demander `/h-da:entretien-demarrage` avant toute revue
 substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour les
 éléments cabinet partagés cross-plugins.
 

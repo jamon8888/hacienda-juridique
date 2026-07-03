@@ -40,7 +40,7 @@ tags: [closing, checklist, ma, conditions-suspensives, formalites, pe, lbo, fund
 ## Examples
 
 <example>
-<user>/h-droit-affaires:closing-checklist-fr --type=cession-titres --forme=SAS</user>
+<user>/h-da:closing-checklist-fr --type=cession-titres --forme=SAS</user>
 <response>
 1. Pré-flight `check-pii` (parties, dirigeants, prix de cession → probable seuil B → prompt utilisateur, décision respectée)
 2. Lecture profil cabinet (bloc M&A / Corporate : side habituel, matrice d'approbateurs — ligne « Signature SPA »)
@@ -55,7 +55,7 @@ tags: [closing, checklist, ma, conditions-suspensives, formalites, pe, lbo, fund
 </example>
 
 <example>
-<user>/h-droit-affaires:closing-checklist-fr --type=cession-titres --forme=SAS --cp="agrément du conseil, autorisation administrative sectorielle"</user>
+<user>/h-da:closing-checklist-fr --type=cession-titres --forme=SAS --cp="agrément du conseil, autorisation administrative sectorielle"</user>
 <response>
 Conditions suspensives multiples. L'étape 1 tabule chaque CP séparément :
 - CP « agrément du conseil » → organe compétent à identifier dans les statuts (clause d'agrément SAS — art. L.227-14 C.com. `[Légifrance]`), responsable = cédant, échéance = avant le closing.
@@ -65,7 +65,7 @@ Chaque CP porte un statut (levée / en cours / à lever), un responsable et une 
 </example>
 
 <example>
-<user>/h-droit-affaires:closing-checklist-fr --type=cession-titres --forme=SAS --volet=post-closing</user>
+<user>/h-da:closing-checklist-fr --type=cession-titres --forme=SAS --volet=post-closing</user>
 <response>
 Focus sur le volet 4 — formalités post-closing d'une cession d'actions de SAS :
 - **Inscription au registre de mouvements de titres** et mise à jour des comptes d'associés individuels : l'ordre de mouvement de titres signé au closing est inscrit au registre ; cette inscription, et non le seul acte de cession, emporte le transfert opposable des actions. Responsable : la société (ou son mandataire). Échéance : sans délai après le closing. Omission → la cession peut être inopposable à la société et aux tiers `[review]`.
@@ -76,7 +76,7 @@ La checklist post-closing est rendue en tableau avec statut et responsable par f
 </example>
 
 <example>
-<user>/h-droit-affaires:closing-checklist-fr --type=cession-titres --forme=SAS --pe --side=sponsor</user>
+<user>/h-da:closing-checklist-fr --type=cession-titres --forme=SAS --pe --side=sponsor</user>
 <response>
 Mode PE (side sponsor). Outre les 4 volets standard, l'Étape PE applique L1–L5 : Volet 5 funds flow /
 sources & uses (structure, montants `[à compléter]`), séquençage CP financement (DCL/ECL/certain funds),
@@ -100,7 +100,7 @@ Gate France/Lux : docs fonds Lux hors périmètre.
 > - **Rôle de l'utilisateur courant** — pour l'en-tête de confidentialité
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/h-droit-affaires:entretien-demarrage`. Le bloc M&A est requis
+demander `/h-da:entretien-demarrage`. Le bloc M&A est requis
 — sans side habituel ni matrice d'approbateurs, le séquençage et l'escalade ne
 peuvent pas être calibrés. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-profile.md`
 pour les éléments cabinet partagés cross-plugins.

@@ -68,7 +68,7 @@ Confirmer la poursuite sans anonymisation ou installer `hacienda-ghost`.
 > - `categories_sensibles_actives` : liste des categories B activees
 
 Si le profil n'est pas encore configure, stopper et demander de lancer
-`/h-droit-affaires:entretien-demarrage`, sauf si le skill appelant
+`/h-da:entretien-demarrage`, sauf si le skill appelant
 fournit explicitement une politique override.
 
 ---

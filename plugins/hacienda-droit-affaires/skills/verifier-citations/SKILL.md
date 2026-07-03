@@ -235,7 +235,7 @@ Si `loadConfig().credentialsSource === "none"` :
 - **Action :** vérifier manuellement les {N} citations contre Légifrance
 - **Pour activer :** configurer `PISTE_CLIENT_ID` et `PISTE_CLIENT_SECRET`
   dans `~/.config/Hacienda/credentials.json`, puis lancer
-  `/h-droit-affaires:entretien-demarrage --check-integrations`
+  `/h-da:entretien-demarrage --check-integrations`
 ```
 
 Judilibre public peut rester operationnel si le wrapper core le permet sans

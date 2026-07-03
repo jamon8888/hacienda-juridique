@@ -36,7 +36,7 @@ tags: [gouvernance, assemblee, ago, age, convocation, proces-verbal, societes]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:gouvernance-ag --convocation --forme=SARL — AGO annuelle d'approbation des comptes</user>
+<user>/h-da:gouvernance-ag --convocation --forme=SARL — AGO annuelle d'approbation des comptes</user>
 <response>
 1. Pré-flight `check-pii` (associés nominatifs + dénomination → seuil B selon le nombre d'associés).
 2. Lecture profil cabinet (sous-bloc « vie sociale » : cadence assemblées suivies, formes pratiquées).
@@ -49,7 +49,7 @@ tags: [gouvernance, assemblee, ago, age, convocation, proces-verbal, societes]
 </example>
 
 <example>
-<user>/h-droit-affaires:gouvernance-ag --convocation --forme=SA — AGE de modification de l'objet social</user>
+<user>/h-da:gouvernance-ag --convocation --forme=SA — AGE de modification de l'objet social</user>
 <response>
 1. Pré-flight `check-pii` + lecture profil cabinet.
 2. Intake : SA, AGE, ordre du jour = modification de l'objet social (modification statutaire), date d'assemblée visée.
@@ -61,7 +61,7 @@ tags: [gouvernance, assemblee, ago, age, convocation, proces-verbal, societes]
 </example>
 
 <example>
-<user>/h-droit-affaires:gouvernance-ag --pv --forme=SARL — rédige le PV de l'AGO qui s'est tenue hier</user>
+<user>/h-da:gouvernance-ag --pv --forme=SARL — rédige le PV de l'AGO qui s'est tenue hier</user>
 <response>
 1. Pré-flight `check-pii` (participants nominatifs).
 2. Intake : SARL, AGO, résolutions soumises au vote et résultats fournis par l'utilisateur.
@@ -87,7 +87,7 @@ tags: [gouvernance, assemblee, ago, age, convocation, proces-verbal, societes]
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le sous-bloc « vie sociale » est encore en `[A CONFIGURER]` : stopper et
-demander `/h-droit-affaires:entretien-demarrage`. Sans les formes
+demander `/h-da:entretien-demarrage`. Sans les formes
 pratiquées renseignées, le calibrage des règles de quorum et de majorité ne peut
 pas être confirmé.
 

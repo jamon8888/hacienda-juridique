@@ -76,7 +76,7 @@ clients:
 ```
 
 **Si le fichier est absent ou vide** : stopper et proposer
-`/h-droit-affaires:entretien-demarrage` ou création manuelle.
+`/h-da:entretien-demarrage` ou création manuelle.
 L'agent ne crée pas de fichier vide par défaut.
 
 État persisté : `.echeances-state.json` (même répertoire).
@@ -183,4 +183,4 @@ Si > 10 clients ou > 15 lignes : générer aussi un HTML autonome via
 - **Pas de revue du procès-verbal d'AGO** — skill v1.1+.
 - **Pas de calcul des indemnités fin de mandat** — droit social, hors scope.
 - **Ne gère pas la liste clients** — modifications via
-  `/h-droit-affaires:entretien-demarrage` ou édition manuelle du YAML.
+  `/h-da:entretien-demarrage` ou édition manuelle du YAML.

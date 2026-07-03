@@ -37,7 +37,7 @@ tags: [constitution, societes, statuts, sas, sarl, sa, actes]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:constitution-societe --comparer</user>
+<user>/h-da:constitution-societe --comparer</user>
 <response>
 1. Pré-flight `check-pii` (peu d'identifiants au stade du choix de forme — sous seuil B le plus souvent).
 2. Lecture profil cabinet (bloc « vie sociale » : formes pratiquées, posture rédaction statuts, notaire partenaire).
@@ -49,7 +49,7 @@ tags: [constitution, societes, statuts, sas, sarl, sa, actes]
 </example>
 
 <example>
-<user>/h-droit-affaires:constitution-societe --draft --forme=SAS</user>
+<user>/h-da:constitution-societe --draft --forme=SAS</user>
 <response>
 1. Pré-flight `check-pii` + lecture profil cabinet (posture rédaction statuts).
 2. Intake : SAS, 2 associés, apports en numéraire uniquement, gouvernance simple (un président).
@@ -61,7 +61,7 @@ tags: [constitution, societes, statuts, sas, sarl, sa, actes]
 </example>
 
 <example>
-<user>/h-droit-affaires:constitution-societe --draft --forme=SARL</user>
+<user>/h-da:constitution-societe --draft --forme=SARL</user>
 <response>
 Intake : SARL, 3 associés, dont un apporte un **local commercial** en nature.
 Étape 1 — détection bifurcation actes :
@@ -72,7 +72,7 @@ Le skill produit le brouillon assisté en signalant que la forme de l'acte n'est
 </example>
 
 <example>
-<user>/h-droit-affaires:constitution-societe --draft --forme=SAS — un associé apporte un brevet valorisé 90 000 €</user>
+<user>/h-da:constitution-societe --draft --forme=SAS — un associé apporte un brevet valorisé 90 000 €</user>
 <response>
 Étape 1 — détection bifurcation actes :
 - Apport en nature d'un brevet (bien meuble incorporel) → pas d'immeuble → **acte SSP suffit** quant à la forme.
@@ -95,7 +95,7 @@ Renvoi : l'évaluation d'un brevet relève d'une expertise PI → signaler que l
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le sous-bloc « vie sociale » est encore en `[A CONFIGURER]` : stopper et
-demander `/h-droit-affaires:entretien-demarrage`. Sans notaire partenaire
+demander `/h-da:entretien-demarrage`. Sans notaire partenaire
 renseigné, le renvoi en cas d'acte authentique requis ne peut pas être adressé.
 
 ---

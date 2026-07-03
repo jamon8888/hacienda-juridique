@@ -71,7 +71,7 @@ debiteurs:
     creancier_etranger: false
 ```
 
-**Si fichier absent** : stopper, proposer `/h-droit-affaires:entretien-demarrage`
+**Si fichier absent** : stopper, proposer `/h-da:entretien-demarrage`
 ou création manuelle. Ne pas créer de fichier vide par défaut.
 
 État persisté : `.bodacc-procedures-state.json` (même répertoire).
@@ -102,7 +102,7 @@ jours_restants = date_forclusion - today
 
 Quotidien : `bodacc_procedures` [BODACC] sur tous les SIREN
 du portefeuille (actifs + historiques). Delta vs `last_seen_ids` = nouvelles
-procédures → alerte + proposition `/h-droit-affaires:declaration-creance`.
+procédures → alerte + proposition `/h-da:declaration-creance`.
 
 ## Workflow
 
@@ -129,7 +129,7 @@ Date forclusion : {date_forclusion}
 Mandataire      : {extrait raw} ou [à vérifier]                  [BODACC]
 
 Action OBLIGATOIRE avant le {date_forclusion} :
-→ /h-droit-affaires:declaration-creance --siren={siren} --montant={montant_creance}
+→ /h-da:declaration-creance --siren={siren} --montant={montant_creance}
 
 Si déclaration déjà envoyée, corriger dans debiteurs.yaml :
   statut_declaration: "envoyee"
@@ -154,7 +154,7 @@ Dépassement      : {abs(jours_restants)} jour(s)
 OPTIONS (décision avocat référent obligatoire) :
 1. Relevé forclusion art. L.622-26 `[Légifrance]` — recevabilité exceptionnelle,
    charge élevée (absence de fait du créancier / créance inconnue). [review]
-   → /h-droit-affaires:declaration-creance --siren={siren} --montant={montant_creance}
+   → /h-da:declaration-creance --siren={siren} --montant={montant_creance}
 2. Abandon créance (perte définitive)
    → debiteurs.yaml : statut_declaration: "abandonnee"
 
@@ -173,7 +173,7 @@ ESCALADE immédiate : {approbateur déclaration > 100k€ du profil cabinet}.
 
 | Date pub. | SIREN | Type | Ville | Action recommandée |
 |---|---|---|---|---|
-| YYYY-MM-DD | … | … | … | `/h-droit-affaires:declaration-creance --siren=…` |
+| YYYY-MM-DD | … | … | … | `/h-da:declaration-creance --siren=…` |
 
 Si > 10 dossiers actifs : générer un HTML autonome via `renderDashboard()`
 de `@hacienda/core` (zéro CDN, sortable/filtrable — `references/dashboard-template.md`).
@@ -194,7 +194,7 @@ majeure si une alerte est ratée silencieusement.**
 ## Ce que l'agent ne fait pas
 
 - Pas d'envoi automatique de déclaration au mandataire — l'agent alerte,
-  `/h-droit-affaires:declaration-creance` rédige avec validation avocat.
+  `/h-da:declaration-creance` rédige avec validation avocat.
 - Pas de rédaction de requête en relevé L.622-26 `[Légifrance]` — l'agent
   flague, le skill `declaration-creance` prépare la trame.
 - Pas de qualification fine du privilège — rôle du skill `declaration-creance`.

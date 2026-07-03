@@ -32,7 +32,7 @@ tags: [contrats, revue, playbook, ma, distribution, prestation, bail, spa]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:reviser-contrat ./SPA-cession-X.pdf --review</user>
+<user>/h-da:reviser-contrat ./SPA-cession-X.pdf --review</user>
 <response>
 1. Pré-flight `check-pii` (47 identifiants, 8 montants > 10k€ → seuil B → prompt utilisateur)
 2. Lecture profil cabinet (posture équilibré, plafond GAP 20 % prix, approbateur SPA = avocat + GC + sponsor business)
@@ -46,7 +46,7 @@ tags: [contrats, revue, playbook, ma, distribution, prestation, bail, spa]
 </example>
 
 <example>
-<user>/h-droit-affaires:reviser-contrat ./contrat-licence-brevet.pdf</user>
+<user>/h-da:reviser-contrat ./contrat-licence-brevet.pdf</user>
 <response>
 Détection contrat PI-centric (licence de brevet) → renvoi taxonomie :
 "Ce contrat porte principalement sur une licence de brevet. Le skill le mieux
@@ -59,7 +59,7 @@ juridiction), ou (c) faire les deux en séquence ?"
 </example>
 
 <example>
-<user>/h-droit-affaires:reviser-contrat ./CGV-fournisseur.pdf --review --side=client</user>
+<user>/h-da:reviser-contrat ./CGV-fournisseur.pdf --review --side=client</user>
 <response>
 Identification CGV B2B → vérifications spécifiques de transparence et d'équilibre :
 - art. L.441-1 C.com. — transparence prix, conditions de règlement `[Légifrance]`
@@ -72,7 +72,7 @@ Sortie complète avec liste de points et formulations alternatives selon posture
 </example>
 
 <example>
-<user>/h-droit-affaires:reviser-contrat ./bail-commercial.pdf</user>
+<user>/h-da:reviser-contrat ./bail-commercial.pdf</user>
 <response>
 Identification bail commercial relevant des art. L.145-1 et suivants C.com. → vérifications spécifiques :
 - Durée minimale 9 ans et droit au renouvellement (L.145-4, L.145-8) `[à vérifier]`
@@ -95,7 +95,7 @@ Sortie adaptée bail commercial, formulations alternatives selon posture cabinet
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/h-droit-affaires:entretien-demarrage` avant toute revue
+demander `/h-da:entretien-demarrage` avant toute revue
 substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour les
 éléments cabinet partagés cross-plugins.
 
@@ -174,7 +174,7 @@ Tag dans la sortie : `[Pappers]` si l'API Pappers a répondu, `[BODACC]` si seul
 
 **Alerte procédure collective.** Si BODACC remonte une procédure de sauvegarde, redressement judiciaire ou liquidation en cours :
 
-> 🟠 Alerte — la contrepartie est en {sauvegarde | redressement | liquidation} depuis le {date} `[BODACC]`. Vérifier (a) la qualité du signataire (administrateur, mandataire, dirigeant maintenu), (b) l'autorisation du juge-commissaire pour les actes en cours, (c) la nécessité d'une déclaration de créance dans les 2 mois post-publication BODACC du jugement d'ouverture `[à vérifier]`. Renvoyer vers `/h-droit-affaires:declaration-creance` si le cabinet est créancier.
+> 🟠 Alerte — la contrepartie est en {sauvegarde | redressement | liquidation} depuis le {date} `[BODACC]`. Vérifier (a) la qualité du signataire (administrateur, mandataire, dirigeant maintenu), (b) l'autorisation du juge-commissaire pour les actes en cours, (c) la nécessité d'une déclaration de créance dans les 2 mois post-publication BODACC du jugement d'ouverture `[à vérifier]`. Renvoyer vers `/h-da:declaration-creance` si le cabinet est créancier.
 
 Si aucun SIREN détecté ou aucune source disponible : ne pas inventer, tag `[utilisateur fourni]` sur les éléments parties.
 

@@ -23,7 +23,7 @@ tags: [nda, confidentialite, triage, non-concurrence]
 >
 > **Pour une revue complète** (NDA bilatéral M&A complexe, NDA inséré dans un
 > contrat cadre, asymétries fortes à analyser dans le détail) : utiliser
-> `/h-droit-affaires:reviser-contrat` à la place.
+> `/h-da:reviser-contrat` à la place.
 >
 > **Pour un NDA PI-centric** (partenariat R&D, transfert de technologie,
 > savoir-faire substantiel, co-développement, secret d'affaires structurant) :
@@ -35,7 +35,7 @@ tags: [nda, confidentialite, triage, non-concurrence]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:reviser-nda ./NDA-prestataire-marketing.pdf</user>
+<user>/h-da:reviser-nda ./NDA-prestataire-marketing.pdf</user>
 <response>
 NDA unilatéral standard, prestataire marketing → droit français → triage 9 points :
 1. Définition info confidentielles : précise, catégories listées → 🟢
@@ -52,7 +52,7 @@ NDA unilatéral standard, prestataire marketing → droit français → triage 9
 </example>
 
 <example>
-<user>/h-droit-affaires:reviser-nda ./NDA-fournisseur-industriel.pdf</user>
+<user>/h-da:reviser-nda ./NDA-fournisseur-industriel.pdf</user>
 <response>
 NDA bilatéral, fournisseur industriel, durée 10 ans + clause non-concurrence 2 ans sans contrepartie chiffrée → triage 9 points :
 1. Définition info : large mais bornée par usage → 🟡
@@ -69,7 +69,7 @@ NDA bilatéral, fournisseur industriel, durée 10 ans + clause non-concurrence 2
 </example>
 
 <example>
-<user>/h-droit-affaires:reviser-nda ./NDA-partenariat-R&D-biotech.pdf</user>
+<user>/h-da:reviser-nda ./NDA-partenariat-R&D-biotech.pdf</user>
 <response>
 Détection NDA partenariat R&D substantiel (mention "savoir-faire", "résultats de recherche", "co-développement", "brevet potentiel") → renvoi PI :
 
@@ -90,7 +90,7 @@ Détection NDA partenariat R&D substantiel (mention "savoir-faire", "résultats 
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
-demander `/h-droit-affaires:entretien-demarrage` avant tout triage
+demander `/h-da:entretien-demarrage` avant tout triage
 substantiel.
 
 ---

@@ -45,7 +45,7 @@ tags: [cgv, cgu, generation, b2b, b2c, code-consommation, l441-1]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:cgv-generator --draft --regime=B2B</user>
+<user>/h-da:cgv-generator --draft --regime=B2B</user>
 <response>
 1. Pré-flight `check-pii` (dénomination, coordonnées, RCS — souvent sous le seuil B).
 2. Lecture profil cabinet (bloc « contrats commerciaux » : posture par défaut, clauses jamais acceptées, matrice d'approbateurs, politique PII).
@@ -58,7 +58,7 @@ tags: [cgv, cgu, generation, b2b, b2c, code-consommation, l441-1]
 </example>
 
 <example>
-<user>/h-droit-affaires:cgv-generator --draft --regime=B2C — vente à distance de cosmétiques</user>
+<user>/h-da:cgv-generator --draft --regime=B2C — vente à distance de cosmétiques</user>
 <response>
 1. Pré-flight `check-pii` + lecture profil cabinet.
 2. Intake : régime **B2C**, vente de cosmétiques, **canal = vente à distance** (site e-commerce).
@@ -70,7 +70,7 @@ tags: [cgv, cgu, generation, b2b, b2c, code-consommation, l441-1]
 </example>
 
 <example>
-<user>/h-droit-affaires:cgv-generator --draft — un éditeur de logiciel vend en SaaS à des entreprises ET à des particuliers</user>
+<user>/h-da:cgv-generator --draft — un éditeur de logiciel vend en SaaS à des entreprises ET à des particuliers</user>
 <response>
 Intake : le régime n'est pas précisé et l'activité s'adresse aux **deux publics**.
 Le skill ne suppose pas : il **demande explicitement** le régime, puis qualifie le besoin comme **mixte (B2B + B2C)**.
@@ -81,7 +81,7 @@ Sortie : deux brouillons `[review]`-tagués, présentés comme projets de travai
 </example>
 
 <example>
-<user>/h-droit-affaires:cgv-generator --draft --regime=B2C — le client veut une clause « toute réclamation interdite passé 24h, le vendeur peut modifier le service à tout moment »</user>
+<user>/h-da:cgv-generator --draft --regime=B2C — le client veut une clause « toute réclamation interdite passé 24h, le vendeur peut modifier le service à tout moment »</user>
 <response>
 Régime B2C → contrôle systématique des clauses abusives consuméristes.
 La clause demandée combine deux stipulations relevant de la **liste noire** R.212-1 C.conso [à vérifier] :
@@ -111,7 +111,7 @@ Le skill **refuse d'insérer** ces clauses, l'explique au client, et propose à 
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc « contrats commerciaux » est encore en `[A CONFIGURER]` : stopper et
-demander `/h-droit-affaires:entretien-demarrage`. Sans posture
+demander `/h-da:entretien-demarrage`. Sans posture
 contractuelle renseignée, le calibrage des clauses (pénalités, limitation de
 responsabilité, garanties) ne peut pas être effectué. Voir aussi
 `~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour les éléments cabinet partagés.
@@ -402,7 +402,7 @@ Légifrance »).
 ## Ce skill ne fait pas
 
 - La **revue d'une CGV / CGU existante** (entrante) → renvoyer vers
-  `/h-droit-affaires:reviser-contrat` (mode `--review`). Ce skill
+  `/h-da:reviser-contrat` (mode `--review`). Ce skill
   **génère**, il ne revoit pas.
 - La **publication** des CGV/CGU sur un site, leur intégration technique, leur
   acceptation par les utilisateurs — actes du professionnel et de son

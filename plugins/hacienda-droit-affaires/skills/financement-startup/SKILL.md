@@ -46,7 +46,7 @@ tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:financement-startup --comparer — intéresser un premier salarié-clé : BSPCE ou BSA ?</user>
+<user>/h-da:financement-startup --comparer — intéresser un premier salarié-clé : BSPCE ou BSA ?</user>
 <response>
 1. Pré-flight `check-pii` (peu d'identifiants au stade du choix d'instrument — sous seuil B le plus souvent).
 2. Lecture profil cabinet (bloc M&A / Corporate : side financement ; bloc « vie sociale » : posture pacte d'associés).
@@ -58,7 +58,7 @@ tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 </example>
 
 <example>
-<user>/h-droit-affaires:financement-startup --comparer — tour de seed : obligations convertibles ou augmentation de capital ?</user>
+<user>/h-da:financement-startup --comparer — tour de seed : obligations convertibles ou augmentation de capital ?</user>
 <response>
 1. Pré-flight `check-pii` + lecture profil cabinet (side financement, posture pacte).
 2. Étape 1 — cadrage : stade **seed**, objectif = **levée externe** auprès de business angels, hésitation sur la valorisation, souhait de limiter la dilution immédiate des fondateurs.
@@ -73,7 +73,7 @@ tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 </example>
 
 <example>
-<user>/h-droit-affaires:financement-startup ./term-sheet-seed.pdf --review</user>
+<user>/h-da:financement-startup ./term-sheet-seed.pdf --review</user>
 <response>
 1. Pré-flight `check-pii` (identifiants des parties, montants → vérifier le seuil B → décision utilisateur).
 2. Lecture profil cabinet (side financement, posture pacte).
@@ -86,7 +86,7 @@ tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 </example>
 
 <example>
-<user>/h-droit-affaires:financement-startup — quel est le taux d'imposition du gain sur les BSPCE de mon équipe ?</user>
+<user>/h-da:financement-startup — quel est le taux d'imposition du gain sur les BSPCE de mon équipe ?</user>
 <response>
 Question de **fiscalité du BSPCE** → hors périmètre de ce skill.
 Réponse : « Ce skill ne donne aucun conseil fiscal. Le **régime fiscal de faveur du BSPCE** est prévu à l'**art. 163 bis G CGI [à vérifier]** : son taux, ses seuils, ses conditions (notamment l'ancienneté du bénéficiaire dans la société) et leurs évolutions **relèvent d'un conseil fiscal / expert-comptable** et doivent être vérifiés sur le texte en vigueur. Je ne peux ni indiquer un taux, ni confirmer un régime. »
@@ -111,7 +111,7 @@ Le skill **signale** la dimension fiscale, **renvoie** au fiscaliste, et propose
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc M&A / Corporate ou le bloc « vie sociale » est encore en
-`[A CONFIGURER]` : stopper et demander `/h-droit-affaires:entretien-demarrage`.
+`[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`.
 Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-profile.md` pour les éléments cabinet
 partagés cross-plugins.
 
@@ -190,7 +190,7 @@ Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
 [revue des instruments mentionnés dans la term sheet : valorisation, dilution, mécanique propre — UNIQUEMENT les instruments]
 
 # {Pour --review} Clauses de pacte — triage term sheet + renvoi
-[chaque clause de pacte présente dans la term sheet — liquidation preference, anti-dilution, gouvernance/véto, vesting, drag/tag, leaver — FLAGUÉE avec sévérité 🟢/🟡/🟠/🔴, enjeu pour le client et bornage de négociation au stade term sheet ; PUIS renvoi de la rédaction détaillée vers /h-droit-affaires:pacte-associes-review avec les options (a)/(b)/(c). Le playbook détaillé n'est pas déroulé ici, mais aucune clause n'est renvoyée sans avoir été flaguée et bornée.]
+[chaque clause de pacte présente dans la term sheet — liquidation preference, anti-dilution, gouvernance/véto, vesting, drag/tag, leaver — FLAGUÉE avec sévérité 🟢/🟡/🟠/🔴, enjeu pour le client et bornage de négociation au stade term sheet ; PUIS renvoi de la rédaction détaillée vers /h-da:pacte-associes-review avec les options (a)/(b)/(c). Le playbook détaillé n'est pas déroulé ici, mais aucune clause n'est renvoyée sans avoir été flaguée et bornée.]
 
 # Dimension fiscale — signalée, non traitée
 [rappel que le volet fiscal de chaque instrument — notamment le régime BSPCE art. 163 bis G CGI [à vérifier] — relève d'un conseil fiscal / expert-comptable et n'est pas traité par ce skill]
@@ -337,7 +337,7 @@ instruments. Pour chacun, à partir de `references/instruments-financement-fr.md
 >   indéterminée et recommander une méthode avec exceptions usuelles ; vesting inversé /
 >   leaver → poser les principes à négocier ; drag/tag → conditions de majorité, prix,
 >   protection des fondateurs.
-> PUIS **renvoyer la rédaction détaillée** vers `/h-droit-affaires:pacte-associes-review`,
+> PUIS **renvoyer la rédaction détaillée** vers `/h-da:pacte-associes-review`,
 > avec les options : (a) enchaîner `pacte-associes-review`, (b) limiter
 > `financement-startup` à l'analyse des instruments, (c) les deux en séquence.
 > **Lister-puis-renvoyer sans flaguer ni borner est une sous-livraison** : le client
@@ -383,7 +383,7 @@ Légifrance »).
   liquidation preference, anti-dilution / ratchet, gouvernance et droits de véto,
   vesting, drag / tag-along, leaver. Ce skill les **flague, note leur sévérité et
   borne l'enjeu de négociation au stade term sheet**, puis renvoie la rédaction
-  détaillée vers `/h-droit-affaires:pacte-associes-review` — il ne les laisse
+  détaillée vers `/h-da:pacte-associes-review` — il ne les laisse
   jamais non traitées.
 - La **valorisation** de la société — appréciation économique ; le skill la
   signale en `[review]`, il ne la chiffre pas.

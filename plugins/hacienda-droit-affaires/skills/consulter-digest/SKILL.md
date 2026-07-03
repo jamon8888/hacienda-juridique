@@ -33,7 +33,7 @@ tags: [veille, digest, jurisprudence, consultation]
 ## Examples
 
 <example>
-<user>/h-droit-affaires:consulter-digest</user>
+<user>/h-da:consulter-digest</user>
 <response>
 Lecture du digest le plus récent :
 `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/veille/latest.md`
@@ -137,7 +137,7 @@ Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affai
 </example>
 
 <example>
-<user>/h-droit-affaires:consulter-digest --domaine=societes</user>
+<user>/h-da:consulter-digest --domaine=societes</user>
 <response>
 Filtre appliqué : domaine = `societes`.
 Lecture de `latest.md` — digest du 2026-05-19.
@@ -163,7 +163,7 @@ Lecture de `latest.md` — digest du 2026-05-19.
 </example>
 
 <example>
-<user>/h-droit-affaires:consulter-digest --domaine=ma</user>
+<user>/h-da:consulter-digest --domaine=ma</user>
 <response>
 Lecture de `latest.md` — digest du 2026-05-19.
 Filtre appliqué : domaine = `ma`.
@@ -171,13 +171,13 @@ Filtre appliqué : domaine = `ma`.
 Aucune entrée trouvée pour le domaine "ma" dans ce digest.
 
 Le digest le plus récent ne contient pas d'évolution sur ce domaine cette semaine.
-Pour vérifier un digest antérieur : `/h-droit-affaires:consulter-digest 2026-05-12 --domaine=ma`.
+Pour vérifier un digest antérieur : `/h-da:consulter-digest 2026-05-12 --domaine=ma`.
 Pour générer un nouveau digest à jour : lancer l'agent `veille-jurisprudence`.
 </response>
 </example>
 
 <example>
-<user>/h-droit-affaires:consulter-digest 2026-05-12</user>
+<user>/h-da:consulter-digest 2026-05-12</user>
 <response>
 Digest demandé : 2026-05-12.
 Recherche de `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/veille/digest-2026-05-12.md`.
@@ -185,7 +185,7 @@ Recherche de `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaire
 Aucun digest disponible pour la date 2026-05-12.
 
 Digests disponibles : le plus récent est `latest.md` (2026-05-19).
-Pour consulter le dernier digest : `/h-droit-affaires:consulter-digest` (sans date).
+Pour consulter le dernier digest : `/h-da:consulter-digest` (sans date).
 Pour générer un digest couvrant une période antérieure : lancer l'agent `veille-jurisprudence`.
 </response>
 </example>
@@ -206,7 +206,7 @@ Pour générer un digest couvrant une période antérieure : lancer l'agent `vei
    > Aucun digest disponible à ce chemin.
    > Pour générer le digest de cette semaine, lancer l'agent `veille-jurisprudence`.
    > Pour consulter un digest existant : vérifier la date ou utiliser
-   > `/h-droit-affaires:consulter-digest` sans paramètre (dernier digest).
+   > `/h-da:consulter-digest` sans paramètre (dernier digest).
 
    Arrêter l'exécution du skill.
 

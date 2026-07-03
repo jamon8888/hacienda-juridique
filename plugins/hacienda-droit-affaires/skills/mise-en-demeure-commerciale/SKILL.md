@@ -47,7 +47,7 @@ tags: [mise-en-demeure, recouvrement, contentieux, b2b, 1344, l441-10, pre-judic
 ## Examples
 
 <example>
-<user>/h-droit-affaires:mise-en-demeure-commerciale --draft --type=payer ./factures-impayees.pdf --siren=552100554</user>
+<user>/h-da:mise-en-demeure-commerciale --draft --type=payer ./factures-impayees.pdf --siren=552100554</user>
 <response>
 1. Pré-flight `check-pii` (montants + SIREN + dénominations → seuil B fréquent).
 2. **Détection procédure collective** : `bodacc_procedures` sur le SIREN → aucune procédure ouverte `[BODACC]`. Poursuite possible.
@@ -61,7 +61,7 @@ tags: [mise-en-demeure, recouvrement, contentieux, b2b, 1344, l441-10, pre-judic
 </example>
 
 <example>
-<user>/h-droit-affaires:mise-en-demeure-commerciale --relance ./facture-2025-0188.pdf</user>
+<user>/h-da:mise-en-demeure-commerciale --relance ./facture-2025-0188.pdf</user>
 <response>
 Mode `--relance` : relance amiable préalable (ton 1, avant mise en demeure formelle).
 Ton ferme mais courtois, sans formule comminatoire ni menace d'action, rappel de l'échéance dépassée et invitation à régulariser sous quinzaine. Pas d'intérêts réclamés à ce stade (réservés pour la mise en demeure formelle). Sortie : courrier de relance + note « si sans réponse sous 15 j, passer en `--draft` (mise en demeure formelle) ».
@@ -69,20 +69,20 @@ Ton ferme mais courtois, sans formule comminatoire ni menace d'action, rappel de
 </example>
 
 <example>
-<user>/h-droit-affaires:mise-en-demeure-commerciale --draft --type=payer ./facture.pdf --siren=400123456</user>
+<user>/h-da:mise-en-demeure-commerciale --draft --type=payer ./facture.pdf --siren=400123456</user>
 <response>
 Étape 1 — Détection : la contrepartie est en **redressement judiciaire** (BODACC, jugement d'ouverture du 3 mars 2026, publication du 9 mars 2026) `[BODACC]`.
 
 🔴 **STOP — arrêt des poursuites individuelles (art. L.622-21 C.com. `[Légifrance]`).** La créance antérieure ne peut pas faire l'objet d'une mise en demeure ni d'une action en paiement directe. Elle doit être **déclarée au passif** dans le délai L.622-24 C.com. (2 mois post-publication BODACC).
 
-Renvoi actif : `/h-droit-affaires:declaration-creance --siren=400123456 --nature=facture --montant=<montant>`. Date de forclusion estimée : 9 mai 2026 `[à vérifier]`.
+Renvoi actif : `/h-da:declaration-creance --siren=400123456 --nature=facture --montant=<montant>`. Date de forclusion estimée : 9 mai 2026 `[à vérifier]`.
 
 Ce skill ne produit PAS de mise en demeure ici.
 </response>
 </example>
 
 <example>
-<user>/h-droit-affaires:mise-en-demeure-commerciale --draft --type=executer ./contrat-prestation.pdf</user>
+<user>/h-da:mise-en-demeure-commerciale --draft --type=executer ./contrat-prestation.pdf</user>
 <response>
 Mise en demeure d'**exécuter** une obligation de faire (livraison/prestation non réalisée), pas de payer.
 Étape 2 — qualification : obligation contractuelle exigible, inexécution caractérisée. Étape 4 — délai raisonnable d'exécution (art. 1226 C.civ, condition d'une résolution ultérieure par notification), réserve expresse des droits (résolution, exécution forcée art. 1221, dommages-intérêts). Pas de calcul d'intérêts moratoires (obligation non monétaire) — réserver les DI de retard `[review]`.
@@ -99,7 +99,7 @@ Mise en demeure d'**exécuter** une obligation de faire (livraison/prestation no
 > - **Approbateur « Mise en demeure »** + déclencheur d'escalade (absence de réponse 30 j)
 > - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
-Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-droit-affaires:entretien-demarrage`. Sans approbateur configuré, la chaîne de validation n'est pas opposable.
+Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`. Sans approbateur configuré, la chaîne de validation n'est pas opposable.
 
 ---
 
