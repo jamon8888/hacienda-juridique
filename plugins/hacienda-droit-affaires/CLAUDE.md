@@ -160,6 +160,30 @@ Le livrable doit se lire comme s'il avait été rédigé par un associé. Le mé
 
 ---
 
+**Hygiène de continuation — quand l'utilisateur déroule une option.** Le livrable
+produit *après* le choix d'une option (1 Rédiger / 2 Escalader / 3 Compléter / 4
+Surveiller / 5 Autre) est un **livrable à part entière**, pas une annexe de l'analyse
+amont : il ré-applique **intégralement** les mêmes contrats que la première sortie. La
+continuation ne se repose **jamais** sur les garde-fous déjà affichés en amont — elle
+les re-porte. Sur **chaque** artefact produit (et chaque branche quand l'option en
+génère plusieurs — ex. liste de questions *et* note d'escalade) :
+
+- **Note du relecteur** présente sur l'artefact lui-même — y compris une note
+  d'escalade, qui voyage vers un approbateur et doit donc porter son point de contrôle
+  unique. Pas de continuation sans note du relecteur.
+- **Statut brouillon** affiché (« projet de travail » / « brouillon soumis à validation
+  humaine ») : un artefact qui se transmet ne devient jamais définitif du seul fait
+  d'être déroulé.
+- **Renvois inter-commandes hors du corps** : tout renvoi vers un autre skill reste
+  dans la note d'accompagnement / note du relecteur, jamais dans le corps client — la
+  règle du mode silencieux s'applique aussi aux continuations.
+- **Re-signalement de l'état dégradé** : si l'analyse amont tournait sans PISTE/
+  Légifrance (citations non vérifiées) ou sous une décision PII « continuer une fois »,
+  la continuation **re-signale** cet état en tête de sa propre note du relecteur — elle
+  n'hérite pas silencieusement du garde-fou.
+
+---
+
 **Offre tableau de bord HTML standardisé.** Quand un output est data-heavy (> 10 lignes tabulaires, registres, portefeuilles, findings list avec sévérité/statut/dates), le skill génère **automatiquement** un fichier HTML local à côté du Markdown via `renderDashboard()` de `@hacienda/core`. Format autonome (zéro CDN, ouvrable hors-ligne), XSS-safe, sortable/filtrable/recherchable. Voir `references/dashboard-template.md`.
 
 ---
