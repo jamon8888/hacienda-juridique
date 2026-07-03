@@ -152,9 +152,19 @@ existante) fait de la dette de la cible un thème DD à part entière :
   (nantissements, hypothèques, cessions Dailly) et le chemin de mainlevée — alimente
   directement `/h-da:closing-checklist-fr --pe` (funds flow, pay-off letters) ;
 - **Cash pooling intragroupe** : conventions de trésorerie avec le groupe cédant à
-  dénouer au closing — sort des soldes, conventions réglementées, frottements
-  `[à vérifier]` ; le débranchement du cash pooling est un deliverable de closing
-  souvent oublié ;
+  dénouer au closing. Le débranchement est un deliverable de closing souvent oublié,
+  et « dénouer » recouvre **trois actions distinctes** à exiger nommément, pas la seule
+  sortie de la convention :
+  - **Arrêt des sweeps et règlement / traitement documenté du solde intragroupe**
+    (créance ou dette de la cible sur la centralisatrice), intégré au funds flow ;
+  - **Révocation des mandats de nivellement** donnés aux banques : sans révocation
+    explicite, les prélèvements automatiques peuvent se poursuivre après closing malgré
+    la sortie du groupe — action de closing à part entière, distincte du règlement du
+    solde `[review]` ;
+  - **Vérification des conditions juridiques des opérations de trésorerie intragroupe**
+    (régime des conventions de trésorerie intragroupe, liens de contrôle) : la poursuite
+    post-closing doit être **écartée** — une fois la cible sortie du périmètre du groupe
+    cédant, le fondement légal du pooling disparaît `[à vérifier]` ;
 - **Engagements hors bilan** : cautions, garanties maison-mère, lettres de confort
   données par le groupe cédant au profit de la cible → à substituer au closing (CP ou
   covenant) ;
@@ -182,6 +192,15 @@ niveau, avec renvois.
 - **Statut des dirigeants clés** : cumul mandat/contrat de travail, golden parachutes,
   clauses de non-concurrence (contrepartie obligatoire en droit FR) — un dirigeant clé
   libre de partir sans non-compete opposable est un red flag de thèse `[review]` ;
+- **Écart homme-clé vs business plan** : quand un dirigeant clé annonce (ou laisse
+  prévoir) son départ alors que le business plan du sponsor suppose sa présence,
+  l'écart ne se solde pas par la seule mention du risque. Le finding appelle **trois
+  suites** : (1) demande de clarification de l'intention réelle et du calendrier de
+  départ (Q&A) ; (2) exigence d'un **plan de transition / rétention** (management
+  continuity : rétention, période d'accompagnement, plan de succession) ; (3) **décision
+  sponsor structurée** sur la protection ou condition adaptée (condition suspensive de
+  signature d'un accord de rétention, ajustement de la thèse, price chip `[à compléter]`)
+  — à remonter à l'équipe deal, pas à trancher ici `[review]` ;
 - **Incentives déclenchés par le changement de contrôle** : primes de deal, retention
   bonus, plans d'intéressement — coût à intégrer (price chip `[à compléter]`) et
   frottement social `[à vérifier]` ;
@@ -229,8 +248,8 @@ Recommandations GAP par finding matériel (étape 6) ; lien `gap-review`.
 |---|---|---|
 | D1 conversion | Chaque 🔴/🟠 matériel routé CP / GAP / W&I / specific indemnity / price chip / Q&A | Anticiper le traitement que l'acquéreur exigera ; régulariser ou disclosér en amont |
 | D2 change of control | Consentements en CP ; concentration × clause = risque de thèse | Obtenir les consentements avant process ; documenter la solidité des contrats clés |
-| D3 dette | Waivers bancaires en CP ; chemin de mainlevée documenté ; cash pooling dénoué | Pay-off letters et mainlevées préparées ; cash pooling cartographié pour le funds flow |
-| D4 management | Packages et incentives recensés ; known issues social/fiscal → specific indemnity | Régulariser les non-competes ; provisionner/disclosér les contrôles en cours |
+| D3 dette | Waivers bancaires en CP ; chemin de mainlevée documenté ; cash pooling dénoué (arrêt des sweeps + révocation des mandats + solde réglé) | Pay-off letters et mainlevées préparées ; cash pooling cartographié pour le funds flow |
+| D4 management | Packages et incentives recensés ; écart homme-clé → plan de transition + décision sponsor ; known issues social/fiscal → specific indemnity | Régulariser les non-competes ; provisionner/disclosér les contrôles en cours |
 | D5 W&I | Known issues hors police → specific indemnity ; reliance letter vérifiée | VDD avec reliance calibrée ; fair disclosure pour maximiser la couverture police |
 
 ---

@@ -457,6 +457,21 @@ RÈGLES DE RÉDACTION DES CRITÈRES (impératives) :
    (> 30) dilue le signal et produit des faux FAIL de PROFONDEUR sur un livrable
    brouillon (qui ne déroule pas chaque sous-item) : c'est un défaut de grille,
    pas du skill.
+6. NE PÉNALISE PAS LE FORMAT IMPOSÉ du skill. Les livrables Hacienda portent des
+   éléments de forme OBLIGATOIRES qui contiennent légitimement des dates et des tags
+   de provenance — un critère mal cadré les compte à tort comme faute :
+   - **Dates** : un critère « dates en semaines relatives / aucune date calendaire »
+     doit viser EXCLUSIVEMENT les **jalons du deal / de la procédure** (échéances,
+     closing, forclusion, préavis). Il ne doit JAMAIS pénaliser la date d'une **loi
+     citée** dans l'en-tête de confidentialité obligatoire (ex. « loi n°71-1130 du
+     31 décembre 1971 ») ni le champ « **Date d'analyse : YYYY-MM-DD** » du Log de
+     vérification imposé par le CLAUDE.md. Formuler : « FAIL si un JALON du dossier
+     est exprimé en date calendaire au lieu de semaines relatives ».
+   - **Provenance** : un critère « source non consultée → `[à vérifier]` » doit
+     EXEMPTER les articles de l'**index pré-vérifié** du skill (SKILL.md liste des
+     LEGIARTI citables `[Légifrance]` hors ligne, ex. 1231-5 C.civ). Viser plutôt :
+     « FAIL si un article HORS index pré-vérifié, ou une source externe non consultée,
+     est présenté comme vérifié ».
 Termine par un bloc JSON : {"skill":"{skill}","criteria":[{"id":...,"niveau":...,
 "axe":...,"match_criteria":...}, ...]}.
 Vérifie chaque article cité (ne pas inventer). Aucune donnée réelle.
@@ -581,3 +596,10 @@ restent disponibles pour comparaison historique.
   `{id,niveau,verdict,preuve}`, persistée par `extract-verdicts.py`. Phase 2 criteria :
   densité bornée à 20–30 criteria. Le garde fail-fast de `da-scoring.sh` impose les
   codes `[A-Z0-9]{6}`. `tiered_scoring.py` reste inchangé et ignore `preuve`.
+- **2026-07-03** — Phase 2 criteria, règle 6 : ne pas pénaliser le FORMAT IMPOSÉ. Un
+  critère « dates en semaines relatives » doit viser les seuls JALONS du deal, jamais
+  la date de loi de l'en-tête de confidentialité ni le champ « Date d'analyse » du Log
+  de vérification ; un critère de provenance doit EXEMPTER l'index pré-vérifié
+  `[Légifrance]` du skill. Origine : DDRPE1 (`due-diligence-pe`) — faux FAIL C-025
+  (`1231-5 C.civ [Légifrance]`, pourtant dans l'index) et C-026 (`31 décembre 1971` de
+  l'en-tête + `Date d'analyse`), gate 6/6 clean malgré 0,49 brut.
