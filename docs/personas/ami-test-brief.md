@@ -76,7 +76,7 @@ Sur un dossier de contentieux affaires impliquant une rupture de relation commer
 
 ### Test 5 (passif) — Agent bodacc-procedures-watcher
 
-**En cours de vérification finale — et ton observation en fait partie.** Les 3 outils MCP que cet agent consomme sont déclarés : `bodacc_by_siren` (annonces BODACC par SIREN), `bodacc_procedures` (procédures collectives publiques), `company_full_profile` (profil enrichi Pappers + fallback BODACC). Je finis de valider le branchement de mon côté ; ton observation passive sur 2-3 semaines est justement ce qui confirme qu'il alerte quand il faut. Signale-moi tout **silence anormal** (une forclusion qui approchait sans alerte) ou **fausse alerte**. L'agent peut aussi être lancé manuellement pour un SIREN ponctuel — utile pour vérifier rapidement un débiteur entrant.
+**Branchement vérifié.** Les 2 outils MCP que cet agent consomme (`bodacc_by_siren` et `bodacc_procedures`, annonces et procédures collectives BODACC par SIREN) résolvent et répondent en conditions réelles (préfixe MCP confirmé, invocation testée sur un SIREN réel). Ton observation passive sur 2-3 semaines reste précieuse — pas pour valider le câblage, mais pour confirmer qu'il alerte au bon moment sur de vrais dossiers. Signale-moi tout **silence anormal** (une forclusion qui approchait sans alerte) ou **fausse alerte**. L'agent peut aussi être lancé manuellement pour un SIREN ponctuel — utile pour vérifier rapidement un débiteur entrant.
 
 Configure une fois la liste de tes débiteurs en portefeuille dans :
 ```

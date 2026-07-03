@@ -156,6 +156,48 @@ Les dispositifs vers lesquels ils routent :
 - **« J'ai beaucoup de documents à passer au crible. »**
   `/h-da:revue-tabulaire` — extraction comparée multi-documents (utilisé aussi par la due diligence).
 
+### E. Surveillance en continu (agents)
+
+Quatre agents, distincts des skills ci-dessus : au lieu de produire une analyse
+à la demande, ils scannent une source officielle sur un portefeuille que tu
+configures, et signalent le nouveau. Chacun a besoin d'un petit fichier de
+configuration avant son premier run — s'il est absent, l'agent s'arrête et te
+dit comment le créer plutôt que de tourner à vide.
+
+- **« Surveille mes procédures collectives, alerte-moi avant la forclusion. »**
+  Agent `bodacc-procedures-watcher` — scan quotidien BODACC sur tes débiteurs
+  en procédure, alerte 🔴 dès 6 jours avant la forclusion de la déclaration de
+  créance (L.622-24), 🔴🔴 si elle est dépassée.
+  **Configuration :** `debiteurs.yaml`.
+  **Et ensuite :** l'alerte pointe directement vers `/h-da:declaration-creance`.
+- **« Surveillance BODACC sur mon portefeuille SIREN. »**
+  Agent `bodacc-watcher` — scan quotidien sur tes cibles M&A, clients et
+  fournisseurs critiques : procédures collectives, changements de contrôle,
+  modifications statutaires, dirigeants, dépôts de comptes. Alerte immédiate
+  sur événement critique, digest groupé le vendredi pour le reste.
+  **Configuration :** `watchlist-siren.yaml`.
+- **« Rappelle-moi les échéances sociétaires de mon portefeuille. »**
+  Agent `echeances-societaires` — dépôt des comptes annuels, tenue d'AGO,
+  renouvellement de mandats et de CAC, digest groupé le lundi matin.
+  **Configuration :** `clients-societes.yaml`.
+- **« Fais-moi un digest de la jurisprudence chambre commerciale. »**
+  Agent `veille-jurisprudence` — veille hebdomadaire Légifrance (lois,
+  ordonnances, décrets) et Judilibre (arrêts Cour de cassation, chambre
+  commerciale), classée par impact pratique.
+  **Configuration :** `veille-config.yaml` — optionnel, l'agent démarre avec
+  des valeurs par défaut s'il est absent.
+
+Les quatre fichiers de configuration vivent dans
+`~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/` — tu
+peux les créer via `/h-da:entretien-demarrage` ou en éditant le YAML
+directement (chaque agent te donne le format exact s'il détecte une absence).
+
+**À savoir avant d'activer un agent :** invoquer un agent lance **un run
+ponctuel**, pas une tâche de fond automatique. Pour une vraie surveillance
+récurrente (« tous les jours », « chaque vendredi »), il faut le brancher sur
+une tâche planifiée dans Claude Desktop — demande-le explicitement, l'agent
+(ou moi) t'accompagne pour la mettre en place.
+
 ---
 
 ## Confidentialité
