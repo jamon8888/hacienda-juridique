@@ -5,11 +5,13 @@ description: >
   fiscal, contentieux, RGPD). S'appuie sur revue-tabulaire pour l'extraction
   multi-documents. Produit un rapport structuré par thème, une grille de
   matérialité, une Q&A list et des recommandations pour la GAP. Brouillon
-  soumis à validation humaine (avocat).
-version: "2.0.0"
+  soumis à validation humaine (avocat). Mode `--pe` (alias `--mode=pe-red-flags`) :
+  lentille red flags Private Equity — chaque finding matériel converti en
+  traitement deal (CP / GAP / W&I / specific indemnity / price chip / Q&A).
+version: "2.1.0"
 argument-hint: "[dataroom, side, thèmes, seuil de matérialité]"
 authors: ["Hacienda"]
-tags: [due-diligence, dataroom, ma, materialite, gap]
+tags: [due-diligence, dataroom, ma, materialite, gap, pe, red-flags]
 ---
 
 # Skill — Due diligence data-room
@@ -82,6 +84,17 @@ La sortie renvoie au skill `gap-review` pour la revue de la GAP elle-même, une 
 </response>
 </example>
 
+<example>
+<user>/h-da:due-diligence-dataroom ./data-room-cible-Y/ --side=acquereur --pe</user>
+<response>
+DD buyside pour un sponsor (acquisition via BidCo FR). Le mode `--pe` charge `references/pe-dd-red-flags-overlay-fr.md` : après les étapes standard (inventaire, extraction, 7 thèmes, grille de matérialité, Q&A, recommandations GAP), l'étape 6bis convertit chaque finding matériel en traitement deal.
+
+Exemples de conversion : (a) clause de changement de contrôle sur le contrat client structurant (28 % du CA — cumul concentration × clause) → CP de consentement du cocontractant, repli specific indemnity + price chip [à compléter] ; (b) redressement URSSAF en cours → known issue exclu de la police W&I → specific indemnity, fond social renvoyé au spécialiste ; (c) clause de change of control default dans le contrat de crédit existant → CP de waiver bancaire, chemin de mainlevée transmis à `/h-da:closing-checklist-fr --pe`.
+
+Livrable : red flag report partner-ready (findings 🔴/🟠 matériels + table de conversion), grille complète en annexe. Aucun montant chiffré, jalons en semaines relatives.
+</response>
+</example>
+
 ---
 
 ## Chargement du profil
@@ -118,6 +131,15 @@ grille de matérialité ne peuvent pas être calibrées. Voir aussi
 4. **Seuil de matérialité** (optionnel) — `--seuil-materialite=50000` (en €).
    Override du seuil configuré au profil ; en deçà, un finding n'est pas qualifié
    de matériel (reste signalé mais ne déclenche pas de recommandation GAP).
+5. **Mode `--pe`** (optionnel, alias accepté : `--mode=pe-red-flags`) — overlay
+   Private Equity, side sponsor (buyside DD) : charge
+   `references/pe-dd-red-flags-overlay-fr.md` et ajoute la conversion de chaque
+   finding matériel en **traitement deal** (CP / GAP / W&I / specific indemnity /
+   price chip / Q&A) plus un red flag report partner-ready. Avec `--side=cedant`,
+   lecture *vendor DD* (anticipation / disclosure). Hors `--pe`, si des **signaux
+   PE** sont détectés (sponsor/BidCo, W&I, reliance letter, dette LBO / certain
+   funds, management package, red flag report demandé), **proposer** l'overlay
+   sans l'imposer.
 
 ---
 
@@ -132,7 +154,8 @@ grille de matérialité ne peuvent pas être calibrées. Voir aussi
 - [ ] Renvois en pointeurs effectués pour PI / fiscal / RGPD — analyse de premier niveau réalisée ici, expertise approfondie renvoyée
 - [ ] Articles hors index ou en `[a compléter]` tagués `[à vérifier]` ; RGPD tagué `[Eurlex]` ou `[à vérifier]`
 - [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + rapport par thème + grille de matérialité + Q&A list + recommandations GAP + question hors checklist + arbre de décision 5 options + footer A si applicable
+- [ ] Si mode `--pe` : module `pe-dd-red-flags-overlay-fr.md` chargé, chaque finding matériel routé vers un traitement deal, price chips non chiffrés, gate France/Lux appliqué
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + rapport par thème + grille de matérialité + Q&A list + recommandations GAP (+ table de conversion PE si `--pe`) + question hors checklist + arbre de décision 5 options + footer A si applicable
 
 ---
 
@@ -385,6 +408,38 @@ identifié), **conditions suspensives** (régularisation exigée avant closing),
 
 ---
 
+## Étape 6bis — Overlay PE red flags (si `--pe` ou overlay accepté)
+
+**N'exécuter que si le mode PE est actif.** Charger
+`references/pe-dd-red-flags-overlay-fr.md` et dérouler les axes D1–D5 :
+
+1. **D1 — red flag report orienté deal** : livrable court partner-ready limité aux
+   findings 🔴/🟠 matériels + **table de conversion** — chaque finding routé vers un
+   traitement deal (CP / déclaration-garantie GAP / specific indemnity / couverture
+   W&I / price chip / Q&A), avec repli. Un finding matériel sans traitement désigné =
+   DD inachevée. Grille complète (🟡/🟢 inclus) en annexe.
+2. **D2 — change of control, contrats clés & concentration client** : consentements
+   en CP, cumul concentration × clause, termination for convenience, exclusivités.
+3. **D3 — dette existante, sûretés & cash pooling** : change of control defaults →
+   waiver en CP ; chemin de mainlevée / pay-off letters ; débranchement du cash
+   pooling ; substitution des garanties groupe ; assistance financière **nommée et
+   renvoyée** → `/h-da:closing-checklist-fr --pe`.
+4. **D4 — management, incentives & social/fiscal** : package existant →
+   `/h-da:management-package-pe` ; known issues fiscal/social → specific indemnity,
+   fond **nommé et renvoyé** (fiscaliste / socialiste), jamais traité.
+5. **D5 — articulation W&I / disclosure / VDD** : findings identifiés = known issues
+   exclus de la police (→ specific indemnity, pas couverture W&I) ; reliance letter
+   vérifiée ; matrice fine police ↔ GAP → `/h-da:gap-review --pe`.
+
+**Gate France/Lux** (cf. module partagé `references/pe-overlay-fr.md`) : entité/docs
+fonds Lux → hors périmètre, renvoi conseil luxembourgeois ; l'overlay couvre la jambe
+FR. **Ne jamais chiffrer** les price chips ni les passifs (`[à compléter]`) ; jalons en
+semaines relatives, aucune date calendaire. Si la cible est aussi en difficulté,
+l'overlay PE et la doctrine distressed **s'empilent** sans se dupliquer
+(`references/distressed-overlay-fr.md`).
+
+---
+
 ## Étape 7 — Post-flight
 
 Appel automatique de `verifier-citations` sur la sortie complète. Les articles
@@ -439,6 +494,14 @@ manuellement »).
 |---|---|---|---|
 | ... | ... | ... | ... |
 
+## Overlay PE (si `--pe`) — red flags convertis en traitements deal
+
+| # | Finding (🔴/🟠 matériel) | Thème | Traitement deal recommandé | Repli | Renvoi |
+|---|---|---|---|---|---|
+| ... | ... | ... | CP / GAP / W&I / specific indemnity / price chip `[à compléter]` / Q&A | ... | ... |
+
+- Renvois PE : {spa-review --pe / gap-review --pe / management-package-pe / closing-checklist-fr --pe}
+
 # Une question hors de ma checklist habituelle
 
 {Observation transversale qu'un relecteur attentif ferait. Omettre la ligne si
@@ -485,6 +548,9 @@ non-juriste, la contrepartie ou un conseil tiers :
 - Extraction tabulaire brute multi-documents → `revue-tabulaire` (consommé comme brique, non remplacé).
 - Anonymiser réellement les données de la data-room — `check-pii` détecte et alerte, `hacienda-ghost` anonymise.
 - Valider, signer ou exécuter l'opération (acte des parties + approbateur configuré).
+- **Chiffrer** les price chips, passifs ou redressements en mode `--pe` (`[à compléter]`, équipe financière / fiscaliste).
+- Traiter au fond le fiscal/social d'un management package ou d'un contrôle en cours en mode `--pe` (nommé et renvoyé).
+- Souscrire ou placer la police W&I en mode `--pe` (articulation signalée, matrice fine → `gap-review --pe`).
 
 ---
 

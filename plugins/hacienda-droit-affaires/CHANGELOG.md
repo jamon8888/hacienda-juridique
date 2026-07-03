@@ -1,5 +1,21 @@
 # Changelog — hacienda-droit-affaires
 
+## 0.20.0
+
+### Ajouté
+- Mode `due-diligence-dataroom --pe` (alias `--mode=pe-red-flags`, candidat PE #6, dernier
+  mode de la couverture du parcours deal PE côté sponsor) : lentille red flags Private
+  Equity — chaque finding matériel converti en **traitement deal** (CP / déclaration-garantie
+  GAP / specific indemnity / couverture W&I / price chip jamais chiffré / Q&A), red flag
+  report partner-ready, axes D1–D5 (conversion, change of control & concentration client,
+  dette existante & cash pooling, management & incentives, articulation W&I / disclosure /
+  VDD & reliance letters). Module frère partagé `references/pe-dd-red-flags-overlay-fr.md`.
+- Renvoi `due-diligence-dataroom --pe` activé dans `pe-overlay-fr.md` (section `## Renvois`).
+
+### Modifié
+- `due-diligence-dataroom` 2.0.0 → 2.1.0 (mode ajouté ; DD standard 7 thèmes inchangée).
+- Compte de skills : 32 inchangé.
+
 ## 0.19.0
 
 ### Ajouté
