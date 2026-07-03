@@ -18,14 +18,14 @@ Le plugin tourne en local dans ton Cowork — aucune donnée ne quitte ton poste
 
 ## Le protocole — 4 skills + 1 agent passif
 
-J'ai sélectionné 4 skills sur les 19 du plugin — ceux où ton flux quotidien fait naturellement le test, et où tu es le validateur juridique de référence. Pour chacun : **1 dossier réel, ~30 min**, tu lances la commande, lis la sortie, remplis le formulaire (5 min). Plus un agent en arrière-plan, à activer une fois et observer pendant 2-3 semaines.
+J'ai sélectionné 4 skills sur les 32 du plugin — ceux où ton flux quotidien fait naturellement le test, et où tu es le validateur juridique de référence. Pour chacun : **1 dossier réel, ~30 min**, tu lances la commande, lis la sortie, remplis le formulaire (5 min). Plus un agent en arrière-plan, à activer une fois et observer pendant 2-3 semaines.
 
 ---
 
 ### Test 1 — Déclaration de créance (procédures collectives)
 
 ```
-/h-droit-affaires:declaration-creance <chemin/du/dossier>
+/h-da:declaration-creance <chemin/du/dossier>
 ```
 
 Sur un dossier en cours où tu as une créance à déclarer (sauvegarde / RJ / LJ). Le skill calcule la date de forclusion L.622-24 depuis la publication BODACC, génère la déclaration au format mandataire, signale `[review]` les points d'arbitrage (qualification de créance, privilèges revendiqués, intérêts arrêtés au jugement).
@@ -37,7 +37,7 @@ Sur un dossier en cours où tu as une créance à déclarer (sauvegarde / RJ / L
 ### Test 2 — Revue de pacte d'associés
 
 ```
-/h-droit-affaires:pacte-associes-review <chemin/du/pacte.pdf> --review
+/h-da:pacte-associes-review <chemin/du/pacte.pdf> --review
 ```
 
 Sur un pacte que tu as à analyser (création ou révision). 11 clauses sensibles couvertes : préemption, agrément, inaliénabilité (avec contrôle durée raisonnable + intérêt sérieux), drag-along / tag-along, anti-dilution, good leaver / bad leaver, promesses croisées, non-concurrence des associés, droits de véto, clauses d'information, clauses de liquidité.
@@ -49,11 +49,11 @@ Sur un pacte que tu as à analyser (création ou révision). 11 clauses sensible
 Le skill a deux modes — teste celui qui correspond à ton dossier du moment (idéalement les deux si tu peux).
 
 ```
-/h-droit-affaires:gouvernance-ag --convocation --forme=SAS --type=AGE
+/h-da:gouvernance-ag --convocation --forme=SAS --type=AGE
 ```
 ou
 ```
-/h-droit-affaires:gouvernance-ag --pv --forme=SARL --type=AGO
+/h-da:gouvernance-ag --pv --forme=SARL --type=AGO
 ```
 
 Mode `--convocation` : génère convocation avec délais, ordre du jour, mentions obligatoires adaptés à la forme. Mode `--pv` : génère ou révise un PV avec quorum, majorité, résolutions.
@@ -65,7 +65,7 @@ Mode `--convocation` : génère convocation avec délais, ordre du jour, mention
 ### Test 4 — Analyse de rupture brutale (L.442-1, II)
 
 ```
-/h-droit-affaires:analyser-rupture-brutale <chemin/du/dossier> --review
+/h-da:analyser-rupture-brutale <chemin/du/dossier> --review
 ```
 
 Sur un dossier de contentieux affaires impliquant une rupture de relation commerciale. Le skill qualifie la relation établie (critères jurisprudentiels), évalue le préavis raisonnable (règle de pouce + critères), traite le safe harbor 18 mois comme **protection défensive** (et pas comme un plafond — c'est un point juridique sur lequel je veux ton avis explicite), estime le préjudice (marge brute durant la période manquante), examine les cas de dispense.
@@ -76,7 +76,7 @@ Sur un dossier de contentieux affaires impliquant une rupture de relation commer
 
 ### Test 5 (passif) — Agent bodacc-procedures-watcher
 
-**Pleinement opérationnel.** Les 3 outils MCP que cet agent consomme sont maintenant restaurés : `bodacc_by_siren` (annonces BODACC par SIREN), `bodacc_procedures` (procédures collectives publiques), `company_full_profile` (profil enrichi Pappers + fallback BODACC). L'agent peut aussi être utilisé manuellement entre deux runs automatiques pour un SIREN ponctuel — utile pour vérifier rapidement un débiteur entrant.
+**En cours de vérification finale — et ton observation en fait partie.** Les 3 outils MCP que cet agent consomme sont déclarés : `bodacc_by_siren` (annonces BODACC par SIREN), `bodacc_procedures` (procédures collectives publiques), `company_full_profile` (profil enrichi Pappers + fallback BODACC). Je finis de valider le branchement de mon côté ; ton observation passive sur 2-3 semaines est justement ce qui confirme qu'il alerte quand il faut. Signale-moi tout **silence anormal** (une forclusion qui approchait sans alerte) ou **fausse alerte**. L'agent peut aussi être lancé manuellement pour un SIREN ponctuel — utile pour vérifier rapidement un débiteur entrant.
 
 Configure une fois la liste de tes débiteurs en portefeuille dans :
 ```
@@ -96,6 +96,17 @@ debiteurs:
 L'agent tourne quotidiennement, te remonte les forclusions à 30 jours / 7 jours / 0 jour, et te signale les nouvelles procédures sur SIREN connus de ton portefeuille. **Tu ne testes rien activement — tu observes pendant 2-3 semaines si les alertes tombent quand elles doivent.**
 
 ---
+
+## Si un dossier de restructuring passe pendant le test (hors protocole calibré)
+
+Depuis ce brief, le plugin couvre désormais **toute la chaîne des entreprises en difficulté** — pile ton cœur de métier. Rien d'obligatoire ici : si l'un de ces dossiers te passe entre les mains pendant les 2-3 semaines, lance le skill et dis-moi en une ligne si c'est juste. Sinon, zappe.
+
+- **Un dirigeant hésite entre sauver / céder / déposer** → `/h-da:distress-cedant` (note d'orientation, route vers la bonne voie).
+- **Dépôt de bilan** → `/h-da:declaration-cessation-paiements` (délai des 45 jours, pièces, RJ vs LJ).
+- **Reprise d'une cible en difficulté** → `/h-da:asset-vs-share-distress` (titres vs actifs), puis `/h-da:pre-pack-cession` · `/h-da:reprise-a-la-barre` · `/h-da:cession-actifs-isoles`.
+- **Exposition ou défense du dirigeant** → `/h-da:responsabilite-dirigeant`, et `/h-da:defense-dirigeant` si une action est engagée.
+
+Pour la **palette complète** des 32 skills en langage métier, le plugin a un guide : `README_UTILISATEUR.md` (à sa racine).
 
 ## Le formulaire de feedback (~5 min par skill)
 
@@ -122,17 +133,17 @@ Saute-le, on y reviendra. Mieux vaut tester 2 skills sur de vrais dossiers que l
 
 ## Ce que je ne te demande PAS
 
-- Pas de test exhaustif des 19 skills. Les skills M&A (`spa-review`, `gap-review`, `due-diligence-dataroom`, `closing-checklist-fr`, `loi-term-sheet`) sont validés par le frère côté cabinet d'affaires — `spa-review` est son test prioritaire (SPA SAS, flux NDA → NBO → DD → SPA → GAP → Closing).
+- Pas de test exhaustif des 32 skills. Les skills M&A (`spa-review`, `gap-review`, `due-diligence-dataroom`, `closing-checklist-fr`, `loi-term-sheet`) sont validés par le frère côté cabinet d'affaires — `spa-review` est son test prioritaire (SPA SAS, flux NDA → NBO → DD → SPA → GAP → Closing).
 - Pas de revue de format ni de code — je m'en occupe.
 - Pas de feedback live ni de réunion. Tout asynchrone.
 
 ## Note d'installation — chemin du profil cabinet
 
-À l'installation, le profil cabinet est maintenant dans :
+À l'installation, le profil cabinet est dans :
 ```
 ~/.claude/plugins/config/hacienda-juridique/company-profile.md
 ```
-(ancien chemin `~/.claude/plugins/config/hacienda-juridique/company-profile.md` — si tu réinstalles depuis zéro, rien à faire, c'est automatique).
+Il est créé automatiquement par `entretien-demarrage` — rien à faire manuellement.
 
 ## Si quelque chose plante
 

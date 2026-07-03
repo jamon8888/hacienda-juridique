@@ -51,7 +51,7 @@ Les 3 tests couvrent **deux axes** : (a) le nouveau workflow phare M&A — `spa-
 ### Test 1 — SPA review ⭐ (priorité absolue)
 
 ```
-/h-droit-affaires:spa-review <chemin/du/SPA.pdf> --side=acquereur
+/h-da:spa-review <chemin/du/SPA.pdf> --side=acquereur
 ```
 (ou `--side=cedant` selon ton dossier)
 
@@ -66,7 +66,7 @@ Le skill produit : analyse clause par clause du SPA, identification des red flag
 ### Test 2 — Garantie d'actif et de passif (GAP)
 
 ```
-/h-droit-affaires:gap-review <chemin/de/la/GAP.pdf> --side=acquereur
+/h-da:gap-review <chemin/de/la/GAP.pdf> --side=acquereur
 ```
 (ou `--side=cedant` selon ton dossier)
 
@@ -79,7 +79,7 @@ Spécificité franco-française sans équivalent direct en R&W US — c'est le t
 ### Test 3 — LOI / Term Sheet
 
 ```
-/h-droit-affaires:loi-term-sheet <chemin/de/la/LOI.pdf> --side=acquereur
+/h-da:loi-term-sheet <chemin/de/la/LOI.pdf> --side=acquereur
 ```
 (ou `--side=cedant` selon ton dossier)
 
@@ -94,7 +94,7 @@ C'est typiquement ce que tu valides sur une LOI/NBO préparée par un collab ava
 ### Si tu reçois un NDA M&A pendant la période de test
 
 ```
-/h-droit-affaires:reviser-nda <chemin/du/NDA.pdf>
+/h-da:reviser-nda <chemin/du/NDA.pdf>
 ```
 
 Premier point du parcours M&A (NDA data-room → NBO/LOI → DD → SPA → GAP → Closing). Triage 8 points VERT/ORANGE/ROUGE, clean teams, durée, juridiction. 5 min si tu en reçois un naturellement pendant les 2-3 semaines de test ; zappe sinon.
@@ -102,12 +102,22 @@ Premier point du parcours M&A (NDA data-room → NBO/LOI → DD → SPA → GAP 
 ### Si un collab te fait remonter un rapport DD généré par le plugin
 
 ```
-/h-droit-affaires:due-diligence-dataroom <chemin/de/la/dataroom/> --side=acquereur
+/h-da:due-diligence-dataroom <chemin/de/la/dataroom/> --side=acquereur
 ```
 
 Skill impressionnant — 7 thèmes (Corporate / Contrats matériels / Social-RH / PI / Fiscal-Financier / Contentieux-Passifs / RGPD), rapport structuré + grille de matérialité + questions complémentaires + recommandations pour la GAP. Plus l'enrichissement SIREN via BODACC + Pappers pour les company profiles cibles.
 
 Je sais que c'est tes collab qui organisent les DD, pas toi. Mais si l'un d'eux te fait remonter un rapport généré avec ce skill pendant la période de test, jette un œil (~10 min) et dis-moi si ça matche ce que tu attendrais d'un junior senior. Hors calibrage 1h30.
+
+### Si tu as un dossier Private Equity / LBO pendant le test
+
+Depuis ce brief, la chaîne PE a été livrée. Quatre skills du parcours acceptent une lentille LBO side-aware via `--pe` : `spa-review`, `gap-review`, `pacte-associes-review`, `closing-checklist-fr`. Et un skill neuf cartographie le **management package** :
+
+```
+/h-da:management-package-pe
+```
+
+Si un LBO te passe entre les mains, ajoute `--pe` sur le skill concerné ou lance `management-package-pe` — dis-moi juste si la lentille PE tient. Hors calibrage.
 
 ---
 
@@ -128,7 +138,7 @@ Renvoie-moi par mail (ou comme tu veux), pas besoin de format particulier.
 
 ## Ce que je ne te demande PAS
 
-- Pas de test exhaustif des 19 skills du plugin. Les 3 tests sélectionnés matchent tes workflows M&A les plus denses (le phare `spa-review` + sa GAP en aval + le récurrent `loi-term-sheet`) ; les autres skills M&A (`closing-checklist-fr`, `reviser-contrat`, `pacte-associes-review`, `revue-tabulaire`) sont disponibles si tu tombes dessus naturellement, mais hors protocole.
+- Pas de test exhaustif des 32 skills du plugin. Les 3 tests sélectionnés matchent tes workflows M&A les plus denses (le phare `spa-review` + sa GAP en aval + le récurrent `loi-term-sheet`) ; les autres skills M&A (`closing-checklist-fr`, `reviser-contrat`, `pacte-associes-review`, `revue-tabulaire`) sont disponibles si tu tombes dessus naturellement, mais hors protocole. Pour la palette complète des 32 skills en langage métier, le plugin a un guide : `README_UTILISATEUR.md` (à sa racine).
 - Pas de revue de format ni de code — je m'en charge.
 - Pas de feedback live ni de réunion. Tout asynchrone.
 
