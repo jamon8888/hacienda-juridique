@@ -1,9 +1,10 @@
 # Handoff — état courant (entrée de session)
 
-**Dernière mise à jour :** 2026-07-02
-**Branche de travail :** `docs/da-early-user-doc` (poussée, **non mergée**, pas de PR
-ouverte). Voir aussi `docs/hygiene-continuation-followthrough` (poussée, non mergée).
-`main` est à jour avec ces deux branches en attente par-dessus (post-#66/#67).
+**Dernière mise à jour :** 2026-07-03
+**Branche de travail :** `feat/da-dd-pe-red-flags` (build du candidat PE #6, non
+mergée). En attente aussi : `docs/da-early-user-doc` et
+`docs/hygiene-continuation-followthrough` (poussées, non mergées, pas de PR ouverte).
+`main` est à jour avec ces branches en attente par-dessus (post-#66/#67).
 
 > Ce fichier est le **point d'entrée** d'une nouvelle session : où on en est, ce qui est ouvert,
 > où regarder. Les handoffs datés (`docs/handoff/handoff-YYYY-MM-DD-*.md`) restent les
@@ -13,14 +14,23 @@ ouverte). Voir aussi `docs/hygiene-continuation-followthrough` (poussée, non me
 
 ## Où on en est
 
-### Vague PE — Droit des affaires
-La chaîne du deal PE est **livrée** (côté sponsor, jambe FR) : pacte → SPA/GAP → closing →
-management package. 4 overlays `--pe`, skill `management-package-pe` shippé PR #66.
-Compte skills DA : **32**. Version plugin : **0.19.0**. Détail :
-[`handoff-2026-06-30-pe-management-package.md`](handoff-2026-06-30-pe-management-package.md).
+### Vague PE — Droit des affaires : parcours deal sponsor COMPLET (2026-07-03)
+La chaîne du deal PE est **livrée de bout en bout** (côté sponsor, jambe FR) :
+**DD red flags** → pacte → SPA/GAP → closing → management package. 5 modes `--pe` +
+skill `management-package-pe`. Compte skills DA : **32**. Version plugin : **0.20.0**.
+
+**Nouveau (candidat #6, dernier du parcours)** : mode `due-diligence-dataroom --pe`
+(alias `--mode=pe-red-flags`) — chaque finding matériel converti en **traitement deal**
+(CP / GAP / specific indemnity / couverture W&I / price chip jamais chiffré / Q&A),
+red flag report partner-ready, axes D1–D5, module frère
+`references/pe-dd-red-flags-overlay-fr.md`. Branche `feat/da-dd-pe-red-flags`
+(commit `63659d7` + handoff), **non mergée, non scorée** — scaffolding scoring prêt
+(`due-diligence-pe`, code `DDRPE1`). Suite verte (309 ✓, typecheck/build/branding).
+Détail : [`handoff-2026-07-03-dd-pe-red-flags.md`](handoff-2026-07-03-dd-pe-red-flags.md).
+⚠️ Choix de flag à valider par Candy : canonique `--pe` (cohérence frères) avec alias
+`--mode=pe-red-flags` (nom du landscape).
 
 **PE restant (landscape [`da-pe-landscape-fr-v2-pratique.md`](../backlog/da-pe-landscape-fr-v2-pratique.md)) :**
-- `#6 due-diligence-dataroom --mode=pe-red-flags` — 60 % de couverture estimée, **pas différé**, juste pas encore construit.
 - `#7 fonds-pe-fr-triage` — 20-30 %, **explicitement différé** dans le landscape (« à différer si cible produit = M&A sponsor » — AMF/fiscal lourds, pratique fonds distincte de la spécialisation M&A PE).
 
 ### Follow-through de l'arbre de décision — vérifié opérationnel (2026-07-02)
@@ -87,12 +97,9 @@ corpus méthodo harmonisé (criteria atomiques tiered-gated = canonique release)
 
 ## Ouvert / prochaines pistes
 
-- **PROCHAINE SESSION — `due-diligence-dataroom --mode=pe-red-flags` (#6)**, à tester
-  avec **Fable 5** (crédits dédiés). Décision Candy : finir la couverture du parcours
-  deal PE **avant** d'ouvrir la pratique fonds. 60 % de couverture estimée ; consomme
-  les outputs SPA/GAP/W&I en red flags orientés prix → CP / GAP / W&I / price chips /
-  Q&A. C'est une **extension de `due-diligence-dataroom`** (lentille PE), pas un skill
-  neuf.
+- **Scoring `DDRPE1`** (`due-diligence-dataroom --pe`) — cycles à lancer par Candy
+  (wrapper `bash scripts/da-scoring.sh phase1 due-diligence-pe` etc.) ; barre release
+  = **gate-clean** (précédent SPAPE/CLOPE). Puis merge/PR de `feat/da-dd-pe-red-flags`.
 - **PE différé plus loin — `fonds-pe-fr-triage` (#7)** : pratique fonds FR distincte
   (FPCI/FCPR/SLP), AMF/fiscal plus lourds. Vient après #6, si Hacienda veut couvrir les
   équipes funds. 20-30 % de couverture.

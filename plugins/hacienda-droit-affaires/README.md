@@ -96,7 +96,7 @@ l'auto-activation des skills.
 | `/h-da:declaration-creance` | Déclaration de créance et forclusion. Mode `--releve-forclusion` : requête L.622-26 lorsque le délai L.622-24 est dépassé. |
 | `/h-da:defense-dirigeant` | Aval contentieux de `responsabilite-dirigeant` : arme la trame de défense du dirigeant **assigné** (L.651-2 / L.652-1 / sanctions L.653-x). Moyens ordonnés par force ; ne rédige pas le mémoire. |
 | `/h-da:distress-cedant` | Note d'orientation côté cédant/débiteur : arbitrage sauver / céder / déposer, pivot 45 j, exposition dirigeant (Gate 1 + Gate 2), routage vers le bon skill. |
-| `/h-da:due-diligence-dataroom` | Due diligence data-room M&A. |
+| `/h-da:due-diligence-dataroom` | Due diligence data-room M&A. Mode `--pe` (alias `--mode=pe-red-flags`) : red flags Private Equity convertis en traitements deal (CP / GAP / W&I / specific indemnity / price chips / Q&A), red flag report partner-ready. |
 | `/h-da:entretien-demarrage` | Configuration initiale du profil Droit des affaires. |
 | `/h-da:financement-startup` | Instruments de financement startup. |
 | `/h-da:gap-review` | Revue de garantie d'actif et de passif. Mode `--distressed` : cible en difficulté (garantie de la garantie). Mode `--pe` : revue GAP sous l'angle W&I / disclosure (overlay Private Equity). |

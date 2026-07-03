@@ -382,6 +382,7 @@ vue du sponsor qui veut sortir à des conditions optimales. Vérifier :
 ## Renvois
 
 - Instruments management package (BSA/BSPCE/ADP/AGA/OC) : `/h-da:financement-startup`.
+- DD red flags PE (findings convertis en CP / GAP / W&I / specific indemnity / price chips / Q&A) : `/h-da:due-diligence-dataroom --pe`.
 - Revue SPA côté sponsor (locked box, certain funds, rollover, MAC, W&I) : `/h-da:spa-review --pe --side=sponsor`.
 - Revue GAP sous l'angle W&I / disclosure : `/h-da:gap-review --pe`.
 - Garanties personnelles managers / GAP managers cédants : `/h-da:gap-review`.
