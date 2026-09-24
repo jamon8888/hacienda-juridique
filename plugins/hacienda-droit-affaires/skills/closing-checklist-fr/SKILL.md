@@ -114,7 +114,7 @@ pour les éléments cabinet partagés cross-plugins.
 3. **Conditions suspensives connues** — `--cp="agrément du conseil, financement"`. Liste libre des CP déjà identifiées. Si l'option est absente, le skill demande les CP à l'intake ou les déduit des documents fournis et le signale.
 4. **Date de closing visée** — `--closing=2026-09-30`. Sert à calculer les échéances de levée des CP et à ordonner le séquençage. Si absente, le séquençage est rendu en jalons relatifs (closing − N jours).
 
-**Mode `--pe` (overlay Private Equity, side sponsor).** Charge `references/pe-closing-overlay-fr.md`.
+**Mode `--pe` (overlay Private Equity, side sponsor).** Charge `${CLAUDE_SKILL_DIR}/../../references/pe-closing-overlay-fr.md`.
 En mode `--pe`, `--side` bascule sur `--side=sponsor` (défaut, ≡ acquéreur) | `--side=cedant`
 (≡ cédant sponsor). Hors `--pe`, si des **signaux PE** sont détectés (sponsor / BidCo / funds flow /
 sources & uses / ECL / DCL / certain funds / rollover / accession deed / debt push-down), **proposer**
@@ -143,7 +143,7 @@ les analyser au fond — la revue de fond relève des skills dédiés (voir
 - [ ] Articles hors index ou en `[a compléter]` tagués `[à vérifier]`
 - [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
 - [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + checklist en 4 volets sous forme de tableaux + question hors checklist + arbre de décision 5 options + footer A si applicable
-- [ ] Si `--pe` : module `references/pe-closing-overlay-fr.md` chargé, side `sponsor`/`cedant` posé, gate France/Lux respecté
+- [ ] Si `--pe` : module `${CLAUDE_SKILL_DIR}/../../references/pe-closing-overlay-fr.md` chargé, side `sponsor`/`cedant` posé, gate France/Lux respecté
 - [ ] Si `--pe` : Volet 5 funds flow / sources & uses produit (structure ; montants `[à compléter]`, aucun chiffre fabriqué)
 - [ ] Si `--pe` : assistance financière (L.225-216 C.com.) vérifiée — aucune sûreté/garantie remontante de la cible validée ; risque qualifié `[review]` et renvoyé
 - [ ] Si `--pe` : registre de mouvements de titres aux deux niveaux (BidCo + cible) ; accession deed rollover présent
@@ -168,7 +168,7 @@ outputs/closing-checklist-<parties-slug>-YYYY-MM-DD.md
 La checklist agrège quatre tableaux ; dès que l'ensemble dépasse 10 lignes ou
 contient des dates / échéances sérialisables, générer en parallèle un dashboard
 HTML autonome via `renderDashboard()` de `@hacienda/core` (sortable, filtrable,
-ouvrable hors-ligne, zéro CDN, XSS-safe — voir `references/dashboard-template.md`).
+ouvrable hors-ligne, zéro CDN, XSS-safe — voir `${CLAUDE_SKILL_DIR}/../../references/dashboard-template.md`).
 
 ---
 
@@ -362,7 +362,7 @@ closing.
 
 - **Cocontractants** — information ou demande de consentement des
   cocontractants liés par une clause de **changement de contrôle** (voir
-  `references/clauses-sensibles-fr.md`, bloc 15) ; l'idéal est d'avoir purgé
+  `${CLAUDE_SKILL_DIR}/../../references/clauses-sensibles-fr.md`, bloc 15) ; l'idéal est d'avoir purgé
   ces consentements en condition suspensive avant le closing.
 - **Organes sociaux** — information des organes de gouvernance, mise à jour
   des mandats.
@@ -382,7 +382,7 @@ l'expert ; aucun taux n'est chiffré comme une certitude.
 ## Étape PE — Overlay closing LBO (si `--pe` ou overlay accepté)
 
 Ne s'exécute qu'avec `--pe` (flag) ou après acceptation d'une auto-proposition. Charger
-`references/pe-closing-overlay-fr.md` et appliquer les 5 axes, side `sponsor` (défaut) ou `cedant` :
+`${CLAUDE_SKILL_DIR}/../../references/pe-closing-overlay-fr.md` et appliquer les 5 axes, side `sponsor` (défaut) ou `cedant` :
 
 1. **L1 — Funds flow / sources & uses** : produire le **tableau sources & uses** (Volet 5) ;
    réconciliation Σsources = Σuses, cohérence avec le prix SPA et les montants ECL/DCL ; waterfall
@@ -412,7 +412,7 @@ s'empilent** sans se dupliquer.
 
 Appel automatique de `verifier-citations` sur la sortie complète. Les articles
 C.civ / C.com. cités doivent exister dans
-`references/articles-c-civ-c-com-index.md` ; à défaut, ou s'ils sont en
+`${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` ; à défaut, ou s'ils sont en
 `[a compléter]`, tag `[à vérifier]` et ligne dédiée dans la note du relecteur.
 Si PISTE n'est pas configuré : mode dégradé documenté dans la note du relecteur
 (« `verifier-citations` non exécuté — N citations à valider manuellement »).

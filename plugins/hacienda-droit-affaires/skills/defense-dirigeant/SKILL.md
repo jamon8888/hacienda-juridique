@@ -194,7 +194,7 @@ Structurer la sortie avec : faits retenus, axe(s) visé(s), moyens de défense o
 
 - **Articulation pénal/civil** (si banqueroute L.654 poursuivie en parallèle) : **nommer** le **sursis à statuer** possible et l'**autorité de la chose jugée** du pénal sur le civil ; **renvoi pénaliste**. Ne pas plaider la banqueroute.
 - Vérifier la **fraîcheur** de la jurisprudence (ch. com. < 3 ans) sur simple négligence / causalité / cas L.653-8 / prescription via `judilibre_recherche` ; mode dégradé documenté si PISTE indisponible.
-- Post-flight `verifier-citations` sur la sortie complète. Articles à vérifier : **L.651-1, L.651-2, L.651-3, L.652-1, L.653-1, L.653-3, L.653-4, L.653-5, L.653-8, L.653-11, L.654-1, L.654-2 C.com.** Tag `[Légifrance]` uniquement si vérifié (présent dans `references/articles-c-civ-c-com-index.md` ou consulté via PISTE) ; sinon `[à vérifier]`.
+- Post-flight `verifier-citations` sur la sortie complète. Articles à vérifier : **L.651-1, L.651-2, L.651-3, L.652-1, L.653-1, L.653-3, L.653-4, L.653-5, L.653-8, L.653-11, L.654-1, L.654-2 C.com.** Tag `[Légifrance]` uniquement si vérifié (présent dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` ou consulté via PISTE) ; sinon `[à vérifier]`.
 
 ### Format livrable
 

@@ -42,7 +42,7 @@ tags: [constitution, societes, statuts, sas, sarl, sa, actes]
 1. Pré-flight `check-pii` (peu d'identifiants au stade du choix de forme — sous seuil B le plus souvent).
 2. Lecture profil cabinet (bloc « vie sociale » : formes pratiquées, posture rédaction statuts, notaire partenaire).
 3. Cadrage du besoin : 3 fondateurs, ambition de lever des fonds d'ici 18 mois, président souhaitant le régime assimilé salarié, besoin de souplesse pour accueillir des investisseurs.
-4. Recommandation depuis `references/comparatif-formes-sociales-fr.md` : **SAS** — souplesse statutaire (organes librement définis, pas d'agrément légal imposé), accueil naturel d'investisseurs (actions de préférence, BSA), président assimilé salarié. La SARL est écartée (agrément légal des cessions à tiers art. L.223-14 C.com. [Légifrance], rigidité face à une levée ; gérant majoritaire = TNS).
+4. Recommandation depuis `${CLAUDE_SKILL_DIR}/../../references/comparatif-formes-sociales-fr.md` : **SAS** — souplesse statutaire (organes librement définis, pas d'agrément légal imposé), accueil naturel d'investisseurs (actions de préférence, BSA), président assimilé salarié. La SARL est écartée (agrément légal des cessions à tiers art. L.223-14 C.com. [Légifrance], rigidité face à une levée ; gérant majoritaire = TNS).
 5. Tags `[review]` sur les arbitrages dépendant de critères fiscaux/sociaux (régime social effectif, option IR éventuelle) → renvoi expert-comptable.
 6. Sortie : note du relecteur + tableau comparatif + recommandation motivée + question hors checklist + arbre de décision 5 options.
 </response>
@@ -219,7 +219,7 @@ Ne pas trancher tant que ces points ne sont pas couverts ou explicitement écart
 
 ## Étape 2 (--comparer) — Recommandation
 
-1. Construire la **table comparative** depuis `references/comparatif-formes-sociales-fr.md`
+1. Construire la **table comparative** depuis `${CLAUDE_SKILL_DIR}/../../references/comparatif-formes-sociales-fr.md`
    (Partie 1), restreinte aux axes pertinents pour le besoin cadré. Tags de
    provenance après chaque citation, **sans backticks dans les cellules**.
 2. Formuler une **recommandation motivée** : une forme privilégiée, les formes
@@ -238,7 +238,7 @@ Ne pas trancher tant que ces points ne sont pas couverts ou explicitement écart
 
 **Étape juridique active, pas une simple mention.** Avant toute rédaction,
 analyser la **nature des apports déclarés** (intake point 4) et trancher la
-forme de l'acte. Logique tirée de `references/comparatif-formes-sociales-fr.md`
+forme de l'acte. Logique tirée de `${CLAUDE_SKILL_DIR}/../../references/comparatif-formes-sociales-fr.md`
 (Partie 2) :
 
 1. **Apports en numéraire uniquement** → acte **sous seing privé (SSP)** suffit.
@@ -341,7 +341,7 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 - vérifie l'existence et la version en vigueur via Légifrance ;
 - annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
-Articles attendus présents dans `references/articles-c-civ-c-com-index.md` avec
+Articles attendus présents dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` avec
 identifiant Légifrance réel (→ `[Légifrance]`) : L.210-2, L.210-6, L.223-2,
 L.223-7, L.223-9, L.223-14, L.223-30, L.225-3, L.225-98, L.227-9, L.227-13,
 L.227-14, L.227-15, L.228-24. En `[a compléter]` ou absents (→ `[à vérifier]`

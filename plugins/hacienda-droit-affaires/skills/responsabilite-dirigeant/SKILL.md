@@ -207,7 +207,7 @@ Structurer la sortie avec : faits retenus, droit applicable par axe, qualificati
 
 - **Synthèse en tête** : criticité maximale + axe(s) prime + stade procédure + (si action engagée) renvoi contentieuiste.
 - Vérifier la **fraîcheur** de la jurisprudence (ch. com. < 3 ans) sur faute de gestion / interdiction de gérer / cautions via `judilibre_recherche` ; mode dégradé documenté si PISTE indisponible.
-- Post-flight `verifier-citations` sur la sortie complète. Articles à vérifier : **L.651-1, L.651-2, L.651-3, L.652-1, L.653-1, L.653-3, L.653-4, L.653-5, L.653-6, L.653-8, L.653-11, L.654-1, L.654-2, L.654-3, L.622-28, L.631-14, L.626-11, L.643-11, L.632-1, L.632-2 C.com.**, **art. 2288 et s. C.civ.** Tag `[Légifrance]` uniquement si vérifié (présent dans `references/articles-c-civ-c-com-index.md` ou consulté via PISTE) ; sinon `[à vérifier]`.
+- Post-flight `verifier-citations` sur la sortie complète. Articles à vérifier : **L.651-1, L.651-2, L.651-3, L.652-1, L.653-1, L.653-3, L.653-4, L.653-5, L.653-6, L.653-8, L.653-11, L.654-1, L.654-2, L.654-3, L.622-28, L.631-14, L.626-11, L.643-11, L.632-1, L.632-2 C.com.**, **art. 2288 et s. C.civ.** Tag `[Légifrance]` uniquement si vérifié (présent dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` ou consulté via PISTE) ; sinon `[à vérifier]`.
 
 ### Format livrable
 

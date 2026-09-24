@@ -225,7 +225,7 @@ Contrairement à une mise en demeure, le dispositif préventif est **confidentie
 
 ## Étape 6 — Post-flight `verifier-citations`
 
-Articles à vérifier : L.611-3, L.611-4, L.611-6, L.611-7, L.611-8, L.611-10, L.611-11, L.611-15, L.628-1, L.628-8, L.631-1, L.631-4 C.com. Ceux absents de `references/articles-c-civ-c-com-index.md` → garder `[à vérifier]`. **Fraîcheur impérative** : l'ordonnance du 15 septembre 2021 (transposition directive (UE) 2019/1023 restructuration) a remanié durées, seuils et classes — toute durée/seuil non confirmé sur source reste `[à vérifier]`. Mode dégradé documenté si PISTE absent.
+Articles à vérifier : L.611-3, L.611-4, L.611-6, L.611-7, L.611-8, L.611-10, L.611-11, L.611-15, L.628-1, L.628-8, L.631-1, L.631-4 C.com. Ceux absents de `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` → garder `[à vérifier]`. **Fraîcheur impérative** : l'ordonnance du 15 septembre 2021 (transposition directive (UE) 2019/1023 restructuration) a remanié durées, seuils et classes — toute durée/seuil non confirmé sur source reste `[à vérifier]`. Mode dégradé documenté si PISTE absent.
 
 ---
 

@@ -220,7 +220,7 @@ diffusés hors du périmètre cabinet (associés non-juristes, greffe) :
 
 **Étape juridique active.** Le délai de convocation est d'ordre public : son
 non-respect expose les délibérations à la nullité. Logique tirée de
-`references/calendrier-vie-sociale-fr.md` (Partie 1).
+`${CLAUDE_SKILL_DIR}/../../references/calendrier-vie-sociale-fr.md` (Partie 1).
 
 1. Identifier le **délai applicable** selon la forme :
    - **SARL** — 15 jours avant l'assemblée (art. L.223-27 C.com. `[Légifrance]`).
@@ -290,7 +290,7 @@ point qui se lit dans les statuts plutôt que dans la loi :
 
 **Étape juridique active.** Avant de rédiger le PV, rappeler et contrôler les
 règles de **quorum** et de **majorité** applicables. Logique tirée de
-`references/calendrier-vie-sociale-fr.md` (Partie 3).
+`${CLAUDE_SKILL_DIR}/../../references/calendrier-vie-sociale-fr.md` (Partie 3).
 
 > **Ne jamais confondre quorum et majorité.** Le **quorum** est la proportion du
 > **capital** (parts ou actions à droit de vote) présente ou représentée,
@@ -369,7 +369,7 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 - vérifie l'existence et la version en vigueur via Légifrance ;
 - annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
-Articles attendus présents dans `references/articles-c-civ-c-com-index.md` avec
+Articles attendus présents dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` avec
 identifiant Légifrance réel (→ `[Légifrance]`) : L.223-27, L.223-29, L.223-30,
 L.225-98, L.227-9. En `[a compléter]` ou absents (→ `[à vérifier]` obligatoire) : L.225-96
 (en `[a compléter]` dans l'index), et **tout article réglementaire `R.xxx`**

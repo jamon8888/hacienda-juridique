@@ -89,8 +89,8 @@ Si le profil n'est pas peuplé (`[A CONFIGURER]`) : stopper et demander `/h-da:e
 2. **Side** — `--side=cedant` | `--side=acquereur` (**obligatoire**, pas d'auto-détection)
 3. **Findings DD** (optionnel) — `--dd-findings=./rapport-dd.md` — active l'axe 5
 4. **Prix cession** (optionnel) — `--prix=15000000` (en €) — active les ratios plafond/prix
-5. **Mode `--distressed`** (optionnel) — overlay « cible en difficulté » : charge `references/distressed-overlay-fr.md` et centre la revue sur la **garantie de la garantie** (séquestre/GAPD face à un cédant insolvable) et le passif non purgé. Hors flag, si des **signaux de difficulté** apparaissent (procédure collective, cessation des paiements, cédant en perte, prix symbolique), **proposer** l'overlay sans l'imposer.
-6. **Mode `--pe`** (optionnel) — overlay Private Equity side sponsor : charge `references/pe-spa-gap-overlay-fr.md` et centre la GAP sur la **matrice GAP / W&I / disclosure**. `--side=sponsor` par défaut (`--side=sponsor` ≡ côté acquéreur ; `--side=cedant` ≡ côté cédant sponsor). Hors flag, si des signaux PE apparaissent, **proposer** l'overlay sans l'imposer.
+5. **Mode `--distressed`** (optionnel) — overlay « cible en difficulté » : charge `${CLAUDE_SKILL_DIR}/../../references/distressed-overlay-fr.md` et centre la revue sur la **garantie de la garantie** (séquestre/GAPD face à un cédant insolvable) et le passif non purgé. Hors flag, si des **signaux de difficulté** apparaissent (procédure collective, cessation des paiements, cédant en perte, prix symbolique), **proposer** l'overlay sans l'imposer.
+6. **Mode `--pe`** (optionnel) — overlay Private Equity side sponsor : charge `${CLAUDE_SKILL_DIR}/../../references/pe-spa-gap-overlay-fr.md` et centre la GAP sur la **matrice GAP / W&I / disclosure**. `--side=sponsor` par défaut (`--side=sponsor` ≡ côté acquéreur ; `--side=cedant` ≡ côté cédant sponsor). Hors flag, si des signaux PE apparaissent, **proposer** l'overlay sans l'imposer.
 
 Si `--side` est absent : stopper et demander explicitement. Le skill est side-dependent, une analyse « neutre » n'a pas de sens praticien.
 
@@ -129,7 +129,7 @@ Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affai
 outputs/gap-review-<parties-slug>-YYYY-MM-DD.md
 ```
 
-Si la liste de points dépasse 10 lignes ou si l'axe 5 contient des findings chiffrés sérialisables, générer en parallèle un dashboard HTML autonome via `renderDashboard()` de `@hacienda/core` (voir `references/dashboard-template.md`).
+Si la liste de points dépasse 10 lignes ou si l'axe 5 contient des findings chiffrés sérialisables, générer en parallèle un dashboard HTML autonome via `renderDashboard()` de `@hacienda/core` (voir `${CLAUDE_SKILL_DIR}/../../references/dashboard-template.md`).
 
 ---
 
@@ -213,7 +213,7 @@ Findings 🟢/🟡/🟠/🔴 par sous-point.
 | **Franchise (panier)** | Faible, déduite | Élevée, absolue |
 | **Non-concurrence cédant** (le cédant s'engage à ne pas concurrencer la cible pendant N années) | ✓ Exiger — durée 2-5 ans, périmètre activité + géographie, contrepartie souvent intégrée au prix | À négocier — durée courte (1-2 ans), périmètre restreint, contrepartie identifiée — art. L.420-1 C.com. [Légifrance] si effet d'éviction de marché |
 
-Voir `references/clauses-sensibles-fr.md` (clause #9 limitation de responsabilité, clause #15 changement de contrôle) pour articulation avec le droit commun.
+Voir `${CLAUDE_SKILL_DIR}/../../references/clauses-sensibles-fr.md` (clause #9 limitation de responsabilité, clause #15 changement de contrôle) pour articulation avec le droit commun.
 
 Tag `[review]` sur l'arbitrage knowledge qualifier vs best knowledge — décision contextuelle (management dirigeant à racheter, profondeur DD, séquestre disponible).
 
@@ -240,7 +240,7 @@ Si `--dd-findings` non fourni : sauter l'axe et mentionner dans la note du relec
 
 ## Étape 6bis — Overlay difficulté (si `--distressed` ou overlay accepté)
 
-**N'exécuter que si le mode distressed est actif.** Charger `references/distressed-overlay-fr.md` :
+**N'exécuter que si le mode distressed est actif.** Charger `${CLAUDE_SKILL_DIR}/../../references/distressed-overlay-fr.md` :
 
 1. **Gate barre** : cible **déjà en RJ/LJ avec appel d'offres ouvert** → STOP overlay → renvoi `/h-da:reprise-a-la-barre` / `/h-da:cession-actifs-isoles` (l'acte serait judiciaire).
 2. **D3 — garantie de la garantie (point central GAP distressed)** : une GAP d'un cédant en difficulté ne vaut rien sans **séquestre / garantie autonome à première demande (GAPD) / caution bancaire**. Sans elle, qualifier la GAP **🔴** (protection théorique) ; calibrer durée/montant sur les passifs latents (fiscal/social/environnemental, exposition longue).
@@ -255,7 +255,7 @@ Intégrer les findings distressed dans la liste de points (sévérité side-awar
 
 ## Étape 6ter — Overlay PE — matrice GAP/W&I/disclosure (si `--pe` ou overlay accepté)
 
-**N'exécuter que si le mode PE est actif.** Charger `references/pe-spa-gap-overlay-fr.md` :
+**N'exécuter que si le mode PE est actif.** Charger `${CLAUDE_SKILL_DIR}/../../references/pe-spa-gap-overlay-fr.md` :
 1. **W1 — matrice GAP / W&I / disclosure** : ce que la police W&I couvre vs la GAP ; exclusions (known issues, forward-looking, environnement, transfer pricing) ; alignement rétention / de minimis / basket / cap **police ↔ GAP** ; disclosure letter comme outil contre les exclusions « known ».
 2. **W2 — recours limité côté cédant sponsor** : GAP « nil recourse / 1 € » adossée W&I — l'acquéreur s'appuie sur la police, pas sur le covenant du cédant sortant ; security for claims ; sandbagging / anti-sandbagging `[review]`.
 3. **W3 — discipline disclosure FR** : articulation disclosure letter ↔ devoir d'information `1112-1 C.civ [à vérifier]` ; fair disclosure ; data room comme disclosure ; réticence dolosive `1137 C.civ [à vérifier]`.
@@ -276,7 +276,7 @@ Si aucun écart : retour explicite — `Aucun point de vigilance identifié cont
 
 ## Étape 8 — Post-flight `verifier-citations`
 
-Appel automatique sur la sortie complète. Articles C.civ / C.com. cités doivent exister dans `references/articles-c-civ-c-com-index.md`. À défaut, tag `[à vérifier]` et ligne dédiée en note du relecteur. Si PISTE non configuré : mode dégradé documenté.
+Appel automatique sur la sortie complète. Articles C.civ / C.com. cités doivent exister dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md`. À défaut, tag `[à vérifier]` et ligne dédiée en note du relecteur. Si PISTE non configuré : mode dégradé documenté.
 
 ---
 

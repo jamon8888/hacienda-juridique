@@ -143,7 +143,7 @@ outputs/revue-contrat-<type>-<parties-slug>-YYYY-MM-DD.md
 
 Si la liste de points dépasse 10 lignes ou contient des dates / montants
 sérialisables, générer en parallèle un dashboard HTML autonome via
-`renderDashboard()` de `@hacienda/core` (voir `references/dashboard-template.md`).
+`renderDashboard()` de `@hacienda/core` (voir `${CLAUDE_SKILL_DIR}/../../references/dashboard-template.md`).
 
 ---
 
@@ -155,7 +155,7 @@ Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitud
 
 1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur.
 2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
-3. Détecter le type de contrat à partir des termes dominants (voir `references/taxonomie-contrats-fr.md`).
+3. Détecter le type de contrat à partir des termes dominants (voir `${CLAUDE_SKILL_DIR}/../../references/taxonomie-contrats-fr.md`).
 4. **Test PI-centric.** Si les termes dominants sont brevet, marque, licence, coexistence, invention, savoir-faire, R&D ou transfert de technologie → renvoyer immédiatement vers `/h-pi:contrats-pi` avec les options (a) lancer ce skill, (b) limiter `reviser-contrat` aux clauses commerciales, (c) les deux en séquence.
 5. Identifier les parties (raison sociale, qualité, pays d'établissement), le droit applicable, la juridiction et la date d'effet.
 
@@ -182,7 +182,7 @@ Si aucun SIREN détecté ou aucune source disponible : ne pas inventer, tag `[ut
 
 ## Étape 3 — Analyse clause par clause
 
-Pour chaque clause sensible identifiée (voir `references/clauses-sensibles-fr.md`, 15 clauses pilotes), produire une ligne de tableau :
+Pour chaque clause sensible identifiée (voir `${CLAUDE_SKILL_DIR}/../../references/clauses-sensibles-fr.md`, 15 clauses pilotes), produire une ligne de tableau :
 
 | Champ | Contenu |
 |---|---|
@@ -201,7 +201,7 @@ Pour chaque clause sensible identifiée (voir `references/clauses-sensibles-fr.m
 - Tag inline `[review]` sur les jugements subjectifs (clauses borderline déséquilibre L.442-1, qualification d'obligation essentielle 1170 C.civ, exigibilité d'une non-concurrence sans contrepartie chiffrée).
 - Respecter le plancher de sévérité cross-skill : si `check-pii` ou `verifier-citations` remonte 🔴, ne pas dégrader silencieusement.
 
-**Clauses pilotes.** La liste complète des 15 clauses pilotes vit dans `references/clauses-sensibles-fr.md` (source de vérité unique). Le skill traite les 15. Exemples emblématiques :
+**Clauses pilotes.** La liste complète des 15 clauses pilotes vit dans `${CLAUDE_SKILL_DIR}/../../references/clauses-sensibles-fr.md` (source de vérité unique). Le skill traite les 15. Exemples emblématiques :
 
 1. Clause pénale (art. 1231-5 C.civ)
 2. Non-concurrence salariée (Cass. soc. 10 juil. 2002, n° 00-45.135)

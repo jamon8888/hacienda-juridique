@@ -91,7 +91,7 @@ cabinet partagés cross-plugins.
 
 1. **Side** — `--side=sponsor` (fonds, BidCo, structureur) | `--side=manager` (management, salarié investisseur). Si absent, demander explicitement — la cartographie n'est pas la même selon le côté de la table.
 2. **Documents disponibles** — term sheet, projet de pacte d'associés, instruments proposés (BSPCE, BSA, ADP, AGA, OC, promesses d'achat/vente), convention de vesting ou de leaver. Lire sans analyser au fond.
-3. **Gate France/Lux** — si des signaux luxembourgeois apparaissent (entité fonds Lux, LP agreement Lux, instruments émis hors France, carried interest structure Lux) : STOP overlay Lux, renvoi à un conseil luxembourgeois ; l'overlay couvre la jambe française uniquement. Utiliser les signaux définis dans `references/management-package-pe-fr.md`.
+3. **Gate France/Lux** — si des signaux luxembourgeois apparaissent (entité fonds Lux, LP agreement Lux, instruments émis hors France, carried interest structure Lux) : STOP overlay Lux, renvoi à un conseil luxembourgeois ; l'overlay couvre la jambe française uniquement. Utiliser les signaux définis dans `${CLAUDE_SKILL_DIR}/../../references/management-package-pe-fr.md`.
 4. **Gate fiscal/social** — dès qu'une question de qualification fiscale (régime BSA/BSPCE, LPA, plus-value managériale) ou sociale (cotisations sur gain managérial) est identifiée : nommer et renvoyer, ne pas trancher.
 
 ---
@@ -115,7 +115,7 @@ cabinet partagés cross-plugins.
 
 ## Déroulé — axes M1–M5
 
-Charger `references/management-package-pe-fr.md` pour la doctrine, la terminologie et les signaux de détection. Appliquer les cinq axes suivants :
+Charger `${CLAUDE_SKILL_DIR}/../../references/management-package-pe-fr.md` pour la doctrine, la terminologie et les signaux de détection. Appliquer les cinq axes suivants :
 
 ### M1 — Cartographie documents et « qui signe quoi »
 

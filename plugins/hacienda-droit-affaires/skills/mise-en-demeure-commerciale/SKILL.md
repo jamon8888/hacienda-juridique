@@ -288,7 +288,7 @@ Calibrage de la fermeté par la posture profil : *protecteur* → comminatoire e
 
 ## Étape 6 — Post-flight `verifier-citations`
 
-Appel automatique. Articles à vérifier : 1344, 1344-1, 1344-2, 1231-5, 1231-6, 1226, 1221, 1343-2 C.civ ; L.441-10, L.110-4, L.622-17, L.622-21 C.com. (présents dans `references/articles-c-civ-c-com-index.md` → `[Légifrance]`). D.441-5 C.com. et art. 1405 CPC : si absents de l'index, garder `[à vérifier]`. Taux légal du semestre : jamais affirmé sans consultation source → `[à vérifier]`. Mode dégradé documenté si PISTE absent.
+Appel automatique. Articles à vérifier : 1344, 1344-1, 1344-2, 1231-5, 1231-6, 1226, 1221, 1343-2 C.civ ; L.441-10, L.110-4, L.622-17, L.622-21 C.com. (présents dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` → `[Légifrance]`). D.441-5 C.com. et art. 1405 CPC : si absents de l'index, garder `[à vérifier]`. Taux légal du semestre : jamais affirmé sans consultation source → `[à vérifier]`. Mode dégradé documenté si PISTE absent.
 
 ---
 

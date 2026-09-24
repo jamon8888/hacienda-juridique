@@ -51,7 +51,7 @@ tags: [cgv, cgu, generation, b2b, b2c, code-consommation, l441-1]
 2. Lecture profil cabinet (bloc « contrats commerciaux » : posture par défaut, clauses jamais acceptées, matrice d'approbateurs, politique PII).
 3. Intake : régime **B2B**, société de prestation de services informatiques vendant à des clients professionnels, canal sans objet (B2B).
 4. Étape 1 — confirmation du régime : B2B → cadre Code de commerce.
-5. Étape 2 — brouillon de CGV B2B selon `references/regimes-cgv-cgu-fr.md` partie B2B : mentions obligatoires art. L.441-1 C.com. [à vérifier] (conditions de règlement, barème de prix unitaires, réductions de prix). **Chaque arbitrage tagué `[review]`** : conditions de règlement, barème de prix, clause de réserve de propriété, limitation de responsabilité, droit applicable. Vérification du plafond de paiement L.441-10 C.com. [à vérifier] (60 j / 45 j fin de mois).
+5. Étape 2 — brouillon de CGV B2B selon `${CLAUDE_SKILL_DIR}/../../references/regimes-cgv-cgu-fr.md` partie B2B : mentions obligatoires art. L.441-1 C.com. [à vérifier] (conditions de règlement, barème de prix unitaires, réductions de prix). **Chaque arbitrage tagué `[review]`** : conditions de règlement, barème de prix, clause de réserve de propriété, limitation de responsabilité, droit applicable. Vérification du plafond de paiement L.441-10 C.com. [à vérifier] (60 j / 45 j fin de mois).
 6. Étape 4 — post-flight `verifier-citations`.
 7. Sortie : note du relecteur + brouillon de CGV `[review]`-tagué + **liste explicite des points à arbitrer** — le livrable est présenté comme un brouillon de travail, jamais comme « prêt à publier ».
 </response>
@@ -271,7 +271,7 @@ points à arbitrer** et conditionne les étapes suivantes.
 ## Étape 2 — Génération B2B (si régime B2B ou mixte)
 
 Produire un **brouillon de CGV B2B** structuré selon
-`references/regimes-cgv-cgu-fr.md` (Partie B2B) et `clauses-sensibles-fr.md`
+`${CLAUDE_SKILL_DIR}/../../references/regimes-cgv-cgu-fr.md` (Partie B2B) et `clauses-sensibles-fr.md`
 (clauses 16 à 30). **Brouillon assisté** : chaque clause d'arbitrage est taguée
 `[review]` en ligne, et le livrable ne se présente **jamais** comme « prêt à
 publier ».
@@ -322,7 +322,7 @@ modification unilatérale, la résiliation et les pénalités.
 ## Étape 3 — Génération B2C (si régime B2C ou mixte)
 
 Produire un **brouillon de CGU/CGV B2C** structuré selon
-`references/regimes-cgv-cgu-fr.md` (Partie B2C). **Brouillon assisté** : chaque
+`${CLAUDE_SKILL_DIR}/../../references/regimes-cgv-cgu-fr.md` (Partie B2C). **Brouillon assisté** : chaque
 clause d'arbitrage taguée `[review]`, livrable jamais « prêt à publier ».
 
 > **Avertissement.** Les articles du Code de la consommation cités ci-dessous
@@ -339,7 +339,7 @@ clause d'arbitrage taguée `[review]`, livrable jamais « prêt à publier ».
   de rétractation (art. L.221-18 et s. C.conso [à vérifier]). La clause générée
   doit fixer le **point de départ** du délai, qui diffère selon l'objet : à la
   **conclusion du contrat** pour une prestation de services, à la **réception
-  du bien** pour une vente de bien (cf. `references/regimes-cgv-cgu-fr.md`
+  du bien** pour une vente de bien (cf. `${CLAUDE_SKILL_DIR}/../../references/regimes-cgv-cgu-fr.md`
   Partie B2C) → `[review]`. Vérifier les éventuelles **exceptions** (art.
   L.221-28 C.conso [à vérifier] — biens sur mesure, biens descellés non
   retournables pour hygiène, contenu numérique exécuté avec renoncement
@@ -385,7 +385,7 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 - vérifie l'existence et la version en vigueur via Légifrance ;
 - annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
-Articles attendus présents dans `references/articles-c-civ-c-com-index.md` avec
+Articles attendus présents dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` avec
 identifiant Légifrance réel (→ `[Légifrance]`) : 1170, 1171 C.civ. ; L.442-1
 C.com. En `[a compléter]` (→ `[à vérifier]` obligatoire) : L.441-1, L.441-10
 C.com., D.441-5 C.com. **Tous les articles du Code de la consommation**

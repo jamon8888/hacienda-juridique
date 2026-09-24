@@ -275,7 +275,7 @@ L'art. L.622-21 C.com. `[Légifrance]` (arrêt des poursuites individuelles) int
 
 ## Étape 6 — Post-flight `verifier-citations`
 
-Appel automatique sur la sortie complète. Articles à vérifier : L.622-17, L.622-21, L.622-24, L.622-26, L.622-28, L.622-29 (présents dans `references/articles-c-civ-c-com-index.md` → tag `[Légifrance]`). R.622-24 (réglementaire, délais) présent dans l'index → tag `[Légifrance]` si cité. Articles mobilisés par la réserve de propriété / revendication et les accessoires — **L.624-9, L.624-16, L.624-17, R.624-13 C.com., L.441-10, D.441-5 C.com., art. 642 CPC, art. 1231-5 C.civ.** — à vérifier sur Légifrance ; si absents de l'index, garder `[à vérifier]` plutôt que `[Légifrance]`. Si PISTE non configuré : mode dégradé documenté.
+Appel automatique sur la sortie complète. Articles à vérifier : L.622-17, L.622-21, L.622-24, L.622-26, L.622-28, L.622-29 (présents dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` → tag `[Légifrance]`). R.622-24 (réglementaire, délais) présent dans l'index → tag `[Légifrance]` si cité. Articles mobilisés par la réserve de propriété / revendication et les accessoires — **L.624-9, L.624-16, L.624-17, R.624-13 C.com., L.441-10, D.441-5 C.com., art. 642 CPC, art. 1231-5 C.civ.** — à vérifier sur Légifrance ; si absents de l'index, garder `[à vérifier]` plutôt que `[Légifrance]`. Si PISTE non configuré : mode dégradé documenté.
 
 ---
 

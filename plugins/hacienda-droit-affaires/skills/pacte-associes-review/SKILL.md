@@ -102,7 +102,7 @@ substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-p
 2. **Fichier pacte** — chemin du PDF / DOCX / Markdown
 3. **Side** (optionnel) — `--side=fondateur` | `--side=investisseur` | `--side=societe` (auto-détecté si non précisé ; détermine la posture appliquée)
 4. **Forme sociale concernée** (optionnel) — `--forme=SAS` | `--forme=SARL` | `--forme=SA` (auto-détectée à partir du document si non précisée ; conditionne les fondements d'agrément et d'inaliénabilité)
-5. **Mode `--pe`** (optionnel) — overlay Private Equity / pacte d'investissement. Active l'étape 2bis. Auto-proposé si des signaux PE sont détectés (voir `references/pe-overlay-fr.md`).
+5. **Mode `--pe`** (optionnel) — overlay Private Equity / pacte d'investissement. Active l'étape 2bis. Auto-proposé si des signaux PE sont détectés (voir `${CLAUDE_SKILL_DIR}/../../references/pe-overlay-fr.md`).
 6. **Side PE** (avec `--pe`) — `--side=sponsor | management`. En mode `--pe`, `--side` bascule sur ce couple (la lecture side-aware et le glossaire deviennent sponsor/manager). Hors `--pe`, les sides standard fondateur/investisseur/société s'appliquent.
 
 ---
@@ -140,7 +140,7 @@ outputs/revue-pacte-associes-<parties-slug>-YYYY-MM-DD.md
 
 Si la liste de points dépasse 10 lignes ou contient des dates / montants
 sérialisables, générer en parallèle un dashboard HTML autonome via
-`renderDashboard()` de `@hacienda/core` (voir `references/dashboard-template.md`).
+`renderDashboard()` de `@hacienda/core` (voir `${CLAUDE_SKILL_DIR}/../../references/dashboard-template.md`).
 
 ---
 
@@ -213,13 +213,13 @@ Si l'utilisateur précise que la sortie est destinée à une contrepartie (co-as
    - SARL → agrément légal des cessions à tiers art. L.223-14 C.com. ; décisions art. L.223-29 `[à vérifier]` / L.223-30 C.com.
    - SA / société par actions non cotée → clause d'agrément statutaire art. L.228-23 C.com., procédure art. L.228-24 C.com.
 4. **Test composante PI.** Si le pacte organise un apport au capital de droits de PI substantiels (brevets, marques, logiciels, savoir-faire R&D) ou une licence de PI structurante entre associés → renvoyer vers `/h-pi:contrats-pi` pour ce volet, avec les options (a) lancer ce skill pour le volet PI, (b) limiter `pacte-associes-review` aux clauses de vie sociale, (c) les deux en séquence. Ne pas analyser le volet PI à fond ici.
-5. **Détection PE.** Repérer les signaux PE (voir `references/pe-overlay-fr.md` §signaux). Si présents et que `--pe` n'est pas posé : proposer l'overlay PE et attendre l'acceptation avant d'exécuter l'étape 2bis. Ne pas activer l'overlay sans flag ni acceptation.
+5. **Détection PE.** Repérer les signaux PE (voir `${CLAUDE_SKILL_DIR}/../../references/pe-overlay-fr.md` §signaux). Si présents et que `--pe` n'est pas posé : proposer l'overlay PE et attendre l'acceptation avant d'exécuter l'étape 2bis. Ne pas activer l'overlay sans flag ni acceptation.
 
 ---
 
 ## Étape 2 — Analyse clause par clause
 
-Pour chaque clause de pacte identifiée (voir `references/clauses-pacte-associes-fr.md`, 11 clauses), produire une ligne de tableau :
+Pour chaque clause de pacte identifiée (voir `${CLAUDE_SKILL_DIR}/../../references/clauses-pacte-associes-fr.md`, 11 clauses), produire une ligne de tableau :
 
 | Champ | Contenu |
 |---|---|
@@ -253,7 +253,7 @@ Pour chaque clause de pacte identifiée (voir `references/clauses-pacte-associes
 
 Ne s'exécute que si `--pe` est posé OU si des signaux PE ont été détectés (étape 1) et l'utilisateur a accepté la proposition. Sinon, sauter entièrement cette étape : la revue standard est complète sans elle.
 
-1. Charger `references/pe-overlay-fr.md`.
+1. Charger `${CLAUDE_SKILL_DIR}/../../references/pe-overlay-fr.md`.
 2. **Gate d'application France/Lux.** Si le pacte vise une entité luxembourgeoise ou que les documents sont régis par le droit luxembourgeois : couvrir la seule jambe FR et exclure les docs Lux (formulation type du module). Ne pas analyser un pacte Lux comme un pacte FR.
 3. Basculer le side sur **sponsor / management**.
 4. Passer les **5 axes P1-P5** du module. Les findings P2-P5 se fondent dans la liste de points (étape 3), triés par criticité, avec le side appliqué.

@@ -236,7 +236,7 @@ Signature, qualité du signataire (dirigeant de droit habilité : [gérant / pr�
 
 ## Étape 7 — Post-flight `verifier-citations`
 
-Appel automatique sur la sortie complète. Articles à vérifier : **L.631-1, L.631-2, L.631-4, L.631-8, L.632-1, L.632-2, L.640-1, L.640-4, L.651-2, L.653-8 C.com., R.631-1 C.com., art. 642 CPC**. Tag `[Légifrance]` uniquement si vérifié (présent dans `references/articles-c-civ-c-com-index.md` ou consulté via PISTE) ; sinon `[à vérifier]`. Si PISTE non configuré : mode dégradé documenté.
+Appel automatique sur la sortie complète. Articles à vérifier : **L.631-1, L.631-2, L.631-4, L.631-8, L.632-1, L.632-2, L.640-1, L.640-4, L.651-2, L.653-8 C.com., R.631-1 C.com., art. 642 CPC**. Tag `[Légifrance]` uniquement si vérifié (présent dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` ou consulté via PISTE) ; sinon `[à vérifier]`. Si PISTE non configuré : mode dégradé documenté.
 
 ## Étape 8 — Sortie
 

@@ -45,7 +45,7 @@ tags: [due-diligence, dataroom, ma, materialite, gap, pe, red-flags]
 2. Lecture profil cabinet (bloc M&A / Corporate : side acquéreur, posture DD — thèmes prioritaires et seuil de matérialité)
 3. Inventaire de la data-room : N documents recensés, classés par thème
 4. Extraction multi-documents — invocation du skill V1 `revue-tabulaire` (colonnes adaptées au thème : parties, dates, durée, changement-de-contrôle, exclusivité…) ; récupération du tableau d'extraction
-5. Analyse des 7 thèmes via `references/grille-due-diligence-fr.md` : points de contrôle, red flags, documents manquants — renvois en pointeurs vers PI / fiscal / RGPD
+5. Analyse des 7 thèmes via `${CLAUDE_SKILL_DIR}/../../references/grille-due-diligence-fr.md` : points de contrôle, red flags, documents manquants — renvois en pointeurs vers PI / fiscal / RGPD
 6. Grille de matérialité : chaque finding classé thème × gravité (🟢/🟡/🟠/🔴) × statut
 7. Q&A list générée — questions complémentaires à adresser au cédant
 8. Recommandations GAP pour les findings matériels (lien `gap-review`)
@@ -87,7 +87,7 @@ La sortie renvoie au skill `gap-review` pour la revue de la GAP elle-même, une 
 <example>
 <user>/h-da:due-diligence-dataroom ./data-room-cible-Y/ --side=acquereur --pe</user>
 <response>
-DD buyside pour un sponsor (acquisition via BidCo FR). Le mode `--pe` charge `references/pe-dd-red-flags-overlay-fr.md` : après les étapes standard (inventaire, extraction, 7 thèmes, grille de matérialité, Q&A, recommandations GAP), l'étape 6bis convertit chaque finding matériel en traitement deal.
+DD buyside pour un sponsor (acquisition via BidCo FR). Le mode `--pe` charge `${CLAUDE_SKILL_DIR}/../../references/pe-dd-red-flags-overlay-fr.md` : après les étapes standard (inventaire, extraction, 7 thèmes, grille de matérialité, Q&A, recommandations GAP), l'étape 6bis convertit chaque finding matériel en traitement deal.
 
 Exemples de conversion : (a) clause de changement de contrôle sur le contrat client structurant (28 % du CA — cumul concentration × clause) → CP de consentement du cocontractant, repli specific indemnity + price chip [à compléter] ; (b) redressement URSSAF en cours → known issue exclu de la police W&I → specific indemnity, fond social renvoyé au spécialiste ; (c) clause de change of control default dans le contrat de crédit existant → CP de waiver bancaire, chemin de mainlevée transmis à `/h-da:closing-checklist-fr --pe`.
 
@@ -133,7 +133,7 @@ grille de matérialité ne peuvent pas être calibrées. Voir aussi
    de matériel (reste signalé mais ne déclenche pas de recommandation GAP).
 5. **Mode `--pe`** (optionnel, alias accepté : `--mode=pe-red-flags`) — overlay
    Private Equity, side sponsor (buyside DD) : charge
-   `references/pe-dd-red-flags-overlay-fr.md` et ajoute la conversion de chaque
+   `${CLAUDE_SKILL_DIR}/../../references/pe-dd-red-flags-overlay-fr.md` et ajoute la conversion de chaque
    finding matériel en **traitement deal** (CP / GAP / W&I / specific indemnity /
    price chip / Q&A) plus un red flag report partner-ready. Avec `--side=cedant`,
    lecture *vendor DD* (anticipation / disclosure). Hors `--pe`, si des **signaux
@@ -180,7 +180,7 @@ outputs/due-diligence-dataroom-<cible-slug>-YYYY-MM-DD.md
 
 Si la grille de matérialité dépasse 10 lignes, générer en parallèle un dashboard
 HTML autonome via `renderDashboard()` de `@hacienda/core` (sortable, filtrable,
-ouvrable hors-ligne, zéro CDN, XSS-safe — voir `references/dashboard-template.md`).
+ouvrable hors-ligne, zéro CDN, XSS-safe — voir `${CLAUDE_SKILL_DIR}/../../references/dashboard-template.md`).
 
 ---
 
@@ -233,7 +233,7 @@ prochaine action — typiquement l'envoi de la Q&A list.}
 Parcourir le dossier data-room, recenser les documents et les **classer par
 thème** (1 à 7). Compter N documents au total et n par thème. Repérer d'emblée
 les **catégories de documents attendues mais absentes** au regard de la grille
-`references/grille-due-diligence-fr.md` (ex : pas de registre des mouvements de
+`${CLAUDE_SKILL_DIR}/../../references/grille-due-diligence-fr.md` (ex : pas de registre des mouvements de
 titres, pas de registre des traitements RGPD) — ces absences sont des findings à
 part entière (documents manquants).
 
@@ -282,7 +282,7 @@ atomique d'extraction et est consommé **tel quel, sans aucune modification**.
 ## Étape 3 — Analyse par thème
 
 Pour **chacun des 7 thèmes** (ou ceux demandés via `--themes`), appliquer la
-grille `references/grille-due-diligence-fr.md` :
+grille `${CLAUDE_SKILL_DIR}/../../references/grille-due-diligence-fr.md` :
 
 1. **Points de contrôle** — passer en revue les points de contrôle du thème
    contre les documents inventoriés et le tableau d'extraction de l'étape 2.
@@ -316,7 +316,7 @@ substituer** :
 
 ### Tags de provenance
 
-- Articles cités : vérifier dans `references/articles-c-civ-c-com-index.md`.
+- Articles cités : vérifier dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md`.
   Citables `[Légifrance]` (LEGIARTI réel) : **1104**, **1112-1**, **1602**,
   **1626**, **1641**, **1170**, **1231-5** C.civ, **L.442-1** C.com.
 - En `[a compléter]` dans l'index → tag `[à vérifier]` obligatoire : **1112**,
@@ -355,7 +355,7 @@ Consolider tous les findings des 7 thèmes (ou des thèmes demandés) dans une
 Tri par gravité décroissante 🔴 → 🟠 → 🟡 → 🟢 ; à gravité égale, tri par thème
 (1 → 7). Si la grille dépasse 10 lignes, générer en parallèle un dashboard HTML
 autonome via `renderDashboard()` de `@hacienda/core` (voir
-`references/dashboard-template.md`).
+`${CLAUDE_SKILL_DIR}/../../references/dashboard-template.md`).
 
 ---
 
@@ -411,7 +411,7 @@ identifié), **conditions suspensives** (régularisation exigée avant closing),
 ## Étape 6bis — Overlay PE red flags (si `--pe` ou overlay accepté)
 
 **N'exécuter que si le mode PE est actif.** Charger
-`references/pe-dd-red-flags-overlay-fr.md` et dérouler les axes D1–D5 :
+`${CLAUDE_SKILL_DIR}/../../references/pe-dd-red-flags-overlay-fr.md` et dérouler les axes D1–D5 :
 
 1. **D1 — red flag report orienté deal** : livrable court partner-ready limité aux
    findings 🔴/🟠 matériels + **table de conversion** — chaque finding routé vers un
@@ -431,12 +431,12 @@ identifié), **conditions suspensives** (régularisation exigée avant closing),
    exclus de la police (→ specific indemnity, pas couverture W&I) ; reliance letter
    vérifiée ; matrice fine police ↔ GAP → `/h-da:gap-review --pe`.
 
-**Gate France/Lux** (cf. module partagé `references/pe-overlay-fr.md`) : entité/docs
+**Gate France/Lux** (cf. module partagé `${CLAUDE_SKILL_DIR}/../../references/pe-overlay-fr.md`) : entité/docs
 fonds Lux → hors périmètre, renvoi conseil luxembourgeois ; l'overlay couvre la jambe
 FR. **Ne jamais chiffrer** les price chips ni les passifs (`[à compléter]`) ; jalons en
 semaines relatives, aucune date calendaire. Si la cible est aussi en difficulté,
 l'overlay PE et la doctrine distressed **s'empilent** sans se dupliquer
-(`references/distressed-overlay-fr.md`).
+(`${CLAUDE_SKILL_DIR}/../../references/distressed-overlay-fr.md`).
 
 ---
 
@@ -444,7 +444,7 @@ l'overlay PE et la doctrine distressed **s'empilent** sans se dupliquer
 
 Appel automatique de `verifier-citations` sur la sortie complète. Les articles
 C.civ / C.com. cités doivent exister dans
-`references/articles-c-civ-c-com-index.md` ; à défaut, tag `[à vérifier]` et
+`${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` ; à défaut, tag `[à vérifier]` et
 ligne dédiée dans la note du relecteur. Les références RGPD (art. 28, 30) sont
 vérifiées comme références UE, taguées `[Eurlex]` si confirmées, `[à vérifier]`
 sinon. Si PISTE n'est pas configuré : mode dégradé documenté dans la note du

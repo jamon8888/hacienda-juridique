@@ -230,7 +230,7 @@ ils seront remplis à l'Étape 2.
 
 Pour chaque finding, dériver la position souhaitée et la formulation proposée
 à partir de la posture active (playbook profil ou override) et de la référence
-`references/clauses-sensibles-fr.md` (source de vérité pour les 15 clauses pilotes).
+`${CLAUDE_SKILL_DIR}/../../references/clauses-sensibles-fr.md` (source de vérité pour les 15 clauses pilotes).
 
 **Règles de calibrage par posture :**
 
@@ -293,7 +293,7 @@ outputs/liste-de-points-<type>-<parties-slug>-YYYY-MM-DD.md
 
 Si la liste dépasse 10 lignes ou contient des montants sérialisables,
 générer en parallèle un dashboard HTML autonome via `renderDashboard()`
-de `@hacienda/core` (voir `references/dashboard-template.md`).
+de `@hacienda/core` (voir `${CLAUDE_SKILL_DIR}/../../references/dashboard-template.md`).
 
 ---
 

@@ -171,7 +171,7 @@ outputs/analyse-rupture-brutale-<parties-slug>-YYYY-MM-DD.md
 
 Si la liste de points dépasse 10 lignes ou contient des montants chiffrés
 en fourchette, générer en parallèle un dashboard HTML autonome via
-`renderDashboard()` de `@hacienda/core` (voir `references/dashboard-template.md`).
+`renderDashboard()` de `@hacienda/core` (voir `${CLAUDE_SKILL_DIR}/../../references/dashboard-template.md`).
 
 ---
 

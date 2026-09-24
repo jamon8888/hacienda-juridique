@@ -86,7 +86,7 @@ substantielle.
 
 ## Intake
 
-1. **Mode** — `--review` par défaut ; options de sortie `--red-flags`, `--issues-list`, `--signing-ready` ; **`--distressed`** (overlay « cible en difficulté » — charge `references/distressed-overlay-fr.md`). Hors `--distressed`, si des **signaux de difficulté** sont détectés (procédure collective, cessation des paiements, prix symbolique + reprise de passif, déclaration de créance, sûretés récentes pour dettes antérieures), **proposer** l'overlay sans l'imposer. **`--pe`** (overlay Private Equity, side sponsor — charge `references/pe-spa-gap-overlay-fr.md`) avec `--side=sponsor` (défaut) ou `--side=cedant` (`--side=sponsor` ≡ côté acquéreur ; `--side=cedant` ≡ côté cédant sponsor). Hors `--pe`, si des **signaux PE** (sponsor/BidCo/management package/rollover/ratchet/liquidation preference) sont détectés, **proposer** l'overlay sans l'imposer.
+1. **Mode** — `--review` par défaut ; options de sortie `--red-flags`, `--issues-list`, `--signing-ready` ; **`--distressed`** (overlay « cible en difficulté » — charge `${CLAUDE_SKILL_DIR}/../../references/distressed-overlay-fr.md`). Hors `--distressed`, si des **signaux de difficulté** sont détectés (procédure collective, cessation des paiements, prix symbolique + reprise de passif, déclaration de créance, sûretés récentes pour dettes antérieures), **proposer** l'overlay sans l'imposer. **`--pe`** (overlay Private Equity, side sponsor — charge `${CLAUDE_SKILL_DIR}/../../references/pe-spa-gap-overlay-fr.md`) avec `--side=sponsor` (défaut) ou `--side=cedant` (`--side=sponsor` ≡ côté acquéreur ; `--side=cedant` ≡ côté cédant sponsor). Hors `--pe`, si des **signaux PE** (sponsor/BidCo/management package/rollover/ratchet/liquidation preference) sont détectés, **proposer** l'overlay sans l'imposer.
 2. **Fichier SPA** — chemin du PDF / DOCX / Markdown.
 3. **Side** — `--side=acquereur` | `--side=cedant` (**obligatoire**). Une analyse neutre d'un SPA n'a pas de sens praticien.
 4. **Type d'opération** — `--type=cession-titres` | `--type=cession-fonds` | `--type=asset-deal` | `--type=fusion`. Si absent, auto-détecter puis demander confirmation.
@@ -334,7 +334,7 @@ judiciaire d'une clause pénale manifestement excessive ou dérisoire** (art.
 
 ## Étape 9bis — Overlay difficulté (si `--distressed` ou overlay accepté)
 
-**N'exécuter que si le mode distressed est actif.** Charger `references/distressed-overlay-fr.md` et appliquer sa grille **side-aware** au SPA :
+**N'exécuter que si le mode distressed est actif.** Charger `${CLAUDE_SKILL_DIR}/../../references/distressed-overlay-fr.md` et appliquer sa grille **side-aware** au SPA :
 
 1. **Gate barre** : si la cible est **déjà en RJ/LJ avec appel d'offres ouvert**, STOP overlay → renvoi `/h-da:reprise-a-la-barre` / `/h-da:cession-actifs-isoles` (l'acte serait judiciaire, pas un SPA privé).
 2. **D1 — période suspecte / nullités** (L.632-1 de droit / L.632-2 facultatives `[Légifrance]`) : le timing du deal expose-t-il à une nullité ? clauses à risque (prix anormalement bas, paiement préférentiel, sûreté pour dette antérieure). **Ne pas dater** la cessation des paiements ; nullité = risque `[review]`.
@@ -349,7 +349,7 @@ Sortir les findings distressed dans la liste de points (sévérité 🟢🟡🟠
 
 ## Étape 9ter — Overlay PE (si `--pe` ou overlay accepté)
 
-**N'exécuter que si le mode PE est actif.** Charger `references/pe-spa-gap-overlay-fr.md`
+**N'exécuter que si le mode PE est actif.** Charger `${CLAUDE_SKILL_DIR}/../../references/pe-spa-gap-overlay-fr.md`
 et appliquer ses axes **side-aware sponsor** au SPA :
 1. **S1 — mécanisme de prix PE** : locked box vs completion accounts ; leakage hors plafond GAP `[review]`.
 2. **S2 — certain funds & financement** : CP financement, ECL/DCL, BidCo SPV ; condition de financement résiduelle = risque d'exécution `[review]`.

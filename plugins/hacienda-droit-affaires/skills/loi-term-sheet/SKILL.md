@@ -131,7 +131,7 @@ outputs/loi-term-sheet-<parties-slug>-YYYY-MM-DD.md
 
 Si la liste de points dépasse 10 lignes ou contient des dates / montants
 sérialisables, générer en parallèle un dashboard HTML autonome via
-`renderDashboard()` de `@hacienda/core` (voir `references/dashboard-template.md`).
+`renderDashboard()` de `@hacienda/core` (voir `${CLAUDE_SKILL_DIR}/../../references/dashboard-template.md`).
 
 ---
 
@@ -242,7 +242,7 @@ Le remède recommandé est une **clause de qualification dédiée** (binding / n
 ## Étape 3 — Analyse des clauses sensibles
 
 Pour chaque clause sensible, produire une analyse de fond. Réutiliser
-`references/clauses-sensibles-fr.md` pour les clauses communes (notamment
+`${CLAUDE_SKILL_DIR}/../../references/clauses-sensibles-fr.md` pour les clauses communes (notamment
 **confidentialité** — bloc 11 ; **droit applicable et juridiction** — bloc 10 ;
 **changement de contrôle** — bloc 15) : s'y référer pour la matrice de risque
 et les formulations alternatives selon la posture, **sans recopier** la
@@ -257,7 +257,7 @@ développés au §Exclusivité ci-dessous.
 Points de fond propres à la LOI / au term sheet :
 
 - **Exclusivité (no-shop).** Vérifier durée, périmètre (titres / actifs visés, parties tenues), point de départ et date de fin certaine, faculté de sortie si la contrepartie n'avance pas de bonne foi. Une durée doit couvrir le temps raisonnablement nécessaire à la due diligence et à la négociation du SPA — quelques semaines à quelques mois selon la taille du deal. Une exclusivité de 12 mois ou plus est, dans la pratique courante, **excessive** et immobilise le cédant au-delà du besoin → `[review]` sur l'appréciation de proportionnalité. **Règle de proportionnalité par rapport au calendrier.** Rapprocher la durée d'exclusivité du calendrier prévisionnel du deal : si l'exclusivité excède significativement le temps réellement nécessaire aux étapes annoncées (due diligence, négociation du SPA), signaler le déséquilibre — l'exclusivité immobilise le cédant et doit rester proportionnée au besoin `[review]`.
-- **Confidentialité.** Définition utile des informations protégées, exceptions standard, durée proportionnée, sort des informations en cas d'échec des pourparlers (restitution / destruction). Renvoi `references/clauses-sensibles-fr.md` bloc 11. Si le dossier est PI-centric ou R&D, renvoyer vers `/h-pi:contrats-pi`.
+- **Confidentialité.** Définition utile des informations protégées, exceptions standard, durée proportionnée, sort des informations en cas d'échec des pourparlers (restitution / destruction). Renvoi `${CLAUDE_SKILL_DIR}/../../references/clauses-sensibles-fr.md` bloc 11. Si le dossier est PI-centric ou R&D, renvoyer vers `/h-pi:contrats-pi`.
 - **Bonne foi des pourparlers et rupture des négociations.** Deux principes à **ne pas confondre** :
   1. La **liberté de rompre les pourparlers** est le principe. Une partie peut, en principe, mettre fin aux négociations précontractuelles sans avoir à se justifier (art. 1112 C.civ — absent de l'index avec un identifiant Légifrance réel → `[à vérifier]`).
   2. Mais l'**initiative, le déroulement et la rupture** des pourparlers doivent respecter les exigences de la **bonne foi** (art. 1104 C.civ `[Légifrance]`). La rupture peut donc être **fautive** lorsqu'elle est abusive — par exemple rupture brutale après avoir entretenu artificiellement la croyance en la conclusion du contrat. La faute n'est pas la rupture elle-même mais les **circonstances** qui l'entachent. En cas de rupture fautive, la réparation ne peut pas compenser la perte des avantages attendus du contrat non conclu ni la perte de chance de les obtenir (art. 1112 al. 2 C.civ `[à vérifier]`) : elle couvre les frais engagés et l'atteinte à des intérêts distincts.
@@ -268,7 +268,7 @@ Points de fond propres à la LOI / au term sheet :
 
 **Règles d'analyse :**
 
-- Les articles cités doivent exister dans `references/articles-c-civ-c-com-index.md`. Présents avec un identifiant Légifrance réel (citables `[Légifrance]`) : **1104** (bonne foi), **1112-1** (devoir précontractuel d'information). En `[a compléter]` dans l'index → tag `[à vérifier]` obligatoire : **1112** (liberté de rompre les pourparlers), **1123** (pacte de préférence), **1124** (promesse unilatérale). Vérifier chaque article dans l'index avant de le taguer.
+- Les articles cités doivent exister dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md`. Présents avec un identifiant Légifrance réel (citables `[Légifrance]`) : **1104** (bonne foi), **1112-1** (devoir précontractuel d'information). En `[a compléter]` dans l'index → tag `[à vérifier]` obligatoire : **1112** (liberté de rompre les pourparlers), **1123** (pacte de préférence), **1124** (promesse unilatérale). Vérifier chaque article dans l'index avant de le taguer.
 - Tag de provenance placé **après** la citation, **sans backticks** dans les cellules de tableau (backticks admis dans le corps narratif).
 - Les arrêts cités sont tagués `[Judilibre]` si consultés en session, sinon `[connaissance modèle — à vérifier]` ou `[à vérifier]`. Pas de fausse jurisprudence.
 - Tag inline `[review]` sur les jugements subjectifs : caractère proportionné ou excessif d'une durée d'exclusivité, caractère intentionnel ou non d'une qualification binding, caractère abusif d'une rupture de pourparlers, caractère potestatif d'une condition suspensive.

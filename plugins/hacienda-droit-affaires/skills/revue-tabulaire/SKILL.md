@@ -230,7 +230,7 @@ Produire un tableau Markdown avec :
 
 Si le lot dépasse 10 lignes, générer en parallèle un fichier HTML autonome
 via `renderDashboard()` de `@hacienda/core` (sortable, filtrable, ouvrable
-hors-ligne, zéro CDN, XSS-safe). Voir `references/dashboard-template.md`.
+hors-ligne, zéro CDN, XSS-safe). Voir `${CLAUDE_SKILL_DIR}/../../references/dashboard-template.md`.
 
 ---
 

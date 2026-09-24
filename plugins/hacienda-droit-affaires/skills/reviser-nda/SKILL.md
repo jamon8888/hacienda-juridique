@@ -180,8 +180,8 @@ Triage rapide selon le tableau de référence ci-dessous. Pour chaque point, att
 - Point 9 (périmètre destinataires / tiers) — un tiers non-signataire n'est en principe pas tenu par le NDA (effet relatif des contrats, art. 1199 C.civ `[à vérifier]`) : pour engager affiliés, salariés, sous-traitants et clients, exiger soit leur signature, soit un **porte-fort** par lequel la partie réceptrice se rend garante de leur respect et répond de leurs manquements (art. 1204 C.civ `[à vérifier]`). Une définition large des « Affiliates » sans liste ni mécanisme d'engagement vide la confidentialité de sa portée.
 
 **Règles d'analyse :**
-- Les articles cités doivent exister dans `references/articles-c-civ-c-com-index.md`. À défaut, tag `[à vérifier]` et signaler en note du relecteur.
-- Pour des exemples emblématiques de libellés (clause pénale, non-concurrence salariée, confidentialité, droit applicable et juridiction), se reporter à `references/clauses-sensibles-fr.md` (source de vérité unique : entrées 1, 2, 10 et 11).
+- Les articles cités doivent exister dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md`. À défaut, tag `[à vérifier]` et signaler en note du relecteur.
+- Pour des exemples emblématiques de libellés (clause pénale, non-concurrence salariée, confidentialité, droit applicable et juridiction), se reporter à `${CLAUDE_SKILL_DIR}/../../references/clauses-sensibles-fr.md` (source de vérité unique : entrées 1, 2, 10 et 11).
 - Tag inline `[review]` sur les jugements subjectifs : portée d'une définition "large mais bornée", proportionnalité d'une clause pénale au préjudice prévisible, exigibilité d'une non-concurrence dont la contrepartie est chiffrée mais faible.
 - Plancher de sévérité cross-skill : si `check-pii` remonte 🔴, ne pas dégrader silencieusement.
 
@@ -249,7 +249,7 @@ Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
 
 ## Recommandations
 
-{Pour chaque point 🟠 ou 🔴 : 1-2 phrases de position souhaitée + formulation alternative courte si négociation envisagée. Renvoyer vers `references/clauses-sensibles-fr.md` pour les libellés complets.}
+{Pour chaque point 🟠 ou 🔴 : 1-2 phrases de position souhaitée + formulation alternative courte si négociation envisagée. Renvoyer vers `${CLAUDE_SKILL_DIR}/../../references/clauses-sensibles-fr.md` pour les libellés complets.}
 
 ## Une question hors de ma checklist habituelle
 

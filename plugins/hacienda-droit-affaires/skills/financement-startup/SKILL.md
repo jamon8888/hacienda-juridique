@@ -51,7 +51,7 @@ tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 1. Pré-flight `check-pii` (peu d'identifiants au stade du choix d'instrument — sous seuil B le plus souvent).
 2. Lecture profil cabinet (bloc M&A / Corporate : side financement ; bloc « vie sociale » : posture pacte d'associés).
 3. Étape 1 — cadrage : startup en amorçage, SAS éligible, objectif = intéresser et retenir un **premier salarié-clé** (donc un salarié), contrainte de dilution modérée.
-4. Étape 2 — recommandation depuis `references/instruments-financement-fr.md` : **BSPCE** — instrument dédié à l'intéressement des **salariés et dirigeants assimilés salariés** de sociétés éligibles, dilution différée à l'exercice. Le **BSA** est écarté ici : il vise les tiers non salariés (advisors, investisseurs) ; pour un salarié, le BSPCE est l'outil adéquat sous réserve de l'éligibilité de la société et du bénéficiaire (art. 163 bis G CGI [à vérifier]).
+4. Étape 2 — recommandation depuis `${CLAUDE_SKILL_DIR}/../../references/instruments-financement-fr.md` : **BSPCE** — instrument dédié à l'intéressement des **salariés et dirigeants assimilés salariés** de sociétés éligibles, dilution différée à l'exercice. Le **BSA** est écarté ici : il vise les tiers non salariés (advisors, investisseurs) ; pour un salarié, le BSPCE est l'outil adéquat sous réserve de l'éligibilité de la société et du bénéficiaire (art. 163 bis G CGI [à vérifier]).
 5. Signalement fiscal : le régime fiscal de faveur du BSPCE (art. 163 bis G CGI [à vérifier]) **relève d'un fiscaliste** — signalé, non traité. Tags [review] sur la valorisation du prix d'exercice et l'éligibilité.
 6. Sortie : note du relecteur (5 champs) + table comparative + recommandation motivée + question hors checklist + arbre de décision 5 options.
 </response>
@@ -62,7 +62,7 @@ tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 <response>
 1. Pré-flight `check-pii` + lecture profil cabinet (side financement, posture pacte).
 2. Étape 1 — cadrage : stade **seed**, objectif = **levée externe** auprès de business angels, hésitation sur la valorisation, souhait de limiter la dilution immédiate des fondateurs.
-3. Étape 2 — recommandation depuis `references/instruments-financement-fr.md` :
+3. Étape 2 — recommandation depuis `${CLAUDE_SKILL_DIR}/../../references/instruments-financement-fr.md` :
    - **OC / OCA** — titre de créance convertible : permet de **différer la fixation de la valorisation** au tour qualifiant (décote / cap), dilution différée et conditionnelle ; jusqu'à conversion, c'est une dette au passif.
    - **Augmentation de capital simple** — entrée immédiate au capital, apport de trésorerie immédiat, mais **dilution immédiate et certaine** dépendant de la pré-money retenue.
    Recommandation motivée selon le besoin : si la valorisation est difficile à fixer maintenant, l'OC est l'instrument de report ; si l'investisseur veut entrer au capital sans délai et la valorisation est consensuelle, l'augmentation de capital convient.
@@ -184,7 +184,7 @@ Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
 > - **Avant de t'appuyer dessus :** {action concrète — ex. faire valider l'éligibilité BSPCE et le volet fiscal par un fiscaliste ; enchaîner pacte-associes-review sur les clauses de pacte} | « prêt pour relecture avocat »
 
 # {Pour --comparer} Table comparative et recommandation
-[table comparative des instruments pertinents depuis references/instruments-financement-fr.md + recommandation motivée + instruments écartés et pourquoi]
+[table comparative des instruments pertinents depuis ${CLAUDE_SKILL_DIR}/../../references/instruments-financement-fr.md + recommandation motivée + instruments écartés et pourquoi]
 
 # {Pour --review} Analyse des instruments
 [revue des instruments mentionnés dans la term sheet : valorisation, dilution, mécanique propre — UNIQUEMENT les instruments]
@@ -262,7 +262,7 @@ appréciation de fait → `[review]`.
 ## Étape 2 (--comparer) — Recommandation
 
 1. Construire la **table comparative** depuis
-   `references/instruments-financement-fr.md`, restreinte aux instruments
+   `${CLAUDE_SKILL_DIR}/../../references/instruments-financement-fr.md`, restreinte aux instruments
    pertinents pour le besoin cadré (axes : nature, bénéficiaires / souscripteurs,
    moment de la dilution, apport de trésorerie, finalité). Tags de provenance
    après chaque citation, **sans backticks dans les cellules**.
@@ -306,7 +306,7 @@ appréciation de fait → `[review]`.
 ## Étape 2 (--review) — Analyse des instruments
 
 Revue des **instruments** mentionnés dans la term sheet — et **uniquement** des
-instruments. Pour chacun, à partir de `references/instruments-financement-fr.md` :
+instruments. Pour chacun, à partir de `${CLAUDE_SKILL_DIR}/../../references/instruments-financement-fr.md` :
 
 - **Valorisation** — pré-money / post-money retenue, prime d'émission ;
   appréciation économique → `[review]`.
@@ -360,7 +360,7 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 - vérifie l'existence et la version en vigueur via Légifrance ;
 - annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
-Articles attendus présents dans `references/articles-c-civ-c-com-index.md` avec
+Articles attendus présents dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` avec
 identifiant Légifrance réel (→ `[Légifrance]`) : L.210-2, L.227-9 C.com. Hors
 index (→ `[à vérifier]` obligatoire) : **L.228-91 et s. C.com.** (valeurs
 mobilières donnant accès au capital) et **l'art. 163 bis G CGI** (régime fiscal
