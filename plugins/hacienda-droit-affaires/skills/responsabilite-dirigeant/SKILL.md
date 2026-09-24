@@ -129,7 +129,7 @@ Si forme sociale, qualité du dirigeant ou stade absents : stopper et demander. 
 - [ ] **G1 — dates** : semaines relatives uniquement ; aucune date calendaire ; aucun nombre de jours de retard précis ; le 1er impayé est un indice, pas la date
 - [ ] **G2 — quantum** : aucun chiffre d'insuffisance d'actif ni de contribution ; réclamer un état du passif si des chiffres sont demandés ; `[à compléter]`
 - [ ] **G3 — qualification de fait** : facteurs aggravants/atténuants présentés en **indices** ; jamais « faute caractérisée » / « manifestement » ; conclusion réservée au tribunal `[review]`
-- [ ] **G5 — cautions** : distinguer le **sort dans la procédure** (suspension L.622-28/L.631-14 ; arrêt définitif au plan L.626-11) du **recours créancier hors procédure** ; jamais « caution éteinte » sans acte + plan
+- [ ] **G5 — cautions** : distinguer le **sort dans la procédure** (suspension L.622-28/L.631-14 ; bénéfice des dispositions du plan L.626-11) du **recours créancier hors procédure** ; jamais « caution éteinte » sans acte + plan
 - [ ] **Stade procédure** module les **recommandations finales** (documenter la chrono vs préparer la défense), pas la qualification
 - [ ] **Action engagée** → renvoi avocat **contentieuiste** en tête du livrable, qualification quand même produite
 - [ ] Aucune **fabrication** : ni date, ni chiffre, ni créancier, ni acte de caution non fourni — `[à compléter]` partout où la donnée manque
@@ -173,30 +173,30 @@ Structurer la sortie avec : faits retenus, droit applicable par axe, qualificati
 ### Étape 2 — Évaluation des 4 axes (systématique, pas de skip silencieux)
 
 **Axe 1 — Contribution à l'insuffisance d'actif (L.651-2) + sous-cas L.652-1.**
-- Conditions cumulatives (L.651-2 `[Légifrance]`) : (a) RJ ou LJ ouverte (L.651-1) ; (b) insuffisance d'actif — **non chiffrée**, réclamer l'état du passif si demandé ; (c) faute de gestion ; (d) lien de causalité.
+- Conditions cumulatives (L.651-2 `[à vérifier]`) : (a) RJ ou LJ ouverte (L.651-1) ; (b) insuffisance d'actif — **non chiffrée**, réclamer l'état du passif si demandé ; (c) faute de gestion ; (d) lien de causalité.
 - Faute de gestion — **indices** (jamais conclusion) : retard DCP, poursuite d'activité déficitaire, prélèvements/rémunération anormaux, comptabilité défaillante, absence de réaction. Tague `[review]`.
-- **Simple négligence exclue** (L.651-2 al. 2 `[Légifrance]`) : le rappeler comme facteur atténuant possible.
+- **Simple négligence exclue** (L.651-2 al. 2 `[à vérifier]`) : le rappeler comme facteur atténuant possible.
 - Facteurs atténuants : conciliation L.611-4 demandée, chronologie documentée, expert-comptable consulté.
-- **Sous-cas L.652-1** (obligation aux dettes sociales — confusion de patrimoine ou fictivité de la personne morale `[Légifrance]`) : régime distinct ; qualifier séparément `[review]` si signaux (comptes courants débiteurs massifs, locaux/flux confondus, absence de gouvernance) ; sinon, mentionner en risque dormant.
+- **Sous-cas L.652-1** (obligation aux dettes sociales — confusion de patrimoine ou fictivité de la personne morale `[à vérifier]`) : régime distinct ; qualifier séparément `[review]` si signaux (comptes courants débiteurs massifs, locaux/flux confondus, absence de gouvernance) ; sinon, mentionner en risque dormant.
 - Qualification : 🟢🟡🟠🔴 `[review]`.
 
 **Axe 2 — Sanctions personnelles (L.653-x).**
-- Interdiction de gérer (L.653-8 `[Légifrance]`) : cas limitatifs (omission/retard DCP, défaut de coopération, fraude…). Qualification + facteurs `[review]`.
-- Faillite personnelle (L.653-3 à L.653-5 `[Légifrance]`) : cas plus graves (détournement d'actif, poursuite abusive d'exploitation déficitaire à des fins personnelles, comptabilité fictive/disparue). Qualification + facteurs `[review]`.
-- Durée max **15 ans** (L.653-11 `[Légifrance]`).
+- Interdiction de gérer (L.653-8 `[à vérifier]`) : cas limitatifs (omission/retard DCP, défaut de coopération, fraude…). Qualification + facteurs `[review]`.
+- Faillite personnelle (L.653-3 à L.653-5 `[à vérifier]`) : cas plus graves (détournement d'actif, poursuite abusive d'exploitation déficitaire à des fins personnelles, comptabilité fictive/disparue). Qualification + facteurs `[review]`.
+- Durée max **15 ans** (L.653-11 `[à vérifier]`).
 
 **Axe 3 — Banqueroute (L.654-1) — NOMMÉE, pas évaluée.**
-- Lister les **cas légaux** applicables aux faits (L.654-2 `[Légifrance]`) : achats en vue de revente au-dessous du cours / emploi de moyens ruineux pour se procurer des fonds ; détournement ou dissimulation d'actif ; augmentation frauduleuse du passif ; comptabilité fictive, disparue ou manifestement incomplète/irrégulière.
+- Lister les **cas légaux** applicables aux faits (L.654-2 `[à vérifier]`) : achats en vue de revente au-dessous du cours / emploi de moyens ruineux pour se procurer des fonds ; détournement ou dissimulation d'actif ; augmentation frauduleuse du passif ; comptabilité fictive, disparue ou manifestement incomplète/irrégulière.
 - **Ne pas qualifier l'élément intentionnel.** Si des signaux concrets existent → **renvoi pénaliste**.
-- Sanctions max : **5 ans d'emprisonnement et 75 000 € d'amende** (L.654-3 `[Légifrance]`).
+- Sanctions max : **5 ans d'emprisonnement et 75 000 € d'amende** (L.654-3 `[à vérifier]`).
 - Pas de note 🟢🟡🟠🔴 (axe non évalué).
 
 **Axe 4 — Cautions personnelles du dirigeant.**
 - Existence : acte de caution (étendue, durée, montant) — `[à compléter]` si non fourni.
 - Sort **dans la procédure** :
-  - Période d'observation : **suspension** des poursuites contre la caution personne physique (L.622-28 sauvegarde / L.631-14 RJ `[Légifrance]`).
-  - Plan de continuation : **arrêt définitif** des poursuites contre la caution personne physique au titre des dettes couvertes par le plan (L.626-11 `[Légifrance]`) — mais la dette principale survit pour le surplus.
-  - Clôture LJ pour insuffisance d'actif : non-reprise des poursuites individuelles **sauf** contre la caution (L.643-11 `[Légifrance]`) — la caution **reste actionnable**.
+  - Période d'observation : **suspension** des poursuites contre la caution personne physique (L.622-28 `[Légifrance]` sauvegarde / L.631-14 RJ `[à vérifier]`).
+  - Plan de continuation : la caution personne physique **peut se prévaloir des dispositions du plan** (délais, remises), les personnes morales en étant exclues (L.626-11 al. 2 `[à vérifier]`) — ce n'est pas un « arrêt définitif » des poursuites ; mais la dette principale survit pour le surplus.
+  - Clôture LJ pour insuffisance d'actif : non-reprise des poursuites individuelles **sauf** contre la caution (L.643-11 `[à vérifier]`) — la caution **reste actionnable**.
 - **Recours créancier hors procédure** : à anticiper (prêteur bancaire, bailleur, fournisseur garanti). `[review]`.
 - **Ne jamais conclure « caution éteinte »** sans l'acte et l'état du plan. Qualification : 🟢🟡🟠🔴 `[review]`.
 
