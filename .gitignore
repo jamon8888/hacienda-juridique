@@ -21,3 +21,6 @@ __pycache__/
 *.pyc
 
 .claude/
+
+# Résultats de `claude plugin eval` (rapports locaux, non versionnés)
+plugins/*/evals/results/
