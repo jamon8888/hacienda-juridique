@@ -5,6 +5,8 @@ allowed_tools: [Read, Glob, Grep, Skill]
 runs: 3
 ---
 
+*Dossier strictement fictif — aucune donnée réelle (parties, montants et identifiants fictifs).*
+
 Nous sommes le cabinet conseil de SOCIETE ATLAS SAS, acquéreur. Peux-tu faire la revue du projet de SPA décrit ci-dessous, avant sa finalisation en vue du signing ?
 
 Réponds directement dans la conversation, sans créer de fichier.

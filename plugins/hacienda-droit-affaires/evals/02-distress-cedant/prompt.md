@@ -5,6 +5,8 @@ allowed_tools: [Read, Glob, Grep, Skill]
 runs: 3
 ---
 
+*Dossier strictement fictif — aucune donnée réelle (parties, montants et identifiants fictifs).*
+
 Dossier ci-dessous (fictif). Traite la demande formulée en fin de dossier.
 
 Réponds directement dans la conversation, sans créer de fichier.
