@@ -126,10 +126,10 @@ Si forme sociale, qualité du dirigeant ou stade absents : stopper et demander. 
 - [ ] **Qualité dirigeant** explicite (droit / fait) ; si « fait » : qualification taguée `[review]` (elle-même contestable)
 - [ ] **Les 4 axes sont évalués** — aucun skip silencieux ; un axe sans signal est explicitement marqué (« 🟢 — aucun signal sur ce stade » ou « sans objet »), jamais omis
 - [ ] **G4 — banqueroute** : (axe 3) NOMMÉE, jamais évaluée : cas légaux listés + renvoi pénaliste ; pas de note 🟢🟡🟠🔴, pas de qualification d'intention (dol/détournement/dissimulation)
-- [ ] **G1 — dates** : semaines relatives uniquement ; aucune date calendaire ; aucun nombre de jours de retard précis ; le 1er impayé est un indice, pas la date
+- [ ] **G1 — dates** : semaines relatives uniquement ; aucune date calendaire ; aucun nombre de jours de retard précis ; le 1er impayé est un indice, pas la date (vise les dates du **dossier** ; les dates d'entrée en vigueur des textes, ex. 1er octobre 2021, ne sont pas concernées)
 - [ ] **G2 — quantum** : aucun chiffre d'insuffisance d'actif ni de contribution ; réclamer un état du passif si des chiffres sont demandés ; `[à compléter]`
 - [ ] **G3 — qualification de fait** : facteurs aggravants/atténuants présentés en **indices** ; jamais « faute caractérisée » / « manifestement » ; conclusion réservée au tribunal `[review]`
-- [ ] **G5 — cautions** : distinguer le **sort dans la procédure** (suspension L.622-28/L.631-14 ; bénéfice des dispositions du plan L.626-11) du **recours créancier hors procédure** ; jamais « caution éteinte » sans acte + plan
+- [ ] **G5 — cautions** : distinguer le **sort dans la procédure** (suspension L.622-28/L.631-14 ; bénéfice des dispositions du plan L.626-11, en redressement seulement si la procédure est ouverte depuis le 1er octobre 2021) du **recours créancier hors procédure** ; jamais « caution éteinte » sans acte + plan
 - [ ] **Stade procédure** module les **recommandations finales** (documenter la chrono vs préparer la défense), pas la qualification
 - [ ] **Action engagée** → renvoi avocat **contentieuiste** en tête du livrable, qualification quand même produite
 - [ ] Aucune **fabrication** : ni date, ni chiffre, ni créancier, ni acte de caution non fourni — `[à compléter]` partout où la donnée manque
@@ -196,6 +196,8 @@ Structurer la sortie avec : faits retenus, droit applicable par axe, qualificati
 - Sort **dans la procédure** :
   - Période d'observation : **suspension** des poursuites contre la caution personne physique (L.622-28 `[Légifrance]` sauvegarde / L.631-14 RJ `[à vérifier]`).
   - Plan de continuation : la caution personne physique **peut se prévaloir des dispositions du plan** (délais, remises), les personnes morales en étant exclues (L.626-11 al. 2 `[à vérifier]`) — ce n'est pas un « arrêt définitif » des poursuites ; mais la dette principale survit pour le surplus.
+    - **En sauvegarde comme en redressement** pour les procédures ouvertes **depuis le 1er octobre 2021** : L.631-19 I rend le régime du plan de sauvegarde, donc L.626-11, applicable au plan de redressement (ord. n° 2021-1193 du 15 sept. 2021, `[à vérifier]`).
+    - **Procédure de redressement ouverte avant le 1er octobre 2021** : ancien régime, la caution **ne peut pas** se prévaloir du plan de redressement (ancien L.631-20). **Vérifier la date du jugement d'ouverture** avant de qualifier ; `[à compléter]` si elle n'est pas fournie.
   - Clôture LJ pour insuffisance d'actif : non-reprise des poursuites individuelles **sauf** contre la caution (L.643-11 `[à vérifier]`) — la caution **reste actionnable**.
 - **Recours créancier hors procédure** : à anticiper (prêteur bancaire, bailleur, fournisseur garanti). `[review]`.
 - **Ne jamais conclure « caution éteinte »** sans l'acte et l'état du plan. Qualification : 🟢🟡🟠🔴 `[review]`.
