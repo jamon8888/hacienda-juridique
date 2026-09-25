@@ -34,14 +34,13 @@ tags: [contrats, revue, playbook, ma, distribution, prestation, bail, spa]
 <example>
 <user>/h-da:reviser-contrat ./SPA-cession-X.pdf --review</user>
 <response>
-1. Pré-flight `check-pii` (47 identifiants, 8 montants > 10k€ → seuil B → prompt utilisateur)
-2. Lecture profil cabinet (posture équilibré, plafond GAP 20 % prix, approbateur SPA = avocat + GC + sponsor business)
-3. Identification du contrat : SPA, parties, droit français applicable, closing conditionné
-4. Détection SIREN cible → `company_full_profile` (Pappers ✓) → tag `[Pappers]`
-5. Analyse clause par clause contre `clauses-sensibles-fr.md` (déclarations et garanties, clause pénale, non-concurrence cédant, GAP)
-6. Liste de points triée par criticité (🔴 → 🟢) via skill `liste-de-points`
-7. Post-flight `verifier-citations` (12 articles vérifiés, 1 alerte abrogation)
-8. Sortie : en-tête confidentialité + note du relecteur + résumé exécutif + liste de points + recommandation + question hors checklist + arbre de décision
+1. Lecture profil cabinet (posture équilibré, plafond GAP 20 % prix, approbateur SPA = avocat + GC + sponsor business)
+2. Identification du contrat : SPA, parties, droit français applicable, closing conditionné
+3. Détection SIREN cible → `company_full_profile` (Pappers ✓) → tag `[Pappers]`
+4. Analyse clause par clause contre `clauses-sensibles-fr.md` (déclarations et garanties, clause pénale, non-concurrence cédant, GAP)
+5. Liste de points triée par criticité (🔴 → 🟢) via skill `liste-de-points`
+6. Post-flight `verifier-citations` (12 articles vérifiés, 1 alerte abrogation)
+7. Sortie : en-tête confidentialité + note du relecteur + résumé exécutif + liste de points + recommandation + question hors checklist + arbre de décision
 </response>
 </example>
 
@@ -92,7 +91,6 @@ Sortie adaptée bail commercial, formulations alternatives selon posture cabinet
 > - **Clauses "jamais acceptées"** — listées dans le bloc contrats commerciaux
 > - **Positions clés** — clause pénale (1231-5 C.civ), limitation de responsabilité, droit applicable et juridiction, non-concurrence
 > - **Matrice d'approbateurs** — par type d'acte (revue standard, SPA, mise en demeure)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
 demander `/h-da:entretien-demarrage` avant toute revue
@@ -113,7 +111,6 @@ substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-p
 ## Gate non-juriste
 
 - [ ] Type de contrat correctement identifié (taxonomie respectée)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet lu et posture applicable identifiée
 - [ ] Renvoi PI effectué si le contrat est PI-centric (pas de revue forcée)
 - [ ] SIREN détecté → enrichissement tenté + tag source + alerte procédure collective si applicable
@@ -122,10 +119,6 @@ substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-p
 - [ ] Sortie comprend : en-tête confidentialité + note du relecteur + résumé exécutif + liste de points + recommandation + question hors checklist + arbre de décision 5 options
 
 ---
-
-## Mode Anno Desktop Optionnel
-
-Pour un contrat fourni ou déjà ingéré avec accord, appeler `anno_health`, puis `detect`. Utiliser `legal_extract_contract` pour extraire clauses et définitions, `legal_risk_review` pour préparer les points de négociation, et `legal_search` seulement sur un corpus déjà ingéré.
 
 ## Outils MCP à privilégier
 
@@ -151,13 +144,12 @@ sérialisables, générer en parallèle un dashboard HTML autonome via
 
 Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
 
-## Étape 1 — Pré-flight et identification
+## Étape 1 — Identification
 
-1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
-3. Détecter le type de contrat à partir des termes dominants (voir `${CLAUDE_SKILL_DIR}/../../references/taxonomie-contrats-fr.md`).
-4. **Test PI-centric.** Si les termes dominants sont brevet, marque, licence, coexistence, invention, savoir-faire, R&D ou transfert de technologie → renvoyer immédiatement vers `/h-pi:contrats-pi` avec les options (a) lancer ce skill, (b) limiter `reviser-contrat` aux clauses commerciales, (c) les deux en séquence.
-5. Identifier les parties (raison sociale, qualité, pays d'établissement), le droit applicable, la juridiction et la date d'effet.
+1. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
+2. Détecter le type de contrat à partir des termes dominants (voir `${CLAUDE_SKILL_DIR}/../../references/taxonomie-contrats-fr.md`).
+3. **Test PI-centric.** Si les termes dominants sont brevet, marque, licence, coexistence, invention, savoir-faire, R&D ou transfert de technologie → renvoyer immédiatement vers `/h-pi:contrats-pi` avec les options (a) lancer ce skill, (b) limiter `reviser-contrat` aux clauses commerciales, (c) les deux en séquence.
+4. Identifier les parties (raison sociale, qualité, pays d'établissement), le droit applicable, la juridiction et la date d'effet.
 
 ---
 
@@ -199,7 +191,7 @@ Pour chaque clause sensible identifiée (voir `${CLAUDE_SKILL_DIR}/../../referen
 - Les articles cités doivent exister dans `articles-c-civ-c-com-index.md`. À défaut, tag `[à vérifier]` et signaler en note du relecteur.
 - Les arrêts cités doivent être tagués `[Judilibre]` si consultés en session ou `[connaissance modèle — à vérifier]` sinon. Pas de fausse jurisprudence.
 - Tag inline `[review]` sur les jugements subjectifs (clauses borderline déséquilibre L.442-1, qualification d'obligation essentielle 1170 C.civ, exigibilité d'une non-concurrence sans contrepartie chiffrée).
-- Respecter le plancher de sévérité cross-skill : si `check-pii` ou `verifier-citations` remonte 🔴, ne pas dégrader silencieusement.
+- Respecter le plancher de sévérité cross-skill : si `verifier-citations` remonte 🔴, ne pas dégrader silencieusement.
 
 **Clauses pilotes.** La liste complète des 15 clauses pilotes vit dans `${CLAUDE_SKILL_DIR}/../../references/clauses-sensibles-fr.md` (source de vérité unique). Le skill traite les 15. Exemples emblématiques :
 
@@ -283,10 +275,6 @@ si rien d'honnête à dire — ne pas fabriquer.}
 3. **Compléter les faits** — questions ouvertes à poser à {PM / client / contrepartie / conseil} avant d'avancer.
 4. **Surveiller et attendre** — ajouter au tracker du dossier avec date de revisite.
 5. **Autre** — précise.
-
-{Footer A si check-pii est passé en mode passif sous le seuil B :
-"Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement
-avant envoi à Claude, installer `hacienda-ghost`." Sinon, rien.}
 ```
 
 ### Mode silencieux (livrable externe)

@@ -1,5 +1,11 @@
 # Changelog — hacienda-droit-affaires
 
+## Non publié
+
+### Retiré
+- Pré-vol `check-pii` (skill, commande `/h-da:check-pii`, footers hacienda-ghost, politique PII du profil) et gate d'anonymisation du routeur `cas`.
+- Mode Anno Desktop optionnel (section du CLAUDE.md, sections des skills, README, mot-clé du manifest).
+
 ## 0.20.0
 
 ### Ajouté

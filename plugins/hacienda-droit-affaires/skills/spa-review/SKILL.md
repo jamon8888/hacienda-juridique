@@ -35,13 +35,12 @@ tags: [spa, ma, cession-titres, protocole-cession, signing, closing, gap]
 <example>
 <user>/h-da:spa-review ./SPA-cible-X.pdf --side=acquereur --type=cession-titres --prix=12000000 --dd-findings=./rapport-dd.md</user>
 <response>
-1. Pré-flight `check-pii` sur le SPA et les findings DD.
-2. Lecture profil cabinet, bloc M&A / Corporate.
-3. Identification : SPA de cession de 100 % des titres d'une SAS, signing et closing différés, prix 12 M EUR.
-4. Analyse des axes SPA : deal facts, pouvoirs, CP, interim covenants, MAC, prix, disclosure, GAP, DD, closing.
-5. Findings principaux : disclosure letter absente 🔴 ; clause de changement de contrôle client clé non traitée 🔴 ; plafond GAP 8 % du prix 🟠 ; non-concurrence cédant 7 ans 🟠.
-6. Renvoi `gap-review` pour la mécanique financière de garantie et `closing-checklist-fr` pour les CP / formalités.
-7. Sortie partner-ready : résumé exécutif, red flags, liste de points, recommandation "ne pas signer en l'état".
+1. Lecture profil cabinet, bloc M&A / Corporate.
+2. Identification : SPA de cession de 100 % des titres d'une SAS, signing et closing différés, prix 12 M EUR.
+3. Analyse des axes SPA : deal facts, pouvoirs, CP, interim covenants, MAC, prix, disclosure, GAP, DD, closing.
+4. Findings principaux : disclosure letter absente 🔴 ; clause de changement de contrôle client clé non traitée 🔴 ; plafond GAP 8 % du prix 🟠 ; non-concurrence cédant 7 ans 🟠.
+5. Renvoi `gap-review` pour la mécanique financière de garantie et `closing-checklist-fr` pour les CP / formalités.
+6. Sortie partner-ready : résumé exécutif, red flags, liste de points, recommandation "ne pas signer en l'état".
 </response>
 </example>
 
@@ -76,7 +75,6 @@ Détection d'un portefeuille PI structurant dans les actifs de la cible : marque
 > - **Taille de deals typique** — pour calibrer matérialité et niveau de détail.
 > - **Matrice d'approbateurs** — ligne "Signature SPA".
 > - **Posture GAP par défaut** — pour détecter les écarts grossiers avant renvoi `gap-review`.
-> - **Politique PII** — `passive` / `active` / `strict` + seuil B.
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent), stopper et
 demander `/h-da:entretien-demarrage` avant toute revue SPA
@@ -100,16 +98,11 @@ substantielle.
 
 - [ ] Side fourni ou confirmé.
 - [ ] Type d'opération fourni ou confirmé.
-- [ ] `check-pii` exécuté.
 - [ ] Profil M&A lu.
 - [ ] Renvois GAP / closing / DD / PI / fiscal / social / réglementaire faits quand nécessaires.
 - [ ] Liste de points triée par criticité, sans doublon.
 - [ ] Citations vérifiées ou taguées `[à vérifier]`.
-- [ ] Sortie contient note 5 champs + arbre 5 options + footer PII.
-
-## Mode Anno Desktop Optionnel
-
-Sur un SPA volumineux, appeler `anno_health`, puis `detect`. Utiliser `legal_extract_contract` pour extraire structure, déclarations, conditions et annexes ; `legal_risk_review` pour préparer la matrice de risques ; `review_create` et `review_extract` pour relier findings DD, garanties, indemnisations et conditions de closing.
+- [ ] Sortie contient note 5 champs + arbre 5 options.
 
 ## Outils MCP à privilégier
 
@@ -140,14 +133,13 @@ Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affai
 
 # SPA review — {cible} — {side}
 
-## Étape 1 — Pré-flight + identification
+## Étape 1 — Identification
 
-1. Invoquer `check-pii` sur le SPA et, le cas échéant, sur les findings DD.
-2. Lire le profil cabinet et identifier le side.
-3. Identifier le document : SPA / protocole de cession / acte de cession / asset purchase agreement.
-4. Confirmer le type d'opération : cession de titres, cession de fonds, asset deal ou fusion.
-5. Identifier parties, cible, prix, signing, closing, droit applicable, juridiction, annexes mentionnées.
-6. Détecter SIREN cible si présent et tenter l'enrichissement `company_full_profile` via les outils core disponibles.
+1. Lire le profil cabinet et identifier le side.
+2. Identifier le document : SPA / protocole de cession / acte de cession / asset purchase agreement.
+3. Confirmer le type d'opération : cession de titres, cession de fonds, asset deal ou fusion.
+4. Identifier parties, cible, prix, signing, closing, droit applicable, juridiction, annexes mentionnées.
+5. Détecter SIREN cible si présent et tenter l'enrichissement `company_full_profile` via les outils core disponibles.
 
 ---
 

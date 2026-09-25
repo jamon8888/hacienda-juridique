@@ -48,19 +48,18 @@ tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 <example>
 <user>/h-da:financement-startup --comparer — intéresser un premier salarié-clé : BSPCE ou BSA ?</user>
 <response>
-1. Pré-flight `check-pii` (peu d'identifiants au stade du choix d'instrument — sous seuil B le plus souvent).
-2. Lecture profil cabinet (bloc M&A / Corporate : side financement ; bloc « vie sociale » : posture pacte d'associés).
-3. Étape 1 — cadrage : startup en amorçage, SAS éligible, objectif = intéresser et retenir un **premier salarié-clé** (donc un salarié), contrainte de dilution modérée.
-4. Étape 2 — recommandation depuis `${CLAUDE_SKILL_DIR}/../../references/instruments-financement-fr.md` : **BSPCE** — instrument dédié à l'intéressement des **salariés et dirigeants assimilés salariés** de sociétés éligibles, dilution différée à l'exercice. Le **BSA** est écarté ici : il vise les tiers non salariés (advisors, investisseurs) ; pour un salarié, le BSPCE est l'outil adéquat sous réserve de l'éligibilité de la société et du bénéficiaire (art. 163 bis G CGI [à vérifier]).
-5. Signalement fiscal : le régime fiscal de faveur du BSPCE (art. 163 bis G CGI [à vérifier]) **relève d'un fiscaliste** — signalé, non traité. Tags [review] sur la valorisation du prix d'exercice et l'éligibilité.
-6. Sortie : note du relecteur (5 champs) + table comparative + recommandation motivée + question hors checklist + arbre de décision 5 options.
+1. Lecture profil cabinet (bloc M&A / Corporate : side financement ; bloc « vie sociale » : posture pacte d'associés).
+2. Étape 1 — cadrage : startup en amorçage, SAS éligible, objectif = intéresser et retenir un **premier salarié-clé** (donc un salarié), contrainte de dilution modérée.
+3. Étape 2 — recommandation depuis `${CLAUDE_SKILL_DIR}/../../references/instruments-financement-fr.md` : **BSPCE** — instrument dédié à l'intéressement des **salariés et dirigeants assimilés salariés** de sociétés éligibles, dilution différée à l'exercice. Le **BSA** est écarté ici : il vise les tiers non salariés (advisors, investisseurs) ; pour un salarié, le BSPCE est l'outil adéquat sous réserve de l'éligibilité de la société et du bénéficiaire (art. 163 bis G CGI [à vérifier]).
+4. Signalement fiscal : le régime fiscal de faveur du BSPCE (art. 163 bis G CGI [à vérifier]) **relève d'un fiscaliste** — signalé, non traité. Tags [review] sur la valorisation du prix d'exercice et l'éligibilité.
+5. Sortie : note du relecteur (5 champs) + table comparative + recommandation motivée + question hors checklist + arbre de décision 5 options.
 </response>
 </example>
 
 <example>
 <user>/h-da:financement-startup --comparer — tour de seed : obligations convertibles ou augmentation de capital ?</user>
 <response>
-1. Pré-flight `check-pii` + lecture profil cabinet (side financement, posture pacte).
+1. Lecture profil cabinet (side financement, posture pacte).
 2. Étape 1 — cadrage : stade **seed**, objectif = **levée externe** auprès de business angels, hésitation sur la valorisation, souhait de limiter la dilution immédiate des fondateurs.
 3. Étape 2 — recommandation depuis `${CLAUDE_SKILL_DIR}/../../references/instruments-financement-fr.md` :
    - **OC / OCA** — titre de créance convertible : permet de **différer la fixation de la valorisation** au tour qualifiant (décote / cap), dilution différée et conditionnelle ; jusqu'à conversion, c'est une dette au passif.
@@ -75,13 +74,12 @@ tags: [financement, startup, bspce, bsa, obligations-convertibles, levee]
 <example>
 <user>/h-da:financement-startup ./term-sheet-seed.pdf --review</user>
 <response>
-1. Pré-flight `check-pii` (identifiants des parties, montants → vérifier le seuil B → décision utilisateur).
-2. Lecture profil cabinet (side financement, posture pacte).
-3. Étape 1 — identification : term sheet de tour de seed, augmentation de capital + plan de BSPCE pour l'équipe, droit français.
-4. Étape 2 — analyse des **instruments** : valorisation pré/post-money, dilution induite par l'augmentation de capital, mécanique du plan de BSPCE (dilution différée, capital pleinement dilué).
-5. **Renvoi explicite `pacte-associes-review`** : la term sheet comporte une clause de **liquidation preference** et une clause d'**anti-dilution** — ce sont des **clauses de pacte**, hors périmètre de ce skill. Renvoi : « Les clauses de liquidation preference et d'anti-dilution de cette term sheet relèvent du skill `pacte-associes-review` (revue de pacte). Souhaites-tu (a) enchaîner `pacte-associes-review` sur ces clauses, (b) limiter `financement-startup` à l'analyse des instruments, ou (c) les deux en séquence ? »
-6. Étape 3 — post-flight `verifier-citations`.
-7. Sortie : note du relecteur + analyse des instruments + renvoi `pacte-associes-review` + question hors checklist + arbre de décision 5 options.
+1. Lecture profil cabinet (side financement, posture pacte).
+2. Étape 1 — identification : term sheet de tour de seed, augmentation de capital + plan de BSPCE pour l'équipe, droit français.
+3. Étape 2 — analyse des **instruments** : valorisation pré/post-money, dilution induite par l'augmentation de capital, mécanique du plan de BSPCE (dilution différée, capital pleinement dilué).
+4. **Renvoi explicite `pacte-associes-review`** : la term sheet comporte une clause de **liquidation preference** et une clause d'**anti-dilution** — ce sont des **clauses de pacte**, hors périmètre de ce skill. Renvoi : « Les clauses de liquidation preference et d'anti-dilution de cette term sheet relèvent du skill `pacte-associes-review` (revue de pacte). Souhaites-tu (a) enchaîner `pacte-associes-review` sur ces clauses, (b) limiter `financement-startup` à l'analyse des instruments, ou (c) les deux en séquence ? »
+5. Étape 3 — post-flight `verifier-citations`.
+6. Sortie : note du relecteur + analyse des instruments + renvoi `pacte-associes-review` + question hors checklist + arbre de décision 5 options.
 </response>
 </example>
 
@@ -108,7 +106,6 @@ Le skill **signale** la dimension fiscale, **renvoie** au fiscaliste, et propose
 > - **Matrice d'approbateurs** — type d'acte → approbateur (escalade)
 > - **Rôle de l'utilisateur courant** — conditionne l'en-tête de confidentialité
 >   (avocat / notaire / juriste in-house / non-juriste)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc M&A / Corporate ou le bloc « vie sociale » est encore en
 `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`.
@@ -138,7 +135,6 @@ stopper et demander explicitement. Pas de valeur par défaut sur le mode.
 ## Gate non-juriste
 
 - [ ] Mode (`--comparer` | `--review`) fourni ; en `--review`, fichier de term sheet fourni (refus du défaut)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet lu (bloc M&A / Corporate + bloc « vie sociale », posture pacte)
 - [ ] Profil des souscripteurs identifié — le BSPCE n'est recommandé que pour des salariés / dirigeants assimilés salariés ; un tiers non salarié renvoyé au BSA
 - [ ] `--comparer` : table comparative depuis `instruments-financement-fr.md` + recommandation motivée + instruments écartés et pourquoi
@@ -146,7 +142,7 @@ stopper et demander explicitement. Pas de valeur par défaut sur le mode.
 - [ ] **Renvoi explicite vers `pacte-associes-review`** pour toute clause de pacte (liquidation preference, anti-dilution, gouvernance, vesting, drag/tag, leaver)
 - [ ] **Dimension fiscale signalée et renvoyée** à un conseil fiscal — JAMAIS traitée au fond ; régime BSPCE art. 163 bis G CGI [à vérifier] signalé sans être analysé
 - [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]` ; articles hors index (L.228-91 et s. C.com., art. 163 bis G CGI) en `[à vérifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + {table comparative ou analyse des instruments} + renvoi pacte-associes-review + dimension fiscale signalée + question hors checklist + arbre de décision 5 options + footer A si applicable
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + {table comparative ou analyse des instruments} + renvoi pacte-associes-review + dimension fiscale signalée + question hors checklist + arbre de décision 5 options
 
 ---
 
@@ -205,10 +201,6 @@ Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
 3. **Compléter les faits** — questions ouvertes à poser aux fondateurs / à l'investisseur / au fiscaliste avant d'avancer (éligibilité BSPCE, valorisation, profil exact des souscripteurs).
 4. **Surveiller et attendre** — j'ajoute le dossier de financement au tracker avec note motivée et date de revisite (ex. en attente de l'avis du fiscaliste sur le régime BSPCE).
 5. **Autre** — précise ce que tu veux en faire.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B :
-[Ce skill a traité {N} mentions identifiantes (parties, montants, dénomination). Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
-Sinon, rien.}
 ```
 
 ### Mode silencieux (livrable externe)
@@ -225,14 +217,10 @@ Si la sortie est destinée à être transmise hors du périmètre cabinet
 
 ---
 
-## Étape 1 (--comparer) — Pré-flight et cadrage
+## Étape 1 (--comparer) — Cadrage
 
-**Pré-flight.** Invoquer `check-pii` sur les éléments fournis avec la politique
-du profil ; respecter la décision utilisateur (continue / prompt / abort). Lire
-le profil cabinet (CLAUDE.md droit-affaires, blocs M&A / Corporate et « vie
-sociale ») et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`. Au stade du choix
-d'instrument, les identifiants sont en général peu nombreux (souvent sous le
-seuil B) — le pré-flight reste néanmoins exécuté.
+Lire le profil cabinet (CLAUDE.md droit-affaires, blocs M&A / Corporate et « vie
+sociale ») et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
 
 **Cadrage.** Avant toute recommandation, cerner le besoin réel. Questions de
 cadrage :
@@ -288,15 +276,13 @@ appréciation de fait → `[review]`.
 
 ---
 
-## Étape 1 (--review) — Pré-flight + identification
+## Étape 1 (--review) — Identification
 
-1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le
-   verdict (continue / prompt / abort), respecter la décision utilisateur.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires, blocs M&A / Corporate et
+1. Lire le profil cabinet (CLAUDE.md droit-affaires, blocs M&A / Corporate et
    « vie sociale ») et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`. Identifier le
    **side** de l'utilisateur (fondateur / investisseur / société) et la posture
    pacte configurée — elle conditionne le ton du renvoi `pacte-associes-review`.
-3. Identifier la **term sheet** : type d'opération (tour de seed, série A…),
+2. Identifier la **term sheet** : type d'opération (tour de seed, série A…),
    parties, droit applicable, **instruments mentionnés** (augmentation de
    capital, BSPCE, BSA, OC) et **clauses de pacte** esquissées (liquidation
    preference, anti-dilution, gouvernance, vesting…).
@@ -345,7 +331,7 @@ instruments. Pour chacun, à partir de `${CLAUDE_SKILL_DIR}/../../references/ins
 
 Tag inline `[review]` sur les appréciations de fait (valorisation, ampleur de la
 dilution acceptable, éligibilité BSPCE). Respecter le plancher de sévérité
-cross-skill : si `check-pii` ou `verifier-citations` remonte 🔴, ne pas dégrader
+cross-skill : si `verifier-citations` remonte 🔴, ne pas dégrader
 silencieusement.
 
 ---

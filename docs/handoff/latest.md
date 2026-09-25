@@ -61,10 +61,9 @@ session du forfait atteinte au 2e cas (2,75 $). Résultats exploitables :
   malgré la mention « dossier fictif » ; la réponse s'arrête là, d'où les FAIL. Runs
   2-3 et cas 03-05 : coupés par la limite (`grader threw` / `exit 1`), sans valeur.
 - **À faire** : relancer uniquement `02`, `04`, `05` (`--case`), un par créneau.
-- **Point ouvert (décision Candy)** : `check-pii` interrompt même un dossier déclaré
-  fictif. Déjà vu au pilote. Soit on accepte (comportement voulu en Cowork, l'éval
-  en un seul tour ne peut pas répondre), soit `check-pii` ne pose plus la question
-  quand l'utilisateur déclare explicitement le dossier fictif.
+- **Tranché le 2026-09-25** : `check-pii` est **retiré du plugin** (décision produit :
+  ce n'était qu'un appel à l'action gratuit vers ghost), ainsi que la gate
+  d'anonymisation de `cas` et tout le mode Anno Desktop. Plus de blocage possible.
 
 ### Défauts réels trouvés par l'éval de bout en bout (tous corrigés, sur main)
 
@@ -101,7 +100,10 @@ Le serveur lit la config **au démarrage** : nouvelle session après tout change
 ## Ouvert / prochaines pistes (droit-affaires)
 
 - **Finir A** : `02-distress-cedant`, `04-dd-pe-red-flags`, `05-neg-…` (un `--case`
-  par créneau) + trancher le point `check-pii` ci-dessus.
+  par créneau).
+- Plus d'abonnement Codex (2026-09-25) : tâches mécaniques → sous-agent Sonnet,
+  relu par la session principale. Le protocole blind Codex n'est plus exécutable tel quel.
+- `plugins/registry.json` : liste des skills DA incomplète (19/31), à réconcilier.
 - **B, un cas par session**, dans l'ordre : spa-review → distress-cedant →
   declaration-creance → dd-pe. Spot-checker chaque écart avant de conclure.
 - **Wording ghost** : `[review]` dans `README_UTILISATEUR.md` (section

@@ -157,11 +157,6 @@ si rien d'honnête à dire — ne pas fabriquer.}
 4. **Surveiller et attendre** — ajouter le sujet au tracker du dossier avec note
    motivée et date de revisite.
 5. **Autre** — précise.
-
-{Footer A si check-pii est passé en mode passif sous le seuil B :
-"Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement
-avant envoi à Claude, installer [hacienda-ghost](marketplace://hacienda-ghost)."
-Sinon, rien.}
 ```
 
 ### En-tête de confidentialité — 4 variantes selon rôle

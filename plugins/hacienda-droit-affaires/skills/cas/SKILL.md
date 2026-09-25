@@ -6,9 +6,8 @@ description: >
   qui décrit un dossier sans nommer d'outil — « j'ai un dossier de…, par où je
   commence ? », « comment je traite ça ? », « quel outil pour… ? ». Trie par
   TYPE de dossier (contrat / litige-impayé / M&A / entreprise en difficulté /
-  créance en procédure / vie sociale), rappelle d'activer l'anonymisation AVANT
-  de coller des données client, puis route vers le bon skill ou sous-routeur
-  (`asset-vs-share-distress` pour le distressed). Routeur agnostique au side : il
+  créance en procédure / vie sociale), puis route vers le bon skill ou
+  sous-routeur (`asset-vs-share-distress` pour le distressed). Routeur agnostique au side : il
   ne demande pas si tu es cédant ou acquéreur, c'est le skill cible qui le fera.
   Il ORIENTE, il n'exécute pas et ne produit aucune analyse juridique. Ne pas
   déclencher quand l'utilisateur nomme déjà l'action (« révise ce contrat »,
@@ -22,8 +21,7 @@ tags: [orientation, routeur, triage, onboarding, front-door]
 # Skill — Orientation droit des affaires
 
 > **Le point de départ.** Tu as un dossier mais tu ne sais pas quel outil
-> utiliser ? Décris ta situation : je trie, je m'assure que l'anonymisation est
-> en place avant que tu colles des données client, et je t'amène au bon skill.
+> utiliser ? Décris ta situation : je trie et je t'amène au bon skill.
 > J'oriente, je n'exécute pas.
 
 ## Examples
@@ -33,10 +31,7 @@ tags: [orientation, routeur, triage, onboarding, front-door]
 <response>
 1. Lecture du profil cabinet pour pré-classer (position dominante, side principal).
 2. Triage : nature = entreprise en difficulté.
-3. Gate anonymisation : vérifier que le pré-vol PII / l'anonymisation est actif ;
-   sinon avertir et proposer `/anon-on` (ou `/h-da:check-pii`) AVANT de coller
-   des pièces.
-4. Route selon le side : si le dossier est **côté repreneur/acquéreur** →
+3. Route selon le side : si le dossier est **côté repreneur/acquéreur** →
    « → `/h-da:asset-vs-share-distress` » (sous-routeur titres vs actifs) ; si
    **côté cédant/débiteur** (le dirigeant de la boîte en difficulté) →
    « → `/h-da:distress-cedant` » (sous-routeur sauver / céder / déposer).
@@ -47,7 +42,7 @@ tags: [orientation, routeur, triage, onboarding, front-door]
 <example>
 <user>un client ne me paie pas une facture, qu'est-ce que je peux faire ?</user>
 <response>
-Triage : nature = litige / impayé. Gate anonymisation rappelé. Route :
+Triage : nature = litige / impayé. Route :
 « → `/h-da:mise-en-demeure-commerciale` (mise en demeure de payer) ; si la
 relation est ancienne et que tu crains une rupture, vois aussi
 `/h-da:analyser-rupture-brutale` ». Garde-fou signalé : si le débiteur est en
@@ -90,14 +85,7 @@ triage.
    contrat à relire · contrat à produire · litige / impayé · opération M&A ·
    entreprise en difficulté · créance dans une procédure ouverte · vie sociale
    (AG / pacte / financement).
-3. **Gate anonymisation** — avant toute ingestion de pièces : vérifier que le
-   pré-vol PII / l'anonymisation est en place. S'appuyer sur le mécanisme
-   existant `check-pii` (qui, même en standalone sans ghost, signale les mentions
-   sensibles + CTA). Si rien n'est actif et que des données client vont être
-   collées : avertir et proposer `/anon-on` (ou `/h-da:check-pii`).
-   **Anonymisation d'abord, données ensuite.** Ne pas mapper la nature du dossier
-   à un profil d'anon précis (délégué au plugin d'anon ; piste v1.1).
-4. **Routage** — annoncer le(s) skill(s) cible(s) et pourquoi, puis passer la
+3. **Routage** — annoncer le(s) skill(s) cible(s) et pourquoi, puis passer la
    main. Pour le distressed, router vers `asset-vs-share-distress` sans dérouler
    sa logique.
 
@@ -140,9 +128,8 @@ demande une trace écrite, l'écrire dans
 
 ## Sortie
 
-Structurer la sortie d'orientation par : nature retenue du dossier · état de
-l'anonymisation (et CTA si inactive) · skill(s) recommandé(s) avec une phrase de
-justification chacun · garde-fous éventuels (ex : arrêt des poursuites si
+Structurer la sortie d'orientation par : nature retenue du dossier ·
+skill(s) recommandé(s) avec une phrase de justification chacun · garde-fous éventuels (ex : arrêt des poursuites si
 procédure collective) · invitation à lancer le skill cible. Aucune analyse
 juridique de fond. Toute orientation reste un aiguillage, pas un avis.
 

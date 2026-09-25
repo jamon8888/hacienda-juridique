@@ -70,10 +70,6 @@ existant.
 
 Si l'utilisateur n'est pas juriste ou avocat, produire une explication opérationnelle, signaler les limites, refuser toute conclusion présentée comme avis juridique final et demander validation par un professionnel habilité avant usage externe.
 
-## Mode Anno Desktop Optionnel
-
-Si Anno Desktop est disponible, proposer son activation comme option de dossier, sans la rendre obligatoire. Appeler `anno_health` uniquement pour vérifier la disponibilité ; si Anno est indisponible, poursuivre en mode Hacienda. Ne jamais indexer un document sans accord explicite de l'utilisateur.
-
 ## Outils MCP à privilégier
 
 Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
@@ -126,8 +122,6 @@ Selon le "Side principal" sélectionné en Étape 1, poser uniquement les questi
 - Positions clés (clause pénale, limitation responsabilité, droit applicable, non-concurrence)
 
 **Matrice d'approbateurs** : 4 questions (revue contrat standard / mise en demeure / signature SPA / déclaration créance > 100k€)
-
-**Politique PII** : 1 question (passive / active / strict — défaut active)
 
 **Écriture** : à la fin, mettre à jour la configuration dans le profil utilisateur du plugin.
 

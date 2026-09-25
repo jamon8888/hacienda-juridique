@@ -53,7 +53,7 @@ tags: [procedures-collectives, defense-dirigeant, contentieux, l651-2, l653-8, c
 <example>
 <user>/h-da:defense-dirigeant — action L.651-2 du liquidateur reçue (assignation), SAS en LJ, dépôt de bilan tardif d'environ 10 semaines, mais comptabilité tenue à jour et défaillance liée à la perte du client unique (~70 % du CA), gérant de droit, pas de pluralité de dirigeants</user>
 <response>
-1. Gate : **action engagée** confirmée (assignation L.651-2 du liquidateur) → le skill s'applique. Pré-flight `check-pii` (dénomination + dirigeant + faits financiers → seuil B fréquent).
+1. Gate : **action engagée** confirmée (assignation L.651-2 du liquidateur) → le skill s'applique.
 2. **En tête** : « Ce skill arme la trame de défense ; l'avocat rédige le mémoire. »
 3. **Synthèse** : action visée = L.651-2 (comblement) · demandeur = liquidateur · moyens prime (par force) = (1) prescription/recevabilité, (2) rupture de causalité (cause externe), (3) absence de faute / négligence exclue.
 4. **Trame — Axe L.651-2** (moyens ordonnés) :
@@ -95,7 +95,6 @@ Ne pas pronostiquer l'issue ; chaque moyen en indice `[review]`.
 > - **Tribunaux habituels** — repérage du greffe / juridiction saisie
 > - **Rôle utilisateur** — avocat inscrit / juriste in-house / non-juriste (en-tête de confidentialité)
 > - **Matrice d'approbateurs** — pour l'option « Escalader » (avocat plaidant / pénaliste si banqueroute en jeu)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`.
 
@@ -121,7 +120,6 @@ Si l'existence d'une action engagée, la forme sociale ou la qualité du dirigea
 
 - [ ] **Action engagée confirmée** (assignation/conclusions reçues) — sinon renvoi `responsabilite-dirigeant` ; le skill ne s'active pas sur une action hypothétique
 - [ ] Forme sociale + qualité du dirigeant + axe(s) visé(s) + demandeur fournis (refus du défaut)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet bloc procédures collectives lu ; rôle utilisateur (en-tête) et matrice d'approbateurs identifiés
 - [ ] **Trame par axe RÉELLEMENT visé** par l'action — ne pas inventer un axe non attaqué ; un axe attaqué non traité est une faute (pas de skip silencieux sur les axes visés)
 - [ ] **G4 — ne rédige pas le mémoire** : la sortie est une **trame** (moyens ordonnés + pièces + expertise), jamais un acte de procédure rédigé ; mention en tête « l'avocat rédige le mémoire »
@@ -135,10 +133,6 @@ Si l'existence d'une action engagée, la forme sociale ou la qualité du dirigea
 - [ ] Sortie : synthèse stratégie en tête + trame par axe visé + pièces/expertise + question hors-checklist + arbre 5 options ; en-tête de confidentialité selon rôle ; note du relecteur en bloc unique
 
 ---
-
-## Mode Anno Desktop Optionnel
-
-Pour reconstruire la chronologie de défense (impayés, décisions d'organes, prélèvements, flux inter-sociétés, survenance de la cause externe), appeler `anno_health`, puis `detect`. Utiliser `legal_timeline`, `legal_validate_field` et `legal_search` sur corpus déjà ingéré. Les pièces (comptabilité, actes, courriels) restent fournies/validées par le client ; aucune pièce n'est fabriquée.
 
 ## Outils MCP à privilégier
 
@@ -163,12 +157,11 @@ outputs/defense-dirigeant-<denomination-ou-siren>-<axe>.md
 
 Structurer la sortie avec : faits retenus, axe(s) visé(s), moyens de défense ordonnés par force, pièces à produire, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
 
-### Étape 1 — Pré-flight et cadrage
+### Étape 1 — Cadrage
 
 1. **Vérifier le gate** : action engagée ? Si non → renvoi `responsabilite-dirigeant`, stop.
-2. Invoquer `check-pii` (probabilité élevée seuil B : dirigeant + dénomination + faits financiers). Respecter la décision utilisateur.
-3. Lire profil cabinet (bloc procédures collectives) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
-4. Confirmer **axe(s) visé(s)**, **demandeur**, **qualité dirigeant** (droit/fait). Réutiliser la sortie de `responsabilite-dirigeant` si fournie.
+2. Lire profil cabinet (bloc procédures collectives) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
+3. Confirmer **axe(s) visé(s)**, **demandeur**, **qualité dirigeant** (droit/fait). Réutiliser la sortie de `responsabilite-dirigeant` si fournie.
 
 ### Étape 2 — Trame de défense par axe visé (ne traiter que les axes attaqués)
 

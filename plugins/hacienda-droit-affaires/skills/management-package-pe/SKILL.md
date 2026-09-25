@@ -99,7 +99,6 @@ cabinet partagés cross-plugins.
 ## Gate non-juriste
 
 - [ ] Side posé (`--side=sponsor` ou `--side=manager`) — ou demandé explicitement si absent
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet bloc M&A lu
 - [ ] Gate France/Lux vérifié — signaux Lux détectés ? Si oui, périmètre limité à la jambe FR
 - [ ] M1 — cartographie documents et « qui signe quoi » présente

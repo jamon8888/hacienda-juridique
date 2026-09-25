@@ -59,7 +59,6 @@ tags: [pre-pack, plan-de-cession, distressed-m&a, restructuring, l642, l611, sau
 > Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/CLAUDE.md`, bloc procédures collectives + bloc M&A :
 > - **Position dominante** — débiteur (orchestration) / repreneur (exposition) / mandataire / mixte
 > - **Tribunaux habituels** — tribunal compétent (commerce / judiciaire selon l'activité)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`.
 
@@ -78,7 +77,6 @@ Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage
 
 ## Gate non-juriste
 
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] **Gate 1 — cessation des paiements tranché** : ≤ 45 j → véhicule amiable/sauvegarde accélérée ; > 45 j → RJ + plan de cession ; incertain → poser la question avant d'avancer
 - [ ] **Gate 2 — faisabilité pre-pack tranchée** (les 4, cumulatifs) : confidentialité tenable (L.611-15) · repreneur crédible identifié · prospection régulière organisée par le conciliateur/mandataire ad hoc (L.611-7) · **pas d'acte à risque période suspecte** (L.632-1). Si l'une tombe → STOP + renvoi
 - [ ] **Point pivot rappelé** : la cession ne se réalise que par le plan de cession arrêté par le tribunal (L.642-2), pas en mandat ad hoc seul
@@ -163,9 +161,9 @@ La phase amiable est **strictement confidentielle** (L.611-15). Ne produire **au
 
 ---
 
-## Étape 1 — Pré-flight et Gate 1 (cessation des paiements)
+## Étape 1 — Gate 1 (cessation des paiements)
 
-1. Invoquer `check-pii`. Lire le profil cabinet (blocs procédures collectives + M&A) et le **side** déclaré. Raisonner **à la date du jour** (dates absolues, pas relatives) avec un **rétroplanning explicite** : CP + 45 j, calendrier de la procédure et des offres.
+1. Lire le profil cabinet (blocs procédures collectives + M&A) et le **side** déclaré. Raisonner **à la date du jour** (dates absolues, pas relatives) avec un **rétroplanning explicite** : CP + 45 j, calendrier de la procédure et des offres.
 2. Vérifier via `bodacc_procedures` l'état des procédures déjà ouvertes sur la cible.
 3. **Trancher la cessation des paiements** (art. L.631-1 C.com. `[Légifrance]`) : passif exigible vs actif disponible, date de survenance. **Le plan de cession ne s'adopte qu'en RJ ou LJ** (L.631-22 / L.642-1) : la cession présuppose la cessation des paiements.
    - Non / prévisible → préparer en mandat ad hoc / conciliation, mais la **réalisation de la cession suppose de basculer en RJ** (déclaration de la cessation des paiements). Si l'objectif réel est une *continuation* (pas une vente), ce n'est pas une cession : sauvegarde accélérée L.628-1 s. → renvoi `/h-da:prevention-difficultes`. Étape 2.

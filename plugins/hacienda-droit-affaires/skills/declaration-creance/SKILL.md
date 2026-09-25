@@ -31,13 +31,12 @@ tags: [procedures-collectives, declaration-creance, forclusion, bodacc, l622-24]
 <example>
 <user>/h-da:declaration-creance --siren=123456789 --montant=85000 --nature=facture</user>
 <response>
-1. Pré-flight `check-pii` (montants nominatifs + SIREN → seuil B fréquent).
-2. Lookup BODACC via `bodacc_procedures`.
+1. Lookup BODACC via `bodacc_procedures`.
    → RJ ouvert 15 mars 2026, publication BODACC 22 mars 2026 `[BODACC]`.
    → Mandataire extrait de `raw` : Maître X (cabinet Y) `[BODACC]` — ou `[à vérifier]` si parsing échoue.
-3. Calcul forclusion : 22 mars + 2 mois = 22 mai 2026 → 4 jours restants → 🔴 URGENT.
-4. Rédaction déclaration projet (template mandataire) + récapitulatif + pièces à joindre.
-5. Note du relecteur : forclusion serrée, envoi LRAR sous 24-48h recommandé.
+2. Calcul forclusion : 22 mars + 2 mois = 22 mai 2026 → 4 jours restants → 🔴 URGENT.
+3. Rédaction déclaration projet (template mandataire) + récapitulatif + pièces à joindre.
+4. Note du relecteur : forclusion serrée, envoi LRAR sous 24-48h recommandé.
 </response>
 </example>
 
@@ -100,7 +99,6 @@ Si `--siren` ou `--montant` absent : stopper et demander explicitement. Pas de v
 ## Gate non-juriste
 
 - [ ] `--siren` et `--montant` fournis (refus du défaut)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet bloc procédures collectives lu, seuil approbateur et qualité signataire identifiés
 - [ ] Lookup `bodacc_procedures` exécuté ; type procédure, date publication, mandataire renseignés ou flagués `[à vérifier]`
 - [ ] Calcul forclusion vérifié (jours restants cohérents avec date du jour, délai 2 ou 4 mois selon `--etranger`)
@@ -113,10 +111,6 @@ Si `--siren` ou `--montant` absent : stopper et demander explicitement. Pas de v
 - [ ] (mode `--releve-forclusion`) Délai d'action **6 mois** depuis publication BODACC vérifié (gate de recevabilité) ; **cause** du relevé documentée (non-imputabilité OU omission débiteur L.622-6) ; requête adressée au **juge-commissaire** ; conséquence (concours aux seules répartitions postérieures) signalée
 
 ---
-
-## Mode Anno Desktop Optionnel
-
-Pour reconstruire une chronologie de factures, mises en demeure, jugements ou échanges, appeler `anno_health`, puis `detect`. Utiliser `legal_timeline`, `legal_prescription_check`, `legal_validate_field` et `legal_search` sur corpus déjà ingéré. Les annonces BODACC restent vérifiées via `bodacc_procedures` ou `bodacc_by_siren`.
 
 ## Outils MCP à privilégier
 
@@ -140,18 +134,17 @@ Format date : `YYYY-MM-DD`. Si la déclaration porte sur plusieurs créances pou
 
 Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
 
-## Étape 1 — Pré-flight et lookup BODACC
+## Étape 1 — Lookup BODACC
 
-1. Invoquer `check-pii`. Probabilité élevée seuil B (SIREN + montants + dénominations). Respecter la décision utilisateur.
-2. Lire profil cabinet (bloc procédures collectives) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
-3. Lookup procédure : `bodacc_procedures` (wrapper MCP : `bodacc_procedures`). Filtre côté API : `familleavis = "procedures-collectives"`, tri `dateparution DESC`.
-4. Identifier sur l'annonce la plus récente d'ouverture :
+1. Lire profil cabinet (bloc procédures collectives) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
+2. Lookup procédure : `bodacc_procedures` (wrapper MCP : `bodacc_procedures`). Filtre côté API : `familleavis = "procedures-collectives"`, tri `dateparution DESC`.
+3. Identifier sur l'annonce la plus récente d'ouverture :
    - **Type de procédure** — déduit de `typeavis` (sauvegarde / redressement judiciaire / liquidation judiciaire). **Fondement applicable selon la procédure** : le régime de déclaration des créances et de forclusion/relevé des art. **L.622-24 à L.622-27 C.com.** est propre à la **sauvegarde** ; en **redressement judiciaire** il s'applique par renvoi de l'art. **L.631-14 C.com. `[Légifrance]`**, et en **liquidation judiciaire** par renvoi de l'art. **L.641-3 C.com. `[Légifrance]`**. Toujours qualifier la procédure ET viser l'article-passerelle quand il ne s'agit pas d'une sauvegarde — la déclaration et la requête en relevé en LJ/RJ se fondent sur L.622-24/L.622-26 **via** L.641-3 / L.631-14, pas directement.
    - **Date publication BODACC** — `dateparution` (point de départ du délai L.622-24)
    - **Date jugement d'ouverture** — extraite de `raw` (souvent dans le texte de l'annonce) ; fallback `[à vérifier]` si parsing échoue
    - **Mandataire désigné (nom + adresse)** — n'est **pas** un champ direct de `BodaccAnnonce`. Tenter extraction depuis `raw` (réponse BODACC OpenDataSoft non parsée par `parseAnnonce`). Si parsing échoue : marquer `[à vérifier]` en sortie et recommander vérification manuelle sur l'annonce BODACC publiée.
    - **Tribunal et numéro RG** — `ville` + extraction depuis `raw` ; fallback `[à vérifier]`.
-5. Si aucune procédure trouvée pour ce SIREN : stopper et demander confirmation (le débiteur est-il bien en procédure ? Le SIREN est-il exact ?).
+4. Si aucune procédure trouvée pour ce SIREN : stopper et demander confirmation (le débiteur est-il bien en procédure ? Le SIREN est-il exact ?).
 
 Tags de provenance : `[BODACC]` pour tout champ extrait, `[à vérifier]` pour tout champ non parsable.
 
@@ -325,9 +318,6 @@ Appel automatique sur la sortie complète. Articles à vérifier : L.622-17, L.6
 3. **Compléter les faits** — questions ouvertes à poser à {compta / service contentieux / conseil} avant envoi (intérêts contractuels exacts, justificatifs manquants, privilège à vérifier).
 4. **Surveiller et attendre** — j'ajoute la déclaration au tracker procédures collectives avec date d'envoi, accusé mandataire attendu, échéance vérification état des créances (admission / contestation).
 5. **Autre** — précise.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B :
-"Ce skill a traité {N} mentions identifiantes (débiteur, mandataire, montants, SIREN). Pour anonymiser automatiquement avant envoi à Claude, installer [hacienda-ghost](marketplace://hacienda-ghost)." Sinon, rien.}
 ```
 
 ### Mode silencieux (livrable externe — déclaration adressée au mandataire)

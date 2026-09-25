@@ -36,15 +36,14 @@ tags: [loi, term-sheet, lettre-intention, ma, pourparlers, binding]
 <example>
 <user>/h-da:loi-term-sheet ./LOI-cible-X.pdf --review --side=acquereur</user>
 <response>
-1. Pré-flight `check-pii` (29 identifiants, 5 montants > 10k€ → sous seuil B → continue)
-2. Lecture profil cabinet (bloc M&A / Corporate : side habituel acquéreur, taille de deals, matrice d'approbateurs)
-3. Identification : LOI intitulée « non contraignante », opération de cession de titres, droit français, side utilisateur = acquéreur
-4. Cartographie binding / non-binding clause par clause — détection de 3 clauses binding malgré le chapeau « sans engagement » : exclusivité (12 mois), confidentialité, prise en charge des frais par le cédant
-5. Finding 🔴 — l'exclusivité et la clause de frais engagent juridiquement le cédant alors que le document se présente comme non contraignant : qualification non intentionnelle probable, à clarifier par une clause de binding/non-binding explicite
-6. Analyse des clauses sensibles : durée d'exclusivité 12 mois jugée excessive 🟠 ; bonne foi des pourparlers (1104 C.civ) et risque de rupture abusive (1112 C.civ `[à vérifier]`)
-7. Liste de points triée par criticité (🔴 → 🟢) via skill `liste-de-points`
-8. Post-flight `verifier-citations` sur la sortie
-9. Sortie : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + tableau binding / non-binding + liste de points + recommandation + question hors checklist + arbre de décision 5 options
+1. Lecture profil cabinet (bloc M&A / Corporate : side habituel acquéreur, taille de deals, matrice d'approbateurs)
+2. Identification : LOI intitulée « non contraignante », opération de cession de titres, droit français, side utilisateur = acquéreur
+3. Cartographie binding / non-binding clause par clause — détection de 3 clauses binding malgré le chapeau « sans engagement » : exclusivité (12 mois), confidentialité, prise en charge des frais par le cédant
+4. Finding 🔴 — l'exclusivité et la clause de frais engagent juridiquement le cédant alors que le document se présente comme non contraignant : qualification non intentionnelle probable, à clarifier par une clause de binding/non-binding explicite
+5. Analyse des clauses sensibles : durée d'exclusivité 12 mois jugée excessive 🟠 ; bonne foi des pourparlers (1104 C.civ) et risque de rupture abusive (1112 C.civ `[à vérifier]`)
+6. Liste de points triée par criticité (🔴 → 🟢) via skill `liste-de-points`
+7. Post-flight `verifier-citations` sur la sortie
+8. Sortie : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + tableau binding / non-binding + liste de points + recommandation + question hors checklist + arbre de décision 5 options
 </response>
 </example>
 
@@ -81,7 +80,6 @@ Sortie : brouillon de LOI + note du relecteur + tableau binding / non-binding + 
 > - **Side habituel M&A** — cédant / acquéreur / conseil des deux (bloc « M&A / Corporate »)
 > - **Taille de deals typique et posture DD** — pour calibrer le calendrier et l'exclusivité (bloc « M&A / Corporate »)
 > - **Matrice d'approbateurs** — par type d'acte (bloc « M&A / Corporate » ; la signature d'un SPA y figure ; une LOI engageante s'escalade de préférence au même approbateur)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
 demander `/h-da:entretien-demarrage` avant toute revue ou
@@ -102,7 +100,6 @@ les éléments cabinet partagés cross-plugins.
 ## Gate non-juriste
 
 - [ ] Document correctement identifié (LOI / term sheet / head of terms) et side de l'utilisateur déterminé
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet lu et posture applicable identifiée
 - [ ] Cartographie binding / non-binding réalisée clause par clause
 - [ ] Qualification fondée sur le contenu des clauses, pas sur le titre du document ni sur le chapeau « sans engagement »
@@ -110,7 +107,7 @@ les éléments cabinet partagés cross-plugins.
 - [ ] Liberté de rompre les pourparlers (1112 C.civ) et faute dans la rupture (bonne foi, 1104 C.civ) correctement distinguées
 - [ ] Articles hors index ou en `[a compléter]` (1112, 1123, 1124 C.civ) tagués `[à vérifier]`
 - [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + tableau binding / non-binding + liste de points + recommandation + question hors checklist + arbre de décision 5 options + footer A si applicable
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + tableau binding / non-binding + liste de points + recommandation + question hors checklist + arbre de décision 5 options
 
 ---
 
@@ -190,10 +187,6 @@ si rien d'honnête à dire — ne pas fabriquer.}
 3. **Compléter les faits** — questions ouvertes à poser à {PM / client / contrepartie / conseil} avant d'avancer.
 4. **Surveiller et attendre** — j'ajoute le sujet au tracker du dossier avec note motivée et date de revisite.
 5. **Autre** — précise ce que tu veux en faire.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B :
-[Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
-Sinon, rien.}
 ```
 
 ### Mode silencieux (livrable externe)
@@ -205,12 +198,11 @@ Si l'utilisateur précise que la sortie est destinée à une contrepartie ou à 
 
 ---
 
-## Étape 1 — Pré-flight + identification
+## Étape 1 — Identification
 
-1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`. Identifier la posture contractuelle et le side habituel M&A.
-3. Identifier le document : LOI / lettre d'intention / term sheet / head of terms ; les parties (cédant, acquéreur, qualité, pays d'établissement) ; le périmètre de l'opération ; le droit applicable annoncé ; le side de l'utilisateur.
-4. Repérer la **mention générale d'engagement** du document (« sans engagement », « non contraignant », « subject to contract », « binding / non-binding »). Cette mention oriente la lecture mais **ne tranche pas** la qualification clause par clause : elle est consignée, puis confrontée au contenu réel à l'étape 2.
+1. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`. Identifier la posture contractuelle et le side habituel M&A.
+2. Identifier le document : LOI / lettre d'intention / term sheet / head of terms ; les parties (cédant, acquéreur, qualité, pays d'établissement) ; le périmètre de l'opération ; le droit applicable annoncé ; le side de l'utilisateur.
+3. Repérer la **mention générale d'engagement** du document (« sans engagement », « non contraignant », « subject to contract », « binding / non-binding »). Cette mention oriente la lecture mais **ne tranche pas** la qualification clause par clause : elle est consignée, puis confrontée au contenu réel à l'étape 2.
 
 ---
 
@@ -272,7 +264,7 @@ Points de fond propres à la LOI / au term sheet :
 - Tag de provenance placé **après** la citation, **sans backticks** dans les cellules de tableau (backticks admis dans le corps narratif).
 - Les arrêts cités sont tagués `[Judilibre]` si consultés en session, sinon `[connaissance modèle — à vérifier]` ou `[à vérifier]`. Pas de fausse jurisprudence.
 - Tag inline `[review]` sur les jugements subjectifs : caractère proportionné ou excessif d'une durée d'exclusivité, caractère intentionnel ou non d'une qualification binding, caractère abusif d'une rupture de pourparlers, caractère potestatif d'une condition suspensive.
-- Respecter le plancher de sévérité cross-skill : si `check-pii` ou `verifier-citations` remonte 🔴, ne pas dégrader silencieusement.
+- Respecter le plancher de sévérité cross-skill : si `verifier-citations` remonte 🔴, ne pas dégrader silencieusement.
 
 ---
 

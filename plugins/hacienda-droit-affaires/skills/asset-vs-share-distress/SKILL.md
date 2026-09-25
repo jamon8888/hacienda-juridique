@@ -68,7 +68,6 @@ tags: [asset-vs-share-distress, structuration, distressed-m&a, restructuring, sh
 > Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/CLAUDE.md`, bloc M&A + bloc procédures collectives :
 > - **Position dominante** — ce skill suppose le **côté repreneur** (le candidat acquéreur)
 > - **Side M&A habituel** — acquéreur ; taille de deals typique
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`.
 
@@ -87,7 +86,6 @@ Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage
 
 ## Gate non-juriste
 
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] **Gate 1 — niveau de difficulté tranché** : cible située sur le spectre (in bonis / amiable / RJ / LJ) ; **CP > 45 j sans procédure → STOP + renvoi `prevention-difficultes`**
 - [ ] **Routage identifié** : amiable préparable → `pre-pack-cession` ; RJ/LJ avec appel d'offres → `reprise-a-la-barre` ; actifs isolés en LJ → `cession-actifs-isoles` ; share deal → `spa-review` / `gap-review` / `closing-checklist-fr`
 - [ ] **Gate 2 (a) — passif** : ne JAMAIS laisser entendre qu'un **share deal purge le passif** ; on hérite dettes + procédures + litiges
@@ -174,9 +172,9 @@ outputs/asset-vs-share-distress-<entreprise-slug>-YYYY-MM-DD.md
 
 ---
 
-## Étape 1 — Pré-flight et Gate 1 (diagnostic + routage)
+## Étape 1 — Gate 1 (diagnostic + routage)
 
-1. Invoquer `check-pii`. Lire le profil cabinet (blocs M&A + procédures collectives) et confirmer le **côté repreneur**. Raisonner **à la date du jour** (dates absolues).
+1. Lire le profil cabinet (blocs M&A + procédures collectives) et confirmer le **côté repreneur**. Raisonner **à la date du jour** (dates absolues).
 2. Vérifier via `bodacc_procedures` / `bodacc_by_siren` / `company_full_profile` où en est la cible : procédure ouverte ? type (amiable confidentiel non publié / RJ / LJ) ? dates ? **cessation des paiements** caractérisée et datée ?
 3. **Trancher le niveau de difficulté + router.** Cas tranchant : si la **cessation des paiements date de plus de 45 jours et qu'aucune procédure collective n'est ouverte**, l'entreprise **doit la déclarer** (obligation du dirigeant) — on ne structure pas une acquisition libre → **renvoi `/h-da:prevention-difficultes`**. Sinon, orienter : amiable préparable → `pre-pack-cession` ; RJ/LJ avec appel d'offres → `reprise-a-la-barre` ; actifs isolés en LJ → `cession-actifs-isoles`.
 

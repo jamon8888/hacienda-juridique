@@ -44,7 +44,7 @@ tags: [prevention, mandat-ad-hoc, conciliation, sauvegarde-acceleree, l611, entr
 <example>
 <user>/h-da:prevention-difficultes --orienter "trésorerie tendue, négociation avec 3 banques, pas en cessation des paiements"</user>
 <response>
-1. Pré-flight `check-pii`. Lecture profil cabinet (position dominante : débiteur).
+1. Lecture profil cabinet (position dominante : débiteur).
 2. **Gate cessation des paiements** : l'entreprise fait encore face à son passif exigible → PAS en cessation des paiements. Dispositifs préventifs ouverts.
 3. Orientation : difficulté financière avérée, besoin de négocier avec un petit nombre de créanciers identifiés et de préserver la confidentialité → **mandat ad hoc** (souple, sans limite de durée) ou **conciliation** (cadre, 4+1 mois, accord constaté/homologué). Recommandation motivée selon l'objectif (simple négociation vs accord exécutoire + new money).
 4. Sortie : note d'orientation confidentielle + arbre d'options (dont `--draft` pour la requête).
@@ -86,7 +86,6 @@ Conciliation engagée mais un créancier minoritaire refuse un accord soutenu pa
 > Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/CLAUDE.md`, bloc procédures collectives :
 > - **Position dominante** — créancier / **débiteur** (cas dominant ici) / mandataire / mixte
 > - **Tribunaux habituels** — président du tribunal compétent (commerce / judiciaire selon l'activité)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`.
 
@@ -105,7 +104,6 @@ Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage
 
 ## Gate non-juriste
 
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] **Gate cessation des paiements tranché** : si > 45 j → STOP, renvoi droit commun, AUCUN dispositif préventif proposé
 - [ ] Profil cabinet lu, position (débiteur/créancier) et tribunal identifiés
 - [ ] Dispositif recommandé cohérent avec l'objectif (mandat ad hoc = souplesse/confidentialité ; conciliation = cadre + accord exécutoire + new money ; sauvegarde accélérée = imposer un plan à une minorité, suppose une conciliation préalable)
@@ -171,9 +169,9 @@ Contrairement à une mise en demeure, le dispositif préventif est **confidentie
 
 ---
 
-## Étape 1 — Pré-flight et diagnostic cessation des paiements (gate)
+## Étape 1 — Diagnostic cessation des paiements (gate)
 
-1. Invoquer `check-pii`. Lire le profil cabinet (bloc procédures collectives).
+1. Lire le profil cabinet (bloc procédures collectives).
 2. Vérifier via `bodacc_procedures` qu'**aucune procédure collective n'est déjà ouverte** (sinon le dispositif préventif est sans objet → renvoi).
 3. **Trancher la cessation des paiements** (art. L.631-1 C.com. `[Légifrance]`) : passif exigible vs actif disponible. Date de survenance si applicable.
    - Non / prévisible → Étape 2.

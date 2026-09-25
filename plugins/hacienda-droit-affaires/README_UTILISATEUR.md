@@ -209,9 +209,6 @@ Le plugin tourne en local. Pour les documents les plus sensibles :
 - **Avec `hacienda-ghost`** *(compagnon d'anonymisation — statut à préciser)* : les
   identifiants sensibles (parties nommées, montants > 10 k€, IBAN, numéros de pièce…)
   sont anonymisés **automatiquement** avant tout envoi au modèle.
-- **Sans ghost** : le plugin affiche un **compteur** et un **avertissement** avant de
-  traiter les documents sensibles — **c'est toi qui décides à chaque fois**. Tu peux
-  aussi lancer `/h-da:check-pii` en pré-vol sur un document.
 
 ## Un mot sur le périmètre
 

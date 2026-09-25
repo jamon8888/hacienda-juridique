@@ -88,7 +88,6 @@ Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage
 
 ## Gate non-juriste
 
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] **Gate 1 — porte d'entrée tranchée** : cible **déjà en RJ/LJ avec appel d'offres ouvert** → ce skill ; sinon (cession préparable confidentiellement) → STOP + renvoi `pre-pack-cession`
 - [ ] **Régime confirmé** : en RJ, cession possible **dès la période d'observation** (L.631-22 → L.642-1 s.) ; ne jamais exiger une LJ préalable
 - [ ] **Gate 2 (a) — éligibilité (L.642-3)** : pas de dirigeant / parent / interposition prohibée ; si lien suspect → STOP, offre potentiellement nulle, `[review]`
@@ -174,9 +173,9 @@ outputs/reprise-a-la-barre-<entreprise-slug>-YYYY-MM-DD.md
 
 ---
 
-## Étape 1 — Pré-flight et Gate 1 (porte d'entrée)
+## Étape 1 — Gate 1 (porte d'entrée)
 
-1. Invoquer `check-pii`. Lire le profil cabinet (blocs procédures collectives + M&A) et confirmer le **côté repreneur**. Raisonner **à la date du jour** (dates absolues) avec un **rétroplanning** : date limite de dépôt des offres, audience.
+1. Lire le profil cabinet (blocs procédures collectives + M&A) et confirmer le **côté repreneur**. Raisonner **à la date du jour** (dates absolues) avec un **rétroplanning** : date limite de dépôt des offres, audience.
 2. Vérifier via `bodacc_procedures` / `bodacc_by_siren` que la cible est **bien en RJ/LJ** : type de procédure, date du jugement d'ouverture, administrateur désigné.
 3. **Trancher la porte d'entrée** : procédure ouverte + appel d'offres en cours → ce skill. **Aucune procédure ouverte** et cession préparable confidentiellement → ce n'est pas une reprise à la barre → **renvoi `/h-da:pre-pack-cession`** (montage amont). Ne pas avancer sans avoir tranché.
 4. **Trancher le régime (art. L.631-22 / L.642-1 s. `[Légifrance]`)** : si la cible est en **redressement judiciaire**, le tribunal peut arrêter la cession (totale ou partielle) **dès la période d'observation** sur le fondement de **L.631-22**, qui rend applicable le régime du plan de cession **L.642-1 et s.** Ne jamais conditionner la reprise à la barre à une **liquidation préalable** ni affirmer que la cession serait impossible pendant l'observation.

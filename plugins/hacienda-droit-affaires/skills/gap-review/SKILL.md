@@ -31,13 +31,12 @@ tags: [gap, ma, garantie-actif-passif, cession, spa]
 <example>
 <user>/h-da:gap-review ./GAP-cession-Y.pdf --side=acquereur --prix=15000000</user>
 <response>
-1. Pré-flight `check-pii` (typique : montants > 100k€ → seuil B → prompt utilisateur)
-2. Lecture profil bloc M&A (side acquéreur, plafond cible 20-25 %, approbateur SPA)
-3. Identification GAP : parties, date référence (closing/signing), prix cession (CLI override 15 M€)
-4. Analyse 5 axes (périmètre / mécanique / procédure / clauses sensibles / DD)
-5. Liste de points consolidée via appel interne `liste-de-points` (mode composant)
-6. Post-flight `verifier-citations`
-7. Sortie : en-tête confidentialité + note du relecteur + résumé exécutif + analyse par axe + liste de points + recommandation Accepter/Négocier/Refuser + question hors checklist + arbre 5 options
+1. Lecture profil bloc M&A (side acquéreur, plafond cible 20-25 %, approbateur SPA)
+2. Identification GAP : parties, date référence (closing/signing), prix cession (CLI override 15 M€)
+3. Analyse 5 axes (périmètre / mécanique / procédure / clauses sensibles / DD)
+4. Liste de points consolidée via appel interne `liste-de-points` (mode composant)
+5. Post-flight `verifier-citations`
+6. Sortie : en-tête confidentialité + note du relecteur + résumé exécutif + analyse par axe + liste de points + recommandation Accepter/Négocier/Refuser + question hors checklist + arbre 5 options
 
 Exemple finding : plafond global 12 % du prix → 🟠 (sous fourchette acquéreur 20-25 %) → négocier hausse vers 20 % ou exiger plafonds spécifiques fiscal-social non absorbés par le plafond commun.
 </response>
@@ -77,7 +76,6 @@ Note du relecteur : « Doc bilingue détecté — ce skill applique le cadre fra
 > - **Posture GAP par défaut** — fourchettes durée / plafond / franchise / panier
 > - **Approbateur signature SPA** — avocat M&A + GC + sponsor business
 > - **Clauses "jamais acceptées"** côté habituel (ex. acquéreur : refus knowledge qualifier ; cédant : refus garantie de la garantie au-delà séquestre standard)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le profil n'est pas peuplé (`[A CONFIGURER]`) : stopper et demander `/h-da:entretien-demarrage`. Le bloc M&A est requis — sans side habituel ni fourchettes, le calibrage des findings est impossible.
 
@@ -99,7 +97,6 @@ Si `--side` est absent : stopper et demander explicitement. Le skill est side-de
 ## Gate non-juriste
 
 - [ ] `--side` fourni et confirmé (cédant ou acquéreur — pas d'analyse neutre)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet bloc M&A lu, fourchettes usage cabinet identifiées
 - [ ] Renvoi PI effectué si le périmètre cédé est PI-centric
 - [ ] SIREN cible détecté → enrichissement Pappers/BODACC + alerte procédure collective si applicable
@@ -109,10 +106,6 @@ Si `--side` est absent : stopper et demander explicitement. Le skill est side-de
 - [ ] Sortie comprend : en-tête confidentialité + note du relecteur + résumé exécutif + analyse par axe + liste de points + recommandation + question hors checklist + arbre 5 options
 
 ---
-
-## Mode Anno Desktop Optionnel
-
-Sur une GAP longue ou liée à des annexes DD, appeler `anno_health`, puis `detect`. Utiliser `legal_extract_contract`, `legal_mandatory_clause_audit`, `legal_risk_review` et `review_create`, `review_extract` pour cartographier déclarations, exceptions, plafonds, franchises, durées et preuves.
 
 ## Outils MCP à privilégier
 
@@ -137,13 +130,12 @@ Si la liste de points dépasse 10 lignes ou si l'axe 5 contient des findings chi
 
 Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
 
-## Étape 1 — Pré-flight et identification
+## Étape 1 — Identification
 
-1. Invoquer `check-pii`. **Probabilité élevée seuil B atteint** (montants nominatifs, cédants/acquéreurs personnes physiques, SIREN cible). Respecter la décision utilisateur.
-2. Lire profil cabinet (bloc M&A) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
-3. Identifier : parties, side confirmé via CLI, prix de cession (CLI override prioritaire sinon extrait du doc), date de référence (signing/closing — critique pour l'axe 1), date d'effet GAP.
-4. Détection SIREN cible → `company_full_profile` (Pappers ✓) + alerte procédure collective via BODACC. Tag `[Pappers]` ou `[BODACC]`.
-5. Si `--dd-findings` fourni : indexer chaque finding (libellé, sévérité DD, quantification).
+1. Lire profil cabinet (bloc M&A) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
+2. Identifier : parties, side confirmé via CLI, prix de cession (CLI override prioritaire sinon extrait du doc), date de référence (signing/closing — critique pour l'axe 1), date d'effet GAP.
+3. Détection SIREN cible → `company_full_profile` (Pappers ✓) + alerte procédure collective via BODACC. Tag `[Pappers]` ou `[BODACC]`.
+4. Si `--dd-findings` fourni : indexer chaque finding (libellé, sévérité DD, quantification).
 
 ---
 
@@ -354,11 +346,6 @@ d'honnête à dire — ne pas fabriquer.}
 3. **Compléter les faits** — questions ouvertes à poser au {cédant / acquéreur / management cible / conseil} avant d'avancer sur la GAP.
 4. **Surveiller et attendre** — j'ajoute la GAP au tracker du deal avec note motivée et date de revisite (closing, expiration garantie, échéance compensation).
 5. **Autre** — précise.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B :
-"Ce skill a traité {N} mentions identifiantes (parties, dirigeants,
-montants). Pour anonymiser automatiquement avant envoi à Claude, installer
-[hacienda-ghost](marketplace://hacienda-ghost)." Sinon, rien.}
 ```
 
 ### Mode silencieux (livrable externe)

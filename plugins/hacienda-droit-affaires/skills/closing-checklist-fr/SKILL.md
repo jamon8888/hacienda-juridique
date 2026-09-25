@@ -42,15 +42,14 @@ tags: [closing, checklist, ma, conditions-suspensives, formalites, pe, lbo, fund
 <example>
 <user>/h-da:closing-checklist-fr --type=cession-titres --forme=SAS</user>
 <response>
-1. Pré-flight `check-pii` (parties, dirigeants, prix de cession → probable seuil B → prompt utilisateur, décision respectée)
-2. Lecture profil cabinet (bloc M&A / Corporate : side habituel, matrice d'approbateurs — ligne « Signature SPA »)
-3. Intake : opération = cession de titres ; forme = SAS ; conditions suspensives connues ; date de closing visée
-4. Étape 1 — recensement des conditions suspensives : agrément, financement, autorisations — statut / responsable / échéance par CP
-5. Étape 2 — séquençage signing / closing : ordre des étapes, actes à signer le jour du closing
-6. Étape 3 — documentation de closing : ordres de mouvement de titres, déclarations, attestations, mainlevées de sûretés
-7. Étape 4 — formalités post-closing : inscription au registre de mouvements de titres + mise à jour des comptes d'associés (opposabilité de la cession d'actions), enregistrement de la cession (formalité + délai ; taux `[à vérifier]` → renvoi expert-comptable / `hacienda-fiscal`), information des tiers
-8. Étape 5 — post-flight `verifier-citations`
-9. Sortie : en-tête confidentialité + note du relecteur (5 champs) + checklist en 4 volets (CP / séquençage / documentation / post-closing) sous forme de tableaux + question hors checklist + arbre de décision 5 options
+1. Lecture profil cabinet (bloc M&A / Corporate : side habituel, matrice d'approbateurs — ligne « Signature SPA »)
+2. Intake : opération = cession de titres ; forme = SAS ; conditions suspensives connues ; date de closing visée
+3. Étape 1 — recensement des conditions suspensives : agrément, financement, autorisations — statut / responsable / échéance par CP
+4. Étape 2 — séquençage signing / closing : ordre des étapes, actes à signer le jour du closing
+5. Étape 3 — documentation de closing : ordres de mouvement de titres, déclarations, attestations, mainlevées de sûretés
+6. Étape 4 — formalités post-closing : inscription au registre de mouvements de titres + mise à jour des comptes d'associés (opposabilité de la cession d'actions), enregistrement de la cession (formalité + délai ; taux `[à vérifier]` → renvoi expert-comptable / `hacienda-fiscal`), information des tiers
+7. Étape 5 — post-flight `verifier-citations`
+8. Sortie : en-tête confidentialité + note du relecteur (5 champs) + checklist en 4 volets (CP / séquençage / documentation / post-closing) sous forme de tableaux + question hors checklist + arbre de décision 5 options
 </response>
 </example>
 
@@ -133,7 +132,6 @@ les analyser au fond — la revue de fond relève des skills dédiés (voir
 
 - [ ] Type d'opération fourni et confirmé (cession de titres / cession de fonds de commerce / fusion — formalités distinctes)
 - [ ] Forme(s) sociale(s) identifiée(s) — mode de transfert et organe d'agrément calibrés sur la forme
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet bloc M&A lu : side habituel, matrice d'approbateurs (ligne « Signature SPA »)
 - [ ] Volet 1 — conditions suspensives recensées avec statut / responsable / échéance par CP
 - [ ] Volet 2 — séquençage signing / closing : distinction signing / closing explicite, actes à signer le jour du closing identifiés
@@ -475,10 +473,6 @@ rien d'honnête à dire — ne pas fabriquer.}
 3. **Compléter les faits** — questions ouvertes à poser au {cédant / acquéreur / société cible / conseil / expert-comptable} pour compléter le recensement des CP et de la documentation.
 4. **Surveiller et attendre** — j'ajoute la checklist au tracker du deal avec note motivée et date de revisite (levée des CP, date de closing, échéance de la formalité d'enregistrement).
 5. **Autre** — précise ce que tu veux en faire.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B :
-[Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
-Sinon, rien.}
 ```
 
 ### Mode silencieux (livrable externe)

@@ -95,14 +95,6 @@ les valeurs `[A CONFIGURER]` sont présentes, c'est un template. Une fois peupl�
 | Signature SPA | [A CONFIGURER — avocat + GC + sponsor business] | — |
 | Déclaration de créance > 100k€ | [A CONFIGURER] | contestation reçue |
 
-### Politique PII / confidentialité
-
-**politique_pii :** [A CONFIGURER — passive / active / strict — défaut: active]
-**Seuil B (alerte ferme) :** 50 identifiants OU 1+ catégorie sensible
-**Catégories sensibles activées :** [A CONFIGURER — IBAN, NIR, ID, santé, montants > 10k€, mots-clés "confidentiel/secret affaires"]
-
----
-
 ## 2. Sorties standardisées
 
 **En-tête de confidentialité** (à apposer en tête de toute analyse, note, revue ou évaluation produite par ce plugin). L'en-tête varie selon le rôle :
@@ -178,9 +170,9 @@ génère plusieurs — ex. liste de questions *et* note d'escalade) :
   dans la note d'accompagnement / note du relecteur, jamais dans le corps client — la
   règle du mode silencieux s'applique aussi aux continuations.
 - **Re-signalement de l'état dégradé** : si l'analyse amont tournait sans PISTE/
-  Légifrance (citations non vérifiées) ou sous une décision PII « continuer une fois »,
-  la continuation **re-signale** cet état en tête de sa propre note du relecteur — elle
-  n'hérite pas silencieusement du garde-fou.
+  Légifrance (citations non vérifiées), la continuation **re-signale** cet état en
+  tête de sa propre note du relecteur — elle n'hérite pas silencieusement du
+  garde-fou.
 
 ---
 
@@ -348,53 +340,7 @@ Exemples de calibrage :
 
 ---
 
-## 10. Mode Anno Desktop Optionnel
-
-Si la distribution Hacienda + Anno Desktop est active, utiliser Anno comme
-mémoire/RAG local de dossier client, jamais comme source primaire et jamais
-comme registre officiel. Le plugin Droit des affaires doit rester pleinement
-utilisable sans Anno.
-
-Avant tout outil Anno :
-
-1. appeler `anno_health` ;
-2. si Anno est indisponible, annoncer le fallback et poursuivre en mode
-   Hacienda ;
-3. avant tout traitement de pièce client, appeler `detect` ou appliquer une
-   gestion PII Anno équivalente ;
-4. n'appeler `legal_ingest` que si l'utilisateur demande explicitement
-   l'indexation d'un dossier ou document local ;
-5. utiliser `legal_search` et `legal_graph_query` seulement sur un corpus déjà
-   ingéré et autorisé ;
-6. utiliser `legal_rehydrate_citation` uniquement pour une sortie locale
-   destinée à l'utilisateur autorisé.
-
-Workflows Anno Droit des affaires autorisés quand Anno est disponible :
-
-| Workflow | Outils Anno utiles |
-|---|---|
-| Revue de contrat / NDA | `legal_extract_contract`, `legal_risk_review`, `legal_search`, `review_create`, `review_extract` |
-| Due diligence data-room | `legal_ingest`, `legal_search`, `legal_graph_query`, `legal_extract_contract`, `review_create`, `review_add_rows`, `review_extract` |
-| SPA / protocole de cession | `legal_extract_contract`, `legal_risk_review`, `review_create`, `review_extract`, `legal_validate_field` |
-| GAP | `legal_extract_contract`, `legal_mandatory_clause_audit`, `legal_risk_review`, `review_create`, `review_extract` |
-| Déclaration de créance | `legal_timeline`, `legal_prescription_check`, `legal_validate_field`, `legal_search` |
-| Gouvernance / assemblées | `legal_timeline`, `legal_validate_field`, `review_create`, `review_extract` |
-
-Quand Anno Tabular est disponible, traiter les workflows riches comme une
-revue de dossier structurée : documents, clauses, faits, risques ou échéances
-en lignes ; questions métier en colonnes ; citation par cellule ; statut de
-revue ; responsable ; décision ; échéance ; validation humaine. Une cellule
-avec confiance faible, citation absente, contradiction ou source officielle
-non consultée reste `[à vérifier]`.
-
-Les passages Anno sont une source interne Anno de dossier. Les textes,
-jurisprudences, registres d'entreprises, annonces BODACC, BOFiP, BOSS et droit
-UE restent vérifiés via `hacienda-sources-officielles` ou les outils MCP
-Hacienda Droit des affaires.
-
----
-
-## 11. Sources prioritaires
+## 10. Sources prioritaires
 
 | Sujet | Source primaire | Intégré core |
 |---|---|---|
@@ -411,7 +357,7 @@ Hacienda Droit des affaires.
 
 ---
 
-## 12. Workspaces de dossier (désactivé v1 — disponible v1.1)
+## 11. Workspaces de dossier (désactivé v1 — disponible v1.1)
 
 **Activé : ✗** — Fonctionnalité désactivée en v1. Sera activée en v1.1.
 

@@ -107,7 +107,6 @@ Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage
 
 ## Gate non-juriste
 
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] **Gate 1 — qualification tranchée** : actif **isolé** (mobilier/incorporel) → ce skill ; entreprise / unité de production en **going concern** → STOP + renvoi `reprise-a-la-barre` ; cession préparable confidentiellement en amont → STOP + renvoi `pre-pack-cession`
 - [ ] **Périmètre confirmé** : biens mobiliers / incorporels (L.642-19) ; un **immeuble** relève de **L.642-18** → hors périmètre v1, signaler
 - [ ] **Gate 2 (a) — éligibilité (L.642-20 → L.642-3)** : pas de dirigeant / parent ou allié jusqu'au 2nd degré / contrôleur / interposition ; si lien suspect → **établir les faits** (qualité exacte à l'ouverture, dirigeance de fait, interposition, bénéficiaire effectif) **avant de conclure** ; qualifier le **risque** (pas une nullité acquise), `[review]`
@@ -195,9 +194,9 @@ outputs/cession-actifs-isoles-<entreprise-slug>-YYYY-MM-DD.md
 
 ---
 
-## Étape 1 — Pré-flight et Gate 1 (qualification)
+## Étape 1 — Gate 1 (qualification)
 
-1. Invoquer `check-pii`. Lire le profil cabinet (blocs procédures collectives + M&A) et confirmer le **côté repreneur**. Raisonner **à la date du jour** (dates absolues).
+1. Lire le profil cabinet (blocs procédures collectives + M&A) et confirmer le **côté repreneur**. Raisonner **à la date du jour** (dates absolues).
 2. Vérifier via `bodacc_procedures` / `bodacc_by_siren` que le débiteur est **bien en LJ** : date du jugement, liquidateur désigné.
 3. **Trancher la qualification** : l'objet est-il un **actif isolé** (bien mobilier / incorporel / fonds / marque / stock / créance) ou une **entreprise / unité de production en going concern** ? Si going concern → ce n'est pas une cession d'actif isolé → **renvoi `/h-da:reprise-a-la-barre`** (plan de cession). Si aucune procédure ouverte et cession préparable confidentiellement → **renvoi `/h-da:pre-pack-cession`**. Ne pas avancer sans avoir tranché.
 4. **Vérifier le périmètre (L.642-19 vs L.642-18 `[Légifrance]`)** : la cession des **biens mobiliers et incorporels** relève de **L.642-19** (de gré à gré ou enchères, sur autorisation du juge-commissaire) ; la cession d'un **immeuble** relève de **L.642-18** (adjudication, surenchère) → **hors périmètre v1**, signaler et renvoyer.

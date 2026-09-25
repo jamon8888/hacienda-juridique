@@ -47,20 +47,19 @@ tags: [cgv, cgu, generation, b2b, b2c, code-consommation, l441-1]
 <example>
 <user>/h-da:cgv-generator --draft --regime=B2B</user>
 <response>
-1. Pré-flight `check-pii` (dénomination, coordonnées, RCS — souvent sous le seuil B).
-2. Lecture profil cabinet (bloc « contrats commerciaux » : posture par défaut, clauses jamais acceptées, matrice d'approbateurs, politique PII).
-3. Intake : régime **B2B**, société de prestation de services informatiques vendant à des clients professionnels, canal sans objet (B2B).
-4. Étape 1 — confirmation du régime : B2B → cadre Code de commerce.
-5. Étape 2 — brouillon de CGV B2B selon `${CLAUDE_SKILL_DIR}/../../references/regimes-cgv-cgu-fr.md` partie B2B : mentions obligatoires art. L.441-1 C.com. [à vérifier] (conditions de règlement, barème de prix unitaires, réductions de prix). **Chaque arbitrage tagué `[review]`** : conditions de règlement, barème de prix, clause de réserve de propriété, limitation de responsabilité, droit applicable. Vérification du plafond de paiement L.441-10 C.com. [à vérifier] (60 j / 45 j fin de mois).
-6. Étape 4 — post-flight `verifier-citations`.
-7. Sortie : note du relecteur + brouillon de CGV `[review]`-tagué + **liste explicite des points à arbitrer** — le livrable est présenté comme un brouillon de travail, jamais comme « prêt à publier ».
+1. Lecture profil cabinet (bloc « contrats commerciaux » : posture par défaut, clauses jamais acceptées, matrice d'approbateurs).
+2. Intake : régime **B2B**, société de prestation de services informatiques vendant à des clients professionnels, canal sans objet (B2B).
+3. Étape 1 — confirmation du régime : B2B → cadre Code de commerce.
+4. Étape 2 — brouillon de CGV B2B selon `${CLAUDE_SKILL_DIR}/../../references/regimes-cgv-cgu-fr.md` partie B2B : mentions obligatoires art. L.441-1 C.com. [à vérifier] (conditions de règlement, barème de prix unitaires, réductions de prix). **Chaque arbitrage tagué `[review]`** : conditions de règlement, barème de prix, clause de réserve de propriété, limitation de responsabilité, droit applicable. Vérification du plafond de paiement L.441-10 C.com. [à vérifier] (60 j / 45 j fin de mois).
+5. Étape 4 — post-flight `verifier-citations`.
+6. Sortie : note du relecteur + brouillon de CGV `[review]`-tagué + **liste explicite des points à arbitrer** — le livrable est présenté comme un brouillon de travail, jamais comme « prêt à publier ».
 </response>
 </example>
 
 <example>
 <user>/h-da:cgv-generator --draft --regime=B2C — vente à distance de cosmétiques</user>
 <response>
-1. Pré-flight `check-pii` + lecture profil cabinet.
+1. Lecture profil cabinet.
 2. Intake : régime **B2C**, vente de cosmétiques, **canal = vente à distance** (site e-commerce).
 3. Étape 1 — confirmation du régime + canal : B2C, vente à distance → la rétractation L.221-18 C.conso [à vérifier] s'applique.
 4. Étape 3 — brouillon de CGU/CGV B2C selon la partie B2C : information précontractuelle art. L.111-1 C.conso [à vérifier], droit de rétractation **14 jours** art. L.221-18 C.conso [à vérifier] + formulaire type, garantie légale de conformité art. L.217-3 et s. C.conso [à vérifier], médiation de la consommation. **Contrôle : aucune clause de liste noire R.212-1 [à vérifier]** ; les clauses de liste grise R.212-2 [à vérifier] taguées `[review]`. Signalement : certains cosmétiques descellés peuvent relever d'une exception de rétractation pour raison d'hygiène (art. L.221-28 C.conso [à vérifier]) → `[review]`.
@@ -108,7 +107,6 @@ Le skill **refuse d'insérer** ces clauses, l'explique au client, et propose à 
 >   findings 🔴)
 > - **Rôle de l'utilisateur courant** — conditionne l'en-tête de confidentialité
 >   (avocat / notaire / juriste in-house / non-juriste)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc « contrats commerciaux » est encore en `[A CONFIGURER]` : stopper et
 demander `/h-da:entretien-demarrage`. Sans posture
@@ -148,7 +146,6 @@ est absent, **stopper et demander** — pas de valeur par défaut sur le régime
 
 - [ ] Mode `--draft` retenu (mode unique) ; revue d'une CGV existante renvoyée à `reviser-contrat`
 - [ ] **Régime** détecté ou explicitement demandé (B2B / B2C / mixte) — jamais supposé
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet bloc « contrats commerciaux » lu (posture, clauses jamais acceptées, approbateurs)
 - [ ] Si B2C ou mixte : canal de vente vérifié (présentiel vs à distance — détermine la rétractation)
 - [ ] B2B : mentions obligatoires art. L.441-1 C.com. présentes (conditions de règlement, barème de prix unitaires, réductions de prix)
@@ -157,7 +154,7 @@ est absent, **stopper et demander** — pas de valeur par défaut sur le régime
 - [ ] B2C : AUCUNE clause de liste noire R.212-1 dans le brouillon ; clauses de liste grise R.212-2 taguées `[review]`
 - [ ] Chaque clause d'arbitrage taguée `[review]` ; liste des points à arbitrer explicite ; livrable NON présenté comme « prêt à publier »
 - [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]` ; tous les articles du Code de la consommation en `[à vérifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + régime déterminé + brouillon(s) + points à arbitrer + question hors checklist + arbre de décision 5 options + footer A si applicable
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + régime déterminé + brouillon(s) + points à arbitrer + question hors checklist + arbre de décision 5 options
 
 ---
 
@@ -216,10 +213,6 @@ fichiers suffixés `-b2b` et `-b2c`.
 3. **Compléter les faits** — questions ouvertes à poser au client avant d'avancer (qualité exacte des cocontractants, canal de vente, médiateur adhéré, régime sectoriel éventuel).
 4. **Surveiller et attendre** — j'ajoute le dossier de CGV/CGU au tracker avec note motivée et date de revisite (ex. en attente de confirmation du médiateur de la consommation).
 5. **Autre** — précise ce que tu veux en faire.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B :
-[Ce skill a traité {N} mentions identifiantes (dénomination, coordonnées, RCS). Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
-Sinon, rien.}
 ```
 
 ### Mode silencieux (livrable externe)
@@ -236,17 +229,14 @@ Si le brouillon de CGV/CGU est destiné à être transmis hors du périmètre ca
 
 ---
 
-## Étape 1 — Pré-flight et détermination du régime
+## Étape 1 — Détermination du régime
 
 **Étape juridique active, pas une simple formalité.** Le régime conditionne
 l'intégralité du brouillon.
 
-1. Invoquer `check-pii` sur les éléments fournis (dénomination, coordonnées,
-   RCS, médiateur) avec la politique du profil. Selon le verdict
-   (continue / prompt / abort), respecter la décision utilisateur.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires, bloc « contrats
+1. Lire le profil cabinet (CLAUDE.md droit-affaires, bloc « contrats
    commerciaux ») et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
-3. **Confirmer le régime** (intake point 2) :
+2. **Confirmer le régime** (intake point 2) :
    - **B2B** — client professionnel → cadre **Code de commerce** → Étape 2.
    - **B2C** — client consommateur → cadre **Code de la consommation** → Étape 3.
    - **Mixte** — les deux publics → Étapes 2 **et** 3. Exposer au client que

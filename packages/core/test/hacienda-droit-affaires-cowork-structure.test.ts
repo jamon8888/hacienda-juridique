@@ -219,7 +219,7 @@ describe("hacienda droit affaires cowork packaging", () => {
   it("declares explicit V2 metadata and command hints on every skill", () => {
     const skillFiles = collectSkillFiles();
 
-    expect(skillFiles.length).toBe(32);
+    expect(skillFiles.length).toBe(31);
 
     const EXPECTED_SKILL_VERSION: Record<string, string> = {
       "pacte-associes-review": "2.1.0",
@@ -307,44 +307,6 @@ describe("hacienda droit affaires cowork packaging", () => {
     expect(combined).toContain("/h-pi:contrats-pi");
   });
 
-  it("documents optional Anno orchestration for high-value Droit des affaires workflows", () => {
-    const annoAwareFiles = [
-      "CLAUDE.md",
-      "README.md",
-      "skills/entretien-demarrage/SKILL.md",
-      "skills/reviser-contrat/SKILL.md",
-      "skills/reviser-nda/SKILL.md",
-      "skills/revue-tabulaire/SKILL.md",
-      "skills/due-diligence-dataroom/SKILL.md",
-      "skills/spa-review/SKILL.md",
-      "skills/gap-review/SKILL.md",
-      "skills/declaration-creance/SKILL.md",
-      "skills/gouvernance-ag/SKILL.md"
-    ].map((relativePath) => resolve(pluginRoot, relativePath));
-    const combined = annoAwareFiles
-      .map((file) => readFileSync(file, "utf8"))
-      .join("\n");
-
-    expect(combined).toContain("Mode Anno Desktop Optionnel");
-    expect(combined).toContain("anno_health");
-    expect(combined).toContain("detect");
-    expect(combined).toContain("legal_ingest");
-    expect(combined).toContain("legal_search");
-    expect(combined).toContain("legal_graph_query");
-    expect(combined).toContain("legal_extract_contract");
-    expect(combined).toContain("legal_risk_review");
-    expect(combined).toContain("legal_mandatory_clause_audit");
-    expect(combined).toContain("legal_timeline");
-    expect(combined).toContain("legal_prescription_check");
-    expect(combined).toContain("legal_validate_field");
-    expect(combined).toContain("review_create");
-    expect(combined).toContain("review_add_rows");
-    expect(combined).toContain("review_extract");
-    expect(combined).toContain("review_refine_cell");
-    expect(combined).toContain("source interne");
-    expect(combined).toContain("jamais comme source primaire");
-  });
-
   it("declares exact MCP tool names inside every Droit des affaires skill", () => {
     for (const file of collectSkillFiles()) {
       const content = readFileSync(file, "utf8");
@@ -372,7 +334,6 @@ describe("hacienda droit affaires cowork packaging", () => {
       "## Chargement du profil",
       "## Intake",
       "## Gate non-juriste",
-      "## Mode Anno Desktop Optionnel",
       "## Outils MCP à privilégier",
       "## Emplacement des sorties",
       "## Sortie"

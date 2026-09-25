@@ -58,16 +58,15 @@ tags: [rupture-brutale, distribution, l442-1, contentieux, preavis, relation-eta
 <example>
 <user>/h-da:analyser-rupture-brutale ./contrat-distribution-A-B.pdf ./notification-rupture-A.pdf --review --side=victime</user>
 <response>
-1. Pré-flight `check-pii` (parties + volumes commerciaux → seuil B fréquent → prompt utilisateur).
-2. Lecture profil cabinet (posture contentieuse, approbateur configuré pour mise en demeure).
-3. Identification : contrat de distribution exclusive FR, ancienneté 8 ans, exclusivité totale, dépendance économique forte (≈ 70 % du CA de B). Side = victime (B, distributeur).
-4. Étape 2 — Qualification 🟢 « relation établie » : 8 ans + exclusivité contractuelle + dépendance ≈ 70 % CA + tacite reconduction annuelle. L.442-1, II C.com. (ex-L.442-6, I, 5°) `[stable]`.
-5. Étape 3 — Préavis : règle de pouce ≈ 1 mois par année d'ancienneté = 8 mois plancher, majoré par dépendance forte → fourchette estimée 10 à 12 mois `[review]`. Préavis effectif accordé : 3 mois → finding 🔴 préavis manifestement insuffisant. Safe harbor 18 mois non invocable par A (préavis effectif < 18 mois).
-6. Étape 4 — Préjudice : (préavis raisonnable estimé − préavis effectif) × marge brute mensuelle. Avec marge mensuelle ≈ 50 k€ et fourchette 7 à 9 mois manquants → ordre de grandeur 350 à 450 k€ `[review]` (à reraffiner sur comptes audités).
-7. Étape 5 — Dispense : aucune inexécution alléguée contre B, aucune force majeure invoquée → pas de base solide pour dispense de préavis.
-8. Liste de points triée par criticité décroissante via `liste-de-points`.
-9. Post-flight `verifier-citations` (L.442-1 II vérifié Légifrance, jurisprudence ch. com. à reraffiner Judilibre).
-10. Sortie : en-tête confidentialité + note du relecteur + résumé exécutif + qualification + préavis + préjudice + dispense + liste de points + recommandation Engager + question hors checklist + arbre 5 options.
+1. Lecture profil cabinet (posture contentieuse, approbateur configuré pour mise en demeure).
+2. Identification : contrat de distribution exclusive FR, ancienneté 8 ans, exclusivité totale, dépendance économique forte (≈ 70 % du CA de B). Side = victime (B, distributeur).
+3. Étape 2 — Qualification 🟢 « relation établie » : 8 ans + exclusivité contractuelle + dépendance ≈ 70 % CA + tacite reconduction annuelle. L.442-1, II C.com. (ex-L.442-6, I, 5°) `[stable]`.
+4. Étape 3 — Préavis : règle de pouce ≈ 1 mois par année d'ancienneté = 8 mois plancher, majoré par dépendance forte → fourchette estimée 10 à 12 mois `[review]`. Préavis effectif accordé : 3 mois → finding 🔴 préavis manifestement insuffisant. Safe harbor 18 mois non invocable par A (préavis effectif < 18 mois).
+5. Étape 4 — Préjudice : (préavis raisonnable estimé − préavis effectif) × marge brute mensuelle. Avec marge mensuelle ≈ 50 k€ et fourchette 7 à 9 mois manquants → ordre de grandeur 350 à 450 k€ `[review]` (à reraffiner sur comptes audités).
+6. Étape 5 — Dispense : aucune inexécution alléguée contre B, aucune force majeure invoquée → pas de base solide pour dispense de préavis.
+7. Liste de points triée par criticité décroissante via `liste-de-points`.
+8. Post-flight `verifier-citations` (L.442-1 II vérifié Légifrance, jurisprudence ch. com. à reraffiner Judilibre).
+9. Sortie : en-tête confidentialité + note du relecteur + résumé exécutif + qualification + préavis + préjudice + dispense + liste de points + recommandation Engager + question hors checklist + arbre 5 options.
 </response>
 </example>
 
@@ -118,7 +117,6 @@ Si (b) ou (c) → poursuivre l'analyse rupture brutale standard. Si (a) seul →
 > - **Side principal** — contentieux, contrats commerciaux, mixte
 > - **Posture par défaut** — protecteur / équilibré / facilitateur
 > - **Matrice d'approbateurs** — mise en demeure, action judiciaire, transaction
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
 demander `/h-da:entretien-demarrage` avant toute analyse
@@ -141,7 +139,6 @@ Posture override possible : `--posture=protecteur` | `--posture=équilibré` | `
 
 ## Gate non-juriste
 
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet lu et posture applicable identifiée
 - [ ] Side correctement identifié (auteur / victime)
 - [ ] Renvoi PI effectué si distribution PI-centric (pas de revue forcée)
@@ -151,7 +148,7 @@ Posture override possible : `--posture=protecteur` | `--posture=équilibré` | `
 - [ ] Safe harbor 18 mois mentionné comme protection défensive uniquement (jamais comme plafond), tagué `[review]` si invoqué
 - [ ] Préjudice calculé sur marge brute (pas sur chiffre d'affaires)
 - [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur 5 champs en gras + résumé exécutif + qualification + préavis + préjudice + dispense (si applicable) + liste de points + recommandation + question hors checklist + arbre 5 options + footer A PII
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur 5 champs en gras + résumé exécutif + qualification + préavis + préjudice + dispense (si applicable) + liste de points + recommandation + question hors checklist + arbre 5 options
 
 ---
 
@@ -251,10 +248,6 @@ si rien d'honnête à dire — ne pas fabriquer.}
 3. **Compléter les faits** — questions ouvertes à poser à {client / contrepartie / conseil / DAF} avant d'avancer (typiquement : comptes audités, historique exact des flux, exclusivité de fait).
 4. **Surveiller et attendre** — ajouter au tracker du dossier avec date de revisite (utile si la prescription ne court pas encore ou si une mise en demeure préalable est en cours d'échange).
 5. **Autre** — précise.
-
-{Footer A PII si check-pii est passé en mode passif sous le seuil B :
-"Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement
-avant envoi à Claude, installer [hacienda-ghost](marketplace://hacienda-ghost)." Sinon, rien.}
 ```
 
 ### Mode silencieux (livrable externe)
@@ -268,14 +261,13 @@ l'auteur de la rupture) ou à un destinataire non-juriste (sponsor business) :
 
 ---
 
-## Étape 1 — Pré-flight et identification
+## Étape 1 — Identification
 
-1. Invoquer `check-pii` sur l'ensemble des documents fournis avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur. Volume modéré attendu (parties + montants + dates) ; seuil B possible selon dossier.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
-3. Identifier les parties (raison sociale, qualité — fournisseur / distributeur / prestataire / mandant, pays d'établissement), le droit applicable, la juridiction.
-4. **Test PI-centric.** Si la relation rompue est un contrat de distribution avec composante PI structurante (licence de marque, brevet, savoir-faire dominant), renvoyer vers `/h-pi:contrats-pi` pour le volet PI avec les options (a) lancer ce skill en parallèle, (b) limiter `analyser-rupture-brutale` au seul volet rupture, (c) les deux en séquence.
-5. Déterminer le side (auteur / victime) à partir des documents si non précisé à l'intake.
-6. **Détection SIREN et alerte procédure collective.** Si une chaîne de 9 chiffres apparaît dans les documents (regex `\b[0-9]{9}\b` + validation Luhn), tenter l'enrichissement via `company_full_profile` de `@hacienda/core`. Si BODACC remonte une procédure collective en cours pour le débiteur de l'indemnisation, signaler immédiatement (le délai de déclaration L.622-24 court) et renvoyer vers `declaration-creance`.
+1. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
+2. Identifier les parties (raison sociale, qualité — fournisseur / distributeur / prestataire / mandant, pays d'établissement), le droit applicable, la juridiction.
+3. **Test PI-centric.** Si la relation rompue est un contrat de distribution avec composante PI structurante (licence de marque, brevet, savoir-faire dominant), renvoyer vers `/h-pi:contrats-pi` pour le volet PI avec les options (a) lancer ce skill en parallèle, (b) limiter `analyser-rupture-brutale` au seul volet rupture, (c) les deux en séquence.
+4. Déterminer le side (auteur / victime) à partir des documents si non précisé à l'intake.
+5. **Détection SIREN et alerte procédure collective.** Si une chaîne de 9 chiffres apparaît dans les documents (regex `\b[0-9]{9}\b` + validation Luhn), tenter l'enrichissement via `company_full_profile` de `@hacienda/core`. Si BODACC remonte une procédure collective en cours pour le débiteur de l'indemnisation, signaler immédiatement (le délai de déclaration L.622-24 court) et renvoyer vers `declaration-creance`.
 
 ---
 

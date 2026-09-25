@@ -34,13 +34,12 @@ tags: [extraction, multi-docs, tableau, brique-atomique]
 <example>
 <user>/h-da:revue-tabulaire ./ndas/*.pdf --colonnes="durée,non-concurrence,loi-applicable,juridiction"</user>
 <response>
-1. Pré-flight `check-pii` sur l'ensemble du lot (12 fichiers, 347 mentions identifiantes → seuil B → prompt utilisateur)
-2. Lecture profil cabinet (politique PII active)
-3. Paramètres : 12 NDA, 4 colonnes (durée / non-concurrence / loi-applicable / juridiction)
-4. Extraction parallèle — chaque document lu une fois, valeurs extraites pour les 4 colonnes
-5. Tableau 12 lignes × 4 colonnes produit, lignes incomplètes signalées ⚠️ à vérifier
-6. 2 NDA avec durée illisible ou absente → — dans la cellule, signalé en note du relecteur
-7. Sortie : en-tête confidentialité + note du relecteur + tableau + question hors checklist + arbre de décision
+1. Lecture profil cabinet.
+2. Paramètres : 12 NDA, 4 colonnes (durée / non-concurrence / loi-applicable / juridiction)
+3. Extraction parallèle — chaque document lu une fois, valeurs extraites pour les 4 colonnes
+4. Tableau 12 lignes × 4 colonnes produit, lignes incomplètes signalées ⚠️ à vérifier
+5. 2 NDA avec durée illisible ou absente → — dans la cellule, signalé en note du relecteur
+6. Sortie : en-tête confidentialité + note du relecteur + tableau + question hors checklist + arbre de décision
 </response>
 </example>
 
@@ -60,7 +59,6 @@ Lot de 8 contrats de distribution → extraction 6 colonnes :
 ## Chargement du profil
 
 > Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/CLAUDE.md` :
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 > - **Rôle de l'utilisateur courant** — pour l'en-tête de confidentialité
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
@@ -110,7 +108,6 @@ substantielle.
 
 ## Gate non-juriste
 
-- [ ] Pré-flight `check-pii` exécuté sur l'ensemble du lot, décision utilisateur respectée
 - [ ] Profil cabinet lu, rôle utilisateur identifié pour l'en-tête de confidentialité
 - [ ] Lot inventorié : N documents comptés, fichiers illisibles signalés
 - [ ] Colonnes demandées reconnues (alias ou libellé libre interprété et noté)
@@ -122,10 +119,6 @@ substantielle.
 - [ ] Dashboard HTML généré si > 10 lignes
 
 ---
-
-## Mode Anno Desktop Optionnel
-
-Quand Anno Tabular est disponible, utiliser `anno_health`, puis `detect` avant toute pièce client. Pour les lots déjà autorisés, construire la grille avec `review_create` et affiner les cellules avec `review_refine_cell`. Les lignes à confiance faible, contradiction, citation absente ou source officielle non consultée restent `[à vérifier]`.
 
 ## Outils MCP à privilégier
 
@@ -171,17 +164,15 @@ via `renderDashboard()` de `@hacienda/core` (format autonome, ouvrable hors-lign
 
 {Si > 10 lignes : "Dashboard HTML généré → outputs/revue-tabulaire-{slug}-YYYY-MM-DD.html"}
 
-## Étape 1 — Pré-flight
+## Étape 1 — Inventaire
 
-1. Invoquer `check-pii` sur l'ensemble du lot avec la politique du profil.
-   Respecter la décision utilisateur (continue / prompt / abort).
-2. Lire le profil cabinet (CLAUDE.md droit-affaires) — politique PII et rôle
+1. Lire le profil cabinet (CLAUDE.md droit-affaires) — rôle
    utilisateur pour l'en-tête de confidentialité.
-3. Inventorier les fichiers du lot : compter N documents, vérifier que les
+2. Inventorier les fichiers du lot : compter N documents, vérifier que les
    formats sont lisibles (PDF, DOCX, Markdown). Si un fichier est illisible ou
    tronqué : le signaler explicitement dans la note du relecteur, ne pas l'omettre
    silencieusement du tableau.
-4. Si `--limit=N` est actif : traiter uniquement les N premiers fichiers, signaler
+3. Si `--limit=N` est actif : traiter uniquement les N premiers fichiers, signaler
    le lot restant dans la note du relecteur.
 
 ---
@@ -262,11 +253,6 @@ systématique d'une clause dans tout le lot). Omettre la ligne si rien d'honnêt
 4. **Surveiller et attendre** — ajouter le tableau au tracker du dossier avec
    date de revisite et note motivée.
 5. **Autre** — précise.
-
-{Footer A si check-pii est passé en mode passif sous le seuil B :
-"Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement
-avant envoi à Claude, installer [hacienda-ghost](marketplace://hacienda-ghost)."
-Sinon, rien.}
 ```
 
 ### En-tête de confidentialité — 4 variantes selon rôle

@@ -52,14 +52,13 @@ tags: [procedures-collectives, responsabilite-dirigeant, faute-de-gestion, l651-
 <example>
 <user>/h-da:responsabilite-dirigeant — SAS en RJ ouverte (~3 mois), dépôt de bilan tardif d'environ 10 semaines, comptabilité tenue à jour, président de droit, caution bancaire perso</user>
 <response>
-1. Pré-flight `check-pii` (dénomination + dirigeant + montants → seuil B fréquent).
-2. Intake complet : forme SAS, qualité = dirigeant **de droit**, stade = **RJ ouverte**. Faits en semaines relatives (« ~10 semaines de retard », jamais de date calendaire).
-3. **Synthèse en tête** : criticité max 🟠 (axe L.651-2, retard DCP) ; axes L.651-2 🟠 · L.653-8 🟡 · banqueroute (nommée, pas évaluée) · cautions 🟠.
-4. **Axe 1 — L.651-2** : retard de déclaration = faute de gestion *possible* `[review]` (indice, pas conclusion) ; insuffisance d'actif **non chiffrée** (réclamer l'état du passif) ; comptabilité à jour = facteur **atténuant** ; aucune conciliation = facteur aggravant. Lien de causalité à établir.
-5. **Axe 2 — L.653-8** : le retard DCP figure parmi les cas d'interdiction de gérer ; 🟡 conditionnel `[review]`.
-6. **Axe 3 — banqueroute** : aucun signal de détournement/comptabilité fictive → nommée, rien à signaler, renvoi pénaliste si éléments apparaissent. Pas de note 🟢🟡🟠🔴 (non évaluée).
-7. **Axe 4 — cautions** : la caution bancaire perso est **suspendue pendant l'observation** (L.631-14) mais **survit** ; recours possible du prêteur. Ne pas conclure « caution éteinte ». 🟠 `[review]`.
-8. Sortie : synthèse + 4 axes + question hors-checklist + arbre 5 options. Action engagée ? non → recommander de documenter la chronologie.
+1. Intake complet : forme SAS, qualité = dirigeant **de droit**, stade = **RJ ouverte**. Faits en semaines relatives (« ~10 semaines de retard », jamais de date calendaire).
+2. **Synthèse en tête** : criticité max 🟠 (axe L.651-2, retard DCP) ; axes L.651-2 🟠 · L.653-8 🟡 · banqueroute (nommée, pas évaluée) · cautions 🟠.
+3. **Axe 1 — L.651-2** : retard de déclaration = faute de gestion *possible* `[review]` (indice, pas conclusion) ; insuffisance d'actif **non chiffrée** (réclamer l'état du passif) ; comptabilité à jour = facteur **atténuant** ; aucune conciliation = facteur aggravant. Lien de causalité à établir.
+4. **Axe 2 — L.653-8** : le retard DCP figure parmi les cas d'interdiction de gérer ; 🟡 conditionnel `[review]`.
+5. **Axe 3 — banqueroute** : aucun signal de détournement/comptabilité fictive → nommée, rien à signaler, renvoi pénaliste si éléments apparaissent. Pas de note 🟢🟡🟠🔴 (non évaluée).
+6. **Axe 4 — cautions** : la caution bancaire perso est **suspendue pendant l'observation** (L.631-14) mais **survit** ; recours possible du prêteur. Ne pas conclure « caution éteinte ». 🟠 `[review]`.
+7. Sortie : synthèse + 4 axes + question hors-checklist + arbre 5 options. Action engagée ? non → recommander de documenter la chronologie.
 </response>
 </example>
 
@@ -96,7 +95,6 @@ Ne pas esquisser la stratégie de défense ni le quantum : qualification + renvo
 > - **Tribunaux habituels** — repérage du greffe / juridiction
 > - **Rôle utilisateur** — avocat inscrit / juriste in-house / non-juriste (en-tête de confidentialité)
 > - **Matrice d'approbateurs** — pour l'option « Escalader » (contentieuiste / pénaliste si banqueroute en jeu)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`.
 
@@ -121,7 +119,6 @@ Si forme sociale, qualité du dirigeant ou stade absents : stopper et demander. 
 ## Gate non-juriste
 
 - [ ] Forme sociale + qualité du dirigeant + stade de procédure fournis (refus du défaut)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet bloc procédures collectives lu ; rôle utilisateur (en-tête) et matrice d'approbateurs identifiés
 - [ ] **Qualité dirigeant** explicite (droit / fait) ; si « fait » : qualification taguée `[review]` (elle-même contestable)
 - [ ] **Les 4 axes sont évalués** — aucun skip silencieux ; un axe sans signal est explicitement marqué (« 🟢 — aucun signal sur ce stade » ou « sans objet »), jamais omis
@@ -136,10 +133,6 @@ Si forme sociale, qualité du dirigeant ou stade absents : stopper et demander. 
 - [ ] Sortie : synthèse en tête + 4 axes détaillés + question hors-checklist + arbre 5 options ; en-tête de confidentialité selon rôle ; note du relecteur en bloc unique
 
 ---
-
-## Mode Anno Desktop Optionnel
-
-Pour reconstruire la chronologie (impayés, prises de décision, prélèvements, flux inter-sociétés), appeler `anno_health`, puis `detect`. Utiliser `legal_timeline`, `legal_validate_field` et `legal_search` sur corpus déjà ingéré. Les données financières et la comptabilité restent fournies/validées par le client ; rien n'est fabriqué.
 
 ## Outils MCP à privilégier
 
@@ -164,11 +157,10 @@ outputs/responsabilite-dirigeant-<denomination-ou-siren>-<stade>.md
 
 Structurer la sortie avec : faits retenus, droit applicable par axe, qualification motivée, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
 
-### Étape 1 — Pré-flight et cadrage
+### Étape 1 — Cadrage
 
-1. Invoquer `check-pii` (probabilité élevée seuil B : dirigeant + dénomination + faits financiers). Respecter la décision utilisateur.
-2. Lire profil cabinet (bloc procédures collectives) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
-3. Confirmer **qualité dirigeant** (droit/fait) et **stade procédure**. Router selon la section Intake si pré-CdP serein.
+1. Lire profil cabinet (bloc procédures collectives) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
+2. Confirmer **qualité dirigeant** (droit/fait) et **stade procédure**. Router selon la section Intake si pré-CdP serein.
 
 ### Étape 2 — Évaluation des 4 axes (systématique, pas de skip silencieux)
 
@@ -216,7 +208,7 @@ Structurer la sortie avec : faits retenus, droit applicable par axe, qualificati
 
 > ⚠️ Note du relecteur
 > - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
-> - **Lecture :** faits fournis : {liste} | corpus client ingéré (Anno) | aucun
+> - **Lecture :** faits fournis : {liste} | aucun
 > - **Signalé pour ton jugement :** {N éléments [review] en ligne}
 > - **Fraîcheur :** jurisprudence post-{date} sur faute de gestion / interdiction de gérer / cautions — {N} arrêts [Judilibre] | recherche impossible
 > - **Avant de t'appuyer dessus :** {action concrète — ex. faire reconstituer la chronologie avec l'expert-comptable ; obtenir l'acte de caution et l'état du plan}

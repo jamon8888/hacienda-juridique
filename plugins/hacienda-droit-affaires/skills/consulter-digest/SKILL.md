@@ -263,9 +263,6 @@ Pour générer un digest couvrant une période antérieure : lancer l'agent `vei
 3. **Compléter les faits** — questions ouvertes à poser pour évaluer si une entrée du digest appelle une action immédiate sur un dossier en cours.
 4. **Surveiller et attendre** — noter le digest consulté au tracker avec date et domaines couverts, revisite prévue au prochain digest hebdomadaire.
 5. **Autre** — précise ce que tu veux en faire.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B : peu probable sur un digest de veille, mais conserver le footer pour cohérence.
-"Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement avant envoi à Claude, installer [hacienda-ghost](https://hacienda.diy/ghost)." Sinon, rien.}
 ```
 
 ---

@@ -16,7 +16,7 @@ humaine obligatoire avant tout usage externe.
 | Contrats commerciaux | `reviser-contrat`, `reviser-nda`, `liste-de-points`, `revue-tabulaire` |
 | M&A léger | `gap-review` |
 | Procédures collectives | `declaration-creance`, `declaration-cessation-paiements`, `responsabilite-dirigeant`, `defense-dirigeant`, `distress-cedant` |
-| Transversal | `entretien-demarrage`, `verifier-citations`, `check-pii` |
+| Transversal | `entretien-demarrage`, `verifier-citations` |
 | Agents (surveillance) | `bodacc-watcher`, `bodacc-procedures-watcher`, `echeances-societaires` |
 
 ## Hors périmètre V2
@@ -88,7 +88,6 @@ l'auto-activation des skills.
 | `/h-da:cas` | Point de départ : décris ton dossier, je trie et je route vers le bon skill (rappelle l'anonymisation avant les données). |
 | `/h-da:cession-actifs-isoles` | Playbook côté repreneur : construire et défendre une offre d'acquisition d'actifs isolés (fonds, marques, stocks) en LJ, hors plan de cession (L.642-19). |
 | `/h-da:cgv-generator` | Génération assistée de CGV/CGU. |
-| `/h-da:check-pii` | Détection PII pré-vol. |
 | `/h-da:closing-checklist-fr` | Checklist signing, closing et post-closing. Mode `--pe` : lentille closing LBO côté sponsor (funds flow / sources & uses, CP financement & certain funds, mécanique de closing day-1, security package & assistance financière L.225-216 C.com., adhésion rollover & post-closing PE). |
 | `/h-da:constitution-societe` | Constitution de société et choix de forme. |
 | `/h-da:consulter-digest` | Lecture du digest de veille. |
@@ -118,25 +117,7 @@ l'auto-activation des skills.
 
 ## Plugin compagnon recommandé
 
-`hacienda-ghost` — anonymise les données PII avant envoi à Claude. Sans ghost,
-ce plugin fonctionne mais avertit lorsque des données sensibles sont traitées
-en clair (`check-pii`).
-
-## Option Anno Desktop
-
-Le plugin peut travailler avec Anno Desktop quand il est installé, mais il ne
-le requiert pas. Anno sert uniquement de mémoire/RAG local de dossier client :
-`anno_health`, `detect`, `legal_ingest` sur demande explicite, puis
-`legal_search`, `legal_graph_query`, `legal_extract_contract`,
-`legal_risk_review`, `legal_mandatory_clause_audit`, `legal_timeline`,
-`legal_prescription_check`, `legal_validate_field`, `review_create`,
-`review_add_rows`, `review_extract`, `review_refine_cell` selon le workflow.
-
-Les workflows les plus utiles sont `reviser-contrat`, `reviser-nda`,
-`revue-tabulaire`, `due-diligence-dataroom`, `spa-review`, `gap-review`,
-`declaration-creance` et `gouvernance-ag`. Anno reste une source interne de
-dossier : les sources officielles restent vérifiées par les outils MCP
-Hacienda et tout élément non consulté directement reste `[à vérifier]`.
+`hacienda-ghost` — anonymise les données PII avant envoi à Claude.
 
 ## Parcours cabinet M&A
 

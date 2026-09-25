@@ -76,7 +76,6 @@ tags: [distress-cedant, orientation, distressed-m&a, restructuring, cessation-pa
 > Lire `~/.claude/plugins/config/hacienda-juridique/hacienda-droit-affaires/CLAUDE.md`, bloc M&A + bloc procédures collectives :
 > - **Position dominante** — ce skill suppose le **côté cédant / débiteur** (le dirigeant ou l'actionnaire de l'entreprise en difficulté, et son conseil)
 > - **Side M&A habituel** — cédant ; taille de deals typique
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`.
 
@@ -96,7 +95,6 @@ Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage
 
 ## Gate non-juriste
 
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] **Gate 1 — niveau de difficulté tranché** : entreprise située sur le spectre (in bonis / amiable / CdP ≤45 j / CdP >45 j / RJ-LJ) ; **CdP > 45 j non déclarée → STOP fork + renvoi `declaration-cessation-paiements`** (PAS la prévention — pivot inverse du côté repreneur)
 - [ ] **Routage identifié** : sauver → `prevention-difficultes` ; céder → `pre-pack-cession` ; déposer → `declaration-cessation-paiements` ; RJ/LJ subie + cession judiciaire en cours → **signaler le rôle limité du débiteur** (les organes pilotent ; pas de feuille débiteur dédiée)
 - [ ] **Gate 2 — exposition dirigeant signalée** : le choix de la voie engage le patrimoine (faute de gestion, L.651-2, L.653-8, période suspecte) → renvoi `responsabilite-dirigeant` ; **signalée, jamais évaluée ici** — y compris le **sort de la caution selon la procédure** (non détaillé ici)
@@ -184,9 +182,9 @@ outputs/distress-cedant-<entreprise-slug>-YYYY-MM-DD.md
 
 ---
 
-## Étape 1 — Pré-flight et Gate 1 (diagnostic + routage, pivot 45 j)
+## Étape 1 — Gate 1 (diagnostic + routage, pivot 45 j)
 
-1. Invoquer `check-pii`. Lire le profil cabinet (blocs M&A + procédures collectives) et confirmer le **côté cédant/débiteur**. Raisonner **à la date du jour** (dates absolues pour le diagnostic) mais **ne pas fabriquer la date de CdP**.
+1. Lire le profil cabinet (blocs M&A + procédures collectives) et confirmer le **côté cédant/débiteur**. Raisonner **à la date du jour** (dates absolues pour le diagnostic) mais **ne pas fabriquer la date de CdP**.
 2. Vérifier via `bodacc_procedures` / `bodacc_by_siren` / `company_full_profile` où en est l'entreprise : procédure ouverte ? type (amiable confidentiel non publié / RJ / LJ) ? dates de jugement / publication ? **cessation des paiements** caractérisée et datée ?
 3. **Trancher le niveau de difficulté + router (pivot 45 j).** Si la **CdP date de plus de 45 jours et n'est pas déclarée**, l'amiable est **fermé** (L.611-4) et l'obligation de déclarer s'impose (L.631-4) → **renvoi `/h-da:declaration-cessation-paiements`** (et **non** la prévention). Sinon : pas/plus en CdP ou CdP ≤ 45 j → `prevention-difficultes` (sauver) ou `pre-pack-cession` (céder) ; RJ/LJ déjà ouverte → selon le fork, sinon signaler le rôle limité du débiteur.
 4. **Tenir la cohérence sur toute la note.** La sauvegarde de droit commun suppose l'**absence** de cessation des paiements (L.620-1 `[à vérifier]`) : dès que la CdP est retenue, même conditionnellement, elle est **fermée**. La sauvegarde accélérée reste ouverte malgré la CdP seulement si celle-ci ne précède pas de plus de 45 jours la **demande de conciliation** (L.628-1 `[à vérifier]`) : sans conciliation demandée dans ce délai, elle est fermée elle aussi. Ne **jamais** présenter une procédure fermée comme ouverte ou « à choisir » ailleurs dans la note, y compris en comparant les effets des procédures (cautionnement, poursuites). Si elle doit être citée, dire qu'elle est fermée et pourquoi.

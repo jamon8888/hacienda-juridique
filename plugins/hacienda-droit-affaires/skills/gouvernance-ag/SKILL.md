@@ -38,20 +38,19 @@ tags: [gouvernance, assemblee, ago, age, convocation, proces-verbal, societes]
 <example>
 <user>/h-da:gouvernance-ag --convocation --forme=SARL — AGO annuelle d'approbation des comptes</user>
 <response>
-1. Pré-flight `check-pii` (associés nominatifs + dénomination → seuil B selon le nombre d'associés).
-2. Lecture profil cabinet (sous-bloc « vie sociale » : cadence assemblées suivies, formes pratiquées).
-3. Intake : SARL, AGO annuelle, ordre du jour = approbation des comptes + affectation du résultat + quitus, date d'assemblée visée.
-4. Étape 1 (--convocation) — calcul du délai : délai SARL 15 jours (art. L.223-27 C.com. `[Légifrance]`) ; date limite d'envoi = date d'assemblée − 15 jours. Si la date visée laisse moins de 15 jours → 🔴 délai intenable.
-5. Étape 2 (--convocation) — rédaction : convocation avec ordre du jour complet, date/heure/lieu, modalités de participation `[review]` (présence / représentation / vote à distance selon statuts), documents à joindre (rapport de gestion, comptes annuels, projets de résolutions).
-6. Étape 3 — post-flight `verifier-citations`.
-7. Sortie : note du relecteur + convocation projet + question hors checklist + arbre de décision 5 options.
+1. Lecture profil cabinet (sous-bloc « vie sociale » : cadence assemblées suivies, formes pratiquées).
+2. Intake : SARL, AGO annuelle, ordre du jour = approbation des comptes + affectation du résultat + quitus, date d'assemblée visée.
+3. Étape 1 (--convocation) — calcul du délai : délai SARL 15 jours (art. L.223-27 C.com. `[Légifrance]`) ; date limite d'envoi = date d'assemblée − 15 jours. Si la date visée laisse moins de 15 jours → 🔴 délai intenable.
+4. Étape 2 (--convocation) — rédaction : convocation avec ordre du jour complet, date/heure/lieu, modalités de participation `[review]` (présence / représentation / vote à distance selon statuts), documents à joindre (rapport de gestion, comptes annuels, projets de résolutions).
+5. Étape 3 — post-flight `verifier-citations`.
+6. Sortie : note du relecteur + convocation projet + question hors checklist + arbre de décision 5 options.
 </response>
 </example>
 
 <example>
 <user>/h-da:gouvernance-ag --convocation --forme=SA — AGE de modification de l'objet social</user>
 <response>
-1. Pré-flight `check-pii` + lecture profil cabinet.
+1. Lecture profil cabinet.
 2. Intake : SA, AGE, ordre du jour = modification de l'objet social (modification statutaire), date d'assemblée visée.
 3. Étape 1 (--convocation) — calcul du délai : SA, 15 jours sur première convocation ; les délais précis sont réglementaires (art. R.225-67 / R.225-69 C.com. `[à vérifier]`). Date limite d'envoi calculée, alerte 🔴 si intenable.
 4. Étape 2 (--convocation) — rédaction : convocation AGE avec ordre du jour, texte des projets de résolutions emportant modification des statuts, rapport du conseil exposant les motifs. Rappel en note : quorum AGE renforcé (1/4 des actions sur 1re convocation, 1/5 sur 2e) et majorité 2/3 des voix exprimées — art. L.225-96 C.com. `[à vérifier]` (article en `[a compléter]` dans l'index).
@@ -63,7 +62,7 @@ tags: [gouvernance, assemblee, ago, age, convocation, proces-verbal, societes]
 <example>
 <user>/h-da:gouvernance-ag --pv --forme=SARL — rédige le PV de l'AGO qui s'est tenue hier</user>
 <response>
-1. Pré-flight `check-pii` (participants nominatifs).
+1. Lecture profil cabinet.
 2. Intake : SARL, AGO, résolutions soumises au vote et résultats fournis par l'utilisateur.
 3. Étape 1 (--pv) — vérification quorum/majorité : AGO de SARL — pas de quorum légal ; 1re consultation = majorité absolue des parts, 2e consultation = majorité des votes émis (art. L.223-29 C.com. `[Légifrance]`). Contrôle de cohérence des résultats saisis ; tag `[review]` si une résolution est annoncée adoptée sans atteindre la majorité requise.
 4. Étape 2 (--pv) — rédaction : PV avec participants et qualité, quorum constaté, texte de chaque résolution + résultat du vote (pour / contre / abstentions, adoptée ou rejetée), signatures.
@@ -122,7 +121,6 @@ Si le mode ou la forme sont absents : stopper et demander explicitement.
 ## Gate non-juriste
 
 - [ ] Mode (`--convocation` | `--pv`) et `--forme` fournis (refus du défaut)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet sous-bloc « vie sociale » lu (cadence assemblées, formes pratiquées, rôle utilisateur)
 - [ ] Type d'assemblée identifié (AGO / AGE / mixte)
 - [ ] `--convocation` : délai applicable identifié selon la forme ; date limite d'envoi calculée ; 🔴 signalé si le délai légal est intenable
@@ -134,10 +132,6 @@ Si le mode ou la forme sont absents : stopper et demander explicitement.
 - [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + {calcul délai + convocation, ou quorum/majorité + PV} + question hors checklist + arbre de décision 5 options + footer A si applicable
 
 ---
-
-## Mode Anno Desktop Optionnel
-
-Pour un historique social déjà autorisé, appeler `anno_health`, puis `detect`. Utiliser `legal_timeline`, `legal_validate_field`, `review_create` et `review_extract` pour rapprocher convocations, feuilles de présence, PV, décisions et échéances.
 
 ## Outils MCP à privilégier
 
@@ -193,10 +187,6 @@ Format date : `YYYY-MM-DD` (date de l'assemblée visée).
 3. **Compléter les faits** — questions ouvertes à poser avant d'avancer (date de constitution pour une AGE de SARL, statuts pour une SAS, résultats de vote détaillés pour un PV).
 4. **Surveiller et attendre** — j'ajoute l'assemblée au tracker vie sociale avec date d'envoi de la convocation, date d'assemblée et échéances de dépôt / publicité éventuelles.
 5. **Autre** — précise ce que tu veux en faire.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B :
-[Ce skill a traité {N} mentions identifiantes (associés, dénomination, mandataires). Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
-Sinon, rien.}
 ```
 
 ### Mode silencieux (livrable externe)

@@ -39,19 +39,18 @@ tags: [constitution, societes, statuts, sas, sarl, sa, actes]
 <example>
 <user>/h-da:constitution-societe --comparer</user>
 <response>
-1. Pré-flight `check-pii` (peu d'identifiants au stade du choix de forme — sous seuil B le plus souvent).
-2. Lecture profil cabinet (bloc « vie sociale » : formes pratiquées, posture rédaction statuts, notaire partenaire).
-3. Cadrage du besoin : 3 fondateurs, ambition de lever des fonds d'ici 18 mois, président souhaitant le régime assimilé salarié, besoin de souplesse pour accueillir des investisseurs.
-4. Recommandation depuis `${CLAUDE_SKILL_DIR}/../../references/comparatif-formes-sociales-fr.md` : **SAS** — souplesse statutaire (organes librement définis, pas d'agrément légal imposé), accueil naturel d'investisseurs (actions de préférence, BSA), président assimilé salarié. La SARL est écartée (agrément légal des cessions à tiers art. L.223-14 C.com. [Légifrance], rigidité face à une levée ; gérant majoritaire = TNS).
-5. Tags `[review]` sur les arbitrages dépendant de critères fiscaux/sociaux (régime social effectif, option IR éventuelle) → renvoi expert-comptable.
-6. Sortie : note du relecteur + tableau comparatif + recommandation motivée + question hors checklist + arbre de décision 5 options.
+1. Lecture profil cabinet (bloc « vie sociale » : formes pratiquées, posture rédaction statuts, notaire partenaire).
+2. Cadrage du besoin : 3 fondateurs, ambition de lever des fonds d'ici 18 mois, président souhaitant le régime assimilé salarié, besoin de souplesse pour accueillir des investisseurs.
+3. Recommandation depuis `${CLAUDE_SKILL_DIR}/../../references/comparatif-formes-sociales-fr.md` : **SAS** — souplesse statutaire (organes librement définis, pas d'agrément légal imposé), accueil naturel d'investisseurs (actions de préférence, BSA), président assimilé salarié. La SARL est écartée (agrément légal des cessions à tiers art. L.223-14 C.com. [Légifrance], rigidité face à une levée ; gérant majoritaire = TNS).
+4. Tags `[review]` sur les arbitrages dépendant de critères fiscaux/sociaux (régime social effectif, option IR éventuelle) → renvoi expert-comptable.
+5. Sortie : note du relecteur + tableau comparatif + recommandation motivée + question hors checklist + arbre de décision 5 options.
 </response>
 </example>
 
 <example>
 <user>/h-da:constitution-societe --draft --forme=SAS</user>
 <response>
-1. Pré-flight `check-pii` + lecture profil cabinet (posture rédaction statuts).
+1. Lecture profil cabinet (posture rédaction statuts).
 2. Intake : SAS, 2 associés, apports en numéraire uniquement, gouvernance simple (un président).
 3. Étape 1 — détection bifurcation actes : apports en numéraire seulement → **acte sous seing privé suffit**, pas de commissaire aux apports. Aucun acte notarié requis.
 4. Étape 2 — brouillon assisté de statuts : mentions obligatoires art. L.210-2 C.com. [Légifrance] (forme, durée, dénomination, siège, objet, capital) + clauses SAS. **Chaque clause d'arbitrage est taguée `[review]`** : montant et libération du capital, clause d'agrément éventuelle (art. L.227-14 C.com. [Légifrance]), modalités de direction, règles des décisions collectives (art. L.227-9 C.com. [Légifrance]), inaliénabilité éventuelle (plafond 10 ans art. L.227-13 C.com. [Légifrance]), choix SSP vs notarié.
@@ -92,8 +91,6 @@ Renvoi : l'évaluation d'un brevet relève d'une expertise PI → signaler que l
 > - **Posture rédaction statuts** — standard / sur-mesure investisseurs / minimaliste (calibre le niveau de détail et le sur-mesure du brouillon)
 > - **Notaire partenaire (apports en nature, fonds de commerce)** — destinataire du renvoi lorsqu'un acte authentique est requis
 > - **Rôle de l'utilisateur courant** — conditionne l'en-tête de confidentialité (avocat / notaire / juriste in-house / non-juriste)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
-
 Si le sous-bloc « vie sociale » est encore en `[A CONFIGURER]` : stopper et
 demander `/h-da:entretien-demarrage`. Sans notaire partenaire
 renseigné, le renvoi en cas d'acte authentique requis ne peut pas être adressé.
@@ -116,7 +113,6 @@ demander explicitement. Pas de valeur par défaut sur la forme sociale.
 ## Gate non-juriste
 
 - [ ] Mode (`--comparer` | `--draft`) fourni ; en `--draft`, `--forme` fournie (refus du défaut)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet sous-bloc « vie sociale » lu (formes pratiquées, posture statuts, notaire partenaire)
 - [ ] Nature exacte des apports identifiée (meuble / immeuble / fonds de commerce / industrie / numéraire)
 - [ ] `--draft` : bifurcation des actes tranchée — SSP ou 🔴 acte notarié obligatoire, avec motif exposé
@@ -182,10 +178,6 @@ Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
 3. **Compléter les faits** — questions ouvertes à poser aux fondateurs / à l'expert-comptable / au notaire avant d'avancer (nature exacte des apports, valorisation, régime social et fiscal souhaité).
 4. **Surveiller et attendre** — j'ajoute le dossier de constitution au tracker avec note motivée et date de revisite (ex. en attente de l'évaluation d'un apport en nature).
 5. **Autre** — précise ce que tu veux en faire.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B :
-[Ce skill a traité {N} mentions identifiantes (associés, dénomination, apports). Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
-Sinon, rien.}
 ```
 
 ### Mode silencieux (livrable externe)

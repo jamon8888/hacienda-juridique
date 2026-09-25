@@ -24,12 +24,6 @@ tags: [due-diligence, dataroom, ma, materialite, gap, pe, red-flags]
 > un rapport de DD préliminaire — il oriente la négociation et la GAP mais ne
 > les remplace pas, et doit être validé par un avocat M&A.
 >
-> **Une data-room contient un volume massif de données sensibles** — contrats
-> nominatifs, données salariés, IBAN, montants, données de santé éventuelles,
-> SIREN, mentions « secret des affaires ». Le pré-flight `check-pii` sur
-> l'ensemble du dossier est **critique** : le franchissement du seuil B est ici
-> la règle, pas l'exception. Ne jamais traiter une data-room sans pré-flight.
->
 > **L'analyse oriente la GAP, ne s'y substitue pas.** Les findings matériels
 > alimentent les recommandations GAP (étape 6), mais la revue de la Garantie
 > d'Actif et de Passif elle-même relève du skill `gap-review`.
@@ -41,16 +35,15 @@ tags: [due-diligence, dataroom, ma, materialite, gap, pe, red-flags]
 <example>
 <user>/h-da:due-diligence-dataroom ./data-room-cible-X/ --side=acquereur</user>
 <response>
-1. Pré-flight `check-pii` sur l'ensemble du dossier data-room (volume élevé : contrats salariés, IBAN, SIREN, montants > 10k€ → seuil B franchi → prompt utilisateur, décision respectée)
-2. Lecture profil cabinet (bloc M&A / Corporate : side acquéreur, posture DD — thèmes prioritaires et seuil de matérialité)
-3. Inventaire de la data-room : N documents recensés, classés par thème
-4. Extraction multi-documents — invocation du skill V1 `revue-tabulaire` (colonnes adaptées au thème : parties, dates, durée, changement-de-contrôle, exclusivité…) ; récupération du tableau d'extraction
-5. Analyse des 7 thèmes via `${CLAUDE_SKILL_DIR}/../../references/grille-due-diligence-fr.md` : points de contrôle, red flags, documents manquants — renvois en pointeurs vers PI / fiscal / RGPD
-6. Grille de matérialité : chaque finding classé thème × gravité (🟢/🟡/🟠/🔴) × statut
-7. Q&A list générée — questions complémentaires à adresser au cédant
-8. Recommandations GAP pour les findings matériels (lien `gap-review`)
-9. Post-flight `verifier-citations`
-10. Sortie : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + rapport par thème + grille de matérialité + Q&A list + recommandations GAP + question hors checklist + arbre 5 options
+1. Lecture profil cabinet (bloc M&A / Corporate : side acquéreur, posture DD — thèmes prioritaires et seuil de matérialité)
+2. Inventaire de la data-room : N documents recensés, classés par thème
+3. Extraction multi-documents — invocation du skill V1 `revue-tabulaire` (colonnes adaptées au thème : parties, dates, durée, changement-de-contrôle, exclusivité…) ; récupération du tableau d'extraction
+4. Analyse des 7 thèmes via `${CLAUDE_SKILL_DIR}/../../references/grille-due-diligence-fr.md` : points de contrôle, red flags, documents manquants — renvois en pointeurs vers PI / fiscal / RGPD
+5. Grille de matérialité : chaque finding classé thème × gravité (🟢/🟡/🟠/🔴) × statut
+6. Q&A list générée — questions complémentaires à adresser au cédant
+7. Recommandations GAP pour les findings matériels (lien `gap-review`)
+8. Post-flight `verifier-citations`
+9. Sortie : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + rapport par thème + grille de matérialité + Q&A list + recommandations GAP + question hors checklist + arbre 5 options
 </response>
 </example>
 
@@ -60,15 +53,6 @@ tags: [due-diligence, dataroom, ma, materialite, gap, pe, red-flags]
 DD ciblée sur 3 thèmes (corporate / gouvernance, contrats matériels, contentieux / passifs). Les 4 autres thèmes (social, PI, fiscal, RGPD) ne sont pas couverts.
 
 Le rapport ne traite que les 3 thèmes demandés. La note du relecteur, champ « Lecture », mentionne explicitement les 4 thèmes non couverts : « DD ciblée — social, PI, fiscal, RGPD non audités ; rapport partiel, ne pas le présenter comme une DD complète. » Le champ « Signalé pour ton jugement » liste les documents manquants sur les thèmes effectivement couverts.
-</response>
-</example>
-
-<example>
-<user>/h-da:due-diligence-dataroom ./data-room-volumineuse/ --side=acquereur</user>
-<response>
-Data-room volumineuse (plusieurs centaines de documents : contrats de travail, liasses fiscales, contrats clients nominatifs). Le pré-flight `check-pii` agrège les identifiants sur tout le dossier : le seuil B (50 identifiants OU 1+ catégorie sensible) est très largement franchi dès les premiers documents (IBAN, NIR sur contrats de travail, montants).
-
-`check-pii` rend un verdict seuil B atteint → prompt utilisateur : [continuer une fois] [ne plus demander pour ce dossier] [installer hacienda-ghost]. Le skill respecte la décision et ne poursuit l'analyse qu'après celle-ci. Si l'utilisateur installe `hacienda-ghost`, l'anonymisation est appliquée avant analyse ; sinon, footer A rappelé en fin de sortie.
 </response>
 </example>
 
@@ -106,7 +90,6 @@ Livrable : red flag report partner-ready (findings 🔴/🟠 matériels + table 
 > - **Taille de deals typique et secteurs cibles** — pour calibrer la lecture
 > - **Matrice d'approbateurs** — la signature d'un SPA y figure ; le rapport de DD
 >   s'escalade de préférence au même approbateur
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 > - **Rôle de l'utilisateur courant** — pour l'en-tête de confidentialité
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
@@ -145,7 +128,6 @@ grille de matérialité ne peuvent pas être calibrées. Voir aussi
 
 ## Gate non-juriste
 
-- [ ] Pré-flight `check-pii` exécuté sur l'ensemble de la data-room, décision utilisateur respectée (seuil B très probablement franchi)
 - [ ] `--side` fourni et confirmé (acquéreur ou cédant)
 - [ ] Profil cabinet bloc M&A lu : side, posture DD, seuil de matérialité
 - [ ] Data-room inventoriée : N documents comptés et classés par thème, fichiers illisibles signalés
@@ -155,13 +137,9 @@ grille de matérialité ne peuvent pas être calibrées. Voir aussi
 - [ ] Articles hors index ou en `[a compléter]` tagués `[à vérifier]` ; RGPD tagué `[Eurlex]` ou `[à vérifier]`
 - [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
 - [ ] Si mode `--pe` : module `pe-dd-red-flags-overlay-fr.md` chargé, chaque finding matériel routé vers un traitement deal, price chips non chiffrés, gate France/Lux appliqué
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + rapport par thème + grille de matérialité + Q&A list + recommandations GAP (+ table de conversion PE si `--pe`) + question hors checklist + arbre de décision 5 options + footer A si applicable
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + rapport par thème + grille de matérialité + Q&A list + recommandations GAP (+ table de conversion PE si `--pe`) + question hors checklist + arbre de décision 5 options
 
 ---
-
-## Mode Anno Desktop Optionnel
-
-Pour une data-room autorisée, appeler `anno_health`, puis `detect`. N'utiliser `legal_ingest` que sur demande explicite d'indexation. Ensuite, `legal_search`, `legal_graph_query`, `legal_extract_contract`, `review_create`, `review_add_rows`, `review_extract` peuvent aider à relier pièces, contrats, risques et findings. Anno est une source interne de dossier, jamais une source primaire.
 
 ## Outils MCP à privilégier
 
@@ -207,21 +185,12 @@ prochaine action — typiquement l'envoi de la Q&A list.}
 
 # Rapport structuré par thème
 
-## Étape 1 — Pré-flight
+## Étape 1 — Lecture du profil
 
-1. **`check-pii` sur l'ensemble de la data-room** — invocation obligatoire et
-   **critique**. Une data-room agrège un volume massif de données sensibles ;
-   le seuil B (50 identifiants OU 1+ catégorie sensible) est franchi dès les
-   premiers documents (IBAN, NIR sur les contrats de travail, montants > 10k€,
-   SIREN, mentions « confidentiel / secret des affaires »). Le verdict seuil B
-   atteint est ici **la règle**. Présenter le prompt utilisateur
-   `[continuer une fois] [ne plus demander pour ce dossier] [installer hacienda-ghost]`
-   et **respecter strictement la décision** (continue / prompt / abort) avant
-   toute lecture analytique. Ne jamais analyser une data-room sans ce pré-flight.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires, bloc M&A) et
+1. Lire le profil cabinet (CLAUDE.md droit-affaires, bloc M&A) et
    `~/.claude/plugins/config/hacienda-juridique/company-profile.md` : side habituel, posture DD, seuil de
    matérialité, rôle utilisateur pour l'en-tête de confidentialité.
-3. Si un fichier de la data-room est illisible ou tronqué : le signaler
+2. Si un fichier de la data-room est illisible ou tronqué : le signaler
    explicitement dans la note du relecteur — ne pas l'omettre silencieusement.
 
 ---
@@ -514,10 +483,6 @@ rien d'honnête à dire — ne pas fabriquer.}
 3. **Compléter les faits** — j'envoie la Q&A list au cédant et je consolide la grille de matérialité dès réception des pièces complémentaires.
 4. **Surveiller et attendre** — j'ajoute le dossier de DD au tracker du deal avec note motivée et date de revisite (réception des pièces, signing, expiration d'exclusivité).
 5. **Autre** — précise ce que tu veux en faire.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B (rare sur une data-room) :
-[Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
-Sinon, rien.}
 ```
 
 ### Mode silencieux (livrable externe)
@@ -546,7 +511,6 @@ non-juriste, la contrepartie ou un conseil tiers :
 - Audit fiscal approfondi et conseil fiscal → `hacienda-fiscal` + expert-comptable (le thème 5 reste un recensement de premier niveau).
 - Audit RGPD approfondi → `hacienda-ghost` (le thème 7 reste un recensement de premier niveau).
 - Extraction tabulaire brute multi-documents → `revue-tabulaire` (consommé comme brique, non remplacé).
-- Anonymiser réellement les données de la data-room — `check-pii` détecte et alerte, `hacienda-ghost` anonymise.
 - Valider, signer ou exécuter l'opération (acte des parties + approbateur configuré).
 - **Chiffrer** les price chips, passifs ou redressements en mode `--pe` (`[à compléter]`, équipe financière / fiscaliste).
 - Traiter au fond le fiscal/social d'un management package ou d'un contrôle en cours en mode `--pe` (nommé et renvoyé).

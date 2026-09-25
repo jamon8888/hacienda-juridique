@@ -48,7 +48,6 @@ tagué comme recherche externe ou connaissance modèle.
 | `gap-review` | Légifrance, Judilibre, Pappers, BOFiP | Corporate, fiscal, contentieux, signaux d'alerte société |
 | `declaration-creance` | BODACC, Pappers, Légifrance | Procédure collective, délais, identification débiteur |
 | `verifier-citations` | Légifrance, Judilibre | Post-flight automatique des références textuelles et jurisprudentielles |
-| `check-pii` | aucune source externe | Détection embarquée, pas de recherche juridique |
 
 ---
 

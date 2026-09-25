@@ -104,7 +104,6 @@ substantiel.
 
 ## Gate non-juriste
 
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Routing PI testé — renvoi `PI:contrats-pi` si NDA partenariat R&D / PI substantiel
 - [ ] Structure du NDA qualifiée (unilatéral / bilatéral)
 - [ ] Droit applicable et juridiction identifiés ; cadre FR / UE confirmé ou alerte juridiction étrangère
@@ -115,10 +114,6 @@ substantiel.
 - [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + tableau 9 points + recommandations + question hors checklist + arbre de décision 5 options
 
 ---
-
-## Mode Anno Desktop Optionnel
-
-Pour un lot de NDA ou une data-room confidentielle, appeler `anno_health`, puis `detect`. Utiliser `legal_extract_contract`, `legal_risk_review` et, si une grille est demandée, `review_create` et `review_extract`. Ne pas indexer sans demande explicite.
 
 ## Outils MCP à privilégier
 
@@ -142,16 +137,15 @@ Pour un triage NDA standard (8 lignes max), pas de dashboard HTML — le format 
 
 Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
 
-## Étape 1 — Pré-flight, routing PI et qualification
+## Étape 1 — Routing PI et qualification
 
-1. Invoquer `check-pii` sur le document avec la politique du profil. Respecter la décision utilisateur (continue / prompt / abort).
-2. **Test PI-centric.** Rechercher dans le document les termes : "savoir-faire", "brevet", "résultat de recherche", "co-développement", "secret d'affaires", "transfert de technologie", "background IP", "foreground IP", "residuals". Si présence substantielle (pas une simple mention en exception) → renvoyer immédiatement vers `/h-pi:contrats-pi` avec les options (a) lancer ce skill, (b) limiter `reviser-nda` aux clauses commerciales, (c) les deux en séquence. Citer art. L.151-1 C.com. (secret des affaires) `[Légifrance]` pour cadrer le renvoi.
-3. **Qualifier la structure du NDA** :
+1. **Test PI-centric.** Rechercher dans le document les termes : "savoir-faire", "brevet", "résultat de recherche", "co-développement", "secret d'affaires", "transfert de technologie", "background IP", "foreground IP", "residuals". Si présence substantielle (pas une simple mention en exception) → renvoyer immédiatement vers `/h-pi:contrats-pi` avec les options (a) lancer ce skill, (b) limiter `reviser-nda` aux clauses commerciales, (c) les deux en séquence. Citer art. L.151-1 C.com. (secret des affaires) `[Légifrance]` pour cadrer le renvoi.
+2. **Qualifier la structure du NDA** :
    - **Unilatéral** (un émetteur, un récepteur) ou **bilatéral** (réciprocité complète) — impacte la lecture asymétrie.
    - **Contexte** : précontractuel (LOI / data room M&A), opérationnel (prestation), partenariat industriel.
-4. **Identifier les parties** : raison sociale, qualité (donneur d'ordre / prestataire / cible / acquéreur), pays d'établissement.
-5. **Droit applicable et juridiction** : extraire la clause. Si droit étranger ou juridiction étrangère → signaler immédiatement (cadre FR / UE par défaut, ne pas appliquer le test FR à des faits étrangers).
-6. **Détection non-concurrence salariée** : rechercher toute clause restreignant l'activité du destinataire (employé du récepteur) après la fin du contrat. Si présente → activation du point 8 du tableau.
+3. **Identifier les parties** : raison sociale, qualité (donneur d'ordre / prestataire / cible / acquéreur), pays d'établissement.
+4. **Droit applicable et juridiction** : extraire la clause. Si droit étranger ou juridiction étrangère → signaler immédiatement (cadre FR / UE par défaut, ne pas appliquer le test FR à des faits étrangers).
+5. **Détection non-concurrence salariée** : rechercher toute clause restreignant l'activité du destinataire (employé du récepteur) après la fin du contrat. Si présente → activation du point 8 du tableau.
 
 ---
 
@@ -183,7 +177,6 @@ Triage rapide selon le tableau de référence ci-dessous. Pour chaque point, att
 - Les articles cités doivent exister dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md`. À défaut, tag `[à vérifier]` et signaler en note du relecteur.
 - Pour des exemples emblématiques de libellés (clause pénale, non-concurrence salariée, confidentialité, droit applicable et juridiction), se reporter à `${CLAUDE_SKILL_DIR}/../../references/clauses-sensibles-fr.md` (source de vérité unique : entrées 1, 2, 10 et 11).
 - Tag inline `[review]` sur les jugements subjectifs : portée d'une définition "large mais bornée", proportionnalité d'une clause pénale au préjudice prévisible, exigibilité d'une non-concurrence dont la contrepartie est chiffrée mais faible.
-- Plancher de sévérité cross-skill : si `check-pii` remonte 🔴, ne pas dégrader silencieusement.
 
 ---
 
@@ -262,10 +255,6 @@ Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
 3. **Signer en l'état** — confirmation rapide, archivage du triage au dossier, pas d'action supplémentaire.
 4. **Surveiller et attendre** — l'instruction n'est pas mûre : ajouter au tracker du dossier avec date de revisite, le cas échéant après questions ouvertes ciblées à la contrepartie sur les points ambigus (définition, périmètre salariés concernés, durée intentionnelle).
 5. **Autre** — précise.
-
-{Footer A si check-pii est passé en mode passif sous le seuil B :
-"Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement
-avant envoi à Claude, installer [hacienda-ghost](marketplace://hacienda-ghost)." Sinon, rien.}
 ```
 
 ### En-tête de confidentialité — 4 variantes selon rôle

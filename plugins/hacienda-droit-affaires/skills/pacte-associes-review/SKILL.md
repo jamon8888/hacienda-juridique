@@ -36,14 +36,13 @@ tags: [pacte-associes, societes, revue, drag-along, preemption, agrement, privat
 <example>
 <user>/h-da:pacte-associes-review ./pacte-associes-startup.pdf --review --side=fondateur</user>
 <response>
-1. Pré-flight `check-pii` (31 identifiants, aucune catégorie sensible → sous seuil B → continue)
-2. Lecture profil cabinet (posture pacte = protecteur fondateurs, matrice d'approbateurs, politique PII)
-3. Identification : pacte d'associés, SAS, 3 fondateurs + 1 investisseur, droit français
-4. Pas de composante PI substantielle détectée → pas de renvoi PI
-5. Analyse clause par clause contre `clauses-pacte-associes-fr.md` (préemption, agrément, inaliénabilité, drag/tag-along, anti-dilution, leaver, promesses croisées, non-concurrence, véto, information/liquidité)
-6. Liste de points triée par criticité (🔴 → 🟢) via skill `liste-de-points`
-7. Post-flight `verifier-citations` (articles C.com. et C.civ. vérifiés contre l'index)
-8. Sortie : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + liste de points + recommandation + question hors checklist + arbre de décision 5 options
+1. Lecture profil cabinet (posture pacte = protecteur fondateurs, matrice d'approbateurs)
+2. Identification : pacte d'associés, SAS, 3 fondateurs + 1 investisseur, droit français
+3. Pas de composante PI substantielle détectée → pas de renvoi PI
+4. Analyse clause par clause contre `clauses-pacte-associes-fr.md` (préemption, agrément, inaliénabilité, drag/tag-along, anti-dilution, leaver, promesses croisées, non-concurrence, véto, information/liquidité)
+5. Liste de points triée par criticité (🔴 → 🟢) via skill `liste-de-points`
+6. Post-flight `verifier-citations` (articles C.com. et C.civ. vérifiés contre l'index)
+7. Sortie : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + liste de points + recommandation + question hors checklist + arbre de décision 5 options
 </response>
 </example>
 
@@ -69,7 +68,7 @@ Détection d'une composante PI substantielle : le pacte organise l'apport au cap
 <example>
 <user>/h-da:pacte-associes-review ./pacte-investissement-lbo.pdf --pe --side=management</user>
 <response>
-1. Pré-flight check-pii + lecture profil
+1. Lecture profil
 2. Identification : pacte d'investissement, SAS HoldCo FR, sponsor + managers rollover → signaux PE
 3. Gate France/Lux : HoldCo FR, docs FR → jambe FR couverte
 4. Étape 2bis : 5 axes P1-P5, side=management
@@ -87,7 +86,6 @@ Détection d'une composante PI substantielle : le pacte organise l'apport au cap
 > - **Formes sociales pratiquées** — SAS / SARL / SA / SNC / SCI / autres (bloc « vie sociale »)
 > - **Positions playbook** — préemption, agrément, inaliénabilité, drag/tag, leaver, non-concurrence des associés
 > - **Matrice d'approbateurs** — par type d'acte
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B + catégories sensibles
 
 Si le profil n'est pas encore peuplé (`[A CONFIGURER]` présent) : stopper et
 demander `/h-da:entretien-demarrage` avant toute revue
@@ -110,14 +108,13 @@ substantielle. Voir aussi `~/.claude/plugins/config/hacienda-juridique/company-p
 ## Gate non-juriste
 
 - [ ] Forme sociale correctement identifiée (conditionne les fondements d'agrément et d'inaliénabilité)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet lu et posture pacte applicable identifiée
 - [ ] Renvoi PI effectué si le pacte comporte un volet PI substantiel (pas de revue PI forcée)
 - [ ] 11 clauses passées en revue contre `clauses-pacte-associes-fr.md`
 - [ ] Distinction non-concurrence d'associé / non-concurrence salariée correctement appliquée (pas de reproche sur l'absence de contrepartie)
 - [ ] Liste de points triée par criticité décroissante, sans doublon, sans remplissage
 - [ ] Citations vérifiées via `verifier-citations` ou taguées `[à vérifier]`
-- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + liste de points + recommandation + question hors checklist + arbre de décision 5 options + footer A si applicable
+- [ ] Sortie comprend : en-tête confidentialité + note du relecteur (5 champs) + résumé exécutif + liste de points + recommandation + question hors checklist + arbre de décision 5 options
 - [ ] Si `--pe` : module `pe-overlay-fr.md` chargé, gate France/Lux posé, 5 axes P1-P5 passés, side sponsor/management appliqué
 - [ ] Si `--pe` : requalification fiscale/sociale du management package nommée et renvoyée, jamais traitée au fond
 - [ ] Hors `--pe` : revue standard 11 clauses strictement inchangée
@@ -189,10 +186,6 @@ si rien d'honnête à dire — ne pas fabriquer.}
 3. **Compléter les faits** — questions ouvertes à poser à {fondateurs / investisseur / société / conseil} avant d'avancer.
 4. **Surveiller et attendre** — j'ajoute le sujet au tracker du dossier avec note motivée et date de revisite.
 5. **Autre** — précise ce que tu veux en faire.
-
-{Footer A — si check-pii est passé en mode passif sous le seuil B :
-[Ce skill a traité {N} mentions identifiantes. Pour anonymiser automatiquement avant envoi à Claude, installer hacienda-ghost.](https://hacienda.diy/ghost)
-Sinon, rien.}
 ```
 
 ### Mode silencieux (livrable externe)
@@ -204,16 +197,15 @@ Si l'utilisateur précise que la sortie est destinée à une contrepartie (co-as
 
 ---
 
-## Étape 1 — Pré-flight + identification
+## Étape 1 — Identification
 
-1. Invoquer `check-pii` sur le document avec la politique du profil. Selon le verdict (continue / prompt / abort), respecter la décision utilisateur.
-2. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`. Identifier la posture pacte (protecteur fondateurs / équilibré / protecteur investisseurs) et les formes sociales pratiquées.
-3. Identifier la **forme sociale** de la société dont les titres sont visés (SAS, SARL, SA…) et les **parties** (fondateurs, managers, investisseurs, société elle-même si signataire), leur qualité et le side de l'utilisateur. La forme sociale conditionne les fondements applicables :
+1. Lire le profil cabinet (CLAUDE.md droit-affaires) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`. Identifier la posture pacte (protecteur fondateurs / équilibré / protecteur investisseurs) et les formes sociales pratiquées.
+2. Identifier la **forme sociale** de la société dont les titres sont visés (SAS, SARL, SA…) et les **parties** (fondateurs, managers, investisseurs, société elle-même si signataire), leur qualité et le side de l'utilisateur. La forme sociale conditionne les fondements applicables :
    - SAS → agrément art. L.227-14 C.com. ; inaliénabilité statutaire art. L.227-13 C.com. (plafond 10 ans) ; décisions collectives art. L.227-9 C.com.
    - SARL → agrément légal des cessions à tiers art. L.223-14 C.com. ; décisions art. L.223-29 `[à vérifier]` / L.223-30 C.com.
    - SA / société par actions non cotée → clause d'agrément statutaire art. L.228-23 C.com., procédure art. L.228-24 C.com.
-4. **Test composante PI.** Si le pacte organise un apport au capital de droits de PI substantiels (brevets, marques, logiciels, savoir-faire R&D) ou une licence de PI structurante entre associés → renvoyer vers `/h-pi:contrats-pi` pour ce volet, avec les options (a) lancer ce skill pour le volet PI, (b) limiter `pacte-associes-review` aux clauses de vie sociale, (c) les deux en séquence. Ne pas analyser le volet PI à fond ici.
-5. **Détection PE.** Repérer les signaux PE (voir `${CLAUDE_SKILL_DIR}/../../references/pe-overlay-fr.md` §signaux). Si présents et que `--pe` n'est pas posé : proposer l'overlay PE et attendre l'acceptation avant d'exécuter l'étape 2bis. Ne pas activer l'overlay sans flag ni acceptation.
+3. **Test composante PI.** Si le pacte organise un apport au capital de droits de PI substantiels (brevets, marques, logiciels, savoir-faire R&D) ou une licence de PI structurante entre associés → renvoyer vers `/h-pi:contrats-pi` pour ce volet, avec les options (a) lancer ce skill pour le volet PI, (b) limiter `pacte-associes-review` aux clauses de vie sociale, (c) les deux en séquence. Ne pas analyser le volet PI à fond ici.
+4. **Détection PE.** Repérer les signaux PE (voir `${CLAUDE_SKILL_DIR}/../../references/pe-overlay-fr.md` §signaux). Si présents et que `--pe` n'est pas posé : proposer l'overlay PE et attendre l'acceptation avant d'exécuter l'étape 2bis. Ne pas activer l'overlay sans flag ni acceptation.
 
 ---
 
@@ -237,7 +229,7 @@ Pour chaque clause de pacte identifiée (voir `${CLAUDE_SKILL_DIR}/../../referen
 - Tag de provenance placé **après** la citation, sans backticks dans les cellules de tableau.
 - Les arrêts cités sont tagués `[Judilibre]` si consultés en session ou `[connaissance modèle — à vérifier]` / `[à vérifier]` sinon. Pas de fausse jurisprudence.
 - Tag inline `[review]` sur les jugements subjectifs : proportionnalité d'une non-concurrence d'associé (durée / périmètre / activités), caractère raisonnable d'une durée d'inaliénabilité borderline, caractère confiscatoire d'une décote bad leaver, qualification d'une promesse de rachat en clause léonine, risque de gestion de fait sur un véto large.
-- Respecter le plancher de sévérité cross-skill : si `check-pii` ou `verifier-citations` remonte 🔴, ne pas dégrader silencieusement.
+- Respecter le plancher de sévérité cross-skill : si `verifier-citations` remonte 🔴, ne pas dégrader silencieusement.
 
 **Points de fond à ne pas manquer :**
 

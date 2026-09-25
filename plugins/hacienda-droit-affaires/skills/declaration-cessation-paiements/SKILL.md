@@ -51,13 +51,12 @@ tags: [procedures-collectives, cessation-paiements, depot-de-bilan, debiteur, l6
 <example>
 <user>/h-da:declaration-cessation-paiements — SAS, trésorerie épuisée, passif fournisseurs+URSSAF exigible, redressement espéré</user>
 <response>
-1. Pré-flight `check-pii` (dénominations + montants + dirigeant → seuil B fréquent).
-2. Gate CdP (L.631-1) : sur les chiffres fournis, passif exigible > actif disponible → cessation **probable**, insuffisance provisoire ~[X] € **à confirmer par une situation de trésorerie datée**. Ne pas écrire « établie ».
-3. Date de CdP : **non arrêtée** — déduite de chiffres datés, fixée par le tribunal ; le premier impayé n'est qu'un indice. Laisser `[à compléter — date à arrêter avec l'expert-comptable]` `[review]`, ne pas fabriquer de date.
-4. Délai 45 j (L.631-4) : court depuis la date réelle ; **aucune échéance exacte calculable** tant que la date n'est pas arrêtée. Traiter le dépôt comme une obligation à brève échéance ; alerte retard **conditionnelle** si la date se confirme ancienne.
-5. Tribunal : SAS = société commerciale → tribunal de commerce.
-6. Orientation : redressement **sans le garantir** — réclamer financement/trésorerie prévisionnelle/rentabilité avant de pencher ; sinon présenter RJ et LJ. Le tribunal tranche.
-7. Pièces R.631-1 (liste complète, dont état actif disponible/passif exigible + attestation sur l'honneur mandat ad hoc/conciliation < 18 mois) + squelette de déclaration ([à compléter] : chiffres, créances, inventaire).
+1. Gate CdP (L.631-1) : sur les chiffres fournis, passif exigible > actif disponible → cessation **probable**, insuffisance provisoire ~[X] € **à confirmer par une situation de trésorerie datée**. Ne pas écrire « établie ».
+2. Date de CdP : **non arrêtée** — déduite de chiffres datés, fixée par le tribunal ; le premier impayé n'est qu'un indice. Laisser `[à compléter — date à arrêter avec l'expert-comptable]` `[review]`, ne pas fabriquer de date.
+3. Délai 45 j (L.631-4) : court depuis la date réelle ; **aucune échéance exacte calculable** tant que la date n'est pas arrêtée. Traiter le dépôt comme une obligation à brève échéance ; alerte retard **conditionnelle** si la date se confirme ancienne.
+4. Tribunal : SAS = société commerciale → tribunal de commerce.
+5. Orientation : redressement **sans le garantir** — réclamer financement/trésorerie prévisionnelle/rentabilité avant de pencher ; sinon présenter RJ et LJ. Le tribunal tranche.
+6. Pièces R.631-1 (liste complète, dont état actif disponible/passif exigible + attestation sur l'honneur mandat ad hoc/conciliation < 18 mois) + squelette de déclaration ([à compléter] : chiffres, créances, inventaire).
 </response>
 </example>
 
@@ -87,7 +86,6 @@ Renvoi `/h-da:prevention-difficultes` : tant qu'il n'y a pas CdP, la **sauvegard
 > - **Position** — débiteur (cas dominant ici, à confirmer)
 > - **Tribunaux habituels** — repérage du greffe compétent
 > - **Qualité signataire** — dirigeant de droit habilité (gérant, président, DG)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`.
 
@@ -108,7 +106,6 @@ Si la forme sociale ou les éléments de CdP sont absents : stopper et demander.
 ## Gate non-juriste
 
 - [ ] Forme sociale et éléments de cessation des paiements fournis (refus du défaut)
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] Profil cabinet bloc procédures collectives lu ; qualité signataire (dirigeant de droit) identifiée
 - [ ] **Gate CdP** : qualification L.631-1 explicite (actif disponible vs passif exigible, réserves de crédit/moratoires pris en compte). Cessation **probable** (insuffisance provisoire chiffrée, à confirmer par situation datée) — **pas** « établie » sur chiffres non datés. Si **pas** de CdP → renvoi `prevention-difficultes`, ne pas rédiger de déclaration
 - [ ] Date de CdP **non fabriquée** : pas de date calendaire précise sur une approximation ; premier impayé = indice, pas la date ; `[à compléter]` + `[review]` (point de départ période suspecte, fixée par le tribunal)
@@ -122,10 +119,6 @@ Si la forme sociale ou les éléments de CdP sont absents : stopper et demander.
 - [ ] Sortie comprend : qualification CdP (probable) + statut délai conditionnel + orientation RJ/LJ + projet déclaration + pièces + note du relecteur + question hors checklist + arbre 5 options
 
 ---
-
-## Mode Anno Desktop Optionnel
-
-Pour reconstruire la chronologie de trésorerie, échéances et impayés, appeler `anno_health`, puis `detect`. Utiliser `legal_timeline`, `legal_validate_field` et `legal_search` sur corpus déjà ingéré. Les données financières restent fournies/validées par le client ; rien n'est fabriqué.
 
 ## Outils MCP à privilégier
 
@@ -149,17 +142,16 @@ Format date : `YYYY-MM-DD`.
 
 Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitudes, sources consultées, décisions proposées, prochaine action et validation humaine. Toute source non consultée directement reste `[à vérifier]`.
 
-## Étape 1 — Pré-flight et gate CdP (L.631-1)
+## Étape 1 — Gate CdP (L.631-1)
 
-1. Invoquer `check-pii`. Probabilité élevée seuil B (dénomination + dirigeant + montants). Respecter la décision utilisateur.
-2. Lire profil cabinet (bloc procédures collectives) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
-3. **Qualifier la cessation des paiements** (art. L.631-1 C.com. `[Légifrance]`) : *impossibilité de faire face au passif exigible avec l'actif disponible*.
+1. Lire profil cabinet (bloc procédures collectives) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
+2. **Qualifier la cessation des paiements** (art. L.631-1 C.com. `[Légifrance]`) : *impossibilité de faire face au passif exigible avec l'actif disponible*.
    - **Actif disponible** = liquidités + valeurs réalisables immédiatement + **réserves de crédit** et **moratoires** dont bénéficie le débiteur (L.631-1 al. 2).
    - **Passif exigible** = dettes échues **et** exigées (réclamées).
    - **Moratoire — exclusion provisoire, sous réserve de son respect.** Une dette rééchelonnée par un moratoire (ex. échéancier URSSAF) sort du passif **immédiatement** exigible **tant que le moratoire est honoré** : l'exclure de l'analyse mais le dire explicitement — un **défaut sur une échéance du moratoire rend la dette à nouveau exigible** et peut (re)caractériser la cessation. Ne pas neutraliser une dette moratoriée sans ce caveat.
    - Si actif disponible ≥ passif exigible (notamment grâce à un moratoire/ligne de crédit) → **pas de CdP** → **stopper la rédaction** et renvoyer `/h-da:prevention-difficultes` (sauvegarde + amiable encore ouverts).
    - **Conclusion mesurée, jamais affirmée sur des chiffres non datés.** Tant que les chiffres ne sont pas établis par une **situation de trésorerie datée**, conclure à une cessation **probable** (et non « établie »), en chiffrant l'**insuffisance provisoire** (passif exigible − actif disponible) **sous réserve de confirmation**. Ne pas écrire « cessation établie » sur des chiffres approximatifs. Si la cessation n'est finalement pas confirmée → `/h-da:prevention-difficultes` (et borner la conciliation : ouverte tant qu'il n'y a pas CdP de plus de 45 j).
-4. **Date de cessation des paiements — ne jamais la fabriquer ni l'ancrer sur le premier impayé.** La date de CdP est celle où l'actif disponible est devenu insuffisant pour couvrir le passif exigible ; elle se déduit de **chiffres datés** et est **fixée par le tribunal** (report possible jusqu'à 18 mois, L.631-8 `[Légifrance]`). Le **premier impayé et les mises en demeure ne sont que des _indices_, jamais la date elle-même.** Si la date n'est pas établie par des pièces datées : ne **pas** produire de date calendaire précise — la laisser en **fourchette / `[à compléter — date exacte à arrêter avec l'expert-comptable]`**, taguée `[review]` (point de départ de la période suspecte, L.632-1/L.632-2). Une approximation du client (« il y a ~10 semaines ») reste une approximation : ne pas la convertir en date précise présentée comme acquise.
+3. **Date de cessation des paiements — ne jamais la fabriquer ni l'ancrer sur le premier impayé.** La date de CdP est celle où l'actif disponible est devenu insuffisant pour couvrir le passif exigible ; elle se déduit de **chiffres datés** et est **fixée par le tribunal** (report possible jusqu'à 18 mois, L.631-8 `[Légifrance]`). Le **premier impayé et les mises en demeure ne sont que des _indices_, jamais la date elle-même.** Si la date n'est pas établie par des pièces datées : ne **pas** produire de date calendaire précise — la laisser en **fourchette / `[à compléter — date exacte à arrêter avec l'expert-comptable]`**, taguée `[review]` (point de départ de la période suspecte, L.632-1/L.632-2). Une approximation du client (« il y a ~10 semaines ») reste une approximation : ne pas la convertir en date précise présentée comme acquise.
 
 ## Étape 2 — Délai légal de 45 j + alerte (conditionnelle tant que la date n'est pas arrêtée)
 

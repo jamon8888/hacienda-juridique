@@ -49,14 +49,13 @@ tags: [mise-en-demeure, recouvrement, contentieux, b2b, 1344, l441-10, pre-judic
 <example>
 <user>/h-da:mise-en-demeure-commerciale --draft --type=payer ./factures-impayees.pdf --siren=552100554</user>
 <response>
-1. Pré-flight `check-pii` (montants + SIREN + dénominations → seuil B fréquent).
-2. **Détection procédure collective** : `bodacc_procedures` sur le SIREN → aucune procédure ouverte `[BODACC]`. Poursuite possible.
-3. Profil cabinet : posture « équilibré », approbateur mise en demeure identifié, matrice d'escalade lue.
-4. Qualification : créance certaine, liquide et exigible (3 factures échues, non contestées).
-5. Calcul des sommes : principal + intérêts moratoires (taux légal professionnel `[à vérifier]` + 5 pts si CGV) + indemnité forfaitaire 40 €/facture (L.441-10 C.com.) + clause pénale si stipulée `[review]`.
-6. Rédaction : objet, rappel des factures, fondement, **délai raisonnable** (8 à 15 jours usuels `[review]`), conséquences (intérêts, résolution, action), formule comminatoire mesurée.
-7. Post-flight `verifier-citations` (1344, 1344-1, 1231-6, L.441-10 C.com.).
-8. Sortie : lettre prête à signer (mode silencieux externe) + note du relecteur + arbre 5 options.
+1. **Détection procédure collective** : `bodacc_procedures` sur le SIREN → aucune procédure ouverte `[BODACC]`. Poursuite possible.
+2. Profil cabinet : posture « équilibré », approbateur mise en demeure identifié, matrice d'escalade lue.
+3. Qualification : créance certaine, liquide et exigible (3 factures échues, non contestées).
+4. Calcul des sommes : principal + intérêts moratoires (taux légal professionnel `[à vérifier]` + 5 pts si CGV) + indemnité forfaitaire 40 €/facture (L.441-10 C.com.) + clause pénale si stipulée `[review]`.
+5. Rédaction : objet, rappel des factures, fondement, **délai raisonnable** (8 à 15 jours usuels `[review]`), conséquences (intérêts, résolution, action), formule comminatoire mesurée.
+6. Post-flight `verifier-citations` (1344, 1344-1, 1231-6, L.441-10 C.com.).
+7. Sortie : lettre prête à signer (mode silencieux externe) + note du relecteur + arbre 5 options.
 </response>
 </example>
 
@@ -97,7 +96,6 @@ Mise en demeure d'**exécuter** une obligation de faire (livraison/prestation no
 > - **Posture par défaut** — protecteur / équilibré / facilitateur (calibre la fermeté)
 > - **Position clause pénale (1231-5)** et **intérêts de retard** habituels
 > - **Approbateur « Mise en demeure »** + déclencheur d'escalade (absence de réponse 30 j)
-> - **Politique PII** — `passive` / `active` (défaut) / `strict` + seuil B
 
 Si le bloc est `[A CONFIGURER]` : stopper et demander `/h-da:entretien-demarrage`. Sans approbateur configuré, la chaîne de validation n'est pas opposable.
 
@@ -118,7 +116,6 @@ Side = **créancier / demandeur** par nature de l'acte.
 
 ## Gate non-juriste
 
-- [ ] Pré-flight `check-pii` exécuté et décision utilisateur respectée
 - [ ] **Détection procédure collective** faite (SIREN + `bodacc_procedures`) ; si débiteur en sauvegarde/RJ/LJ → STOP + renvoi `declaration-creance`, AUCUNE mise en demeure produite
 - [ ] Test rupture brutale : si cessation d'une relation établie en jeu → signaler + renvoi `analyser-rupture-brutale`
 - [ ] Profil cabinet lu, posture et approbateur « Mise en demeure » identifiés
@@ -189,8 +186,6 @@ Si plusieurs créances/factures, joindre un tableau récapitulatif ; au-delà de
 3. **Compléter les faits** — questions au service compta / commercial (taux CGV exact, relances déjà envoyées, contestation reçue).
 4. **Surveiller et attendre** — ajout au tracker recouvrement avec date de relance (J+30) et bascule `--sommation` si sans réponse.
 5. **Autre** — précise.
-
-{Footer A PII si check-pii passif sous seuil B.}
 ```
 
 ### Mode silencieux (livrable externe — lettre adressée au débiteur)
@@ -202,13 +197,12 @@ Si plusieurs créances/factures, joindre un tableau récapitulatif ; au-delà de
 
 ---
 
-## Étape 1 — Pré-flight, détection procédure collective, qualification
+## Étape 1 — Détection procédure collective, qualification
 
-1. Invoquer `check-pii` (probabilité élevée seuil B : SIREN + montants + dénominations). Respecter la décision.
-2. Lire le profil cabinet (bloc contrats commerciaux + matrice d'approbateurs).
-3. **Détection procédure collective (obligatoire).** Si un SIREN est fourni ou détectable (regex `\b[0-9]{9}\b` + Luhn) : `bodacc_procedures`. Si sauvegarde/RJ/LJ ouverte et la créance est **antérieure** au jugement → **STOP** : pas de mise en demeure (arrêt des poursuites L.622-21 C.com. `[Légifrance]`), renvoi `declaration-creance`. Distinguer les créances **postérieures** privilégiées (art. L.622-17) qui, elles, peuvent être réclamées `[review]`. **Tracer le résultat dans la note du relecteur (ligne « Procédure collective » obligatoire), y compris quand aucune procédure n'est ouverte** : le garde-fou L.622-21 doit rester visible dans le livrable, jamais vérifié en silence.
-4. **Test rupture brutale.** Si l'opération revient à cesser une relation commerciale établie → signaler le risque L.442-1, II C.com. et renvoyer `analyser-rupture-brutale` avant envoi.
-5. Identifier les parties, le contrat applicable, le droit applicable et la juridiction (si clause attributive).
+1. Lire le profil cabinet (bloc contrats commerciaux + matrice d'approbateurs).
+2. **Détection procédure collective (obligatoire).** Si un SIREN est fourni ou détectable (regex `\b[0-9]{9}\b` + Luhn) : `bodacc_procedures`. Si sauvegarde/RJ/LJ ouverte et la créance est **antérieure** au jugement → **STOP** : pas de mise en demeure (arrêt des poursuites L.622-21 C.com. `[Légifrance]`), renvoi `declaration-creance`. Distinguer les créances **postérieures** privilégiées (art. L.622-17) qui, elles, peuvent être réclamées `[review]`. **Tracer le résultat dans la note du relecteur (ligne « Procédure collective » obligatoire), y compris quand aucune procédure n'est ouverte** : le garde-fou L.622-21 doit rester visible dans le livrable, jamais vérifié en silence.
+3. **Test rupture brutale.** Si l'opération revient à cesser une relation commerciale établie → signaler le risque L.442-1, II C.com. et renvoyer `analyser-rupture-brutale` avant envoi.
+4. Identifier les parties, le contrat applicable, le droit applicable et la juridiction (si clause attributive).
 
 ---
 
