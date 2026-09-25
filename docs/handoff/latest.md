@@ -51,8 +51,20 @@ pas de joker (`mcp__*` refusé). Code de sortie 1 = seuil 1,0 non atteint, pas u
 plantage.
 
 **Historique A :** 1er passage (avant corrections) : 14/14 analyses sans piège
-raté, cas négatif 3/3. **Relance A après corrections : lancée le 2026-09-25 —
-résultats à reporter ici.**
+raté, cas négatif 3/3. **Relance A du 2026-09-25 (matin) : incomplète**, limite de
+session du forfait atteinte au 2e cas (2,75 $). Résultats exploitables :
+- `01-spa-review` : **3/3 à 1,00** (toutes les grilles, pièges + `d*`).
+- `03-declaration-creance` (mesuré seul juste avant, après correctif des commandes) :
+  **3/3 à 1,00**.
+- `02-distress-cedant` run 1 : **pas un échec de fond** — le skill s'est chargé, puis
+  `check-pii` a posé sa question (continuer / ne plus demander / installer ghost)
+  malgré la mention « dossier fictif » ; la réponse s'arrête là, d'où les FAIL. Runs
+  2-3 et cas 03-05 : coupés par la limite (`grader threw` / `exit 1`), sans valeur.
+- **À faire** : relancer uniquement `02`, `04`, `05` (`--case`), un par créneau.
+- **Point ouvert (décision Candy)** : `check-pii` interrompt même un dossier déclaré
+  fictif. Déjà vu au pilote. Soit on accepte (comportement voulu en Cowork, l'éval
+  en un seul tour ne peut pas répondre), soit `check-pii` ne pose plus la question
+  quand l'utilisateur déclare explicitement le dossier fictif.
 
 ### Défauts réels trouvés par l'éval de bout en bout (tous corrigés, sur main)
 
@@ -88,7 +100,8 @@ Le serveur lit la config **au démarrage** : nouvelle session après tout change
 
 ## Ouvert / prochaines pistes (droit-affaires)
 
-- **Reporter les résultats de la relance A** (section ci-dessus).
+- **Finir A** : `02-distress-cedant`, `04-dd-pe-red-flags`, `05-neg-…` (un `--case`
+  par créneau) + trancher le point `check-pii` ci-dessus.
 - **B, un cas par session**, dans l'ordre : spa-review → distress-cedant →
   declaration-creance → dd-pe. Spot-checker chaque écart avant de conclure.
 - **Wording ghost** : `[review]` dans `README_UTILISATEUR.md` (section
