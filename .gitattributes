@@ -1,3 +1,5 @@
 plugins/**/skills/**/SKILL.md text eol=lf
 tools/hacienda-plugin-factory/src/*.ts text eol=lf
 packages/core/test/*.ts text eol=lf
+# Serveurs MCP compilés (esbuild) : fichiers générés, exclus du contrôle des espaces
+plugins/*/mcp-server/dist/*.cjs -whitespace
