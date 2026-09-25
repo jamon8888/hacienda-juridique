@@ -10,8 +10,10 @@ description: >
 argument-hint: "[package, side, documents, instruments, economics] [--side=sponsor|manager]"
 ---
 
-Use the `management-package-pe` skill with these arguments:
+Point d'entrée `/h-da:management-package-pe` du plugin Hacienda Droit des Affaires.
+
+Le déroulé complet de cette commande (étapes, vérification des sources, format de sortie, garde-fous) est défini dans le skill `hacienda-droit-affaires:management-package-pe` du même plugin. Pour traiter la demande, charge ce skill avec l'outil Skill en lui transmettant les éléments ci-dessous, puis suis ses instructions.
+
+Éléments transmis par l'utilisateur :
 
 $ARGUMENTS
-
-Delegate all legal workflow, source-verification, PII, and validation-human guardrails to the skill. Do not duplicate or reinterpret the business logic in this command wrapper.

@@ -17,6 +17,10 @@ description: >
 argument-hint: "[forme sociale, qualité du dirigeant (droit/fait), stade procédure (pré-CdP / RJ-LJ ouverte / action engagée), faits saillants ; côté dirigeant]"
 ---
 
-Use the `responsabilite-dirigeant` skill to evaluate the personal liability exposure of a company director in collective proceedings.
+Point d'entrée `/h-da:responsabilite-dirigeant` du plugin Hacienda Droit des Affaires.
+
+Le déroulé complet de cette commande (étapes, vérification des sources, format de sortie, garde-fous) est défini dans le skill `hacienda-droit-affaires:responsabilite-dirigeant` du même plugin. Pour traiter la demande, charge ce skill avec l'outil Skill en lui transmettant les éléments ci-dessous, puis suis ses instructions.
+
+Éléments transmis par l'utilisateur :
 
 $ARGUMENTS

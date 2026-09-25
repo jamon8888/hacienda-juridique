@@ -266,7 +266,13 @@ describe("hacienda droit affaires cowork packaging", () => {
       expect(frontmatterValue(commandContent, "argument-hint"), skillName).toBe(
         frontmatterValue(skillContent, "argument-hint")
       );
-      expect(commandContent, skillName).toContain(`Use the \`${skillName}\` skill`);
+      // La coquille doit faire charger le skill complet par son nom qualifié :
+      // sans lui, le modèle répond sans règles de sources ni format de sortie
+      // (constaté en `claude plugin eval`, 2 passages sur 3). Formulation explicative,
+      // pas impérative : une consigne du type « avant toute réponse… » a été prise
+      // pour une tentative d'injection et refusée.
+      expect(commandContent, skillName).toContain(`\`hacienda-droit-affaires:${skillName}\``);
+      expect(commandContent, skillName).toContain("outil Skill");
       expect(commandContent, skillName).toContain("$ARGUMENTS");
       expect(commandContent, skillName).not.toContain("/h-droit-affaires:");
     }

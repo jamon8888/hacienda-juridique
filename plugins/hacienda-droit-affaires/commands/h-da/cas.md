@@ -15,8 +15,10 @@ description: >
 argument-hint: "[décris ta situation ou ton type de dossier — ex : « reprise d'une société en difficulté », « contrat reçu à relire », « impayé client »]"
 ---
 
-Use the `cas` skill with these arguments:
+Point d'entrée `/h-da:cas` du plugin Hacienda Droit des Affaires.
+
+Le déroulé complet de cette commande (étapes, vérification des sources, format de sortie, garde-fous) est défini dans le skill `hacienda-droit-affaires:cas` du même plugin. Pour traiter la demande, charge ce skill avec l'outil Skill en lui transmettant les éléments ci-dessous, puis suis ses instructions.
+
+Éléments transmis par l'utilisateur :
 
 $ARGUMENTS
-
-Delegate all triage, routing, anonymization-gate and validation-human guardrails to the skill. Do not duplicate or reinterpret the business logic in this command wrapper.

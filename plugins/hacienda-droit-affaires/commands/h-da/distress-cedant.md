@@ -20,8 +20,10 @@ description: >
 argument-hint: "[note d'orientation (mode unique), entreprise à quel stade de difficulté ?, cessation des paiements datée ? depuis plus de 45 j ?, sauver / céder / déposer ?, côté cédant/débiteur]"
 ---
 
-Use the `distress-cedant` skill with these arguments:
+Point d'entrée `/h-da:distress-cedant` du plugin Hacienda Droit des Affaires.
+
+Le déroulé complet de cette commande (étapes, vérification des sources, format de sortie, garde-fous) est défini dans le skill `hacienda-droit-affaires:distress-cedant` du même plugin. Pour traiter la demande, charge ce skill avec l'outil Skill en lui transmettant les éléments ci-dessous, puis suis ses instructions.
+
+Éléments transmis par l'utilisateur :
 
 $ARGUMENTS
-
-Delegate all legal workflow, source-verification, PII, and validation-human guardrails to the skill. Do not duplicate or reinterpret the business logic in this command wrapper.
