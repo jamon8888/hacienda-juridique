@@ -1,6 +1,5 @@
 import { existsSync, readFileSync } from "node:fs";
-import { homedir } from "node:os";
-import { resolve } from "node:path";
+import { resolveCredentialsFilePath } from "../credentials-path.js";
 
 export type JudilibreEnv = "production" | "sandbox";
 
@@ -27,10 +26,8 @@ interface CredentialsFile {
 }
 
 function loadCredentialsFile(): CredentialsFile | undefined {
-  const path =
-    process.env.HACIENDA_CREDENTIALS_FILE ??
-    resolve(homedir(), ".config", "Hacienda", "credentials.json");
-  if (!existsSync(path)) return undefined;
+  const path = resolveCredentialsFilePath();
+  if (!path || !existsSync(path)) return undefined;
 
   try {
     return JSON.parse(readFileSync(path, "utf-8")) as CredentialsFile;

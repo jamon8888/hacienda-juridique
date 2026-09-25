@@ -3,6 +3,7 @@ import { homedir } from "node:os";
 import { resolve } from "node:path";
 import { config as loadDotenv } from "dotenv";
 import { log } from "./logger.js";
+import { resolveCredentialsFilePath } from "./credentials-path.js";
 
 loadDotenv();
 
@@ -37,10 +38,8 @@ interface CredentialsFile {
  * un warning si lisible par d'autres mais on accepte quand même.
  */
 function loadCredentialsFile(): CredentialsFile | undefined {
-  const path =
-    process.env.HACIENDA_CREDENTIALS_FILE ??
-    resolve(homedir(), ".config", "Hacienda", "credentials.json");
-  if (!existsSync(path)) return undefined;
+  const path = resolveCredentialsFilePath();
+  if (!path || !existsSync(path)) return undefined;
   try {
     const content = readFileSync(path, "utf-8");
     return JSON.parse(content) as CredentialsFile;
