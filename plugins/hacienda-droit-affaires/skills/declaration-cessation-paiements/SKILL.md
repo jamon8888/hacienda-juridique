@@ -38,8 +38,11 @@ tags: [procedures-collectives, cessation-paiements, depot-de-bilan, debiteur, l6
 > tribunal peut la reporter jusqu'à **18 mois** avant le jugement (L.631-8).
 > Toujours taguer la date retenue `[review]`.
 >
-> La déclaration déposée au greffe est un **livrable externe** : retirer
-> l'en-tête de confidentialité avocat (cf. CLAUDE.md plugin §2).
+> **Deux versions, deux destinataires.** La réponse du skill s'adresse
+> **d'abord à l'avocat** : version interne, avec note du relecteur et tags de
+> provenance **obligatoires**. La déclaration à **déposer au greffe** (livrable
+> externe, sans en-tête de confidentialité, cf. CLAUDE.md plugin §2) n'est
+> produite **que sur demande explicite** — voir « Mode silencieux ».
 
 ---
 
@@ -285,6 +288,8 @@ Appel automatique sur la sortie complète. Articles à vérifier : **L.631-1, L.
 ```
 
 ### Mode silencieux (livrable externe — déclaration déposée au greffe)
+
+**Quand l'appliquer.** Par défaut, produis la version interne pour l'avocat (note du relecteur et tags compris). Le mode silencieux ne s'applique que lorsque l'utilisateur demande explicitement la version à déposer au greffe ; même alors, la note du relecteur et le statut de vérification des citations sont livrés dans un message d'accompagnement séparé.
 
 La déclaration est un livrable externe (CLAUDE.md §2) : retirer l'en-tête de confidentialité avocat dans la version déposée ; conserver la note du relecteur dans le message d'accompagnement, pas dans la déclaration ; couper la narration de skill et les renvois inter-commandes ; consolider les tags `[Légifrance]` en pied si besoin.
 

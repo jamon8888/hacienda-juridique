@@ -22,7 +22,7 @@ tags: [procedures-collectives, declaration-creance, forclusion, bodacc, l622-24]
 >
 > Le délai de forclusion **2 mois** à compter de la publication BODACC du jugement d'ouverture (art. L.622-24 C.com. `[Légifrance]`) est une **règle dure** : passé ce délai, la créance est éteinte sauf relevé de forclusion exceptionnel art. L.622-26 C.com. `[Légifrance]` (démontrer que la défaillance n'est pas due au fait du créancier ou que la créance était inconnue du débiteur). Délai porté à **4 mois** pour le créancier domicilié hors France métropolitaine/UE/EEE. Vérification calendrier OBLIGATOIRE.
 >
-> Sortie destinée au mandataire = **livrable externe** : retirer l'en-tête de confidentialité avocat (cf. CLAUDE.md plugin §2).
+> **Deux versions, deux destinataires.** La réponse du skill s'adresse **d'abord à l'avocat** : c'est la **version interne**, avec note du relecteur et tags de provenance (`[Légifrance]`, `[BODACC]`, `[à vérifier]`) **obligatoires**. Le **courrier au mandataire** (livrable externe, sans en-tête de confidentialité ni tags, cf. CLAUDE.md plugin §2) n'est produit **que sur demande explicite** (option 1 « Rédiger ») — voir « Mode silencieux » à l'Étape 7.
 
 ---
 
@@ -332,7 +332,9 @@ Appel automatique sur la sortie complète. Articles à vérifier : L.622-17, L.6
 
 ### Mode silencieux (livrable externe — déclaration adressée au mandataire)
 
-La déclaration de créance est un livrable externe au sens de CLAUDE.md plugin §2 :
+La déclaration de créance est un livrable externe au sens de CLAUDE.md plugin §2.
+
+**Quand l'appliquer.** Par défaut — y compris quand on te demande de « préparer la déclaration » — produis le **format livrable ci-dessus** (version interne pour l'avocat, note du relecteur et tags compris, projet de déclaration inclus). Le mode silencieux ne s'applique **que** lorsque l'utilisateur demande explicitement la version à envoyer au mandataire (option 1 « Rédiger », courrier LRAR prêt à signer). Même alors, la **note du relecteur** et le **statut de vérification des citations** sont livrés dans un message d'accompagnement séparé : épurer le courrier ne dispense jamais de dire à l'avocat ce qui a été vérifié et ce qui ne l'a pas été.
 
 - **Retirer l'en-tête de confidentialité avocat** (le destinataire mandataire n'est pas couvert par le secret professionnel du créancier). Conserver l'en-tête uniquement si la note interne reste dans le périmètre cabinet.
 - Conserver la note du relecteur dans le message accompagnement, **pas dans le courrier au mandataire**.
