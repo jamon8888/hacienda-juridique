@@ -52,6 +52,19 @@ export function resolveLegitext(codeName: string): string | undefined {
   return undefined;
 }
 
+/**
+ * Normalize an article number to the form Légifrance expects (`L611-3`, `1240`).
+ * Models and users usually write `L. 611-3`, `art. L.611-3` or `l 611-3`,
+ * which `getArticleWithIdAndNum` rejects as "article introuvable".
+ */
+export function normalizeArticleNum(num: string): string {
+  const withoutArticle = num.trim().replace(/^art(?:icle)?\.?\s+/i, "");
+  const match = /^((?:[A-Za-z]\.?){1,3})(\*?)\s*(\d.*)$/.exec(withoutArticle);
+  if (!match) return withoutArticle;
+  const [, part = "", star = "", rest = ""] = match;
+  return `${part.replace(/\./g, "").toUpperCase()}${star}${rest.replace(/\s+/g, "")}`;
+}
+
 export function listKnownCodes(): string[] {
   return Object.keys(COMMON_CODES_LEGITEXT);
 }

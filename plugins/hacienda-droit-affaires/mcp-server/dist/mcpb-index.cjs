@@ -32015,6 +32015,7 @@ var codes_legitext_exports = {};
 __export(codes_legitext_exports, {
   COMMON_CODES_LEGITEXT: () => COMMON_CODES_LEGITEXT,
   listKnownCodes: () => listKnownCodes,
+  normalizeArticleNum: () => normalizeArticleNum,
   resolveLegitext: () => resolveLegitext
 });
 function resolveLegitext(codeName) {
@@ -32022,6 +32023,13 @@ function resolveLegitext(codeName) {
   if (COMMON_CODES_LEGITEXT[normalized]) return COMMON_CODES_LEGITEXT[normalized];
   if (/^LEGITEXT\d+$/i.test(codeName.trim())) return codeName.trim().toUpperCase();
   return void 0;
+}
+function normalizeArticleNum(num) {
+  const withoutArticle = num.trim().replace(/^art(?:icle)?\.?\s+/i, "");
+  const match = /^((?:[A-Za-z]\.?){1,3})(\*?)\s*(\d.*)$/.exec(withoutArticle);
+  if (!match) return withoutArticle;
+  const [, part = "", star = "", rest = ""] = match;
+  return `${part.replace(/\./g, "").toUpperCase()}${star}${rest.replace(/\s+/g, "")}`;
 }
 function listKnownCodes() {
   return Object.keys(COMMON_CODES_LEGITEXT);
@@ -57291,14 +57299,14 @@ function registerGetArticle(server, http) {
         "R\xE9cup\xE8re le texte int\xE9gral d'un article d'un code fran\xE7ais (Code civil, Code p\xE9nal, CGI, etc.).",
         "Deux modes d'invocation :",
         "1. Par identifiant LEGIARTI : passer `articleId` (ex. `LEGIARTI000006417707`).",
-        "2. Par code et num\xE9ro : passer `code` (nom usuel ex. `Code civil`, ou un LEGITEXT directement) + `num` (ex. `1240`).",
+        "2. Par code et num\xE9ro : passer `code` (nom usuel ex. `Code civil`, ou un LEGITEXT directement) + `num` (ex. `1240`, `L611-3` ; `L. 611-3` est aussi accept\xE9).",
         `Codes connus : ${listKnownCodes().slice(0, 12).join(", ")}\u2026`,
         "Retourne : num\xE9ro, texte, \xE9tat (VIGUEUR/ABROGE/MODIFIE\u2026), dates, lien L\xE9gifrance."
       ].join("\n"),
       inputSchema: {
         articleId: external_exports.string().optional().describe("Identifiant LEGIARTI\u2026 de l'article."),
         code: external_exports.string().optional().describe("Nom usuel du code (ex. 'Code civil') ou identifiant LEGITEXT\u2026"),
-        num: external_exports.string().optional().describe("Num\xE9ro de l'article (ex. '1240', 'L. 421-1').")
+        num: external_exports.string().optional().describe("Num\xE9ro de l'article (ex. '1240', 'L421-1' ; 'L. 421-1' est normalis\xE9).")
       }
     },
     async (args) => {
@@ -57329,7 +57337,10 @@ function registerGetArticle(server, http) {
             ]
           };
         }
-        raw = await http.post("/consult/getArticleWithIdAndNum", { id: legitext, num: args.num });
+        raw = await http.post("/consult/getArticleWithIdAndNum", {
+          id: legitext,
+          num: normalizeArticleNum(args.num)
+        });
       }
       const parsed = GetArticleResponseSchema.safeParse(raw);
       if (!parsed.success) {

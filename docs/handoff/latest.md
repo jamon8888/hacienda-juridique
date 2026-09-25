@@ -56,14 +56,13 @@ session du forfait atteinte au 2e cas (2,75 $). Résultats exploitables :
 - `01-spa-review` : **3/3 à 1,00** (toutes les grilles, pièges + `d*`).
 - `03-declaration-creance` (mesuré seul juste avant, après correctif des commandes) :
   **3/3 à 1,00**.
-- `02-distress-cedant` run 1 : **pas un échec de fond** — le skill s'est chargé, puis
-  `check-pii` a posé sa question (continuer / ne plus demander / installer ghost)
-  malgré la mention « dossier fictif » ; la réponse s'arrête là, d'où les FAIL. Runs
-  2-3 et cas 03-05 : coupés par la limite (`grader threw` / `exit 1`), sans valeur.
-- **À faire** : relancer uniquement `02`, `04`, `05` (`--case`), un par créneau.
-- **Tranché le 2026-09-25** : `check-pii` est **retiré du plugin** (décision produit :
-  ce n'était qu'un appel à l'action gratuit vers ghost), ainsi que la gate
-  d'anonymisation de `cas` et tout le mode Anno Desktop. Plus de blocage possible.
+- `02-distress-cedant` : le matin, bloqué par la question de `check-pii` (depuis
+  **retiré du plugin**, avec la gate d'anonymisation de `cas` et le mode Anno
+  Desktop — décision produit 2026-09-25). Relancé l'après-midi : **3/3 à 1,00**
+  (2,10 $, 10 min). Traces : passage 3 sans aucun appel Légifrance (dit
+  honnêtement dans la note du relecteur) — variabilité à surveiller sur les autres
+  cas ; passage 1 : 16 articles refusés au format `L. 611-3` → défaut n°6 ci-dessous.
+- **Reste** : `04-dd-pe-red-flags`, `05-neg-…` (un `--case` par créneau).
 
 ### Défauts réels trouvés par l'éval de bout en bout (tous corrigés, sur main)
 
@@ -83,6 +82,11 @@ session du forfait atteinte au 2e cas (2,75 $). Résultats exploitables :
    description que le skill) → corps explicatif qui fait charger
    `hacienda-droit-affaires:<skill>` ; une version impérative avait été prise pour
    une injection (733b33f). Mesure : 3/3.
+6. **`legifrance_get_article` refusait `L. 611-3`** (format courant, et même
+   l'exemple de sa propre description) → « Article introuvable », le modèle devait
+   tout redemander au format `L611-3`. Numéro normalisé (`normalizeArticleNum`,
+   `packages/core/src/codes-legitext.ts`) + tests ; serveur DA reconstruit, vérifié
+   en réel. PI/SO en bénéficieront à leur prochaine reconstruction.
 
 Autres corrections de la période : `distress-cedant` (cohérence cessation des
 paiements / sauvegarde, caution signalée sans analyse — cd4a29f) ;
@@ -99,8 +103,7 @@ Le serveur lit la config **au démarrage** : nouvelle session après tout change
 
 ## Ouvert / prochaines pistes (droit-affaires)
 
-- **Finir A** : `02-distress-cedant`, `04-dd-pe-red-flags`, `05-neg-…` (un `--case`
-  par créneau).
+- **Finir A** : `04-dd-pe-red-flags`, `05-neg-…` (un `--case` par créneau).
 - Plus d'abonnement Codex (2026-09-25) : tâches mécaniques → sous-agent Sonnet,
   relu par la session principale. Le protocole blind Codex n'est plus exécutable tel quel.
 - `plugins/registry.json` : liste des skills DA incomplète (19/31), à réconcilier.
