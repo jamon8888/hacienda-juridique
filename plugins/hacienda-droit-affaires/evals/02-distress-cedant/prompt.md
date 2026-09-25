@@ -9,7 +9,7 @@ runs: 3
 
 Dossier ci-dessous (fictif). Traite la demande formulée en fin de dossier.
 
-Réponds directement dans la conversation, sans créer de fichier.
+Donne ta réponse dans la conversation ; ne crée pas de fichier.
 
 ## Scénario fictif
 

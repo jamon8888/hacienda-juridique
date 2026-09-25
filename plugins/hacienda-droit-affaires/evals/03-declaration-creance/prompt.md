@@ -9,7 +9,7 @@ runs: 3
 
 Nous représentons SAS METALLO-PRO, fournisseur créancier de BÂTIR-EST, placée en procédure collective. Prépare la déclaration de créance à partir des éléments ci-dessous.
 
-Réponds directement dans la conversation, sans créer de fichier.
+Donne ta réponse dans la conversation ; ne crée pas de fichier.
 
 ## Posture cabinet (configurée)
 

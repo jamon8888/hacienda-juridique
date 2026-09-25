@@ -9,7 +9,7 @@ runs: 3
 
 Nous sommes le cabinet conseil de SOCIETE ATLAS SAS, acquéreur. Peux-tu faire la revue du projet de SPA décrit ci-dessous, avant sa finalisation en vue du signing ?
 
-Réponds directement dans la conversation, sans créer de fichier.
+Donne ta réponse dans la conversation ; ne crée pas de fichier.
 
 ## Posture cabinet (configurée)
 
