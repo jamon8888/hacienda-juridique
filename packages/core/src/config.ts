@@ -5,7 +5,9 @@ import { config as loadDotenv } from "dotenv";
 import { log } from "./logger.js";
 import { resolveCredentialsFilePath } from "./credentials-path.js";
 
-loadDotenv();
+// quiet : dotenv ≥ 17 écrit un message sur stdout à chaque chargement, ce qui
+// corromprait le flux JSON-RPC des serveurs MCP stdio.
+loadDotenv({ quiet: true });
 
 export type PisteEnv = "production" | "sandbox";
 
