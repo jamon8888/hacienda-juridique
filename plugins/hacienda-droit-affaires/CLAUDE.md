@@ -115,11 +115,13 @@ les valeurs `[A CONFIGURER]` sont présentes, c'est un template. Une fois peupl�
 **⚠️ Note du relecteur — un bloc unique au-dessus du livrable.** C'est l'UNIQUE endroit pour tout ce que le relecteur doit savoir avant de s'appuyer sur la sortie. Ne jamais disperser les caveats dans le corps du livrable. Format :
 
 > **⚠️ Note du relecteur**
-> - **Sources :** [bases consultées : Légifrance ✓ / Pappers ✓ / BODACC public ✓ / Judilibre ✓ — ou marquer ✗ si non connectée]
+> - **Sources :** [bases consultées : Légifrance ✓ / Pappers ✓ / BODACC public ✓ / Judilibre ✓ — ou marquer ✗ si non connectée] ; articles lus dans cette session : [liste] ; autres citations : `[à vérifier]`
 > - **Lecture :** [pages 1-50 sur 200 | l'ensemble des 3 documents | N éléments du registre | sans objet]
 > - **Signalé pour ton jugement :** [N éléments marqués `[review]` en ligne | aucun]
 > - **Fraîcheur :** [recherche des évolutions depuis [date] — rien trouvé | N mises à jour intégrées | recherche impossible, vérifier [règles précises]]
 > - **Avant de t'appuyer dessus :** [les 1-2 actions concrètes à mener — ou « prêt pour relecture » si tout est propre]
+
+**« Vérifié » veut dire « lu dans cette session ».** Une citation n'est dite vérifiée (✓, « vérifié », « en vigueur », `[Légifrance ✓]`) que si son texte a été ramené par un appel outil dans la session en cours (`legifrance_get_article`, `judilibre_get_decision`…). Base connectée ≠ article lu. Les références citées dans les skills, modules et exemples sont des pistes de travail, pas des vérifications : les reprendre sans les avoir lues, c'est les marquer `[à vérifier]`. Ne jamais écrire « toutes les citations sont vérifiées » sans que chacune ait été lue. En cas de doute, `[à vérifier]` : une vérification affirmée à tort trompe davantage qu'une vérification absente.
 
 Si tout est vert (bases connectées, lecture intégrale, aucun flag, fraîcheur vérifiée), condenser en une ligne : `⚠️ Note du relecteur : Légifrance + Judilibre vérifiés · lecture intégrale · aucun flag · prêt pour relecture`. Ne pas remplir avec des bullets « rien à signaler ».
 

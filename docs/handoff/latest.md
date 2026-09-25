@@ -116,6 +116,41 @@ Identifiants dans `~/.config/Hacienda/credentials.json` (Mac de Candy). Vérifi�
 usage réel (session neuve : lecture de L.622-24 en vigueur) et dans l'éval.
 Le serveur lit la config **au démarrage** : nouvelle session après tout changement.
 
+### B — `01-spa-review` FAIT (2026-09-25 soir, 3,43 $, 6 passages)
+
+Avec 1,00 / sans 0,83 / **Δ +0,17**. Tout le Δ vient de **d1 citations signalées
+(3/3 vs 0/3)** et d3 statut brouillon (3/3 vs 2/3, écart fragile : le sans-plugin
+s'adresse à « l'associé » sans dire « brouillon »). Les 4 pièges + d2/d4/d5 : 3/3 des
+deux côtés — Sonnet nu repère déjà les pièges de ce cas.
+
+**DÉFAUT TROUVÉ, fix étapes 1-3 FAITES (non commitées) : faux « vérifié ».** Trace vs
+réponse : passage 2 déclare 1130/1137 « vérifiés en vigueur » sans aucun appel ;
+passage 3 écrit « art. 1591 … (vérifiés en vigueur) » sans avoir lu 1591 ; passage 1
+ouvre sur « Toutes les citations sont vérifiées » puis avoue 1130/1137 non interrogés.
+d1 ne le voit pas (juge le texte, pas la trace).
+Cause : étiquettes `[Légifrance]` en dur dans le corps des SKILL.md (spa-review l.192-323,
+dont 1130/1137 l.289), recopiées comme preuve ; gabarit « Sources : Légifrance ✓ »
+(CLAUDE.md plugin §2 l.118, spa-review l.128) confond base connectée / article lu.
+**Plan validé par Candy (« traite le ») :**
+1. CLAUDE.md plugin §2 : règle « ✓ / vérifié = article lu par un appel outil dans
+   CETTE session ; tout le reste `[à vérifier]` ; une étiquette dans le skill n'est
+   pas une vérification » ; note Sources = liste des articles réellement lus.
+2. spa-review SKILL.md : retirer les `[Légifrance]` en dur (10) + ajuster l.128.
+   Puis même balayage sur les 21 autres skills (≈150 occurrences, `grep -rc
+   '\`\[Légifrance\]\`' skills/*/SKILL.md`) = la tâche « citations marquées
+   [Légifrance] à tort » ci-dessous.
+3. Script `evals/check-verified-citations.mjs <trace.jsonl>` : compare les
+   « vérifié » de la réponse finale aux `legifrance_get_article` de la trace.
+   Traces de test (tant qu'elles existent) : /private/tmp/e-wxZwvy, e-Ctotl1,
+   e-QqczE9 (bras avec plugin).
+4. Relancer A sur 01 (1 passage, ~0,80 $) pour contrôle, puis passer le script sur la trace.
+**État :** 1 (CLAUDE.md §2 règle « vérifié = lu dans cette session » + gabarit Sources),
+2 pour spa-review seulement (10 étiquettes retirées, gabarit, étape 11), 3 (script testé :
+retrouve les 3 défauts + 1 nouveau, L.2312-37 « vérifié » non lu au passage 3 ; heuristique,
+1 cas limite L.23-10-1 « s. »). npm test / branding / diff --check OK. **Contrôle 4 FAIT** (0,69 $) : 1,00,
+12 articles lus dont 1130/1137, note « articles lus dans cette session : … — autres `[à vérifier]` »,
+script : aucune citation dite vérifiée sans lecture. Restent : balayage des 21 autres skills, commit.
+
 ## Ouvert / prochaines pistes (droit-affaires)
 
 - Plus d'abonnement Codex (2026-09-25) : tâches mécaniques → sous-agent Sonnet,

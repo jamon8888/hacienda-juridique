@@ -125,7 +125,7 @@ Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affai
 [En-tête de confidentialité selon le rôle utilisateur]
 
 > **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** intégrale ({N} pages SPA + {M} annexes) | partielle (pages X à Y)
 > - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
 > - **Fraîcheur :** recherche juridique post-{date} — {N} mises à jour intégrées | rien trouvé
@@ -189,7 +189,7 @@ diligences** — doivent être encadrées par des **critères objectifs** et une
 **obligation d'efforts** (reasonable best efforts, montant/type de financement,
 documentation, date butoir, conséquences de l'échec). Une condition dont la
 réalisation dépend de la **seule volonté de l'acquéreur** est **potestative** et
-expose à la nullité (art. 1304 et 1304-3 C.civ `[Légifrance]` : la condition
+expose à la nullité (art. 1304 et 1304-3 C.civ : la condition
 suspensive qui dépend de la seule volonté du débiteur est nulle ; rappeler que
 la défaillance de la condition provoquée par la partie qui y avait intérêt est
 réputée accomplie). Côté acquéreur, une CP financement « à sa libre
@@ -241,11 +241,11 @@ son effet. `[review]`.
 montant dépend de la seule appréciation discrétionnaire ou « de bonne foi » d'une
 partie (formule du type « si la performance est satisfaisante ») n'est pas un prix
 **déterminé ou déterminable par des éléments objectifs** : il heurte les art. 1591
-et 1163 C.civ `[Légifrance]` et expose à un **risque de nullité** de la stipulation
+et 1163 C.civ et expose à un **risque de nullité** de la stipulation
 de prix (voire de la vente). C'est le grief premier — pas seulement l'exécution de
 bonne foi (1104) ni le contentieux post-closing. Exiger des **critères objectifs**
 (EBITDA / CA / marge définis, retraitements, période) ; l'**expertise d'un tiers
-art. 1592 C.civ** `[Légifrance]` est une *solution* de détermination, pas une
+art. 1592 C.civ** est une *solution* de détermination, pas une
 justification du caractère discrétionnaire. Côté acquéreur, une rédaction
 discrétionnaire en sa faveur est un faux confort : elle est attaquable.
 
@@ -283,10 +283,10 @@ de prix, engagement post-closing ou abandon documenté.
 pour la valeur ou le consentement de l'acquéreur (dépendance client, clause de
 changement de contrôle sur un contrat clé, litige majeur, perte d'un actif
 essentiel) ne se traite pas seulement en risque commercial : il engage le
-**devoir précontractuel d'information art. 1112-1 C.civ** `[Légifrance]` à la
+**devoir précontractuel d'information art. 1112-1 C.civ** à la
 charge des cédants et, en cas de rétention d'une information déterminante, ouvre
 le terrain des **vices du consentement (réticence dolosive, erreur — art. 1130 et
-1137 C.civ)** `[Légifrance]`. Conséquence pratique : exiger une **déclaration
+1137 C.civ)**. Conséquence pratique : exiger une **déclaration
 spécifique** couvrant le point, une **indemnité dédiée** ou un ajustement de prix,
 et qualifier explicitement la matérialité (ex. un client > 20-30 % du CA est
 présumé structurant `[review]`). Minimiser un tel finding est une faute d'analyse,
@@ -306,21 +306,21 @@ Taguer `[review]` sur durée, territoire, activité et contrepartie.
 **Formalités sociétaires (cession de titres SAS).** Signaler la vérification des
 **statuts de la cible** (clauses d'agrément, préemption, inaliénabilité) et de la
 **chaîne de propriété des titres** : une cession contraire à une clause statutaire
-d'agrément est **nulle** (art. L.227-15 C.com. `[Légifrance]`). Au closing, le
+d'agrément est **nulle** (art. L.227-15 C.com.). Au closing, le
 transfert s'opère par inscription au **registre de mouvements de titres** + mise à
 jour des comptes d'associés — renvoyer `closing-checklist-fr` pour l'exécution.
 
 **Formalités sociales.** Pour une cible d'un effectif significatif, vérifier les
 obligations d'**information-consultation du CSE** (art. L.2312-8 / L.2312-37
-C. trav. `[Légifrance]`) et, si les conditions PME sont réunies, l'**information
-des salariés** (art. L.23-10-7 C.com. `[Légifrance]`) — leur omission peut
+C. trav.) et, si les conditions PME sont réunies, l'**information
+des salariés** (art. L.23-10-7 C.com.) — leur omission peut
 fragiliser l'opération. Renvoyer `hacienda-social`.
 
 **Sanctions contractuelles.** Vérifier que le leakage, la violation des covenants
 intercalaires et la non-concurrence sont assortis de **sanctions efficaces**
 (indemnité, clause pénale, exécution forcée). Rappeler le pouvoir de **modération
 judiciaire d'une clause pénale manifestement excessive ou dérisoire** (art.
-1231-5 C.civ `[Légifrance]`) : calibrer le montant, ni dérisoire ni confiscatoire.
+1231-5 C.civ) : calibrer le montant, ni dérisoire ni confiscatoire.
 
 ---
 
@@ -329,7 +329,7 @@ judiciaire d'une clause pénale manifestement excessive ou dérisoire** (art.
 **N'exécuter que si le mode distressed est actif.** Charger `${CLAUDE_SKILL_DIR}/../../references/distressed-overlay-fr.md` et appliquer sa grille **side-aware** au SPA :
 
 1. **Gate barre** : si la cible est **déjà en RJ/LJ avec appel d'offres ouvert**, STOP overlay → renvoi `/h-da:reprise-a-la-barre` / `/h-da:cession-actifs-isoles` (l'acte serait judiciaire, pas un SPA privé).
-2. **D1 — période suspecte / nullités** (L.632-1 de droit / L.632-2 facultatives `[Légifrance]`) : le timing du deal expose-t-il à une nullité ? clauses à risque (prix anormalement bas, paiement préférentiel, sûreté pour dette antérieure). **Ne pas dater** la cessation des paiements ; nullité = risque `[review]`.
+2. **D1 — période suspecte / nullités** (L.632-1 de droit / L.632-2 facultatives) : le timing du deal expose-t-il à une nullité ? clauses à risque (prix anormalement bas, paiement préférentiel, sûreté pour dette antérieure). **Ne pas dater** la cessation des paiements ; nullité = risque `[review]`.
 3. **D2 — passif non purgé** (share deal) : la GAP couvre-t-elle l'antérieur non révélé + une procédure future ?
 4. **D3 — garantie de la garantie** : séquestre / GAPD / caution exigés face à un cédant fragile ; sinon protection théorique → renvoi `/h-da:gap-review --distressed`.
 5. **D4/D5** : transferts & solidarités (L.1224-1, L.1684 CGI/L.267 LPF, ICPE — cross-link, renvoi) ; MAC + CS « absence de procédure ».
@@ -373,7 +373,9 @@ décroissante, sans doublon, avec position souhaitée et formulation proposée.
 ## Étape 11 — Post-flight `verifier-citations`
 
 Vérifier les citations d'articles et de jurisprudence. Les points non vérifiés
-restent `[à vérifier]`. Les sujets fiscaux, sociaux, PI, AMF ou réglementaires
+restent `[à vérifier]`. N'est « vérifié » que ce qui a été lu par un appel outil
+dans cette session (CLAUDE.md §2) : les articles cités dans ce skill sont des
+pistes, à lire avant de les dire vérifiés. Les sujets fiscaux, sociaux, PI, AMF ou réglementaires
 non traités par une source primaire consultée restent `[à vérifier]`.
 
 ---
