@@ -64,14 +64,20 @@ session du forfait atteinte au 2e cas (2,75 $). Résultats exploitables :
   cas ; passage 1 : 16 articles refusés au format `L. 611-3` → défaut n°6 ci-dessous.
 - `04-dd-pe-red-flags` : **3/3 à 1,00** (2 passages notés l'après-midi, le 3e coupé
   par la limite à la notation puis refait seul ; 3,53 $ + 1,34 $).
-- **Bilan A : les 4 cas phares à 1,00.** Reste le cas négatif `05-neg-…` (~0,50 $).
+- `05-neg-rupture-conventionnelle` : **3/3 à 1,00** (0,35 $) — aucun skill DA déclenché,
+  réponse jugée utile.
+- **A TERMINÉ le 2026-09-25 : les 5 cas à 1,00** (~16 $ sur la journée, dont une
+  partie perdue aux limites de forfait).
 - **Tendance vue 2 fois** (distress passage 3, dd-pe passage refait) : aucun appel
   Légifrance, « dossier fictif » invoqué dans la note du relecteur. Cause probable :
   la bannière « Dossier strictement fictif » ajoutée en tête des prompts pour
   `check-pii` (absente des prompts de scoring, où les textes étaient vérifiés).
   → bannière retirée des 4 prompts + règle « Dossier fictif : les faits sont
-  inventés, le droit ne l'est pas » dans le CLAUDE.md du plugin (§4). **À vérifier**
-  sur un passage (`02` ou `04`, ~1,5 $) : Légifrance doit être appelé.
+  inventés, le droit ne l'est pas » dans le CLAUDE.md du plugin (§4) (9fbd7a1).
+  **Contrôle** (`02`, 1 passage, 0,67 $) : 1,00, Légifrance appelé, 12 articles
+  vérifiés **du premier coup** (confirme aussi le défaut n°6 corrigé). À surveiller
+  sur les passages suivants (un seul passage ≠ preuve). Détail : BODACC interrogé
+  sur le SIREN fictif (« aucune procédure ») — sans effet, laissé de côté.
 
 ### Défauts réels trouvés par l'éval de bout en bout (tous corrigés, sur main)
 
@@ -112,7 +118,6 @@ Le serveur lit la config **au démarrage** : nouvelle session après tout change
 
 ## Ouvert / prochaines pistes (droit-affaires)
 
-- **Finir A** : `05-neg-…` + un passage de contrôle de la règle « dossier fictif ».
 - Plus d'abonnement Codex (2026-09-25) : tâches mécaniques → sous-agent Sonnet,
   relu par la session principale. Le protocole blind Codex n'est plus exécutable tel quel.
 - `plugins/registry.json` : liste des skills DA incomplète (19/31), à réconcilier.
