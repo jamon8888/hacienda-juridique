@@ -5,8 +5,6 @@ allowed_tools: [Read, Glob, Grep, Skill]
 runs: 3
 ---
 
-*Dossier strictement fictif — aucune donnée réelle (parties, montants et identifiants fictifs).*
-
 Nous représentons SAS METALLO-PRO, fournisseur créancier de BÂTIR-EST, placée en procédure collective. Prépare la déclaration de créance à partir des éléments ci-dessous.
 
 Donne ta réponse dans la conversation ; ne crée pas de fichier.

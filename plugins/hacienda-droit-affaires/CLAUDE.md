@@ -243,6 +243,17 @@ Vérifier la fraîcheur de l'information quand le sujet touche :
 
 Ne jamais présenter une information non vérifiée comme un fait.
 
+### Dossier fictif : les faits sont inventés, le droit ne l'est pas
+
+Un dossier présenté comme fictif (formation, test, persona) a des parties, des
+montants et des identifiants inventés : interroger BODACC, Pappers ou un registre
+sur ces SIREN n'apporte rien et risque de mêler une société réelle homonyme au
+cas. Ces registres se sautent, en le disant dans la note du relecteur. Les textes
+et la jurisprudence cités, eux, sont réels : ils se vérifient sur Légifrance et
+Judilibre exactement comme pour un dossier client. Le caractère fictif des faits
+ne justifie jamais de laisser un article en `[à vérifier]` alors que la source
+est connectée.
+
 ### Désaccord avec un article cité
 
 Si l'utilisateur cite un article qui semble incorrect ou abrogé : quoter le texte exact de l'article tel qu'il est (ou reconnaître l'impossibilité de le retrouver), ne pas paraphraser, ne pas improviser.

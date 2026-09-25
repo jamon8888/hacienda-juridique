@@ -62,7 +62,16 @@ session du forfait atteinte au 2e cas (2,75 $). Résultats exploitables :
   (2,10 $, 10 min). Traces : passage 3 sans aucun appel Légifrance (dit
   honnêtement dans la note du relecteur) — variabilité à surveiller sur les autres
   cas ; passage 1 : 16 articles refusés au format `L. 611-3` → défaut n°6 ci-dessous.
-- **Reste** : `04-dd-pe-red-flags`, `05-neg-…` (un `--case` par créneau).
+- `04-dd-pe-red-flags` : **3/3 à 1,00** (2 passages notés l'après-midi, le 3e coupé
+  par la limite à la notation puis refait seul ; 3,53 $ + 1,34 $).
+- **Bilan A : les 4 cas phares à 1,00.** Reste le cas négatif `05-neg-…` (~0,50 $).
+- **Tendance vue 2 fois** (distress passage 3, dd-pe passage refait) : aucun appel
+  Légifrance, « dossier fictif » invoqué dans la note du relecteur. Cause probable :
+  la bannière « Dossier strictement fictif » ajoutée en tête des prompts pour
+  `check-pii` (absente des prompts de scoring, où les textes étaient vérifiés).
+  → bannière retirée des 4 prompts + règle « Dossier fictif : les faits sont
+  inventés, le droit ne l'est pas » dans le CLAUDE.md du plugin (§4). **À vérifier**
+  sur un passage (`02` ou `04`, ~1,5 $) : Légifrance doit être appelé.
 
 ### Défauts réels trouvés par l'éval de bout en bout (tous corrigés, sur main)
 
@@ -103,7 +112,7 @@ Le serveur lit la config **au démarrage** : nouvelle session après tout change
 
 ## Ouvert / prochaines pistes (droit-affaires)
 
-- **Finir A** : `04-dd-pe-red-flags`, `05-neg-…` (un `--case` par créneau).
+- **Finir A** : `05-neg-…` + un passage de contrôle de la règle « dossier fictif ».
 - Plus d'abonnement Codex (2026-09-25) : tâches mécaniques → sous-agent Sonnet,
   relu par la session principale. Le protocole blind Codex n'est plus exécutable tel quel.
 - `plugins/registry.json` : liste des skills DA incomplète (19/31), à réconcilier.
