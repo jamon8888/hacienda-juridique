@@ -51,7 +51,7 @@ tags: [pacte-associes, societes, revue, drag-along, preemption, agrement, privat
 <response>
 Identification : pacte d'associés, SAS. Détection d'une clause d'inaliénabilité de 15 ans.
 Finding 🔴 — clause d'inaliénabilité :
-- En SAS, l'inaliénabilité statutaire est plafonnée à 10 ans par l'art. L.227-13 C.com. [Légifrance]. Une durée de 15 ans excède le plafond légal : la clause statutaire est nulle, à tout le moins réductible à 10 ans [review].
+- En SAS, l'inaliénabilité statutaire est plafonnée à 10 ans par l'art. L.227-13 C.com. Une durée de 15 ans excède le plafond légal : la clause statutaire est nulle, à tout le moins réductible à 10 ans [review].
 - Même stipulée dans le pacte seul, une inaliénabilité de 15 ans est très exposée : sa validité suppose une durée raisonnable et un intérêt sérieux et légitime (transposition art. 900-1 C.civ [à vérifier]). 15 ans sans justification explicite est disproportionné [review].
 Recommandation : ramener la durée à une valeur conforme (≤ 10 ans en SAS, idéalement 3 à 5 ans) et documenter l'intérêt légitime au préambule. Sortie complète avec liste de points et formulations alternatives selon posture.
 </response>
@@ -149,7 +149,7 @@ sérialisables, générer en parallèle un dashboard HTML autonome via
 [En-tête de confidentialité selon le rôle utilisateur — voir CLAUDE.md §2]
 
 > **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** intégrale ({N} pages) | partielle (pages X à Y)
 > - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
 > - **Fraîcheur :** recherche des évolutions depuis {date} — {N} mises à jour intégrées | rien trouvé
