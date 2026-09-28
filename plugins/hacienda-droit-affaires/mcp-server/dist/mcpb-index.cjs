@@ -56383,6 +56383,15 @@ var PisteClient = class {
   dispatcher;
   cached;
   /**
+   * Requête de jeton en cours, partagée par tous les appels concurrents.
+   * Évite que plusieurs appels d'outils partis en parallèle (avant qu'un
+   * jeton ne soit en cache) ne déclenchent chacun leur propre requête OAuth
+   * — observé en pratique : plusieurs `getArticleWithIdAndNum` simultanés
+   * provoquent un HTTP 400 `invalid_client` sur les requêtes OAuth
+   * concurrentes, qui réussissent isolément.
+   */
+  pending;
+  /**
    * Returns a valid access token, refreshing if needed.
    * Throws if credentials are missing or auth fails.
    */
@@ -56393,6 +56402,31 @@ var PisteClient = class {
     if (!force && this.cached && Date.now() < this.cached.refreshAt) {
       return this.cached.accessToken;
     }
+    if (this.pending) {
+      return this.pending;
+    }
+    const pending = this.requestTokenWithRetry();
+    this.pending = pending;
+    try {
+      return await pending;
+    } finally {
+      if (this.pending === pending) {
+        this.pending = void 0;
+      }
+    }
+  }
+  /** Tente d'obtenir un jeton, et réessaie une fois en cas d'échec transitoire. */
+  async requestTokenWithRetry() {
+    try {
+      return await this.requestToken();
+    } catch (err) {
+      log.warn("piste oauth: \xE9chec, nouvel essai", {
+        err: err instanceof Error ? err.message : String(err)
+      });
+      return await this.requestToken();
+    }
+  }
+  async requestToken() {
     const body = new URLSearchParams({
       grant_type: "client_credentials",
       client_id: this.config.clientId,
@@ -56653,7 +56687,8 @@ var PisteHttpClient = class {
       if (res.statusCode === 200 || res.statusCode === 201) {
         log.debug("piste api ok", { method, path, status: res.statusCode, ms: elapsedMs });
         const parsed = text ? JSON.parse(text) : void 0;
-        if (this.cache && parsed !== void 0) {
+        const cacheable = opts.cacheable ? opts.cacheable(parsed) : true;
+        if (this.cache && parsed !== void 0 && cacheable) {
           const ttl = opts.ttlMs ?? defaultTtlForPath(path);
           this.cache.set(cacheKey, paramsHash, parsed, ttl);
         }
@@ -57321,9 +57356,10 @@ function registerGetArticle(server, http) {
           ]
         };
       }
+      const cacheable = (parsed2) => Boolean(parsed2?.article);
       let raw;
       if (args.articleId) {
-        raw = await http.post("/consult/getArticle", { id: args.articleId });
+        raw = await http.post("/consult/getArticle", { id: args.articleId }, { cacheable });
       } else {
         const legitext = resolveLegitext(args.code);
         if (!legitext) {
@@ -57337,10 +57373,14 @@ function registerGetArticle(server, http) {
             ]
           };
         }
-        raw = await http.post("/consult/getArticleWithIdAndNum", {
-          id: legitext,
-          num: normalizeArticleNum(args.num)
-        });
+        raw = await http.post(
+          "/consult/getArticleWithIdAndNum",
+          {
+            id: legitext,
+            num: normalizeArticleNum(args.num)
+          },
+          { cacheable }
+        );
       }
       const parsed = GetArticleResponseSchema.safeParse(raw);
       if (!parsed.success) {

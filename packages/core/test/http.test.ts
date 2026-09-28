@@ -112,6 +112,36 @@ describe("PisteHttpClient — gestion des erreurs et retries", () => {
     cache.close();
   });
 
+  it("ne met pas en cache une réponse jugée vide par `cacheable` : le 2e appel retape le réseau", async () => {
+    const pool = agent.get("https://api.piste.gouv.fr");
+    pool
+      .intercept({ path: "/dila/legifrance/lf-engine-app/consult/getArticleWithIdAndNum", method: "POST" })
+      .reply(200, { article: null });
+    pool
+      .intercept({ path: "/dila/legifrance/lf-engine-app/consult/getArticleWithIdAndNum", method: "POST" })
+      .reply(200, { article: { id: "X" } });
+
+    const auth = new PisteClient(config, agent);
+    const cache = new ResponseCache({ path: ":memory:" });
+    const http = new PisteHttpClient(config, auth, { dispatcher: agent, cache });
+    const cacheable = (parsed: unknown) => Boolean((parsed as { article?: unknown } | undefined)?.article);
+
+    const r1 = await http.post<{ article: unknown }>(
+      "/consult/getArticleWithIdAndNum",
+      { id: "LEGITEXT1", num: "L441-10" },
+      { cacheable },
+    );
+    const r2 = await http.post<{ article: { id: string } }>(
+      "/consult/getArticleWithIdAndNum",
+      { id: "LEGITEXT1", num: "L441-10" },
+      { cacheable },
+    );
+    expect(r1.article).toBeNull();
+    expect(r2.article.id).toBe("X");
+    expect(cache.stats().totalRows).toBe(1); // seule la 2e réponse (trouvée) est en cache
+    cache.close();
+  });
+
   it("retry sur 5xx (1 fois) puis remonte l'erreur si 2e échec", async () => {
     const pool = agent.get("https://api.piste.gouv.fr");
     pool.intercept({ path: "/dila/legifrance/lf-engine-app/search", method: "POST" }).reply(500, "boom");

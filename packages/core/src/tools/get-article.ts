@@ -38,9 +38,15 @@ export function registerGetArticle(server: McpServer, http: PisteHttpClient) {
         };
       }
 
+      // Une réponse 200 sans `article` (non trouvé) n'est mise en cache que si
+      // c'est un vrai "introuvable" — sinon un hoquet transitoire côté PISTE
+      // figerait un faux négatif pour 24h (voir RequestOptions.cacheable).
+      const cacheable = (parsed: unknown): boolean =>
+        Boolean((parsed as { article?: unknown } | undefined)?.article);
+
       let raw: unknown;
       if (args.articleId) {
-        raw = await http.post("/consult/getArticle", { id: args.articleId });
+        raw = await http.post("/consult/getArticle", { id: args.articleId }, { cacheable });
       } else {
         const legitext = resolveLegitext(args.code!);
         if (!legitext) {
@@ -54,10 +60,14 @@ export function registerGetArticle(server: McpServer, http: PisteHttpClient) {
             ],
           };
         }
-        raw = await http.post("/consult/getArticleWithIdAndNum", {
-          id: legitext,
-          num: normalizeArticleNum(args.num!),
-        });
+        raw = await http.post(
+          "/consult/getArticleWithIdAndNum",
+          {
+            id: legitext,
+            num: normalizeArticleNum(args.num!),
+          },
+          { cacheable },
+        );
       }
 
       const parsed = GetArticleResponseSchema.safeParse(raw);

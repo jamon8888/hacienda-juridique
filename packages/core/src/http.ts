@@ -59,6 +59,17 @@ export interface RequestOptions {
   bypassCache?: boolean;
   /** Override the default TTL (ms). */
   ttlMs?: number;
+  /**
+   * Décide si une réponse 200/201 mérite d'être mise en cache. Par défaut
+   * tout succès HTTP est mis en cache — mais certains endpoints répondent
+   * 200 avec un contenu "vide" (ex. `{ article: null }`) quand la ressource
+   * demandée n'est pas trouvée. Si ce vide est dû à un hoquet transitoire
+   * côté PISTE plutôt qu'à une absence réelle, le mettre en cache fige
+   * l'erreur pour toute la durée du TTL (jusqu'à 24h) sans qu'un nouvel
+   * appel ne puisse jamais la corriger. Passer un prédicat pour ne mettre
+   * en cache que les réponses effectivement "trouvées".
+   */
+  cacheable?: (parsed: unknown) => boolean;
 }
 
 const defaultSleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
@@ -134,7 +145,8 @@ export class PisteHttpClient {
       if (res.statusCode === 200 || res.statusCode === 201) {
         log.debug("piste api ok", { method, path, status: res.statusCode, ms: elapsedMs });
         const parsed = text ? (JSON.parse(text) as T) : (undefined as T);
-        if (this.cache && parsed !== undefined) {
+        const cacheable = opts.cacheable ? opts.cacheable(parsed) : true;
+        if (this.cache && parsed !== undefined && cacheable) {
           const ttl = opts.ttlMs ?? defaultTtlForPath(path);
           this.cache.set(cacheKey, paramsHash, parsed, ttl);
         }

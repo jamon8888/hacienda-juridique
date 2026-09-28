@@ -34,6 +34,15 @@ export class PisteAuthError extends Error {
 
 export class PisteClient {
   private cached: CachedToken | undefined;
+  /**
+   * Requête de jeton en cours, partagée par tous les appels concurrents.
+   * Évite que plusieurs appels d'outils partis en parallèle (avant qu'un
+   * jeton ne soit en cache) ne déclenchent chacun leur propre requête OAuth
+   * — observé en pratique : plusieurs `getArticleWithIdAndNum` simultanés
+   * provoquent un HTTP 400 `invalid_client` sur les requêtes OAuth
+   * concurrentes, qui réussissent isolément.
+   */
+  private pending: Promise<string> | undefined;
 
   constructor(
     private config: Config,
@@ -53,10 +62,41 @@ export class PisteClient {
       return this.cached.accessToken;
     }
 
+    if (this.pending) {
+      return this.pending;
+    }
+
+    const pending = this.requestTokenWithRetry();
+    this.pending = pending;
+    try {
+      return await pending;
+    } finally {
+      // On oublie la requête en cours qu'elle ait réussi ou échoué : un
+      // succès est de toute façon déjà en cache (`this.cached`), et un échec
+      // ne doit pas laisser un appel suivant réutiliser une promesse rejetée.
+      if (this.pending === pending) {
+        this.pending = undefined;
+      }
+    }
+  }
+
+  /** Tente d'obtenir un jeton, et réessaie une fois en cas d'échec transitoire. */
+  private async requestTokenWithRetry(): Promise<string> {
+    try {
+      return await this.requestToken();
+    } catch (err) {
+      log.warn("piste oauth: échec, nouvel essai", {
+        err: err instanceof Error ? err.message : String(err),
+      });
+      return await this.requestToken();
+    }
+  }
+
+  private async requestToken(): Promise<string> {
     const body = new URLSearchParams({
       grant_type: "client_credentials",
-      client_id: this.config.clientId,
-      client_secret: this.config.clientSecret,
+      client_id: this.config.clientId!,
+      client_secret: this.config.clientSecret!,
       scope: "openid",
     }).toString();
 
