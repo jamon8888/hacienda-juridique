@@ -165,6 +165,15 @@ explicitement « articles non vérifiés en session » dans la note).
 en échec « Échec de l'authentification PISTE (HTTP 400) invalid_client » au début, réussis au
 retry — probable course sur l'obtention du jeton OAuth quand plusieurs appels partent en parallèle ;
 (b) `L441-10` Code de commerce → « Article introuvable » (2 fois), alors que l'article existe.
+→ **Corrigés et fusionnés (2026-09-28)** : PR #70 (jeton OAuth partagé + pas de cache sur « introuvable »)
+et PR #71 (repli `ABROGE_DIFF`). Cause réelle de (b) : L441-9/10/11 C.com. sont au statut **`ABROGE_DIFF`**
+(en vigueur jusqu'au **2027-01-01**), que `getArticleWithIdAndNum` ne renvoie pas. Repli vérifié en réel de
+bout en bout (serveur DA) : L441-10 et L441-11 trouvés avec « ⚠️ Abrogation différée ». **Limite** : L441-9
+reste introuvable (sa version 2019→2027 absente de `/search` ; piste : table des matières du code).
+Script `scripts/diagnose-legifrance-article.mjs` pour rejouer.
+**Point de fond pour l'avocat de Candy** : L441-9 à L441-11 (délais de paiement, pénalités, indemnité 40 €)
+réécrits au 1er janvier 2027 (une version `VIGUEUR_DIFF` de L441-9 existe déjà) ; texte modificatif
+`[à vérifier]`. Impacte `cgv-generator`, `mise-en-demeure-commerciale`, `declaration-creance`.
 
 ## Ouvert / prochaines pistes (droit-affaires)
 
