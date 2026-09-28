@@ -149,7 +149,13 @@ dont 1130/1137 l.289), recopiées comme preuve ; gabarit « Sources : Légifranc
 retrouve les 3 défauts + 1 nouveau, L.2312-37 « vérifié » non lu au passage 3 ; heuristique,
 1 cas limite L.23-10-1 « s. »). npm test / branding / diff --check OK. **Contrôle 4 FAIT** (0,69 $) : 1,00,
 12 articles lus dont 1130/1137, note « articles lus dans cette session : … — autres `[à vérifier]` »,
-script : aucune citation dite vérifiée sans lecture. Restent : balayage des 21 autres skills, commit.
+script : aucune citation dite vérifiée sans lecture. Balayage des 21 autres skills : PR #69 (session cloud + complément règle d'index), fusionnée 2026-09-28.
+**Contrôle 03-declaration-creance (2026-09-28, 1,00 $) : score 1,00 MAIS le script trouve 4 faux
+« vérifié »** (L.622-28, L.622-29, L.624-16, 1231-5 étiquetés `[Légifrance]` + LEGIARTI recopié de l'index,
+0 appel `legifrance_get_article`). Cause : règle « présent dans l'index → `[Légifrance]` » dans les
+post-flight de 6 skills (declaration-creance, mise-en-demeure, defense-/responsabilite-dirigeant,
+declaration-cessation-paiements, prevention-difficultes) → corrigée. Script : faux positifs n° de
+facture/années retirés. **À faire : relancer 03 (1 passage) pour confirmer.**
 
 ## Ouvert / prochaines pistes (droit-affaires)
 

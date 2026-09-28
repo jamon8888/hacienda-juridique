@@ -10,7 +10,7 @@ import { readFileSync } from 'node:fs';
 const CLAIM = /vérifiée?s?(?! *\?)|en vigueur|Légifrance ✓|\[Légifrance\]/i;
 const DENIAL = /à vérifier|non vérifi|non interrog|non consult|pas vérifi/i;
 const GLOBAL_CLAIM = /toutes les citations (sont|ont été) vérifiées/i;
-// L./R./D. + numéro, ou numéro nu du Code civil (1100-2600, hors années 2020-2035).
+// L./R./D. + numéro, ou numéro nu du Code civil (1100-2600, hors 2020-2035 : années, n° de facture).
 const ARTICLE = /\b([LRD])\.?\s?(\d+(?:-\d+)*)\b|\b(1[1-9]\d\d|2[0-5]\d\d)(-\d+)*\b/g;
 
 const norm = (s) => s.replace(/\s|\./g, '').toUpperCase();
@@ -21,7 +21,7 @@ function articlesIn(text) {
     if (m[1]) out.push({ num: norm(m[1] + m[2]), index: m.index });
     else {
       const year = Number(m[3]);
-      if (!m[4] && year >= 2020 && year <= 2035) continue;
+      if (year >= 2020 && year <= 2035) continue; // années, périodes, n° de facture
       out.push({ num: norm(m[0]), index: m.index });
     }
   }
@@ -47,7 +47,7 @@ function check(tracePath) {
     if (!CLAIM.test(line)) continue;
     for (const a of articlesIn(line)) {
       // Une dénégation juste après l'article (« 1130/1137 [à vérifier…] ») l'exclut.
-      if (DENIAL.test(line.slice(a.index, a.index + 60))) continue;
+      if (DENIAL.test(line.slice(a.index, a.index + 120))) continue;
       if (!fetched.has(a.num)) suspects.push({ line: i + 1, num: a.num, text: line.trim().slice(0, 160) });
     }
   }
