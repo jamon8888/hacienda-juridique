@@ -198,6 +198,9 @@ export function formatArticleAsMarkdown(s: ArticleSummary): string {
   const head = s.numero ? `**Article ${s.numero}**` : "**Article**";
   const stateNote = s.etat ? ` _(${s.etat})_` : "";
   lines.push(`${head}${stateNote}`);
+  if (s.etat === "ABROGE_DIFF" && s.dateFin) {
+    lines.push(`⚠️ **Abrogation différée : en vigueur jusqu'au ${s.dateFin}.**`);
+  }
   if (s.titre) lines.push(`> ${s.titre}`);
   lines.push("");
   lines.push(s.texte || "_(texte vide)_");
