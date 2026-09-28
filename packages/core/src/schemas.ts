@@ -32,6 +32,11 @@ export const ArticleSchema = z
     sectionParentTitre: z.string().nullable().optional(),
     idTexte: z.string().nullable().optional(),
     cidTexte: z.string().nullable().optional(),
+    /** Texte(s) de rattachement. En réel, seul champ renseigné pour le LEGITEXT (`cidTexte`/`idTexte` à null). */
+    textTitles: z
+      .array(z.object({ cid: z.string().nullable().optional(), id: z.string().nullable().optional() }).passthrough())
+      .nullable()
+      .optional(),
     nota: z.string().nullable().optional(),
     notaHtml: z.string().nullable().optional(),
     /** Contexte hiérarchique (titresTM, titreTxt). Présent dans /consult/getArticle. */

@@ -56969,6 +56969,8 @@ var ArticleSchema = external_exports.object({
   sectionParentTitre: external_exports.string().nullable().optional(),
   idTexte: external_exports.string().nullable().optional(),
   cidTexte: external_exports.string().nullable().optional(),
+  /** Texte(s) de rattachement. En réel, seul champ renseigné pour le LEGITEXT (`cidTexte`/`idTexte` à null). */
+  textTitles: external_exports.array(external_exports.object({ cid: external_exports.string().nullable().optional(), id: external_exports.string().nullable().optional() }).passthrough()).nullable().optional(),
   nota: external_exports.string().nullable().optional(),
   notaHtml: external_exports.string().nullable().optional(),
   /** Contexte hiérarchique (titresTM, titreTxt). Présent dans /consult/getArticle. */
@@ -57307,6 +57309,9 @@ function formatArticleAsMarkdown(s) {
   const head = s.numero ? `**Article ${s.numero}**` : "**Article**";
   const stateNote = s.etat ? ` _(${s.etat})_` : "";
   lines.push(`${head}${stateNote}`);
+  if (s.etat === "ABROGE_DIFF" && s.dateFin) {
+    lines.push(`\u26A0\uFE0F **Abrogation diff\xE9r\xE9e : en vigueur jusqu'au ${s.dateFin}.**`);
+  }
   if (s.titre) lines.push(`> ${s.titre}`);
   lines.push("");
   lines.push(s.texte || "_(texte vide)_");
@@ -57325,6 +57330,82 @@ function formatArticleAsMarkdown(s) {
 
 // ../../../packages/core/src/tools/get-article.ts
 init_codes_legitext();
+var MAX_FALLBACK_CANDIDATES = 5;
+var NOT_IN_FORCE_STATUSES = /* @__PURE__ */ new Set([
+  "MODIFIE",
+  "ABROGE",
+  "ANNULE",
+  "PERIME",
+  "TRANSFERE",
+  "DISJOINT",
+  "VIGUEUR_DIFF",
+  "MODIFIE_MORT_NE"
+]);
+async function findInForceArticleAcrossCodes(http, legitext, num) {
+  const searchBody = {
+    fond: "CODE_ETAT",
+    recherche: {
+      champs: [
+        {
+          typeChamp: "NUM_ARTICLE",
+          operateur: "ET",
+          criteres: [{ valeur: num, operateur: "ET", typeRecherche: "EXACTE" }]
+        }
+      ],
+      operateur: "ET",
+      pageNumber: 1,
+      pageSize: 20,
+      sort: "PERTINENCE",
+      typePagination: "DEFAUT"
+    }
+  };
+  const cacheableSearch = (parsed) => (parsed?.results?.length ?? 0) > 0;
+  const rawSearch = await http.post("/search", searchBody, { cacheable: cacheableSearch });
+  const parsedSearch = SearchResponseSchema.safeParse(rawSearch);
+  if (!parsedSearch.success) {
+    log.warn("get-article fallback: unexpected /search shape", {
+      issues: parsedSearch.error.issues.slice(0, 5)
+    });
+    return void 0;
+  }
+  const candidateIds = [];
+  outer: for (const result of parsedSearch.data.results ?? []) {
+    for (const section of result.sections ?? []) {
+      for (const extract of section.extracts ?? []) {
+        if (!extract.id) continue;
+        if (extract.num && normalizeArticleNum(extract.num) !== num) continue;
+        if (extract.legalStatus && NOT_IN_FORCE_STATUSES.has(extract.legalStatus.toUpperCase())) continue;
+        if (!candidateIds.includes(extract.id)) candidateIds.push(extract.id);
+        if (candidateIds.length >= MAX_FALLBACK_CANDIDATES) break outer;
+      }
+    }
+  }
+  const today = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+  const cacheableArticle = (parsed) => Boolean(parsed?.article);
+  const targetLegitext = legitext.toUpperCase();
+  for (const candidateId of candidateIds) {
+    const rawArticle = await http.post(
+      "/consult/getArticle",
+      { id: candidateId },
+      { cacheable: cacheableArticle }
+    );
+    const parsedArticle = GetArticleResponseSchema.safeParse(rawArticle);
+    if (!parsedArticle.success || !parsedArticle.data.article) continue;
+    const article = parsedArticle.data.article;
+    const articleLegitexts = [
+      article.cidTexte,
+      article.idTexte,
+      ...(article.textTitles ?? []).flatMap((t) => [t.cid, t.id])
+    ].filter((v) => Boolean(v)).map((v) => v.toUpperCase());
+    if (!articleLegitexts.includes(targetLegitext)) continue;
+    const dateDebut = normalizeLegiDate(article.dateDebut);
+    const dateFin = normalizeLegiDate(article.dateFin);
+    const inForce = (!dateDebut || dateDebut <= today) && (!dateFin || dateFin > today);
+    if (!inForce) continue;
+    return article;
+  }
+  return void 0;
+}
 function registerGetArticle(server, http) {
   server.registerTool(
     "legifrance_get_article",
@@ -57336,7 +57417,8 @@ function registerGetArticle(server, http) {
         "1. Par identifiant LEGIARTI : passer `articleId` (ex. `LEGIARTI000006417707`).",
         "2. Par code et num\xE9ro : passer `code` (nom usuel ex. `Code civil`, ou un LEGITEXT directement) + `num` (ex. `1240`, `L611-3` ; `L. 611-3` est aussi accept\xE9).",
         `Codes connus : ${listKnownCodes().slice(0, 12).join(", ")}\u2026`,
-        "Retourne : num\xE9ro, texte, \xE9tat (VIGUEUR/ABROGE/MODIFIE\u2026), dates, lien L\xE9gifrance."
+        "Retourne : num\xE9ro, texte, \xE9tat (VIGUEUR/ABROGE/MODIFIE\u2026), dates, lien L\xE9gifrance.",
+        "Si l'article est en abrogation diff\xE9r\xE9e (encore en vigueur mais abrog\xE9 \xE0 une date future), c'est signal\xE9 explicitement."
       ].join("\n"),
       inputSchema: {
         articleId: external_exports.string().optional().describe("Identifiant LEGIARTI\u2026 de l'article."),
@@ -57358,10 +57440,12 @@ function registerGetArticle(server, http) {
       }
       const cacheable = (parsed2) => Boolean(parsed2?.article);
       let raw;
+      let legitext;
+      let normalizedNum;
       if (args.articleId) {
         raw = await http.post("/consult/getArticle", { id: args.articleId }, { cacheable });
       } else {
-        const legitext = resolveLegitext(args.code);
+        legitext = resolveLegitext(args.code);
         if (!legitext) {
           return {
             isError: true,
@@ -57373,11 +57457,12 @@ function registerGetArticle(server, http) {
             ]
           };
         }
+        normalizedNum = normalizeArticleNum(args.num);
         raw = await http.post(
           "/consult/getArticleWithIdAndNum",
           {
             id: legitext,
-            num: normalizeArticleNum(args.num)
+            num: normalizedNum
           },
           { cacheable }
         );
@@ -57395,7 +57480,10 @@ function registerGetArticle(server, http) {
           ]
         };
       }
-      const article = parsed.data.article;
+      let article = parsed.data.article;
+      if (!article && legitext && normalizedNum) {
+        article = await findInForceArticleAcrossCodes(http, legitext, normalizedNum);
+      }
       if (!article) {
         return {
           isError: true,

@@ -25,11 +25,14 @@ function makeServerAndHttp(response: unknown) {
 
 describe("legifrance_get_article", () => {
   it("envoie à Légifrance le numéro normalisé", async () => {
+    // `{}` (sans `article`) déclenche le repli /search — voir
+    // get-article-abroge-diff-fallback.test.ts pour ce repli. Ici on ne
+    // vérifie que le premier appel (normalisation du numéro).
     const { server, http, bodies, getHandler } = makeServerAndHttp({});
     registerGetArticle(server, http);
     await getHandler()({ code: "code de commerce", num: "L. 611-3" });
 
-    expect(bodies).toEqual([{ id: "LEGITEXT000005634379", num: "L611-3" }]);
+    expect(bodies[0]).toEqual({ id: "LEGITEXT000005634379", num: "L611-3" });
   });
 
   it("envoie L441-10 (Code de commerce) inchangé — déjà au format attendu", async () => {
@@ -37,7 +40,7 @@ describe("legifrance_get_article", () => {
     registerGetArticle(server, http);
     await getHandler()({ code: "Code de commerce", num: "L441-10" });
 
-    expect(bodies).toEqual([{ id: "LEGITEXT000005634379", num: "L441-10" }]);
+    expect(bodies[0]).toEqual({ id: "LEGITEXT000005634379", num: "L441-10" });
   });
 
   it("ne met pas en cache une réponse `article: null` (évite de figer un faux négatif)", async () => {
