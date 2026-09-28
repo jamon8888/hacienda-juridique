@@ -173,7 +173,7 @@ Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
 [En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin §2]
 
 > **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** {pour --comparer : intake fourni par l'utilisateur — stade, objectif, profil des souscripteurs} | {pour --review : intégrale (N pages) | partielle (pages X à Y)}
 > - **Signalé pour ton jugement :** {N} éléments marqués [review] (valorisation, éligibilité BSPCE, ampleur de dilution acceptable) | aucun
 > - **Fraîcheur :** régime fiscal BSPCE (art. 163 bis G CGI) NON traité — renvoyé au fiscaliste ; conditions d'éligibilité susceptibles d'évoluer

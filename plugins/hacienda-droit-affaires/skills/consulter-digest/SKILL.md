@@ -121,7 +121,7 @@ Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affai
 ### Nouvelles dispositions
 
 **Décret n°2026-412 du 2026-05-02**
-- **Source :** Légifrance JORF [Légifrance]
+- **Source :** Légifrance JORF
 - **Résumé :** Simplification des formalités de dépôt des comptes annuels pour les SAS de moins de 50 salariés.
 - **Impact pratique :** Mise à jour des procédures de clôture pour les portefeuilles SAS de taille intermédiaire.
 - **Action requise :** mise à jour playbook
@@ -147,7 +147,7 @@ Lecture de `latest.md` — digest du 2026-05-19.
 ### Nouvelles dispositions
 
 **Décret n°2026-412 du 2026-05-02**
-- **Source :** Légifrance JORF [Légifrance]
+- **Source :** Légifrance JORF
 - **Résumé :** Simplification des formalités de dépôt des comptes annuels pour les SAS de moins de 50 salariés.
 - **Impact pratique :** Mise à jour des procédures de clôture pour les portefeuilles SAS de taille intermédiaire.
 - **Action requise :** mise à jour playbook
