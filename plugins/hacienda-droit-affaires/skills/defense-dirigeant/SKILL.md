@@ -166,8 +166,8 @@ Structurer la sortie avec : faits retenus, axe(s) visé(s), moyens de défense o
 ### Étape 2 — Trame de défense par axe visé (ne traiter que les axes attaqués)
 
 **Axe L.651-2 (contribution à l'insuffisance d'actif) — moyens ordonnés par force.**
-1. **Recevabilité / prescription** (`[Légifrance]`) : **prescription 3 ans** à compter du jugement de LJ (ou de résolution du plan) ; **qualité pour agir** limitée (liquidateur / MP / contrôleurs sur carence). `[review]`.
-2. **Absence de faute de gestion** : distinguer faute / **simple négligence expressément exclue** (L.651-2 al. 2, loi Sapin II du 9 déc. 2016 `[Légifrance]`) ; une décision de gestion à risque n'est pas une faute caractérisée. Verser les pièces (comptabilité, PV) `[à compléter]`.
+1. **Recevabilité / prescription** : **prescription 3 ans** à compter du jugement de LJ (ou de résolution du plan) ; **qualité pour agir** limitée (liquidateur / MP / contrôleurs sur carence). `[review]`.
+2. **Absence de faute de gestion** : distinguer faute / **simple négligence expressément exclue** (L.651-2 al. 2, loi Sapin II du 9 déc. 2016) ; une décision de gestion à risque n'est pas une faute caractérisée. Verser les pièces (comptabilité, PV) `[à compléter]`.
 3. **Rupture du lien de causalité** : l'insuffisance procède de causes **externes** (marché, perte d'un client majeur, conjoncture) ou d'une faute **sans lien** avec l'insuffisance invoquée ; pluralité de causes. `[review]`.
 4. **Contestation / minoration de la contribution** : pouvoir **modérateur** du juge ; proportionnalité faute / contribution ; contribution **partagée** si pluralité de dirigeants (pas de solidarité sauf décision motivée). **Ne pas chiffrer** — réclamer l'état du passif + expertise contradictoire `[à compléter]`.
 5. **Moyens procéduraux** : nullités, expertise contradictoire, communication forcée de pièces.
@@ -176,10 +176,10 @@ Structurer la sortie avec : faits retenus, axe(s) visé(s), moyens de défense o
 - Régime **distinct** de L.651-2. Défense : contester la **confusion de patrimoine** (flux régularisés, conventions de compte courant, cloisonnement effectif des locaux/personnel) ou la **fictivité** de la personne morale `[review]` `[à compléter]`.
 
 **Axe L.653-x (sanctions personnelles).**
-- Interdiction de gérer (L.653-8 `[Légifrance]`) / faillite personnelle (L.653-3 à L.653-5 `[Légifrance]`) : moyens =
+- Interdiction de gérer (L.653-8) / faillite personnelle (L.653-3 à L.653-5) : moyens =
   - **cas limitatifs d'interprétation stricte** — le grief allégué entre-t-il exactement dans un cas légal ? ;
   - caractère **facultatif** (« le tribunal *peut* ») ;
-  - **proportionnalité** de la sanction **et de la durée** (≤ 15 ans, L.653-11 `[Légifrance]`).
+  - **proportionnalité** de la sanction **et de la durée** (≤ 15 ans, L.653-11).
 
 > Chaque moyen est présenté en **argument mobilisable `[review]`**, jamais « moyen gagnant » ni pronostic d'issue.
 
@@ -195,7 +195,7 @@ Structurer la sortie avec : faits retenus, axe(s) visé(s), moyens de défense o
 [En-tête de confidentialité selon le rôle utilisateur — voir CLAUDE.md du plugin]
 
 > ⚠️ Note du relecteur
-> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** pièces fournies : {liste} | sortie responsabilite-dirigeant | aucune
 > - **Signalé pour ton jugement :** {N éléments [review] en ligne}
 > - **Fraîcheur :** jurisprudence post-{date} sur simple négligence / causalité / L.653-8 — {N} arrêts [Judilibre] | recherche impossible

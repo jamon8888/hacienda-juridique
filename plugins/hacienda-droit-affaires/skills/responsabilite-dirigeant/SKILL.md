@@ -186,7 +186,7 @@ Structurer la sortie avec : faits retenus, droit applicable par axe, qualificati
 **Axe 4 — Cautions personnelles du dirigeant.**
 - Existence : acte de caution (étendue, durée, montant) — `[à compléter]` si non fourni.
 - Sort **dans la procédure** :
-  - Période d'observation : **suspension** des poursuites contre la caution personne physique (L.622-28 `[Légifrance]` sauvegarde / L.631-14 RJ `[à vérifier]`).
+  - Période d'observation : **suspension** des poursuites contre la caution personne physique (L.622-28 sauvegarde / L.631-14 RJ `[à vérifier]`).
     - **En redressement**, la caution **ne peut pas** invoquer l'**arrêt du cours des intérêts** (L.622-28 al. 1, écarté par L.631-14 `[à vérifier]`) : les intérêts continuent de courir à son égard. Ne pas confondre avec la suspension des poursuites, dont elle bénéficie.
   - Plan de continuation : la caution personne physique **peut se prévaloir des dispositions du plan** (délais, remises), les personnes morales en étant exclues (L.626-11 al. 2 `[à vérifier]`) — ce n'est pas un « arrêt définitif » des poursuites ; mais la dette principale survit pour le surplus.
     - **En sauvegarde comme en redressement** pour les procédures ouvertes **depuis le 1er octobre 2021** : L.631-19 I rend le régime du plan de sauvegarde, donc L.626-11, applicable au plan de redressement (ord. n° 2021-1193 du 15 sept. 2021, `[à vérifier]`).
@@ -207,7 +207,7 @@ Structurer la sortie avec : faits retenus, droit applicable par axe, qualificati
 [En-tête de confidentialité selon le rôle utilisateur — voir CLAUDE.md du plugin]
 
 > ⚠️ Note du relecteur
-> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** faits fournis : {liste} | aucun
 > - **Signalé pour ton jugement :** {N éléments [review] en ligne}
 > - **Fraîcheur :** jurisprudence post-{date} sur faute de gestion / interdiction de gérer / cautions — {N} arrêts [Judilibre] | recherche impossible
