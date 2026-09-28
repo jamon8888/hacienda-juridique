@@ -110,7 +110,7 @@ outputs/pre-pack-cession-<entreprise-slug>-YYYY-MM-DD.md
 [En-tête de confidentialité selon le rôle — CONSERVÉ (phase amiable confidentielle L.611-15)]
 
 > ⚠️ Note du relecteur
-> - **Sources :** Légifrance ✓ / BODACC ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / BODACC ✓ / Judilibre ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** situation décrite + {N} pièces
 > - **Signalé pour ton jugement :** {N} éléments [review] (date cessation des paiements, crédibilité repreneur, risque période suspecte) | aucun
 > - **Fraîcheur :** réforme du 15 septembre 2021 (ord. transposition directive restructuration) — vérifier durées/seuils en vigueur | recherche impossible
@@ -165,7 +165,7 @@ La phase amiable est **strictement confidentielle** (L.611-15). Ne produire **au
 
 1. Lire le profil cabinet (blocs procédures collectives + M&A) et le **side** déclaré. Raisonner **à la date du jour** (dates absolues, pas relatives) avec un **rétroplanning explicite** : CP + 45 j, calendrier de la procédure et des offres.
 2. Vérifier via `bodacc_procedures` l'état des procédures déjà ouvertes sur la cible.
-3. **Trancher la cessation des paiements** (art. L.631-1 C.com. `[Légifrance]`) : passif exigible vs actif disponible, date de survenance. **Le plan de cession ne s'adopte qu'en RJ ou LJ** (L.631-22 / L.642-1) : la cession présuppose la cessation des paiements.
+3. **Trancher la cessation des paiements** (art. L.631-1 C.com.) : passif exigible vs actif disponible, date de survenance. **Le plan de cession ne s'adopte qu'en RJ ou LJ** (L.631-22 / L.642-1) : la cession présuppose la cessation des paiements.
    - Non / prévisible → préparer en mandat ad hoc / conciliation, mais la **réalisation de la cession suppose de basculer en RJ** (déclaration de la cessation des paiements). Si l'objectif réel est une *continuation* (pas une vente), ce n'est pas une cession : sauvegarde accélérée L.628-1 s. → renvoi `/h-da:prevention-difficultes`. Étape 2.
    - Oui ≤ 45 j → conciliation encore possible en amont, puis **bascule RJ** pour le plan de cession. Étape 2.
    - Oui > 45 j → conciliation fermée, déclaration obligatoire (L.631-4 C.com. `[à vérifier]`) → **RJ (L.631-19-1) → plan de cession (L.642-1 s., L.642-2)**, ou **LJ** si redressement manifestement impossible (L.640-1). Étape 2.

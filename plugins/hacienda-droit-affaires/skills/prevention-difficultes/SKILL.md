@@ -20,19 +20,19 @@ tags: [prevention, mandat-ad-hoc, conciliation, sauvegarde-acceleree, l611, entr
 > **BROUILLON, VALIDATION HUMAINE (AVOCAT) OBLIGATOIRE.**
 >
 > **🔴 Gate cessation des paiements.** La cessation des paiements — impossibilité
-> de faire face au passif exigible avec l'actif disponible (art. L.631-1 C.com.
-> `[Légifrance]`) — commande tout :
+> de faire face au passif exigible avec l'actif disponible (art. L.631-1 C.com.)
+> — commande tout :
 > - **Pas en cessation des paiements** (ou difficulté seulement prévisible) →
 >   mandat ad hoc et conciliation ouverts.
 > - **Cessation des paiements depuis ≤ 45 jours** → conciliation encore possible
->   (art. L.611-4 C.com. `[Légifrance]`).
+>   (art. L.611-4 C.com.).
 > - **Cessation des paiements depuis > 45 jours** → conciliation **fermée** ;
 >   obligation de déclarer la cessation des paiements (« dépôt de bilan ») dans
 >   les 45 jours et d'ouvrir un redressement ou une liquidation judiciaire
 >   (art. L.631-4 C.com. `[à vérifier]`). **Hors périmètre de ce skill** :
 >   signaler et renvoyer vers un avocat restructuring / le mode collectif.
 >
-> **Confidentialité (art. L.611-15 C.com. `[Légifrance]`).** Mandat ad hoc et
+> **Confidentialité (art. L.611-15 C.com.).** Mandat ad hoc et
 > conciliation sont **strictement confidentiels**. Le livrable CONSERVE son
 > en-tête de confidentialité ; ne jamais le diffuser à des tiers non liés par la
 > confidentialité. Seul l'accord **homologué** fait l'objet d'une publicité.
@@ -56,7 +56,7 @@ tags: [prevention, mandat-ad-hoc, conciliation, sauvegarde-acceleree, l611, entr
 <response>
 Mode conciliation, avec apport d'argent frais. Étape 4 :
 - Requête en ouverture de conciliation au président du tribunal (désignation d'un conciliateur, mission, durée 4 mois prorogeable 1 mois).
-- Choix accord **homologué** (vs constaté) pour faire bénéficier l'apporteur du **privilège de conciliation / new money** (art. L.611-11 C.com. `[Légifrance]`) : paiement prioritaire en cas de procédure collective ultérieure. Conditions d'homologation à vérifier (pas en cessation des paiements ou l'accord y met fin, pérennité, pas d'atteinte aux non-signataires) `[review]`.
+- Choix accord **homologué** (vs constaté) pour faire bénéficier l'apporteur du **privilège de conciliation / new money** (art. L.611-11 C.com.) : paiement prioritaire en cas de procédure collective ultérieure. Conditions d'homologation à vérifier (pas en cessation des paiements ou l'accord y met fin, pérennité, pas d'atteinte aux non-signataires) `[review]`.
 Sortie : requête + structure d'accord + note sur l'arbitrage constaté/homologué.
 </response>
 </example>
@@ -75,7 +75,7 @@ Sortie : requête + structure d'accord + note sur l'arbitrage constaté/homologu
 <example>
 <user>/h-da:prevention-difficultes --orienter "conciliation en cours, un créancier minoritaire bloque l'accord"</user>
 <response>
-Conciliation engagée mais un créancier minoritaire refuse un accord soutenu par la majorité → orientation **sauvegarde accélérée** (art. L.628-1 s. C.com. `[Légifrance]`) : procédure collective rapide ouverte **sur la base de la conciliation** pour imposer le plan pré-négocié aux récalcitrants, dans un délai bref (le tribunal arrête le plan sous ~2 mois, prorogeable `[à vérifier]`). Conditions : conciliation préalable, comptes établis, projet de plan susceptible d'un soutien suffisant `[review]`. C'est la passerelle de l'amiable vers le collectif.
+Conciliation engagée mais un créancier minoritaire refuse un accord soutenu par la majorité → orientation **sauvegarde accélérée** (art. L.628-1 s. C.com.) : procédure collective rapide ouverte **sur la base de la conciliation** pour imposer le plan pré-négocié aux récalcitrants, dans un délai bref (le tribunal arrête le plan sous ~2 mois, prorogeable `[à vérifier]`). Conditions : conciliation préalable, comptes établis, projet de plan susceptible d'un soutien suffisant `[review]`. C'est la passerelle de l'amiable vers le collectif.
 </response>
 </example>
 
@@ -137,7 +137,7 @@ outputs/prevention-difficultes-<entreprise-slug>-YYYY-MM-DD.md
 [En-tête de confidentialité selon le rôle — CONSERVÉ (dispositif confidentiel L.611-15)]
 
 > ⚠️ Note du relecteur
-> - **Sources :** Légifrance ✓ / BODACC ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / BODACC ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** situation décrite + {N} pièces
 > - **Signalé pour ton jugement :** {N} éléments [review] (cessation des paiements, conditions d'homologation, seuils) | aucun
 > - **Fraîcheur :** réforme du 15 septembre 2021 (directive restructuration) — vérifier durées/seuils en vigueur | recherche impossible
@@ -173,7 +173,7 @@ Contrairement à une mise en demeure, le dispositif préventif est **confidentie
 
 1. Lire le profil cabinet (bloc procédures collectives).
 2. Vérifier via `bodacc_procedures` qu'**aucune procédure collective n'est déjà ouverte** (sinon le dispositif préventif est sans objet → renvoi).
-3. **Trancher la cessation des paiements** (art. L.631-1 C.com. `[Légifrance]`) : passif exigible vs actif disponible. Date de survenance si applicable.
+3. **Trancher la cessation des paiements** (art. L.631-1 C.com.) : passif exigible vs actif disponible. Date de survenance si applicable.
    - Non / prévisible → Étape 2.
    - Oui ≤ 45 j → conciliation encore possible, Étape 2.
    - Oui > 45 j → **STOP** : obligation de déclarer (art. L.631-4 C.com. `[à vérifier]`), renvoi droit commun. Ne pas proposer de dispositif préventif.
@@ -202,11 +202,11 @@ Contrairement à une mise en demeure, le dispositif préventif est **confidentie
 
 ## Étape 4 — Conciliation (L.611-4 s.)
 
-- **Conditions** : difficulté juridique, économique ou financière, avérée ou prévisible ; **pas en cessation des paiements depuis plus de 45 jours** (L.611-4 `[Légifrance]`).
+- **Conditions** : difficulté juridique, économique ou financière, avérée ou prévisible ; **pas en cessation des paiements depuis plus de 45 jours** (L.611-4).
 - **Durée** : 4 mois, prorogeable d'1 mois (L.611-6 `[à vérifier]`). Désignation d'un conciliateur, mission de favoriser un accord (L.611-7).
 - **Issue de l'accord** :
   - **Constaté** par le président (art. L.611-8, I) — confidentiel, force exécutoire entre les parties.
-  - **Homologué** par le tribunal (art. L.611-8, II) — publicité, mais déclenche le **privilège de conciliation / new money** (art. L.611-11 `[Légifrance]`) et la sécurisation des apports. Conditions d'homologation `[review]` : absence de cessation des paiements ou accord y mettant fin ; pérennité de l'activité ; pas d'atteinte aux intérêts des créanciers non signataires.
+  - **Homologué** par le tribunal (art. L.611-8, II) — publicité, mais déclenche le **privilège de conciliation / new money** (art. L.611-11) et la sécurisation des apports. Conditions d'homologation `[review]` : absence de cessation des paiements ou accord y mettant fin ; pérennité de l'activité ; pas d'atteinte aux intérêts des créanciers non signataires.
 - **New money (L.611-11)** : les personnes apportant, dans l'accord homologué, un nouvel apport en trésorerie ou un nouveau bien/service, bénéficient d'un **paiement prioritaire** en cas de procédure collective ultérieure. Arbitrer **homologué** si new money en jeu.
 - Brouillon (`--draft`) : requête en ouverture de conciliation + ossature de l'accord (parties, concessions, calendrier, clause de new money le cas échéant).
 
