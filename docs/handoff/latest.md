@@ -175,6 +175,21 @@ Script `scripts/diagnose-legifrance-article.mjs` pour rejouer.
 réécrits au 1er janvier 2027 (une version `VIGUEUR_DIFF` de L441-9 existe déjà) ; texte modificatif
 `[à vérifier]`. Impacte `cgv-generator`, `mise-en-demeure-commerciale`, `declaration-creance`.
 
+### B — `02-distress-cedant` FAIT (2026-09-28, 3,18 $, 6 passages)
+
+Avec 1,00 / sans 0,89 / **Δ +0,11**, entièrement porté par **d1 citations signalées (3/3 vs 0/3)** :
+sans plugin, 9 à 12 articles cités sans aucune mention de vérification. Les 5 pièges + d2/d3/d4
+(escalade Me Verdière) : 3/3 des deux côtés.
+Script `check-verified-citations` sur les 3 passages avec plugin : **0 faux « vérifié »** (après
+correction de 2 faux positifs du script : « L.611 s. » = série, « ord. 2014-326 » = n° de texte).
+Variabilité Légifrance : passage 1 = 17 articles lus (+ `verifier-citations` chargé), passage 3 = 4,
+**passage 2 = aucun** (honnête : « Légifrance ✗ non interrogé », tout en `[à vérifier]`).
+→ piste : étape « lecture des articles clés » comme dans `declaration-creance` (étape 4 bis).
+**Erreur de fond du bras sans plugin (non notée par les critères)** : « en RJ, cette protection
+n'existe pas pour la caution (L622-28 ne la prévoit que pour la sauvegarde), les créanciers peuvent
+poursuivre M. Tessier » — contraire au point confirmé par l'avocat (caution en RJ : suspension des
+poursuites oui). Argument de valeur qualitatif, à faire valider.
+
 ## Ouvert / prochaines pistes (droit-affaires)
 
 - Plus d'abonnement Codex (2026-09-25) : tâches mécaniques → sous-agent Sonnet,

@@ -10,8 +10,10 @@ import { readFileSync } from 'node:fs';
 const CLAIM = /vérifiée?s?(?! *\?)|en vigueur|Légifrance ✓|\[Légifrance\]/i;
 const DENIAL = /à vérifier|non vérifi|non interrog|non consult|pas vérifi/i;
 const GLOBAL_CLAIM = /toutes les citations (sont|ont été) vérifiées/i;
-// L./R./D. + numéro, ou numéro nu du Code civil (1100-2600, hors 2020-2035 : années, n° de facture).
-const ARTICLE = /\b([LRD])\.?\s?(\d+(?:-\d+)*)\b|\b(1[1-9]\d\d|2[0-5]\d\d)(-\d+)*\b/g;
+// L./R./D. + numéro à tiret (« L.611 s. » désigne une série, pas un article), ou numéro nu
+// du Code civil (1100-2600, hors 2020-2035 : années, n° de facture ; hors n° de texte « ord. 2014-326 »).
+const ARTICLE = /\b([LRD])\.?\s?(\d+-\d+(?:-\d+)*)\b|\b(1[1-9]\d\d|2[0-5]\d\d)(-\d+)*\b/g;
+const TEXT_NUMBER_PREFIX = /(ord\.|ordonnance|loi|décret|n°)\s*(n°\s*)?$/i;
 
 const norm = (s) => s.replace(/\s|\./g, '').toUpperCase();
 
@@ -22,6 +24,7 @@ function articlesIn(text) {
     else {
       const year = Number(m[3]);
       if (year >= 2020 && year <= 2035) continue; // années, périodes, n° de facture
+      if (TEXT_NUMBER_PREFIX.test(text.slice(Math.max(0, m.index - 16), m.index))) continue;
       out.push({ num: norm(m[0]), index: m.index });
     }
   }
