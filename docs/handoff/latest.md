@@ -160,6 +160,11 @@ facture/années retirés. **Relance 03 (1,06 $) : 1,00, script 0 faux « vérifi
 à « lancer `verifier-citations` sur la version finale ». Le post-flight « appel automatique » de
 declaration-creance ne s'exécute pas → prochaine piste (faire lire les articles clés, ou marquer
 explicitement « articles non vérifiés en session » dans la note).
+→ **Étape 4 bis ajoutée (1daed54). Contrôle 03 (1,04 $) : 1,00, 10 articles lus, 0 faux « vérifié ».**
+**Deux défauts serveur vus dans la trace (non corrigés) :** (a) 3 appels `legifrance_get_article`
+en échec « Échec de l'authentification PISTE (HTTP 400) invalid_client » au début, réussis au
+retry — probable course sur l'obtention du jeton OAuth quand plusieurs appels partent en parallèle ;
+(b) `L441-10` Code de commerce → « Article introuvable » (2 fois), alors que l'article existe.
 
 ## Ouvert / prochaines pistes (droit-affaires)
 
