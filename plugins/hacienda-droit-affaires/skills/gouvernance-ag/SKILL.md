@@ -40,7 +40,7 @@ tags: [gouvernance, assemblee, ago, age, convocation, proces-verbal, societes]
 <response>
 1. Lecture profil cabinet (sous-bloc « vie sociale » : cadence assemblées suivies, formes pratiquées).
 2. Intake : SARL, AGO annuelle, ordre du jour = approbation des comptes + affectation du résultat + quitus, date d'assemblée visée.
-3. Étape 1 (--convocation) — calcul du délai : délai SARL 15 jours (art. L.223-27 C.com. `[Légifrance]`) ; date limite d'envoi = date d'assemblée − 15 jours. Si la date visée laisse moins de 15 jours → 🔴 délai intenable.
+3. Étape 1 (--convocation) — calcul du délai : délai SARL 15 jours (art. L.223-27 C.com.) ; date limite d'envoi = date d'assemblée − 15 jours. Si la date visée laisse moins de 15 jours → 🔴 délai intenable.
 4. Étape 2 (--convocation) — rédaction : convocation avec ordre du jour complet, date/heure/lieu, modalités de participation `[review]` (présence / représentation / vote à distance selon statuts), documents à joindre (rapport de gestion, comptes annuels, projets de résolutions).
 5. Étape 3 — post-flight `verifier-citations`.
 6. Sortie : note du relecteur + convocation projet + question hors checklist + arbre de décision 5 options.
@@ -64,7 +64,7 @@ tags: [gouvernance, assemblee, ago, age, convocation, proces-verbal, societes]
 <response>
 1. Lecture profil cabinet.
 2. Intake : SARL, AGO, résolutions soumises au vote et résultats fournis par l'utilisateur.
-3. Étape 1 (--pv) — vérification quorum/majorité : AGO de SARL — pas de quorum légal ; 1re consultation = majorité absolue des parts, 2e consultation = majorité des votes émis (art. L.223-29 C.com. `[Légifrance]`). Contrôle de cohérence des résultats saisis ; tag `[review]` si une résolution est annoncée adoptée sans atteindre la majorité requise.
+3. Étape 1 (--pv) — vérification quorum/majorité : AGO de SARL — pas de quorum légal ; 1re consultation = majorité absolue des parts, 2e consultation = majorité des votes émis (art. L.223-29 C.com.). Contrôle de cohérence des résultats saisis ; tag `[review]` si une résolution est annoncée adoptée sans atteindre la majorité requise.
 4. Étape 2 (--pv) — rédaction : PV avec participants et qualité, quorum constaté, texte de chaque résolution + résultat du vote (pour / contre / abstentions, adoptée ou rejetée), signatures.
 5. Étape 3 — post-flight `verifier-citations`.
 6. Sortie : note du relecteur + PV projet + question hors checklist + arbre 5 options.
@@ -159,7 +159,7 @@ Format date : `YYYY-MM-DD` (date de l'assemblée visée).
 [En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin §2]
 
 > **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** intake fourni par l'utilisateur — {forme, type d'assemblée, ordre du jour ou résolutions}
 > - **Signalé pour ton jugement :** {N} éléments marqués [review] (modalités statutaires, délai SAS, cohérence quorum/majorité) | aucun
 > - **Fraîcheur :** délais de convocation de la SA NON figés (réglementaires) — {N} renvois [à vérifier] à confirmer sur décret en vigueur ; jurisprudence nullité des délibérations à vérifier
@@ -213,7 +213,7 @@ non-respect expose les délibérations à la nullité. Logique tirée de
 `${CLAUDE_SKILL_DIR}/../../references/calendrier-vie-sociale-fr.md` (Partie 1).
 
 1. Identifier le **délai applicable** selon la forme :
-   - **SARL** — 15 jours avant l'assemblée (art. L.223-27 C.com. `[Légifrance]`).
+   - **SARL** — 15 jours avant l'assemblée (art. L.223-27 C.com.).
    - **SA** — 15 jours sur première convocation ; les délais précis sont
      **réglementaires** (art. R.225-67 / R.225-69 C.com. `[à vérifier]`, hors
      index). Le délai de seconde convocation est réduit `[à vérifier]`.
@@ -292,23 +292,21 @@ Selon la forme et le type d'assemblée :
 - **SARL — AGO** : aucun quorum légal. **1re consultation** : majorité des
   **parts sociales** (majorité absolue). **2e consultation** : majorité des
   **votes émis**, quel que soit le nombre de votants — art. L.223-29 C.com.
-  `[Légifrance]`.
 - **SARL — AGE** (modification des statuts) : la majorité dépend de la **date de
   constitution**. SARL **constituée après le 4 août 2005** : **2/3 des parts**
   des associés présents ou représentés, sous quorum de **1/4 des parts** sur 1re
   convocation et **1/5 des parts** sur 2e convocation — art. L.223-30 C.com.
-  `[Légifrance]`. SARL **constituée avant le 4 août 2005** (régime ancien
+  SARL **constituée avant le 4 août 2005** (régime ancien
   conservé) : **3/4 des parts sociales**, sans quorum — art. L.223-30 C.com.
-  `[Légifrance]`.
 - **SA — AGO** : quorum **1/5 des actions** à droit de vote sur **1re
   convocation**, **aucun quorum** sur **2e convocation** ; majorité des **voix
-  exprimées** — art. L.225-98 C.com. `[Légifrance]`.
+  exprimées** — art. L.225-98 C.com.
 - **SA — AGE** : quorum **1/4 des actions** à droit de vote sur **1re
   convocation**, **1/5** sur **2e convocation** ; majorité des **2/3 des voix
   exprimées** — art. L.225-96 C.com. `[à vérifier]` (article en `[a compléter]`
   dans l'index `articles-c-civ-c-com-index.md`).
 - **SAS** : **liberté statutaire** — quorum et majorité se lisent dans les
-  **statuts** (art. L.227-9 C.com. `[Légifrance]`). Ne pas appliquer une règle
+  **statuts** (art. L.227-9 C.com.). Ne pas appliquer une règle
   légale de SARL ou de SA. Si les statuts ne sont pas fournis, le signaler
   comme une lacune bloquante pour la vérification → `[review]`.
 
@@ -360,7 +358,7 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 - annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
 Articles attendus présents dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` avec
-identifiant Légifrance réel (→ `[Légifrance]`) : L.223-27, L.223-29, L.223-30,
+identifiant Légifrance réel (→ à lire via `legifrance_get_article` ; `[Légifrance ✓]` seulement après lecture dans la session, sinon `[à vérifier]`) : L.223-27, L.223-29, L.223-30,
 L.225-98, L.227-9. En `[a compléter]` ou absents (→ `[à vérifier]` obligatoire) : L.225-96
 (en `[a compléter]` dans l'index), et **tout article réglementaire `R.xxx`**
 (R.225-67, R.225-69 et suivants — délais de convocation de la SA).

@@ -61,11 +61,11 @@ juridiction), ou (c) faire les deux en séquence ?"
 <user>/h-da:reviser-contrat ./CGV-fournisseur.pdf --review --side=client</user>
 <response>
 Identification CGV B2B → vérifications spécifiques de transparence et d'équilibre :
-- art. L.441-1 C.com. — transparence prix, conditions de règlement `[Légifrance]`
-- art. L.441-10 C.com. — délais de paiement plafonds B2B `[Légifrance]`
-- art. L.442-1 C.com. — déséquilibre significatif et rupture brutale `[Légifrance]`
-- art. 1171 C.civ — clauses abusives en contrat d'adhésion `[Légifrance]`
-- art. 1170 C.civ — clause privant l'obligation essentielle de sa substance `[Légifrance]`
+- art. L.441-1 C.com. — transparence prix, conditions de règlement
+- art. L.441-10 C.com. — délais de paiement plafonds B2B
+- art. L.442-1 C.com. — déséquilibre significatif et rupture brutale
+- art. 1171 C.civ — clauses abusives en contrat d'adhésion
+- art. 1170 C.civ — clause privant l'obligation essentielle de sa substance
 Sortie complète avec liste de points et formulations alternatives selon posture.
 </response>
 </example>

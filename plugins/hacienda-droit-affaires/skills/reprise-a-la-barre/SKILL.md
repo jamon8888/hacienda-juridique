@@ -122,7 +122,7 @@ outputs/reprise-a-la-barre-<entreprise-slug>-YYYY-MM-DD.md
 [En-tête de confidentialité selon le rôle]
 
 > ⚠️ Note du relecteur
-> - **Sources :** Légifrance ✓ / BODACC ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / BODACC ✓ / Judilibre ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** situation décrite + {N} pièces
 > - **Signalé pour ton jugement :** {N} éléments [review] (éligibilité du repreneur, fermeté de l'offre, périmètre) | aucun
 > - **Fraîcheur :** réforme du 15 septembre 2021 (ord. transposition directive restructuration) — vérifier durées/seuils en vigueur | recherche impossible
@@ -178,13 +178,13 @@ outputs/reprise-a-la-barre-<entreprise-slug>-YYYY-MM-DD.md
 1. Lire le profil cabinet (blocs procédures collectives + M&A) et confirmer le **côté repreneur**. Raisonner **à la date du jour** (dates absolues) avec un **rétroplanning** : date limite de dépôt des offres, audience.
 2. Vérifier via `bodacc_procedures` / `bodacc_by_siren` que la cible est **bien en RJ/LJ** : type de procédure, date du jugement d'ouverture, administrateur désigné.
 3. **Trancher la porte d'entrée** : procédure ouverte + appel d'offres en cours → ce skill. **Aucune procédure ouverte** et cession préparable confidentiellement → ce n'est pas une reprise à la barre → **renvoi `/h-da:pre-pack-cession`** (montage amont). Ne pas avancer sans avoir tranché.
-4. **Trancher le régime (art. L.631-22 / L.642-1 s. `[Légifrance]`)** : si la cible est en **redressement judiciaire**, le tribunal peut arrêter la cession (totale ou partielle) **dès la période d'observation** sur le fondement de **L.631-22**, qui rend applicable le régime du plan de cession **L.642-1 et s.** Ne jamais conditionner la reprise à la barre à une **liquidation préalable** ni affirmer que la cession serait impossible pendant l'observation.
+4. **Trancher le régime (art. L.631-22 / L.642-1 s.)** : si la cible est en **redressement judiciaire**, le tribunal peut arrêter la cession (totale ou partielle) **dès la période d'observation** sur le fondement de **L.631-22**, qui rend applicable le régime du plan de cession **L.642-1 et s.** Ne jamais conditionner la reprise à la barre à une **liquidation préalable** ni affirmer que la cession serait impossible pendant l'observation.
 
 ## Étape 2 — Gate 2 (recevabilité de l'offre)
 
 Trancher les **deux** verrous. Si l'un tombe → STOP + signalement motivé.
-1. **Éligibilité (L.642-3 C.com. `[Légifrance]`)** — dirigeants de droit ou de fait, parents et alliés jusqu'au 2nd degré inclus, et toute **interposition de personne** sont **interdits de se porter acquéreurs**. Une offre émanant d'une telle personne est **nulle**. Repérer toute holding interposée, prête-nom, lien familial. Dérogation du tribunal exceptionnelle. `[review]`.
-2. **Offre ferme et écrite (L.642-2 C.com. `[Légifrance]`)** — l'offre doit comporter périmètre, contrats repris, prix, financement, emplois maintenus, garanties, date. Une **LOI / lettre d'intention indicative n'est pas** une offre recevable. Une fois déposée, l'offre est **irrévocable** et ne peut être modifiée que dans un sens plus favorable.
+1. **Éligibilité (L.642-3 C.com.)** — dirigeants de droit ou de fait, parents et alliés jusqu'au 2nd degré inclus, et toute **interposition de personne** sont **interdits de se porter acquéreurs**. Une offre émanant d'une telle personne est **nulle**. Repérer toute holding interposée, prête-nom, lien familial. Dérogation du tribunal exceptionnelle. `[review]`.
+2. **Offre ferme et écrite (L.642-2 C.com.)** — l'offre doit comporter périmètre, contrats repris, prix, financement, emplois maintenus, garanties, date. Une **LOI / lettre d'intention indicative n'est pas** une offre recevable. Une fois déposée, l'offre est **irrévocable** et ne peut être modifiée que dans un sens plus favorable.
 
 ## Étape 3 — Construction de l'offre (L.642-2 / L.642-7 / L.642-1)
 
@@ -200,7 +200,7 @@ Le **tribunal arrête le plan de cession** en retenant l'offre qui assure le mie
 
 ## Étape 5 — Risques post-arrêté (L.642-12 / L.642-11 / L.642-10 / L.661-6)
 
-- **Sûretés — sort complet (L.642-12 C.com. `[Légifrance]`).** Ne jamais dire que le nantissement (fonds de commerce) ou le gage (stock) disparaissent sans traitement. Mécanique :
+- **Sûretés — sort complet (L.642-12 C.com.).** Ne jamais dire que le nantissement (fonds de commerce) ou le gage (stock) disparaissent sans traitement. Mécanique :
   - une **quote-part du prix de cession** est affectée par le tribunal à chaque bien grevé compris dans le périmètre, sur laquelle s'exerce le **droit de préférence** des créanciers inscrits ;
   - le **droit de suite** est **maintenu tant que le prix de cession n'est pas intégralement payé** : le cessionnaire ne purge qu'au **paiement complet du prix** (sous réserves textuelles) ;
   - pour un **bien grevé que le cessionnaire conserve** et qui sert de garantie à un crédit, il peut devoir **régler les échéances** restant dues ;
@@ -209,7 +209,7 @@ Le **tribunal arrête le plan de cession** en retenant l'offre qui assure le mie
 - **Inexécution du plan** : si le cessionnaire n'exécute pas ses engagements, le tribunal peut prononcer la **résolution du plan de cession** (L.642-11) — mesurer l'exposition ; ne s'engager que sur du tenable.
 - **Inaliénabilité (L.642-10)** : le tribunal peut **interdire la revente** de tout ou partie des biens cédés pendant un délai → vérifier avant tout projet de cession ultérieure (marque, fichier).
 - **Publicité de l'offre (L.642-2 / L.642-5)** : son contenu est **communiqué aux organes et déposé au greffe** (consultable) → **calibrer** les informations concurrentielles sensibles que l'on y fait figurer ; pas de confidentialité totale.
-- **Voies de recours (L.661-6 C.com. `[Légifrance]`)** : recours **restreints** — le **cessionnaire ne peut faire appel** du jugement arrêtant le plan **que si celui-ci lui impose des charges autres que les engagements souscrits** ; un **candidat évincé** ne dispose pas d'un recours ordinaire équivalent à une renégociation. Ne pas tabler sur un appel large en cas de rejet.
+- **Voies de recours (L.661-6 C.com.)** : recours **restreints** — le **cessionnaire ne peut faire appel** du jugement arrêtant le plan **que si celui-ci lui impose des charges autres que les engagements souscrits** ; un **candidat évincé** ne dispose pas d'un recours ordinaire équivalent à une renégociation. Ne pas tabler sur un appel large en cas de rejet.
 
 ## Étape 6 — Post-flight `verifier-citations`
 

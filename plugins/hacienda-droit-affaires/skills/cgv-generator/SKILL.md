@@ -286,7 +286,7 @@ Leur **présence** n'est pas négociable ; leur **contenu** est tagué `[review]
   **avant ou lors de la livraison** pour être opposable, y compris en procédure
   collective (cf. clauses-sensibles-fr.md n° 16) `[review]`.
 - **Limitation de responsabilité** — plafond aménagé sans priver l'obligation
-  essentielle de sa substance (art. 1170 C.civ. `[Légifrance]`), carve-outs dol
+  essentielle de sa substance (art. 1170 C.civ.), carve-outs dol
   et faute lourde (cf. clauses-sensibles-fr.md n° 9 et 24) `[review]`.
 - **Droit applicable et juridiction** — selon la posture du cabinet
   (cf. clauses-sensibles-fr.md n° 10) `[review]`.
@@ -303,7 +303,7 @@ clause **pénalités de retard + indemnité forfaitaire de recouvrement** (carac
 automatique, de plein droit — cf. clauses-sensibles-fr.md n° 18).
 
 Le **contrôle des clauses abusives B2B** (déséquilibre significatif L.442-1
-C.com. `[Légifrance]`, contrat d'adhésion 1171 C.civ. `[Légifrance]`) s'applique
+C.com., contrat d'adhésion 1171 C.civ.) s'applique
 au brouillon : éviter toute asymétrie non justifiée, en particulier sur la
 modification unilatérale, la résiliation et les pénalités.
 
@@ -376,7 +376,7 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 - annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
 Articles attendus présents dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` avec
-identifiant Légifrance réel (→ `[Légifrance]`) : 1170, 1171 C.civ. ; L.442-1
+identifiant Légifrance réel (→ à lire via `legifrance_get_article` ; `[Légifrance ✓]` seulement après lecture dans la session, sinon `[à vérifier]`) : 1170, 1171 C.civ. ; L.442-1
 C.com. En `[a compléter]` (→ `[à vérifier]` obligatoire) : L.441-1, L.441-10
 C.com., D.441-5 C.com. **Tous les articles du Code de la consommation**
 (L.111-1, L.212-1, L.212-2, L.217-3 et s., L.221-5, L.221-18, L.221-28, L.612-1,

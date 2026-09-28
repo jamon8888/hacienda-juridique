@@ -41,7 +41,7 @@ tags: [constitution, societes, statuts, sas, sarl, sa, actes]
 <response>
 1. Lecture profil cabinet (bloc « vie sociale » : formes pratiquées, posture rédaction statuts, notaire partenaire).
 2. Cadrage du besoin : 3 fondateurs, ambition de lever des fonds d'ici 18 mois, président souhaitant le régime assimilé salarié, besoin de souplesse pour accueillir des investisseurs.
-3. Recommandation depuis `${CLAUDE_SKILL_DIR}/../../references/comparatif-formes-sociales-fr.md` : **SAS** — souplesse statutaire (organes librement définis, pas d'agrément légal imposé), accueil naturel d'investisseurs (actions de préférence, BSA), président assimilé salarié. La SARL est écartée (agrément légal des cessions à tiers art. L.223-14 C.com. [Légifrance], rigidité face à une levée ; gérant majoritaire = TNS).
+3. Recommandation depuis `${CLAUDE_SKILL_DIR}/../../references/comparatif-formes-sociales-fr.md` : **SAS** — souplesse statutaire (organes librement définis, pas d'agrément légal imposé), accueil naturel d'investisseurs (actions de préférence, BSA), président assimilé salarié. La SARL est écartée (agrément légal des cessions à tiers art. L.223-14 C.com., rigidité face à une levée ; gérant majoritaire = TNS).
 4. Tags `[review]` sur les arbitrages dépendant de critères fiscaux/sociaux (régime social effectif, option IR éventuelle) → renvoi expert-comptable.
 5. Sortie : note du relecteur + tableau comparatif + recommandation motivée + question hors checklist + arbre de décision 5 options.
 </response>
@@ -53,7 +53,7 @@ tags: [constitution, societes, statuts, sas, sarl, sa, actes]
 1. Lecture profil cabinet (posture rédaction statuts).
 2. Intake : SAS, 2 associés, apports en numéraire uniquement, gouvernance simple (un président).
 3. Étape 1 — détection bifurcation actes : apports en numéraire seulement → **acte sous seing privé suffit**, pas de commissaire aux apports. Aucun acte notarié requis.
-4. Étape 2 — brouillon assisté de statuts : mentions obligatoires art. L.210-2 C.com. [Légifrance] (forme, durée, dénomination, siège, objet, capital) + clauses SAS. **Chaque clause d'arbitrage est taguée `[review]`** : montant et libération du capital, clause d'agrément éventuelle (art. L.227-14 C.com. [Légifrance]), modalités de direction, règles des décisions collectives (art. L.227-9 C.com. [Légifrance]), inaliénabilité éventuelle (plafond 10 ans art. L.227-13 C.com. [Légifrance]), choix SSP vs notarié.
+4. Étape 2 — brouillon assisté de statuts : mentions obligatoires art. L.210-2 C.com. (forme, durée, dénomination, siège, objet, capital) + clauses SAS. **Chaque clause d'arbitrage est taguée `[review]`** : montant et libération du capital, clause d'agrément éventuelle (art. L.227-14 C.com.), modalités de direction, règles des décisions collectives (art. L.227-9 C.com.), inaliénabilité éventuelle (plafond 10 ans art. L.227-13 C.com.), choix SSP vs notarié.
 5. Étape 3 — post-flight `verifier-citations`.
 6. Sortie : note du relecteur + brouillon de statuts `[review]`-tagué + **liste explicite des points à arbitrer** — le livrable est présenté comme un brouillon de travail, pas comme des statuts prêts à déposer.
 </response>
@@ -65,7 +65,7 @@ tags: [constitution, societes, statuts, sas, sarl, sa, actes]
 Intake : SARL, 3 associés, dont un apporte un **local commercial** en nature.
 Étape 1 — détection bifurcation actes :
 - L'apport porte sur un **immeuble** → 🔴 **acte notarié obligatoire**. Motif : la mutation d'un droit réel immobilier doit être publiée au service de la publicité foncière, laquelle n'accepte que des actes authentiques. Un apport d'immeuble par simple SSP serait inopposable aux tiers. Renvoi vers le **notaire partenaire** configuré au profil cabinet.
-- L'apport en nature pose la question de l'évaluation → **commissaire aux apports** (art. L.223-9 C.com. [Légifrance]) : désignation de principe ; dispense possible à l'unanimité **et** sous double seuil réglementaire — seuils chiffrés `[à vérifier]` (réglementaires). La dispense ne supprime pas la responsabilité solidaire des associés sur la valeur retenue, 5 ans `[à vérifier]`.
+- L'apport en nature pose la question de l'évaluation → **commissaire aux apports** (art. L.223-9 C.com.) : désignation de principe ; dispense possible à l'unanimité **et** sous double seuil réglementaire — seuils chiffrés `[à vérifier]` (réglementaires). La dispense ne supprime pas la responsabilité solidaire des associés sur la valeur retenue, 5 ans `[à vérifier]`.
 Le skill produit le brouillon assisté en signalant que la forme de l'acte n'est pas un arbitrage : elle est imposée. Validation notaire impérative.
 </response>
 </example>
@@ -75,7 +75,7 @@ Le skill produit le brouillon assisté en signalant que la forme de l'acte n'est
 <response>
 Étape 1 — détection bifurcation actes :
 - Apport en nature d'un brevet (bien meuble incorporel) → pas d'immeuble → **acte SSP suffit** quant à la forme.
-- Apport en nature → **commissaire aux apports** : désignation de principe (régime SARL art. L.223-9 C.com. [Légifrance] étendu à la SAS `[à vérifier]`). La dispense suppose l'unanimité **et** le respect d'un double seuil réglementaire (montant unitaire de l'apport / fraction du capital) — seuils chiffrés `[à vérifier]`. Une valorisation de 90 000 € peut excéder le seuil de dispense unitaire selon le décret en vigueur → **signalement : commissaire aux apports probablement requis, vérifier le seuil `[à vérifier]`**.
+- Apport en nature → **commissaire aux apports** : désignation de principe (régime SARL art. L.223-9 C.com. étendu à la SAS `[à vérifier]`). La dispense suppose l'unanimité **et** le respect d'un double seuil réglementaire (montant unitaire de l'apport / fraction du capital) — seuils chiffrés `[à vérifier]`. Une valorisation de 90 000 € peut excéder le seuil de dispense unitaire selon le décret en vigueur → **signalement : commissaire aux apports probablement requis, vérifier le seuil `[à vérifier]`**.
 - Même en cas de dispense, les associés restent solidairement responsables 5 ans de la valeur attribuée au brevet `[à vérifier]`.
 Renvoi : l'évaluation d'un brevet relève d'une expertise PI → signaler que le périmètre et la valorisation du droit de PI peuvent appeler `/h-pi:contrats-pi`. Le brouillon de statuts est produit avec point `[review]` sur le traitement de l'apport.
 </response>
@@ -150,7 +150,7 @@ Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
 [En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin §2]
 
 > **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** intake fourni par l'utilisateur — {synthèse des apports et de la forme}
 > - **Signalé pour ton jugement :** {N} éléments marqués [review] (forme/capital, agrément, quorum/majorité, direction, inaliénabilité, SSP/notarié) | aucun
 > - **Fraîcheur :** seuils réglementaires (capital SA, commissaire aux apports, commissaire aux comptes) NON figés — {N} seuils [à vérifier] à confirmer sur décret en vigueur
@@ -203,7 +203,7 @@ Avant de recommander une forme, cerner le besoin réel. Questions de cadrage :
 - **Régime social souhaité du dirigeant** — assimilé salarié (président de SAS, gérant minoritaire de SARL) ou travailleur non salarié (gérant majoritaire de SARL) ? Arbitrage **coût de cotisations / niveau de protection** — dépend de critères sociaux et fiscaux → `[review]`, renvoi expert-comptable.
 - **Besoin de souplesse statutaire** — gouvernance sur-mesure, organes ad hoc, liberté des règles de cession : la SAS offre la plus grande liberté ; la SARL est plus encadrée (agrément légal des cessions à tiers, régime impératif de révocation du gérant) ; la SA est la plus formelle.
 - **Capital disponible** — la SA impose un capital minimum de 37 000 € `[à vérifier]` ; SAS et SARL n'ont pas de plancher légal.
-- **Apports en industrie** — un associé n'apportant que son savoir-faire/travail oriente hors de la SA (apport en industrie interdit en SA, art. L.225-3 C.com. `[Légifrance]`).
+- **Apports en industrie** — un associé n'apportant que son savoir-faire/travail oriente hors de la SA (apport en industrie interdit en SA, art. L.225-3 C.com.).
 
 Ne pas trancher tant que ces points ne sont pas couverts ou explicitement écartés.
 
@@ -253,7 +253,7 @@ forme de l'acte. Logique tirée de `${CLAUDE_SKILL_DIR}/../../references/compara
 4. **Tout apport en nature** (meuble ou immeuble) → signaler la règle du
    **commissaire aux apports** :
    - **désignation de principe** pour évaluer chaque apport (SARL : art. L.223-9
-     C.com. `[Légifrance]`, désignation à l'unanimité ou par justice ; régime
+     C.com., désignation à l'unanimité ou par justice ; régime
      étendu à la SAS `[à vérifier]` ; SA : régime distinct `[à vérifier]`) ;
    - **dispense possible** sous **deux conditions cumulatives** : décision
      **unanime** des associés **et** respect d'un **double seuil réglementaire**
@@ -265,8 +265,8 @@ forme de l'acte. Logique tirée de `${CLAUDE_SKILL_DIR}/../../references/compara
      en nature `[à vérifier]`. À expliciter systématiquement au client.
 
 5. **Apport en industrie** — signaler qu'il est **interdit en SA** (art. L.225-3
-   C.com. `[Légifrance]`) ; possible en SAS et SARL (art. L.223-7 al. 2 C.com.
-   `[Légifrance]` pour la SARL) ; il ne concourt pas à la formation du capital.
+   C.com.) ; possible en SAS et SARL (art. L.223-7 al. 2 C.com.
+   pour la SARL) ; il ne concourt pas à la formation du capital.
 
 Le résultat de cette étape conditionne le brouillon et figure en tête de la
 **liste des points à arbitrer**.
@@ -279,12 +279,12 @@ Produire un **projet de statuts structuré**, adapté à la forme. **Brouillon
 assisté** : chaque clause appelant un arbitrage juridique est taguée `[review]`
 en ligne, et le livrable ne se présente **jamais** comme « prêt à déposer ».
 
-**Socle commun — mentions obligatoires de l'art. L.210-2 C.com. `[Légifrance]`** —
+**Socle commun — mentions obligatoires de l'art. L.210-2 C.com.** —
 toute société commerciale, quelle que soit sa forme, doit faire figurer dans ses
 statuts :
 
 - la **forme** de la société ;
-- la **durée** (99 ans maximum — art. L.210-2 C.com. `[Légifrance]`) `[review]` ;
+- la **durée** (99 ans maximum — art. L.210-2 C.com.) `[review]` ;
 - la **dénomination sociale** `[review]` (vérifier la disponibilité auprès de l'INPI — hors périmètre du skill) ;
 - le **siège social** `[review]` ;
 - l'**objet social** `[review]` (à calibrer : ni trop étroit, ni purement formel) ;
@@ -298,21 +298,21 @@ statuts :
 - **Apports** — description et évaluation de chaque apport ; traitement du
   commissaire aux apports / dispense (issu de l'Étape 1) `[review]`.
 - **Clause d'agrément** — en SAS, agrément seulement si clause statutaire
-  (art. L.227-14 C.com. `[Légifrance]`, adoption à l'unanimité, violation →
-  nullité art. L.227-15 C.com. `[Légifrance]`) ; en SARL, agrément des cessions
-  à tiers **légal et obligatoire** (art. L.223-14 C.com. `[Légifrance]`) ; en SA,
+  (art. L.227-14 C.com., adoption à l'unanimité, violation →
+  nullité art. L.227-15 C.com.) ; en SARL, agrément des cessions
+  à tiers **légal et obligatoire** (art. L.223-14 C.com.) ; en SA,
   agrément possible par clause statutaire (art. L.228-23 C.com. `[à vérifier]`,
-  procédure L.228-24 C.com. `[Légifrance]`) `[review]`.
+  procédure L.228-24 C.com.) `[review]`.
 - **Règles de quorum et de majorité** des décisions collectives — SAS : grande
-  liberté statutaire (art. L.227-9 C.com. `[Légifrance]`) ; SARL : majorités
-  légales (art. L.223-30 C.com. `[Légifrance]` pour les modifications
-  statutaires) ; SA : quorum et majorité d'AGO (art. L.225-98 C.com.
-  `[Légifrance]`) et d'AGE (art. L.225-96 C.com. `[à vérifier]`) `[review]`.
+  liberté statutaire (art. L.227-9 C.com.) ; SARL : majorités
+  légales (art. L.223-30 C.com. pour les modifications
+  statutaires) ; SA : quorum et majorité d'AGO (art. L.225-98 C.com.)
+  et d'AGE (art. L.225-96 C.com. `[à vérifier]`) `[review]`.
 - **Modalités de direction** — président de SAS et organes complémentaires
   éventuels ; gérant(s) de SARL ; conseil d'administration ou directoire en SA ;
   étendue des pouvoirs, durée du mandat, révocation `[review]`.
 - **Clause d'inaliénabilité éventuelle** — en SAS, l'inaliénabilité statutaire
-  est **plafonnée à 10 ans** (art. L.227-13 C.com. `[Légifrance]`) : une durée
+  est **plafonnée à 10 ans** (art. L.227-13 C.com.) : une durée
   supérieure est nulle ou réductible `[review]`.
 - **Choix SSP vs notarié** — reporter ici la conclusion de l'Étape 1 ; si un
   immeuble figure aux apports, le choix est **imposé** (notarié), non arbitré.
@@ -334,7 +334,7 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 - annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
 Articles attendus présents dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` avec
-identifiant Légifrance réel (→ `[Légifrance]`) : L.210-2, L.210-6, L.223-2,
+identifiant Légifrance réel (→ à lire via `legifrance_get_article` ; `[Légifrance ✓]` seulement après lecture dans la session, sinon `[à vérifier]`) : L.210-2, L.210-6, L.223-2,
 L.223-7, L.223-9, L.223-14, L.223-30, L.225-3, L.225-98, L.227-9, L.227-13,
 L.227-14, L.227-15, L.228-24. En `[a compléter]` ou absents (→ `[à vérifier]`
 obligatoire) : L.223-1, L.225-1, L.225-96, L.227-1, L.228-23, et **tout article

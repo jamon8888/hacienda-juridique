@@ -173,7 +173,7 @@ Format date : `YYYY-MM-DD`. Pour le mode `--comparer`, suffixer `-comparatif`.
 [En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin §2]
 
 > **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** {pour --comparer : intake fourni par l'utilisateur — stade, objectif, profil des souscripteurs} | {pour --review : intégrale (N pages) | partielle (pages X à Y)}
 > - **Signalé pour ton jugement :** {N} éléments marqués [review] (valorisation, éligibilité BSPCE, ampleur de dilution acceptable) | aucun
 > - **Fraîcheur :** régime fiscal BSPCE (art. 163 bis G CGI) NON traité — renvoyé au fiscaliste ; conditions d'éligibilité susceptibles d'évoluer
@@ -347,7 +347,7 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 - annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
 Articles attendus présents dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` avec
-identifiant Légifrance réel (→ `[Légifrance]`) : L.210-2, L.227-9 C.com. Hors
+identifiant Légifrance réel (→ à lire via `legifrance_get_article` ; `[Légifrance ✓]` seulement après lecture dans la session, sinon `[à vérifier]`) : L.210-2, L.227-9 C.com. Hors
 index (→ `[à vérifier]` obligatoire) : **L.228-91 et s. C.com.** (valeurs
 mobilières donnant accès au capital) et **l'art. 163 bis G CGI** (régime fiscal
 BSPCE — relève du Code général des impôts, non couvert par l'index, et dont la

@@ -129,7 +129,7 @@ Sortie complète dans l'ordre suivant :
 [En-tête de confidentialité selon le rôle utilisateur — 4 variantes]
 
 > ⚠️ Note du relecteur
-> - **Sources :** [bases consultées : Légifrance ✓ / Judilibre ✓ — ou ✗ si non connectée]
+> - **Sources :** [bases consultées : Légifrance ✓ / Judilibre ✓ — ou ✗ si non connectée] ; articles lus dans cette session : [liste] ; autres citations : `[à vérifier]`
 > - **Lecture :** [fichier d'analyse lu intégralement | N findings extraits | sans objet]
 > - **Signalé pour ton jugement :** [N éléments marqués [review] en ligne | aucun]
 > - **Fraîcheur :** [recherche des évolutions depuis [date] — rien trouvé | N mises à jour intégrées | recherche impossible, vérifier [règles précises]]
@@ -210,7 +210,7 @@ Structure attendue par finding :
   "comparaison_playbook": "écart majeur",
   "statut": "🔴",
   "risque": "Prive l'obligation essentielle de sa substance (art. 1170 C.civ)",
-  "article": "art. 1170 C.civ [Légifrance]",
+  "article": "art. 1170 C.civ",
   "position_souhaitee": null,
   "formulation_proposee": null
 }
@@ -251,8 +251,8 @@ du relecteur.
 "jamais acceptées" du profil, la marquer 🔴 systématiquement.
 
 **Tag inline `[review]`** sur tout jugement subjectif : qualification d'une
-obligation essentielle (1170 C.civ [Légifrance]), seuil du déséquilibre significatif
-(L.442-1 C.com. [Légifrance]), proportionnalité d'une clause pénale.
+obligation essentielle (1170 C.civ), seuil du déséquilibre significatif
+(L.442-1 C.com.), proportionnalité d'une clause pénale.
 
 ---
 
@@ -266,8 +266,8 @@ Si `--min-criticite=orange` est actif : exclure les lignes 🟡 et 🟢 du table
 ```
 | # | Clause | Statut | Risque | Position souhaitée | Formulation proposée |
 |---|---|---|---|---|---|
-| 1 | Clause 12 — Limitation de responsabilité | 🔴 | Prive l'obligation essentielle de sa substance (art. 1170 C.civ [Légifrance]) | Plafond multiple des sommes payées 12 mois + carve-outs dol, faute lourde, confidentialité | "La responsabilité de chaque partie est plafonnée aux montants payés au titre des 12 derniers mois, à l'exclusion des cas de dol, faute lourde, atteintes corporelles et violations de confidentialité." |
-| 2 | Clause 8 — Clause pénale | 🟠 | Taux automatique de 30 % sans lien avec le préjudice prévisible — risque de réduction judiciaire (art. 1231-5 C.civ [Légifrance]) | Taux proportionné + articulation avec limitation de responsabilité | "En cas de manquement grave, indemnité forfaitaire égale à [10] % des sommes HT engagées, sans préjudice des dommages en cas de faute lourde." |
+| 1 | Clause 12 — Limitation de responsabilité | 🔴 | Prive l'obligation essentielle de sa substance (art. 1170 C.civ) | Plafond multiple des sommes payées 12 mois + carve-outs dol, faute lourde, confidentialité | "La responsabilité de chaque partie est plafonnée aux montants payés au titre des 12 derniers mois, à l'exclusion des cas de dol, faute lourde, atteintes corporelles et violations de confidentialité." |
+| 2 | Clause 8 — Clause pénale | 🟠 | Taux automatique de 30 % sans lien avec le préjudice prévisible — risque de réduction judiciaire (art. 1231-5 C.civ) | Taux proportionné + articulation avec limitation de responsabilité | "En cas de manquement grave, indemnité forfaitaire égale à [10] % des sommes HT engagées, sans préjudice des dommages en cas de faute lourde." |
 ```
 
 Une ligne par clause. Pas de doublon. Le tableau est l'artefact central

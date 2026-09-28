@@ -120,7 +120,7 @@ outputs/asset-vs-share-distress-<entreprise-slug>-YYYY-MM-DD.md
 [En-tête de confidentialité selon le rôle]
 
 > ⚠️ Note du relecteur
-> - **Sources :** Légifrance ✓ / BODACC ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / BODACC ✓ / Judilibre ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** situation décrite + {N} pièces
 > - **Signalé pour ton jugement :** {N} éléments [review] (niveau de difficulté, choix de structure, responsabilité repreneur, dimension fiscale) | aucun
 > - **Fraîcheur :** réforme du 15 septembre 2021 (ord. transposition directive restructuration) — vérifier seuils/délais en vigueur | recherche impossible
@@ -184,8 +184,8 @@ Dérouler le comparatif **distress-aware** (cf. tableau du livrable) : passif (h
 
 ## Étape 3 — Cartographie de la responsabilité repreneur
 
-- **Période suspecte (L.632-1 / L.632-2 C.com. `[Légifrance]`)** — Gate 2 (b). Une acquisition conclue **avec le débiteur avant le jugement d'ouverture** peut être **annulée** si elle intervient en période suspecte : nullités **de droit** (L.632-1, ex. actes à titre gratuit, paiements anormaux) ou **facultatives** (L.632-2, actes à titre onéreux si le cocontractant connaissait la cessation des paiements). La voie sûre est l'acquisition **via les organes, après jugement**.
-- **L.1224-1 C.trav. `[Légifrance]`** : transfert automatique des contrats de travail si une **entité économique autonome conservant son identité** est cédée (vaut aussi en asset deal).
+- **Période suspecte (L.632-1 / L.632-2 C.com.)** — Gate 2 (b). Une acquisition conclue **avec le débiteur avant le jugement d'ouverture** peut être **annulée** si elle intervient en période suspecte : nullités **de droit** (L.632-1, ex. actes à titre gratuit, paiements anormaux) ou **facultatives** (L.632-2, actes à titre onéreux si le cocontractant connaissait la cessation des paiements). La voie sûre est l'acquisition **via les organes, après jugement**.
+- **L.1224-1 C.trav.** : transfert automatique des contrats de travail si une **entité économique autonome conservant son identité** est cédée (vaut aussi en asset deal).
 - **Solidarité fiscale (art. 1684 CGI `[connaissance modèle — à vérifier]`)** : le cessionnaire d'un fonds de commerce peut être tenu **solidairement** de certains impôts dus par le cédant pendant un délai → **conseil fiscal obligatoire**, le skill ne chiffre pas. `[review]`
 - **Extension de procédure / confusion de patrimoine** ; **insuffisance d'actif (L.651-2 C.com.)** si le repreneur devient **dirigeant** de la cible reprise ; **passif environnemental ICPE** (sites pollués) `[review]`.
 
