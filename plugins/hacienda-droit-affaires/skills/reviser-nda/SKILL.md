@@ -61,7 +61,7 @@ NDA bilatéral, fournisseur industriel, durée 10 ans + clause non-concurrence 2
 4. Sort de l'info : restitution mentionnée mais sans délai → 🟡
 5. Juridiction : TC Paris → 🟢
 6. Loi applicable : droit français → 🟢
-7. Clause pénale : 100k€ forfaitaire → 🟠 (potentiellement disproportionné, révision possible art. 1231-5 C.civ `[Légifrance]`)
+7. Clause pénale : 100k€ forfaitaire → 🟠 (potentiellement disproportionné, révision possible art. 1231-5 C.civ)
 8. **Non-concurrence salariée sans contrepartie financière → 🔴 NULLE** (Cass. soc. 10 juil. 2002 n° 00-45.135 `[Judilibre]` — contrepartie obligatoire)
 
 **Verdict : 🔴 ROUGE — refuser ou renégocier largement.** Au minimum : (a) supprimer la non-concurrence ou ajouter une contrepartie ≥ 25 % rémunération, (b) ramener la durée à 5 ans, (c) plafonner la clause pénale.
@@ -73,7 +73,7 @@ NDA bilatéral, fournisseur industriel, durée 10 ans + clause non-concurrence 2
 <response>
 Détection NDA partenariat R&D substantiel (mention "savoir-faire", "résultats de recherche", "co-développement", "brevet potentiel") → renvoi PI :
 
-"Ce NDA porte sur un partenariat R&D avec composante PI substantielle (savoir-faire, résultats de recherche, co-développement, anticipation de brevet). Le skill le mieux adapté est `/h-pi:contrats-pi`, qui couvre les spécificités PI (background / foreground IP, residuals, grant-back, articulation L.151-1 C.com. secret des affaires `[Légifrance]`). Souhaites-tu (a) lancer `contrats-pi` à la place, (b) continuer avec `reviser-nda` sur les seules clauses commerciales (durée, juridiction, clause pénale), ou (c) faire les deux en séquence ?"
+"Ce NDA porte sur un partenariat R&D avec composante PI substantielle (savoir-faire, résultats de recherche, co-développement, anticipation de brevet). Le skill le mieux adapté est `/h-pi:contrats-pi`, qui couvre les spécificités PI (background / foreground IP, residuals, grant-back, articulation L.151-1 C.com. secret des affaires). Souhaites-tu (a) lancer `contrats-pi` à la place, (b) continuer avec `reviser-nda` sur les seules clauses commerciales (durée, juridiction, clause pénale), ou (c) faire les deux en séquence ?"
 </response>
 </example>
 
@@ -139,7 +139,7 @@ Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitud
 
 ## Étape 1 — Routing PI et qualification
 
-1. **Test PI-centric.** Rechercher dans le document les termes : "savoir-faire", "brevet", "résultat de recherche", "co-développement", "secret d'affaires", "transfert de technologie", "background IP", "foreground IP", "residuals". Si présence substantielle (pas une simple mention en exception) → renvoyer immédiatement vers `/h-pi:contrats-pi` avec les options (a) lancer ce skill, (b) limiter `reviser-nda` aux clauses commerciales, (c) les deux en séquence. Citer art. L.151-1 C.com. (secret des affaires) `[Légifrance]` pour cadrer le renvoi.
+1. **Test PI-centric.** Rechercher dans le document les termes : "savoir-faire", "brevet", "résultat de recherche", "co-développement", "secret d'affaires", "transfert de technologie", "background IP", "foreground IP", "residuals". Si présence substantielle (pas une simple mention en exception) → renvoyer immédiatement vers `/h-pi:contrats-pi` avec les options (a) lancer ce skill, (b) limiter `reviser-nda` aux clauses commerciales, (c) les deux en séquence. Citer art. L.151-1 C.com. (secret des affaires) pour cadrer le renvoi.
 2. **Qualifier la structure du NDA** :
    - **Unilatéral** (un émetteur, un récepteur) ou **bilatéral** (réciprocité complète) — impacte la lecture asymétrie.
    - **Contexte** : précontractuel (LOI / data room M&A), opérationnel (prestation), partenariat industriel.
@@ -168,8 +168,8 @@ Triage rapide selon le tableau de référence ci-dessous. Pour chaque point, att
 **Les 5 exceptions classiques (point 2)** — informations (a) déjà publiques au moment de la divulgation, (b) tombées dans le domaine public sans faute du récepteur, (c) déjà détenues par le récepteur avant la divulgation, (d) développées indépendamment sans usage de l'information confidentielle, (e) divulguées sur ordonnance judiciaire ou obligation légale impérative.
 
 **Articles et jurisprudence applicables :**
-- Point 1 (définition / secret d'affaires) — art. L.151-1 C.com. `[Légifrance]`, loi n° 2018-670 du 30 juil. 2018 `[à vérifier]`
-- Point 7 (clause pénale) — art. 1231-5 C.civ `[Légifrance]` (pouvoir modérateur du juge sur peine manifestement excessive ou dérisoire)
+- Point 1 (définition / secret d'affaires) — art. L.151-1 C.com., loi n° 2018-670 du 30 juil. 2018 `[à vérifier]`
+- Point 7 (clause pénale) — art. 1231-5 C.civ (pouvoir modérateur du juge sur peine manifestement excessive ou dérisoire)
 - Point 8 (non-concurrence salariée) — **Cass. soc. 10 juil. 2002, n° 00-45.135** `[Judilibre]` : contrepartie financière obligatoire, à défaut nullité de la clause. Articulation avec art. L.1121-1 C.trav `[à vérifier]` (restriction proportionnée).
 - Point 9 (périmètre destinataires / tiers) — un tiers non-signataire n'est en principe pas tenu par le NDA (effet relatif des contrats, art. 1199 C.civ `[à vérifier]`) : pour engager affiliés, salariés, sous-traitants et clients, exiger soit leur signature, soit un **porte-fort** par lequel la partie réceptrice se rend garante de leur respect et répond de leurs manquements (art. 1204 C.civ `[à vérifier]`). Une définition large des « Affiliates » sans liste ni mécanisme d'engagement vide la confidentialité de sa portée.
 
@@ -212,7 +212,7 @@ Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
 [En-tête de confidentialité selon le rôle utilisateur — 4 variantes]
 
 > ⚠️ Note du relecteur
-> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / Judilibre ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** intégrale ({N} pages) | partielle (pages X à Y) | qualification unilatéral / bilatéral confirmée
 > - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
 > - **Fraîcheur :** recherche jurisprudence post-{date} sur non-concurrence et clause pénale — {N} arrêts intégrés | rien trouvé
@@ -230,13 +230,13 @@ Si PISTE n'est pas configuré → mode dégradé documenté en note du relecteur
 
 | # | Point | Constat dans le NDA | Statut | Article / jurisprudence |
 |---|---|---|---|---|
-| 1 | Définition info confidentielles | ... | 🟢/🟡/🟠/🔴 | art. L.151-1 C.com. `[Légifrance]` |
+| 1 | Définition info confidentielles | ... | 🟢/🟡/🟠/🔴 | art. L.151-1 C.com. |
 | 2 | Exceptions standard | ... | ... | — |
 | 3 | Durée | ... | ... | — |
 | 4 | Sort de l'info en fin de contrat | ... | ... | — |
 | 5 | Juridiction | ... | ... | règlement Bruxelles I bis n° 1215/2012 `[à vérifier]` |
 | 6 | Loi applicable | ... | ... | règlement Rome I n° 593/2008 `[à vérifier]` |
-| 7 | Clause pénale | ... | ... | art. 1231-5 C.civ `[Légifrance]` |
+| 7 | Clause pénale | ... | ... | art. 1231-5 C.civ |
 | 8 | Non-concurrence salariée | présente / absente / N/A | ... | Cass. soc. 10 juil. 2002 n° 00-45.135 `[Judilibre]` |
 | 9 | Périmètre destinataires / affiliés / tiers | ... | ... | art. 1199 C.civ ; art. 1204 C.civ (porte-fort) `[à vérifier]` |
 

@@ -21,14 +21,14 @@ tags: [mise-en-demeure, recouvrement, contentieux, b2b, 1344, l441-10, pre-judic
 > **BROUILLON, VALIDATION HUMAINE (AVOCAT) + MATRICE D'APPROBATEURS OBLIGATOIRE.**
 >
 > Une mise en demeure n'est pas une action judiciaire, mais elle produit des
-> effets de droit : elle fait courir les intérêts moratoires (art. 1344-1 C.civ
-> `[Légifrance]`), met le risque de la chose à la charge du débiteur (art. 1344-2
-> C.civ `[Légifrance]`) et conditionne la résolution par notification (art. 1226
-> C.civ `[Légifrance]`) comme l'exécution forcée. Sa formulation engage.
+> effets de droit : elle fait courir les intérêts moratoires (art. 1344-1 C.civ),
+> met le risque de la chose à la charge du débiteur (art. 1344-2
+> C.civ) et conditionne la résolution par notification (art. 1226
+> C.civ) comme l'exécution forcée. Sa formulation engage.
 >
 > **🔴 Garde-fou procédure collective.** Si le débiteur est en **sauvegarde,
 > redressement ou liquidation judiciaire**, l'**arrêt des poursuites
-> individuelles** (art. L.622-21 C.com. `[Légifrance]`) **interdit** toute mise
+> individuelles** (art. L.622-21 C.com.) **interdit** toute mise
 > en demeure ou poursuite en paiement d'une créance **antérieure** au jugement
 > d'ouverture. Ne pas rédiger la mise en demeure : renvoyer vers
 > `declaration-creance` (la créance se déclare au passif, elle ne se réclame pas
@@ -72,7 +72,7 @@ Ton ferme mais courtois, sans formule comminatoire ni menace d'action, rappel de
 <response>
 Étape 1 — Détection : la contrepartie est en **redressement judiciaire** (BODACC, jugement d'ouverture du 3 mars 2026, publication du 9 mars 2026) `[BODACC]`.
 
-🔴 **STOP — arrêt des poursuites individuelles (art. L.622-21 C.com. `[Légifrance]`).** La créance antérieure ne peut pas faire l'objet d'une mise en demeure ni d'une action en paiement directe. Elle doit être **déclarée au passif** dans le délai L.622-24 C.com. (2 mois post-publication BODACC).
+🔴 **STOP — arrêt des poursuites individuelles (art. L.622-21 C.com.).** La créance antérieure ne peut pas faire l'objet d'une mise en demeure ni d'une action en paiement directe. Elle doit être **déclarée au passif** dans le délai L.622-24 C.com. (2 mois post-publication BODACC).
 
 Renvoi actif : `/h-da:declaration-creance --siren=400123456 --nature=facture --montant=<montant>`. Date de forclusion estimée : 9 mai 2026 `[à vérifier]`.
 
@@ -120,7 +120,7 @@ Side = **créancier / demandeur** par nature de l'acte.
 - [ ] Test rupture brutale : si cessation d'une relation établie en jeu → signaler + renvoi `analyser-rupture-brutale`
 - [ ] Profil cabinet lu, posture et approbateur « Mise en demeure » identifiés
 - [ ] Créance qualifiée **certaine, liquide et exigible** (payer) OU obligation exigible et inexécution caractérisée (exécuter)
-- [ ] Prescription vérifiée : action commerciale 5 ans (art. L.110-4 C.com. `[Légifrance]`) — signaler si la créance en approche
+- [ ] Prescription vérifiée : action commerciale 5 ans (art. L.110-4 C.com.) — signaler si la créance en approche
 - [ ] Sommes ventilées : principal + intérêts moratoires + indemnité forfaitaire 40 € + clause pénale (le cas échéant), chaque taux/montant réglementaire tagué `[à vérifier]`
 - [ ] **Délai raisonnable** explicite accordé au débiteur (condition d'une résolution/action ultérieure)
 - [ ] Livrable externe : en-tête confidentialité retiré, ton d'associé, conséquences énoncées sans menace disproportionnée
@@ -155,7 +155,7 @@ Si plusieurs créances/factures, joindre un tableau récapitulatif ; au-delà de
 [En-tête de confidentialité selon le rôle — voir CLAUDE.md plugin §2]
 
 > ⚠️ Note du relecteur
-> - **Sources :** Légifrance ✓ / BODACC ✓ / Judilibre ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / BODACC ✓ / Judilibre ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Procédure collective :** {résultat explicite de la détection — ex. « BODACC consulté, aucune sauvegarde/RJ/LJ ouverte pour {débiteur} : poursuite possible » | « ✗ BODACC non interrogé en live — à vérifier avant envoi »}. **Garde-fou L.622-21 C.com.** : si une procédure collective s'ouvrait (ou si la détection a échoué), l'arrêt des poursuites individuelles **interdirait** la mise en demeure d'une créance antérieure → bascule `declaration-creance`. *(Ligne obligatoire — ne jamais omettre, même quand le débiteur est in bonis.)*
 > - **Lecture :** {N} factures / contrat / échanges
 > - **Signalé pour ton jugement :** {N} éléments [review] (clause pénale, délai, taux) | aucun
@@ -200,7 +200,7 @@ Si plusieurs créances/factures, joindre un tableau récapitulatif ; au-delà de
 ## Étape 1 — Détection procédure collective, qualification
 
 1. Lire le profil cabinet (bloc contrats commerciaux + matrice d'approbateurs).
-2. **Détection procédure collective (obligatoire).** Si un SIREN est fourni ou détectable (regex `\b[0-9]{9}\b` + Luhn) : `bodacc_procedures`. Si sauvegarde/RJ/LJ ouverte et la créance est **antérieure** au jugement → **STOP** : pas de mise en demeure (arrêt des poursuites L.622-21 C.com. `[Légifrance]`), renvoi `declaration-creance`. Distinguer les créances **postérieures** privilégiées (art. L.622-17) qui, elles, peuvent être réclamées `[review]`. **Tracer le résultat dans la note du relecteur (ligne « Procédure collective » obligatoire), y compris quand aucune procédure n'est ouverte** : le garde-fou L.622-21 doit rester visible dans le livrable, jamais vérifié en silence.
+2. **Détection procédure collective (obligatoire).** Si un SIREN est fourni ou détectable (regex `\b[0-9]{9}\b` + Luhn) : `bodacc_procedures`. Si sauvegarde/RJ/LJ ouverte et la créance est **antérieure** au jugement → **STOP** : pas de mise en demeure (arrêt des poursuites L.622-21 C.com.), renvoi `declaration-creance`. Distinguer les créances **postérieures** privilégiées (art. L.622-17) qui, elles, peuvent être réclamées `[review]`. **Tracer le résultat dans la note du relecteur (ligne « Procédure collective » obligatoire), y compris quand aucune procédure n'est ouverte** : le garde-fou L.622-21 doit rester visible dans le livrable, jamais vérifié en silence.
 3. **Test rupture brutale.** Si l'opération revient à cesser une relation commerciale établie → signaler le risque L.442-1, II C.com. et renvoyer `analyser-rupture-brutale` avant envoi.
 4. Identifier les parties, le contrat applicable, le droit applicable et la juridiction (si clause attributive).
 
@@ -212,7 +212,7 @@ Si plusieurs créances/factures, joindre un tableau récapitulatif ; au-delà de
 
 **Mode exécuter** — l'obligation doit être exigible et l'inexécution caractérisée (obligation de faire, de livrer, de délivrer conforme). Préciser l'objet exact de l'obligation inexécutée.
 
-**Prescription** — action en paiement entre commerçants/pour acte de commerce : **5 ans** (art. L.110-4 C.com. `[Légifrance]`), point de départ à l'exigibilité. Signaler si la créance approche la prescription (la mise en demeure n'interrompt PAS la prescription — seuls un acte d'exécution forcée, une reconnaissance ou une assignation l'interrompent, art. 2240 s. C.civ `[à vérifier]`).
+**Prescription** — action en paiement entre commerçants/pour acte de commerce : **5 ans** (art. L.110-4 C.com.), point de départ à l'exigibilité. Signaler si la créance approche la prescription (la mise en demeure n'interrompt PAS la prescription — seuls un acte d'exécution forcée, une reconnaissance ou une assignation l'interrompent, art. 2240 s. C.civ `[à vérifier]`).
 
 ---
 
@@ -221,9 +221,9 @@ Si plusieurs créances/factures, joindre un tableau récapitulatif ; au-delà de
 | Poste | Règle | Tag |
 |---|---|---|
 | Principal | montant des factures échues impayées | [utilisateur fourni] |
-| Intérêts moratoires | à défaut de taux conventionnel : taux légal (art. 1231-6 C.civ `[Légifrance]`) ; si CGV conformes : taux légal **professionnel** majoré (+ N points selon CGV) à compter de l'échéance / de la mise en demeure (art. 1344-1 C.civ `[Légifrance]`). **Consulter Légifrance/PISTE pour la valeur du taux** (donnée publiée, pas un jugement) et la fournir avec source ; `[à vérifier]` **uniquement** si l'outil est indisponible (mode dégradé) ; **jamais inventer** | `[Légifrance]` (ou `[à vérifier]` si dégradé) |
-| Indemnité forfaitaire de recouvrement | **40 € par facture** en retard (art. L.441-10, D.441-5 C.com. `[Légifrance]`) ; indemnité complémentaire sur justificatifs si frais réels supérieurs | [à vérifier] |
-| Clause pénale | si stipulée au contrat/CGV ; **modérable** par le juge si manifestement excessive ou dérisoire (art. 1231-5 C.civ `[Légifrance]`) | [review] |
+| Intérêts moratoires | à défaut de taux conventionnel : taux légal (art. 1231-6 C.civ) ; si CGV conformes : taux légal **professionnel** majoré (+ N points selon CGV) à compter de l'échéance / de la mise en demeure (art. 1344-1 C.civ). **Consulter Légifrance/PISTE pour la valeur du taux** (donnée publiée, pas un jugement) et la fournir avec source ; `[à vérifier]` **uniquement** si l'outil est indisponible (mode dégradé) ; **jamais inventer** | `[Légifrance]` (ou `[à vérifier]` si dégradé) |
+| Indemnité forfaitaire de recouvrement | **40 € par facture** en retard (art. L.441-10, D.441-5 C.com.) ; indemnité complémentaire sur justificatifs si frais réels supérieurs | [à vérifier] |
+| Clause pénale | si stipulée au contrat/CGV ; **modérable** par le juge si manifestement excessive ou dérisoire (art. 1231-5 C.civ) | [review] |
 
 Ne pas inventer un taux légal : si le taux du semestre n'a pas été consulté sur une source officielle, écrire `[à vérifier]` et proposer la méthode, **pas un chiffre présenté comme certain**. Anatocisme (capitalisation des intérêts dus pour une année entière, art. 1343-2 C.civ) : à mentionner seulement si pertinent et `[review]`.
 
