@@ -57,7 +57,7 @@ tags: [closing, checklist, ma, conditions-suspensives, formalites, pe, lbo, fund
 <user>/h-da:closing-checklist-fr --type=cession-titres --forme=SAS --cp="agrément du conseil, autorisation administrative sectorielle"</user>
 <response>
 Conditions suspensives multiples. L'étape 1 tabule chaque CP séparément :
-- CP « agrément du conseil » → organe compétent à identifier dans les statuts (clause d'agrément SAS — art. L.227-14 C.com. `[Légifrance]`), responsable = cédant, échéance = avant le closing.
+- CP « agrément du conseil » → organe compétent à identifier dans les statuts (clause d'agrément SAS — art. L.227-14 C.com.), responsable = cédant, échéance = avant le closing.
 - CP « autorisation administrative sectorielle » → relève du droit réglementaire ; ne pas en chiffrer le délai ni en préjuger l'issue `[review]` ; responsable = acquéreur le plus souvent ; renvoyer le volet sectoriel à `hacienda-reglementaire`.
 Chaque CP porte un statut (levée / en cours / à lever), un responsable et une échéance. Une CP non levée à la date de closing visée fait remonter un point 🟠/🔴 : le closing ne peut pas intervenir tant qu'une CP est pendante, sauf renonciation expresse par la partie bénéficiaire. Le séquençage de l'étape 2 ordonne la levée des CP avant la réunion de closing.
 </response>
@@ -178,7 +178,7 @@ ouvrable hors-ligne, zéro CDN, XSS-safe — voir `${CLAUDE_SKILL_DIR}/../../ref
 [En-tête de confidentialité selon le rôle utilisateur — voir CLAUDE.md §2]
 
 > **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** {documents fournis lus : SPA / GAP / statuts / projet de CP — ou « aucun document fourni, checklist générée sur la base de l'intake »}
 > - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
 > - **Fraîcheur :** recherche des évolutions depuis {date} sur les formalités de cession et d'enregistrement — {N} mises à jour intégrées | rien trouvé
@@ -201,7 +201,7 @@ sociaux). Pour **chaque CP**, renseigner :
 Points de qualification :
 
 - **CP potestative** — une CP dont la réalisation dépend de la seule volonté de la partie obligée est fragile `[review]` ; la signaler.
-- **CP d'agrément statutaire** — lorsque les statuts soumettent la cession à un agrément (clause d'agrément SAS — liberté statutaire art. L.227-14 C.com. `[Légifrance]` ; identifier l'organe compétent dans les statuts), l'agrément doit être **obtenu avant le closing** et **ne peut pas être régularisé après ni écarté par le seul acquéreur**. Signaler expressément la **sanction** : une cession réalisée **en violation** d'une clause statutaire d'agrément est **nulle** (art. L.227-15 C.com. `[Légifrance]`). C'est donc une CP 🔴 tant qu'elle n'est pas levée — pas une simple formalité interne.
+- **CP d'agrément statutaire** — lorsque les statuts soumettent la cession à un agrément (clause d'agrément SAS — liberté statutaire art. L.227-14 C.com. ; identifier l'organe compétent dans les statuts), l'agrément doit être **obtenu avant le closing** et **ne peut pas être régularisé après ni écarté par le seul acquéreur**. Signaler expressément la **sanction** : une cession réalisée **en violation** d'une clause statutaire d'agrément est **nulle** (art. L.227-15 C.com.). C'est donc une CP 🔴 tant qu'elle n'est pas levée — pas une simple formalité interne.
 - **CP réglementaire / sectorielle** — une autorisation administrative (autorisation sectorielle, contrôle des investissements étrangers, contrôle des concentrations) ne se chiffre pas et son issue ne se préjuge pas `[review]` ; renvoyer le volet réglementaire à `hacienda-reglementaire` et le volet concurrence à un conseil concurrence. Ce skill recense la CP, il ne l'instruit pas.
 - **Renonciation à une CP** — préciser quelle partie peut renoncer à quelle CP (une CP est en principe stipulée dans l'intérêt d'une partie déterminée).
 
@@ -293,7 +293,7 @@ l'opération et la régularité fiscale. **Distinguer selon le type d'opération
 - **Inscription au registre de mouvements de titres et mise à jour des comptes
   d'associés.** Pour les actions (SAS, SA), le transfert de propriété **s'opère
   par virement du compte du cédant au compte de l'acquéreur** (art. L.228-1 al. 9
-  C.com. `[Légifrance]` et art. L.211-17 CMF `[Légifrance]`) : l'ordre de
+  C.com. et art. L.211-17 CMF) : l'ordre de
   mouvement de titres signé au closing est inscrit sur le **registre de
   mouvements de titres** de la société et le compte d'associé individuel de
   l'acquéreur est mis à jour. **C'est cette inscription en compte — et non le
@@ -353,7 +353,7 @@ Lorsque l'opération s'accompagne d'une modification statutaire (changement de
 dénomination, de dirigeant, de siège, augmentation de capital concomitante),
 les actes modificatifs sont déposés au greffe du tribunal de commerce et la
 modification est inscrite au RCS. Le dépôt des comptes annuels au greffe
-(art. L.232-23 C.com. `[Légifrance]`) suit son propre calendrier, distinct du
+(art. L.232-23 C.com.) suit son propre calendrier, distinct du
 closing.
 
 ### 4.5 Information des tiers

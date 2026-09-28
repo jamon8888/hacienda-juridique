@@ -18,7 +18,7 @@ tags: [gap, ma, garantie-actif-passif, cession, spa]
 
 > **BROUILLON, validation humaine (avocat) M&A OBLIGATOIRE.**
 >
-> Spécificité du droit français : la GAP n'a pas d'équivalent direct des Representations & Warranties anglo-saxonnes. Elle s'articule avec la garantie d'éviction (art. 1626 C.civ `[Légifrance]`) et la garantie des vices cachés (art. 1641 C.civ `[Légifrance]`), supplétives mais aménageables.
+> Spécificité du droit français : la GAP n'a pas d'équivalent direct des Representations & Warranties anglo-saxonnes. Elle s'articule avec la garantie d'éviction (art. 1626 C.civ) et la garantie des vices cachés (art. 1641 C.civ), supplétives mais aménageables.
 >
 > Travail technique, **side-dependent** (cédant vs acquéreur — lecture inversée sur knowledge qualifier, plafond, durée), sensible aux usages marché (fourchettes = référence praticien, pas une norme codifiée).
 >
@@ -61,7 +61,7 @@ Exemple : finding « litige fiscal pendant 450 k€ — redressement TVA 2025-03
 <example>
 <user>/h-da:gap-review ./GAP-FR-UK-deal.pdf --side=acquereur</user>
 <response>
-Détection clauses common law importées (waiver, indemnification, representations & warranties, disclosure letter) → traduction en concepts FR (GAP française, déclarations et garanties au sens du droit FR, devoir précontractuel art. 1112-1 C.civ `[Légifrance]`, articulation dol / réticence dolosive `[à vérifier]`).
+Détection clauses common law importées (waiver, indemnification, representations & warranties, disclosure letter) → traduction en concepts FR (GAP française, déclarations et garanties au sens du droit FR, devoir précontractuel art. 1112-1 C.civ, articulation dol / réticence dolosive `[à vérifier]`).
 
 Note du relecteur : « Doc bilingue détecté — ce skill applique le cadre français. La version UK doit être confrontée séparément contre le droit applicable et la juridiction effectivement retenus dans le SPA. »
 </response>
@@ -144,11 +144,11 @@ Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitud
 Vérifier :
 
 - **Actifs garantis vs périmètre de cession** — cohérence (pas de couverture hors périmètre, pas d'exclusion sans justification claire)
-- **Exclusions et réserves déclarées** — disclosure letter / annexes ; exclusions datées, identifiées, opposables (devoir précontractuel art. 1112-1 C.civ `[Légifrance]`)
+- **Exclusions et réserves déclarées** — disclosure letter / annexes ; exclusions datées, identifiées, opposables (devoir précontractuel art. 1112-1 C.civ)
 - **Date de référence** — closing ou signing ? (signing-driven : risque interim period acquéreur ; closing-driven : risque divulgation tardive cédant)
 - **Date de réalisation** — effet rétroactif au closing, à compter de la notification, etc.
-- **Articulation garanties légales** — éviction (art. 1626 C.civ `[Légifrance]`), vices cachés (art. 1641 C.civ `[Légifrance]`), délivrance (art. 1602 C.civ `[Légifrance]`) : la GAP complète, n'écarte pas par principe `[review]`
-- **Plancher d'ordre public — non négociable.** Une clause d'exclusivité ou d'écartement des recours ne peut **jamais** neutraliser le **dol et la réticence dolosive (art. 1137 C.civ `[Légifrance]`)**, la **fraude**, ni plus largement les **vices du consentement (art. 1130 C.civ `[Légifrance]`)** et l'exigence de **bonne foi contractuelle (art. 1104 C.civ `[Légifrance]`)** : ces fondements sont d'ordre public et survivent à la GAP, hors plafond et hors durée. Face à une clause « garantie exclusive / garanties légales écartées dans toute la mesure permise », **affirmer explicitement** que rien ne limite l'action pour dol/fraude (1130/1137) ni le recours pour mauvaise foi (1104) — c'est 🔴 si la clause prétend les écarter absolument.
+- **Articulation garanties légales** — éviction (art. 1626 C.civ), vices cachés (art. 1641 C.civ), délivrance (art. 1602 C.civ) : la GAP complète, n'écarte pas par principe `[review]`
+- **Plancher d'ordre public — non négociable.** Une clause d'exclusivité ou d'écartement des recours ne peut **jamais** neutraliser le **dol et la réticence dolosive (art. 1137 C.civ)**, la **fraude**, ni plus largement les **vices du consentement (art. 1130 C.civ)** et l'exigence de **bonne foi contractuelle (art. 1104 C.civ)** : ces fondements sont d'ordre public et survivent à la GAP, hors plafond et hors durée. Face à une clause « garantie exclusive / garanties légales écartées dans toute la mesure permise », **affirmer explicitement** que rien ne limite l'action pour dol/fraude (1130/1137) ni le recours pour mauvaise foi (1104) — c'est 🔴 si la clause prétend les écarter absolument.
 
 Findings 🟢/🟡/🟠/🔴 par sous-point. Tag `[review]` sur jugements subjectifs (opposabilité d'une disclosure tardive, étendue raisonnable d'une exclusion).
 
@@ -168,7 +168,7 @@ Vérifier et tabuler :
 | Durée garantie générale | x ans | 18-24 mois standard | ± | 🟢/🟡/🟠/🔴 |
 | Durée garantie fiscale / sociale | x ans | Prescription + délai de reprise (3 ans min) [à vérifier] | ± | 🟢/🟡/🟠/🔴 |
 
-**Durée fiscale — ancrage droit de reprise.** La garantie fiscale doit survivre **au moins jusqu'à l'expiration du droit de reprise de l'administration**, et non sur la durée générale. Pour la **TVA, droit de reprise jusqu'à la fin de la 3ᵉ année suivante (art. L.176 LPF `[Légifrance]`)** ; impôts directs : 3 ans (art. L.169 LPF `[Légifrance]`), porté à 10 ans en cas d'activité occulte/fraude `[à vérifier]`. Une durée générale de 12-18 mois est **manifestement insuffisante** pour des exercices encore dans le délai de reprise (ex. exercices N-1/N-2) → 🔴, exiger une durée fiscale spécifique alignée sur la reprise + 30 jours.
+**Durée fiscale — ancrage droit de reprise.** La garantie fiscale doit survivre **au moins jusqu'à l'expiration du droit de reprise de l'administration**, et non sur la durée générale. Pour la **TVA, droit de reprise jusqu'à la fin de la 3ᵉ année suivante (art. L.176 LPF)** ; impôts directs : 3 ans (art. L.169 LPF), porté à 10 ans en cas d'activité occulte/fraude `[à vérifier]`. Une durée générale de 12-18 mois est **manifestement insuffisante** pour des exercices encore dans le délai de reprise (ex. exercices N-1/N-2) → 🔴, exiger une durée fiscale spécifique alignée sur la reprise + 30 jours.
 | Durée garantie environnement | x ans | 5-10 ans selon exposition [à vérifier] | ± | 🟢/🟡/🟠/🔴 |
 
 **Franchise absolue vs déduite.** Absolue = en deçà du seuil, aucune indemnisation ; au-delà, indemnisation **du dépassement seulement**. Déduite = au-delà du seuil, indemnisation **intégrale**. Impact économique très différent. `[review]` si la clause est ambiguë.
@@ -185,8 +185,8 @@ Vérifier :
 - **Délai de contestation cédant** — 15-30 jours usuel ; au-delà, présomption d'acceptation possible `[review]`
 - **Mode de règlement** — compensation sur earn-out / séquestre (escrow) / paiement direct ; séquestre = option la plus sécurisante acquéreur
 - **Articulation earn-out / complément de prix** — compensation autorisée ? interdiction de retenue ?
-- **Juridiction** — TC Paris en standard / arbitrage CMAP-CCI en deal international ou sensible ; vérifier opposabilité clause attributive (art. 48 CPC `[Légifrance]` si parties commerçantes)
-- **Tiers décideur / expert** — clause d'expertise art. 1592 C.civ `[Légifrance]` pour contestations chiffrées (utile sur le quantum, à cadrer sur la procédure)
+- **Juridiction** — TC Paris en standard / arbitrage CMAP-CCI en deal international ou sensible ; vérifier opposabilité clause attributive (art. 48 CPC si parties commerçantes)
+- **Tiers décideur / expert** — clause d'expertise art. 1592 C.civ pour contestations chiffrées (utile sur le quantum, à cadrer sur la procédure)
 
 Findings 🟢/🟡/🟠/🔴 par sous-point.
 
@@ -203,7 +203,7 @@ Findings 🟢/🟡/🟠/🔴 par sous-point.
 | **Durée garantie générale** | 24 mois min, 36 mois préférable | 12-18 mois |
 | **Durée fiscale / sociale** | Aligner sur prescription + délai de reprise | Strict minimum prescription |
 | **Franchise (panier)** | Faible, déduite | Élevée, absolue |
-| **Non-concurrence cédant** (le cédant s'engage à ne pas concurrencer la cible pendant N années) | ✓ Exiger — durée 2-5 ans, périmètre activité + géographie, contrepartie souvent intégrée au prix | À négocier — durée courte (1-2 ans), périmètre restreint, contrepartie identifiée — art. L.420-1 C.com. [Légifrance] si effet d'éviction de marché |
+| **Non-concurrence cédant** (le cédant s'engage à ne pas concurrencer la cible pendant N années) | ✓ Exiger — durée 2-5 ans, périmètre activité + géographie, contrepartie souvent intégrée au prix | À négocier — durée courte (1-2 ans), périmètre restreint, contrepartie identifiée — art. L.420-1 C.com. si effet d'éviction de marché |
 
 Voir `${CLAUDE_SKILL_DIR}/../../references/clauses-sensibles-fr.md` (clause #9 limitation de responsabilité, clause #15 changement de contrôle) pour articulation avec le droit commun.
 
@@ -222,7 +222,7 @@ Pour chaque finding matériel du rapport de DD : identifier la garantie GAP appl
 | ex. Non-conformité RGPD (registre incomplet) | 🟡 | Garantie RGPD spécifique [review] | Non si pas de garantie RGPD distincte | Ajouter clause ad hoc ou réduction de prix |
 | ex. Brevet cédé sans inscription RNB | 🟠 | Renvoi `/h-pi:contrats-pi` | — | Régulariser inscription avant closing |
 
-**Risque public ≠ coût de travaux.** Un finding réglementaire inexécuté (ex. mise en demeure ICPE, arrêté préfectoral de mise en conformité non exécuté) ne se chiffre **pas** au seul coût des travaux : son inexécution expose à des **sanctions administratives et à l'exécution d'office aux frais de l'exploitant (art. L.171-8 C. env. `[Légifrance]`)**, voire à une consignation de sommes, une suspension d'activité ou des sanctions pénales. Conséquence GAP : qualifier 🔴, exiger une **condition suspensive d'exécution + quitus de l'autorité (DREAL)** et/ou une garantie environnementale spécifique de longue durée (exposition sols/eaux 7-10 ans) avec plafond dédié — ne jamais se limiter à une indemnité égale au coût estimé des travaux.
+**Risque public ≠ coût de travaux.** Un finding réglementaire inexécuté (ex. mise en demeure ICPE, arrêté préfectoral de mise en conformité non exécuté) ne se chiffre **pas** au seul coût des travaux : son inexécution expose à des **sanctions administratives et à l'exécution d'office aux frais de l'exploitant (art. L.171-8 C. env.)**, voire à une consignation de sommes, une suspension d'activité ou des sanctions pénales. Conséquence GAP : qualifier 🔴, exiger une **condition suspensive d'exécution + quitus de l'autorité (DREAL)** et/ou une garantie environnementale spécifique de longue durée (exposition sols/eaux 7-10 ans) avec plafond dédié — ne jamais se limiter à une indemnité égale au coût estimé des travaux.
 
 **Plancher sévérité cross-skill.** Si la DD signale 🔴, ne pas dégrader silencieusement en 🟠 dans la GAP review. Si l'analyse GAP estime la couverture suffisante, le statut reste 🔴 sur le finding DD avec mention « couvert par garantie X » — ne pas réécrire la criticité source.
 
@@ -237,7 +237,7 @@ Si `--dd-findings` non fourni : sauter l'axe et mentionner dans la note du relec
 1. **Gate barre** : cible **déjà en RJ/LJ avec appel d'offres ouvert** → STOP overlay → renvoi `/h-da:reprise-a-la-barre` / `/h-da:cession-actifs-isoles` (l'acte serait judiciaire).
 2. **D3 — garantie de la garantie (point central GAP distressed)** : une GAP d'un cédant en difficulté ne vaut rien sans **séquestre / garantie autonome à première demande (GAPD) / caution bancaire**. Sans elle, qualifier la GAP **🔴** (protection théorique) ; calibrer durée/montant sur les passifs latents (fiscal/social/environnemental, exposition longue).
 3. **D2 — passif non purgé** : la GAP couvre-t-elle l'antérieur non révélé et les conséquences d'une procédure future ?
-4. **D1 — période suspecte** : une GAP ou une sûreté consentie en période suspecte peut elle-même être attaquable (L.632-1/2 `[Légifrance]`) — signaler `[review]`, **ne pas dater** la cessation des paiements.
+4. **D1 — période suspecte** : une GAP ou une sûreté consentie en période suspecte peut elle-même être attaquable (L.632-1/2) — signaler `[review]`, **ne pas dater** la cessation des paiements.
 5. **D4** : transferts & solidarités (L.1224-1, L.1684 CGI/L.267 LPF, ICPE — cross-link avec l'axe environnement existant).
 6. **Exposition dirigeant cédant** : nommer et renvoyer `/h-da:responsabilite-dirigeant` ; ne pas évaluer.
 
@@ -280,7 +280,7 @@ Appel automatique sur la sortie complète. Articles C.civ / C.com. cités doiven
 [En-tête de confidentialité selon le rôle utilisateur — voir les 4 variantes dans CLAUDE.md du plugin]
 
 > ⚠️ Note du relecteur
-> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** intégrale ({N} pages GAP + {M} pages annexes disclosure)
 > - **Signalé pour ton jugement :** {N} éléments marqués [review] | aucun
 > - **Fraîcheur :** recherche jurisprudence post-{date} sur articulation GAP / 1112-1 / 1626 / 1641 — {N} arrêts intégrés

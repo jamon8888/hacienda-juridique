@@ -170,7 +170,7 @@ ouvrable hors-ligne, zéro CDN, XSS-safe — voir `${CLAUDE_SKILL_DIR}/../../ref
 [En-tête de confidentialité selon le rôle utilisateur — voir CLAUDE.md §2]
 
 > **⚠️ Note du relecteur**
-> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée)
+> - **Sources :** Légifrance ✓ / Judilibre ✓ / Pappers ✓ / BODACC ✓ (cocher ✗ si non connectée) ; articles lus dans cette session : {liste} ; autres citations `[à vérifier]`
 > - **Lecture :** {N} documents de la data-room sur {N} ; thèmes couverts : {liste} {si --themes : « DD ciblée — {thèmes} non audités ; rapport partiel »} ; {fichiers illisibles le cas échéant}
 > - **Signalé pour ton jugement :** {N} findings [review] | {N} documents manquants identifiés | aucun
 > - **Fraîcheur :** recherche des évolutions depuis {date} — {N} mises à jour intégrées | rien trouvé
