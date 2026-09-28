@@ -358,7 +358,7 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 - annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
 Articles attendus présents dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` avec
-identifiant Légifrance réel (→ `[Légifrance]`) : L.223-27, L.223-29, L.223-30,
+identifiant Légifrance réel (→ à lire via `legifrance_get_article` ; `[Légifrance ✓]` seulement après lecture dans la session, sinon `[à vérifier]`) : L.223-27, L.223-29, L.223-30,
 L.225-98, L.227-9. En `[a compléter]` ou absents (→ `[à vérifier]` obligatoire) : L.225-96
 (en `[a compléter]` dans l'index), et **tout article réglementaire `R.xxx`**
 (R.225-67, R.225-69 et suivants — délais de convocation de la SA).

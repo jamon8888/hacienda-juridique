@@ -260,7 +260,7 @@ Points de fond propres à la LOI / au term sheet :
 
 **Règles d'analyse :**
 
-- Les articles cités doivent exister dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md`. Présents avec un identifiant Légifrance réel (citables `[Légifrance]`) : **1104** (bonne foi), **1112-1** (devoir précontractuel d'information). En `[a compléter]` dans l'index → tag `[à vérifier]` obligatoire : **1112** (liberté de rompre les pourparlers), **1123** (pacte de préférence), **1124** (promesse unilatérale). Vérifier chaque article dans l'index avant de le taguer.
+- Les articles cités doivent exister dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md`. Présents avec un identifiant Légifrance réel (citables `[Légifrance ✓]` seulement après lecture dans la session, sinon `[à vérifier]`) : **1104** (bonne foi), **1112-1** (devoir précontractuel d'information). En `[a compléter]` dans l'index → tag `[à vérifier]` obligatoire : **1112** (liberté de rompre les pourparlers), **1123** (pacte de préférence), **1124** (promesse unilatérale). Vérifier chaque article dans l'index avant de le taguer.
 - Tag de provenance placé **après** la citation, **sans backticks** dans les cellules de tableau (backticks admis dans le corps narratif).
 - Les arrêts cités sont tagués `[Judilibre]` si consultés en session, sinon `[connaissance modèle — à vérifier]` ou `[à vérifier]`. Pas de fausse jurisprudence.
 - Tag inline `[review]` sur les jugements subjectifs : caractère proportionné ou excessif d'une durée d'exclusivité, caractère intentionnel ou non d'une qualification binding, caractère abusif d'une rupture de pourparlers, caractère potestatif d'une condition suspensive.

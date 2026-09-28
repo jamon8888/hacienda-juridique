@@ -286,7 +286,7 @@ substituer** :
 ### Tags de provenance
 
 - Articles cités : vérifier dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md`.
-  Citables `[Légifrance]` (LEGIARTI réel) : **1104**, **1112-1**, **1602**,
+  Citables `[Légifrance ✓]` seulement après lecture dans la session (LEGIARTI réel ; sinon `[à vérifier]`) : **1104**, **1112-1**, **1602**,
   **1626**, **1641**, **1170**, **1231-5** C.civ, **L.442-1** C.com.
 - En `[a compléter]` dans l'index → tag `[à vérifier]` obligatoire : **1112**,
   **1123**, **1124** C.civ, **L.420-1**, **L.420-2** C.com.

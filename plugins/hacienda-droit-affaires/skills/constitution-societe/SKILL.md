@@ -334,7 +334,7 @@ Appel automatique de `verifier-citations` sur la sortie complète (mode défaut
 - annote : `[Légifrance ✓]`, `[abrogé]`, ou `[à vérifier]` en mode dégradé.
 
 Articles attendus présents dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` avec
-identifiant Légifrance réel (→ `[Légifrance]`) : L.210-2, L.210-6, L.223-2,
+identifiant Légifrance réel (→ à lire via `legifrance_get_article` ; `[Légifrance ✓]` seulement après lecture dans la session, sinon `[à vérifier]`) : L.210-2, L.210-6, L.223-2,
 L.223-7, L.223-9, L.223-14, L.223-30, L.225-3, L.225-98, L.227-9, L.227-13,
 L.227-14, L.227-15, L.228-24. En `[a compléter]` ou absents (→ `[à vérifier]`
 obligatoire) : L.223-1, L.225-1, L.225-96, L.227-1, L.228-23, et **tout article
