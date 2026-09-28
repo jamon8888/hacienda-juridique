@@ -225,6 +225,26 @@ La clause de réserve de propriété (art. L.624-16 C.com.) ne se fait **pas** v
 
 ---
 
+## Étape 4 bis — Lecture des articles clés (avant rédaction)
+
+Une déclaration de créance repose sur une poignée d'articles dont l'avocat va
+s'assurer qu'ils sont en vigueur : les lire **avant** de rédiger, pour que la
+note du relecteur puisse dire lesquels ont été vérifiés. Un appel
+`legifrance_get_article` par article (`code` : « Code de commerce », `num` au
+format `L622-24`) :
+
+| Toujours | Si le dossier le mobilise |
+|---|---|
+| L.622-24 (déclaration, délai) · L.622-28 (arrêt du cours des intérêts) | L.622-29 (créance non échue) · L.624-9 et L.624-16 (revendication, réserve de propriété) · L.622-26 (relevé de forclusion) · L.622-17 (créance postérieure) · 1231-5 C.civ. (clause pénale, `code` : « Code civil ») |
+
+Seuls les articles effectivement ramenés par l'outil reçoivent `[Légifrance]`
+(CLAUDE.md §2) ; la note du relecteur les liste. Un article cité sans avoir été
+lu reste `[à vérifier]`, et la note le dit (« articles non vérifiés dans cette
+session : … »). Si PISTE n'est pas configuré, passer en mode dégradé documenté
+plutôt que d'omettre la lecture en silence.
+
+---
+
 ## Étape 5 — Rédaction de la déclaration (format mandataire)
 
 Template :
@@ -268,7 +288,7 @@ L'art. L.622-21 C.com. (arrêt des poursuites individuelles) interdit toute ment
 
 ## Étape 6 — Post-flight `verifier-citations`
 
-Appel automatique sur la sortie complète. Articles à vérifier : L.622-17, L.622-21, L.622-24, L.622-26, L.622-28, L.622-29 (identifiants dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` : les lire via `legifrance_get_article` ; `[Légifrance]` seulement après lecture dans la session, sinon `[à vérifier]`). R.622-24 (réglementaire, délais) : même règle si cité. Articles mobilisés par la réserve de propriété / revendication et les accessoires — **L.624-9, L.624-16, L.624-17, R.624-13 C.com., L.441-10, D.441-5 C.com., art. 642 CPC, art. 1231-5 C.civ.** — à vérifier sur Légifrance ; non lus dans la session : `[à vérifier]`. Si PISTE non configuré : mode dégradé documenté.
+Complète l'étape 4 bis pour les articles cités en cours de rédaction. Articles à vérifier : L.622-17, L.622-21, L.622-24, L.622-26, L.622-28, L.622-29 (identifiants dans `${CLAUDE_SKILL_DIR}/../../references/articles-c-civ-c-com-index.md` : les lire via `legifrance_get_article` ; `[Légifrance]` seulement après lecture dans la session, sinon `[à vérifier]`). R.622-24 (réglementaire, délais) : même règle si cité. Articles mobilisés par la réserve de propriété / revendication et les accessoires — **L.624-9, L.624-16, L.624-17, R.624-13 C.com., L.441-10, D.441-5 C.com., art. 642 CPC, art. 1231-5 C.civ.** — à vérifier sur Légifrance ; non lus dans la session : `[à vérifier]`. Si PISTE non configuré : mode dégradé documenté.
 
 ---
 
