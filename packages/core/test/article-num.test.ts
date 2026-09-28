@@ -1,29 +1,54 @@
 import { describe, it, expect } from "vitest";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import type { PisteHttpClient } from "../src/http.js";
+import type { PisteHttpClient, RequestOptions } from "../src/http.js";
 import { normalizeArticleNum } from "../src/codes-legitext.js";
 import { registerGetArticle } from "../src/tools/get-article.js";
 
+function makeServerAndHttp(response: unknown) {
+  let handler: ((args: Record<string, string>) => Promise<unknown>) | undefined;
+  const server = {
+    registerTool: (_name: string, _config: unknown, cb: typeof handler) => {
+      handler = cb;
+    },
+  } as unknown as McpServer;
+  const bodies: unknown[] = [];
+  const optsSeen: (RequestOptions | undefined)[] = [];
+  const http = {
+    post: async (_path: string, body: unknown, opts?: RequestOptions) => {
+      bodies.push(body);
+      optsSeen.push(opts);
+      return response;
+    },
+  } as unknown as PisteHttpClient;
+  return { server, http, bodies, optsSeen, getHandler: () => handler! };
+}
+
 describe("legifrance_get_article", () => {
   it("envoie à Légifrance le numéro normalisé", async () => {
-    let handler: ((args: Record<string, string>) => Promise<unknown>) | undefined;
-    const server = {
-      registerTool: (_name: string, _config: unknown, cb: typeof handler) => {
-        handler = cb;
-      },
-    } as unknown as McpServer;
-    const bodies: unknown[] = [];
-    const http = {
-      post: async (_path: string, body: unknown) => {
-        bodies.push(body);
-        return {};
-      },
-    } as unknown as PisteHttpClient;
-
+    const { server, http, bodies, getHandler } = makeServerAndHttp({});
     registerGetArticle(server, http);
-    await handler!({ code: "code de commerce", num: "L. 611-3" });
+    await getHandler()({ code: "code de commerce", num: "L. 611-3" });
 
     expect(bodies).toEqual([{ id: "LEGITEXT000005634379", num: "L611-3" }]);
+  });
+
+  it("envoie L441-10 (Code de commerce) inchangé — déjà au format attendu", async () => {
+    const { server, http, bodies, getHandler } = makeServerAndHttp({});
+    registerGetArticle(server, http);
+    await getHandler()({ code: "Code de commerce", num: "L441-10" });
+
+    expect(bodies).toEqual([{ id: "LEGITEXT000005634379", num: "L441-10" }]);
+  });
+
+  it("ne met pas en cache une réponse `article: null` (évite de figer un faux négatif)", async () => {
+    const { server, http, optsSeen, getHandler } = makeServerAndHttp({ article: null });
+    registerGetArticle(server, http);
+    await getHandler()({ code: "Code de commerce", num: "L441-10" });
+
+    const opts = optsSeen[0];
+    expect(opts?.cacheable).toBeDefined();
+    expect(opts!.cacheable!({ article: null })).toBe(false);
+    expect(opts!.cacheable!({ article: { id: "LEGIARTI1" } })).toBe(true);
   });
 });
 
@@ -33,6 +58,11 @@ describe("normalizeArticleNum", () => {
     expect(normalizeArticleNum("1240")).toBe("1240");
     expect(normalizeArticleNum("1231-5")).toBe("1231-5");
     expect(normalizeArticleNum("R631-1")).toBe("R631-1");
+    // L441-10 (Code de commerce) : déjà au format canonique, ne doit pas être
+    // altéré. « Article introuvable » sur ce numéro n'est donc pas causé par
+    // normalizeArticleNum (voir docs/handoff/latest.md, défaut serveur (b)).
+    expect(normalizeArticleNum("L441-10")).toBe("L441-10");
+    expect(normalizeArticleNum("L. 441-10")).toBe("L441-10");
   });
 
   it("retire point et espace après la lettre de partie (L. 611-3, L.611-3, L 611-3)", () => {
