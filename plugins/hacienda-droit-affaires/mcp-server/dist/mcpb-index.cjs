@@ -56659,7 +56659,7 @@ var PisteHttpClient = class {
     const paramsHash = this.cache ? ResponseCache.hash(body ?? null) : "";
     if (this.cache && !opts.bypassCache) {
       const cached2 = this.cache.get(cacheKey, paramsHash);
-      if (cached2 !== void 0) {
+      if (cached2 !== void 0 && (!opts.cacheable || opts.cacheable(cached2))) {
         log.debug("cache hit", { method, path });
         return cached2;
       }

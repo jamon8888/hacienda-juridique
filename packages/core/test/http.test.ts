@@ -142,6 +142,37 @@ describe("PisteHttpClient — gestion des erreurs et retries", () => {
     cache.close();
   });
 
+  it("ignore une entrée déjà en cache qui échoue au prédicat `cacheable` (faux négatif figé avant ce correctif)", async () => {
+    const pool = agent.get("https://api.piste.gouv.fr");
+    // Un seul intercept : la réponse en cache doit être rejetée par `cacheable`
+    // et un vrai appel réseau doit suivre.
+    pool
+      .intercept({ path: "/dila/legifrance/lf-engine-app/consult/getArticleWithIdAndNum", method: "POST" })
+      .reply(200, { article: { id: "X" } });
+
+    const auth = new PisteClient(config, agent);
+    const cache = new ResponseCache({ path: ":memory:" });
+    const http = new PisteHttpClient(config, auth, { dispatcher: agent, cache });
+    const cacheable = (parsed: unknown) => Boolean((parsed as { article?: unknown } | undefined)?.article);
+
+    // Simule une entrée figée par une ancienne version du code (sans le
+    // prédicat côté écriture), ou écrite par un appel sans `cacheable`.
+    cache.set(
+      "POST /consult/getArticleWithIdAndNum",
+      ResponseCache.hash({ id: "LEGITEXT1", num: "L441-10" }),
+      { article: null },
+      24 * 60 * 60 * 1000,
+    );
+
+    const res = await http.post<{ article: { id: string } | null }>(
+      "/consult/getArticleWithIdAndNum",
+      { id: "LEGITEXT1", num: "L441-10" },
+      { cacheable },
+    );
+    expect(res.article).toEqual({ id: "X" });
+    cache.close();
+  });
+
   it("retry sur 5xx (1 fois) puis remonte l'erreur si 2e échec", async () => {
     const pool = agent.get("https://api.piste.gouv.fr");
     pool.intercept({ path: "/dila/legifrance/lf-engine-app/search", method: "POST" }).reply(500, "boom");

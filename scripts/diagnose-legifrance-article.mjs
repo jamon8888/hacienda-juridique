@@ -43,7 +43,14 @@ const [
 
 const codeArg = process.argv[2] ?? "Code de commerce";
 const numArg = process.argv[3] ?? "L441-10";
-const attempts = Number(process.argv[4] ?? 3);
+
+const MAX_ATTEMPTS = 10;
+const attemptsRaw = Number(process.argv[4] ?? 3);
+if (!Number.isFinite(attemptsRaw) || !Number.isInteger(attemptsRaw) || attemptsRaw < 1 || attemptsRaw > MAX_ATTEMPTS) {
+  console.error(`❌ Nombre d'appels invalide (${JSON.stringify(process.argv[4])}) : entier entre 1 et ${MAX_ATTEMPTS}.`);
+  process.exit(1);
+}
+const attempts = attemptsRaw;
 
 const config = loadConfig();
 if (!config.clientId || !config.clientSecret) {

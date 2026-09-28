@@ -112,7 +112,10 @@ export class PisteHttpClient {
 
     if (this.cache && !opts.bypassCache) {
       const cached = this.cache.get<T>(cacheKey, paramsHash);
-      if (cached !== undefined) {
+      // Une entrée déjà en cache (écrite avant ce correctif, ou par un appel
+      // sans prédicat) peut être un faux négatif figé (ex. `{article: null}`).
+      // On l'ignore et on retape le réseau plutôt que de la resservir.
+      if (cached !== undefined && (!opts.cacheable || opts.cacheable(cached))) {
         log.debug("cache hit", { method, path });
         return cached;
       }
