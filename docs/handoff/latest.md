@@ -155,7 +155,11 @@ script : aucune citation dite vérifiée sans lecture. Balayage des 21 autres sk
 0 appel `legifrance_get_article`). Cause : règle « présent dans l'index → `[Légifrance]` » dans les
 post-flight de 6 skills (declaration-creance, mise-en-demeure, defense-/responsabilite-dirigeant,
 declaration-cessation-paiements, prevention-difficultes) → corrigée. Script : faux positifs n° de
-facture/années retirés. **À faire : relancer 03 (1 passage) pour confirmer.**
+facture/années retirés. **Relance 03 (1,06 $) : 1,00, script 0 faux « vérifié »** — confirmé. MAIS aucun
+`legifrance_get_article` : les articles sont cités sans marquage individuel, la note renvoie seulement
+à « lancer `verifier-citations` sur la version finale ». Le post-flight « appel automatique » de
+declaration-creance ne s'exécute pas → prochaine piste (faire lire les articles clés, ou marquer
+explicitement « articles non vérifiés en session » dans la note).
 
 ## Ouvert / prochaines pistes (droit-affaires)
 
