@@ -18,6 +18,24 @@ import { log } from "../logger.js";
  */
 const MAX_FALLBACK_CANDIDATES = 5;
 
+/**
+ * Statuts qui excluent toute vigueur à la date du jour. Filtrés avant la borne :
+ * `/search` renvoie toutes les versions historiques, tous codes confondus, et la
+ * version utile peut arriver loin (L441-10 C.com. : 7e résultat, après 5
+ * versions MODIFIE). Un statut absent ou inconnu est gardé, la fenêtre de
+ * vigueur étant de toute façon revérifiée sur l'article.
+ */
+const NOT_IN_FORCE_STATUSES = new Set([
+  "MODIFIE",
+  "ABROGE",
+  "ANNULE",
+  "PERIME",
+  "TRANSFERE",
+  "DISJOINT",
+  "VIGUEUR_DIFF",
+  "MODIFIE_MORT_NE",
+]);
+
 async function findInForceArticleAcrossCodes(
   http: PisteHttpClient,
   legitext: string,
@@ -61,6 +79,7 @@ async function findInForceArticleAcrossCodes(
       for (const extract of section.extracts ?? []) {
         if (!extract.id) continue;
         if (extract.num && normalizeArticleNum(extract.num) !== num) continue;
+        if (extract.legalStatus && NOT_IN_FORCE_STATUSES.has(extract.legalStatus.toUpperCase())) continue;
         if (!candidateIds.includes(extract.id)) candidateIds.push(extract.id);
         if (candidateIds.length >= MAX_FALLBACK_CANDIDATES) break outer;
       }
@@ -82,8 +101,15 @@ async function findInForceArticleAcrossCodes(
     if (!parsedArticle.success || !parsedArticle.data.article) continue;
     const article = parsedArticle.data.article;
 
-    const articleLegitext = (article.cidTexte ?? article.idTexte ?? "").toUpperCase();
-    if (articleLegitext !== targetLegitext) continue;
+    // En réel, `cidTexte`/`idTexte` sont à null : le LEGITEXT est dans `textTitles[].cid`.
+    const articleLegitexts = [
+      article.cidTexte,
+      article.idTexte,
+      ...(article.textTitles ?? []).flatMap((t) => [t.cid, t.id]),
+    ]
+      .filter((v): v is string => Boolean(v))
+      .map((v) => v.toUpperCase());
+    if (!articleLegitexts.includes(targetLegitext)) continue;
 
     const dateDebut = normalizeLegiDate(article.dateDebut);
     const dateFin = normalizeLegiDate(article.dateFin);

@@ -107,6 +107,62 @@ describe("legifrance_get_article — repli ABROGE_DIFF quand getArticleWithIdAnd
     expect(text).toContain("Tout professionnel");
   });
 
+  it("atteint la version ABROGE_DIFF même au-delà de la borne, en écartant d'abord les versions MODIFIE", async () => {
+    // Forme réelle observée pour L441-10 (2026-09-28) : la version utile est le
+    // 7e extrait, après des versions historiques MODIFIE d'autres codes.
+    const modifie = Array.from({ length: 6 }, (_, i) => ({
+      id: `LEGIARTI00000000000${i}`,
+      num: "L441-10",
+      legalStatus: "MODIFIE",
+    }));
+    pool
+      .intercept({ path: "/dila/legifrance/lf-engine-app/consult/getArticleWithIdAndNum", method: "POST" })
+      .reply(200, { article: null });
+    pool
+      .intercept({ path: "/dila/legifrance/lf-engine-app/search", method: "POST" })
+      .reply(200, {
+        results: [
+          {
+            sections: [
+              {
+                extracts: [
+                  ...modifie,
+                  { id: "LEGIARTI000038414392", num: "L441-10", legalStatus: "ABROGE_DIFF" },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+    // Seul l'identifiant ABROGE_DIFF est servi : consulter une version MODIFIE
+    // (ancien comportement, borne atteinte avant le 7e extrait) ferait échouer le test.
+    pool
+      .intercept({
+        path: "/dila/legifrance/lf-engine-app/consult/getArticle",
+        method: "POST",
+        body: (b) => b.includes("LEGIARTI000038414392"),
+      })
+      .reply(200, {
+        article: {
+          id: "LEGIARTI000038414392",
+          num: "L441-10",
+          texte: "Tout professionnel... (texte de l'article)",
+          etat: "ABROGE_DIFF",
+          dateDebut: 1556236800000, // forme réelle : epoch ms
+          dateFin: 1798761600000,
+          cidTexte: null,
+          textTitles: [{ cid: CODE_DE_COMMERCE_LEGITEXT }],
+        },
+      });
+
+    const { server, getHandler } = makeServer();
+    registerGetArticle(server, http);
+    const res = await getHandler()({ code: "Code de commerce", num: "L441-10" });
+
+    expect(res.isError).toBeUndefined();
+    expect(res.content[0]!.text).toContain("2027-01-01");
+  });
+
   it("écarte un candidat appartenant à un autre code (LEGITEXT différent)", async () => {
     pool
       .intercept({ path: "/dila/legifrance/lf-engine-app/consult/getArticleWithIdAndNum", method: "POST" })

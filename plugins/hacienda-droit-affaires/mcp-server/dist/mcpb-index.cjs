@@ -56969,6 +56969,8 @@ var ArticleSchema = external_exports.object({
   sectionParentTitre: external_exports.string().nullable().optional(),
   idTexte: external_exports.string().nullable().optional(),
   cidTexte: external_exports.string().nullable().optional(),
+  /** Texte(s) de rattachement. En réel, seul champ renseigné pour le LEGITEXT (`cidTexte`/`idTexte` à null). */
+  textTitles: external_exports.array(external_exports.object({ cid: external_exports.string().nullable().optional(), id: external_exports.string().nullable().optional() }).passthrough()).nullable().optional(),
   nota: external_exports.string().nullable().optional(),
   notaHtml: external_exports.string().nullable().optional(),
   /** Contexte hiérarchique (titresTM, titreTxt). Présent dans /consult/getArticle. */
@@ -57329,6 +57331,16 @@ function formatArticleAsMarkdown(s) {
 // ../../../packages/core/src/tools/get-article.ts
 init_codes_legitext();
 var MAX_FALLBACK_CANDIDATES = 5;
+var NOT_IN_FORCE_STATUSES = /* @__PURE__ */ new Set([
+  "MODIFIE",
+  "ABROGE",
+  "ANNULE",
+  "PERIME",
+  "TRANSFERE",
+  "DISJOINT",
+  "VIGUEUR_DIFF",
+  "MODIFIE_MORT_NE"
+]);
 async function findInForceArticleAcrossCodes(http, legitext, num) {
   const searchBody = {
     fond: "CODE_ETAT",
@@ -57362,6 +57374,7 @@ async function findInForceArticleAcrossCodes(http, legitext, num) {
       for (const extract of section.extracts ?? []) {
         if (!extract.id) continue;
         if (extract.num && normalizeArticleNum(extract.num) !== num) continue;
+        if (extract.legalStatus && NOT_IN_FORCE_STATUSES.has(extract.legalStatus.toUpperCase())) continue;
         if (!candidateIds.includes(extract.id)) candidateIds.push(extract.id);
         if (candidateIds.length >= MAX_FALLBACK_CANDIDATES) break outer;
       }
@@ -57379,8 +57392,12 @@ async function findInForceArticleAcrossCodes(http, legitext, num) {
     const parsedArticle = GetArticleResponseSchema.safeParse(rawArticle);
     if (!parsedArticle.success || !parsedArticle.data.article) continue;
     const article = parsedArticle.data.article;
-    const articleLegitext = (article.cidTexte ?? article.idTexte ?? "").toUpperCase();
-    if (articleLegitext !== targetLegitext) continue;
+    const articleLegitexts = [
+      article.cidTexte,
+      article.idTexte,
+      ...(article.textTitles ?? []).flatMap((t) => [t.cid, t.id])
+    ].filter((v) => Boolean(v)).map((v) => v.toUpperCase());
+    if (!articleLegitexts.includes(targetLegitext)) continue;
     const dateDebut = normalizeLegiDate(article.dateDebut);
     const dateFin = normalizeLegiDate(article.dateFin);
     const inForce = (!dateDebut || dateDebut <= today) && (!dateFin || dateFin > today);
