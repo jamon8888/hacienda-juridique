@@ -187,7 +187,26 @@ outputs/distress-cedant-<entreprise-slug>-YYYY-MM-DD.md
 1. Lire le profil cabinet (blocs M&A + procédures collectives) et confirmer le **côté cédant/débiteur**. Raisonner **à la date du jour** (dates absolues pour le diagnostic) mais **ne pas fabriquer la date de CdP**.
 2. Vérifier via `bodacc_procedures` / `bodacc_by_siren` / `company_full_profile` où en est l'entreprise : procédure ouverte ? type (amiable confidentiel non publié / RJ / LJ) ? dates de jugement / publication ? **cessation des paiements** caractérisée et datée ?
 3. **Trancher le niveau de difficulté + router (pivot 45 j).** Si la **CdP date de plus de 45 jours et n'est pas déclarée**, l'amiable est **fermé** (L.611-4) et l'obligation de déclarer s'impose (L.631-4) → **renvoi `/h-da:declaration-cessation-paiements`** (et **non** la prévention). Sinon : pas/plus en CdP ou CdP ≤ 45 j → `prevention-difficultes` (sauver) ou `pre-pack-cession` (céder) ; RJ/LJ déjà ouverte → selon le fork, sinon signaler le rôle limité du débiteur.
-4. **Tenir la cohérence sur toute la note.** La sauvegarde de droit commun suppose l'**absence** de cessation des paiements (L.620-1 `[à vérifier]`) : dès que la CdP est retenue, même conditionnellement, elle est **fermée**. La sauvegarde accélérée reste ouverte malgré la CdP seulement si celle-ci ne précède pas de plus de 45 jours la **demande de conciliation** (L.628-1 `[à vérifier]`) : sans conciliation demandée dans ce délai, elle est fermée elle aussi. Ne **jamais** présenter une procédure fermée comme ouverte ou « à choisir » ailleurs dans la note, y compris en comparant les effets des procédures (cautionnement, poursuites). Si elle doit être citée, dire qu'elle est fermée et pourquoi.
+4. **Tenir la cohérence sur toute la note.** La sauvegarde de droit commun suppose l'**absence** de cessation des paiements (L.620-1) : dès que la CdP est retenue, même conditionnellement, elle est **fermée**. La sauvegarde accélérée reste ouverte malgré la CdP seulement si celle-ci ne précède pas de plus de 45 jours la **demande de conciliation** (L.628-1) : sans conciliation demandée dans ce délai, elle est fermée elle aussi. Ne **jamais** présenter une procédure fermée comme ouverte ou « à choisir » ailleurs dans la note, y compris en comparant les effets des procédures (cautionnement, poursuites). Si elle doit être citée, dire qu'elle est fermée et pourquoi.
+
+## Étape 1 bis — Lecture des articles pivots (avant l'arbitrage)
+
+Tout l'arbitrage repose sur une poignée d'articles que l'avocat va vouloir voir
+vérifiés : les lire **avant** de rédiger, pour que la note du relecteur puisse
+dire lesquels l'ont été. Un appel `legifrance_get_article` par article (`code` :
+« Code de commerce », `num` au format `L631-4`) :
+
+| Toujours | Si le dossier le mobilise |
+|---|---|
+| L.631-1 (cessation des paiements) · L.631-4 (délai de 45 jours) · L.611-4 (conciliation) · L.620-1 (sauvegarde) · L.628-1 (sauvegarde accélérée) | L.651-2 (insuffisance d'actif) · L.653-8 (interdiction de gérer) · L.632-1 / L.632-2 (période suspecte) · L.640-4 (délai en liquidation) · L.631-8 (date de cessation des paiements) |
+
+Seuls les articles effectivement ramenés par l'outil reçoivent `[Légifrance]`
+(CLAUDE.md §2) ; la note du relecteur les liste. Un article cité sans avoir été
+lu reste `[à vérifier]`, et la note le dit (« articles non vérifiés dans cette
+session : … »). Un dossier fictif ne dispense pas de cette lecture (CLAUDE.md,
+« Dossier fictif ») : seuls les registres (BODACC, Pappers) se sautent. Si PISTE
+n'est pas configuré, passer en mode dégradé documenté plutôt que d'omettre la
+lecture en silence.
 
 ## Étape 2 — Arbitrage sauver / céder / déposer
 
@@ -209,7 +228,7 @@ Orienter vers la feuille adéquate (sans en dérouler la mécanique) : `preventi
 
 ## Étape 6 — Post-flight `verifier-citations`
 
-Lancer `verifier-citations` sur tous les articles cités (L.631-1, L.631-4, L.640-4, L.611-4, L.620-1, L.628-1, L.631-8, L.632-1, L.632-2, L.651-2, L.653-8). Tout article non confirmé reste `[à vérifier]`.
+Complète l'étape 1 bis pour les articles cités en cours de rédaction : lancer `verifier-citations` sur tous les articles cités (L.631-1, L.631-4, L.640-4, L.611-4, L.620-1, L.628-1, L.631-8, L.632-1, L.632-2, L.651-2, L.653-8). Tout article non confirmé reste `[à vérifier]`.
 
 ---
 

@@ -255,6 +255,9 @@ et la jurisprudence cités, eux, sont réels : ils se vérifient sur Légifrance
 Judilibre exactement comme pour un dossier client. Le caractère fictif des faits
 ne justifie jamais de laisser un article en `[à vérifier]` alors que la source
 est connectée.
+Raisonnement à ne pas tenir : « le dossier étant fictif, interroger les bases
+serait sans objet », appliqué à Légifrance ou Judilibre. Il ne vaut que pour les
+registres ; pour les textes, la lecture a lieu comme pour un dossier client.
 
 ### Désaccord avec un article cité
 
