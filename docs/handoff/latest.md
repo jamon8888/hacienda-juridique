@@ -190,6 +190,22 @@ n'existe pas pour la caution (L622-28 ne la prévoit que pour la sauvegarde), le
 poursuivre M. Tessier » — contraire au point confirmé par l'avocat (caution en RJ : suspension des
 poursuites oui). Argument de valeur qualitatif, à faire valider.
 
+### B — `03-declaration-creance` FAIT (2026-09-29, 5,10 $, 6 passages, 28 min)
+
+Avec 1,00 / sans 0,93 / **Δ +0,07**, porté par **d1 (3/3 vs 1/3)**. Le d1 PASS du passage 1 sans
+plugin est probablement une indulgence du juge (6 articles cités, aucune mention de vérification des
+textes ; seul le taux d'intérêt est « à vérifier ») → Δ réel sur d1 vraisemblablement 3/3 vs 0/3.
+Les 6 pièges + d2/d3/d4/d5 : 3/3 des deux côtés. Coût plus élevé (1,07-1,50 $ par passage avec plugin :
+l'étape 4 bis lit 11-13 articles).
+**Défaut trouvé et corrigé (04eac2b, non poussé)** : L441-10 de nouveau « introuvable » dans les 3 passages
+malgré PR #71. Cause : `/search` NUM_ARTICLE non déterministe, une réponse sans la version ABROGE_DIFF
+mise en cache dans `plugins/hacienda-droit-affaires/.cache` (cache utilisé sous `CLAUDE_PLUGIN_ROOT`, ≠
+`~/.cache/Hacienda` des tests à la main). Recherche du repli désormais non mise en cache + second essai.
+Vérifié en réel avec le cache du plugin : L441-10/L441-11 trouvés 3/3. Conséquence dans les passages :
+« art. L.441-10, II et D.441-5 `[Légifrance]` » — étiquette groupée couvrant L441-10 non lu (limite).
+Script : limites connues (série « L.622-24 à L.622-27 », dénégation placée avant l'article).
+**Réflexe** : pour tester le serveur DA à la main comme l'éval, définir `CLAUDE_PLUGIN_ROOT`.
+
 ## Ouvert / prochaines pistes (droit-affaires)
 
 - Plus d'abonnement Codex (2026-09-25) : tâches mécaniques → sous-agent Sonnet,
