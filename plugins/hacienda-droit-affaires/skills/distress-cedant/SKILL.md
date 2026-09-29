@@ -196,14 +196,18 @@ vérifiés : les lire **avant** de rédiger, pour que la note du relecteur puiss
 dire lesquels l'ont été. Un appel `legifrance_get_article` par article (`code` :
 « Code de commerce », `num` au format `L631-4`) :
 
-| Toujours | Si le dossier le mobilise |
+| Toujours | Dès que la note les cite |
 |---|---|
 | L.631-1 (cessation des paiements) · L.631-4 (délai de 45 jours) · L.611-4 (conciliation) · L.620-1 (sauvegarde) · L.628-1 (sauvegarde accélérée) | L.651-2 (insuffisance d'actif) · L.653-8 (interdiction de gérer) · L.632-1 / L.632-2 (période suspecte) · L.640-4 (délai en liquidation) · L.631-8 (date de cessation des paiements) |
 
+La colonne de droite n'est pas optionnelle : tout article du tableau que la note
+cite est lu avant la rédaction. Un article hors tableau cité en cours de
+rédaction se lit aussi, ou reste `[à vérifier]`.
+
 Seuls les articles effectivement ramenés par l'outil reçoivent `[Légifrance]`
-(CLAUDE.md §2) ; la note du relecteur les liste. Un article cité sans avoir été
-lu reste `[à vérifier]`, et la note le dit (« articles non vérifiés dans cette
-session : … »). Un dossier fictif ne dispense pas de cette lecture (CLAUDE.md,
+(CLAUDE.md §2). La note du relecteur porte deux lignes, toujours présentes :
+« Articles lus dans cette session : … » et « Articles cités non lus : … (ou
+aucun) » ; chaque article de la seconde liste porte `[à vérifier]` dans le texte. Un dossier fictif ne dispense pas de cette lecture (CLAUDE.md,
 « Dossier fictif ») : seuls les registres (BODACC, Pappers) se sautent. Si PISTE
 n'est pas configuré, passer en mode dégradé documenté plutôt que d'omettre la
 lecture en silence.

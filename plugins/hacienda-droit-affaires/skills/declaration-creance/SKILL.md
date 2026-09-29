@@ -233,14 +233,18 @@ note du relecteur puisse dire lesquels ont été vérifiés. Un appel
 `legifrance_get_article` par article (`code` : « Code de commerce », `num` au
 format `L622-24`) :
 
-| Toujours | Si le dossier le mobilise |
+| Toujours | Dès que la note les cite |
 |---|---|
 | L.622-24 (déclaration, délai) · L.622-28 (arrêt du cours des intérêts) | L.622-29 (créance non échue) · L.624-9 et L.624-16 (revendication, réserve de propriété) · L.622-26 (relevé de forclusion) · L.622-17 (créance postérieure) · 1231-5 C.civ. (clause pénale, `code` : « Code civil ») |
 
+La colonne de droite n'est pas optionnelle : tout article du tableau que la note
+cite est lu avant la rédaction. Un article hors tableau cité en cours de
+rédaction se lit aussi, ou reste `[à vérifier]`.
+
 Seuls les articles effectivement ramenés par l'outil reçoivent `[Légifrance]`
-(CLAUDE.md §2) ; la note du relecteur les liste. Un article cité sans avoir été
-lu reste `[à vérifier]`, et la note le dit (« articles non vérifiés dans cette
-session : … »). Si PISTE n'est pas configuré, passer en mode dégradé documenté
+(CLAUDE.md §2). La note du relecteur porte deux lignes, toujours présentes :
+« Articles lus dans cette session : … » et « Articles cités non lus : … (ou
+aucun) » ; chaque article de la seconde liste porte `[à vérifier]` dans le texte. Si PISTE n'est pas configuré, passer en mode dégradé documenté
 plutôt que d'omettre la lecture en silence.
 
 ---
