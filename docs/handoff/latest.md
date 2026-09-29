@@ -206,13 +206,29 @@ Vérifié en réel avec le cache du plugin : L441-10/L441-11 trouvés 3/3. Cons�
 Script : limites connues (série « L.622-24 à L.622-27 », dénégation placée avant l'article).
 **Réflexe** : pour tester le serveur DA à la main comme l'éval, définir `CLAUDE_PLUGIN_ROOT`.
 
+### B — `04-dd-pe-red-flags` FAIT (2026-09-29, 6,95 $, 6 passages) — **B TERMINÉ**
+
+Avec 1,00 / sans 1,00 / **Δ 0,00**. Les 10 critères passent 3/3 des deux côtés. d1 passe sans plugin
+parce que les 3 réponses **ne citent aucun article** (règle « aucun article cité → PASS ») : ce cas de
+DD factuelle ne mesure pas la traçabilité des sources. Avec plugin : 3-4 articles cités et lus
+(CPI L.113-9, L.131-3 ; 1104 C.civ.), script 0 faux « vérifié ».
+**Tendance « dossier fictif » revue (passage 3 avec plugin)** : aucune base interrogée, Légifrance
+comprise, « le dossier étant explicitement fictif… sans objet » — malgré la règle CLAUDE.md §4 ; le
+prompt du cas dit « Dossier ci-dessous (fictif) ». Sans effet ici (aucun article cité), 1/3.
+
+**Synthèse B (4 cas, ~18,6 $)** : Δ +0,17 / +0,11 / +0,07 / 0,00. Sonnet nu évite **tous** les
+pièges des 4 cas ; le Δ mesuré vient uniquement de d1 (citations signalées), + d3 fragile sur 01.
+Les valeurs non notées par les grilles : lecture réelle des textes (10-17 articles lus quand l'étape
+existe), défauts serveur trouvés en chemin (faux « vérifié », ABROGE_DIFF, cache), et une erreur de
+fond du bras nu sur 02 (caution en RJ). → Pour un argument de valeur plus fort : critères qui
+vérifient l'exactitude du droit cité (ex. caution en RJ), pas seulement les pièges du dossier.
+
 ## Ouvert / prochaines pistes (droit-affaires)
 
 - Plus d'abonnement Codex (2026-09-25) : tâches mécaniques → sous-agent Sonnet,
   relu par la session principale. Le protocole blind Codex n'est plus exécutable tel quel.
 - `plugins/registry.json` : liste des skills DA incomplète (19/31), à réconcilier.
-- **B, un cas par session**, dans l'ordre : spa-review → distress-cedant →
-  declaration-creance → dd-pe. Spot-checker chaque écart avant de conclure.
+- **B terminé** (4 cas, 2026-09-25 → 29) — voir synthèse ci-dessus.
 - **Wording ghost** : `[review]` dans `README_UTILISATEUR.md` (section
   Confidentialité) — Candy y réfléchit.
 - **Tâches proposées, non lancées :** citations marquées `[Légifrance]` à tort dans
