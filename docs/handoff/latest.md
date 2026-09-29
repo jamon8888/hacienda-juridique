@@ -1,6 +1,6 @@
 # Handoff — état courant (entrée de session)
 
-**Dernière mise à jour :** 2026-09-25
+**Dernière mise à jour :** 2026-09-29
 **Branche de travail :** `main`, à jour avec `origin/main`. Aucune branche en attente.
 **Périmètre actif : `hacienda-droit-affaires` UNIQUEMENT.** PI et Sources officielles
 sont **en pause** (décision Candy 2026-09-25) : ne rien lancer sur ces plugins.
@@ -102,6 +102,23 @@ session du forfait atteinte au 2e cas (2,75 $). Résultats exploitables :
    tout redemander au format `L611-3`. Numéro normalisé (`normalizeArticleNum`,
    `packages/core/src/codes-legitext.ts`) + tests ; serveur DA reconstruit, vérifié
    en réel. PI/SO en bénéficieront à leur prochaine reconstruction.
+7. **Faux « vérifié »** (éval B 01, 03) : étiquettes `[Légifrance]` en dur dans les
+   SKILL.md et règles « présent dans l'index → `[Légifrance]` » recopiées comme preuve.
+   Règle CLAUDE.md §2 « vérifié = lu dans cette session » (0c26ecb), balayage des
+   22 skills (PR #69), règles d'index des post-flight réécrites (ed5202c). Contrôle
+   scripté : `evals/check-verified-citations.mjs <trace.jsonl>`.
+8. **Jeton OAuth PISTE demandé en parallèle** → échecs « invalid_client » : une seule
+   demande partagée + un nouvel essai (PR #70).
+9. **Articles `ABROGE_DIFF` introuvables** (L441-10/11 C.com., en vigueur jusqu'au
+   2027-01-01) : repli par `/search` + `getArticle` (PR #71, corrigé en réel : borne
+   après filtrage des statuts morts, LEGITEXT via `textTitles`). Limite : L441-9.
+10. **Recherche `/search` non déterministe figée en cache** : repli sans cache + second
+   essai (04eac2b). Réflexe : tester le serveur DA à la main avec `CLAUDE_PLUGIN_ROOT`
+   défini (cache `plugins/hacienda-droit-affaires/.cache`, comme l'éval).
+11. **Articles cités sans être lus** (Légifrance lu 17/4/0 fois selon le passage) :
+   étape de lecture des articles clés dans `declaration-creance` (4 bis) et
+   `distress-cedant` (1 bis) ; tout article du tableau cité est lu, note à deux lignes
+   « lus » / « cités non lus » (bf4da51). Contrôle 02 du 2026-09-29 : 10 cités = 10 lus.
 
 Autres corrections de la période : `distress-cedant` (cohérence cessation des
 paiements / sauvegarde, caution signalée sans analyse — cd4a29f) ;
@@ -231,8 +248,21 @@ vérifient l'exactitude du droit cité (ex. caution en RJ), pas seulement les pi
 - **B terminé** (4 cas, 2026-09-25 → 29) — voir synthèse ci-dessus.
 - **Wording ghost** : `[review]` dans `README_UTILISATEUR.md` (section
   Confidentialité) — Candy y réfléchit.
-- **Tâches proposées, non lancées :** citations marquées `[Légifrance]` à tort dans
-  ~15 skills DA ; masquer le jeton OAuth dans `piste_status`
+- **Étape de lecture des articles** : faite pour `declaration-creance` et
+  `distress-cedant`. À étendre aux autres skills qui citent beaucoup de textes
+  (`spa-review`, `gap-review`, `mise-en-demeure-commerciale`, `cgv-generator`…) si
+  les contrôles le justifient. Non vu encore : la ligne « Articles cités non lus :
+  aucun » (absente quand tout a été lu — à vérifier le jour où un article reste non lu).
+- **Pour l'avocat de Candy** (non tranché, `[à vérifier]`) : (1) L441-9 à L441-11 C.com.
+  (délais de paiement, pénalités, indemnité 40 €) réécrits au 1er janvier 2027 — texte
+  modificatif à identifier ; impacte `cgv-generator`, `mise-en-demeure-commerciale`,
+  `declaration-creance`. (2) Argument de valeur : sur B 02, le bras sans plugin affirme
+  qu'en RJ la caution n'est pas protégée (contraire au point confirmé par l'avocat).
+- **Grilles d'éval** : le Δ B ne mesure que d1 ; ajouter des critères d'exactitude du droit
+  cité (ex. caution en RJ) pour un argument de valeur plus fort.
+- **Script `check-verified-citations`** : limites connues (série « L.622-24 à L.622-27 »,
+  dénégation placée avant l'article) → relire chaque écart.
+- **Tâche proposée, non lancée :** masquer le jeton OAuth dans `piste_status`
   (`packages/core/src/tools/status.ts`, `bodyPreview`).
 - `fonds-pe-fr-triage` (#7) : différé.
 
