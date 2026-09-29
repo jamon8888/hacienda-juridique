@@ -57341,7 +57341,16 @@ var NOT_IN_FORCE_STATUSES = /* @__PURE__ */ new Set([
   "VIGUEUR_DIFF",
   "MODIFIE_MORT_NE"
 ]);
+var FALLBACK_SEARCH_ATTEMPTS = 2;
 async function findInForceArticleAcrossCodes(http, legitext, num) {
+  for (let attempt = 1; attempt <= FALLBACK_SEARCH_ATTEMPTS; attempt += 1) {
+    const found = await findInForceArticleOnce(http, legitext, num);
+    if (found) return found;
+    log.debug("get-article fallback: no in-force version found", { num, attempt });
+  }
+  return void 0;
+}
+async function findInForceArticleOnce(http, legitext, num) {
   const searchBody = {
     fond: "CODE_ETAT",
     recherche: {
@@ -57359,8 +57368,7 @@ async function findInForceArticleAcrossCodes(http, legitext, num) {
       typePagination: "DEFAUT"
     }
   };
-  const cacheableSearch = (parsed) => (parsed?.results?.length ?? 0) > 0;
-  const rawSearch = await http.post("/search", searchBody, { cacheable: cacheableSearch });
+  const rawSearch = await http.post("/search", searchBody, { cacheable: () => false });
   const parsedSearch = SearchResponseSchema.safeParse(rawSearch);
   if (!parsedSearch.success) {
     log.warn("get-article fallback: unexpected /search shape", {

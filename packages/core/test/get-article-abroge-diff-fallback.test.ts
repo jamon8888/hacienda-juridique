@@ -163,6 +163,50 @@ describe("legifrance_get_article — repli ABROGE_DIFF quand getArticleWithIdAnd
     expect(res.content[0]!.text).toContain("2027-01-01");
   });
 
+  it("refait la recherche quand la première omet la version en vigueur (/search non déterministe)", async () => {
+    // Vu en réel le 2026-09-29 : une réponse /search pour L441-10 sans la version ABROGE_DIFF.
+    pool
+      .intercept({ path: "/dila/legifrance/lf-engine-app/consult/getArticleWithIdAndNum", method: "POST" })
+      .reply(200, { article: null });
+    pool
+      .intercept({ path: "/dila/legifrance/lf-engine-app/search", method: "POST" })
+      .reply(200, {
+        results: [{ sections: [{ extracts: [{ id: "LEGIARTI000006825372", num: "L441-10", legalStatus: "MODIFIE" }] }] }],
+      });
+    pool
+      .intercept({ path: "/dila/legifrance/lf-engine-app/search", method: "POST" })
+      .reply(200, {
+        results: [
+          { sections: [{ extracts: [{ id: "LEGIARTI000038414392", num: "L441-10", legalStatus: "ABROGE_DIFF" }] }] },
+        ],
+      });
+    pool
+      .intercept({
+        path: "/dila/legifrance/lf-engine-app/consult/getArticle",
+        method: "POST",
+        body: (b) => b.includes("LEGIARTI000038414392"),
+      })
+      .reply(200, {
+        article: {
+          id: "LEGIARTI000038414392",
+          num: "L441-10",
+          texte: "Tout professionnel... (texte de l'article)",
+          etat: "ABROGE_DIFF",
+          dateDebut: 1556236800000,
+          dateFin: 1798761600000,
+          cidTexte: null,
+          textTitles: [{ cid: CODE_DE_COMMERCE_LEGITEXT }],
+        },
+      });
+
+    const { server, getHandler } = makeServer();
+    registerGetArticle(server, http);
+    const res = await getHandler()({ code: "Code de commerce", num: "L441-10" });
+
+    expect(res.isError).toBeUndefined();
+    expect(res.content[0]!.text).toContain("2027-01-01");
+  });
+
   it("écarte un candidat appartenant à un autre code (LEGITEXT différent)", async () => {
     pool
       .intercept({ path: "/dila/legifrance/lf-engine-app/consult/getArticleWithIdAndNum", method: "POST" })
@@ -175,7 +219,7 @@ describe("legifrance_get_article — repli ABROGE_DIFF quand getArticleWithIdAnd
             sections: [{ extracts: [{ id: "LEGIARTI999999999", num: "L441-10" }] }],
           },
         ],
-      });
+      }).times(2); // second essai de recherche (FALLBACK_SEARCH_ATTEMPTS)
     pool
       .intercept({ path: "/dila/legifrance/lf-engine-app/consult/getArticle", method: "POST" })
       .reply(200, {
@@ -188,7 +232,7 @@ describe("legifrance_get_article — repli ABROGE_DIFF quand getArticleWithIdAnd
           dateFin: null,
           cidTexte: CODE_CIVIL_LEGITEXT,
         },
-      });
+      }).times(2); // second essai de recherche (FALLBACK_SEARCH_ATTEMPTS)
 
     const { server, getHandler } = makeServer();
     registerGetArticle(server, http);
@@ -210,7 +254,7 @@ describe("legifrance_get_article — repli ABROGE_DIFF quand getArticleWithIdAnd
             sections: [{ extracts: [{ id: "LEGIARTI000038414392", num: "L441-10" }] }],
           },
         ],
-      });
+      }).times(2); // second essai de recherche (FALLBACK_SEARCH_ATTEMPTS)
     pool
       .intercept({ path: "/dila/legifrance/lf-engine-app/consult/getArticle", method: "POST" })
       .reply(200, {
@@ -223,7 +267,7 @@ describe("legifrance_get_article — repli ABROGE_DIFF quand getArticleWithIdAnd
           dateFin: "2019-04-26",
           cidTexte: CODE_DE_COMMERCE_LEGITEXT,
         },
-      });
+      }).times(2); // second essai de recherche (FALLBACK_SEARCH_ATTEMPTS)
 
     const { server, getHandler } = makeServer();
     registerGetArticle(server, http);

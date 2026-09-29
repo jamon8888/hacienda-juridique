@@ -36,7 +36,30 @@ const NOT_IN_FORCE_STATUSES = new Set([
   "MODIFIE_MORT_NE",
 ]);
 
+/**
+ * `/search` NUM_ARTICLE n'est pas déterministe : d'un appel à l'autre, la liste
+ * des versions renvoyées varie et peut omettre la version en vigueur (vu en réel
+ * le 2026-09-29 pour L441-10, et à chaque essai pour L441-9). D'où : pas de cache
+ * sur cette recherche (une liste incomplète figée resservirait le même
+ * « introuvable » pendant toute la durée du cache), et un second essai si le
+ * premier ne donne aucune version en vigueur.
+ */
+const FALLBACK_SEARCH_ATTEMPTS = 2;
+
 async function findInForceArticleAcrossCodes(
+  http: PisteHttpClient,
+  legitext: string,
+  num: string,
+): Promise<Article | undefined> {
+  for (let attempt = 1; attempt <= FALLBACK_SEARCH_ATTEMPTS; attempt += 1) {
+    const found = await findInForceArticleOnce(http, legitext, num);
+    if (found) return found;
+    log.debug("get-article fallback: no in-force version found", { num, attempt });
+  }
+  return undefined;
+}
+
+async function findInForceArticleOnce(
   http: PisteHttpClient,
   legitext: string,
   num: string,
@@ -59,12 +82,8 @@ async function findInForceArticleAcrossCodes(
     },
   };
 
-  // Une recherche à 0 résultat n'est pas fiable à figer 1h : ça pourrait être
-  // un hoquet transitoire côté PISTE plutôt qu'une absence réelle de version.
-  const cacheableSearch = (parsed: unknown): boolean =>
-    ((parsed as { results?: unknown[] } | undefined)?.results?.length ?? 0) > 0;
-
-  const rawSearch = await http.post("/search", searchBody, { cacheable: cacheableSearch });
+  // Jamais mise en cache (ni relue depuis le cache) : voir FALLBACK_SEARCH_ATTEMPTS.
+  const rawSearch = await http.post("/search", searchBody, { cacheable: () => false });
   const parsedSearch = SearchResponseSchema.safeParse(rawSearch);
   if (!parsedSearch.success) {
     log.warn("get-article fallback: unexpected /search shape", {
