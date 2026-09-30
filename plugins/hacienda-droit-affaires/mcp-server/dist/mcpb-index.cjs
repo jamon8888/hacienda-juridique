@@ -57330,7 +57330,8 @@ function formatArticleAsMarkdown(s) {
 
 // ../../../packages/core/src/tools/get-article.ts
 init_codes_legitext();
-var MAX_FALLBACK_CANDIDATES = 5;
+var SEARCH_PAGE_SIZE = 20;
+var MAX_FALLBACK_CANDIDATES = SEARCH_PAGE_SIZE;
 var NOT_IN_FORCE_STATUSES = /* @__PURE__ */ new Set([
   "MODIFIE",
   "ABROGE",
@@ -57363,7 +57364,7 @@ async function findInForceArticleOnce(http, legitext, num) {
       ],
       operateur: "ET",
       pageNumber: 1,
-      pageSize: 20,
+      pageSize: SEARCH_PAGE_SIZE,
       sort: "PERTINENCE",
       typePagination: "DEFAUT"
     }

@@ -16,7 +16,19 @@ import { log } from "../logger.js";
  * candidat avec `/consult/getArticle` (LEGITEXT + fenêtre de vigueur).
  * Borné pour éviter une rafale d'appels PISTE sur un numéro ambigu.
  */
-const MAX_FALLBACK_CANDIDATES = 5;
+const SEARCH_PAGE_SIZE = 20;
+
+/**
+ * Un extrait de `/search` ne porte pas le LEGITEXT de son code de rattachement
+ * (confirmé uniquement par `/consult/getArticle`) : on ne peut donc pas savoir
+ * à l'avance lesquels des candidats retournés appartiennent au code demandé.
+ * La borne de confirmation doit donc couvrir toute la page de recherche —
+ * sans quoi un numéro présent (à l'état non-en-vigueur) dans plusieurs autres
+ * codes avant le code cible ferait manquer la bonne version (cf. revue
+ * Sourcery sur cette PR : L441-10 C.com. est arrivé 7e, après 5 versions
+ * MODIFIE d'autres codes — un plafond de 5 l'aurait exclu).
+ */
+const MAX_FALLBACK_CANDIDATES = SEARCH_PAGE_SIZE;
 
 /**
  * Statuts qui excluent toute vigueur à la date du jour. Filtrés avant la borne :
@@ -76,7 +88,7 @@ async function findInForceArticleOnce(
       ],
       operateur: "ET",
       pageNumber: 1,
-      pageSize: 20,
+      pageSize: SEARCH_PAGE_SIZE,
       sort: "PERTINENCE",
       typePagination: "DEFAUT",
     },
