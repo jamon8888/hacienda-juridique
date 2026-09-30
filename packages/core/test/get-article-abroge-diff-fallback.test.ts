@@ -207,6 +207,81 @@ describe("legifrance_get_article — repli ABROGE_DIFF quand getArticleWithIdAnd
     expect(res.content[0]!.text).toContain("2027-01-01");
   });
 
+  it("atteint la version en vigueur au-delà des 5 premiers candidats VIGUEUR d'autres codes (revue Sourcery)", async () => {
+    // Un numéro d'article commun peut être en vigueur (donc non filtré par
+    // NOT_IN_FORCE_STATUSES) dans plus de 5 autres codes avant celui demandé.
+    // Comme un extrait ne porte pas son LEGITEXT, il faut confirmer chaque
+    // candidat par /consult/getArticle — sans plafonner en dessous de la
+    // taille de la page /search (20), sous peine d'écarter la bonne version.
+    const autresCodesEnVigueur = Array.from({ length: 8 }, (_, i) => ({
+      id: `LEGIARTI0000000AUTRE${i}`,
+      num: "L441-10",
+      legalStatus: "VIGUEUR",
+    }));
+    pool
+      .intercept({ path: "/dila/legifrance/lf-engine-app/consult/getArticleWithIdAndNum", method: "POST" })
+      .reply(200, { article: null });
+    pool
+      .intercept({ path: "/dila/legifrance/lf-engine-app/search", method: "POST" })
+      .reply(200, {
+        results: [
+          {
+            sections: [
+              {
+                extracts: [
+                  ...autresCodesEnVigueur,
+                  { id: "LEGIARTI000038414392", num: "L441-10", legalStatus: "ABROGE_DIFF" },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+    for (const autre of autresCodesEnVigueur) {
+      pool
+        .intercept({
+          path: "/dila/legifrance/lf-engine-app/consult/getArticle",
+          method: "POST",
+          body: (b) => b.includes(autre.id),
+        })
+        .reply(200, {
+          article: {
+            id: autre.id,
+            num: "L441-10",
+            texte: "Version en vigueur d'un autre code, sans rapport.",
+            etat: "VIGUEUR",
+            dateDebut: "2020-01-01",
+            dateFin: null,
+            cidTexte: CODE_CIVIL_LEGITEXT,
+          },
+        });
+    }
+    pool
+      .intercept({
+        path: "/dila/legifrance/lf-engine-app/consult/getArticle",
+        method: "POST",
+        body: (b) => b.includes("LEGIARTI000038414392"),
+      })
+      .reply(200, {
+        article: {
+          id: "LEGIARTI000038414392",
+          num: "L441-10",
+          texte: "Tout professionnel... (texte de l'article)",
+          etat: "ABROGE_DIFF",
+          dateDebut: "2019-04-26",
+          dateFin: "2027-01-01",
+          cidTexte: CODE_DE_COMMERCE_LEGITEXT,
+        },
+      });
+
+    const { server, getHandler } = makeServer();
+    registerGetArticle(server, http);
+    const res = await getHandler()({ code: "Code de commerce", num: "L441-10" });
+
+    expect(res.isError).toBeUndefined();
+    expect(res.content[0]!.text).toContain("2027-01-01");
+  });
+
   it("écarte un candidat appartenant à un autre code (LEGITEXT différent)", async () => {
     pool
       .intercept({ path: "/dila/legifrance/lf-engine-app/consult/getArticleWithIdAndNum", method: "POST" })
