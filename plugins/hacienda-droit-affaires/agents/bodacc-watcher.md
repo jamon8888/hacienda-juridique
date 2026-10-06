@@ -50,8 +50,10 @@ par sévérité, et propose le skill pertinent. Il signale ; l'avocat décide.
 - `BodaccClient.searchBySiren(siren, limit)` via `@hacienda/core`
   (`packages/core/src/sources/bodacc.ts`) — source publique BODACC OpenDataSoft,
   sans authentification. Champs disponibles : `id`, `registre`, `dateparution`,
-  `typeavis`, `familleavis`, `publicationavis`, `numerodepartement`, `ville`,
-  `raw`. [BODACC]
+  `typeavis` (« Avis initial » / « Avis rectificatif » / « Avis d'annulation » — pas la nature),
+  `familleavis`, `publicationavis`, `numerodepartement`, `ville`, `tribunal`,
+  `jugement` (`famille`, `nature`, `date`, `complement` : nature de la procédure,
+  mandataire désigné), `raw`. [BODACC]
 - `bodacc_procedures` — filtre direct sur
   `familleavis = "collective"` pour escalade urgente (le champ `familleavis` renvoyé par
   l'outil porte le libellé, ex. « Procédures collectives »).
@@ -95,15 +97,16 @@ Format : `{ "<siren>": { "last_seen_ids": ["<id>", ...], "updated": "YYYY-MM-DD"
 
 | Événement BODACC | `familleavis` / `typeavis` cible | Sévérité | Canal |
 |---|---|---|---|
-| Procédure collective ouverte | « Procédures collectives » + jugement d'ouverture | 🔴 Immédiat | Alerte inline |
+| Procédure collective ouverte | « Procédures collectives » + `jugement.famille` = « Jugement d'ouverture » | 🔴 Immédiat | Alerte inline |
+| Autre jugement de procédure (plan, conversion, clôture, état des créances) | « Procédures collectives », autre `jugement.famille` | 🟠 Élevé | Digest hebdo |
 | Changement contrôle / cession fonds | « Ventes et cessions » | 🔴 Immédiat | Alerte inline |
 | Modification statuts substantielle | « Modifications diverses » + statuts | 🟠 Élevé | Digest hebdo |
 | Changement dirigeants | « Modifications diverses » + dirigeants | 🟠 Élevé | Digest hebdo |
 | Dépôt comptes | « Dépôts des comptes » | 🟡 Moyen | Digest hebdo |
 | Modification adresse | « Modifications diverses » + siège | 🟢 Silencieux | Silencieux* |
 
-\* Sauf si `alert_level: haut` → remonter en 🟡 digest. Champ `raw` :
-mandataire/administrateur/plan — parser avec fallback `[à vérifier]`.
+\* Sauf si `alert_level: haut` → remonter en 🟡 digest. Champ `jugement.complement` :
+mandataire/administrateur/plan — fallback `[à vérifier]`.
 
 ## Workflow
 
@@ -139,9 +142,9 @@ mandataire/administrateur/plan — parser avec fallback `[à vérifier]`.
 🔴 ALERTE BODACC — {YYYY-MM-DD}
 {label} (SIREN {siren}) — niveau alerte : {alert_level} — catégorie : {category}
 
-Événement : {typeavis} publié BODACC le {dateparution}
+Événement : {jugement.nature si présent, sinon familleavis} publié BODACC le {dateparution}
 Famille : {familleavis}
-Détail : {publicationavis}  [si absent : voir champ raw — [à vérifier]]
+Détail : {jugement.complement}  [si absent : [à vérifier]]
 Localisation : {ville} ({numerodepartement})
 
 Action recommandée :
@@ -168,7 +171,7 @@ Si > 10 lignes : générer aussi un HTML autonome via `renderDashboard()` de
 
 - **BODACC inaccessible** : log erreur + `"last_error"` dans `.bodacc-state.json`,
   retry à +1h. Afficher "BODACC inaccessible — retry à [heure]". Jamais fail silent.
-- **Annonce `raw` illisible** : log `[à vérifier]`, continuer.
+- **Jugement absent ou illisible** : log `[à vérifier]`, continuer.
 - **Watchlist absente/vide** : stopper, message clair (voir § Configuration).
 
 ## Ce que l'agent ne fait pas

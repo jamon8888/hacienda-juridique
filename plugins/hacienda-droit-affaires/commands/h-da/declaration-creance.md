@@ -6,7 +6,7 @@ description: >
   4 mois si créancier hors UE/EEE). Lookup BODACC via
   `bodacc_procedures` de `@hacienda/core` pour récupérer
   type de procédure, date jugement, date publication et mandataire désigné
-  (extraction depuis `raw`, fallback `[à vérifier]` si parsing échoue).
+  (lus sur l'avis d'ouverture désigné par l'outil, fallback `[à vérifier]`).
   Format conforme aux usages mandataire judiciaire. Brouillon, validation
   avocat/mandataire obligatoire.
 argument-hint: "[SIREN débiteur, créance, jugement, publication BODACC ; --releve-forclusion pour la requête L.622-26]"

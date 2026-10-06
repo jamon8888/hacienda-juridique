@@ -62,5 +62,41 @@ if (exemple) {
   check(toutes.length >= procedures.length && toutes.length > 0, `searchBySiren(${siren}) renvoie ${toutes.length} annonce(s)`);
 }
 
+// 4. Le jugement (JSON en chaîne dans `jugement`) est lu, et l'avis d'ouverture est
+//    désigné même quand un avis plus récent (clôture, plan…) arrive en tête de liste.
+//    `typeavis` ne vaut que « Avis initial » : ce n'est pas la nature de la procédure.
+const { formatProceduresResult } = await import("../packages/core/dist/tools/bodacc-procedures.js");
+const clotures = await api({
+  where: 'familleavis = "collective" AND jugement LIKE "%clôture%"',
+  select: "registre",
+  order_by: "dateparution desc",
+  limit: "40",
+});
+const client = new BodaccClient();
+let cas;
+for (const r of clotures) {
+  const siren = Array.isArray(r.registre) ? r.registre[0] : undefined;
+  if (!/^\d{9}$/.test(siren ?? "")) continue;
+  const annonces = await client.searchProcedures(siren);
+  const familles = annonces.map((a) => a.jugement?.famille);
+  if (familles.includes("Jugement d'ouverture") && familles[0] !== "Jugement d'ouverture") {
+    cas = { siren, annonces, familles };
+    break;
+  }
+}
+check(Boolean(cas), "une société avec un avis d'ouverture suivi d'avis plus récents est disponible");
+if (cas) {
+  const text = formatProceduresResult(cas.annonces);
+  const avis = JSON.parse(text.slice(text.indexOf("{"))).avis_ouverture;
+  console.log(`  SIREN ${cas.siren} — familles (ordre renvoyé) : ${JSON.stringify(cas.familles)}`);
+  console.log(`  avis le plus récent : ${cas.annonces[0].dateparution} (${cas.annonces[0].jugement?.nature})`);
+  console.log(`  avis d'ouverture retenu : ${avis?.dateparution} (${avis?.nature}) — jugement du ${avis?.date_jugement}`);
+  check(
+    /^Jugement d.ouverture/.test(cas.annonces.find((a) => a.id === avis?.id)?.jugement?.famille ?? ""),
+    "bodacc_procedures désigne l'avis d'ouverture, pas l'avis le plus récent",
+  );
+  check(Boolean(avis?.nature && avis?.date_jugement), "nature et date du jugement lues dans le jugement publié");
+}
+
 console.log(failures === 0 ? "\nBODACC : cohérent." : `\nBODACC : ${failures} contrôle(s) en échec.`);
 process.exit(failures === 0 ? 0 : 1);
