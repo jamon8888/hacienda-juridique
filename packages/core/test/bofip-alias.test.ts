@@ -66,3 +66,25 @@ describe("BOFiP alias tools", () => {
     expect(result.content[0]!.text).toContain("BOFiP");
   });
 });
+
+// Relevé en réel (2026-10-06) : sur 508 résultats du fonds CIRC de Légifrance, aucun n'est une fiche
+// BOFiP (« BOI-… ») ; la requête « BOI-TVA-DED-10 » renvoie des circulaires sur les élections.
+// Le fonds CIRC = circulaires et instructions ministérielles, pas la base BOFiP-Impôts.
+describe("BOFiP alias tools — honnêteté sur la source", () => {
+  const http = new FakeHttp({ totalResultNumber: 0, results: [] });
+
+  it("la recherche avertit que le fonds CIRC n'est pas la base BOFiP-Impôts", async () => {
+    const text = (await callBofipRechercher(http as never, { query: "TVA déduction" })).content[0]!.text;
+
+    expect(text).toMatch(/n'est pas la base BOFiP/i);
+    expect(text).toContain("[à vérifier]");
+    expect(text).toContain("bofip.impots.gouv.fr");
+  });
+
+  it("la consultation rappelle la même limite", async () => {
+    const consult = new FakeHttp({ circulaire: { id: "45675", titre: "Circulaire", etat: "V" } });
+    const text = (await callBofipConsulter(consult as never, { id: "45675" })).content[0]!.text;
+
+    expect(text).toMatch(/n'est pas la base BOFiP/i);
+  });
+});

@@ -27,7 +27,7 @@ tagué comme recherche externe ou connaissance modèle.
 | BODACC OpenDataSoft | ✓ Intégré core | `bodacc_by_siren`, `bodacc_procedures` | Immatriculations, modifications, radiations, procédures collectives |
 | Annuaire entreprises DINUM / API Entreprise publique | ✓ Intégré core | via `company_full_profile` | Recherche société par nom, SIREN, statut de base sans auth payante |
 | Eurlex | ✓ Intégré core | modules Eurlex core | Rome I, Bruxelles I bis, règlements UE, textes européens business |
-| BOFiP | ✓ Intégré core | `bofipQuery` [a verifier selon export exact] | Doctrine fiscale utile en due diligence M&A et structuration |
+| BOFiP | ✗ Non intégré | `bofip_rechercher` interroge le fonds CIRC de Légifrance (circulaires ministérielles), pas la base BOFiP-Impôts | Doctrine fiscale en due diligence M&A : à vérifier sur bofip.impots.gouv.fr |
 | BOSS | ✓ Intégré core | `bossQuery` [a verifier selon export exact] | Doctrine sociale utile pour non-concurrence, rémunération, protection sociale |
 | Pappers MCP externe | 🌐 Web | connecteur externe optionnel | Découverte outillée si besoin hors wrappers core |
 | AMF Décisions / Doctrine | 🌐 Web | amf-france.org | Cibles cotées, abus de marché, gouvernance financière, hors v1 |

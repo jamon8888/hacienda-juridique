@@ -113,7 +113,7 @@ Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affai
 
 - Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
 - Entreprises, BODACC et procédures collectives : `company_full_profile`, `bodacc_by_siren`, `bodacc_procedures`.
-- Points fiscaux et sociaux de due diligence : `bofip_rechercher`, `bofip_consulter`, `boss_recherche`, `boss_get_document`.
+- Points sociaux de due diligence : `boss_recherche`, `boss_get_document`. Points fiscaux : `bofip_rechercher` / `bofip_consulter` ne donnent que des circulaires ministérielles (fonds CIRC), **pas la base BOFiP-Impôts** — toute doctrine fiscale reste `[à vérifier]` sur bofip.impots.gouv.fr, sans tag `[BOFiP]`.
 - Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
 
 ## Emplacement des sorties

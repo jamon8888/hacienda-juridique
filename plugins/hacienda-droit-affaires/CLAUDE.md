@@ -218,7 +218,7 @@ En cas de doute entre deux interprétations : retenir l'interprétation la plus 
 | `[Judilibre]` | Jurisprudence — arrêt consulté via API Judilibre |
 | `[Pappers]` | Données entreprise — Pappers API (si configurée) |
 | `[BODACC]` | Annonce officielle — BODACC OpenDataSoft (public) |
-| `[BOFiP]` | Doctrine fiscale officielle |
+| `[BOFiP]` | Doctrine fiscale officielle — **uniquement** si la fiche BOI-… a été lue sur bofip.impots.gouv.fr (non intégré à ce jour) |
 | `[BOSS]` | Bulletin Officiel Sécurité Sociale |
 | `[Eurlex]` | Texte UE — Rome I, Bruxelles I bis |
 | `[utilisateur fourni]` | Document fourni par le client |
@@ -365,7 +365,7 @@ Exemples de calibrage :
 | Identification entreprise enrichie | Pappers (si configuré) | ✓ |
 | Identification entreprise basique | BODACC OpenDataSoft + Annuaire DINUM | ✓ |
 | Procédures collectives (annonces) | BODACC (familleavis = collective) | ✓ |
-| Doctrine fiscale (DD M&A) | BOFiP | ✓ |
+| Doctrine fiscale (DD M&A) | BOFiP-Impôts (bofip.impots.gouv.fr) | ✗ — `bofip_rechercher` ne renvoie que des circulaires ministérielles ; doctrine `[à vérifier]` |
 | Droit social (clauses non-conc. salariées) | BOSS | ✓ |
 | Droit UE (Rome I, Bruxelles I bis) | Eurlex | ✓ |
 | Textes JORF (lois, ordonnances) | Légifrance JORF | ✓ |
