@@ -8,7 +8,18 @@ export interface JudilibreRechercheArgs {
   query: string;
   pageSize?: number;
   page?: number;
+  chamber?: string;
+  jurisdiction?: string;
+  publication?: string;
+  dateStart?: string;
+  dateEnd?: string;
 }
+
+/** Valeurs réelles de la taxonomie Judilibre (`/taxonomy`), relevées le 2026-10-06. */
+const CHAMBERS = ["pl", "mi", "civ1", "civ2", "civ3", "comm", "soc", "cr", "creun", "ordo", "allciv", "other"] as const;
+const JURISDICTIONS = ["cc", "ca", "tj", "tcom"] as const;
+const PUBLICATIONS = ["b", "r", "l", "c", "n"] as const;
+const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date au format AAAA-MM-JJ");
 
 export interface JudilibreGetDecisionArgs {
   id: string;
@@ -46,6 +57,11 @@ export async function callJudilibreRecherche(client: JudilibreClient, args: Judi
       query: args.query,
       pageSize: args.pageSize,
       page: args.page,
+      chamber: args.chamber,
+      jurisdiction: args.jurisdiction,
+      publication: args.publication,
+      dateStart: args.dateStart,
+      dateEnd: args.dateEnd,
     });
     return textResult(formatJudilibreSearch(response, args.query));
   } catch (error) {
@@ -83,11 +99,24 @@ export function registerJudilibreTools(
     {
       title: "Recherche Judilibre",
       description:
-        "Recherche des décisions judiciaires dans Judilibre (Cour de cassation) et retourne des résultats Markdown avec métadonnées et liens officiels.",
+        "Recherche des décisions judiciaires dans Judilibre (Cour de cassation) et retourne des résultats Markdown avec date, chambre, numéro, solution et liens officiels. Filtres optionnels : chambre (ex. `comm` = chambre commerciale), juridiction, publication, période (`dateStart`/`dateEnd`, date de décision).",
       inputSchema: {
         query: z.string().min(1).describe("Termes à rechercher dans Judilibre."),
         pageSize: z.number().int().min(1).max(50).default(10).describe("Nombre de résultats (max 50)."),
         page: z.number().int().min(0).optional().describe("Page de résultats Judilibre."),
+        chamber: z
+          .enum(CHAMBERS)
+          .optional()
+          .describe(
+            "Chambre : comm (commerciale), civ1/civ2/civ3 (civiles), soc (sociale), cr (criminelle), mi (mixte), pl (assemblée plénière).",
+          ),
+        jurisdiction: z.enum(JURISDICTIONS).optional().describe("Juridiction : cc (Cour de cassation, défaut de l'API), ca, tj, tcom."),
+        publication: z
+          .enum(PUBLICATIONS)
+          .optional()
+          .describe("Niveau de publication : b (Bulletin), r (Rapport), l (Lettre de chambre), c (communiqué), n (non publié)."),
+        dateStart: isoDate.optional().describe("Décisions rendues à partir de cette date (AAAA-MM-JJ)."),
+        dateEnd: isoDate.optional().describe("Décisions rendues jusqu'à cette date (AAAA-MM-JJ)."),
       },
     },
     (args) => callJudilibreRecherche(client, args),

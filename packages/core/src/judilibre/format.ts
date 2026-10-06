@@ -28,13 +28,56 @@ function truncateText(text: string, maxChars: number, suffix: string): string {
   return text.length > maxChars ? `${text.slice(0, maxChars).trimEnd()}\n\n${suffix}` : text;
 }
 
+/** Valeurs de la taxonomie Judilibre (`/taxonomy?id=jurisdiction|chamber`), relevées le 2026-10-06. */
+const JURISDICTION_LABELS: Record<string, string> = {
+  cc: "Cour de cassation",
+  ca: "Cour d'appel",
+  tj: "Tribunal judiciaire",
+  tcom: "Tribunal de commerce",
+};
+
+const CHAMBER_LABELS: Record<string, string> = {
+  pl: "Assemblée plénière",
+  mi: "Chambre mixte",
+  civ1: "Première chambre civile",
+  civ2: "Deuxième chambre civile",
+  civ3: "Troisième chambre civile",
+  comm: "Chambre commerciale",
+  soc: "Chambre sociale",
+  cr: "Chambre criminelle",
+  creun: "Chambres réunies",
+  ordo: "Première présidence (ordonnance)",
+  allciv: "Toutes chambres civiles",
+  other: "Autre",
+};
+
+const withLabel = (value: string, labels: Record<string, string>) =>
+  labels[value] ? `${labels[value]} (${value})` : value;
+
+/**
+ * Date de la décision (AAAA-MM-JJ). `/search` ne renvoie que `decision_date` ;
+ * `/decision` renvoie aussi `decision_datetime`, en UTC : une décision du
+ * 29 septembre y apparaît « 2021-09-28T23:00:00.000Z ». On retient donc
+ * `decision_date`, et à défaut la date de `decision_datetime` à l'heure de Paris.
+ */
+function decisionDate(decision: JudilibreDecision): string | undefined {
+  const date = optionalString(asRecord(decision).decision_date);
+  if (date) return date.slice(0, 10);
+  const datetime = optionalString(decision.decision_datetime);
+  if (!datetime) return undefined;
+  const parsed = new Date(datetime);
+  if (Number.isNaN(parsed.getTime())) return datetime.slice(0, 10);
+  return parsed.toLocaleDateString("sv-SE", { timeZone: "Europe/Paris" });
+}
+
 function metadataFor(decision: JudilibreDecision): string[] {
   const extra = asRecord(decision);
   const metadata: string[] = [];
 
-  if (decision.decision_datetime) metadata.push(`Date : ${decision.decision_datetime}`);
-  if (decision.jurisdiction) metadata.push(`Juridiction : ${decision.jurisdiction}`);
-  if (decision.chamber) metadata.push(`Chambre : ${decision.chamber}`);
+  const date = decisionDate(decision);
+  if (date) metadata.push(`Date : ${date}`);
+  if (decision.jurisdiction) metadata.push(`Juridiction : ${withLabel(decision.jurisdiction, JURISDICTION_LABELS)}`);
+  if (decision.chamber) metadata.push(`Chambre : ${withLabel(decision.chamber, CHAMBER_LABELS)}`);
   if (optionalString(extra.formation)) metadata.push(`Formation : ${optionalString(extra.formation)}`);
   if (decision.number) metadata.push(`Numéro : ${decision.number}`);
   if (decision.solution) metadata.push(`Solution : ${decision.solution}`);
