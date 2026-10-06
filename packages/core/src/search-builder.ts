@@ -113,8 +113,36 @@ function defaultTypeChampForFond(fond: Fond): string {
   }
 }
 
+/**
+ * Fonds où le filtre de date de `/search` fonctionne (relevé en réel le 2026-10-06).
+ * Ailleurs il est soit ignoré sans erreur (LODA_ETAT : 9659 résultats avec ou sans
+ * plage), soit rejeté par PISTE en HTTP 500 (ALL, CODE_DATE, CODE_ETAT, CNIL, JUFI).
+ */
+const FONDS_WITH_DATE_FILTER: ReadonlySet<Fond> = new Set<Fond>([
+  "JURI",
+  "CETAT",
+  "CONSTIT",
+  "JORF",
+  "CIRC",
+  "LODA_DATE",
+  "KALI",
+  "ACCO",
+]);
+
 export function buildSearchRequest(input: BuildSearchInput): SearchRequestDTO {
   const filtres: FiltreDTO[] = [];
+
+  if ((input.dateDebut || input.dateFin) && !FONDS_WITH_DATE_FILTER.has(input.fond)) {
+    const hint =
+      input.fond === "LODA_ETAT"
+        ? "Utiliser fond=LODA_DATE (textes à une date) pour filtrer par date."
+        : input.fond === "CODE_DATE" || input.fond === "CODE_ETAT"
+          ? "Pour un code, utiliser dateVersion (fond=CODE_DATE) : version de l'article à une date donnée."
+          : "Choisir un fond précis (JURI, CETAT, JORF, LODA_DATE, CIRC, CONSTIT, KALI, ACCO) pour filtrer par date.";
+    throw new SearchInputError(
+      `Le fond ${input.fond} n'accepte pas de filtre de date (dateDebut/dateFin) : l'API le rejette ou l'ignore sans le dire. ${hint}`,
+    );
+  }
 
   // Cas particulier : les fonds CODE_* exigent un filtre nom-de-code.
   if (input.fond === "CODE_DATE" || input.fond === "CODE_ETAT") {

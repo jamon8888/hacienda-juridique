@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { SearchResponseSchema } from "../src/schemas.js";
 import { summarizeSearchResponse, formatSearchResultsAsMarkdown } from "../src/format.js";
-import { buildSearchRequest } from "../src/search-builder.js";
+import { buildSearchRequest, SearchInputError } from "../src/search-builder.js";
 
 const fixtureDir = resolve(__dirname, "fixtures");
 const load = (name: string) =>
@@ -157,4 +157,26 @@ describe("format — Search response sur fixtures RÉELLES PISTE", () => {
     expect(hits.length).toBeGreaterThan(0);
     expect(hits[0]!.id).toMatch(/^JURITEXT/);
   });
+});
+
+describe("search-builder — filtres de date refusés là où l'API les ignore ou plante", () => {
+  // Relevé en réel (2026-10-06) : ALL, CODE_DATE, CODE_ETAT, CNIL, JUFI → HTTP 500 ;
+  // LODA_ETAT → filtre sans effet (9659 résultats avec ou sans plage).
+  for (const fond of ["ALL", "LODA_ETAT", "CODE_DATE", "CODE_ETAT", "CNIL", "JUFI"] as const) {
+    it(`${fond} + dateDebut → SearchInputError explicite`, () => {
+      expect(() =>
+        buildSearchRequest({ query: "x", fond, code: "Code civil", dateDebut: "2024-01-01" }),
+      ).toThrow(SearchInputError);
+    });
+  }
+
+  it("le message oriente vers un fond qui accepte les dates", () => {
+    expect(() => buildSearchRequest({ query: "x", fond: "LODA_ETAT", dateFin: "2025-01-01" })).toThrow(/LODA_DATE/);
+  });
+
+  for (const fond of ["JURI", "CETAT", "CONSTIT", "JORF", "CIRC", "LODA_DATE", "KALI", "ACCO"] as const) {
+    it(`${fond} + dates reste accepté`, () => {
+      expect(() => buildSearchRequest({ query: "x", fond, dateDebut: "2024-01-01", dateFin: "2025-01-01" })).not.toThrow();
+    });
+  }
 });

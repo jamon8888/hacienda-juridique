@@ -65,6 +65,19 @@ export function normalizeArticleNum(num: string): string {
   return `${part.replace(/\./g, "").toUpperCase()}${star}${rest.replace(/\s+/g, "")}`;
 }
 
+/**
+ * Nom officiel d'un code tel que l'attend le filtre `NOM_CODE` / `TEXT_NOM_CODE` de
+ * `/search`, qui est sensible à la casse : « Code de commerce » donne 1 résultat,
+ * « code de commerce » ou « CGI » aucun, sans erreur. Accepte nom (toute casse),
+ * alias (CGI, LPF) et LEGITEXT ; un nom inconnu est renvoyé tel quel.
+ */
+export function canonicalCodeName(code: string): string {
+  const legitext = resolveLegitext(code);
+  if (!legitext) return code.trim();
+  const longName = Object.entries(COMMON_CODES_LEGITEXT).find(([name, id]) => id === legitext && name.includes(" "))?.[0];
+  return longName ? longName.charAt(0).toUpperCase() + longName.slice(1) : code.trim();
+}
+
 export function listKnownCodes(): string[] {
   return Object.keys(COMMON_CODES_LEGITEXT);
 }
