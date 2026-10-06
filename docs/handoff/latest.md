@@ -120,6 +120,26 @@ session du forfait atteinte au 2e cas (2,75 $). Résultats exploitables :
    `distress-cedant` (1 bis) ; tout article du tableau cité est lu, note à deux lignes
    « lus » / « cités non lus » (bf4da51). Contrôle 02 du 2026-09-29 : 10 cités = 10 lus.
 
+12. **`bodacc_procedures` toujours vide** (trouvé 2026-10-06 en préparant le cas « registre
+   réel ») : filtre `familleavis = "procedures-collectives"` alors que la valeur réelle est
+   `"collective"` (« Procédures collectives » n'est que le libellé `familleavis_lib`). L'API
+   répond 0 résultat sans erreur → « aucune procédure » pour toute société, y compris en RJ.
+   Présent depuis la restauration des outils BODACC (0327ad1, 28 mai) ; invisible des évals
+   (dossiers fictifs, dates fournies dans le prompt). Corrigé (d731aea) + 2 tests ; mentions du
+   filtre corrigées dans README, CLAUDE.md §10, `declaration-creance` et les 2 agents BODACC
+   (le tableau d'alertes de `bodacc-watcher` utilise désormais les libellés réellement
+   renvoyés dans `familleavis`).
+13. **Échec BODACC = « aucune annonce »** : le client renvoyait `[]` sur toute erreur (réseau,
+   HTTP, délai). Désormais : délai 10 s par appel, un nouvel essai sur panne transitoire
+   (réseau, 5xx, 408, 429), pas de nouvel essai sur 4xx ; échec final →
+   `BodaccUnavailableError` et résultat d'outil `isError` qui interdit de conclure à
+   l'absence de procédure et impose `[à vérifier]` (`bodacc_procedures`, `bodacc_by_siren`,
+   `company_full_profile`). 9 tests (`bodacc-resilience.test.ts`).
+   **Contrôle en réel** : `node scripts/check-bodacc-live.mjs` (après `npm run build`) — vérifie
+   que la valeur de filtre existe dans l'API et que le client retrouve une procédure récente ;
+   imprime toutes les valeurs réelles de `familleavis`. À relancer après toute modification du
+   client BODACC ou si l'API change.
+
 Autres corrections de la période : `distress-cedant` (cohérence cessation des
 paiements / sauvegarde, caution signalée sans analyse — cd4a29f) ;
 `responsabilite-dirigeant` (L.626-11 au texte, caution en RJ : suspension des
@@ -276,6 +296,22 @@ vérifient l'exactitude du droit cité (ex. caution en RJ), pas seulement les pi
   publication BODACC).
 - **Script `check-verified-citations`** : limites connues (série « L.622-24 à L.622-27 »,
   dénégation placée avant l'article) → relire chaque écart.
+- **Audit « filtre ≠ valeur réelle du champ » (demandé par Candy, à faire)** : même classe de
+  défaut dans les autres sources (Judilibre, Légifrance `/search`, EUR-Lex, BOSS, BOFiP, Pappers).
+  Méthode : lister chaque filtre/enum codé dans `packages/core/src`, le confronter aux valeurs
+  réelles de l'API (script du type `check-bodacc-live.mjs`). Écart déjà repéré, non corrigé :
+  `declaration-creance` dit de déduire le type de procédure de `typeavis` (« Avis initial »),
+  alors que la nature figure dans `raw.jugement` (JSON en chaîne : `nature`, `date`,
+  `complementJugement` avec mandataire). Risque réseau non vérifié : `fetch` de Node ne suit pas
+  `HTTP(S)_PROXY` (cabinets derrière proxy).
+- **Cas « registre réel »** (en cours, rien de commité) : candidats RJ publiés le 2026-10-06
+  avec 1 seule annonce : WhyNot FOOD (983098773), FPS9 (883536971) → limite de déclaration
+  2026-12-06 ; GRAND REFLEXE SECURITE écartée (2 annonces identiques 27/09 et 06/10, départ du
+  délai ambigu). Décisions en attente : choix de la société ; prompt avec SIREN seul et sans nom
+  ni accusation de dette (société réelle) ; mention « nous sommes le … » pour figer la date.
+  Par construction un modèle sans plugin ne peut pas réussir (pas d'accès BODACC) : à
+  présenter comme preuve d'accès aux données en direct, pas de supériorité de raisonnement ;
+  critère utile = ne pas inventer de date.
 - **Tâche proposée, non lancée :** masquer le jeton OAuth dans `piste_status`
   (`packages/core/src/tools/status.ts`, `bodyPreview`).
 - `fonds-pe-fr-triage` (#7) : différé.

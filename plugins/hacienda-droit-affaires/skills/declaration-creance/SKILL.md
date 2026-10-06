@@ -137,7 +137,7 @@ Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitud
 ## Étape 1 — Lookup BODACC
 
 1. Lire profil cabinet (bloc procédures collectives) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
-2. Lookup procédure : `bodacc_procedures` (wrapper MCP : `bodacc_procedures`). Filtre côté API : `familleavis = "procedures-collectives"`, tri `dateparution DESC`.
+2. Lookup procédure : `bodacc_procedures` (wrapper MCP : `bodacc_procedures`). Filtre côté API : `familleavis = "collective"` (libellé « Procédures collectives »), tri `dateparution DESC`.
 3. Identifier sur l'annonce la plus récente d'ouverture :
    - **Type de procédure** — déduit de `typeavis` (sauvegarde / redressement judiciaire / liquidation judiciaire). **Fondement applicable selon la procédure** : le régime de déclaration des créances et de forclusion/relevé des art. **L.622-24 à L.622-27 C.com.** est propre à la **sauvegarde** ; en **redressement judiciaire** il s'applique par renvoi de l'art. **L.631-14 C.com.**, et en **liquidation judiciaire** par renvoi de l'art. **L.641-3 C.com.**. Toujours qualifier la procédure ET viser l'article-passerelle quand il ne s'agit pas d'une sauvegarde — la déclaration et la requête en relevé en LJ/RJ se fondent sur L.622-24/L.622-26 **via** L.641-3 / L.631-14, pas directement.
    - **Date publication BODACC** — `dateparution` (point de départ du délai L.622-24)

@@ -364,7 +364,7 @@ Exemples de calibrage :
 | Jurisprudence ch. com. Cour de cass. | Judilibre | ✓ |
 | Identification entreprise enrichie | Pappers (si configuré) | ✓ |
 | Identification entreprise basique | BODACC OpenDataSoft + Annuaire DINUM | ✓ |
-| Procédures collectives (annonces) | BODACC (familleavis = procedures-collectives) | ✓ |
+| Procédures collectives (annonces) | BODACC (familleavis = collective) | ✓ |
 | Doctrine fiscale (DD M&A) | BOFiP | ✓ |
 | Droit social (clauses non-conc. salariées) | BOSS | ✓ |
 | Droit UE (Rome I, Bruxelles I bis) | Eurlex | ✓ |

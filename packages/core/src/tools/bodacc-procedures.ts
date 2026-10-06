@@ -1,6 +1,7 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { BodaccClient } from "../sources/bodacc.js";
+import { bodaccUnavailableResult } from "./bodacc-error.js";
 
 export function registerBodaccProcedures(server: McpServer): void {
   server.registerTool(
@@ -18,7 +19,12 @@ export function registerBodaccProcedures(server: McpServer): void {
     },
     async (args) => {
       const client = new BodaccClient();
-      const procedures = await client.searchProcedures(args.siren);
+      let procedures: Awaited<ReturnType<typeof client.searchProcedures>>;
+      try {
+        procedures = await client.searchProcedures(args.siren);
+      } catch (err) {
+        return bodaccUnavailableResult(err);
+      }
       return {
         content: [
           {

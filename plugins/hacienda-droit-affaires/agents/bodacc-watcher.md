@@ -53,7 +53,8 @@ par sévérité, et propose le skill pertinent. Il signale ; l'avocat décide.
   `typeavis`, `familleavis`, `publicationavis`, `numerodepartement`, `ville`,
   `raw`. [BODACC]
 - `bodacc_procedures` — filtre direct sur
-  `familleavis = "procedures-collectives"` pour escalade urgente.
+  `familleavis = "collective"` pour escalade urgente (le champ `familleavis` renvoyé par
+  l'outil porte le libellé, ex. « Procédures collectives »).
 - `company_full_profileTool` — enrichissement Pappers (dirigeants, bilans,
   bénéficiaires effectifs) si `PAPPERS_API_KEY` configurée ; fallback BODACC
   public sinon. [Pappers] ou [BODACC] selon source effective.
@@ -94,12 +95,12 @@ Format : `{ "<siren>": { "last_seen_ids": ["<id>", ...], "updated": "YYYY-MM-DD"
 
 | Événement BODACC | `familleavis` / `typeavis` cible | Sévérité | Canal |
 |---|---|---|---|
-| Procédure collective ouverte | `procedures-collectives` + jugement ouverture | 🔴 Immédiat | Alerte inline |
-| Changement contrôle / cession fonds | `ventes-cessions` | 🔴 Immédiat | Alerte inline |
-| Modification statuts substantielle | `modifications-generales` + statuts | 🟠 Élevé | Digest hebdo |
-| Changement dirigeants | `modifications-generales` + dirigeants | 🟠 Élevé | Digest hebdo |
-| Dépôt comptes | `depots-des-comptes` | 🟡 Moyen | Digest hebdo |
-| Modification adresse | `modifications-generales` + siège | 🟢 Silencieux | Silencieux* |
+| Procédure collective ouverte | « Procédures collectives » + jugement d'ouverture | 🔴 Immédiat | Alerte inline |
+| Changement contrôle / cession fonds | « Ventes et cessions » | 🔴 Immédiat | Alerte inline |
+| Modification statuts substantielle | « Modifications diverses » + statuts | 🟠 Élevé | Digest hebdo |
+| Changement dirigeants | « Modifications diverses » + dirigeants | 🟠 Élevé | Digest hebdo |
+| Dépôt comptes | « Dépôts des comptes » | 🟡 Moyen | Digest hebdo |
+| Modification adresse | « Modifications diverses » + siège | 🟢 Silencieux | Silencieux* |
 
 \* Sauf si `alert_level: haut` → remonter en 🟡 digest. Champ `raw` :
 mandataire/administrateur/plan — parser avec fallback `[à vérifier]`.

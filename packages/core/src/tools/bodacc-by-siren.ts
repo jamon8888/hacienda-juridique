@@ -1,6 +1,7 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { BodaccClient } from "../sources/bodacc.js";
+import { bodaccUnavailableResult } from "./bodacc-error.js";
 
 export function registerBodaccBySiren(server: McpServer): void {
   server.registerTool(
@@ -25,7 +26,12 @@ export function registerBodaccBySiren(server: McpServer): void {
     },
     async (args) => {
       const client = new BodaccClient();
-      const annonces = await client.searchBySiren(args.siren, args.limit ?? 20);
+      let annonces: Awaited<ReturnType<typeof client.searchBySiren>>;
+      try {
+        annonces = await client.searchBySiren(args.siren, args.limit ?? 20);
+      } catch (err) {
+        return bodaccUnavailableResult(err);
+      }
       return {
         content: [
           {

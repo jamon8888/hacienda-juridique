@@ -60903,49 +60903,70 @@ function registerEspacenetBrevetDetails(server, client) {
 
 // ../../../packages/core/src/sources/bodacc.ts
 var BODACC_BASE_URL = "https://bodacc-datadila.opendatasoft.com/api/explore/v2.1";
+var BodaccUnavailableError = class extends Error {
+  constructor(message, reason) {
+    super(message);
+    this.reason = reason;
+    this.name = "BodaccUnavailableError";
+  }
+  reason;
+};
+var TRANSIENT_STATUSES = /* @__PURE__ */ new Set([408, 429]);
 var BodaccClient = class {
-  constructor(baseUrl = BODACC_BASE_URL) {
+  constructor(baseUrl = BODACC_BASE_URL, options = {}) {
     this.baseUrl = baseUrl;
+    this.timeoutMs = options.timeoutMs ?? 1e4;
+    this.retryDelayMs = options.retryDelayMs ?? 500;
   }
   baseUrl;
+  timeoutMs;
+  retryDelayMs;
   async searchBySiren(siren, limit = 20) {
+    return this.fetchAnnonces(`registre LIKE "%${siren}%"`, limit, siren);
+  }
+  async searchProcedures(siren) {
+    return this.fetchAnnonces(
+      // Valeur technique du champ BODACC ; « Procédures collectives » n'est que
+      // son libellé (familleavis_lib). Un autre slug renvoie 0 résultat sans erreur.
+      `registre LIKE "%${siren}%" AND familleavis = "collective"`,
+      50,
+      siren
+    );
+  }
+  /**
+   * Un appel avec un seul nouvel essai sur panne transitoire (réseau, 5xx, 408,
+   * 429). Toute autre erreur HTTP (ex. 400, requête invalide) est définitive.
+   * Après échec : BodaccUnavailableError, jamais une liste vide.
+   */
+  async fetchAnnonces(where, limit, siren) {
     const params = new URLSearchParams({
-      where: `registre LIKE "%${siren}%"`,
+      where,
       order_by: "dateparution DESC",
       limit: String(limit)
     });
     const url2 = `${this.baseUrl}/catalog/datasets/annonces-commerciales/records?${params}`;
-    try {
-      const res = await fetch(url2, { headers: { Accept: "application/json" } });
-      if (!res.ok) {
-        log.warn("BODACC HTTP error", { status: res.status, siren });
-        return [];
+    let reason = "";
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      if (attempt > 0 && this.retryDelayMs > 0) {
+        await new Promise((resolve3) => setTimeout(resolve3, this.retryDelayMs));
       }
-      const data = await res.json();
-      return (data.results ?? []).map((r) => this.parseAnnonce(r));
-    } catch (err) {
-      log.warn("BODACC fetch failed", { err: String(err), siren });
-      return [];
+      try {
+        const res = await fetch(url2, {
+          headers: { Accept: "application/json" },
+          signal: AbortSignal.timeout(this.timeoutMs)
+        });
+        if (res.ok) {
+          const data = await res.json();
+          return (data.results ?? []).map((r) => this.parseAnnonce(r));
+        }
+        reason = `HTTP ${res.status}`;
+        if (res.status < 500 && !TRANSIENT_STATUSES.has(res.status)) break;
+      } catch (err) {
+        reason = err instanceof Error ? err.message : String(err);
+      }
     }
-  }
-  async searchProcedures(siren) {
-    const params = new URLSearchParams({
-      // Valeur technique du champ BODACC ; « Procédures collectives » n'est que
-      // son libellé (familleavis_lib). Un autre slug renvoie 0 résultat sans erreur.
-      where: `registre LIKE "%${siren}%" AND familleavis = "collective"`,
-      order_by: "dateparution DESC",
-      limit: "50"
-    });
-    const url2 = `${this.baseUrl}/catalog/datasets/annonces-commerciales/records?${params}`;
-    try {
-      const res = await fetch(url2, { headers: { Accept: "application/json" } });
-      if (!res.ok) return [];
-      const data = await res.json();
-      return (data.results ?? []).map((r) => this.parseAnnonce(r));
-    } catch (err) {
-      log.warn("BODACC procedures fetch failed", { err: String(err), siren });
-      return [];
-    }
+    log.warn("BODACC fetch failed", { reason, siren });
+    throw new BodaccUnavailableError(`BODACC indisponible (${reason})`, reason);
   }
   parseAnnonce(raw) {
     const r = raw;
@@ -60963,6 +60984,20 @@ var BodaccClient = class {
   }
 };
 
+// ../../../packages/core/src/tools/bodacc-error.ts
+function bodaccUnavailableResult(err) {
+  const detail = err instanceof BodaccUnavailableError ? err.message : String(err);
+  return {
+    isError: true,
+    content: [
+      {
+        type: "text",
+        text: `${detail}. Ce n'est pas une absence de proc\xE9dure : le BODACC n'a pas pu \xEAtre consult\xE9. Ne pas conclure qu'aucune proc\xE9dure collective n'est ouverte ; v\xE9rifier sur bodacc.fr et marquer l'information \`[\xE0 v\xE9rifier]\`.`
+      }
+    ]
+  };
+}
+
 // ../../../packages/core/src/tools/bodacc-by-siren.ts
 function registerBodaccBySiren(server) {
   server.registerTool(
@@ -60977,7 +61012,12 @@ function registerBodaccBySiren(server) {
     },
     async (args) => {
       const client = new BodaccClient();
-      const annonces = await client.searchBySiren(args.siren, args.limit ?? 20);
+      let annonces;
+      try {
+        annonces = await client.searchBySiren(args.siren, args.limit ?? 20);
+      } catch (err) {
+        return bodaccUnavailableResult(err);
+      }
       return {
         content: [
           {
@@ -61003,7 +61043,12 @@ function registerBodaccProcedures(server) {
     },
     async (args) => {
       const client = new BodaccClient();
-      const procedures = await client.searchProcedures(args.siren);
+      let procedures;
+      try {
+        procedures = await client.searchProcedures(args.siren);
+      } catch (err) {
+        return bodaccUnavailableResult(err);
+      }
       return {
         content: [
           {
@@ -61056,7 +61101,12 @@ function registerCompanyFullProfile(server) {
         };
       }
       const bodaccClient = new BodaccClient();
-      const annonces = await bodaccClient.searchBySiren(args.siren);
+      let annonces;
+      try {
+        annonces = await bodaccClient.searchBySiren(args.siren);
+      } catch (err) {
+        return bodaccUnavailableResult(err);
+      }
       if (annonces.length === 0) {
         return {
           content: [
@@ -61065,7 +61115,7 @@ function registerCompanyFullProfile(server) {
               text: JSON.stringify(
                 {
                   source: "none",
-                  message: "Aucune source disponible \u2014 Pappers non configur\xE9 et BODACC sans r\xE9sultats (ou en erreur).",
+                  message: "Aucune source disponible \u2014 Pappers non configur\xE9 et BODACC sans r\xE9sultat pour ce SIREN.",
                   siren: args.siren
                 },
                 null,

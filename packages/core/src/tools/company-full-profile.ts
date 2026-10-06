@@ -1,6 +1,7 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { BodaccClient } from "../sources/bodacc.js";
+import { bodaccUnavailableResult } from "./bodacc-error.js";
 import { loadPappersCredentials } from "../config.js";
 
 async function tryPappers(siren: string): Promise<unknown | null> {
@@ -48,7 +49,12 @@ export function registerCompanyFullProfile(server: McpServer): void {
       }
 
       const bodaccClient = new BodaccClient();
-      const annonces = await bodaccClient.searchBySiren(args.siren);
+      let annonces: Awaited<ReturnType<typeof bodaccClient.searchBySiren>>;
+      try {
+        annonces = await bodaccClient.searchBySiren(args.siren);
+      } catch (err) {
+        return bodaccUnavailableResult(err);
+      }
       if (annonces.length === 0) {
         return {
           content: [
@@ -58,7 +64,7 @@ export function registerCompanyFullProfile(server: McpServer): void {
                 {
                   source: "none",
                   message:
-                    "Aucune source disponible — Pappers non configuré et BODACC sans résultats (ou en erreur).",
+                    "Aucune source disponible — Pappers non configuré et BODACC sans résultat pour ce SIREN.",
                   siren: args.siren,
                 },
                 null,

@@ -48,7 +48,7 @@ signale ; l'avocat décide.
 ## Sources
 
 `bodacc_procedures` via `@hacienda/core` — filtre
-`familleavis = "procedures-collectives"`, tri `dateparution DESC`. Mandataire
+`familleavis = "collective"` (libellé « Procédures collectives »), tri `dateparution DESC`. Mandataire
 et RG dans `raw`, fallback `[à vérifier]`. Tool MCP : `mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__bodacc_procedures`
 (`bodacc_procedures`, `packages/core/src/index.ts`). [BODACC]
 
