@@ -140,6 +140,20 @@ session du forfait atteinte au 2e cas (2,75 $). Résultats exploitables :
    imprime toutes les valeurs réelles de `familleavis`. À relancer après toute modification du
    client BODACC ou si l'API change.
 
+14. **Audit « filtre ≠ valeur réelle » sur toutes les sources (2026-10-06)** — rapport
+   `docs/backlog/audit-filtre-valeur-reelle-2026-10-06.md`. Corrigés, test d'abord puis contrôle en réel :
+   forclusion BODACC (`bodacc_procedures` désigne `avis_ouverture` ; `typeavis` n'est pas la nature de
+   la procédure ; mandataire dans `jugement.complement` ; skill + 2 agents alignés), dates Judilibre
+   (`decision_date`, plus de jour en moins), état/vigueur des textes LODA (`jurisState`…), EUR-Lex
+   (CELEX non conformes qui faisaient planter 19 recherches sur 40, EuroVoc, type d'acte, relations,
+   consolidations), filtres Légifrance (nom de code sensible à la casse, dates refusées là où l'API les
+   ignore), filtres Judilibre exposés (`chamber=comm`, `dateStart`…) pour `veille-jurisprudence`,
+   Pappers (échec ≠ « non configuré »), BOFiP rendu honnête. **Contrôle en réel :**
+   `node scripts/check-sources-live.mjs` (22 contrôles) + `node scripts/check-bodacc-live.mjs`, à relancer
+   après toute modification d'un client ou si une API change. **BOFiP : non intégré** (le fonds CIRC de
+   Légifrance ne contient pas les fiches BOI ; jeu de données en vrac `bofip-impots-publications-en-vigueur`
+   sur data.gouv.fr, pas d'API de recherche — chantier à part).
+
 Autres corrections de la période : `distress-cedant` (cohérence cessation des
 paiements / sauvegarde, caution signalée sans analyse — cd4a29f) ;
 `responsabilite-dirigeant` (L.626-11 au texte, caution en RJ : suspension des
@@ -279,7 +293,7 @@ vérifient l'exactitude du droit cité (ex. caution en RJ), pas seulement les pi
   (`spa-review`, `gap-review`, `mise-en-demeure-commerciale`, `cgv-generator`…) si
   les contrôles le justifient. Non vu encore : la ligne « Articles cités non lus :
   aucun » (absente quand tout a été lu — à vérifier le jour où un article reste non lu).
-- **Pour l'avocat de Candy** (non tranché, `[à vérifier]`) : (1) L441-9 à L441-11 C.com.
+- **Pour l'avocat de Candy — toutes les questions sont regroupées dans `docs/backlog/questions-avocat.md`** (délai « hors UE/EEE » vs R.622-24, prorogation du délai, caution en RJ, L441-9 à L441-11). Détail historique (non tranché, `[à vérifier]`) : (1) L441-9 à L441-11 C.com.
   (délais de paiement, pénalités, indemnité 40 €) réécrits au 1er janvier 2027 — texte
   modificatif à identifier ; impacte `cgv-generator`, `mise-en-demeure-commerciale`,
   `declaration-creance`. (2) Argument de valeur : sur B 02, le bras sans plugin affirme
@@ -296,7 +310,7 @@ vérifient l'exactitude du droit cité (ex. caution en RJ), pas seulement les pi
   publication BODACC).
 - **Script `check-verified-citations`** : limites connues (série « L.622-24 à L.622-27 »,
   dénégation placée avant l'article) → relire chaque écart.
-- **Audit « filtre ≠ valeur réelle du champ » (demandé par Candy, à faire)** : même classe de
+- **Audit « filtre ≠ valeur réelle du champ » — FAIT le 2026-10-06 (voir défaut 14)** ; reste ouvert : M8 (avocat), vraie source BOFiP, `rejectUnauthorized: false` dans `boss/client.ts`, proxy `HTTP(S)_PROXY`. Énoncé d'origine : même classe de
   défaut dans les autres sources (Judilibre, Légifrance `/search`, EUR-Lex, BOSS, BOFiP, Pappers).
   Méthode : lister chaque filtre/enum codé dans `packages/core/src`, le confronter aux valeurs
   réelles de l'API (script du type `check-bodacc-live.mjs`). Écart déjà repéré, non corrigé :
