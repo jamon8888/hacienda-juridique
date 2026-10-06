@@ -6,6 +6,9 @@ type SparqlValue = { value?: string };
 type SparqlBinding = Record<string, SparqlValue | undefined>;
 type SparqlResponse = { results?: { bindings?: SparqlBinding[] } };
 
+/** Les étiquettes SKOS portent des codes à 2 lettres (« fr »), pas le code à 3 lettres d'EUR-Lex (« FRA »). */
+const SKOS_LANGUAGE_TAGS: Record<EurlexLanguage, string> = { FRA: "fr", ENG: "en", DEU: "de" };
+
 export interface EurlexEurovocQueryArgs {
   celexId?: string;
   conceptUri?: string;
@@ -31,9 +34,6 @@ export function buildEurovocQuery(args: EurlexEurovocQueryArgs): string {
   }
 
   const filters: string[] = [];
-  if (args.celexId) {
-    filters.push(`FILTER(?celex = "${assertCelexId(args.celexId)}")`);
-  }
   if (args.conceptUri) {
     filters.push(`FILTER(?concept = <${assertEurovocUri(args.conceptUri)}>)`);
   }
@@ -46,12 +46,20 @@ export function buildEurovocQuery(args: EurlexEurovocQueryArgs): string {
     "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>",
     "PREFIX owl: <http://www.w3.org/2002/07/owl#>",
     "SELECT DISTINCT ?concept ?label WHERE {",
-    "  ?work owl:sameAs ?celexUri .",
-    '  FILTER(STRSTARTS(STR(?celexUri), "http://publications.europa.eu/resource/celex/"))',
-    '  BIND(REPLACE(STR(?celexUri), "^.*resource/celex/", "") AS ?celex)',
-    "  ?work cdm:resource_legal_is_about_concept_eurovoc ?concept .",
+    ...(args.celexId
+      ? [
+          // Acte connu : on le lie directement (un balayage de tous les actes dépasse le délai).
+          `  ?work owl:sameAs <http://publications.europa.eu/resource/celex/${assertCelexId(args.celexId)}> .`,
+          `  BIND("${assertCelexId(args.celexId)}" AS ?celex)`,
+        ]
+      : [
+          "  ?work owl:sameAs ?celexUri .",
+          '  FILTER(STRSTARTS(STR(?celexUri), "http://publications.europa.eu/resource/celex/"))',
+          '  BIND(REPLACE(STR(?celexUri), "^.*resource/celex/", "") AS ?celex)',
+        ]),
+    "  ?work cdm:work_is_about_concept_eurovoc ?concept .",
     "  ?concept skos:prefLabel ?label .",
-    `  FILTER(LANG(?label) = "${language.toLowerCase()}")`,
+    `  FILTER(LANG(?label) = "${SKOS_LANGUAGE_TAGS[language]}")`,
     ...filters.map((filter) => `  ${filter}`),
     "}",
     `LIMIT ${limit}`,

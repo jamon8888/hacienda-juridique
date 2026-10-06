@@ -22,6 +22,9 @@ type SparqlValue = { value?: string };
 type SparqlBinding = Record<string, SparqlValue | undefined>;
 type SparqlResponse = { results?: { bindings?: SparqlBinding[] } };
 
+/** Même forme que `assertCelexId` (celex.ts), en SPARQL. */
+const CELEX_ACT_REGEX_SPARQL = "^[0-9][0-9A-Z]{4,}(-[0-9]{8})?$";
+
 const RESOURCE_TYPE_CELEX_PATTERNS: Record<Exclude<EurlexResourceType, "any">, string> = {
   regulation: "^3[0-9]{4}R",
   directive: "^3[0-9]{4}L",
@@ -78,6 +81,10 @@ export function buildSearchQuery(args: EurlexSearchArgs): string {
     "  ?lang purl:identifier ?langCode .",
     `  FILTER(STR(?langCode) = "${language}")`,
     "  OPTIONAL { ?work cdm:work_date_document ?date . }",
+    "  OPTIONAL { ?work cdm:work_has_resource-type ?type . }",
+    // Rectificatifs (R(02)), versions de travail (_RES, _INF), références JO (C/2026/…) :
+    // pas des CELEX d'acte. On ne leur laisse pas prendre des places dans LIMIT.
+    `  FILTER(REGEX(?celex, "${CELEX_ACT_REGEX_SPARQL}"))`,
     ...filters.map((filter) => `  ${filter}`),
     "}",
     "ORDER BY DESC(?date)",
@@ -103,10 +110,10 @@ export function buildMetadataQuery(celexIdInput: string, language: EurlexLanguag
     "  }",
     "  OPTIONAL { ?work cdm:work_date_document ?dateDocument . }",
     "  OPTIONAL { ?work cdm:resource_legal_date_entry-into-force ?dateEffect . }",
-    "  OPTIONAL { ?work cdm:resource_type ?type . }",
+    "  OPTIONAL { ?work cdm:work_has_resource-type ?type . }",
     "  OPTIONAL { ?work cdm:work_created_by_agent ?author . }",
-    "  OPTIONAL { ?work cdm:resource_legal_is_about_concept_eurovoc ?eurovoc . }",
-    "  OPTIONAL { ?work cdm:resource_legal_in-force_directory-code ?directoryCode . }",
+    "  OPTIONAL { ?work cdm:work_is_about_concept_eurovoc ?eurovoc . }",
+    "  OPTIONAL { ?work cdm:resource_legal_is_about_concept_directory-code ?directoryCode . }",
     "}",
     "LIMIT 50",
   ].join("\n");
@@ -125,7 +132,7 @@ export class EurlexClient {
 
     for (const binding of bindings) {
       const celexId = valueOf(binding, "celex");
-      if (!celexId || seen.has(celexId)) {
+      if (!celexId || seen.has(celexId) || !isActCelexId(celexId)) {
         continue;
       }
 
@@ -135,7 +142,7 @@ export class EurlexClient {
         title: valueOf(binding, "title") ?? celexId,
         url: eurlexDocumentUrl(celexId, language),
         language,
-        resourceType: normalizeResourceType(valueOf(binding, "type")),
+        resourceType: resolveResourceType(valueOf(binding, "type"), celexId),
         date: valueOf(binding, "date"),
       });
     }
@@ -180,7 +187,7 @@ export class EurlexClient {
       url: publicationsCelexUrl(celexId),
       dateDocument: valueOf(first, "dateDocument"),
       dateEffect: valueOf(first, "dateEffect"),
-      resourceType: normalizeResourceType(valueOf(first, "type")),
+      resourceType: resolveResourceType(valueOf(first, "type"), celexId),
       authors: uniqueValues(bindings, "author"),
       eurovoc: uniqueValues(bindings, "eurovoc"),
       directoryCodes: uniqueValues(bindings, "directoryCode"),
@@ -251,8 +258,30 @@ function buildBifContainsQuery(input: string): string {
   return words.map((word) => `'${word}'`).join(" AND ");
 }
 
+const CELEX_ACT_PATTERN = new RegExp(CELEX_ACT_REGEX_SPARQL, "u");
+
+/** Vrai pour un CELEX d'acte (ou de version consolidée) ; faux pour rectificatifs, _RES, _INF, références JO. */
+function isActCelexId(celexId: string): boolean {
+  return CELEX_ACT_PATTERN.test(celexId);
+}
+
+/** Type par la valeur réelle (`…/resource-type/REG`), à défaut par la lettre du CELEX (3…R, 3…L, 3…D, 6…). */
+function resolveResourceType(value: string | undefined, celexId: string): EurlexResourceType {
+  const fromValue = normalizeResourceType(value);
+  if (fromValue !== "any") return fromValue;
+  if (/^3\d{4}R/u.test(celexId)) return "regulation";
+  if (/^3\d{4}L/u.test(celexId)) return "directive";
+  if (/^3\d{4}D/u.test(celexId)) return "decision";
+  if (/^6/u.test(celexId)) return "case-law";
+  return "any";
+}
+
 function normalizeResourceType(value: string | undefined): EurlexResourceType {
   const lower = value?.toLowerCase() ?? "";
+  const authorityCode = /\/resource-type\/([a-z_]+)$/u.exec(lower)?.[1];
+  if (authorityCode === "reg" || authorityCode?.startsWith("reg_")) return "regulation";
+  if (authorityCode === "dir" || authorityCode?.startsWith("dir_")) return "directive";
+  if (authorityCode === "dec" || authorityCode?.startsWith("dec_")) return "decision";
 
   if (lower.includes("regulation")) {
     return "regulation";
