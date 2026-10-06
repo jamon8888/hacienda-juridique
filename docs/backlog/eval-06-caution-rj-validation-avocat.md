@@ -38,15 +38,7 @@ d'un an ou plus.
 
 ## Questions à l'avocat
 
-1. Les réponses 4 et 5 sont-elles exactes telles que rédigées ?
-2. Les réponses 1 à 3 restent-elles exactes **dans ce dossier précis** (facilité de
-   caisse de onze mois, procédure ouverte le 2 juin 2026) ?
-3. Y a-t-il une nuance qu'une bonne réponse **devrait** mentionner et qui manque ici
-   (ex. mesures conservatoires possibles contre la caution pendant la suspension,
-   mise en demeure elle-même permise ou non) ? On ne l'ajoutera comme critère que si
-   l'avocat le juge indispensable.
-4. Y a-t-il une erreur courante sur ce sujet qu'il voit chez des confrères ou des
-   clients, et qu'on devrait tester ?
+Regroupées avec toutes les autres questions de droit dans `docs/backlog/questions-avocat.md` (§2), qui reprend le dossier, les réponses de référence et les questions. Y noter les réponses.
 
 ## Comment le cas est noté
 
