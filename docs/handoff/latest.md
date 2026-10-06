@@ -1,6 +1,6 @@
 # Handoff — état courant (entrée de session)
 
-**Dernière mise à jour :** 2026-09-29
+**Dernière mise à jour :** 2026-10-06
 **Branche de travail :** `main`, à jour avec `origin/main`. Aucune branche en attente.
 **Périmètre actif : `hacienda-droit-affaires` UNIQUEMENT.** PI et Sources officielles
 sont **en pause** (décision Candy 2026-09-25) : ne rien lancer sur ces plugins.
@@ -188,6 +188,12 @@ et PR #71 (repli `ABROGE_DIFF`). Cause réelle de (b) : L441-9/10/11 C.com. sont
 bout en bout (serveur DA) : L441-10 et L441-11 trouvés avec « ⚠️ Abrogation différée ». **Limite** : L441-9
 reste introuvable (sa version 2019→2027 absente de `/search` ; piste : table des matières du code).
 Script `scripts/diagnose-legifrance-article.mjs` pour rejouer.
+**Complément PR #72 (fusionnée 2026-10-05, 01448eb)** — revue Sourcery de #71 : le repli
+ne confirmait que 5 candidats `/search`, même après filtrage des statuts morts ; un numéro
+présent dans plus de 5 autres codes avant le code cible pouvait donc être écarté à tort
+(« introuvable »). La confirmation couvre désormais toute la page `/search` (20 résultats,
+toujours borné : 1 `/search` + 20 `/consult/getArticle` au plus). Test de régression
+(8 versions VIGUEUR d'autres codes avant la version ABROGE_DIFF). Serveur DA reconstruit.
 **Point de fond pour l'avocat de Candy** : L441-9 à L441-11 (délais de paiement, pénalités, indemnité 40 €)
 réécrits au 1er janvier 2027 (une version `VIGUEUR_DIFF` de L441-9 existe déjà) ; texte modificatif
 `[à vérifier]`. Impacte `cgv-generator`, `mise-en-demeure-commerciale`, `declaration-creance`.
@@ -260,6 +266,14 @@ vérifient l'exactitude du droit cité (ex. caution en RJ), pas seulement les pi
   qu'en RJ la caution n'est pas protégée (contraire au point confirmé par l'avocat).
 - **Grilles d'éval** : le Δ B ne mesure que d1 ; ajouter des critères d'exactitude du droit
   cité (ex. caution en RJ) pour un argument de valeur plus fort.
+  → **Cas `06-caution-rj` rédigé (2026-10-06), NON LANCÉ** : 5 critères d'exactitude
+  (e1-e5) à réponse de référence écrite + d1-d3. **En attente de validation avocat**
+  (e4 holding personne morale, e5 liquidation ; e1-e3 à reconfirmer sur ce dossier) :
+  `docs/backlog/eval-06-caution-rj-validation-avocat.md`. Règle : critères figés avant
+  lancement. Puis (1) A Sonnet + plugin, (2) `--model opus` avec/sans, ne garder que le
+  bras sans plugin → **Sonnet + plugin contre Opus nu**. Pistes suivantes : cas « droit
+  qui change » (L441-10 ABROGE_DIFF), cas « registre réel » (forclusion depuis une vraie
+  publication BODACC).
 - **Script `check-verified-citations`** : limites connues (série « L.622-24 à L.622-27 »,
   dénégation placée avant l'article) → relire chaque écart.
 - **Tâche proposée, non lancée :** masquer le jeton OAuth dans `piste_status`
