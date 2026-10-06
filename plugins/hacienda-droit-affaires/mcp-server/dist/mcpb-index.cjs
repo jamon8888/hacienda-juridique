@@ -60930,7 +60930,9 @@ var BodaccClient = class {
   }
   async searchProcedures(siren) {
     const params = new URLSearchParams({
-      where: `registre LIKE "%${siren}%" AND familleavis = "procedures-collectives"`,
+      // Valeur technique du champ BODACC ; « Procédures collectives » n'est que
+      // son libellé (familleavis_lib). Un autre slug renvoie 0 résultat sans erreur.
+      where: `registre LIKE "%${siren}%" AND familleavis = "collective"`,
       order_by: "dateparution DESC",
       limit: "50"
     });
