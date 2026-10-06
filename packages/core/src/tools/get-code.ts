@@ -3,7 +3,7 @@ import { z } from "zod";
 import type { PisteHttpClient } from "../http.js";
 import { ConsultTextResponseSchema } from "../schemas.js";
 import { resolveLegitext, listKnownCodes } from "../codes-legitext.js";
-import { normalizeLegiDate } from "../format.js";
+import { describeVigueur } from "../format.js";
 import { log } from "../logger.js";
 
 interface SectionLite {
@@ -103,9 +103,7 @@ export function registerGetCode(server: McpServer, http: PisteHttpClient) {
       lines.push(`# ${data.title ?? args.code}`);
       const meta: string[] = [];
       if (data.nature) meta.push(data.nature);
-      if (data.etat) meta.push(data.etat);
-      const dateDebut = normalizeLegiDate(data.dateDebut);
-      if (dateDebut) meta.push(`En vigueur depuis ${dateDebut}`);
+      meta.push(...describeVigueur(data));
       if (meta.length) lines.push(`_${meta.join(" · ")}_\n`);
 
       if (data.resume) {

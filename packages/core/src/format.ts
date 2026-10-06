@@ -18,6 +18,55 @@ export function normalizeLegiDate(d: number | string | null | undefined): string
   return d.slice(0, 10);
 }
 
+/** Date « sans fin » utilisée par Légifrance (2999-01-01, 3000-…) : pas une vraie fin de vigueur. */
+function isOpenEndedDate(date: string | undefined): boolean {
+  return !date || date >= "2999-";
+}
+
+interface VigueurFields {
+  etat?: string | null;
+  jurisState?: string | null;
+  textAbroge?: boolean | null;
+  dateDebut?: number | string | null;
+  dateFin?: number | string | null;
+  dateDebutVersion?: number | string | null;
+  dateFinVersion?: number | string | null;
+}
+
+/**
+ * État juridique et fenêtre de vigueur d'un texte (LODA, code), en lignes courtes.
+ * Lit les champs réels `jurisState`/`dateDebutVersion`/`dateFinVersion`/`textAbroge`
+ * (ceux de `/consult/lawDecree` et `/consult/legi/tableMatieres`), avec repli sur
+ * `etat`/`dateDebut`/`dateFin`. Un texte abrogé ou à abrogation différée est
+ * signalé explicitement.
+ */
+export function describeVigueur(text: VigueurFields): string[] {
+  const state = (text.jurisState ?? text.etat ?? "").trim();
+  const lower = state.toLowerCase();
+  const debut = normalizeLegiDate(text.dateDebutVersion ?? text.dateDebut);
+  const fin = normalizeLegiDate(text.dateFinVersion ?? text.dateFin);
+  const finReelle = isOpenEndedDate(fin) ? undefined : fin;
+  const out: string[] = [];
+
+  const differee = lower.includes("diff");
+  const abroge = !differee && (text.textAbroge === true || lower.startsWith("abrog"));
+
+  if (abroge) {
+    out.push(`⚠️ ABROGÉ${finReelle ? ` (fin de version : ${finReelle})` : ""} — ne pas citer comme droit positif`);
+  } else {
+    if (state) out.push(state);
+    if (debut) out.push(`En vigueur depuis ${debut}`);
+    if (finReelle) {
+      out.push(
+        differee
+          ? `⚠️ Abrogation différée : encore en vigueur jusqu'au ${finReelle}`
+          : `Fin de version : ${finReelle}`,
+      );
+    }
+  }
+  return out;
+}
+
 /**
  * Mapper compact pour un Article Légifrance.
  * Objectif : extraire ce qui est utile au lecteur (Claude / utilisateur final)
