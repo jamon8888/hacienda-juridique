@@ -35,6 +35,15 @@ function htmlToText(html: string): string {
     .trim();
 }
 
+/**
+ * Le fonds CIRC de Légifrance contient les circulaires et instructions ministérielles,
+ * PAS la base BOFiP-Impôts (relevé en réel le 2026-10-06 : 0 fiche « BOI-… » sur 508
+ * résultats). Les résultats ne doivent donc jamais être présentés comme du BOFiP.
+ */
+export const BOFIP_CAVEAT =
+  "⚠️ Source : circulaires et instructions (fonds CIRC de Légifrance). Ce n'est pas la base BOFiP-Impôts : une fiche « BOI-… » n'y figure pas. " +
+  "Toute doctrine fiscale citée comme BOFiP est `[à vérifier]` sur https://bofip.impots.gouv.fr — ne pas apposer le tag [BOFiP].";
+
 export async function callBofipRechercher(http: PisteHttpClient, args: BofipRechercherArgs) {
   const body = buildSearchRequest({
     query: args.query,
@@ -63,7 +72,7 @@ export async function callBofipRechercher(http: PisteHttpClient, args: BofipRech
 
   const { total, hits } = summarizeSearchResponse(parsed.data);
   const markdown = formatSearchResultsAsMarkdown(total, hits, "BOFiP", args.query);
-  return { content: [{ type: "text" as const, text: markdown }] };
+  return { content: [{ type: "text" as const, text: `${BOFIP_CAVEAT}\n\n${markdown}` }] };
 }
 
 export async function callBofipConsulter(http: PisteHttpClient, args: BofipConsulterArgs) {
@@ -121,7 +130,7 @@ export async function callBofipConsulter(http: PisteHttpClient, args: BofipConsu
   }
   lines.push(`Identifiant BOFiP : \`${args.id}\` · [Légifrance](https://www.legifrance.gouv.fr/circulaire/id/${args.id})`);
 
-  return { content: [{ type: "text" as const, text: lines.join("\n") }] };
+  return { content: [{ type: "text" as const, text: `${BOFIP_CAVEAT}\n\n${lines.join("\n")}` }] };
 }
 
 export function registerBofipAliases(server: McpServer, http: PisteHttpClient) {
@@ -130,7 +139,7 @@ export function registerBofipAliases(server: McpServer, http: PisteHttpClient) {
     {
       title: "Recherche BOFiP",
       description:
-        "Recherche dans le BOFiP (doctrine fiscale) via le fonds CIRC de Légifrance. Retourne les fiches BOI avec titre, identifiant, extraits et lien.",
+        "Recherche dans les circulaires et instructions (fonds CIRC de Légifrance). ATTENTION : ce n'est PAS la base BOFiP-Impôts (aucune fiche BOI-… n'y figure) ; toute doctrine fiscale reste `[à vérifier]` sur bofip.impots.gouv.fr.",
       inputSchema: {
         query: z.string().min(1).describe("Termes à rechercher dans la doctrine BOFiP."),
         pageSize: z.number().int().min(1).max(50).default(10).describe("Nombre de résultats (max 50)."),
@@ -151,7 +160,7 @@ export function registerBofipAliases(server: McpServer, http: PisteHttpClient) {
     {
       title: "Consulter BOFiP",
       description:
-        "Récupère un document CIRC/BOFiP par identifiant numérique retourné par `bofip_rechercher` et retourne un document Markdown lisible.",
+        "Récupère une circulaire (fonds CIRC de Légifrance) par identifiant numérique retourné par `bofip_rechercher`. Ce n'est pas la base BOFiP-Impôts : doctrine fiscale à vérifier sur bofip.impots.gouv.fr.",
       inputSchema: {
         id: z.string().min(1).describe("Identifiant numérique retourné par `bofip_rechercher`."),
       },

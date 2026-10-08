@@ -2,7 +2,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import type { PisteHttpClient } from "../http.js";
 import { ConsultTextResponseSchema } from "../schemas.js";
-import { normalizeLegiDate } from "../format.js";
+import { describeVigueur } from "../format.js";
 import { log } from "../logger.js";
 
 export function registerGetLoda(server: McpServer, http: PisteHttpClient) {
@@ -41,13 +41,7 @@ export function registerGetLoda(server: McpServer, http: PisteHttpClient) {
       lines.push(`# ${d.title ?? d.titreLong ?? "(sans titre)"}`);
       const meta: string[] = [];
       if (d.nature) meta.push(d.nature);
-      if (d.etat) meta.push(d.etat);
-      const dateDebut = normalizeLegiDate(d.dateDebut);
-      const dateFin = normalizeLegiDate(d.dateFin);
-      if (dateDebut) meta.push(`En vigueur depuis ${dateDebut}`);
-      if (dateFin && dateFin !== "2999-01-01" && !dateFin.startsWith("3000-")) {
-        meta.push(`Fin : ${dateFin}`);
-      }
+      meta.push(...describeVigueur(d));
       if (meta.length) lines.push(`_${meta.join(" · ")}_\n`);
 
       // Mentions identifiantes sur des lignes dediees, visibles et copiables

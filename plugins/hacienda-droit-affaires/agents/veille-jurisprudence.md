@@ -46,20 +46,20 @@ un digest hebdomadaire exploitable. Il signale ; l'avocat décide.
 
 ## Sources
 
-- **Légifrance** — `LegifranceRouteClient` de `@hacienda/core`
-  (`packages/core/src/legifrance/route-client.ts`), interrogé sur les endpoints
-  JORF / consultation de textes déclarés dans
-  `packages/core/src/legifrance/endpoints.ts` — lois, ordonnances et décrets
-  publiés au JORF touchant les domaines configurés, filtrés par date (postérieurs
-  au dernier run) via les paramètres de requête de l'endpoint. [Légifrance]
-- **Judilibre** — `JudilibreClient.search(args)` de `@hacienda/core`
-  (`packages/core/src/judilibre/client.ts`) — arrêts de la Cour de cassation
-  chambre commerciale ; le filtrage repose sur les champs `JudilibreSearchArgs`
-  `chamber` (chambre visée) et `dateStart` (postérieurs au dernier run).
-  [Judilibre]
+- **Légifrance** — outil `legifrance_recherche` : `fond` = `JORF` (textes publiés au
+  Journal officiel) ou `LODA_DATE`, `nature` = `["LOI","ORDONNANCE","DECRET"]`,
+  `dateDebut` = date du dernier run (`yyyy-mm-dd`), `query` = domaine ou mot-clé
+  configuré. Le filtre de date n'existe pas sur `fond=ALL` ni `LODA_ETAT` (erreur
+  explicite) : ne pas les utiliser ici. [Légifrance]
+- **Judilibre** — outil `judilibre_recherche` avec `chamber` = `comm` (chambre
+  commerciale ; autres valeurs : `soc`, `civ1`, `civ2`, `civ3`, `cr`, `mi`, `pl`),
+  `dateStart` = date du dernier run (`AAAA-MM-JJ`, date de **décision**), `query` =
+  domaine ou mot-clé configuré. Valeurs lues sur la taxonomie réelle de Judilibre :
+  « chambre commerciale » en toutes lettres est rejeté (HTTP 400). La date affichée
+  pour chaque arrêt est sa date de décision. [Judilibre]
 
-Aucun outil `@hacienda/core` nouveau n'est introduit : les clients
-Légifrance et Judilibre sont des clients existants avec filtrage par date.
+Aucun outil nouveau n'est introduit : `legifrance_recherche` et `judilibre_recherche`
+portent les filtres de date et de chambre.
 
 ## Configuration
 
@@ -101,15 +101,17 @@ Si absent : initialiser à vide — le premier run pose la baseline à J-7 sans
 2. **Charger l'état persisté** (`.veille-state.json`). Si absent, initialiser
    `last_legifrance_date` et `last_judilibre_date` à aujourd'hui moins 7 jours.
 
-3. **Interroger Légifrance** via `LegifranceRouteClient` sur les endpoints
-   JORF / consultation de textes [Légifrance] — récupérer lois, ordonnances et
-   décrets publiés au JORF depuis `last_legifrance_date`, filtrés par les
-   domaines configurés et les `mots_cles` additionnels.
+3. **Interroger Légifrance** via `legifrance_recherche` (`fond: "JORF"`,
+   `nature: ["LOI","ORDONNANCE","DECRET"]`, `dateDebut: last_legifrance_date`)
+   [Légifrance] — récupérer lois, ordonnances et décrets publiés au JORF depuis
+   `last_legifrance_date`, filtrés par les domaines configurés et les `mots_cles`
+   additionnels.
 
-4. **Interroger Judilibre** via `JudilibreClient.search({ chamber, dateStart: last_judilibre_date, query })` [Judilibre]
+4. **Interroger Judilibre** via `judilibre_recherche` avec `chamber: "comm"`,
+   `dateStart: last_judilibre_date` et `query` [Judilibre]
    — récupérer les arrêts de la Cour de cassation chambre commerciale
-   (`chamber` dérivé du champ `chambres` de la configuration) publiés depuis le
-   dernier run.
+   (`chamber` dérivé du champ `chambres` de la configuration : `commerciale` → `comm`)
+   rendus depuis le dernier run.
 
 5. **Classer chaque élément** :
    - **Nouvelles dispositions** (textes Légifrance) : source + référence JORF

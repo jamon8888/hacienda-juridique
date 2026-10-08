@@ -176,7 +176,7 @@ Format : liste numérotée, une question par ligne, destinataire indiqué (avoca
 Appeler les outils par leur nom exact quand le serveur `Hacienda Droit des Affaires` est disponible. Ne pas inventer de tool hors périmètre ; si une source n'a pas été consultée directement, garder `[à vérifier]`.
 
 - Socle sources officielles : `piste_status`, `legifrance_recherche`, `legifrance_get_article`, `judilibre_recherche`, `judilibre_get_decision`, `eurlex_recherche`, `eurlex_consulter`.
-- Points fiscaux et sociaux : `bofip_rechercher`, `bofip_consulter`, `boss_recherche`, `boss_get_document`.
+- Points sociaux : `boss_recherche`, `boss_get_document`. Points fiscaux : `bofip_rechercher` / `bofip_consulter` ne donnent que des circulaires ministérielles (fonds CIRC), **pas la base BOFiP-Impôts** — toute doctrine fiscale reste `[à vérifier]` sur bofip.impots.gouv.fr, sans tag `[BOFiP]`.
 - Tout résultat issu d'un corpus client ou d'un outil interne reste distingué des sources primaires officielles.
 
 ---

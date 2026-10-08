@@ -38,12 +38,18 @@ export function mapConsolidatedVersions(
   const baseCelexId = assertCelexId(baseCelexIdInput);
   const bindings = (response as SparqlResponse).results?.bindings ?? [];
 
+  // CELEX consolidé d'un acte : « 0 » + CELEX sans son premier chiffre + « -AAAAMMJJ »
+  // (32017L1132 → 02017L1132-20220812). Le texte consolidé d'un autre acte (ex. la
+  // directive 2014/59 consolidée, qui intègre une modification par 2017/1132) n'est
+  // pas une version de l'acte demandé.
+  const ownPrefix = `0${baseCelexId.slice(1)}-`;
+
   return bindings
     .map((binding) => {
       const celexId = binding.celex?.value;
       const dateVersion = binding.dateVersion?.value;
 
-      if (!celexId || !dateVersion) {
+      if (!celexId || !dateVersion || !celexId.startsWith(ownPrefix)) {
         return undefined;
       }
 

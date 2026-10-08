@@ -48,8 +48,10 @@ signale ; l'avocat décide.
 ## Sources
 
 `bodacc_procedures` via `@hacienda/core` — filtre
-`familleavis = "collective"` (libellé « Procédures collectives »), tri `dateparution DESC`. Mandataire
-et RG dans `raw`, fallback `[à vérifier]`. Tool MCP : `mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__bodacc_procedures`
+`familleavis = "collective"` (libellé « Procédures collectives »), tri `dateparution DESC`. L'outil désigne
+l'avis d'ouverture (`avis_ouverture` : date de parution, nature, date du jugement, tribunal,
+mandataire dans `complement`) ; la nature de chaque annonce est dans `jugement.nature`, jamais
+dans `typeavis` (« Avis initial »). Fallback `[à vérifier]`. Tool MCP : `mcp__plugin_hacienda-droit-affaires_Hacienda_Droit_des_Affaires__bodacc_procedures`
 (`bodacc_procedures`, `packages/core/src/index.ts`). [BODACC]
 
 ## Configuration
@@ -101,8 +103,11 @@ jours_restants = date_forclusion - today
 ## Surveillance nouvelles procédures
 
 Quotidien : `bodacc_procedures` [BODACC] sur tous les SIREN
-du portefeuille (actifs + historiques). Delta vs `last_seen_ids` = nouvelles
-procédures → alerte + proposition `/h-da:declaration-creance`.
+du portefeuille (actifs + historiques). Delta vs `last_seen_ids` : seul un nouvel
+avis dont `jugement.famille` = « Jugement d'ouverture » est une **nouvelle procédure**
+→ alerte + proposition `/h-da:declaration-creance` (point de départ = sa date de parution).
+Les autres nouveaux avis (plan, conversion, clôture, état des créances) vont au digest hebdo,
+sans recalcul de forclusion.
 
 ## Workflow
 
@@ -121,12 +126,12 @@ procédures → alerte + proposition `/h-da:declaration-creance`.
 
 Dossier         : {label}
 Débiteur        : SIREN {siren}
-Procédure       : {typeavis} ouverte le {date_jugement_ouverture}
+Procédure       : {avis_ouverture.nature} — jugement du {date_jugement_ouverture}
 Publication BODACC : {date_publication_bodacc}                   [BODACC]
 Date forclusion : {date_forclusion}
   (pub. BODACC + 60 j — art. L.622-24 C.com.)                   [Légifrance]
   {si creancier_etranger : "+ 60 j étranger — art. R.622-24 [à vérifier]"}
-Mandataire      : {extrait raw} ou [à vérifier]                  [BODACC]
+Mandataire      : {lu dans avis_ouverture.complement} ou [à vérifier]                  [BODACC]
 
 Action OBLIGATOIRE avant le {date_forclusion} :
 → /h-da:declaration-creance --siren={siren} --montant={montant_creance}
@@ -186,7 +191,11 @@ majeure si une alerte est ratée silencieusement.**
 - **BODACC inaccessible** : retry 3× sur 1h, puis alerte technique distincte —
   "⚠️ Agent forclusion ne peut plus surveiller — intervention requise." Logger
   `"last_error"` dans l'état persisté. Jamais silencieux.
-- **Annonce `raw` illisible** : logger `[à vérifier]`, continuer sur le reste.
+- **Jugement absent ou illisible** (`jugement` vide ou sans `famille`) : on ne peut pas savoir
+  si l'avis est une ouverture de procédure. Émettre **immédiatement une alerte 🔴 `[à vérifier]`**
+  avec le SIREN, la date de parution et l'identifiant de l'avis, et conserver l'avis dans l'état
+  persisté pour revue manuelle. Ne jamais le classer d'office comme « pas une ouverture » ni le
+  passer en silence : une ouverture manquée fait courir la forclusion.
 - **`debiteurs.yaml` absent** : stopper, message explicite. Pas de fichier vide.
 - **État persisté absent** : initialiser à vide (premier run = baseline,
   comportement documenté, pas silencieux).

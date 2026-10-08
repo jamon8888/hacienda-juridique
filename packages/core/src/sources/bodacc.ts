@@ -12,7 +12,46 @@ export interface BodaccAnnonce {
   publicationavis: string;
   numerodepartement?: string;
   ville?: string;
+  tribunal?: string;
+  /**
+   * Jugement publié, lu depuis `raw.jugement` (JSON sérialisé en chaîne par le
+   * BODACC). C'est là, et non dans `typeavis` (« Avis initial »), que figurent la
+   * nature de la procédure, la date du jugement et le mandataire désigné.
+   */
+  jugement?: BodaccJugement;
   raw: unknown;
+}
+
+export interface BodaccJugement {
+  /** Ex. « Jugement d'ouverture », « Jugement de clôture », « Jugement de plan ». */
+  famille?: string;
+  /** Ex. « Jugement d'ouverture d'une procédure de redressement judiciaire ». */
+  nature?: string;
+  /** Date du jugement (AAAA-MM-JJ). */
+  date?: string;
+  /** Texte libre : cessation des paiements, mandataire / liquidateur désigné… */
+  complement?: string;
+}
+
+function parseJugement(value: unknown): BodaccJugement | undefined {
+  let data: unknown = value;
+  if (typeof value === "string") {
+    try {
+      data = JSON.parse(value);
+    } catch {
+      return undefined;
+    }
+  }
+  if (!data || typeof data !== "object") return undefined;
+  const j = data as Record<string, unknown>;
+  const str = (v: unknown) => (typeof v === "string" && v.trim() ? v.trim() : undefined);
+  const jugement: BodaccJugement = {
+    famille: str(j.famille),
+    nature: str(j.nature),
+    date: str(j.date),
+    complement: str(j.complementJugement),
+  };
+  return Object.values(jugement).some(Boolean) ? jugement : undefined;
 }
 
 /**
@@ -115,11 +154,13 @@ export class BodaccClient {
       dateparution: String(r.dateparution ?? ""),
       typeavis: String(r.typeavis_lib ?? ""),
       familleavis: String(r.familleavis_lib ?? ""),
-      publicationavis: String(r.publicationavis_facette ?? ""),
+      publicationavis: String(r.publicationavis ?? r.publicationavis_facette ?? ""),
       numerodepartement: r.numerodepartement
         ? String(r.numerodepartement)
         : undefined,
       ville: r.ville ? String(r.ville) : undefined,
+      tribunal: r.tribunal ? String(r.tribunal) : undefined,
+      jugement: parseJugement(r.jugement),
       raw,
     };
   }

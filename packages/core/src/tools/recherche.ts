@@ -4,7 +4,7 @@ import type { PisteHttpClient } from "../http.js";
 import { FOND_VALUES, SearchResponseSchema } from "../schemas.js";
 import { buildSearchRequest, SearchInputError } from "../search-builder.js";
 import { summarizeSearchResponse, formatSearchResultsAsMarkdown } from "../format.js";
-import { resolveLegitext } from "../codes-legitext.js";
+import { canonicalCodeName } from "../codes-legitext.js";
 import { log } from "../logger.js";
 
 const rechercheInputSchema = {
@@ -56,23 +56,10 @@ function registerRechercheTool(server: McpServer, http: PisteHttpClient, name: s
     async (args) => {
       // Si le user passe un LEGITEXT comme `code`, on le résout en nom canonique
       // (les fonds CODE_* attendent le nom littéral, pas l'identifiant).
-      let resolvedCode = args.code;
-      if (resolvedCode && /^LEGITEXT\d+$/i.test(resolvedCode.trim())) {
-        // Reverse lookup : on cherche le nom usuel correspondant.
-        // Si on n'a pas de match, on laisse passer tel quel (l'API rejettera proprement).
-        const upper = resolvedCode.trim().toUpperCase();
-        for (const [name, id] of Object.entries(
-          (await import("../codes-legitext.js")).COMMON_CODES_LEGITEXT,
-        )) {
-          if (id === upper) {
-            // Capitaliser la première lettre pour l'affichage
-            resolvedCode = name.charAt(0).toUpperCase() + name.slice(1);
-            break;
-          }
-        }
-      }
-      // No-op statement pour éviter le warning unused-variable sur l'import.
-      void resolveLegitext;
+      // Le filtre NOM_CODE est sensible à la casse : on envoie le nom officiel
+      // (« Code de commerce »), que l'appelant ait écrit « code de commerce »,
+      // « CGI » ou un LEGITEXT.
+      const resolvedCode = args.code ? canonicalCodeName(args.code) : args.code;
 
       let body: ReturnType<typeof buildSearchRequest>;
       try {

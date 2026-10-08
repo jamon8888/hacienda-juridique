@@ -7,7 +7,7 @@ description: >
   4 mois si créancier hors UE/EEE). Lookup BODACC via
   `bodacc_procedures` de `@hacienda/core` pour récupérer
   type de procédure, date jugement, date publication et mandataire désigné
-  (extraction depuis `raw`, fallback `[à vérifier]` si parsing échoue).
+  (lus sur l'avis d'ouverture désigné par l'outil, fallback `[à vérifier]`).
   Format conforme aux usages mandataire judiciaire. Brouillon, validation
   avocat/mandataire obligatoire.
 version: "2.0.0"
@@ -33,7 +33,7 @@ tags: [procedures-collectives, declaration-creance, forclusion, bodacc, l622-24]
 <response>
 1. Lookup BODACC via `bodacc_procedures`.
    → RJ ouvert 15 mars 2026, publication BODACC 22 mars 2026 `[BODACC]`.
-   → Mandataire extrait de `raw` : Maître X (cabinet Y) `[BODACC]` — ou `[à vérifier]` si parsing échoue.
+   → Mandataire lu dans le complément du jugement d'ouverture : Maître X (cabinet Y) `[BODACC]` — ou `[à vérifier]` s'il n'y figure pas.
 2. Calcul forclusion : 22 mars + 2 mois = 22 mai 2026 → 4 jours restants → 🔴 URGENT.
 3. Rédaction déclaration projet (template mandataire) + récapitulatif + pièces à joindre.
 4. Note du relecteur : forclusion serrée, envoi LRAR sous 24-48h recommandé.
@@ -61,7 +61,7 @@ Veux-tu que je prépare la trame de la requête en relevé ? (validation humaine
 Créancier hors UE/EEE → délai 4 mois.
 BODACC : sauvegarde publiée 10 avril 2026 `[BODACC]`.
 Forclusion : 10 avril + 4 mois = 10 août 2026 → 84 jours restants → 🟢.
-Mandataire extrait : `[à vérifier]` (champ non parsable dans `raw` — vérifier sur jugement d'ouverture publié BODACC).
+Mandataire : `[à vérifier]` (absent du complément du jugement d'ouverture — vérifier sur l'annonce BODACC publiée).
 Montant > seuil approbateur 100 k€ → escalade recommandée.
 </response>
 </example>
@@ -105,7 +105,8 @@ Si `--siren` ou `--montant` absent : stopper et demander explicitement. Pas de v
 - [ ] **Prorogation appliquée** : si la forclusion tombe un samedi / dimanche / jour férié, la date retenue **ET affichée** est le 1er jour ouvrable suivant (art. 642 CPC), pas la date brute
 - [ ] **Certification** (créance sincère et exacte) présente dans le corps de la déclaration
 - [ ] Si **réserve de propriété revendiquée** : la sortie explicite délai 3 mois (L.624-9), destinataire **administrateur**, ET l'escalade (défaut d'acquiescement 1 mois → saisine juge-commissaire) — pas seulement le principe
-- [ ] Mandataire extrait depuis `raw` ou flagué `[à vérifier]` — pas de valeur fabriquée
+- [ ] Point de départ = date de parution de l'**avis d'ouverture** (`avis_ouverture`), jamais celle de l'avis le plus récent
+- [ ] Mandataire lu dans `avis_ouverture.complement` ou flagué `[à vérifier]` — pas de valeur fabriquée
 - [ ] Montant total cohérent avec composantes (principal + intérêts et frais L.622-28 + TVA)
 - [ ] Sortie comprend : statut forclusion + récap procédure + projet déclaration + pièces + note du relecteur + question hors checklist + arbre 5 options
 - [ ] (mode `--releve-forclusion`) Délai d'action **6 mois** depuis publication BODACC vérifié (gate de recevabilité) ; **cause** du relevé documentée (non-imputabilité OU omission débiteur L.622-6) ; requête adressée au **juge-commissaire** ; conséquence (concours aux seules répartitions postérieures) signalée
@@ -138,12 +139,13 @@ Structurer la sortie avec : faits retenus, droit applicable, analyse, incertitud
 
 1. Lire profil cabinet (bloc procédures collectives) et `~/.claude/plugins/config/hacienda-juridique/company-profile.md`.
 2. Lookup procédure : `bodacc_procedures` (wrapper MCP : `bodacc_procedures`). Filtre côté API : `familleavis = "collective"` (libellé « Procédures collectives »), tri `dateparution DESC`.
-3. Identifier sur l'annonce la plus récente d'ouverture :
-   - **Type de procédure** — déduit de `typeavis` (sauvegarde / redressement judiciaire / liquidation judiciaire). **Fondement applicable selon la procédure** : le régime de déclaration des créances et de forclusion/relevé des art. **L.622-24 à L.622-27 C.com.** est propre à la **sauvegarde** ; en **redressement judiciaire** il s'applique par renvoi de l'art. **L.631-14 C.com.**, et en **liquidation judiciaire** par renvoi de l'art. **L.641-3 C.com.**. Toujours qualifier la procédure ET viser l'article-passerelle quand il ne s'agit pas d'une sauvegarde — la déclaration et la requête en relevé en LJ/RJ se fondent sur L.622-24/L.622-26 **via** L.641-3 / L.631-14, pas directement.
-   - **Date publication BODACC** — `dateparution` (point de départ du délai L.622-24)
-   - **Date jugement d'ouverture** — extraite de `raw` (souvent dans le texte de l'annonce) ; fallback `[à vérifier]` si parsing échoue
-   - **Mandataire désigné (nom + adresse)** — n'est **pas** un champ direct de `BodaccAnnonce`. Tenter extraction depuis `raw` (réponse BODACC OpenDataSoft non parsée par `parseAnnonce`). Si parsing échoue : marquer `[à vérifier]` en sortie et recommander vérification manuelle sur l'annonce BODACC publiée.
-   - **Tribunal et numéro RG** — `ville` + extraction depuis `raw` ; fallback `[à vérifier]`.
+3. Partir de **`avis_ouverture`** renvoyé par l'outil (l'avis dont `jugement.famille` = « Jugement d'ouverture »). **Ne jamais prendre la première annonce de la liste** : l'avis le plus récent est souvent une clôture, un plan ou un dépôt de l'état des créances, et sa date ne fait pas courir le délai. Si `avis_ouverture` est `null` : point de départ `[à vérifier]`, stopper le calcul et le dire. Relever sur l'avis d'ouverture :
+   - **Type de procédure** — lu dans `avis_ouverture.nature` (ex. « Jugement d'ouverture d'une procédure de redressement judiciaire »). **Jamais** dans `typeavis`, qui ne vaut que « Avis initial » / « Avis rectificatif » / « Avis d'annulation ». **Fondement applicable selon la procédure** : le régime de déclaration des créances et de forclusion/relevé des art. **L.622-24 à L.622-27 C.com.** est propre à la **sauvegarde** ; en **redressement judiciaire** il s'applique par renvoi de l'art. **L.631-14 C.com.**, et en **liquidation judiciaire** par renvoi de l'art. **L.641-3 C.com.**. Toujours qualifier la procédure ET viser l'article-passerelle quand il ne s'agit pas d'une sauvegarde — la déclaration et la requête en relevé en LJ/RJ se fondent sur L.622-24/L.622-26 **via** L.641-3 / L.631-14, pas directement.
+   - **Date publication BODACC** — `avis_ouverture.dateparution` (point de départ du délai L.622-24)
+   - **Date jugement d'ouverture** — `avis_ouverture.date_jugement` ; `[à vérifier]` si absente
+   - **Mandataire / liquidateur désigné (nom + adresse)** — dans `avis_ouverture.complement` (texte du jugement : « désignant mandataire judiciaire … », « désignant liquidateur … »). Recopier le nom et l'adresse tels qu'ils y figurent ; `[à vérifier]` seulement si le complément ne les contient pas.
+   - **Tribunal** — `avis_ouverture.tribunal` ; **numéro RG** — rarement publié : `[à vérifier]` s'il n'est pas dans le complément.
+   - Signaler toute note de l'outil (plusieurs avis d'ouverture, rectificatif) dans la note du relecteur.
 4. Si aucune procédure trouvée pour ce SIREN : stopper et demander confirmation (le débiteur est-il bien en procédure ? Le SIREN est-il exact ?).
 
 Tags de provenance : `[BODACC]` pour tout champ extrait, `[à vérifier]` pour tout champ non parsable.
@@ -153,7 +155,7 @@ Tags de provenance : `[BODACC]` pour tout champ extrait, `[à vérifier]` pour t
 ## Étape 2 — Calcul forclusion L.622-24 (règle dure)
 
 ```
-date_publication_bodacc = dateparution (BODACC)
+date_publication_bodacc = avis_ouverture.dateparution (BODACC — avis du jugement d'ouverture)
 delai_base = 2 mois
 si creancier_etranger (hors France/UE/EEE) : delai_base = 4 mois (art. R.622-24 C.com.)
 
@@ -322,7 +324,7 @@ Complète l'étape 4 bis pour les articles cités en cours de rédaction. Articl
 - N° RG : [...] [BODACC] ou [à vérifier]
 - Type : [sauvegarde / RJ / LJ]
 - Date jugement d'ouverture : [date]
-- Mandataire désigné : [nom + adresse] [BODACC] ou [à vérifier] (extraction `raw` BODACC échouée — vérifier sur PDF publication)
+- Mandataire désigné : [nom + adresse] [BODACC] ou [à vérifier] (absent du complément du jugement — vérifier sur l'annonce publiée)
 
 # Déclaration de créance — projet
 [texte complet du template Étape 5]

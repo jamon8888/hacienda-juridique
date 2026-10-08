@@ -5,9 +5,6 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __esm = (fn, res) => function __init() {
-  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-};
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -32010,74 +32007,6 @@ ${captureLines}` : capture.stack;
   }
 });
 
-// ../../../packages/core/src/codes-legitext.ts
-var codes_legitext_exports = {};
-__export(codes_legitext_exports, {
-  COMMON_CODES_LEGITEXT: () => COMMON_CODES_LEGITEXT,
-  listKnownCodes: () => listKnownCodes,
-  normalizeArticleNum: () => normalizeArticleNum,
-  resolveLegitext: () => resolveLegitext
-});
-function resolveLegitext(codeName) {
-  const normalized = codeName.trim().toLowerCase();
-  if (COMMON_CODES_LEGITEXT[normalized]) return COMMON_CODES_LEGITEXT[normalized];
-  if (/^LEGITEXT\d+$/i.test(codeName.trim())) return codeName.trim().toUpperCase();
-  return void 0;
-}
-function normalizeArticleNum(num) {
-  const withoutArticle = num.trim().replace(/^art(?:icle)?\.?\s+/i, "");
-  const match = /^((?:[A-Za-z]\.?){1,3})(\*?)\s*(\d.*)$/.exec(withoutArticle);
-  if (!match) return withoutArticle;
-  const [, part = "", star = "", rest = ""] = match;
-  return `${part.replace(/\./g, "").toUpperCase()}${star}${rest.replace(/\s+/g, "")}`;
-}
-function listKnownCodes() {
-  return Object.keys(COMMON_CODES_LEGITEXT);
-}
-var COMMON_CODES_LEGITEXT;
-var init_codes_legitext = __esm({
-  "../../../packages/core/src/codes-legitext.ts"() {
-    "use strict";
-    COMMON_CODES_LEGITEXT = {
-      // Codes civils & procédure
-      "code civil": "LEGITEXT000006070721",
-      "code de proc\xE9dure civile": "LEGITEXT000006070716",
-      "code des proc\xE9dures civiles d'ex\xE9cution": "LEGITEXT000025024948",
-      // Pénal
-      "code p\xE9nal": "LEGITEXT000006070719",
-      "code de proc\xE9dure p\xE9nale": "LEGITEXT000006071154",
-      // Commerce / travail
-      "code de commerce": "LEGITEXT000005634379",
-      "code du travail": "LEGITEXT000006072050",
-      // Fiscal
-      "code g\xE9n\xE9ral des imp\xF4ts": "LEGITEXT000006069577",
-      cgi: "LEGITEXT000006069577",
-      "livre des proc\xE9dures fiscales": "LEGITEXT000006069583",
-      lpf: "LEGITEXT000006069583",
-      // Conso / monétaire
-      "code de la consommation": "LEGITEXT000006069565",
-      "code mon\xE9taire et financier": "LEGITEXT000006072026",
-      // Santé / sécu
-      "code de la sant\xE9 publique": "LEGITEXT000006072665",
-      "code de la s\xE9curit\xE9 sociale": "LEGITEXT000006073189",
-      // PI / assurances
-      "code de la propri\xE9t\xE9 intellectuelle": "LEGITEXT000006069414",
-      "code des assurances": "LEGITEXT000006073984",
-      // Rural / urbanisme / environnement / éducation
-      "code rural et de la p\xEAche maritime": "LEGITEXT000006071367",
-      "code de l'urbanisme": "LEGITEXT000006074075",
-      "code de l'environnement": "LEGITEXT000006074220",
-      "code de l'\xE9ducation": "LEGITEXT000006071191",
-      // Routes / transports
-      "code de la route": "LEGITEXT000006074228",
-      "code des transports": "LEGITEXT000023086525",
-      // Administration
-      "code des relations entre le public et l'administration": "LEGITEXT000031366350",
-      "code de justice administrative": "LEGITEXT000006070933"
-    };
-  }
-});
-
 // ../../../node_modules/zod/v3/helpers/util.js
 var util;
 (function(util2) {
@@ -57082,6 +57011,12 @@ var ConsultTextResponseSchema = external_exports.object({
   etat: external_exports.string().nullable().optional(),
   dateDebut: LegiDateSchema,
   dateFin: LegiDateSchema,
+  // Champs réels de /consult/lawDecree et /consult/legi/tableMatieres (relevés
+  // le 2026-10-06) : `etat`, `dateDebut`, `dateFin` y sont absents ou nuls.
+  jurisState: external_exports.string().nullable().optional(),
+  dateDebutVersion: LegiDateSchema,
+  dateFinVersion: LegiDateSchema,
+  textAbroge: external_exports.boolean().nullable().optional(),
   dateParution: LegiDateSchema,
   eli: external_exports.string().nullable().optional(),
   nor: external_exports.string().nullable().optional(),
@@ -57199,6 +57134,32 @@ function normalizeLegiDate(d) {
     return new Date(n).toISOString().slice(0, 10);
   }
   return d.slice(0, 10);
+}
+function isOpenEndedDate(date5) {
+  return !date5 || date5 >= "2999-";
+}
+function describeVigueur(text, today = /* @__PURE__ */ new Date()) {
+  const state = (text.jurisState ?? text.etat ?? "").trim();
+  const lower = state.toLowerCase();
+  const debut = normalizeLegiDate(text.dateDebutVersion ?? text.dateDebut);
+  const fin = normalizeLegiDate(text.dateFinVersion ?? text.dateFin);
+  const finReelle = isOpenEndedDate(fin) ? void 0 : fin;
+  const out = [];
+  const echue = finReelle !== void 0 && finReelle <= today.toISOString().slice(0, 10);
+  const differee = lower.includes("diff") && !echue;
+  const abroge = !differee && (text.textAbroge === true || lower.startsWith("abrog") || lower.includes("diff") && echue);
+  if (abroge) {
+    out.push(`\u26A0\uFE0F ABROG\xC9${finReelle ? ` (fin de version : ${finReelle})` : ""} \u2014 ne pas citer comme droit positif`);
+  } else {
+    if (state) out.push(state);
+    if (debut) out.push(`En vigueur depuis ${debut}`);
+    if (finReelle) {
+      out.push(
+        differee ? `\u26A0\uFE0F Abrogation diff\xE9r\xE9e : encore en vigueur jusqu'au ${finReelle}` : `Fin de version : ${finReelle}`
+      );
+    }
+  }
+  return out;
 }
 var LEGIFRANCE_BASE = "https://www.legifrance.gouv.fr";
 function legifranceArticleUrl(id) {
@@ -57328,8 +57289,68 @@ function formatArticleAsMarkdown(s) {
   return lines.join("\n");
 }
 
+// ../../../packages/core/src/codes-legitext.ts
+var COMMON_CODES_LEGITEXT = {
+  // Codes civils & procédure
+  "code civil": "LEGITEXT000006070721",
+  "code de proc\xE9dure civile": "LEGITEXT000006070716",
+  "code des proc\xE9dures civiles d'ex\xE9cution": "LEGITEXT000025024948",
+  // Pénal
+  "code p\xE9nal": "LEGITEXT000006070719",
+  "code de proc\xE9dure p\xE9nale": "LEGITEXT000006071154",
+  // Commerce / travail
+  "code de commerce": "LEGITEXT000005634379",
+  "code du travail": "LEGITEXT000006072050",
+  // Fiscal
+  "code g\xE9n\xE9ral des imp\xF4ts": "LEGITEXT000006069577",
+  cgi: "LEGITEXT000006069577",
+  "livre des proc\xE9dures fiscales": "LEGITEXT000006069583",
+  lpf: "LEGITEXT000006069583",
+  // Conso / monétaire
+  "code de la consommation": "LEGITEXT000006069565",
+  "code mon\xE9taire et financier": "LEGITEXT000006072026",
+  // Santé / sécu
+  "code de la sant\xE9 publique": "LEGITEXT000006072665",
+  "code de la s\xE9curit\xE9 sociale": "LEGITEXT000006073189",
+  // PI / assurances
+  "code de la propri\xE9t\xE9 intellectuelle": "LEGITEXT000006069414",
+  "code des assurances": "LEGITEXT000006073984",
+  // Rural / urbanisme / environnement / éducation
+  "code rural et de la p\xEAche maritime": "LEGITEXT000006071367",
+  "code de l'urbanisme": "LEGITEXT000006074075",
+  "code de l'environnement": "LEGITEXT000006074220",
+  "code de l'\xE9ducation": "LEGITEXT000006071191",
+  // Routes / transports
+  "code de la route": "LEGITEXT000006074228",
+  "code des transports": "LEGITEXT000023086525",
+  // Administration
+  "code des relations entre le public et l'administration": "LEGITEXT000031366350",
+  "code de justice administrative": "LEGITEXT000006070933"
+};
+function resolveLegitext(codeName) {
+  const normalized = codeName.trim().toLowerCase();
+  if (COMMON_CODES_LEGITEXT[normalized]) return COMMON_CODES_LEGITEXT[normalized];
+  if (/^LEGITEXT\d+$/i.test(codeName.trim())) return codeName.trim().toUpperCase();
+  return void 0;
+}
+function normalizeArticleNum(num) {
+  const withoutArticle = num.trim().replace(/^art(?:icle)?\.?\s+/i, "");
+  const match = /^((?:[A-Za-z]\.?){1,3})(\*?)\s*(\d.*)$/.exec(withoutArticle);
+  if (!match) return withoutArticle;
+  const [, part = "", star = "", rest = ""] = match;
+  return `${part.replace(/\./g, "").toUpperCase()}${star}${rest.replace(/\s+/g, "")}`;
+}
+function canonicalCodeName(code) {
+  const legitext = resolveLegitext(code);
+  if (!legitext) return code.trim();
+  const longName = Object.entries(COMMON_CODES_LEGITEXT).find(([name, id]) => id === legitext && name.includes(" "))?.[0];
+  return longName ? longName.charAt(0).toUpperCase() + longName.slice(1) : code.trim();
+}
+function listKnownCodes() {
+  return Object.keys(COMMON_CODES_LEGITEXT);
+}
+
 // ../../../packages/core/src/tools/get-article.ts
-init_codes_legitext();
 var SEARCH_PAGE_SIZE = 20;
 var MAX_FALLBACK_CANDIDATES = SEARCH_PAGE_SIZE;
 var NOT_IN_FORCE_STATUSES = /* @__PURE__ */ new Set([
@@ -57513,7 +57534,6 @@ function registerGetArticle(server, http) {
 }
 
 // ../../../packages/core/src/tools/get-code.ts
-init_codes_legitext();
 function summarizeSections(sections, depth = 0, maxDepth = 2) {
   if (!sections || depth >= maxDepth) return [];
   return sections.map((s) => ({
@@ -57579,9 +57599,7 @@ function registerGetCode(server, http) {
       lines.push(`# ${data.title ?? args.code}`);
       const meta3 = [];
       if (data.nature) meta3.push(data.nature);
-      if (data.etat) meta3.push(data.etat);
-      const dateDebut = normalizeLegiDate(data.dateDebut);
-      if (dateDebut) meta3.push(`En vigueur depuis ${dateDebut}`);
+      meta3.push(...describeVigueur(data));
       if (meta3.length) lines.push(`_${meta3.join(" \xB7 ")}_
 `);
       if (data.resume) {
@@ -57637,13 +57655,7 @@ function registerGetLoda(server, http) {
       lines.push(`# ${d.title ?? d.titreLong ?? "(sans titre)"}`);
       const meta3 = [];
       if (d.nature) meta3.push(d.nature);
-      if (d.etat) meta3.push(d.etat);
-      const dateDebut = normalizeLegiDate(d.dateDebut);
-      const dateFin = normalizeLegiDate(d.dateFin);
-      if (dateDebut) meta3.push(`En vigueur depuis ${dateDebut}`);
-      if (dateFin && dateFin !== "2999-01-01" && !dateFin.startsWith("3000-")) {
-        meta3.push(`Fin : ${dateFin}`);
-      }
+      meta3.push(...describeVigueur(d));
       if (meta3.length) lines.push(`_${meta3.join(" \xB7 ")}_
 `);
       const idLines = [];
@@ -57911,8 +57923,24 @@ function defaultTypeChampForFond(fond) {
       return "ALL";
   }
 }
+var FONDS_WITH_DATE_FILTER = /* @__PURE__ */ new Set([
+  "JURI",
+  "CETAT",
+  "CONSTIT",
+  "JORF",
+  "CIRC",
+  "LODA_DATE",
+  "KALI",
+  "ACCO"
+]);
 function buildSearchRequest(input) {
   const filtres = [];
+  if ((input.dateDebut || input.dateFin) && !FONDS_WITH_DATE_FILTER.has(input.fond)) {
+    const hint = input.fond === "LODA_ETAT" ? "Utiliser fond=LODA_DATE (textes \xE0 une date) pour filtrer par date." : input.fond === "CODE_DATE" || input.fond === "CODE_ETAT" ? "Pour un code, utiliser dateVersion (fond=CODE_DATE) : version de l'article \xE0 une date donn\xE9e." : "Choisir un fond pr\xE9cis (JURI, CETAT, JORF, LODA_DATE, CIRC, CONSTIT, KALI, ACCO) pour filtrer par date.";
+    throw new SearchInputError(
+      `Le fond ${input.fond} n'accepte pas de filtre de date (dateDebut/dateFin) : l'API le rejette ou l'ignore sans le dire. ${hint}`
+    );
+  }
   if (input.fond === "CODE_DATE" || input.fond === "CODE_ETAT") {
     if (!input.code) {
       throw new SearchInputError(
@@ -57972,7 +58000,6 @@ function buildSearchRequest(input) {
 }
 
 // ../../../packages/core/src/tools/recherche.ts
-init_codes_legitext();
 var rechercheInputSchema = {
   query: external_exports.string().min(1).describe("Termes \xE0 rechercher (mots-cl\xE9s ou expression)."),
   fond: external_exports.enum(FOND_VALUES).default("ALL").describe("P\xE9rim\xE8tre de recherche."),
@@ -58006,19 +58033,7 @@ function registerRechercheTool(server, http, name) {
       inputSchema: rechercheInputSchema
     },
     async (args) => {
-      let resolvedCode = args.code;
-      if (resolvedCode && /^LEGITEXT\d+$/i.test(resolvedCode.trim())) {
-        const upper = resolvedCode.trim().toUpperCase();
-        for (const [name2, id] of Object.entries(
-          (await Promise.resolve().then(() => (init_codes_legitext(), codes_legitext_exports))).COMMON_CODES_LEGITEXT
-        )) {
-          if (id === upper) {
-            resolvedCode = name2.charAt(0).toUpperCase() + name2.slice(1);
-            break;
-          }
-        }
-      }
-      void resolveLegitext;
+      const resolvedCode = args.code ? canonicalCodeName(args.code) : args.code;
       let body;
       try {
         body = buildSearchRequest({
@@ -58259,6 +58274,7 @@ function registerApiCall(server, route) {
 function htmlToText4(html) {
   return html.replace(/<br\s*\/?>/gi, "\n").replace(/<\/p>/gi, "\n\n").replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
 }
+var BOFIP_CAVEAT = "\u26A0\uFE0F Source : circulaires et instructions (fonds CIRC de L\xE9gifrance). Ce n'est pas la base BOFiP-Imp\xF4ts : une fiche \xAB BOI-\u2026 \xBB n'y figure pas. Toute doctrine fiscale cit\xE9e comme BOFiP est `[\xE0 v\xE9rifier]` sur https://bofip.impots.gouv.fr \u2014 ne pas apposer le tag [BOFiP].";
 async function callBofipRechercher(http, args) {
   const body = buildSearchRequest({
     query: args.query,
@@ -58285,7 +58301,9 @@ async function callBofipRechercher(http, args) {
   }
   const { total, hits } = summarizeSearchResponse(parsed.data);
   const markdown = formatSearchResultsAsMarkdown(total, hits, "BOFiP", args.query);
-  return { content: [{ type: "text", text: markdown }] };
+  return { content: [{ type: "text", text: `${BOFIP_CAVEAT}
+
+${markdown}` }] };
 }
 async function callBofipConsulter(http, args) {
   const raw = await http.post("/consult/circulaire", { id: args.id });
@@ -58341,14 +58359,16 @@ ${c.resume}
     lines.push("");
   }
   lines.push(`Identifiant BOFiP : \`${args.id}\` \xB7 [L\xE9gifrance](https://www.legifrance.gouv.fr/circulaire/id/${args.id})`);
-  return { content: [{ type: "text", text: lines.join("\n") }] };
+  return { content: [{ type: "text", text: `${BOFIP_CAVEAT}
+
+${lines.join("\n")}` }] };
 }
 function registerBofipAliases(server, http) {
   server.registerTool(
     "bofip_rechercher",
     {
       title: "Recherche BOFiP",
-      description: "Recherche dans le BOFiP (doctrine fiscale) via le fonds CIRC de L\xE9gifrance. Retourne les fiches BOI avec titre, identifiant, extraits et lien.",
+      description: "Recherche dans les circulaires et instructions (fonds CIRC de L\xE9gifrance). ATTENTION : ce n'est PAS la base BOFiP-Imp\xF4ts (aucune fiche BOI-\u2026 n'y figure) ; toute doctrine fiscale reste `[\xE0 v\xE9rifier]` sur bofip.impots.gouv.fr.",
       inputSchema: {
         query: external_exports.string().min(1).describe("Termes \xE0 rechercher dans la doctrine BOFiP."),
         pageSize: external_exports.number().int().min(1).max(50).default(10).describe("Nombre de r\xE9sultats (max 50)."),
@@ -58364,7 +58384,7 @@ function registerBofipAliases(server, http) {
     "bofip_consulter",
     {
       title: "Consulter BOFiP",
-      description: "R\xE9cup\xE8re un document CIRC/BOFiP par identifiant num\xE9rique retourn\xE9 par `bofip_rechercher` et retourne un document Markdown lisible.",
+      description: "R\xE9cup\xE8re une circulaire (fonds CIRC de L\xE9gifrance) par identifiant num\xE9rique retourn\xE9 par `bofip_rechercher`. Ce n'est pas la base BOFiP-Imp\xF4ts : doctrine fiscale \xE0 v\xE9rifier sur bofip.impots.gouv.fr.",
       inputSchema: {
         id: external_exports.string().min(1).describe("Identifiant num\xE9rique retourn\xE9 par `bofip_rechercher`.")
       }
@@ -58496,12 +58516,44 @@ function truncateText(text, maxChars, suffix) {
 
 ${suffix}` : text;
 }
+var JURISDICTION_LABELS = {
+  cc: "Cour de cassation",
+  ca: "Cour d'appel",
+  tj: "Tribunal judiciaire",
+  tcom: "Tribunal de commerce"
+};
+var CHAMBER_LABELS = {
+  pl: "Assembl\xE9e pl\xE9ni\xE8re",
+  mi: "Chambre mixte",
+  civ1: "Premi\xE8re chambre civile",
+  civ2: "Deuxi\xE8me chambre civile",
+  civ3: "Troisi\xE8me chambre civile",
+  comm: "Chambre commerciale",
+  soc: "Chambre sociale",
+  cr: "Chambre criminelle",
+  creun: "Chambres r\xE9unies",
+  ordo: "Premi\xE8re pr\xE9sidence (ordonnance)",
+  allciv: "Toutes chambres civiles",
+  other: "Autre"
+};
+var withLabel = (value, labels) => labels[value] ? `${labels[value]} (${value})` : value;
+function decisionDate(decision) {
+  const date5 = optionalString(asRecord(decision).decision_date);
+  if (date5) return date5.slice(0, 10);
+  const datetime3 = optionalString(decision.decision_datetime);
+  if (!datetime3) return void 0;
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?Z$/.test(datetime3)) return datetime3.slice(0, 10);
+  const parsed = new Date(datetime3);
+  if (Number.isNaN(parsed.getTime())) return datetime3.slice(0, 10);
+  return parsed.toLocaleDateString("sv-SE", { timeZone: "Europe/Paris" });
+}
 function metadataFor(decision) {
   const extra = asRecord(decision);
   const metadata = [];
-  if (decision.decision_datetime) metadata.push(`Date : ${decision.decision_datetime}`);
-  if (decision.jurisdiction) metadata.push(`Juridiction : ${decision.jurisdiction}`);
-  if (decision.chamber) metadata.push(`Chambre : ${decision.chamber}`);
+  const date5 = decisionDate(decision);
+  if (date5) metadata.push(`Date : ${date5}`);
+  if (decision.jurisdiction) metadata.push(`Juridiction : ${withLabel(decision.jurisdiction, JURISDICTION_LABELS)}`);
+  if (decision.chamber) metadata.push(`Chambre : ${withLabel(decision.chamber, CHAMBER_LABELS)}`);
   if (optionalString(extra.formation)) metadata.push(`Formation : ${optionalString(extra.formation)}`);
   if (decision.number) metadata.push(`Num\xE9ro : ${decision.number}`);
   if (decision.solution) metadata.push(`Solution : ${decision.solution}`);
@@ -58576,6 +58628,10 @@ function formatJudilibreDecision(decision, idInput) {
 }
 
 // ../../../packages/core/src/tools/judilibre.ts
+var CHAMBERS = ["pl", "mi", "civ1", "civ2", "civ3", "comm", "soc", "cr", "creun", "ordo", "allciv", "other"];
+var JURISDICTIONS = ["cc", "ca", "tj", "tcom"];
+var PUBLICATIONS = ["b", "r", "l", "c", "n"];
+var isoDate = external_exports.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date au format AAAA-MM-JJ");
 function textResult2(text, isError) {
   return {
     ...isError ? { isError } : {},
@@ -58601,7 +58657,12 @@ async function callJudilibreRecherche(client, args) {
     const response = await client.search({
       query: args.query,
       pageSize: args.pageSize,
-      page: args.page
+      page: args.page,
+      chamber: args.chamber,
+      jurisdiction: args.jurisdiction,
+      publication: args.publication,
+      dateStart: args.dateStart,
+      dateEnd: args.dateEnd
     });
     return textResult2(formatJudilibreSearch(response, args.query));
   } catch (error51) {
@@ -58630,11 +58691,18 @@ function registerJudilibreTools(server, config2, client = new JudilibreClient(co
     "judilibre_recherche",
     {
       title: "Recherche Judilibre",
-      description: "Recherche des d\xE9cisions judiciaires dans Judilibre (Cour de cassation) et retourne des r\xE9sultats Markdown avec m\xE9tadonn\xE9es et liens officiels.",
+      description: "Recherche des d\xE9cisions judiciaires dans Judilibre (Cour de cassation) et retourne des r\xE9sultats Markdown avec date, chambre, num\xE9ro, solution et liens officiels. Filtres optionnels : chambre (ex. `comm` = chambre commerciale), juridiction, publication, p\xE9riode (`dateStart`/`dateEnd`, date de d\xE9cision).",
       inputSchema: {
         query: external_exports.string().min(1).describe("Termes \xE0 rechercher dans Judilibre."),
         pageSize: external_exports.number().int().min(1).max(50).default(10).describe("Nombre de r\xE9sultats (max 50)."),
-        page: external_exports.number().int().min(0).optional().describe("Page de r\xE9sultats Judilibre.")
+        page: external_exports.number().int().min(0).optional().describe("Page de r\xE9sultats Judilibre."),
+        chamber: external_exports.enum(CHAMBERS).optional().describe(
+          "Chambre : comm (commerciale), civ1/civ2/civ3 (civiles), soc (sociale), cr (criminelle), mi (mixte), pl (assembl\xE9e pl\xE9ni\xE8re)."
+        ),
+        jurisdiction: external_exports.enum(JURISDICTIONS).optional().describe("Juridiction : cc (Cour de cassation, d\xE9faut de l'API), ca, tj, tcom."),
+        publication: external_exports.enum(PUBLICATIONS).optional().describe("Niveau de publication : b (Bulletin), r (Rapport), l (Lettre de chambre), c (communiqu\xE9), n (non publi\xE9)."),
+        dateStart: isoDate.optional().describe("D\xE9cisions rendues \xE0 partir de cette date (AAAA-MM-JJ)."),
+        dateEnd: isoDate.optional().describe("D\xE9cisions rendues jusqu'\xE0 cette date (AAAA-MM-JJ).")
       }
     },
     (args) => callJudilibreRecherche(client, args)
@@ -59498,10 +59566,11 @@ function buildConsolidatedVersionsQuery(celexIdInput, language = "FRA") {
 function mapConsolidatedVersions(response, baseCelexIdInput, language = "FRA") {
   const baseCelexId = assertCelexId(baseCelexIdInput);
   const bindings = response.results?.bindings ?? [];
+  const ownPrefix = `0${baseCelexId.slice(1)}-`;
   return bindings.map((binding) => {
     const celexId = binding.celex?.value;
     const dateVersion = binding.dateVersion?.value;
-    if (!celexId || !dateVersion) {
+    if (!celexId || !dateVersion || !celexId.startsWith(ownPrefix)) {
       return void 0;
     }
     const version2 = {
@@ -59555,6 +59624,8 @@ function buildEurlexRelationsQuery(args) {
     '      (cdm:resource_legal_implicitly_repeals_resource_legal "repeals")',
     '      (cdm:resource_legal_based_on_resource_legal "basis")',
     '      (cdm:resource_legal_adopts_resource_legal "basis")',
+    '      (cdm:resource_legal_amends_resource_legal "amends")',
+    '      (cdm:work_cites_work "cites")',
     "    }",
     "    ?pivot ?predicate ?relatedWork .",
     `    BIND("${celexId}" AS ?sourceCelex)`,
@@ -59569,8 +59640,8 @@ function buildEurlexRelationsQuery(args) {
     '      (cdm:resource_legal_repeals_resource_legal "repealed_by")',
     '      (cdm:resource_legal_implicitly_repeals_resource_legal "repealed_by")',
     '      (cdm:resource_legal_based_on_resource_legal "cited_by")',
-    '      (cdm:act_consolidated_consolidates_resource_legal "amended_by")',
-    '      (cdm:act_consolidated_based_on_resource_legal "amended_by")',
+    '      (cdm:resource_legal_amends_resource_legal "amended_by")',
+    '      (cdm:work_cites_work "cited_by")',
     '      (cdm:case-law_interpretes_resource_legal "cited_by")',
     "    }",
     "    ?relatedWork ?predicate ?pivot ;",
@@ -59639,6 +59710,7 @@ Consult\xE9 le ${retrievedAt}`;
 }
 
 // ../../../packages/core/src/eurlex/eurovoc.ts
+var SKOS_LANGUAGE_TAGS = { FRA: "fr", ENG: "en", DEU: "de" };
 function assertEurovocUri(input) {
   const uri = input.trim();
   if (!/^http:\/\/eurovoc\.europa\.eu\/[A-Za-z0-9_-]+$/u.test(uri)) {
@@ -59653,26 +59725,30 @@ function buildEurovocQuery(args) {
     throw new Error("eurlex_eurovoc exige au moins un crit\xE8re: celex_id, concept_uri ou query.");
   }
   const filters = [];
-  if (args.celexId) {
-    filters.push(`FILTER(?celex = "${assertCelexId(args.celexId)}")`);
-  }
   if (args.conceptUri) {
     filters.push(`FILTER(?concept = <${assertEurovocUri(args.conceptUri)}>)`);
   }
   if (args.query) {
     filters.push(`FILTER(CONTAINS(LCASE(?label), LCASE("${escapeSparqlString(args.query)}")))`);
   }
+  const celexId = args.celexId ? assertCelexId(args.celexId) : void 0;
   return [
     "PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>",
     "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>",
     "PREFIX owl: <http://www.w3.org/2002/07/owl#>",
     "SELECT DISTINCT ?concept ?label WHERE {",
-    "  ?work owl:sameAs ?celexUri .",
-    '  FILTER(STRSTARTS(STR(?celexUri), "http://publications.europa.eu/resource/celex/"))',
-    '  BIND(REPLACE(STR(?celexUri), "^.*resource/celex/", "") AS ?celex)',
-    "  ?work cdm:resource_legal_is_about_concept_eurovoc ?concept .",
+    ...celexId ? [
+      // Acte connu : on le lie directement (un balayage de tous les actes dépasse le délai).
+      `  ?work owl:sameAs <http://publications.europa.eu/resource/celex/${celexId}> .`,
+      `  BIND("${celexId}" AS ?celex)`
+    ] : [
+      "  ?work owl:sameAs ?celexUri .",
+      '  FILTER(STRSTARTS(STR(?celexUri), "http://publications.europa.eu/resource/celex/"))',
+      '  BIND(REPLACE(STR(?celexUri), "^.*resource/celex/", "") AS ?celex)'
+    ],
+    "  ?work cdm:work_is_about_concept_eurovoc ?concept .",
     "  ?concept skos:prefLabel ?label .",
-    `  FILTER(LANG(?label) = "${language.toLowerCase()}")`,
+    `  FILTER(LANG(?label) = "${SKOS_LANGUAGE_TAGS[language]}")`,
     ...filters.map((filter) => `  ${filter}`),
     "}",
     `LIMIT ${limit}`
@@ -59712,6 +59788,7 @@ Consult\xE9 le ${retrievedAt}`;
 var SPARQL_ENDPOINT = "https://publications.europa.eu/webapi/rdf/sparql";
 var CELLAR_REST_BASE = "https://publications.europa.eu/resource/celex";
 var EURLEX_REQUEST_TIMEOUT_MS = 3e4;
+var CELEX_ACT_REGEX_SPARQL = "^[0-9][0-9A-Z]{4,}(-[0-9]{8})?$";
 var RESOURCE_TYPE_CELEX_PATTERNS = {
   regulation: "^3[0-9]{4}R",
   directive: "^3[0-9]{4}L",
@@ -59763,6 +59840,10 @@ function buildSearchQuery(args) {
     "  ?lang purl:identifier ?langCode .",
     `  FILTER(STR(?langCode) = "${language}")`,
     "  OPTIONAL { ?work cdm:work_date_document ?date . }",
+    "  OPTIONAL { ?work cdm:work_has_resource-type ?type . }",
+    // Rectificatifs (R(02)), versions de travail (_RES, _INF), références JO (C/2026/…) :
+    // pas des CELEX d'acte. On ne leur laisse pas prendre des places dans LIMIT.
+    `  FILTER(REGEX(?celex, "${CELEX_ACT_REGEX_SPARQL}"))`,
     ...filters.map((filter) => `  ${filter}`),
     "}",
     "ORDER BY DESC(?date)",
@@ -59787,10 +59868,10 @@ function buildMetadataQuery(celexIdInput, language = "FRA") {
     "  }",
     "  OPTIONAL { ?work cdm:work_date_document ?dateDocument . }",
     "  OPTIONAL { ?work cdm:resource_legal_date_entry-into-force ?dateEffect . }",
-    "  OPTIONAL { ?work cdm:resource_type ?type . }",
+    "  OPTIONAL { ?work cdm:work_has_resource-type ?type . }",
     "  OPTIONAL { ?work cdm:work_created_by_agent ?author . }",
-    "  OPTIONAL { ?work cdm:resource_legal_is_about_concept_eurovoc ?eurovoc . }",
-    "  OPTIONAL { ?work cdm:resource_legal_in-force_directory-code ?directoryCode . }",
+    "  OPTIONAL { ?work cdm:work_is_about_concept_eurovoc ?eurovoc . }",
+    "  OPTIONAL { ?work cdm:resource_legal_is_about_concept_directory-code ?directoryCode . }",
     "}",
     "LIMIT 50"
   ].join("\n");
@@ -59809,7 +59890,7 @@ var EurlexClient = class {
     const results = [];
     for (const binding of bindings) {
       const celexId = valueOf(binding, "celex");
-      if (!celexId || seen.has(celexId)) {
+      if (!celexId || seen.has(celexId) || !isActCelexId(celexId)) {
         continue;
       }
       seen.add(celexId);
@@ -59818,7 +59899,7 @@ var EurlexClient = class {
         title: valueOf(binding, "title") ?? celexId,
         url: eurlexDocumentUrl(celexId, language),
         language,
-        resourceType: normalizeResourceType(valueOf(binding, "type")),
+        resourceType: resolveResourceType(valueOf(binding, "type"), celexId),
         date: valueOf(binding, "date")
       });
     }
@@ -59857,7 +59938,7 @@ var EurlexClient = class {
       url: publicationsCelexUrl(celexId),
       dateDocument: valueOf(first, "dateDocument"),
       dateEffect: valueOf(first, "dateEffect"),
-      resourceType: normalizeResourceType(valueOf(first, "type")),
+      resourceType: resolveResourceType(valueOf(first, "type"), celexId),
       authors: uniqueValues(bindings, "author"),
       eurovoc: uniqueValues(bindings, "eurovoc"),
       directoryCodes: uniqueValues(bindings, "directoryCode"),
@@ -59913,8 +59994,25 @@ function buildBifContainsQuery(input) {
   }
   return words.map((word) => `'${word}'`).join(" AND ");
 }
+var CELEX_ACT_PATTERN = new RegExp(CELEX_ACT_REGEX_SPARQL, "u");
+function isActCelexId(celexId) {
+  return CELEX_ACT_PATTERN.test(celexId);
+}
+function resolveResourceType(value, celexId) {
+  const fromValue = normalizeResourceType(value);
+  if (fromValue !== "any") return fromValue;
+  if (/^3\d{4}R/u.test(celexId)) return "regulation";
+  if (/^3\d{4}L/u.test(celexId)) return "directive";
+  if (/^3\d{4}D/u.test(celexId)) return "decision";
+  if (/^6/u.test(celexId)) return "case-law";
+  return "any";
+}
 function normalizeResourceType(value) {
   const lower = value?.toLowerCase() ?? "";
+  const authorityCode = /\/resource-type\/([a-z_]+)$/u.exec(lower)?.[1];
+  if (authorityCode === "reg" || authorityCode?.startsWith("reg_")) return "regulation";
+  if (authorityCode === "dir" || authorityCode?.startsWith("dir_")) return "directive";
+  if (authorityCode === "dec" || authorityCode?.startsWith("dec_")) return "decision";
   if (lower.includes("regulation")) {
     return "regulation";
   }
@@ -60903,6 +61001,26 @@ function registerEspacenetBrevetDetails(server, client) {
 
 // ../../../packages/core/src/sources/bodacc.ts
 var BODACC_BASE_URL = "https://bodacc-datadila.opendatasoft.com/api/explore/v2.1";
+function parseJugement(value) {
+  let data = value;
+  if (typeof value === "string") {
+    try {
+      data = JSON.parse(value);
+    } catch {
+      return void 0;
+    }
+  }
+  if (!data || typeof data !== "object") return void 0;
+  const j = data;
+  const str = (v) => typeof v === "string" && v.trim() ? v.trim() : void 0;
+  const jugement = {
+    famille: str(j.famille),
+    nature: str(j.nature),
+    date: str(j.date),
+    complement: str(j.complementJugement)
+  };
+  return Object.values(jugement).some(Boolean) ? jugement : void 0;
+}
 var BodaccUnavailableError = class extends Error {
   constructor(message, reason) {
     super(message);
@@ -60976,9 +61094,11 @@ var BodaccClient = class {
       dateparution: String(r.dateparution ?? ""),
       typeavis: String(r.typeavis_lib ?? ""),
       familleavis: String(r.familleavis_lib ?? ""),
-      publicationavis: String(r.publicationavis_facette ?? ""),
+      publicationavis: String(r.publicationavis ?? r.publicationavis_facette ?? ""),
       numerodepartement: r.numerodepartement ? String(r.numerodepartement) : void 0,
       ville: r.ville ? String(r.ville) : void 0,
+      tribunal: r.tribunal ? String(r.tribunal) : void 0,
+      jugement: parseJugement(r.jugement),
       raw
     };
   }
@@ -61031,12 +61151,56 @@ function registerBodaccBySiren(server) {
 }
 
 // ../../../packages/core/src/tools/bodacc-procedures.ts
+var isOuverture = (a) => /^jugement d.ouverture/i.test(a.jugement?.famille ?? "");
+var isAvisInitial = (a) => !/annulation|rectificatif/i.test(a.typeavis);
+function formatProceduresResult(annonces) {
+  const ouvertures = annonces.filter((a) => isOuverture(a) && isAvisInitial(a)).sort((a, b) => b.dateparution.localeCompare(a.dateparution));
+  const ouverture = ouvertures[0];
+  const rectificatifs = annonces.filter((a) => isOuverture(a) && /rectificatif/i.test(a.typeavis));
+  const avisOuverture = ouverture ? {
+    id: ouverture.id,
+    dateparution: ouverture.dateparution,
+    nature: ouverture.jugement?.nature,
+    date_jugement: ouverture.jugement?.date,
+    tribunal: ouverture.tribunal,
+    complement: ouverture.jugement?.complement
+  } : null;
+  const notes = [];
+  if (ouverture) {
+    notes.push(
+      `Avis d'ouverture : publi\xE9 au BODACC le ${ouverture.dateparution} \u2014 c'est sa date de parution, et non celle de l'avis le plus r\xE9cent, qui sert de point de d\xE9part du d\xE9lai de d\xE9claration des cr\xE9ances.`,
+      "Le mandataire ou liquidateur d\xE9sign\xE9 figure dans \xAB complement \xBB (texte du jugement)."
+    );
+    if (ouvertures.length > 1) {
+      notes.push(
+        `${ouvertures.length} avis d'ouverture publi\xE9s pour ce SIREN (nouvelle proc\xE9dure ou conversion) : le plus r\xE9cent est retenu, v\xE9rifier qu'il s'agit bien de la proc\xE9dure vis\xE9e [\xE0 v\xE9rifier].`
+      );
+    }
+    if (rectificatifs.length > 0) {
+      notes.push(`${rectificatifs.length} avis rectificatif(s) d'un jugement d'ouverture : point de d\xE9part du d\xE9lai [\xE0 v\xE9rifier].`);
+    }
+  } else if (annonces.length === 0) {
+    notes.push("Aucune annonce de proc\xE9dure collective publi\xE9e au BODACC pour ce SIREN.");
+  } else {
+    notes.push(
+      "Aucun avis d'ouverture parmi les annonces publi\xE9es : point de d\xE9part du d\xE9lai de d\xE9claration [\xE0 v\xE9rifier] sur l'annonce BODACC du jugement d'ouverture. Ne pas utiliser la date d'un autre avis (cl\xF4ture, plan, \xE9tat des cr\xE9ances)."
+    );
+  }
+  notes.push("Le champ \xAB typeavis \xBB (\xAB Avis initial \xBB, \xAB Avis rectificatif \xBB\u2026) ne donne PAS la nature de la proc\xE9dure : lire \xAB jugement.nature \xBB.");
+  const body = {
+    avis_ouverture: avisOuverture,
+    annonces: annonces.map(({ raw: _raw, ...annonce }) => annonce)
+  };
+  return `${notes.join("\n")}
+
+${JSON.stringify(body, null, 2)}`;
+}
 function registerBodaccProcedures(server) {
   server.registerTool(
     "bodacc_procedures",
     {
       title: "Proc\xE9dures collectives BODACC par SIREN",
-      description: "R\xE9cup\xE8re uniquement les proc\xE9dures collectives BODACC publi\xE9es pour un SIREN : sauvegarde, redressement judiciaire, liquidation, plans, jugements d'ouverture. Source publique BODACC OpenDataSoft sans authentification.",
+      description: "R\xE9cup\xE8re uniquement les proc\xE9dures collectives BODACC publi\xE9es pour un SIREN : sauvegarde, redressement judiciaire, liquidation, plans, jugements d'ouverture. D\xE9signe l'avis d'ouverture (`avis_ouverture` : date de parution, nature, date du jugement, tribunal, mandataire dans `complement`). Pour chaque annonce, la nature de la proc\xE9dure est dans `jugement.nature` (pas dans `typeavis`). Source publique BODACC OpenDataSoft sans authentification.",
       inputSchema: {
         siren: external_exports.string().regex(/^[0-9]{9}$/).describe("Num\xE9ro SIREN \xE0 9 chiffres")
       }
@@ -61053,7 +61217,7 @@ function registerBodaccProcedures(server) {
         content: [
           {
             type: "text",
-            text: JSON.stringify(procedures, null, 2)
+            text: formatProceduresResult(procedures)
           }
         ]
       };
@@ -61064,14 +61228,15 @@ function registerBodaccProcedures(server) {
 // ../../../packages/core/src/tools/company-full-profile.ts
 async function tryPappers(siren) {
   const creds = loadPappersCredentials();
-  if (!creds) return null;
+  if (!creds) return { status: "not_configured" };
   try {
     const url2 = `https://api.pappers.fr/v2/entreprise?siren=${siren}&api_token=${creds.apiKey}`;
-    const res = await fetch(url2, { headers: { Accept: "application/json" } });
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null;
+    const res = await fetch(url2, { headers: { Accept: "application/json" }, signal: AbortSignal.timeout(1e4) });
+    if (!res.ok) return { status: "error", reason: `HTTP ${res.status}` };
+    return { status: "ok", data: await res.json() };
+  } catch (err) {
+    const reason = (err instanceof Error ? err.message : String(err)).split(creds.apiKey).join("***");
+    return { status: "error", reason: reason.slice(0, 200) };
   }
 }
 function registerCompanyFullProfile(server) {
@@ -61085,14 +61250,14 @@ function registerCompanyFullProfile(server) {
       }
     },
     async (args) => {
-      const pappersData = await tryPappers(args.siren);
-      if (pappersData) {
+      const pappers = await tryPappers(args.siren);
+      if (pappers.status === "ok") {
         return {
           content: [
             {
               type: "text",
               text: JSON.stringify(
-                { source: "pappers", data: pappersData },
+                { source: "pappers", data: pappers.data },
                 null,
                 2
               )
@@ -61115,7 +61280,8 @@ function registerCompanyFullProfile(server) {
               text: JSON.stringify(
                 {
                   source: "none",
-                  message: "Aucune source disponible \u2014 Pappers non configur\xE9 et BODACC sans r\xE9sultat pour ce SIREN.",
+                  message: pappers.status === "error" ? `Pappers a \xE9chou\xE9 (${pappers.reason}) et BODACC est sans r\xE9sultat pour ce SIREN : l'absence de donn\xE9es n'est pas une absence d'informations [\xE0 v\xE9rifier].` : "Aucune source disponible \u2014 Pappers non configur\xE9 et BODACC sans r\xE9sultat pour ce SIREN.",
+                  ...pappers.status === "error" ? { pappers_erreur: pappers.reason } : {},
                   siren: args.siren
                 },
                 null,
@@ -61132,7 +61298,8 @@ function registerCompanyFullProfile(server) {
             text: JSON.stringify(
               {
                 source: "bodacc-public",
-                message: "Pappers non configur\xE9 \u2014 donn\xE9es via BODACC public uniquement (annonces, sans bilans ni dirigeants enrichis).",
+                message: pappers.status === "error" ? `Pappers a \xE9chou\xE9 (${pappers.reason}) \u2014 donn\xE9es via BODACC public uniquement (annonces, sans bilans ni dirigeants enrichis). R\xE9essayer ou v\xE9rifier la cl\xE9 Pappers [\xE0 v\xE9rifier].` : "Pappers non configur\xE9 \u2014 donn\xE9es via BODACC public uniquement (annonces, sans bilans ni dirigeants enrichis).",
+                ...pappers.status === "error" ? { pappers_erreur: pappers.reason } : {},
                 siren: args.siren,
                 annonces
               },

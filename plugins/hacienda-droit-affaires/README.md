@@ -152,7 +152,7 @@ findings DD et `closing-checklist-fr` pour le pilotage du closing.
 | Identification entreprise enrichie | Pappers (si configuré) | ✓ |
 | Identification entreprise basique | BODACC OpenDataSoft + Annuaire DINUM | ✓ |
 | Procédures collectives (annonces) | BODACC (familleavis = collective) | ✓ |
-| Doctrine fiscale (DD M&A) | BOFiP | ✓ |
+| Doctrine fiscale (DD M&A) | BOFiP-Impôts | ✗ non intégré (circulaires ministérielles seulement) — à vérifier sur bofip.impots.gouv.fr |
 | Droit social (clauses non-concurrence salariées) | BOSS | ✓ |
 | Droit UE (Rome I, Bruxelles I bis) | Eurlex | ✓ |
 | AMF (cibles cotées — anticipation v2) | AMF Décisions | ✗ (hors core v1) |

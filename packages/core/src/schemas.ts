@@ -213,6 +213,12 @@ export const ConsultTextResponseSchema = z
     etat: z.string().nullable().optional(),
     dateDebut: LegiDateSchema,
     dateFin: LegiDateSchema,
+    // Champs réels de /consult/lawDecree et /consult/legi/tableMatieres (relevés
+    // le 2026-10-06) : `etat`, `dateDebut`, `dateFin` y sont absents ou nuls.
+    jurisState: z.string().nullable().optional(),
+    dateDebutVersion: LegiDateSchema,
+    dateFinVersion: LegiDateSchema,
+    textAbroge: z.boolean().nullable().optional(),
     dateParution: LegiDateSchema,
     eli: z.string().nullable().optional(),
     nor: z.string().nullable().optional(),

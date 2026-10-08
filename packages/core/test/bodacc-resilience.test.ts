@@ -103,6 +103,7 @@ describe("outils BODACC — l'échec n'est pas présenté comme une absence", ()
     const run = capture(registerBodaccProcedures);
     const out = await run({ siren: "123456789" });
     expect(out.isError).toBeUndefined();
-    expect(JSON.parse(out.content[0].text)).toHaveLength(1);
+    const text: string = out.content[0].text;
+    expect(JSON.parse(text.slice(text.indexOf("{"))).annonces).toHaveLength(1);
   });
 });

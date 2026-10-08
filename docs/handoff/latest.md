@@ -1,7 +1,7 @@
 # Handoff — état courant (entrée de session)
 
 **Dernière mise à jour :** 2026-10-06
-**Branche de travail :** `main`, à jour avec `origin/main`. Aucune branche en attente.
+**Branche de travail :** `main`. **PR #73 ouverte et NON fusionnée** (`fix/audit-filtre-valeur-reelle`, audit « filtre ≠ valeur réelle ») : Candy attend les réponses de l'avocat (`docs/backlog/questions-avocat.md`) avant de fusionner. Ne pas fusionner sans son accord. À la réception des réponses : les reporter dans le document, ajuster le skill `declaration-creance` si M8 le demande (délai de 4 mois), puis fusionner.
 **Périmètre actif : `hacienda-droit-affaires` UNIQUEMENT.** PI et Sources officielles
 sont **en pause** (décision Candy 2026-09-25) : ne rien lancer sur ces plugins.
 
@@ -140,6 +140,20 @@ session du forfait atteinte au 2e cas (2,75 $). Résultats exploitables :
    imprime toutes les valeurs réelles de `familleavis`. À relancer après toute modification du
    client BODACC ou si l'API change.
 
+14. **Audit « filtre ≠ valeur réelle » sur toutes les sources (2026-10-06)** — rapport
+   `docs/backlog/audit-filtre-valeur-reelle-2026-10-06.md`. Corrigés, test d'abord puis contrôle en réel :
+   forclusion BODACC (`bodacc_procedures` désigne `avis_ouverture` ; `typeavis` n'est pas la nature de
+   la procédure ; mandataire dans `jugement.complement` ; skill + 2 agents alignés), dates Judilibre
+   (`decision_date`, plus de jour en moins), état/vigueur des textes LODA (`jurisState`…), EUR-Lex
+   (CELEX non conformes qui faisaient planter 19 recherches sur 40, EuroVoc, type d'acte, relations,
+   consolidations), filtres Légifrance (nom de code sensible à la casse, dates refusées là où l'API les
+   ignore), filtres Judilibre exposés (`chamber=comm`, `dateStart`…) pour `veille-jurisprudence`,
+   Pappers (échec ≠ « non configuré »), BOFiP rendu honnête. **Contrôle en réel :**
+   `node scripts/check-sources-live.mjs` (22 contrôles) + `node scripts/check-bodacc-live.mjs`, à relancer
+   après toute modification d'un client ou si une API change. **BOFiP : non intégré** (le fonds CIRC de
+   Légifrance ne contient pas les fiches BOI ; jeu de données en vrac `bofip-impots-publications-en-vigueur`
+   sur data.gouv.fr, pas d'API de recherche — chantier à part).
+
 Autres corrections de la période : `distress-cedant` (cohérence cessation des
 paiements / sauvegarde, caution signalée sans analyse — cd4a29f) ;
 `responsabilite-dirigeant` (L.626-11 au texte, caution en RJ : suspension des
@@ -214,9 +228,7 @@ présent dans plus de 5 autres codes avant le code cible pouvait donc être éca
 (« introuvable »). La confirmation couvre désormais toute la page `/search` (20 résultats,
 toujours borné : 1 `/search` + 20 `/consult/getArticle` au plus). Test de régression
 (8 versions VIGUEUR d'autres codes avant la version ABROGE_DIFF). Serveur DA reconstruit.
-**Point de fond pour l'avocat de Candy** : L441-9 à L441-11 (délais de paiement, pénalités, indemnité 40 €)
-réécrits au 1er janvier 2027 (une version `VIGUEUR_DIFF` de L441-9 existe déjà) ; texte modificatif
-`[à vérifier]`. Impacte `cgv-generator`, `mise-en-demeure-commerciale`, `declaration-creance`.
+**L441-9 à L441-11 réécrits au 1er janvier 2027** : question pour l'avocat, `docs/backlog/questions-avocat.md` §4.
 
 ### B — `02-distress-cedant` FAIT (2026-09-28, 3,18 $, 6 passages)
 
@@ -279,7 +291,7 @@ vérifient l'exactitude du droit cité (ex. caution en RJ), pas seulement les pi
   (`spa-review`, `gap-review`, `mise-en-demeure-commerciale`, `cgv-generator`…) si
   les contrôles le justifient. Non vu encore : la ligne « Articles cités non lus :
   aucun » (absente quand tout a été lu — à vérifier le jour où un article reste non lu).
-- **Pour l'avocat de Candy** (non tranché, `[à vérifier]`) : (1) L441-9 à L441-11 C.com.
+- **Pour l'avocat de Candy — toutes les questions sont regroupées dans `docs/backlog/questions-avocat.md`** (délai « hors UE/EEE » vs R.622-24, prorogation du délai, caution en RJ, L441-9 à L441-11). Détail historique (non tranché, `[à vérifier]`) : (1) L441-9 à L441-11 C.com.
   (délais de paiement, pénalités, indemnité 40 €) réécrits au 1er janvier 2027 — texte
   modificatif à identifier ; impacte `cgv-generator`, `mise-en-demeure-commerciale`,
   `declaration-creance`. (2) Argument de valeur : sur B 02, le bras sans plugin affirme
@@ -288,30 +300,31 @@ vérifient l'exactitude du droit cité (ex. caution en RJ), pas seulement les pi
   cité (ex. caution en RJ) pour un argument de valeur plus fort.
   → **Cas `06-caution-rj` rédigé (2026-10-06), NON LANCÉ** : 5 critères d'exactitude
   (e1-e5) à réponse de référence écrite + d1-d3. **En attente de validation avocat**
-  (e4 holding personne morale, e5 liquidation ; e1-e3 à reconfirmer sur ce dossier) :
-  `docs/backlog/eval-06-caution-rj-validation-avocat.md`. Règle : critères figés avant
+  (e4 holding personne morale, e5 liquidation ; e1-e3 à reconfirmer sur ce dossier) : questions dans
+  `docs/backlog/questions-avocat.md` (§2), notation dans `docs/backlog/eval-06-caution-rj-validation-avocat.md`. Règle : critères figés avant
   lancement. Puis (1) A Sonnet + plugin, (2) `--model opus` avec/sans, ne garder que le
   bras sans plugin → **Sonnet + plugin contre Opus nu**. Pistes suivantes : cas « droit
   qui change » (L441-10 ABROGE_DIFF), cas « registre réel » (forclusion depuis une vraie
   publication BODACC).
+- **Relecture CodeRabbit de la PR #73 (2026-10-08)** : 11 remarques vérifiées une à une. Corrigées :
+  agents BODACC (avis illisible → alerte 🔴 + revue manuelle, jamais silencieux), tri explicite de
+  l'avis d'ouverture, abrogation différée échue affichée « ABROGÉ », date Judilibre de secours
+  stricte (UTC explicite), panne de taxonomie Judilibre = « INCONNU » dans le script, doublons de
+  questions avocat retirés (règle 6), e3 du cas 07 clarifié (portail accepté, mandataire toujours
+  exigé). Piste L441 (ordonnances 2026-671 et 2025-1247) notée `[à vérifier]` dans
+  `questions-avocat.md` §4. **Reportée** : critère d2 (« source consultée » suffit à passer) — juste,
+  mais commun aux 7 cas ; à revoir dans une future version des grilles, le script
+  `check-verified-citations` couvrant déjà ce risque sur trace.
 - **Script `check-verified-citations`** : limites connues (série « L.622-24 à L.622-27 »,
   dénégation placée avant l'article) → relire chaque écart.
-- **Audit « filtre ≠ valeur réelle du champ » (demandé par Candy, à faire)** : même classe de
-  défaut dans les autres sources (Judilibre, Légifrance `/search`, EUR-Lex, BOSS, BOFiP, Pappers).
-  Méthode : lister chaque filtre/enum codé dans `packages/core/src`, le confronter aux valeurs
-  réelles de l'API (script du type `check-bodacc-live.mjs`). Écart déjà repéré, non corrigé :
-  `declaration-creance` dit de déduire le type de procédure de `typeavis` (« Avis initial »),
-  alors que la nature figure dans `raw.jugement` (JSON en chaîne : `nature`, `date`,
-  `complementJugement` avec mandataire). Risque réseau non vérifié : `fetch` de Node ne suit pas
-  `HTTP(S)_PROXY` (cabinets derrière proxy).
-- **Cas « registre réel »** (en cours, rien de commité) : candidats RJ publiés le 2026-10-06
-  avec 1 seule annonce : WhyNot FOOD (983098773), FPS9 (883536971) → limite de déclaration
-  2026-12-06 ; GRAND REFLEXE SECURITE écartée (2 annonces identiques 27/09 et 06/10, départ du
-  délai ambigu). Décisions en attente : choix de la société ; prompt avec SIREN seul et sans nom
-  ni accusation de dette (société réelle) ; mention « nous sommes le … » pour figer la date.
-  Par construction un modèle sans plugin ne peut pas réussir (pas d'accès BODACC) : à
-  présenter comme preuve d'accès aux données en direct, pas de supériorité de raisonnement ;
-  critère utile = ne pas inventer de date.
+- **Audit « filtre ≠ valeur réelle du champ » — FAIT le 2026-10-06 (voir défaut 14, PR #73)**,
+  y compris l'écart `typeavis` / `raw.jugement` de `declaration-creance` et des agents BODACC.
+  Reste ouvert : M8 (avocat, `questions-avocat.md` §1), vraie source BOFiP,
+  `rejectUnauthorized: false` dans `boss/client.ts`, proxy `HTTP(S)_PROXY` non vérifié (`fetch`
+  de Node ne le suit pas : cabinets derrière proxy).
+- **Cas « registre réel »** : construit et mesuré (cas `07-registre-reel`, PR #73) ; réponses de
+  référence en attente de l'avocat (`questions-avocat.md` §3). Détail :
+  `docs/backlog/eval-07-registre-reel-validation-avocat.md`.
 - **Tâche proposée, non lancée :** masquer le jeton OAuth dans `piste_status`
   (`packages/core/src/tools/status.ts`, `bodyPreview`).
 - `fonds-pe-fr-triage` (#7) : différé.
