@@ -228,7 +228,7 @@ présent dans plus de 5 autres codes avant le code cible pouvait donc être éca
 (« introuvable »). La confirmation couvre désormais toute la page `/search` (20 résultats,
 toujours borné : 1 `/search` + 20 `/consult/getArticle` au plus). Test de régression
 (8 versions VIGUEUR d'autres codes avant la version ABROGE_DIFF). Serveur DA reconstruit.
-**Point de fond pour l'avocat de Candy** : L441-9 à L441-11 (délais de paiement, pénalités, indemnité 40 €)
+**Point de fond pour l'avocat de Candy** (question regroupée dans `docs/backlog/questions-avocat.md`, §4) : L441-9 à L441-11 (délais de paiement, pénalités, indemnité 40 €)
 réécrits au 1er janvier 2027 (une version `VIGUEUR_DIFF` de L441-9 existe déjà) ; texte modificatif
 `[à vérifier]`. Impacte `cgv-generator`, `mise-en-demeure-commerciale`, `declaration-creance`.
 
@@ -302,8 +302,8 @@ vérifient l'exactitude du droit cité (ex. caution en RJ), pas seulement les pi
   cité (ex. caution en RJ) pour un argument de valeur plus fort.
   → **Cas `06-caution-rj` rédigé (2026-10-06), NON LANCÉ** : 5 critères d'exactitude
   (e1-e5) à réponse de référence écrite + d1-d3. **En attente de validation avocat**
-  (e4 holding personne morale, e5 liquidation ; e1-e3 à reconfirmer sur ce dossier) :
-  `docs/backlog/eval-06-caution-rj-validation-avocat.md`. Règle : critères figés avant
+  (e4 holding personne morale, e5 liquidation ; e1-e3 à reconfirmer sur ce dossier) : questions dans
+  `docs/backlog/questions-avocat.md` (§2), notation dans `docs/backlog/eval-06-caution-rj-validation-avocat.md`. Règle : critères figés avant
   lancement. Puis (1) A Sonnet + plugin, (2) `--model opus` avec/sans, ne garder que le
   bras sans plugin → **Sonnet + plugin contre Opus nu**. Pistes suivantes : cas « droit
   qui change » (L441-10 ABROGE_DIFF), cas « registre réel » (forclusion depuis une vraie
