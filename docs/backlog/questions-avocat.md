@@ -123,6 +123,11 @@ en direct, pas une supériorité de raisonnement.
 
 En attendant votre réponse, le critère e2 accepte les deux : « 6 décembre » ou « 7 décembre avec prorogation expliquée ».
 
+**Ce que le plugin a répondu (passages du 2026-10-06, 6 sur 6 avec plugin, Sonnet et Opus).** Toujours : « échéance
+brute dimanche 6 décembre 2026, prorogée au lundi 7 décembre 2026 (art. 642 CPC) », délai compté depuis la publication,
+destinataire SELARL Philae. Si la prorogation ne devait pas s'appliquer, ou s'il faut conseiller une date de prudence,
+c'est donc la réponse actuelle du skill qui est à corriger.
+
 *Réponses :* (à compléter, avec date)
 
 Détail de notation et plan de lancement : `docs/backlog/eval-07-registre-reel-validation-avocat.md`.
