@@ -41,16 +41,17 @@ export function buildEurovocQuery(args: EurlexEurovocQueryArgs): string {
     filters.push(`FILTER(CONTAINS(LCASE(?label), LCASE("${escapeSparqlString(args.query)}")))`);
   }
 
+  const celexId = args.celexId ? assertCelexId(args.celexId) : undefined;
   return [
     "PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>",
     "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>",
     "PREFIX owl: <http://www.w3.org/2002/07/owl#>",
     "SELECT DISTINCT ?concept ?label WHERE {",
-    ...(args.celexId
+    ...(celexId
       ? [
           // Acte connu : on le lie directement (un balayage de tous les actes dépasse le délai).
-          `  ?work owl:sameAs <http://publications.europa.eu/resource/celex/${assertCelexId(args.celexId)}> .`,
-          `  BIND("${assertCelexId(args.celexId)}" AS ?celex)`,
+          `  ?work owl:sameAs <http://publications.europa.eu/resource/celex/${celexId}> .`,
+          `  BIND("${celexId}" AS ?celex)`,
         ]
       : [
           "  ?work owl:sameAs ?celexUri .",

@@ -191,7 +191,11 @@ majeure si une alerte est ratée silencieusement.**
 - **BODACC inaccessible** : retry 3× sur 1h, puis alerte technique distincte —
   "⚠️ Agent forclusion ne peut plus surveiller — intervention requise." Logger
   `"last_error"` dans l'état persisté. Jamais silencieux.
-- **Jugement absent ou illisible** (`jugement` vide) : logger `[à vérifier]`, continuer sur le reste.
+- **Jugement absent ou illisible** (`jugement` vide ou sans `famille`) : on ne peut pas savoir
+  si l'avis est une ouverture de procédure. Émettre **immédiatement une alerte 🔴 `[à vérifier]`**
+  avec le SIREN, la date de parution et l'identifiant de l'avis, et conserver l'avis dans l'état
+  persisté pour revue manuelle. Ne jamais le classer d'office comme « pas une ouverture » ni le
+  passer en silence : une ouverture manquée fait courir la forclusion.
 - **`debiteurs.yaml` absent** : stopper, message explicite. Pas de fichier vide.
 - **État persisté absent** : initialiser à vide (premier run = baseline,
   comportement documenté, pas silencieux).

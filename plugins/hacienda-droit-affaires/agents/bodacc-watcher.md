@@ -171,7 +171,11 @@ Si > 10 lignes : générer aussi un HTML autonome via `renderDashboard()` de
 
 - **BODACC inaccessible** : log erreur + `"last_error"` dans `.bodacc-state.json`,
   retry à +1h. Afficher "BODACC inaccessible — retry à [heure]". Jamais fail silent.
-- **Jugement absent ou illisible** : log `[à vérifier]`, continuer.
+- **Jugement absent ou illisible** (`jugement` vide ou sans `famille`) : on ne peut pas savoir
+  si l'avis est une ouverture de procédure. Émettre **immédiatement une alerte 🔴 `[à vérifier]`**
+  avec le SIREN, la date de parution et l'identifiant de l'avis, et conserver l'avis dans l'état
+  persisté pour revue manuelle. Ne jamais le classer d'office comme « pas une ouverture » ni le
+  passer en silence : une ouverture manquée fait courir la forclusion.
 - **Watchlist absente/vide** : stopper, message clair (voir § Configuration).
 
 ## Ce que l'agent ne fait pas

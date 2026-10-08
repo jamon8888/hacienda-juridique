@@ -40,7 +40,7 @@ interface VigueurFields {
  * `etat`/`dateDebut`/`dateFin`. Un texte abrogé ou à abrogation différée est
  * signalé explicitement.
  */
-export function describeVigueur(text: VigueurFields): string[] {
+export function describeVigueur(text: VigueurFields, today: Date = new Date()): string[] {
   const state = (text.jurisState ?? text.etat ?? "").trim();
   const lower = state.toLowerCase();
   const debut = normalizeLegiDate(text.dateDebutVersion ?? text.dateDebut);
@@ -48,8 +48,10 @@ export function describeVigueur(text: VigueurFields): string[] {
   const finReelle = isOpenEndedDate(fin) ? undefined : fin;
   const out: string[] = [];
 
-  const differee = lower.includes("diff");
-  const abroge = !differee && (text.textAbroge === true || lower.startsWith("abrog"));
+  // Une abrogation différée dont la date de fin est passée est une abrogation tout court.
+  const echue = finReelle !== undefined && finReelle <= today.toISOString().slice(0, 10);
+  const differee = lower.includes("diff") && !echue;
+  const abroge = !differee && (text.textAbroge === true || lower.startsWith("abrog") || (lower.includes("diff") && echue));
 
   if (abroge) {
     out.push(`⚠️ ABROGÉ${finReelle ? ` (fin de version : ${finReelle})` : ""} — ne pas citer comme droit positif`);

@@ -65,6 +65,8 @@ function decisionDate(decision: JudilibreDecision): string | undefined {
   if (date) return date.slice(0, 10);
   const datetime = optionalString(decision.decision_datetime);
   if (!datetime) return undefined;
+  // Sans « Z », new Date() lirait l'heure dans le fuseau du serveur : date décalée.
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?Z$/.test(datetime)) return datetime.slice(0, 10);
   const parsed = new Date(datetime);
   if (Number.isNaN(parsed.getTime())) return datetime.slice(0, 10);
   return parsed.toLocaleDateString("sv-SE", { timeZone: "Europe/Paris" });

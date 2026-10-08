@@ -92,8 +92,14 @@ if (!jcfg.keyId) {
 } else {
   const j = new JudilibreClient(jcfg);
   const tax = async (id) => {
-    const r = await fetch(`${jcfg.baseUrl}/taxonomy?id=${id}`, { headers: { accept: "application/json", KeyId: jcfg.keyId } });
-    return r.ok ? Object.keys((await r.json()).result ?? {}) : [];
+    const r = await fetch(`${jcfg.baseUrl}/taxonomy?id=${id}`, {
+      headers: { accept: "application/json", KeyId: jcfg.keyId },
+      signal: AbortSignal.timeout(15_000),
+    });
+    // Une panne ou une clé expirée doit donner « INCONNU » via attempt(), pas une liste vide
+    // qui ferait échouer à tort le contrôle des valeurs.
+    if (!r.ok) throw new Error(`HTTP ${r.status} sur /taxonomy?id=${id}`);
+    return Object.keys((await r.json()).result ?? {});
   };
   const chambers = await attempt("taxonomie chamber", () => tax("chamber"));
   if (chambers) check(["comm", "soc", "civ1"].every((c) => chambers.includes(c)), `valeurs de chambre attendues présentes dans la taxonomie (${chambers.length})`);

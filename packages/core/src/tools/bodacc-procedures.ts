@@ -13,8 +13,11 @@ const isAvisInitial = (a: BodaccAnnonce) => !/annulation|rectificatif/i.test(a.t
  * départ du délai de déclaration des créances.
  */
 export function formatProceduresResult(annonces: BodaccAnnonce[]): string {
-  const ouvertures = annonces.filter((a) => isOuverture(a) && isAvisInitial(a));
-  const ouverture = ouvertures[0]; // annonces triées par date de parution décroissante
+  // Tri explicite : le point de départ de la forclusion ne doit pas dépendre de l'ordre reçu.
+  const ouvertures = annonces
+    .filter((a) => isOuverture(a) && isAvisInitial(a))
+    .sort((a, b) => b.dateparution.localeCompare(a.dateparution));
+  const ouverture = ouvertures[0];
   const rectificatifs = annonces.filter((a) => isOuverture(a) && /rectificatif/i.test(a.typeavis));
 
   const avisOuverture = ouverture

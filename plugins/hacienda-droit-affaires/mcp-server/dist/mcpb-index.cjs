@@ -57138,15 +57138,16 @@ function normalizeLegiDate(d) {
 function isOpenEndedDate(date5) {
   return !date5 || date5 >= "2999-";
 }
-function describeVigueur(text) {
+function describeVigueur(text, today = /* @__PURE__ */ new Date()) {
   const state = (text.jurisState ?? text.etat ?? "").trim();
   const lower = state.toLowerCase();
   const debut = normalizeLegiDate(text.dateDebutVersion ?? text.dateDebut);
   const fin = normalizeLegiDate(text.dateFinVersion ?? text.dateFin);
   const finReelle = isOpenEndedDate(fin) ? void 0 : fin;
   const out = [];
-  const differee = lower.includes("diff");
-  const abroge = !differee && (text.textAbroge === true || lower.startsWith("abrog"));
+  const echue = finReelle !== void 0 && finReelle <= today.toISOString().slice(0, 10);
+  const differee = lower.includes("diff") && !echue;
+  const abroge = !differee && (text.textAbroge === true || lower.startsWith("abrog") || lower.includes("diff") && echue);
   if (abroge) {
     out.push(`\u26A0\uFE0F ABROG\xC9${finReelle ? ` (fin de version : ${finReelle})` : ""} \u2014 ne pas citer comme droit positif`);
   } else {
@@ -58541,6 +58542,7 @@ function decisionDate(decision) {
   if (date5) return date5.slice(0, 10);
   const datetime3 = optionalString(decision.decision_datetime);
   if (!datetime3) return void 0;
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?Z$/.test(datetime3)) return datetime3.slice(0, 10);
   const parsed = new Date(datetime3);
   if (Number.isNaN(parsed.getTime())) return datetime3.slice(0, 10);
   return parsed.toLocaleDateString("sv-SE", { timeZone: "Europe/Paris" });
@@ -59729,15 +59731,16 @@ function buildEurovocQuery(args) {
   if (args.query) {
     filters.push(`FILTER(CONTAINS(LCASE(?label), LCASE("${escapeSparqlString(args.query)}")))`);
   }
+  const celexId = args.celexId ? assertCelexId(args.celexId) : void 0;
   return [
     "PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>",
     "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>",
     "PREFIX owl: <http://www.w3.org/2002/07/owl#>",
     "SELECT DISTINCT ?concept ?label WHERE {",
-    ...args.celexId ? [
+    ...celexId ? [
       // Acte connu : on le lie directement (un balayage de tous les actes dépasse le délai).
-      `  ?work owl:sameAs <http://publications.europa.eu/resource/celex/${assertCelexId(args.celexId)}> .`,
-      `  BIND("${assertCelexId(args.celexId)}" AS ?celex)`
+      `  ?work owl:sameAs <http://publications.europa.eu/resource/celex/${celexId}> .`,
+      `  BIND("${celexId}" AS ?celex)`
     ] : [
       "  ?work owl:sameAs ?celexUri .",
       '  FILTER(STRSTARTS(STR(?celexUri), "http://publications.europa.eu/resource/celex/"))',
@@ -61151,7 +61154,7 @@ function registerBodaccBySiren(server) {
 var isOuverture = (a) => /^jugement d.ouverture/i.test(a.jugement?.famille ?? "");
 var isAvisInitial = (a) => !/annulation|rectificatif/i.test(a.typeavis);
 function formatProceduresResult(annonces) {
-  const ouvertures = annonces.filter((a) => isOuverture(a) && isAvisInitial(a));
+  const ouvertures = annonces.filter((a) => isOuverture(a) && isAvisInitial(a)).sort((a, b) => b.dateparution.localeCompare(a.dateparution));
   const ouverture = ouvertures[0];
   const rectificatifs = annonces.filter((a) => isOuverture(a) && /rectificatif/i.test(a.typeavis));
   const avisOuverture = ouverture ? {
