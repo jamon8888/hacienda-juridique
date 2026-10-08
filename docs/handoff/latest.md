@@ -1,7 +1,7 @@
 # Handoff — état courant (entrée de session)
 
 **Dernière mise à jour :** 2026-10-06
-**Branche de travail :** `main`, à jour avec `origin/main`. Aucune branche en attente.
+**Branche de travail :** `main`. **PR #73 ouverte et NON fusionnée** (`fix/audit-filtre-valeur-reelle`, audit « filtre ≠ valeur réelle ») : Candy attend les réponses de l'avocat (`docs/backlog/questions-avocat.md`) avant de fusionner. Ne pas fusionner sans son accord. À la réception des réponses : les reporter dans le document, ajuster le skill `declaration-creance` si M8 le demande (délai de 4 mois), puis fusionner.
 **Périmètre actif : `hacienda-droit-affaires` UNIQUEMENT.** PI et Sources officielles
 sont **en pause** (décision Candy 2026-09-25) : ne rien lancer sur ces plugins.
 
