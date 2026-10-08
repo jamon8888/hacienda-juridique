@@ -137,10 +137,18 @@ Détail de notation et plan de lancement : `docs/backlog/eval-07-registre-reel-v
 ## 4. 🟠 Délais de paiement réécrits au 1er janvier 2027 (L.441-9 à L.441-11 C.com.)
 
 Ces articles (délais de paiement, pénalités de retard, indemnité forfaitaire de 40 €) sont **en vigueur aujourd'hui mais
-abrogés au 2027-01-01** (statut « abrogation différée » ; une version `VIGUEUR_DIFF` de L.441-9 existe déjà). Le texte
-modificatif n'est pas identifié. Impacte `cgv-generator`, `mise-en-demeure-commerciale`, `declaration-creance`.
+abrogés au 2027-01-01** (statut « abrogation différée » ; une version `VIGUEUR_DIFF` de L.441-9 existe déjà). Impacte
+`cgv-generator`, `mise-en-demeure-commerciale`, `declaration-creance`.
 
-1. Quel texte réécrit ces articles et à quelle date entrent en vigueur les nouvelles règles ?
+**Piste sur le texte modificatif (2026-10-08, `[à vérifier]`).** La relecture automatique de la PR #73 désigne
+l'**ordonnance n° 2026-671 du 27 juillet 2026** (L.441-9, L.441-10) et l'**ordonnance n° 2025-1247 du 17 décembre 2025**
+(L.441-11), entrée en vigueur au 1er janvier 2027. Vérifié sur Légifrance : ces deux ordonnances existent et portent sur
+la recodification de la TVA dans le code des impositions sur les biens et services (L.441-10 renvoie aujourd'hui à
+l'article 289 du CGI). **Non vérifié** : qu'elles modifient bien ces articles, et si la réécriture ne fait que mettre à
+jour des renvois ou change aussi les règles de fond (délais, pénalités, indemnité de 40 €).
+
+1. Ces deux ordonnances sont-elles bien les textes modificatifs ? La réécriture au 1er janvier 2027 change-t-elle le
+   fond (délais, pénalités, indemnité) ou seulement des renvois au CGI ?
 2. Faut-il, dès maintenant, adapter les modèles de CGV et de mise en demeure (clause à effet au-delà de 2027) ?
 
 *Réponse :* (à compléter)

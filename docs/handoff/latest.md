@@ -228,9 +228,7 @@ présent dans plus de 5 autres codes avant le code cible pouvait donc être éca
 (« introuvable »). La confirmation couvre désormais toute la page `/search` (20 résultats,
 toujours borné : 1 `/search` + 20 `/consult/getArticle` au plus). Test de régression
 (8 versions VIGUEUR d'autres codes avant la version ABROGE_DIFF). Serveur DA reconstruit.
-**Point de fond pour l'avocat de Candy** (question regroupée dans `docs/backlog/questions-avocat.md`, §4) : L441-9 à L441-11 (délais de paiement, pénalités, indemnité 40 €)
-réécrits au 1er janvier 2027 (une version `VIGUEUR_DIFF` de L441-9 existe déjà) ; texte modificatif
-`[à vérifier]`. Impacte `cgv-generator`, `mise-en-demeure-commerciale`, `declaration-creance`.
+**L441-9 à L441-11 réécrits au 1er janvier 2027** : question pour l'avocat, `docs/backlog/questions-avocat.md` §4.
 
 ### B — `02-distress-cedant` FAIT (2026-09-28, 3,18 $, 6 passages)
 
@@ -308,24 +306,25 @@ vérifient l'exactitude du droit cité (ex. caution en RJ), pas seulement les pi
   bras sans plugin → **Sonnet + plugin contre Opus nu**. Pistes suivantes : cas « droit
   qui change » (L441-10 ABROGE_DIFF), cas « registre réel » (forclusion depuis une vraie
   publication BODACC).
+- **Relecture CodeRabbit de la PR #73 (2026-10-08)** : 11 remarques vérifiées une à une. Corrigées :
+  agents BODACC (avis illisible → alerte 🔴 + revue manuelle, jamais silencieux), tri explicite de
+  l'avis d'ouverture, abrogation différée échue affichée « ABROGÉ », date Judilibre de secours
+  stricte (UTC explicite), panne de taxonomie Judilibre = « INCONNU » dans le script, doublons de
+  questions avocat retirés (règle 6), e3 du cas 07 clarifié (portail accepté, mandataire toujours
+  exigé). Piste L441 (ordonnances 2026-671 et 2025-1247) notée `[à vérifier]` dans
+  `questions-avocat.md` §4. **Reportée** : critère d2 (« source consultée » suffit à passer) — juste,
+  mais commun aux 7 cas ; à revoir dans une future version des grilles, le script
+  `check-verified-citations` couvrant déjà ce risque sur trace.
 - **Script `check-verified-citations`** : limites connues (série « L.622-24 à L.622-27 »,
   dénégation placée avant l'article) → relire chaque écart.
-- **Audit « filtre ≠ valeur réelle du champ » — FAIT le 2026-10-06 (voir défaut 14)** ; reste ouvert : M8 (avocat), vraie source BOFiP, `rejectUnauthorized: false` dans `boss/client.ts`, proxy `HTTP(S)_PROXY`. Énoncé d'origine : même classe de
-  défaut dans les autres sources (Judilibre, Légifrance `/search`, EUR-Lex, BOSS, BOFiP, Pappers).
-  Méthode : lister chaque filtre/enum codé dans `packages/core/src`, le confronter aux valeurs
-  réelles de l'API (script du type `check-bodacc-live.mjs`). Écart déjà repéré, non corrigé :
-  `declaration-creance` dit de déduire le type de procédure de `typeavis` (« Avis initial »),
-  alors que la nature figure dans `raw.jugement` (JSON en chaîne : `nature`, `date`,
-  `complementJugement` avec mandataire). Risque réseau non vérifié : `fetch` de Node ne suit pas
-  `HTTP(S)_PROXY` (cabinets derrière proxy).
-- **Cas « registre réel »** (en cours, rien de commité) : candidats RJ publiés le 2026-10-06
-  avec 1 seule annonce : WhyNot FOOD (983098773), FPS9 (883536971) → limite de déclaration
-  2026-12-06 ; GRAND REFLEXE SECURITE écartée (2 annonces identiques 27/09 et 06/10, départ du
-  délai ambigu). Décisions en attente : choix de la société ; prompt avec SIREN seul et sans nom
-  ni accusation de dette (société réelle) ; mention « nous sommes le … » pour figer la date.
-  Par construction un modèle sans plugin ne peut pas réussir (pas d'accès BODACC) : à
-  présenter comme preuve d'accès aux données en direct, pas de supériorité de raisonnement ;
-  critère utile = ne pas inventer de date.
+- **Audit « filtre ≠ valeur réelle du champ » — FAIT le 2026-10-06 (voir défaut 14, PR #73)**,
+  y compris l'écart `typeavis` / `raw.jugement` de `declaration-creance` et des agents BODACC.
+  Reste ouvert : M8 (avocat, `questions-avocat.md` §1), vraie source BOFiP,
+  `rejectUnauthorized: false` dans `boss/client.ts`, proxy `HTTP(S)_PROXY` non vérifié (`fetch`
+  de Node ne le suit pas : cabinets derrière proxy).
+- **Cas « registre réel »** : construit et mesuré (cas `07-registre-reel`, PR #73) ; réponses de
+  référence en attente de l'avocat (`questions-avocat.md` §3). Détail :
+  `docs/backlog/eval-07-registre-reel-validation-avocat.md`.
 - **Tâche proposée, non lancée :** masquer le jeton OAuth dans `piste_status`
   (`packages/core/src/tools/status.ts`, `bodyPreview`).
 - `fonds-pe-fr-triage` (#7) : différé.

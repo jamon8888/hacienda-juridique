@@ -40,6 +40,12 @@ Statut : validé par Candy et lancé le 2026-10-06. Réponses de référence en 
   forclusion 6 avril 2027) et e4 passe 3 votes sur 3, ce qui conforte l'explication de
   l'échec du 2026-10-06. Trace : 1 appel `bodacc_procedures`, 9 articles lus, 0 faux
   « vérifié » ; échéance 7 décembre avec prorogation expliquée.
+- **Clarification de e3 (2026-10-08, relecture CodeRabbit de la PR #73).** Le portail électronique
+  (L.814-2, L.814-13) est une voie de dépôt aussi valable que le courrier au mandataire : la
+  rédaction le dit désormais explicitement. Le critère reste celui de l'identification du
+  mandataire désigné (SELARL Philae) : renvoyer au seul portail sans le nommer échoue toujours,
+  sinon le critère ne mesurerait plus l'accès au BODACC. Aucun score n'en dépend (avec plugin
+  3/3, Opus sans plugin 0/3 : aucun mandataire identifié).
 - Comparaison retenue : **Sonnet + plugin 1,00 contre Opus sans plugin 0,52**, écart porté
   par e1-e3 (accès au BODACC).
 
